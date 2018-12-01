@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128265968-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>インテリセンス快適な構文とAPI | vain0x&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="インテリセンスの快適さと言語の構文に関するエッセイ。 Intellisensabilityコードを書いているときに入力補完の候補とその概要がポップアップメニューに出てくるやつを インテリセンス と呼ぶことにします。インテリセンスを使うとコードを書くのが楽になりますが、頻繁に暴発する場合は逆に手間になります。インテリセンスが役に立っている状態を インテリセンス快適 と呼ぶことにします。 インテリセン">
+<meta name="keywords" content="Essay,プログラミング言語">
+<meta property="og:type" content="article">
+<meta property="og:title" content="インテリセンス快適な構文とAPI">
+<meta property="og:url" content="http://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/index.html">
+<meta property="og:site_name" content="vain0x&#39;s blog">
+<meta property="og:description" content="インテリセンスの快適さと言語の構文に関するエッセイ。 Intellisensabilityコードを書いているときに入力補完の候補とその概要がポップアップメニューに出てくるやつを インテリセンス と呼ぶことにします。インテリセンスを使うとコードを書くのが楽になりますが、頻繁に暴発する場合は逆に手間になります。インテリセンスが役に立っている状態を インテリセンス快適 と呼ぶことにします。 インテリセン">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-28T10:09:37.954Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="インテリセンス快適な構文とAPI">
+<meta name="twitter:description" content="インテリセンスの快適さと言語の構文に関するエッセイ。 Intellisensabilityコードを書いているときに入力補完の候補とその概要がポップアップメニューに出てくるやつを インテリセンス と呼ぶことにします。インテリセンスを使うとコードを書くのが楽になりますが、頻繁に暴発する場合は逆に手間になります。インテリセンスが役に立っている状態を インテリセンス快適 と呼ぶことにします。 インテリセン">
+<meta name="twitter:creator" content="@vain0x">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">ブログ</a>
+        
+          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+        
+          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+        
+          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
+        
+          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-intellisense-comfortable" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-01-13/intellisense-comfortable/" class="article-date">
+  <time datetime="2018-01-13T14:08:23.000Z" itemprop="datePublished">2018-01-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      インテリセンス快適な構文とAPI
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>インテリセンスの快適さと言語の構文に関するエッセイ。</p>
+<h2 id="Intellisensability"><a href="#Intellisensability" class="headerlink" title="Intellisensability"></a>Intellisensability</h2><p>コードを書いているときに入力補完の候補とその概要がポップアップメニューに出てくるやつを <strong>インテリセンス</strong> と呼ぶことにします。インテリセンスを使うとコードを書くのが楽になりますが、頻繁に暴発する場合は逆に手間になります。インテリセンスが役に立っている状態を <strong>インテリセンス快適</strong> と呼ぶことにします。</p>
+<h2 id="インテリセンス快適な構文"><a href="#インテリセンス快適な構文" class="headerlink" title="インテリセンス快適な構文"></a>インテリセンス快適な構文</h2><h3 id="暴発の例-既知の単語と新しい単語"><a href="#暴発の例-既知の単語と新しい単語" class="headerlink" title="暴発の例: 既知の単語と新しい単語"></a>暴発の例: 既知の単語と新しい単語</h3><p>インテリセンスが暴発しやすい状況の1つに、ユーザーが新しい単語を書こうとしているときに、既存の単語を補完候補に出してしまう現象があります。ここでいう新しい単語とは、まだ定義を書いていない変数や関数の名前です。例えば1引数のラムダ式 (関数オブジェクトのリテラル) の構文が <code>&lt;parameter&gt; =&gt; &lt;expression&gt;</code> だったとして、次のようなコードを書くと、</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xs = <span class="keyword">new</span>[] &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line">xs.Select(x =&gt; x + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>最後の行の <code>xs.Select(</code> の後、入力補完は <code>Select</code> の引数として式を期待して使用可能な名前 (<code>xs</code> など) を補完しようとし、入力しようとしている単語 (<code>x</code>) をハイジャックしがちです。</p>
+<p>一方、同じ種類のラムダ式の構文が <code>fun &lt;parameter&gt; -&gt; &lt;expression&gt;</code> だった場合、これは <code>fun</code> キーワードの直後の式は新しい単語ではないので、入力補完を抑制 <strong>でき</strong> ます。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> xs = [|<span class="number">1</span>; <span class="number">2</span>; <span class="number">3</span>|]</span><br><span class="line"></span><br><span class="line">xs |&gt; Array.map (<span class="keyword">fun</span> x -&gt; x + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="暴発の例-参照と定義の語順"><a href="#暴発の例-参照と定義の語順" class="headerlink" title="暴発の例: 参照と定義の語順"></a>暴発の例: 参照と定義の語順</h3><p>似たような例として、語順の問題もあります。例えば次の関数の定義では、型パラメーター <code>T</code> を定義される位置 (<code>&lt;T&gt;</code>) より前の位置 (<code>T Identity</code>) に書かなければいけませんが、この段階では補完候補として <code>T</code> が現れないので、他の <code>T</code> から始まる単語を入力しがちです。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C#</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> T Identity&lt;T&gt;(T <span class="keyword">value</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一方 Java では、型パラメーターを定義する位置を移動することにより、この問題を解決しています。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">identity</span><span class="params">(T value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最近見つけた別の例に TypeScript の <code>import</code> があります。これは他のファイル (モジュール) にある定義を参照できるようにするための構文で、次のように書けます:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// "./other.ts" で定義されている A, B, C を修飾なしで参照可能にする。</span></span><br><span class="line"><span class="keyword">import</span> &#123; A, B, C &#125; <span class="keyword">from</span> <span class="string">"./other"</span>;</span><br></pre></td></tr></table></figure>
+<p>波括弧の中を入力している段階では、どのモジュールを参照するつもりなのかインテリセンスが知らないので、入力補完は起きません。しかし、先に <code>import { } from &quot;./other&quot;;</code> と書いてから波括弧の中に戻ることで入力補完ができるようになります。もし語順が逆だったら、カーソルの移動なしで入力補完ができていたでしょう:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 擬似コード</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">"./other"</span> &#123; A, B, C &#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="快適な構文の例-ドット記法"><a href="#快適な構文の例-ドット記法" class="headerlink" title="快適な構文の例: ドット記法"></a>快適な構文の例: ドット記法</h3><p>C系の構文を持つオブジェクト指向言語 (C++ とか) では <code>x.m</code> でメンバーを参照しますが、 <code>.</code> を入力したときに入力補完が起こるのが通例です。これにより、入力中の式に対して可能な操作をワンタッチで検索でき、メモリアクセスの負荷を減らします。</p>
+<p>前述の上のコードにある <code>xs.Select</code> についても、配列 <code>xs</code> に対する map 操作の名前を忘れても <code>xs.</code> と書いた瞬間に候補が出て、それをざっと眺めれば <code>Select</code> を思い出すことができるはずです。(たぶん)</p>
+<p>一方、前述の下のコード (<code>xs |&gt; Array.map</code>) では、<code>xs</code> を書いた後に配列の操作が <code>Array</code> モジュール (※名前空間のようなもの) に含まれていることを思い出さなければ連鎖を続けることができません。ややインテリセンス快適さを損ねます。</p>
+<p>C# には、型の定義に対して非侵入的にメソッドを増やすことができる、拡張メソッドという糖衣構文があり、これのおかげでインテリセンス快適さがかなり高まります。前述の <code>Select</code> がその一例です。拡張メソッドを定義するには、関数の定義の第一引数に <code>this</code> というキーワードをつければいいのですが、</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定義側</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">Scream</span>(<span class="params"><span class="keyword">this</span> <span class="keyword">string</span> message</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> message.ToUpper() + <span class="string">"!"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 参照側</span></span><br><span class="line"><span class="keyword">var</span> message = <span class="string">"hello"</span>.Scream(); <span class="comment">// Scream("hello") の糖衣構文</span></span><br><span class="line">Console.WriteLine(message); <span class="comment">//=&gt; HELLO!</span></span><br></pre></td></tr></table></figure>
+<p>もしこの制約がなかったら、 <code>&quot;hello&quot;.</code> と入力した瞬間に第一引数の型が <code>string</code> であるすべての関数が候補に上がってしまい、一覧性を失います。</p>
+<h2 id="インテリセンス快適でないAPIの例"><a href="#インテリセンス快適でないAPIの例" class="headerlink" title="インテリセンス快適でないAPIの例"></a>インテリセンス快適でないAPIの例</h2><p>最高にインテリセンス快適な状況は、入力したい単語の一部を数文字入力した時点で、候補リストの一番上にその単語が現れて、そのままコミットするという流れです。候補に現れても一番上でなければ、マウスで選択するにせよ、カーソル移動するにせよ、追加の手間がかかります。</p>
+<p>API の設計によってインテリセンスの検索性を損ねることがあります。C# で、もし2つの値が等しいことを表明する関数が <code>Assert.Equal</code> (<code>Assert</code> モジュールの中の <code>Equal</code> 関数) だったら、 <code>Assert.Equals</code> (すべての型に継承される関数の1つ) と混乱します。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等しくなければ表明エラー</span></span><br><span class="line">Assert.Equal(actual, expected);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 何も起こらない。</span></span><br><span class="line">Assert.Equals(left, right);</span><br></pre></td></tr></table></figure>
+<p>これは日本語入力の際に「か」(→ 火 可 …)などを漢字変換するときの問題に似ています。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>言語やAPIはインテリセンス快適さをなるべく損ねないように作りましょう。</p>
+<h2 id="関連リンク"><a href="#関連リンク" class="headerlink" title="関連リンク"></a>関連リンク</h2><ul>
+<li>id:tosaka2(2016)「グラニ インターン体験記」, <a href="http://tosaka2.hatenablog.com/entry/2016/09/27/183801" target="_blank" rel="noopener">http://tosaka2.hatenablog.com/entry/2016/09/27/183801</a> 2018年1月12日アクセス.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/" data-id="cjnspsyxz0011kfcxcldniqye" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/プログラミング言語/">プログラミング言語</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2018-01-28/new-to-ubuntu/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">新しい記事へ</strong>
+      <div class="article-nav-title">
+        
+          Ubuntuデスクトップを使い始めた
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2018-01-05/sql-search-only-keys/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">古い記事へ</strong>
+      <div class="article-nav-title">SQLの検索条件と検索項目の分離</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新記事</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-31/diary/">近況 2018-10-31</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-09-30/diary/">近況 2018-09-30</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/NET/" style="font-size: 12px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 18px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 14px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 14px;">Tips</a> <a href="/blog/tags/WPF/" style="font-size: 14px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 12px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 16px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 12px;">競技プログラミング</a> <a href="/blog/tags/言語実装/" style="font-size: 10px;">言語実装</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 14px;">非同期</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vain0x<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">ブログ</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
+  
+    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
+  
+    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
+  
+    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

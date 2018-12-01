@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128265968-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>vain0x&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="A blog.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="vain0x&#39;s blog">
+<meta property="og:url" content="http://vain0x.github.io/blog/page/3/index.html">
+<meta property="og:site_name" content="vain0x&#39;s blog">
+<meta property="og:description" content="A blog.">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vain0x&#39;s blog">
+<meta name="twitter:description" content="A blog.">
+<meta name="twitter:creator" content="@vain0x">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">ブログ</a>
+        
+          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+        
+          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+        
+          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
+        
+          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-reports-with-wpf" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016-12-25/reports-with-wpf/" class="article-date">
+  <time datetime="2016-12-24T15:00:00.000Z" itemprop="datePublished">2016-12-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2016-12-25/reports-with-wpf/">WPF/XAMLで帳票のデザイン・印刷を行う</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://qiita.com/vain0x/items/0ec44dc198433675ea2f" target="_blank" rel="noopener">Qiita</a></p>
+<p>※これは <a href="http://qiita.com/advent-calendar/2016/xaml" target="_blank" rel="noopener">XAML Advent Calendar 2016</a> の25日目の記事です。</p>
+<p>WPF/XAML を使って帳票のデザインから印刷までやってみたという話です。ソースコードが GitHub にありますので、それと同様にやればできます。</p>
+<p><a href="https://github.com/vain0x/VainZero.WpfReportPrinting" target="_blank" rel="noopener">vain0x/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル</a></p>
+<h2 id="要約"><a href="#要約" class="headerlink" title="要約"></a>要約</h2><ul>
+<li>XAML というマークアップ言語で帳票のデザインから印刷までできれば、たくさんの利点がある。</li>
+<li>WPF アプリケーションで帳票のプレビューや印刷を行うサンプルを作った。</li>
+<li>ページネーションが大変だったけどなんとかなった。</li>
+</ul>
+<h2 id="前提知識"><a href="#前提知識" class="headerlink" title="前提知識"></a>前提知識</h2><p>XAML、WPF について簡単に説明します。</p>
+<p>XAML とは、GUIアプリケーションの外観を記述するマークアップ言語です。WEB 系の人には「HTML+CSS みたいなもの」といえばイメージしやすいのではないでしょうか。</p>
+<p>WPF とは、XAML と .NET 言語 (C# など) を用いて、Windows PC 用のネイティヴ アプリケーションを作るためのフレームワークです。XAML は WPF 以外でも使いますが、筆者は WPF しかやったことがないので、ひとまず本稿のターゲットは WPF のみとします。</p>
+<h2 id="利点"><a href="#利点" class="headerlink" title="利点"></a>利点</h2><p>WPF/XAML で帳票を作ることにはいくつかの利点があります。</p>
+<ul>
+<li><strong>無料</strong><ul>
+<li>WPFは Visual Studio (無料) をインストールすれば無料で使えます。商用利用する場合は、Visual Studio の有償ライセンスを購入することで、やはりWPFは無料で使えます。</li>
+</ul>
+</li>
+<li><strong>学習コストの削減</strong><ul>
+<li>本稿と先述のソースコードをご覧いただければ、みなさんはWPFの知識だけで帳票のデザインから印刷まで行えるようになります。すなわち、帳票フレームワークに習熟するコストを省略できるわけです。</li>
+<li>特に、帳票フレームワーク固有のデザイナーではなく、Visual Studio の高機能なXAMLデザイナーを利用して、プレビューを見ながらデザインを行える、というのも大きな利点です。これについては、参考リンクのブログ記事が詳しいです。</li>
+</ul>
+</li>
+<li><strong>プレビューの容易さ</strong><ul>
+<li>詳しくは後述しますが、帳票をXAMLで作ることで、プレビューはほぼ完璧にできます。プレビュー機能もWPFで簡単に実装でき、メインのアプリケーションとシームレスに繋がります。</li>
+</ul>
+</li>
+<li><strong>ビューモデルの流用</strong><ul>
+<li>帳票として印刷するデータ (GUIオブジェクト) の背景となるデータ構造として、WPFアプリケーションにあるものをそのまま使えることがあります。例えば、ユーザーが画面上の入力フォームにデータを記入し、それと等価な帳票を印刷する、といった場合です。</li>
+</ul>
+</li>
+<li><strong>XAML本来の利点</strong>――拡張性、可変レイアウト、など<ul>
+<li>XAMLの売りとして、あらゆる要素の外観を完全にカスタマイズできる、というのがあります。これは帳票の用途にも役立つでしょう。実際、今回のサンプルでもスタイル機能をふんだんに活用しています。</li>
+<li>ウィンドウサイズを意識することなくウィンドウをデザインできるのと同様に、用紙サイズを意識することなく帳票を作れます。</li>
+</ul>
+</li>
+</ul>
+<h2 id="簡単な帳票"><a href="#簡単な帳票" class="headerlink" title="簡単な帳票"></a>簡単な帳票</h2><p>まずは簡単な帳票を例に挙げて、印刷する方法まで一通り解説します。簡単な帳票とは、タイトルがどーんとあって、日付が右寄せで、あとは本文という感じです。まずはプレビュー画面のスクリーンショットをご覧ください。</p>
+<img src="/blog/2016-12-25/reports-with-wpf/hello-world-report.png" title="簡単な帳票のプレビュー画面">
+<p>ビューモデルと XAML は次のようになっています。UI要素はプレビュー用と印刷用の2つ (以上) をインスタンス化する必要があるので、 DataTemplate の形で定義しています。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 印刷するページに対応するビューモデル。</span></span><br><span class="line"><span class="comment">// データをXAML側に埋め込んでしまったので中身がない。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">HelloWorldPageViewModel</span></span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">    上記のビューモデルの表示方法を定義するテンプレート。</span></span><br><span class="line"><span class="comment">    Window.Resources プロパティの下に配置する。</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">DataTemplate</span> <span class="attr">DataType</span>=<span class="string">"&#123;x:Type local:HelloWorldPageViewModel&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grid</span> <span class="attr">Margin</span>=<span class="string">"30"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">StackPanel</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">TextBlock</span> <span class="attr">HorizontalAlignment</span>=<span class="string">"Center"</span> <span class="attr">FontSize</span>=<span class="string">"30"</span> <span class="attr">Text</span>=<span class="string">"ハローワールド"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">TextBlock</span> <span class="attr">HorizontalAlignment</span>=<span class="string">"Right"</span> <span class="attr">Text</span>=<span class="string">"2007/08/31"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">TextBlock</span> <span class="attr">Text</span>=<span class="string">"Hello, world!"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">DataTemplate</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="プレビュー"><a href="#プレビュー" class="headerlink" title="プレビュー"></a>プレビュー</h3><p>帳票のデザインが終わったので、次はプレビューです。</p>
+<p>プレビューは、簡単にいえば、上に書いた XAML を「紙っぽいパネル」に載せるだけです。紙っぽさの演出についてはソースコードを参照してください。</p>
+<p>ここで重要なのは紙のサイズ (A4 とか) です。というのも、ページネーションや文章の折り返しなどが用紙サイズに依存してしまうため、プレビュー時点で用紙サイズを決定しておくのが無難です。(もちろんプレビューをしないというのも1つの手です。)</p>
+<p>用紙サイズ (mm 単位) から要素のサイズを換算するには、dpi を知る必要がありますが、ここで嬉しいお知らせがあります。後述するように、印刷時にはUI要素を FixedDocument というクラスの子孫要素に配置するのですが、FixedDocument の中身は 96dpi で固定されます。すなわち、FixedDocument の中身 (印刷するデータ) を 96dpi 決め打ちで作成しておけば、その FixedDocument を 600dpi のレーザープリンターに送信しても、同じ見栄えのものが印刷されるようになっています。 (参考: <a href="https://msdn.microsoft.com/ja-jp/library/ms748388%28v=vs.110%29.aspx?f=255&amp;MSPPError=-2147217396" target="_blank" rel="noopener">WPF のドキュメント</a>)</p>
+<p>要するに、印刷するデータは 96dpi で作ればよいわけです。</p>
+<p>例えば A4 (縦) は、ISO 規格で 210mm×297mm と決まっており、1 inch = 25.40 mm 、1 inch = 96 pixel で換算すれば 793.70×1122.52 となります。このサイズで作った紙っぽいパネルにページの中身を配置すれば、実際に印刷されるのと同じ見栄えのプレビューを表示できます。</p>
+<p>次は印刷です。</p>
+<h3 id="プリンターの選択"><a href="#プリンターの選択" class="headerlink" title="プリンターの選択"></a>プリンターの選択</h3><p>どのプリンターで印刷するかは、ユーザーに選択させる方法と、プログラム側で指定する方法の2通りがあります。</p>
+<p>ユーザーに選択させる場合は、 <code>System.Windows.Controls</code> 名前空間の <code>PrintDialog</code> クラスを使います。(参考: <a href="https://msdn.microsoft.com/ja-jp/library/system.windows.controls.printdialog%28v=vs.110%29.aspx?f=255&amp;MSPPError=-2147217396" target="_blank" rel="noopener">PrintDialog クラス (System.Windows.Controls)</a>)</p>
+<p>なお、プレビュー画面で選択された用紙サイズを印刷ダイアログの初期設定値にする方法は <del>時間が足りず調べられていません</del> 読者の演習課題とします。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Windows.Controls;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> printDialog = <span class="keyword">new</span> PrintDialog();</span><br><span class="line">    <span class="keyword">var</span> result = printDialog.ShowDialog();</span><br><span class="line">    <span class="keyword">if</span> (!result.HasValue || !result.Value)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 印刷ダイアログがキャンセルされた。</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 後の工程で使用する。</span></span><br><span class="line">    <span class="keyword">var</span> queue = printDialog.PrintQueue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>プログラム側で指定する場合は、プリントサーバーというのを使用するようです。詳しくは読者の演習課題とします。</p>
+<p>ここでは、コンピューター自身を表すサーバー (localhost みたいなもの) である <code>LocalPrintServer</code> から、デフォルトのプリンターを指定する方法をとります。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// System.Printing を参照に追加する必要があります。</span></span><br><span class="line"><span class="keyword">using</span> System.Printing;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params">Size pageSize</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> printServer = <span class="keyword">new</span> LocalPrintServer();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 既定のプリンターを表す PrintQueue を取得する。</span></span><br><span class="line">    <span class="keyword">var</span> queue = printServer.DefaultPrintQueue;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// プレビュー画面で用紙サイズを選択させる場合は、用紙サイズを設定しておく。</span></span><br><span class="line">    <span class="keyword">var</span> ticket = queue.PrintTicket;</span><br><span class="line">    ticket.PageMediaSize = <span class="keyword">new</span> PageMediaSize(pageSize.Width, pageSize.Height);;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="FixedDocument-の生成"><a href="#FixedDocument-の生成" class="headerlink" title="FixedDocument の生成"></a>FixedDocument の生成</h3><p>先述の通り、印刷するデータを持つ FixedDocument のインスタンスを用意します。この作業は再利用可能な形式にしてあります。</p>
+<p>まず「印刷するデータを複数のページに分割する」機能 (ページネーション) を提供するインターフェイスを定義しておきます。<code>IPaginatable</code> と呼びましょう。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Windows;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IPaginatable</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> ページのサイズを受け取って、オブジェクトのリストを返す。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> リストに含まれる各オブジェクトは、それぞれ1つのページの中身を表す。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function">IReadOnlyList&lt;<span class="keyword">object</span>&gt; <span class="title">Paginate</span>(<span class="params">Size pageSize</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>いま例にとっているハローワールド帳票では、常に1つのページになりますので、Paginate メソッドは1つのオブジェクトを返せばよいわけです。次のようになります。 [^ireport]</p>
+<p>[^ireport]: GitHub においてあるソースコードでは、HelloWorldReport は IPaginatable だけでなく、IPaginatable を拡張する IReport というインターフェイスを実装していますが、それはサンプルの都合です。あまり気にしなくてかまいません。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">HelloWorldReport</span></span><br><span class="line">    : <span class="title">IPaginatable</span></span><br><span class="line">&#123;</span><br><span class="line">    IReadOnlyList&lt;<span class="keyword">object</span>&gt; Pages &#123; <span class="keyword">get</span>; &#125; =</span><br><span class="line">        <span class="keyword">new</span> <span class="keyword">object</span>[]</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">new</span> HelloWorldPageViewModel(),</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IReadOnlyList&lt;<span class="keyword">object</span>&gt; <span class="title">Paginate</span>(<span class="params">Size size</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> Pages;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>あとは次の拡張メソッドを呼ぶだけです。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">PaginatableExtension</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> FixedDocument</span><br><span class="line">        ToFixedDocument(<span class="keyword">this</span> IPaginatable paginatable, Size pageSize)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> document = <span class="keyword">new</span> FixedDocument();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> content <span class="keyword">in</span> paginatable.Paginate(pageSize))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> presenter =</span><br><span class="line">                <span class="keyword">new</span> ContentPresenter()</span><br><span class="line">                &#123;</span><br><span class="line">                    Content = content,</span><br><span class="line">                    Width = pageSize.Width,</span><br><span class="line">                    Height = pageSize.Height,</span><br><span class="line">                &#125;;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> page =</span><br><span class="line">                <span class="keyword">new</span> FixedPage()</span><br><span class="line">                &#123;</span><br><span class="line">                    Width = pageSize.Width,</span><br><span class="line">                    Height = pageSize.Height,</span><br><span class="line">                &#125;;</span><br><span class="line">            page.Children.Add(presenter);</span><br><span class="line"></span><br><span class="line">            page.Measure(pageSize);</span><br><span class="line">            page.Arrange(<span class="keyword">new</span> Rect(<span class="keyword">new</span> Point(<span class="number">0</span>, <span class="number">0</span>), pageSize));</span><br><span class="line">            page.UpdateLayout();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> pageContent = <span class="keyword">new</span> PageContent() &#123; Child = page &#125;;</span><br><span class="line">            document.Pages.Add(pageContent);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> document;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>このメソッドは、Paginate メソッドが返したリストの各要素につき、それを固定サイズの ContentPresenter に入れて、それを FixedPage に入れて、それを PageContent に入れて、それを FixedDocument に入れる、という感じです。</p>
+<p>こうして FixedDocument を手に入れました。</p>
+<h3 id="プリンターへの送信"><a href="#プリンターへの送信" class="headerlink" title="プリンターへの送信"></a>プリンターへの送信</h3><p>最後に、この FixedDocument を、選択されたプリンターに送信すれば完了です。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// System.Printing の参照を追加する必要があります。</span></span><br><span class="line"><span class="keyword">using</span> System.Printing;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> writer = PrintQueue.CreateXpsDocumentWriter(queue);</span><br><span class="line">    writer.Write(document);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>できました。</p>
+<h2 id="複雑な帳票"><a href="#複雑な帳票" class="headerlink" title="複雑な帳票"></a>複雑な帳票</h2><p>次に複数ページの帳票、すなわちページネーションの方法を解説します。</p>
+<p>まずはプレビュー画面のスクリーンショットをごらんください。</p>
+<img src="/blog/2016-12-25/reports-with-wpf/paginated-report.png" title="ページネーションを含む帳票のスクリーンショット">
+<p>XAML は結構な分量なので省略します。表の部分には、 <del>スタイルをガチガチに決めた DataGrid</del> <strong>HeaderedGrid という DataGrid のようなもの</strong> [^DataGrid_issue]を使用しています。</p>
+<p>[^DataGrid_issue]: 一部のプリンターでは、DataGrid や ListView のレイアウトが乱れてしまう、という問題があるようです。これについては調査中です。DataGrid を使用していたころのバージョンは、タグ <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/tree/v1.2.0" target="_blank" rel="noopener">v1.2.0</a> にあります。</p>
+<p>簡単な帳票との差は、Paginate メソッドの実装だけです。</p>
+<h3 id="Paginate"><a href="#Paginate" class="headerlink" title="Paginate"></a>Paginate</h3><p>ここでは実際にUI要素をインスタンス化することでページネーションを行います。(というか、それ以外にうまい方法があるのでしょうか。)</p>
+<p>おおまかな手順は次の通りです。</p>
+<ol start="0">
+<li>すべての行のデータを持った帳票を生成する。</li>
+<li>帳票の中にある ScrollViewer を見つける。<ul>
+<li>Visual Tree を辿ればよい。詳しくは参考リンクにあるブログ記事を参照。</li>
+</ul>
+</li>
+<li>「スクロールなしで見えている行の数」を数える。<ul>
+<li>ScrollViewer.ViewportHeight が「スクロールなしで見える範囲の実際の高さ (ピクセル単位)」になっているので、各行の高さ (ActualHeight) の和がそれを超えない範囲を調べる。</li>
+</ul>
+</li>
+<li>それらの行からなる帳票を生成する。これを1ページとする。</li>
+<li>前のページに含まれる行を非表示にする。</li>
+<li>次のページに表示すべき行だけが表示された状態になるので、繰り返し。</li>
+</ol>
+<p>実際のソースコードはやや長いので、最初に張ったリンクから見てもらえればと思います。帳票の定義は Demo プロジェクトの <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/blob/v1.3.0/VainZero.WpfReportPrinting.Demo/Reports/OrderForm.cs" target="_blank" rel="noopener">Reports/OrderForm.cs</a> の中にあります。ページネーションは、 Core プロジェクトの <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/blob/v1.3.0/VainZero.WpfReportPrinting.Core/Windows/Documents/ISingleHeaderedGridPage.cs" target="_blank" rel="noopener">Windows/Documents/ISingleHeaderedGridPage.cs</a> にあります。</p>
+<h2 id="サンプルプログラムの概略"><a href="#サンプルプログラムの概略" class="headerlink" title="サンプルプログラムの概略"></a>サンプルプログラムの概略</h2><p>必殺「ソースコードをごらんください」を思ったより使ってしまったので、サンプルプログラムの概略について説明します。</p>
+<p>念のためリンクを再掲します:<br><a href="https://github.com/vain0x/VainZero.WpfReportPrinting" target="_blank" rel="noopener">vain0x/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル</a></p>
+<h3 id="ソリューション構成"><a href="#ソリューション構成" class="headerlink" title="ソリューション構成"></a>ソリューション構成</h3><p>ソリューションは <code>VainZero.WpfReportPrinting.Core</code> と <code>VainZero.WpfReportPrinting.Demo</code> の2つのプロジェクトからなります。</p>
+<p>前者 (<code>.Core</code>) は再利用可能な部品で、そのまま流用できるようになっています。中身は、先述の <code>IPaginatable</code> とその拡張メソッド、および VisualTree がらみの小さな拡張メソッドです。</p>
+<p>後者 (<code>.Demo</code>) は、帳票のプレビューと印刷の機能を持つアプリケーションです。印刷時のオプションは多数ありますので、これをベースにして、必要によりカスタマイズしながら作るのがよいと思います。</p>
+<h3 id="使い方"><a href="#使い方" class="headerlink" title="使い方"></a>使い方</h3><p>まず使い方から説明します。</p>
+<p><code>.Demo</code> アプリを実行すると、ウィンドウが1つ表示されます。まずは左側のペインにあるリストボックスで、プレビューする帳票の種類を選びます。種類というのは、本稿で挙げた「簡単な帳票」(ハローワールド)と「複雑な帳票」(注文書)の2つです。</p>
+<p>右側ペインの上部には、コンボボックスと印刷ボタンがあります。左端のコンボボックスでは、紙のサイズを指定します。紙のサイズが変わるたびにページネーションが再計算されるのがミソです。</p>
+<p>右側ペインの残りの部分はプレビューです。</p>
+<p>印刷ボタンを押すと、デフォルトのプリンターで印刷されます。(印刷ダイアログは表示されません。)</p>
+<h3 id="実装"><a href="#実装" class="headerlink" title="実装"></a>実装</h3><p>メインウィンドウ (MainWindow.xaml) の中身は、1つの <code>SampleReportPreviewer</code> クラス (を DataTemplate で表示したもの) であり、これは先述の通り「左側ペイン」(帳票セレクター/<code>Reports.ReportSelector</code>)と「右側ペイン」(プレビューアー/<code>Previewing.Previewer</code>)からなります。</p>
+<p><code>ReportSelector</code> は本当にただの <code>ListBox</code> ですが、2つ注意するところがあります。</p>
+<p>1点は、<a href="https://github.com/runceel/ReactiveProperty" target="_blank" rel="noopener">ReactiveProperty</a> というクラスです。これは平たくいえば次のようなクラスです (※実際の定義ではありません)。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class ReactiveProperty&lt;T&gt;</span><br><span class="line">    : INotifyPropertyChanged</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">event</span> PropertyChangedEventHandler PropertyChanged;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> T _value;</span><br><span class="line">    <span class="keyword">public</span> T Value</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123; <span class="keyword">return</span> _value; &#125;</span><br><span class="line">        <span class="keyword">set</span></span><br><span class="line">        &#123;</span><br><span class="line">            _value = <span class="keyword">value</span>;</span><br><span class="line">            PropertyChanged?.Invoke(<span class="keyword">this</span>, <span class="keyword">new</span> PropertyChangedEventArgs(<span class="keyword">nameof</span>(Value)));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>値をこれでラップしておくことで、 <code>INotifyPropertyChanged</code> の実装をいちいち手書きする (あるいは継承する) 必要がなくなる、という寸法ですね。</p>
+<p>もう1点は、リストボックスの各要素の型である <code>IReport</code> です。注釈にも書きましたが、これは <code>IPaginatable</code> に1つのプロパティを加えただけのインターフェイスです。そのプロパティ (<code>ReportName</code>) というのは、単にリストボックスの各項目に表示するための名前(文字列)です。そのため、<code>IPaginatable</code> と同じだと思ってかまいません。</p>
+<p>さて、プレビューアーにあるコンボボックスも同様のことに気をつければ問題ないはずです。</p>
+<p><code>Previewer</code> のコンストラクターにある <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/blob/v1.1.0/VainZero.WpfReportPrinting.Demo/Previewing/Previewer.cs#L42" target="_blank" rel="noopener">この式</a> は、Rx を知らないと読み解けないかもしれません。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Pages =</span><br><span class="line">    Report.CombineLatest(</span><br><span class="line">        MediaSizeSelector.SelectedSize,</span><br><span class="line">        (r, pageSize) =&gt; r.Paginate(pageSize)</span><br><span class="line">    )</span><br><span class="line">    .ToReadOnlyReactiveProperty();</span><br></pre></td></tr></table></figure>
+<p>これは平たくいえば「<code>Report</code>, <code>MediaSizeSelector.SelectedSize</code> の最新の値を <code>r</code>, <code>pageSize</code> とするとき、 <code>r.Paginate(pageSize)</code> の結果を <code>Pages</code> の値とする」という意味です。もう少し手続き的にいえば、まず <code>Report</code> と <code></code>MediaSizeSelector.SelectedSize<code>の値をとってきて、</code>Paginate` します。加えて、そのどちらかのプロパティが変更されるたび (リストボックスやコンボボックスの選択要素が変わるたび)、ページネーションを再試行します。</p>
+<p>最後に印刷ボタンですが、これは押されたとき、<code>Previewer.PrintCommand</code>→<code>Previewer.Print</code> を経由して <code>Printer.Print</code> まで行き、そこからは前半で述べた感じです。FixedDocument を作って、デフォルトのプリンターを取得して、ページサイズを指定して、印刷。</p>
+<h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><p>いかがでしたでしょうか。不明点などあればコメントないし <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/issues" target="_blank" rel="noopener">イシュー</a> をお願いします。</p>
+<h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><h3 id="帳票関連"><a href="#帳票関連" class="headerlink" title="帳票関連"></a>帳票関連</h3><ul>
+<li><a href="http://koty.hatenablog.com/entry/2013/12/15/122352" target="_blank" rel="noopener">WPFを帳票フレームワークとして使う - @kotyのブログ</a></li>
+</ul>
+<h3 id="WPF関連"><a href="#WPF関連" class="headerlink" title="WPF関連"></a>WPF関連</h3><ul>
+<li><a href="http://stackoverflow.com/a/7601504/6419575" target="_blank" rel="noopener">c# - Check visible rows in a WPF DataGrid - Stack Overflow</a></li>
+<li><a href="http://blog.xin9le.net/entry/2013/10/29/222336" target="_blank" rel="noopener">VisualTreeの子孫要素を取得する - xin9le.net</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2016-12-25/reports-with-wpf/" data-id="cjnsq05u80004lccx4lm4mpke" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/WPF/">WPF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/印刷/">印刷</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-lists-with-no-alloc-enumerator" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016-12-21/lists-with-no-alloc-enumerator/" class="article-date">
+  <time datetime="2016-12-20T15:00:00.000Z" itemprop="datePublished">2016-12-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2016-12-21/lists-with-no-alloc-enumerator/">IReadOnlyListの列挙時にヒープ領域の使用を避ける</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://qiita.com/vain0x/items/8f89843325ab303c6e04" target="_blank" rel="noopener">Qiita</a></p>
+<p>IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介します。</p>
+<h2 id="前提知識"><a href="#前提知識" class="headerlink" title="前提知識"></a>前提知識</h2><h3 id="値型のボックス化"><a href="#値型のボックス化" class="headerlink" title="値型のボックス化"></a>値型のボックス化</h3><p>値型とは何か、ボックス化とは何か、は以下の記事を参照。</p>
+<ul>
+<li><a href="http://ufcpp.net/study/csharp/oo_reference.html" target="_blank" rel="noopener">値型と参照型 - C# によるプログラミング入門 | ++C++; // 未確認飛行 C</a></li>
+<li><a href="http://ufcpp.net/study/csharp/RmBoxing.html" target="_blank" rel="noopener">ボックス化 - C# によるプログラミング入門 | ++C++; // 未確認飛行 C</a></li>
+</ul>
+<p>系として次のことがいえます。</p>
+<ul>
+<li>値型をインターフェイス型にキャストすると、ボックス化が起こります。</li>
+<li><del>型変数 <code>T</code> に <code>struct</code> 制約がついていないとき、値型の値を型 <code>T</code> にキャストすると、ボックス化が起こります。</del> (追記: 起こりません。)</li>
+</ul>
+<h3 id="foreach-文のダックタイピング"><a href="#foreach-文のダックタイピング" class="headerlink" title="foreach 文のダックタイピング"></a>foreach 文のダックタイピング</h3><p>foreach 文は、渡された列挙対象のコレクションが <code>GetEnumerator</code> という名前のメソッドを public に公開していたら、それを使って列挙を行います [^foreach_duck_typing] 。<code>GetEnumerator</code> の返値型が <code>IEnumerator&lt;_&gt;</code> である必要はなく、返値が <code>IEnumerator&lt;_&gt;</code> にキャストされることもありません。</p>
+<p>[^foreach_duck_typing]: ちなみにコレクションが <code>IEnumerable</code> や <code>IEnumerable&lt;_&gt;</code> を実装している必要はありません。また、 <code>GetEnumerator</code> が返すインスタンスが <code>IEnumerator</code> や <code>IEnumerator&lt;_&gt;</code> を実装している必要もありません。</p>
+<h2 id="ストーリー"><a href="#ストーリー" class="headerlink" title="ストーリー"></a>ストーリー</h2><h3 id="ヒープ確保を避けたい"><a href="#ヒープ確保を避けたい" class="headerlink" title="ヒープ確保を避けたい"></a>ヒープ確保を避けたい</h3><p><code>IEnumerable&lt;T&gt;.GetEnumerator()</code> の返値型は <code>IEnumerator&lt;T&gt;</code> なので、新しいオブジェクトを生成して返そうと思うと、ヒープ確保を避けられません。(値型を返そうとすると、ボックス化されてしまう。)</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">F</span>(<span class="params">IEnumerable&lt;<span class="keyword">int</span>&gt; xs</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// xs.GetEnumerator() が実行される。</span></span><br><span class="line">    <span class="keyword">foreach</span> (<span class="keyword">var</span> x <span class="keyword">in</span> xs)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>いま、型が <code>IEnumerable&lt;T&gt;</code> ではなく <code>IReadOnlyList&lt;T&gt;</code> だとすると、ヒープ確保を回避しつつ列挙を行えます。配列と同じように、インデックスで順次アクセスしていけばいいわけです。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">G</span>(<span class="params">IReadOnlyList&lt;<span class="keyword">int</span>&gt; xs</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// ボックス化は起こらない。</span></span><br><span class="line">    <span class="keyword">var</span> count = xs.Count;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; count; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> x = xs[i];</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="実装の重複を避けたい"><a href="#実装の重複を避けたい" class="headerlink" title="実装の重複を避けたい"></a>実装の重複を避けたい</h3><p>よりよいパフォーマンスを求めるために、シーケンスの走査を行うメソッドに IReadOnlyList 版と IEnumerable 版の2つを用意することにしたとします。問題となるのは、2つのオーバーロードをどのように実装するかです。</p>
+<h3 id="ラッパーで解決"><a href="#ラッパーで解決" class="headerlink" title="ラッパーで解決"></a>ラッパーで解決</h3><p>上記の2つのコードの違いは列挙方法の違いだけなので、列挙子を使って抽象化できます。</p>
+<p>列挙子の実装例はここにあります: <a href="https://github.com/DotNetKit/DotNetKit.StructEnumerator/blob/v0.1.1/DotNetKit.StructEnumerator/Collections/StructEnumerator.cs" target="_blank" rel="noopener">StructEnumerator.cs</a></p>
+<p>実際に使ってみましょう。例として、First メソッドと同じものを作ってみます。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">class</span> <span class="title">MyLinq</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> X MyFirstCore&lt;X, TEnumerator&gt;(TEnumerator enumerator)</span><br><span class="line">        <span class="keyword">where</span> TEnumerator : <span class="keyword">struct</span>, IEnumerator&lt;X&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">using</span> (enumerator)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (enumerator.MoveNext())</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> enumerator.Current;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidOperationException();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// IReadOnlyList を受け取るオーバーロード</span></span><br><span class="line">    <span class="comment">// 列挙子がボックス化されない。</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> X MyFirst&lt;X&gt;(IReadOnlyList&lt;X&gt; list)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> MyFirstCore&lt;X, ReadOnlyListEnumerator&lt;X&gt;&gt;(<span class="keyword">new</span> ReadOnlyListEnumerator&lt;X&gt;(list));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// IEnumerable を受け取るオーバーロード</span></span><br><span class="line">    <span class="comment">// ヒープを使うけれど、実装の共通化はできている。</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> X MyFirst&lt;X&gt;(IEnumerable&lt;X&gt; enumerable)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> MyFirstCore&lt;X, StructEnumerator&lt;X&gt;&gt;(<span class="keyword">new</span> StructEnumerator&lt;X&gt;(enumerable.GetEnumerator()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>列挙時にヒープ確保が行われないことを確認するには、次のように <code>GC.GetTotalMemory</code> を使います。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">var</span> xs = Enumerable.Range(<span class="number">0</span>, <span class="number">100</span>).ToArray();</span><br><span class="line">        <span class="keyword">var</span> sum = <span class="number">0L</span>;</span><br><span class="line">        MyLinq.MyFirst(xs); <span class="comment">// おまじない</span></span><br><span class="line"></span><br><span class="line">        GC.Collect();</span><br><span class="line">        <span class="keyword">var</span> before = GC.GetTotalMemory(<span class="literal">false</span>);</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                sum += MyLinq.MyFirst(xs);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> after = GC.GetTotalMemory(<span class="literal">false</span>);</span><br><span class="line">        <span class="keyword">var</span> difference = after - before;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// difference == 0</span></span><br><span class="line"></span><br><span class="line">        Console.WriteLine(<span class="string">"Memory addition: &#123;0&#125;"</span>, difference);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="余談-List-lt-T-gt-は構造体列挙子を提供している"><a href="#余談-List-lt-T-gt-は構造体列挙子を提供している" class="headerlink" title="余談: List&lt;T&gt; は構造体列挙子を提供している"></a>余談: <code>List&lt;T&gt;</code> は構造体列挙子を提供している</h2><p><code>List&lt;T&gt;</code> は <code>IEnumerable&lt;T&gt;</code> を明示的に実装しつつ、<code>List&lt;T&gt;.Enumerator</code> という構造体を返す <code>GetEnumerator</code> メソッドを提供しています。<code>List&lt;T&gt;</code> 型の変数を <code>foreach</code> で回すときには、こちらが使用されるので、列挙子はボックス化されません。</p>
+<p>参考: <a href="https://msdn.microsoft.com/ja-jp/library/b0yss765(v=vs.110" target="_blank" rel="noopener">List<t>.GetEnumerator メソッド</t></a>.aspx)</p>
+<h2 id="余談-実行時型をみてリストか否か判断する-追記"><a href="#余談-実行時型をみてリストか否か判断する-追記" class="headerlink" title="余談: 実行時型をみてリストか否か判断する (追記)"></a>余談: 実行時型をみてリストか否か判断する (追記)</h2><p>標準ライブラリーの <code>IEnumerable&lt;_&gt;.First</code> メソッドに配列などのリストを渡しても、列挙子のボックス化によるヒープ確保は起こりません。というのも、メソッドが受け取る型こそ <code>IEnumerable&lt;_&gt;</code> ですが、その実行時型がリスト (<code>IList&lt;_&gt;</code>) であるかどうかをメソッドの内部で動的に判定していて、もしそうだったらインデックスでアクセスする (<code>list[0]</code> を返す) ようになっているためです。他のメソッドも同様です。</p>
+<p>参考: <a href="https://referencesource.microsoft.com/#System.Core/System/Linq/Enumerable.cs,921" target="_blank" rel="noopener">First の実装</a></p>
+<p>そういう意味で、本稿の <code>MyFirst</code> は若干ながら手抜きになってしまっています。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2016-12-21/lists-with-no-alloc-enumerator/" data-id="cjnspsyxi000hkfcx6yzoa23z" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-why-git-edit" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016-12-07/why-git-edit/" class="article-date">
+  <time datetime="2016-12-06T15:00:00.000Z" itemprop="datePublished">2016-12-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2016-12-07/why-git-edit/">GitEditを使うべき十の理由</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://qiita.com/vain0x/items/a97df4bd0f5f7de19d64" target="_blank" rel="noopener">Qiita</a></p>
+<p><a href="https://github.com/vain0x/GitEdit" target="_blank" rel="noopener">GitEdit</a> とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。</p>
+<h2 id="要約"><a href="#要約" class="headerlink" title="要約"></a>要約</h2><ul>
+<li>vi を覚えるのはめんどくさい。</li>
+<li>Git 用のテキストエディターとして使うための条件が意外と多い。</li>
+<li>結局、ふさわしいエディターが見つからなかったので自作した。</li>
+<li>ぜひ<a href="https://github.com/vain0x/GitEdit/releases/latest" target="_blank" rel="noopener">ダウンロード</a>して下さい。</li>
+</ul>
+<h2 id="十の理由"><a href="#十の理由" class="headerlink" title="十の理由"></a>十の理由</h2><h3 id="1-軽量"><a href="#1-軽量" class="headerlink" title="1. 軽量"></a>1. 軽量</h3><p>機能を必要最小限に絞っているため、とても起動が速いです。</p>
+<h3 id="2-文字コード"><a href="#2-文字コード" class="headerlink" title="2. 文字コード"></a>2. 文字コード</h3><p>日本語話者として、コミットメッセージに日本語を混ぜたい場面は少なくないでしょう。コミットメッセージに日本語を含めるには、ファイルを utf-8 などの文字コードで保存する必要があります。</p>
+<p>ここで問題なのは、コミットメッセージを書き込むファイルを開く段階では、そのファイルに日本語の (すなわち半角文字ではない) 文字が含まれていないことがよくあるため、エディターが文字コードを判断するのが難しいということです。例えば、私が長らく愛用していた TeraPad は、半角文字だけからなるファイルを標準の文字コード (shift_jis) で開いてしまいます。</p>
+<p>git_edit はそのようなファイルを utf-8 (BOM なし) で開くようになっています。</p>
+<h3 id="3-改行文字"><a href="#3-改行文字" class="headerlink" title="3. 改行文字"></a>3. 改行文字</h3><p><code>git add --patch</code> の <code>e</code> オプションなどを使って差分を編集するとき、Git から提示されるファイルは改行コードが LF になっていて、保存するときも LF でなければエラーになってしまいます。そのため、編集に使うテキストエディタは改行コードを正しく扱う (あるいはLFだけ扱う) 必要があります。git_edit のエディター部分である AvalonEdit は、そのあたりちゃんとできています。</p>
+<h3 id="4-構文強調"><a href="#4-構文強調" class="headerlink" title="4. 構文強調"></a>4. 構文強調</h3><p><code>git commit</code> に <code>-v</code> オプションをつけると、コミットメッセージを保存するファイルにの後半に差分(diff)をつけてくれます。コミットの内容がコミットメッセージを考える材料として使いやすく提示されるわけです。この機能のサポートとして、git_edit はコミットメッセージの編集時に diff の構文強調を有効化します。</p>
+<h3 id="5-「保存して終了」コマンド"><a href="#5-「保存して終了」コマンド" class="headerlink" title="5. 「保存して終了」コマンド"></a>5. 「保存して終了」コマンド</h3><p>コミットメッセージや <code>rebase -i</code> の todo リストなどは、テキストを保存してからエディターを閉じる必要があります。git_edit では、1回のキー入力 (<code>Ctrl+W</code>) で保存→閉じるという2アクションを行えるようになっています。</p>
+<h3 id="6-「クリアして終了」コマンド"><a href="#6-「クリアして終了」コマンド" class="headerlink" title="6. 「クリアして終了」コマンド"></a>6. 「クリアして終了」コマンド</h3><p>コミットメッセージや <code>rebase -i</code> の todo リストなどは、ファイルの中身を空っぽにして保存することで処理を「キャンセル」することができます。git_edit にはそのためのコマンド <code>Ctrl+Shift+W</code> があります。</p>
+<h3 id="7-入力補完"><a href="#7-入力補完" class="headerlink" title="7. 入力補完"></a>7. 入力補完</h3><p>Control + Space で入力補完が効きます。</p>
+<h3 id="8-テキストエディターエンジン-AvalonEdit"><a href="#8-テキストエディターエンジン-AvalonEdit" class="headerlink" title="8. テキストエディターエンジン AvalonEdit"></a>8. テキストエディターエンジン AvalonEdit</h3><p>名前がかっこいい。</p>
+<h3 id="9-まとめ"><a href="#9-まとめ" class="headerlink" title="9. まとめ"></a>9. まとめ</h3><p>Git 用のテキストエディターに要求した条件のまとめ:</p>
+<ul>
+<li>起動が速い。</li>
+<li>保存と終了が速い。</li>
+<li>OS標準の文字コードより utf-8 (BOMなし) を優先する。</li>
+<li>改行文字が LF のファイルを LF のまま編集・保存できる。</li>
+<li>diff の構文着色ができる。</li>
+<li>入力補完ができる。</li>
+</ul>
+<h2 id="10-おわりに"><a href="#10-おわりに" class="headerlink" title="10. おわりに"></a>10. おわりに</h2><p>この文章は <a href="https://www.sublimetext.com/3" target="_blank" rel="noopener">Sublime Text 3</a> で書きました。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2016-12-07/why-git-edit/" data-id="cjnspsyxo000mkfcxnvq2nxlk" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/テキストエディタ/">テキストエディタ</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-null-object-patterns" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016-08-18/null-object-patterns/" class="article-date">
+  <time datetime="2016-08-17T15:00:00.000Z" itemprop="datePublished">2016-08-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2016-08-18/null-object-patterns/">Nullオブジェクトパターンの紹介と正体</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://qiita.com/vain0x/items/c8adb679a6c253e5261f" target="_blank" rel="noopener">Qiita</a></p>
+<p>デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。</p>
+<h2 id="なぜ「Nullオブジェクト」が必要か"><a href="#なぜ「Nullオブジェクト」が必要か" class="headerlink" title="なぜ「Nullオブジェクト」が必要か"></a>なぜ「Nullオブジェクト」が必要か</h2><p>C や C# などのいくつかの言語に null という概念があります。<code>null</code> はしばしば「何もない」や「失敗」といった <strong>特殊な状態</strong> を表す値として、null でない値と混ぜて使われますが、<code>null</code> と非 null の差異は次のようなやっかいな状況の引き金となります。</p>
+<p><code>null</code> と非 null の違いの一つに、備えるメソッドの種類があります [^null_diversity] 。例えばプログラミング言語 C# では、<code>null</code> のメソッドを呼ぼうとすると、例外が投げられます。</p>
+<p>[^null_diversity]: null の性質は言語によって異なります。例えば null に対して任意のメソッドを呼べるような言語に対して、本記事の話は無意味です。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 何らかのクラス X</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">X</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// オーバーライド可能なメソッド</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">SomeMethod</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ThrowNullReferenceException</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 型 X の変数 x を null にする。</span></span><br><span class="line">    X x = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// x (= null) のメソッドを呼ぶ。例外が投げられる。</span></span><br><span class="line">    x.SomeMethod();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>そのため、プログラムの処理中にエラーが起きると困る場合、 <code>null</code> のメソッドを呼んでしまわないようにする必要があります。</p>
+<p>このような事情から、「<code>null</code> でない場合だけ、メソッドを実行する」(<code>null</code> の場合は何もしない)ようにしたいことがしばしばあります。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">NotThrowNullReferenceException</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 型 X の変数 x を null にする。</span></span><br><span class="line">    X x = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// x が null でない場合だけ、メソッドを呼び出す。</span></span><br><span class="line">    <span class="keyword">if</span> (x != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        x.SomeMethod();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>しかしメソッドを呼ぶ際にいちいち if 文を書いていると、 if 文が大量に発生してしまいます。コードが増えるだけならまだしも、if 文を書き忘れて、意図せぬ例外を投げてしまうおそれもあります。</p>
+<p>このような状況を回避する方法の1つが、 <strong>Nullオブジェクト</strong> です。</p>
+<h2 id="Nullオブジェクトの作りかた"><a href="#Nullオブジェクトの作りかた" class="headerlink" title="Nullオブジェクトの作りかた"></a>Nullオブジェクトの作りかた</h2><p>Null オブジェクトとは、次のように定義される、「<code>null</code> の代わりに使われるオブジェクト」のことです。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// X を継承した新しいクラス</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">NullX</span></span><br><span class="line">    : <span class="title">X</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 「何もしない」メソッドとしてオーバーライドする。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SomeMethod</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>そして、型 X の変数には、<code>null</code> の代わりにこの NullX クラスのインスタンスを代入するようにします。これにより、変数が <code>null</code> ではないと分かるので、条件分岐を行わずとも安全にメソッドを呼び出せるようになります。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">NotThrowNullReferenceException</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 型 X の変数 x を (null ではなく) NullX のインスタンスにする。</span></span><br><span class="line">    X x = <span class="keyword">new</span> NullX();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// x は null でないと分かっているので、安心してメソッドを呼べる。</span></span><br><span class="line">    x.SomeMethod();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>めでたし、めでたし。</p>
+<h2 id="nullの発生源"><a href="#nullの発生源" class="headerlink" title="nullの発生源"></a>nullの発生源</h2><p>(ここからは私見になります。)</p>
+<p>ところで、そもそもなぜ、型 X の変数 (仮に <code>x</code> と呼ぶ) に <code>null</code> が入ってしまったのでしょうか。先ほどのサンプルでは、話を単純にするために <code>x</code> を使用する直前に <code>X x = null;</code> と書いていましたが、実際にはこんなコードはありえません。<code>x == null</code> になるには理由があるはずです。</p>
+<p>C# の場合、理由は2つ考えられます:</p>
+<ul>
+<li><code>x</code> は初期化されなかった。(C# では、初期化されていない <code>x</code> の値は <code>null</code> になります。)</li>
+<li>誰かが <code>x</code> に <code>null</code> を代入した。あるいは、誰かが <code>x</code> の初期値として <code>null</code> を指定した。</li>
+</ul>
+<h3 id="前者の場合"><a href="#前者の場合" class="headerlink" title="前者の場合"></a>前者の場合</h3><p>前者の場合、「<code>x</code> が初期化されないまま使用されている」ことになります。</p>
+<p>ここで確認する必要があるのは、「<code>x</code> が初期化されないまま使用されることがあると <strong>開発者が理解している</strong> かどうか」です。理解していないのなら、 <code>x == null</code> で条件分岐するのではなく、 <code>x</code> が必ず初期化されるようにコードを修正するべきです。なぜなら、「なぜ <code>x == null</code> になるのか分からないけれど、とりあえず <code>x == null</code> の場合は何もしないようにしておく」という考えは、<code>null</code> のメソッドを呼び出すことで起こるはずだった例外を「<a href="http://qiita.com/jkr_2255/items/c335566aeb748c61e931" target="_blank" rel="noopener">握りつぶす</a>」ことと等価だからです。</p>
+<p>一方、理解しているのであれば、それは <code>x</code> の初期化時に <code>null</code> を設定しているのと同じことですので、後者の場合に含まれると考えてよいでしょう。</p>
+<h3 id="後者の場合"><a href="#後者の場合" class="headerlink" title="後者の場合"></a>後者の場合</h3><p>後者の場合、<code>null</code> を設定した人は、どういう意図をもってそれをしたのでしょうか。言い換えると、<code>x == null</code> である場合に、コードがどう動くことを期待しているのでしょうか。</p>
+<p>もし「<code>x == null</code> の場合には、<code>x</code> を使用するコードは、何もしないべき」だと考えていたなら、そもそも <code>x</code> に <code>null</code> を設定するべきではありませんでした。なぜなら、 <strong><code>null</code> は「何もしない」を意味するものではない</strong> からです。本来の意図を正しく表現するには、<code>x</code> に「何もしないという挙動を持つインスタンス」を設定すべきなのです。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// X の派生クラスで、「何もしないという挙動」を持つもの</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">NullX</span></span><br><span class="line">    : <span class="title">X</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SomeMethod</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// 何もしない。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これがさきほどの <code>NullX</code> クラスです。名前に null とついてはいますが、<code>null</code> とは異なり、実体を持つ何かです。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><ul>
+<li><strong>問題</strong>: <code>null</code> のメソッドを呼んでしまわないように、条件分岐を書きすぎたり書き忘れたりしてしまう。</li>
+<li><strong>解決策</strong>: <code>null</code> を使わない。変数は適切なインスタンスで初期化する。</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a href="http://qiita.com/kasei-san/items/af10a948c34c317e7380" target="_blank" rel="noopener">NullObjectパターン - Qiita</a></p>
+<p>  Ruby によるサンプルコードと、Nullオブジェクトパターンの参考になるリンクが記載されています。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2016-08-18/null-object-patterns/" data-id="cjnspsyxm000kkfcx6h7358zu" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/オブジェクト指向/">オブジェクト指向</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/デザインパターン/">デザインパターン</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-package-management-with-paket-and-gist" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016-05-10/package-management-with-paket-and-gist/" class="article-date">
+  <time datetime="2016-05-09T15:00:00.000Z" itemprop="datePublished">2016-05-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2016-05-10/package-management-with-paket-and-gist/">PaketとGistで始める簡単パッケージ管理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://qiita.com/vain0x/items/41f13fed6f88be7f4e7e" target="_blank" rel="noopener">Qiita</a></p>
+<p>対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)</p>
+<h2 id="導入"><a href="#導入" class="headerlink" title="導入"></a>導入</h2><p>モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。<br>最初に思いつきそうな:</p>
+<ul>
+<li>スクリプトが必要になるたびに、ファイルをコピーを作成して使う。(コピペ法)</li>
+</ul>
+<p>という方法だと、例えばモジュールにバグがあった場合などにモジュールを書き換えた後、それらのコピーを上書きして回ることになります。<br>めんどうですね。</p>
+<p>そのため:</p>
+<ul>
+<li>ファイルをまとめておいておき、それを直接 #include して使う。 (共有法)</li>
+</ul>
+<p>というようにしている人も少なくないでしょう。</p>
+<p>しかし、これにも少し問題があります。<br>スクリプトを配布するときに、どのファイルが必要なのか分からなくなるのです。<br>単純に「#include されているファイル」を集めるだけでは、「あるモジュールが他のモジュールを使用している」といった状況には対処できません。</p>
+<p>※不要なものも全部いっしょくたにして同梱してしまう、という富豪的な方法もあります。</p>
+<h2 id="パッケージ管理ツール"><a href="#パッケージ管理ツール" class="headerlink" title="パッケージ管理ツール"></a>パッケージ管理ツール</h2><p>さて、私がおすすめするのは、パッケージ管理ツールと呼ばれるツールを使用することです。<br>ここでは <a href="http://fsprojects.github.io/Paket" target="_blank" rel="noopener">Paket</a> を利用します。</p>
+<p>※Paket は HSPとは全く無関係な環境ために開発されているものですが、汎用的な機能を備えており、使うのがとても簡単なので、採用しています。</p>
+<h2 id="Paket-をインストールする"><a href="#Paket-をインストールする" class="headerlink" title="Paket をインストールする"></a>Paket をインストールする</h2><p>まず始めに、ひとまとまりのソフトウェアのスクリプトを入れていくためのフォルダを1個作ります。<br>以下、このフォルダを <strong>ソリューションルート</strong> と呼びます。</p>
+<p>次に、ソリューションルートに <code>.paket</code> という名前のフォルダを作ります。<br>(エクスプローラーでは、 <code>.paket.</code> という名前のフォルダを作ろうとすると、 <code>.paket</code> フォルダが作られます。興味深い。)<br>そこに、「<a href="https://github.com/fsprojects/Paket/releases/latest" target="_blank" rel="noopener">Paket の最新版</a>」から <code>paket.bootstrapper.exe</code> をダウンロードして配置し、実行します。<br>すると、最新版の <code>paket.exe</code> がダウンロードされます。<br>Paket のインストール作業はこれで完了です。簡単でしょう？</p>
+<h2 id="モジュールを使用する"><a href="#モジュールを使用する" class="headerlink" title="モジュールを使用する"></a>モジュールを使用する</h2><p>スクリプトからモジュールを使用するときの作業を解説します。<br>例として、拙作の dirlist_rec モジュールをインストールしてみます。</p>
+<blockquote>
+<p><a href="https://gist.github.com/vain0x/561a66531363ab1e0e73" target="_blank" rel="noopener">https://gist.github.com/vain0x/561a66531363ab1e0e73</a></p>
+</blockquote>
+<p>ソリューションルートに、 <code>paket.dependencies</code> という名前のファイルを作り、次のように記述します。<br>(すでにある場合は書き足します。)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gist vain0x/561a66531363ab1e0e73 dirlist_rec.hsp</span><br></pre></td></tr></table></figure>
+<p>※真ん中にある「vain0x/英数字」は、URLの末尾です。</p>
+<p><code>paket.dependencies</code> を更新したら、「paket install コマンド」を実行する必要があります。<br>そのためには、ソリューションルートをエクスプローラーで開き、「Shift キーを押しながら、ソリューションルートのフォルダを右クリック」して、「コマンドプロンプトを開く」メニューを選びます。<br>黒いコンソール画面が出てくるので、そこに次のように入力して enter を押します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.paket\paket install</span><br></pre></td></tr></table></figure>
+<p>すると、 <code>paket-files</code> フォルダの深いところに、 <code>dirlist_rec.hsp</code> がダウンロードされます。</p>
+<p>モジュールを実際に使ってみましょう。<br>ソリューションルートの下に <code>app</code> フォルダを作り、そこに <code>main.hsp</code> ファイルを作成して、以下のように記述してみます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;../paket-files/vain0x/561a66531363ab1e0e73/dirlist_rec.hsp&quot;</span><br><span class="line"></span><br><span class="line">  dirlist_rec paths, &quot;*.*&quot;</span><br><span class="line">  repeat stat</span><br><span class="line">    mes paths(cnt)</span><br><span class="line">  loop</span><br></pre></td></tr></table></figure>
+<p>dirlist_rec モジュールが使えていますね。</p>
+<h3 id="その他のコマンド"><a href="#その他のコマンド" class="headerlink" title="その他のコマンド"></a>その他のコマンド</h3><p>paket には install のほかにもたくさんコマンドがありますが、2つだけ紹介しておきます。<br>「.paket\paket update」を使うと、モジュールの最新版をダウンロードしてきます。<br>「.paket\paket outdated」を使うと、使用しているモジュールの、新しいバージョンがあるかを調べることができます。</p>
+<h2 id="モジュールを公開する"><a href="#モジュールを公開する" class="headerlink" title="モジュールを公開する"></a>モジュールを公開する</h2><p>最後に、モジュールを公開する方法を説明します。<br>ここでは一番簡単な、Gist というウェブサイトを使用する方法をとります。</p>
+<p>まず Github のアカウント(無料)を取得します。</p>
+<blockquote>
+<p><a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a></p>
+</blockquote>
+<p>ログインしてから、<a href="https://gist.github.com" target="_blank" rel="noopener">Gist</a> に行きます。<br>見て分かると思いますが、「Filename including extension…」と書かれた小さな入力欄に「ファイル名.hsp」を書き、大きいテキストボックスにスクリプトを貼り付けて、「Create secret/public gist」 を押せばアップロード完了です。</p>
+<p>※secret gist で公開すると、検索にひっかからないので、URLを知っている人だけがアクセスできるようになります。</p>
+<h2 id="モジュールの依存関係を記述する"><a href="#モジュールの依存関係を記述する" class="headerlink" title="モジュールの依存関係を記述する"></a>モジュールの依存関係を記述する</h2><p>モジュールが他のモジュールを使用している場合は、そのことを Paket に教えておくと便利です。<br>というのも、Paket はあるモジュールをダウンロードするとき、それが必要とする他のモジュールも一緒にダウンロードしてくれるのです。</p>
+<p>そのためには、先ほどスクリプトを書いて公開した Gist のページに行き、「Edit」ボタンを押して編集画面を開き、「Add file」ボタンを押します。</p>
+<p>新しいファイルには、やはり <code>paket.dependencies</code> という名前をつけて、上で例にあげたのと同様に「gist 誰々/英数字 ファイル名」などと書きます。<br>「Update」(更新)ボタンを押して保存するのを忘れませんよう。</p>
+<p>こうしておけば前述の通り、そのモジュールが paket install される際に、<br>必要な他のモジュールも一緒にダウンロードされるようになります。</p>
+<p>これが役に立つ場面もあることでしょう。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/" data-id="cjnspsyxk000ikfcxk7u767el" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/HSP/">HSP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Paket/">Paket</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/パッケージ管理/">パッケージ管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/blog/page/2/">&laquo; 前へ</a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新記事</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-31/diary/">近況 2018-10-31</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-09-30/diary/">近況 2018-09-30</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/NET/" style="font-size: 12px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 18px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 14px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 14px;">Tips</a> <a href="/blog/tags/WPF/" style="font-size: 14px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 12px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 16px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 12px;">競技プログラミング</a> <a href="/blog/tags/言語実装/" style="font-size: 10px;">言語実装</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 14px;">非同期</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vain0x<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">ブログ</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
+  
+    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
+  
+    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
+  
+    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

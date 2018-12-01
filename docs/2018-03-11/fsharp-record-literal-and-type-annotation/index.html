@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128265968-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>[F#][小ネタ] レコードリテラルと型注釈 | vain0x&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="F# のレコードリテラルのちょっとした問題とちょっとした解決策。 問題1: フィールド名が重複しているときF# のレコード型を構築する構文では、フィールドの名前から型が推測される。複数のレコード型が同一の名前のフィールドを定義しているとき、そのフィールドは最後に定義されたレコード型のフィールドとみなされる。  参考: Records (F#) | Microsoft Docs  例えば REPL">
+<meta name="keywords" content="Tips,F#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[F#][小ネタ] レコードリテラルと型注釈">
+<meta property="og:url" content="http://vain0x.github.io/blog/2018-03-11/fsharp-record-literal-and-type-annotation/index.html">
+<meta property="og:site_name" content="vain0x&#39;s blog">
+<meta property="og:description" content="F# のレコードリテラルのちょっとした問題とちょっとした解決策。 問題1: フィールド名が重複しているときF# のレコード型を構築する構文では、フィールドの名前から型が推測される。複数のレコード型が同一の名前のフィールドを定義しているとき、そのフィールドは最後に定義されたレコード型のフィールドとみなされる。  参考: Records (F#) | Microsoft Docs  例えば REPL">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-28T10:09:37.954Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[F#][小ネタ] レコードリテラルと型注釈">
+<meta name="twitter:description" content="F# のレコードリテラルのちょっとした問題とちょっとした解決策。 問題1: フィールド名が重複しているときF# のレコード型を構築する構文では、フィールドの名前から型が推測される。複数のレコード型が同一の名前のフィールドを定義しているとき、そのフィールドは最後に定義されたレコード型のフィールドとみなされる。  参考: Records (F#) | Microsoft Docs  例えば REPL">
+<meta name="twitter:creator" content="@vain0x">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">ブログ</a>
+        
+          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+        
+          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+        
+          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
+        
+          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-fsharp-record-literal-and-type-annotation" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-03-11/fsharp-record-literal-and-type-annotation/" class="article-date">
+  <time datetime="2018-03-11T04:06:00.000Z" itemprop="datePublished">2018-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [F#][小ネタ] レコードリテラルと型注釈
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>F# のレコードリテラルのちょっとした問題とちょっとした解決策。</p>
+<h2 id="問題1-フィールド名が重複しているとき"><a href="#問題1-フィールド名が重複しているとき" class="headerlink" title="問題1: フィールド名が重複しているとき"></a>問題1: フィールド名が重複しているとき</h2><p>F# のレコード型を構築する構文では、フィールドの名前から型が推測される。複数のレコード型が同一の名前のフィールドを定義しているとき、そのフィールドは最後に定義されたレコード型のフィールドとみなされる。</p>
+<ul>
+<li>参考: <a href="https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/records" target="_blank" rel="noopener">Records (F#) | Microsoft Docs</a></li>
+</ul>
+<p>例えば REPL (<code>fsharpi</code>) で次のようにすると:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ fsharpi</span><br><span class="line"></span><br><span class="line"><span class="comment">// Input</span></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">User</span> </span>=</span><br><span class="line">  &#123;</span><br><span class="line">    Id: int64</span><br><span class="line">    Name: string</span><br><span class="line">  &#125;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">Book</span> </span>=</span><br><span class="line">  &#123;</span><br><span class="line">    Id: int64</span><br><span class="line">    Name: string</span><br><span class="line">  &#125;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">&#123; Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125; ;;</span><br></pre></td></tr></table></figure>
+<p>このレコードは Book 型に推論されて、</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Output</span></span><br><span class="line"><span class="keyword">val</span> it : Book = &#123;Id = <span class="number">1</span>L;</span><br><span class="line">                 Name = <span class="string">"Foo"</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>となる。</p>
+<h2 id="解決1-フィールドを型名で修飾する"><a href="#解決1-フィールドを型名で修飾する" class="headerlink" title="解決1: フィールドを型名で修飾する"></a>解決1: フィールドを型名で修飾する</h2><p>この状態で <code>User</code> をインスタンス化するには、いずれかのフィールド名を修飾付きで指定すればいい。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Input</span></span><br><span class="line">&#123; User.Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125; ;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Output</span></span><br><span class="line"><span class="keyword">val</span> it : User = &#123;Id = <span class="number">1</span>L;</span><br><span class="line">                 Name = <span class="string">"Foo"</span>;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="問題2-レコード型がスコープにないとき"><a href="#問題2-レコード型がスコープにないとき" class="headerlink" title="問題2: レコード型がスコープにないとき"></a>問題2: レコード型がスコープにないとき</h2><p>レコード型がスコープに入っていないとき、つまりそのレコード型が定義されている module や namespace を open していないとき、レコードリテラルの構文はかなり冗長になる。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ fsharpi</span><br><span class="line"></span><br><span class="line"><span class="comment">// Input</span></span><br><span class="line"><span class="keyword">module</span> Types =</span><br><span class="line">  <span class="class"><span class="keyword">type</span> <span class="title">User</span> </span>=</span><br><span class="line">    &#123;</span><br><span class="line">      Id: int64</span><br><span class="line">      Name: string</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">type</span> <span class="title">Book</span> </span>=</span><br><span class="line">    &#123;</span><br><span class="line">      Id: int64</span><br><span class="line">      Name: string</span><br><span class="line">    &#125;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">module</span> T = Types;;</span><br><span class="line"></span><br><span class="line">&#123; T.User.Id = <span class="number">1</span>L; T.User.Name = <span class="string">"Foo"</span> &#125; ;;</span><br></pre></td></tr></table></figure>
+<p>注意点は、 <code>T.User.Id</code> を見た時点でレコードの型が決定されるにもかかわらず <code>Name</code> の修飾を省略できないことだ:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Input</span></span><br><span class="line">&#123; T.User.Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125; ;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Output</span></span><br><span class="line">  &#123; T.User.Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125; ;;</span><br><span class="line">  ------------------^^^^</span><br><span class="line"></span><br><span class="line">error FS0039: The record label 'Name' is not defined.</span><br></pre></td></tr></table></figure>
+<h2 id="解決2-型注釈をつける"><a href="#解決2-型注釈をつける" class="headerlink" title="解決2: 型注釈をつける"></a>解決2: 型注釈をつける</h2><p>レコードリテラルの型を明示的に指定すると、非修飾でフィールド名を使えるようだ:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Input</span></span><br><span class="line">(&#123; Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125;: T.User) ;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Output</span></span><br><span class="line"><span class="keyword">val</span> it : Types.User = &#123;Id = <span class="number">1</span>L;</span><br><span class="line">                       Name = <span class="string">"Foo"</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>束縛時に型を指定してもよい。型名が前に来るので、こちらのほうが読みやすい気がする:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Input</span></span><br><span class="line"><span class="keyword">let</span> user: T.User = &#123; Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125;</span><br><span class="line">user ;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Output</span></span><br><span class="line"><span class="keyword">val</span> it : Types.User = &#123;Id = <span class="number">1</span>L;</span><br><span class="line">                       Name = <span class="string">"Foo"</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>さらに、次のように <code>id</code> を経由すると型名とリテラルの近接性がより明確になる:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Input</span></span><br><span class="line">id&lt;T.User&gt; &#123; Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125; ;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Output</span></span><br><span class="line"><span class="keyword">val</span> it : Types.User = &#123;Id = <span class="number">1</span>L;</span><br><span class="line">                       Name = <span class="string">"Foo"</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>これはやりすぎかもしれない、というのも初見では <code>id</code> がなんのためにあるのか分からないからだ。</p>
+<h2 id="修飾の強制"><a href="#修飾の強制" class="headerlink" title="修飾の強制"></a>修飾の強制</h2><p>レコード型に <code>[&lt;RequireQualifiedAccess&gt;]</code> をつかうと、レコード型をスコープに入れてもフィールド名はスコープに入らなくなる。つまり、前述の冗長な構文を使う必要がある……とずっと思っていたが、「型注釈」の方法であれば問題ない。</p>
+<p>この属性をつけておくと、フィールド名が重複するかどうか気にしなくてよくなる。重複したフィールド名が後ろに追加されることでレコードリテラルの型が変わることもなくなる。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">[&lt;RequireQualifiedAccess&gt;]</span></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">User</span> </span>=</span><br><span class="line">  &#123;</span><br><span class="line">    Id: int64</span><br><span class="line">    Name: string</span><br><span class="line">  &#125;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">(&#123; Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125;: User) ;;</span><br></pre></td></tr></table></figure>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><ul>
+<li>フィールド名の重複を避けよう。</li>
+<li>フィールド名が重複しているときは <code>型名.フィールド名 = ...</code> としよう。</li>
+<li>レコード型がスコープにないときは <code>({ ... }: 型名)</code> としよう。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-03-11/fsharp-record-literal-and-type-annotation/" data-id="cjnspsyxx000ukfcxll830uwr" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/F/">F#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Tips/">Tips</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2018-06-28/recurse-rust-closure/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">新しい記事へ</strong>
+      <div class="article-nav-title">
+        
+          Rustのクロージャで再帰してみた
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2018-01-30/commit-message-prefixes/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">古い記事へ</strong>
+      <div class="article-nav-title">『コミットメッセージに「プレフィックス」をつける』を検討した</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新記事</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-31/diary/">近況 2018-10-31</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-09-30/diary/">近況 2018-09-30</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/NET/" style="font-size: 12px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 18px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 14px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 14px;">Tips</a> <a href="/blog/tags/WPF/" style="font-size: 14px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 12px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 16px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 12px;">競技プログラミング</a> <a href="/blog/tags/言語実装/" style="font-size: 10px;">言語実装</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 14px;">非同期</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vain0x<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">ブログ</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
+  
+    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
+  
+    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
+  
+    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

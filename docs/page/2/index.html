@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128265968-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>vain0x&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="A blog.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="vain0x&#39;s blog">
+<meta property="og:url" content="http://vain0x.github.io/blog/page/2/index.html">
+<meta property="og:site_name" content="vain0x&#39;s blog">
+<meta property="og:description" content="A blog.">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vain0x&#39;s blog">
+<meta name="twitter:description" content="A blog.">
+<meta name="twitter:creator" content="@vain0x">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">ブログ</a>
+        
+          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+        
+          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+        
+          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
+        
+          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-intellisense-comfortable" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-01-13/intellisense-comfortable/" class="article-date">
+  <time datetime="2018-01-13T14:08:23.000Z" itemprop="datePublished">2018-01-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-01-13/intellisense-comfortable/">インテリセンス快適な構文とAPI</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>インテリセンスの快適さと言語の構文に関するエッセイ。</p>
+<h2 id="Intellisensability"><a href="#Intellisensability" class="headerlink" title="Intellisensability"></a>Intellisensability</h2><p>コードを書いているときに入力補完の候補とその概要がポップアップメニューに出てくるやつを <strong>インテリセンス</strong> と呼ぶことにします。インテリセンスを使うとコードを書くのが楽になりますが、頻繁に暴発する場合は逆に手間になります。インテリセンスが役に立っている状態を <strong>インテリセンス快適</strong> と呼ぶことにします。</p>
+<h2 id="インテリセンス快適な構文"><a href="#インテリセンス快適な構文" class="headerlink" title="インテリセンス快適な構文"></a>インテリセンス快適な構文</h2><h3 id="暴発の例-既知の単語と新しい単語"><a href="#暴発の例-既知の単語と新しい単語" class="headerlink" title="暴発の例: 既知の単語と新しい単語"></a>暴発の例: 既知の単語と新しい単語</h3><p>インテリセンスが暴発しやすい状況の1つに、ユーザーが新しい単語を書こうとしているときに、既存の単語を補完候補に出してしまう現象があります。ここでいう新しい単語とは、まだ定義を書いていない変数や関数の名前です。例えば1引数のラムダ式 (関数オブジェクトのリテラル) の構文が <code>&lt;parameter&gt; =&gt; &lt;expression&gt;</code> だったとして、次のようなコードを書くと、</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xs = <span class="keyword">new</span>[] &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line">xs.Select(x =&gt; x + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>最後の行の <code>xs.Select(</code> の後、入力補完は <code>Select</code> の引数として式を期待して使用可能な名前 (<code>xs</code> など) を補完しようとし、入力しようとしている単語 (<code>x</code>) をハイジャックしがちです。</p>
+<p>一方、同じ種類のラムダ式の構文が <code>fun &lt;parameter&gt; -&gt; &lt;expression&gt;</code> だった場合、これは <code>fun</code> キーワードの直後の式は新しい単語ではないので、入力補完を抑制 <strong>でき</strong> ます。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> xs = [|<span class="number">1</span>; <span class="number">2</span>; <span class="number">3</span>|]</span><br><span class="line"></span><br><span class="line">xs |&gt; Array.map (<span class="keyword">fun</span> x -&gt; x + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="暴発の例-参照と定義の語順"><a href="#暴発の例-参照と定義の語順" class="headerlink" title="暴発の例: 参照と定義の語順"></a>暴発の例: 参照と定義の語順</h3><p>似たような例として、語順の問題もあります。例えば次の関数の定義では、型パラメーター <code>T</code> を定義される位置 (<code>&lt;T&gt;</code>) より前の位置 (<code>T Identity</code>) に書かなければいけませんが、この段階では補完候補として <code>T</code> が現れないので、他の <code>T</code> から始まる単語を入力しがちです。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C#</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> T Identity&lt;T&gt;(T <span class="keyword">value</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一方 Java では、型パラメーターを定義する位置を移動することにより、この問題を解決しています。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">identity</span><span class="params">(T value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最近見つけた別の例に TypeScript の <code>import</code> があります。これは他のファイル (モジュール) にある定義を参照できるようにするための構文で、次のように書けます:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// "./other.ts" で定義されている A, B, C を修飾なしで参照可能にする。</span></span><br><span class="line"><span class="keyword">import</span> &#123; A, B, C &#125; <span class="keyword">from</span> <span class="string">"./other"</span>;</span><br></pre></td></tr></table></figure>
+<p>波括弧の中を入力している段階では、どのモジュールを参照するつもりなのかインテリセンスが知らないので、入力補完は起きません。しかし、先に <code>import { } from &quot;./other&quot;;</code> と書いてから波括弧の中に戻ることで入力補完ができるようになります。もし語順が逆だったら、カーソルの移動なしで入力補完ができていたでしょう:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 擬似コード</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">"./other"</span> &#123; A, B, C &#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="快適な構文の例-ドット記法"><a href="#快適な構文の例-ドット記法" class="headerlink" title="快適な構文の例: ドット記法"></a>快適な構文の例: ドット記法</h3><p>C系の構文を持つオブジェクト指向言語 (C++ とか) では <code>x.m</code> でメンバーを参照しますが、 <code>.</code> を入力したときに入力補完が起こるのが通例です。これにより、入力中の式に対して可能な操作をワンタッチで検索でき、メモリアクセスの負荷を減らします。</p>
+<p>前述の上のコードにある <code>xs.Select</code> についても、配列 <code>xs</code> に対する map 操作の名前を忘れても <code>xs.</code> と書いた瞬間に候補が出て、それをざっと眺めれば <code>Select</code> を思い出すことができるはずです。(たぶん)</p>
+<p>一方、前述の下のコード (<code>xs |&gt; Array.map</code>) では、<code>xs</code> を書いた後に配列の操作が <code>Array</code> モジュール (※名前空間のようなもの) に含まれていることを思い出さなければ連鎖を続けることができません。ややインテリセンス快適さを損ねます。</p>
+<p>C# には、型の定義に対して非侵入的にメソッドを増やすことができる、拡張メソッドという糖衣構文があり、これのおかげでインテリセンス快適さがかなり高まります。前述の <code>Select</code> がその一例です。拡張メソッドを定義するには、関数の定義の第一引数に <code>this</code> というキーワードをつければいいのですが、</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定義側</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">Scream</span>(<span class="params"><span class="keyword">this</span> <span class="keyword">string</span> message</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> message.ToUpper() + <span class="string">"!"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 参照側</span></span><br><span class="line"><span class="keyword">var</span> message = <span class="string">"hello"</span>.Scream(); <span class="comment">// Scream("hello") の糖衣構文</span></span><br><span class="line">Console.WriteLine(message); <span class="comment">//=&gt; HELLO!</span></span><br></pre></td></tr></table></figure>
+<p>もしこの制約がなかったら、 <code>&quot;hello&quot;.</code> と入力した瞬間に第一引数の型が <code>string</code> であるすべての関数が候補に上がってしまい、一覧性を失います。</p>
+<h2 id="インテリセンス快適でないAPIの例"><a href="#インテリセンス快適でないAPIの例" class="headerlink" title="インテリセンス快適でないAPIの例"></a>インテリセンス快適でないAPIの例</h2><p>最高にインテリセンス快適な状況は、入力したい単語の一部を数文字入力した時点で、候補リストの一番上にその単語が現れて、そのままコミットするという流れです。候補に現れても一番上でなければ、マウスで選択するにせよ、カーソル移動するにせよ、追加の手間がかかります。</p>
+<p>API の設計によってインテリセンスの検索性を損ねることがあります。C# で、もし2つの値が等しいことを表明する関数が <code>Assert.Equal</code> (<code>Assert</code> モジュールの中の <code>Equal</code> 関数) だったら、 <code>Assert.Equals</code> (すべての型に継承される関数の1つ) と混乱します。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等しくなければ表明エラー</span></span><br><span class="line">Assert.Equal(actual, expected);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 何も起こらない。</span></span><br><span class="line">Assert.Equals(left, right);</span><br></pre></td></tr></table></figure>
+<p>これは日本語入力の際に「か」(→ 火 可 …)などを漢字変換するときの問題に似ています。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>言語やAPIはインテリセンス快適さをなるべく損ねないように作りましょう。</p>
+<h2 id="関連リンク"><a href="#関連リンク" class="headerlink" title="関連リンク"></a>関連リンク</h2><ul>
+<li>id:tosaka2(2016)「グラニ インターン体験記」, <a href="http://tosaka2.hatenablog.com/entry/2016/09/27/183801" target="_blank" rel="noopener">http://tosaka2.hatenablog.com/entry/2016/09/27/183801</a> 2018年1月12日アクセス.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/" data-id="cjnspsyxz0011kfcxcldniqye" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/プログラミング言語/">プログラミング言語</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-sql-search-only-keys" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-01-05/sql-search-only-keys/" class="article-date">
+  <time datetime="2018-01-05T14:30:37.000Z" itemprop="datePublished">2018-01-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-01-05/sql-search-only-keys/">SQLの検索条件と検索項目の分離</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>複数の検索条件があるときに検索項目をselect句で毎回列挙するのがだるい問題について考えました。</p>
+<h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>例えばブログシステムで、「最近の記事を列挙する」クエリーと「特定のカテゴリーの記事を列挙する」ものがあるとします。SQL文は次のようになるでしょう：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 最近の記事を列挙するクエリー</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    <span class="comment">-- 実際にはカラムがいっぱい並ぶ。</span></span><br><span class="line">    a.title</span><br><span class="line">    , a.created_at</span><br><span class="line">    , comments.content</span><br><span class="line">    , comments.created_at</span><br><span class="line">    , categories.category_name</span><br><span class="line"><span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">join</span> comments</span><br><span class="line">    <span class="keyword">using</span> (article_id)</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> categories</span><br><span class="line">    <span class="keyword">using</span> (category_id)</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    a.created_at &gt;= :first_date</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a.created_by <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 特定のカテゴリーの記事を列挙するクエリー</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    <span class="comment">-- 上のクエリーと似たような内容になる。</span></span><br><span class="line">    a.title</span><br><span class="line">    , a.created_at</span><br><span class="line">    , comments.content</span><br><span class="line">    , comments.created_at</span><br><span class="line">    , categories.category_name</span><br><span class="line"><span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">join</span> comments</span><br><span class="line">    <span class="keyword">using</span> (article_id)</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> categories</span><br><span class="line">    <span class="keyword">using</span> (category_id)</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    <span class="comment">-- ここは全く違う。</span></span><br><span class="line">    categories.category_id <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">and</span> categories.category_id = :category_id</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a.created_by <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
+<p>2つのクエリーは結合するテーブルの個数や検索条件こそ異なりますが、結果として得られるリストは同じです。SQLに重複が多くて、あとで困りそうです。</p>
+<h2 id="解決策"><a href="#解決策" class="headerlink" title="解決策"></a>解決策</h2><h3 id="1-アスタリスクとビュー"><a href="#1-アスタリスクとビュー" class="headerlink" title="1. アスタリスクとビュー"></a>1. アスタリスクとビュー</h3><p><code>select</code> 句に <code>*</code> を書くと、すべてのカラム名を列挙したことになります。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> *</span><br><span class="line"><span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">join</span> comments</span><br><span class="line">    <span class="keyword">using</span> (article_id)</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> categories</span><br><span class="line">    <span class="keyword">using</span> (category_id)</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    a.created_at &gt;= :first_date</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a.created_by <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
+<p>重複が大幅に減りました。基本的にはこれで十分でしょう。なお、 <code>*</code> を使うと「カラムが追加されるたびにデータ量が増え、しかもそのことに気づきづらい」などの問題があるので使うべきでないという意見もあります。</p>
+<p>テーブルを結合する部分が重複したままですが、これはビューを使うという手があります。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- ビューを定義しておく。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> article_aggregates <span class="keyword">as</span></span><br><span class="line">    <span class="keyword">select</span> *</span><br><span class="line">    <span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line">    <span class="keyword">join</span> comments <span class="keyword">using</span> (article_id)</span><br><span class="line">    <span class="keyword">left</span> <span class="keyword">join</span> categories <span class="keyword">using</span> (category_id);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 検索クエリー</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> a.*</span><br><span class="line"><span class="keyword">from</span> article_aggregates <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    a.created_at &gt;= :first_date</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a.created_by <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+<p>あらかじめテーブルを結合して検索するビュー  <code>article_aggregates</code> を用意しておき、それを <code>from</code> 句に指定することにより、テーブルが始めから結合されているのと同じ状況でクエリーを書くことができます。</p>
+<p>依然として <code>order by</code> は重複したままです。</p>
+<h3 id="2-クエリービルダー"><a href="#2-クエリービルダー" class="headerlink" title="2. クエリービルダー"></a>2. クエリービルダー</h3><p>文字列連結やORM(EntityFrameworkなど)を用いて、カラムのリストを共通化する方法があります。(大げさにいうと)SQLを対象とするDSLを用意するのです。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 文字列連結を用いる方法。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    @(articleColumns.map(c =&gt; <span class="string">"a."</span> + c)</span><br><span class="line">    .concat(commentColumns.map(c =&gt; <span class="string">"comments."</span> + c))</span><br><span class="line">    .join(<span class="string">","</span>))</span><br><span class="line"><span class="keyword">from</span> article_aggregates <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    a.created_at &gt;= :first_date</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> @orders.join(<span class="string">","</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// クエリービルダーを用いる方法 (擬似コード)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> a = db.articles_aggregate_view <span class="keyword">in</span></span><br><span class="line">    db.query()</span><br><span class="line">    .from(a)</span><br><span class="line">    .where(a.created_at &gt;= first_date)</span><br><span class="line">    .order_by([ &#123; desc: a.created_at &#125; ])</span><br></pre></td></tr></table></figure>
+<p>前述のビューを使う方法と合わせて、重複は完全になくなりました。</p>
+<p>この方法の問題は、SQL文を静的に取り出す(検索したりexplainにかけたりする)のが難しくなることです。また、SQLインジェクション攻撃に対策しておく必要があります。</p>
+<h3 id="3-検索とフェッチの分離"><a href="#3-検索とフェッチの分離" class="headerlink" title="3. 検索とフェッチの分離"></a>3. 検索とフェッチの分離</h3><ol>
+<li>あらかじめ、主キーのリストから必要なデータを列挙する方法を用意しておき、</li>
+<li>主キーだけを取得するクエリーを検索条件ごとに書く、</li>
+</ol>
+<p>という方法です。例えば次のようになります：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 主キーの値に基づいてレコードを検索するクエリー</span></span><br><span class="line"><span class="comment">-- (前述のテンプレートエンジンを使っている。)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    a.title</span><br><span class="line">    , a.created_at</span><br><span class="line">    , comments.content</span><br><span class="line">    , comments.created_at</span><br><span class="line">    , categories.category_name</span><br><span class="line"><span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">join</span> comments</span><br><span class="line">    <span class="keyword">using</span> (article_id)</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> categories</span><br><span class="line">    <span class="keyword">using</span> (category_id)</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    a.article_id <span class="keyword">in</span> ( @articleIds.join(<span class="string">","</span>) )</span><br><span class="line">    <span class="keyword">and</span> comments.comment_id <span class="keyword">in</span> ( @commentIds.join(<span class="string">","</span>) )</span><br><span class="line">    <span class="keyword">and</span> (categories.category_id <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">and</span> category_id = @categoryId)</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a.created_by <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
+<p>検索のためのクエリーは次のとおりです：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 最近の記事(のID)を列挙するクエリー</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    a.article_id, comments.comment_id, a.category_id</span><br><span class="line"><span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">join</span> comments</span><br><span class="line">    <span class="keyword">using</span> (article_id)</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    a.created_at &gt;= :first_date</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 特定のタグがついた記事を列挙するクエリー</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    a.article_id, comments.comment_id, a.category_id</span><br><span class="line"><span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">join</span> comments</span><br><span class="line">    <span class="keyword">using</span> (article_id)</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> categories</span><br><span class="line">    <span class="keyword">using</span> (category_id)</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    category_id <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">and</span> category_id = :category_id</span><br></pre></td></tr></table></figure>
+<p>クエリーの数が増えますが、 (テーブルの個数 + 1) 個ぐらいなら問題ないでしょう。</p>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><ul>
+<li>すべてのカラムをフェッチしたい場合は <code>*</code> を使い、</li>
+<li>フェッチしたくないカラムがある場合はクエリーを2段階に分ける、</li>
+</ul>
+<p>と良いかも！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-01-05/sql-search-only-keys/" data-id="cjnspsyy00014kfcxf1c46ocp" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Tips/">Tips</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/データベース/">データベース</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-async-function-and-exception" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2017-12-23/async-function-and-exception/" class="article-date">
+  <time datetime="2017-12-22T15:00:00.000Z" itemprop="datePublished">2017-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017-12-23/async-function-and-exception/">async関数が例外を捕捉する挙動について</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="現象"><a href="#現象" class="headerlink" title="現象"></a>現象</h2><p>C# では async キーワードでマークされた関数の内部では await 式が使えるようになります。では、 await を使わなくていい場合はつけなくてもいいのでしょうか？</p>
+<p>例えば、次の <code>NeverAsync</code> メソッドと <code>NeverNoAsync</code> メソッドは、どちらもタスクを返す非同期な関数ですが、実際に非同期な処理 (<code>FooAsync</code>) を実行する前に例外を投げてしまうとします。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">SampleClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// async キーワードがついている。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="keyword">int</span>&gt; <span class="title">NeverAsync</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> FooAsync();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// async キーワードなし。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Task&lt;<span class="keyword">int</span>&gt; <span class="title">NeverNoAsync</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception();</span><br><span class="line">        <span class="keyword">return</span> FooAsync();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="keyword">int</span>&gt; <span class="title">FooAsync</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// なにか非同期な処理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これらのメソッドを起動した結果は次のようになります。</p>
+<ul>
+<li>async がついている <code>NeverAsync</code> のほうは <code>throw</code> の時点で return してタスクを返します。返されたタスクは Faulted 状態になっていて、 <code>Exception</code> プロパティーから送出された例外を取得できます。</li>
+<li>async のついていない <code>NeverNoAsync</code> のほうは、当たり前ですが、例外を伝播します。</li>
+</ul>
+<p>つまり async キーワードがついているだけで、次のような try-catch 文が生成されていると解釈できます。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Task&lt;<span class="keyword">int</span>&gt; <span class="title">NeverAsync_Compiled</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* async メソッドの中身 (throw とか FooAsync とか) */</span></span><br><span class="line">        <span class="keyword">return</span> <span class="comment">/* 返されるタスク */</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> Task.FromException&lt;<span class="keyword">int</span>&gt;(ex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="影響"><a href="#影響" class="headerlink" title="影響"></a>影響</h2><p>この挙動の違いの影響を受ける例を挙げます。次のように非同期操作のエラー処理を <code>ContinueWith</code> で書くと、</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">BarAsync()</span><br><span class="line">.ContinueWith(task =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (task.Status)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> TaskStatus.Faulted:</span><br><span class="line">            <span class="keyword">var</span> ex = task.Exception;</span><br><span class="line">            <span class="comment">// エラー処理</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>非同期メソッド <code>BarAsync</code> に async キーワードがついていなくて例外が投げられたとき、エラー処理が行われるのではなく例外が伝播されます。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><ul>
+<li>async キーワードをつけると、例外が捕捉されてエラー状態のタスクを返すようになる。</li>
+<li><code>async () =&gt; await FooAsync()</code> と <code>() =&gt; FooAsync()</code> は例外発生時の挙動が異なる。</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://d.hatena.ne.jp/naga_sawa/20160703/1467517912" target="_blank" rel="noopener">C# 非同期メソッドを作るにあたり、例外が出るタイミングでハマったメモ - ..たれろぐ..</a> (2017年10月16日閲覧)</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2017-12-23/async-function-and-exception/" data-id="cjnspsyxp000nkfcx7h0hod17" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Tips/">Tips</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/非同期/">非同期</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-csharp-constructor-generation-01" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2017-12-04/csharp-constructor-generation-01/" class="article-date">
+  <time datetime="2017-12-03T15:31:05.000Z" itemprop="datePublished">2017-12-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017-12-04/csharp-constructor-generation-01/">[C#] コンストラクタの自動生成 #1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="要約"><a href="#要約" class="headerlink" title="要約"></a>要約</h2><p>C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。</p>
+<h2 id="例"><a href="#例" class="headerlink" title="例"></a>例</h2><ul>
+<li>引数の値をフィールドやプロパティーに代入する処理だけからなるコンストラクターを <strong>完全コンストラクター</strong> と呼ぶ。<ul>
+<li>現実のコンストラクターは入力検証 (参照型の値が null でないことを検査したり、数値の範囲を検査したりすること) を含むことが多いが、それでも完全コンストラクターと呼ぶかは <strong>調整中</strong> 。</li>
+</ul>
+</li>
+</ul>
+<p>次のようなクラスがあるとき、</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">Person</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> Age &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Name &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>次のように完全コンストラクターを機械的に生成したい。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">Person</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> Age &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Name &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成されたコンストラクター</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span>(<span class="params"><span class="keyword">int</span> age, <span class="keyword">string</span> name</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Age = age;</span><br><span class="line">        Name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="関連ツールと言語サポート"><a href="#関連ツールと言語サポート" class="headerlink" title="関連ツールと言語サポート"></a>関連ツールと言語サポート</h2><p>完全コンストラクターを生成するツールはすでにある。</p>
+<h3 id="RecordConstructorGenerator"><a href="#RecordConstructorGenerator" class="headerlink" title="RecordConstructorGenerator"></a><strong><a href="https://github.com/ufcpp/RecordConstructorGenerator" target="_blank" rel="noopener">RecordConstructorGenerator</a></strong></h3><p>Visual Studio 2015 でアナライザーが使えるようになり、静的コード生成などの処理を IDE 上で行なうのが簡単になった。この「RecordConstructorGenerator」アナライザーをインストールしておくと、手軽に完全コンストラクターを自動生成できる。</p>
+<p>極めて便利だが、しかし、少しだけ不満がある。</p>
+<ul>
+<li>自動実装プロパティーへの代入処理は生成されるが、フィールドへの代入処理も生成してほしい。</li>
+<li>null 検査を生成してほしいことがある。</li>
+</ul>
+<p>実装が分かりやすくて、後述の自作アナライザーの参考になった。</p>
+<h3 id="Visual-Studio-2017"><a href="#Visual-Studio-2017" class="headerlink" title="Visual Studio 2017"></a>Visual Studio 2017</h3><p>Visual Studio 2017 では、標準で完全コンストラクターを生成する機能が追加された。(Roslyn の機能か？)</p>
+<p>どのフィールド・プロパティーについて代入処理を生成するかを選べるので便利。また、同じ方法で、同値性の定義なども生成できる。とはいえ、メンバーが追加・削除されたときの自動修正にまでは対応していない。</p>
+<h3 id="自作-RecordTypeAnalyzer"><a href="#自作-RecordTypeAnalyzer" class="headerlink" title="自作/RecordTypeAnalyzer"></a>自作/<a href="https://github.com/vain0x/RecordTypeAnalyzer" target="_blank" rel="noopener">RecordTypeAnalyzer</a></h3><p>困ったときは自作。</p>
+<p>完全コンストラクターやコピーコンストラクタ―のみならず、等価性や比較の自動生成など、 F# のレコード型が備えるような、さまざまな機能を自動生成し、さらに定義の変更に合わせて自動修正する機能を備えたアナライザー、というのを目指した。</p>
+<p>ところで、レコード型で等価性などを定義できるのは、型がイミュータブルだからだ。イミュータブルでない型に構造的同値性を定義するわけにはいかないので、型がイミュータブルかどうかを自動で判定する機能を実装した。問題は、完全コンストラクターを実装したい対象の型は、イミュータブルなものに限らないということだ。このあたりを考慮すると、仕様が複雑化してくる。</p>
+<p>やや詰め込みすぎて、アナライザー初心者にはつらくなってきた。そこで、いったん仕様を縮小して動くものを作ることにした。いま思うと、この時点で「RecordConstructorGenerator を改造する」方向に進まなかったのは悪い癖だろう。</p>
+<h3 id="自作-BoilerplateConstructorGenerator"><a href="#自作-BoilerplateConstructorGenerator" class="headerlink" title="自作/BoilerplateConstructorGenerator"></a>自作/<a href="https://github.com/vain0x/BoilerplateConstructorGenerator" target="_blank" rel="noopener">BoilerplateConstructorGenerator</a></h3><p>完全コンストラクターやコピーコンストラクタ―の自動生成と、定義が変わったときの自動修正機能を備えたアナライザー、というのを目指した。</p>
+<p>自動修正はコンストラクターの実装を分析して検出しようとしたが、前述のようにバリデーションの扱いのせいで誤検出がひどかったのでやめた。 <code>// analyzer: complete-constructor</code> というマジックコメントを挿入することで検出することにした。</p>
+<p>現時点ではこれを使っている。コピーコンストラクターの自動生成機能がないことと、なぜか変更点がないのに変更が検出されている状態になる不具合があるのでリリースに至っていないが、なかなか快適だ。</p>
+<h2 id="余談-レコード型"><a href="#余談-レコード型" class="headerlink" title="余談: レコード型"></a>余談: レコード型</h2><p>C# にも言語機能としてレコード型を導入する計画がある。 C# 8.0 候補とのことなので期待して待っていよう。</p>
+<p><a href="https://github.com/dotnet/csharplang/issues/39" target="_blank" rel="noopener">Champion “Records” · Issue #39 · dotnet/csharplang</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/" data-id="cjnspsyxq000okfcxvswknze1" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-why-ireadonlylist-should-implement-ilist" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/" class="article-date">
+  <time datetime="2017-05-20T11:00:09.000Z" itemprop="datePublished">2017-05-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/">IReadOnlyListがIListを実装すべき理由</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>主張: <code>IReadOnlyList&lt;_&gt;</code> を実装するクラスは、 <code>IList&lt;_&gt;</code> と <code>IList</code> も実装したほうがいい。</p>
+<p>理由は2つあります。</p>
+<h2 id="理由1-IEnumerable-拡張メソッド"><a href="#理由1-IEnumerable-拡張メソッド" class="headerlink" title="理由1: IEnumerable 拡張メソッド"></a>理由1: IEnumerable 拡張メソッド</h2><p>1つ目の理由は、<code>IEnumerable&lt;_&gt;</code> に対する拡張メソッドが <code>IReadOnlyList&lt;_&gt;</code> ではなく <code>IList&lt;_&gt;</code> 用に最適化されているからです。</p>
+<p><code>IEnumerable&lt;_&gt;</code> に対する拡張メソッドはインターフェイス経由では <code>GetEnumerator</code> メソッドしか起動できないので、例えばシーケンスの最後の要素を取得するメソッド (<code>Last</code>) を素直に実装するには、1度すべての要素を列挙して、最後の値を返すことになります。これではパフォーマンスが損なので、与えられたシーケンスをまず <code>IList&lt;_&gt;</code> に動的キャストできないか試みて、可能ならインデックスを使って最後の要素を取得する、という最適化が入っています。 (<a href="https://referencesource.microsoft.com/#System.Core/System/Linq/Enumerable.cs,3628defc5be1468a" target="_blank" rel="noopener">Enumerable.Last の参考実装</a>)</p>
+<p>したがって、「<code>IReadOnlyList&lt;_&gt;</code> が <code>IEnumerable&lt;_&gt;</code> にキャストされて <code>Enumerable.Last</code> される」といったシナリオのパフォーマンスを最大化するために、 <code>IList&lt;_&gt;</code> を実装しておいたほうがいいわけです。</p>
+<h2 id="理由2-WPF"><a href="#理由2-WPF" class="headerlink" title="理由2: WPF"></a>理由2: WPF</h2><p>2つ目の理由は、WPF アプリケーションから参照されうるクラスライブラリーに限った話になりますが、「WPF の DataGrid はコレクションが非ジェネリックな <code>IList</code> を実装していることを前提としている」ことです。</p>
+<p>簡単にいうと、DataGrid (表) に <code>IList</code> を実装していないコレクションを渡すと、セルの編集ができなくなります。詳細については、既に Qiita に記事があるので、こちらを参照してください:</p>
+<p><a href="http://qiita.com/gaya_K/items/d1737fc829502c916d18" target="_blank" rel="noopener">DataGrid（WPF） の ItemsSource には IList が必要</a></p>
+<p>~~また、実際の動きを確認したい場合はこちらからソースコードを入手できます:</p>
+<p><a href="https://github.com/vain0x/VainZero.Sandbox.CSharp/tree/2017-05-20-DataGrid" target="_blank" rel="noopener">DataGrid.ItemsSource が IList を実装している場合としていない場合の比較</a>~~ (リンク切れ)</p>
+<h2 id="例外"><a href="#例外" class="headerlink" title="例外"></a>例外</h2><p>もちろん上記で述べたような懸念があたらないことが分かっているケースでは、<code>IList&lt;_&gt;</code> や <code>IList</code> を実装しなくてもよいでしょう。</p>
+<h2 id="おまけ-ReadOnlyCollection"><a href="#おまけ-ReadOnlyCollection" class="headerlink" title="おまけ: ReadOnlyCollection"></a>おまけ: ReadOnlyCollection</h2><p><code>IList&lt;_&gt;</code> はメンバーの数が多くて、実装するのは非常にめんどうですが、 <code>IList&lt;_&gt;</code> をラップして読み取り専用なリスト (<code>IReadOnlyList&lt;_&gt;</code>) として振る舞わせる <code>ReadOnlyCollection&lt;_&gt;</code> というのが標準にあります。これを継承して実装すると楽です。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/" data-id="cjnspsyxs000qkfcxvcaw0mii" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/NET/">.NET</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-switch-on-await" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2017-04-05/switch-on-await/" class="article-date">
+  <time datetime="2017-04-05T06:00:00.000Z" itemprop="datePublished">2017-04-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017-04-05/switch-on-await/">awaitでスレッドを切り替える</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://qiita.com/vain0x/items/945591e96b7338478cb5" target="_blank" rel="noopener">Qiita</a></p>
+<p>awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。</p>
+<p>実装とサンプルはここにあります: <a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2" target="_blank" rel="noopener">await-for-context-switching.cs</a></p>
+<h2 id="前提-Awaitable-パターン"><a href="#前提-Awaitable-パターン" class="headerlink" title="前提: Awaitable パターン"></a>前提: Awaitable パターン</h2><ul>
+<li>Awaitable パターンについては <a href="http://ufcpp.net/study/csharp/sp5_awaitable.html#awaiter" target="_blank" rel="noopener">非同期メソッドの内部実装</a> などを参照。</li>
+</ul>
+<h2 id="OK-await-→-UI-処理"><a href="#OK-await-→-UI-処理" class="headerlink" title="OK: await → UI 処理"></a>OK: await → UI 処理</h2><p>まず await が1つだけの非同期メソッドでは、Task に対する await が自動的に同期コンテクスト (SynchronizationContext) を捕捉する機能を用いることで、以下のように簡単にかけます。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Do は UI スレッドで起動されるとする。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重い処理を非同期で実行する。</span></span><br><span class="line">    <span class="keyword">var</span> x = <span class="keyword">await</span> HeavyTask();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// UI スレッドで結果を使う。</span></span><br><span class="line">    UIOperation(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="問題-await-→-await-→-UI-操作"><a href="#問題-await-→-await-→-UI-操作" class="headerlink" title="問題: await → await → UI 操作"></a>問題: await → await → UI 操作</h2><p>しかし await が2回以上ある場合に同様に書くと、必要以上に早く UI スレッドに戻ってしまいます。以下の例では、2つ目の重たい非同期処理である <code>SecondHeavyTask</code> が完了するまで、UI スレッドがブロックされます。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Do は UI スレッドで起動されるとする。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重たい非同期処理</span></span><br><span class="line">    <span class="keyword">var</span> x = <span class="keyword">await</span> HeavyTask();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// もう1つ重たい非同期処理 (!)</span></span><br><span class="line">    <span class="keyword">var</span> y = <span class="keyword">await</span> SecondHeavyTask(x);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ここは UI スレッドに戻って処理したい。</span></span><br><span class="line">    UIOperation(x, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これを避けるには、 Task.Run や ContinueWith などを使って、await を1つにまとめる必要があります。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a =</span><br><span class="line">        <span class="keyword">await</span> Task.Run(<span class="keyword">async</span> () =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> x = <span class="keyword">await</span> HeavyTask();</span><br><span class="line">            <span class="keyword">var</span> y = <span class="keyword">await</span> SecondHeavyTask(x);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> &#123; x, y &#125;;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    UIOperation(a.x, a.y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>インデントが2段階深くなることと、変数を匿名型経由で渡していることが気になります。</p>
+<p>冒頭のヘルパーメソッドを使うと次のようにできます。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> context = <span class="keyword">await</span> TaskModule.SwitchToTaskPool();</span><br><span class="line">    <span class="keyword">var</span> x = <span class="keyword">await</span> HeavyTask();</span><br><span class="line">    <span class="keyword">var</span> y = <span class="keyword">await</span> SecondHeavyTask();</span><br><span class="line">    <span class="keyword">await</span> context;</span><br><span class="line">    UIOperation(x, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これには</p>
+<ul>
+<li>インデントが浅くなった。</li>
+<li>同期コンテクストを使うこと (UI 操作の直前で UI スレッドに戻ること) が明確になった。</li>
+</ul>
+<p>という利点があります。</p>
+<h2 id="仕組み"><a href="#仕組み" class="headerlink" title="仕組み"></a>仕組み</h2><p>ヘルパーメソッドの仕組みを簡単に説明しておきます。</p>
+<h3 id="継続"><a href="#継続" class="headerlink" title="継続"></a>継続</h3><p><code>await</code> には継続を取り出す機能があります。どういうことかというと、例えば次の「task を await して、その結果を使って何か処理をする」コードは:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="keyword">await</span> task;</span><br><span class="line">F(x);</span><br></pre></td></tr></table></figure>
+<p><code>await</code> の時点で <code>task</code> が完了していなかったとすると、次のようなコードと同様の振る舞いになります:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> awaiter = task.GetAwaiter();</span><br><span class="line">awaiter.OnCompleted(() =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> x = awaiter.GetResult();</span><br><span class="line">    F(x);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">return</span> nextTask;  <span class="comment">// ←コンパイラーが生成するタスク</span></span><br></pre></td></tr></table></figure>
+<p>※実際にこのように変換されるわけではありません。雰囲気大事。</p>
+<p>ここで <code>awaiter.OnCompleted</code> にラムダ式が渡されていますが、これが継続です。</p>
+<p><code>GetAwaiter</code> メソッド経由で生成される awaiter を自作することで、この継続を好きなように使えます。</p>
+<h3 id="SwitchToTaskPool"><a href="#SwitchToTaskPool" class="headerlink" title="SwitchToTaskPool"></a>SwitchToTaskPool</h3><p><a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2#file-await-for-context-switching-cs-L186" target="_blank" rel="noopener">TaskModule.SwitchToTaskPool</a> は awaitable のインスタンスを生成するだけのメソッドです。ついでにここで同期コンテクストを捕まえています。</p>
+<p>awaitable/awaiter の実装は <a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2#file-await-for-context-switching-cs-L94" target="_blank" rel="noopener">これ</a> です。<code>GetAwaiter</code> が起動されたときにすることが特にないので、awaitable と awaiter を同じインスタンスにしています。先述の通り、この awaitable の <code>OnCompleted</code> メソッドに継続が渡されるわけですが、これは継続をタスクプール上で実行させるために <code>Task.Run</code> に渡します。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnCompleted</span>(<span class="params">Action continuation</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Task.Run(continuation);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>そのため、 <code>await TaskModule.SwitchToTaskPool</code> より後ろの部分がタスクプールで実行されることになります。</p>
+<p>また、await 式の結果は <code>awaiter.GetResult</code> から取得されます。 <code>Task&lt;_&gt;</code> の場合はタスクの結果の値がそうです。<code>SwitchToTaskPoolAwaitable</code> の場合は保存しておいた同期コンテクストを返すようになっています。</p>
+<h3 id="同期コンテクストを-await-する"><a href="#同期コンテクストを-await-する" class="headerlink" title="同期コンテクストを await する"></a>同期コンテクストを await する</h3><p><code>await</code> 式には、<code>Task</code> に限らず <code>GetAwaiter</code> メソッドを提供する任意の値を渡せますが、 <code>GetAwaiter</code> は拡張メソッドでもかまいません。</p>
+<p><code>SynchronizationContext</code> はいかにも <code>await</code> 可能な感じなので、次のように <code>GetAwaiter</code> を生やしています。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SynchronizationContextAwaiter <span class="title">GetAwaiter</span>(<span class="params"><span class="keyword">this</span> SynchronizationContext @<span class="keyword">this</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> SynchronizationContextAwaiter(@<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これが生成する <a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2#file-await-for-context-switching-cs-L138" target="_blank" rel="noopener">SynchronizationContextAwaiter</a> は、先ほどの SwitchToTaskPoolAwaitable とほぼ同じで、継続をタスクプールではなく同期コンテクストに放り込むものです。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2017-04-05/switch-on-await/" data-id="cjnspsyxw000tkfcxll98idiw" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/非同期/">非同期</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-enumerable-test" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2017-03-21/enumerable-test/" class="article-date">
+  <time datetime="2017-03-21T04:39:33.000Z" itemprop="datePublished">2017-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017-03-21/enumerable-test/">EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://qiita.com/vain0x/items/142b84e8ca20fbed43ed" target="_blank" rel="noopener">Qiita</a></p>
+<p><a href="http://github.com/vain0x/EnumerableTest" target="_blank" rel="noopener">EnumerableTest</a> という .NET 向けの単体テストフレームワークを作成しました。</p>
+<p>具体的な使い方は <a href="https://vain0x.github.io/EnumerableTest/articles/tutorials/walk-around.html">チュートリアル</a> を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。</p>
+<h2 id="特徴"><a href="#特徴" class="headerlink" title="特徴"></a>特徴</h2><p><strong>EnumerableTest</strong> の最大の特徴は「パラメーター化されたテスト」(テーブル駆動テスト)を書きやすいことです。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 演算子 &amp;&amp; の挙動をテストする。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> IEnumerable&lt;Test&gt; <span class="title">test_operator_and</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">        ParameterizedTestBuilder</span><br><span class="line">        .Case(<span class="literal">true</span>, <span class="literal">true</span>, <span class="literal">true</span>)</span><br><span class="line">        .Case(<span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">false</span>)</span><br><span class="line">        .Case(<span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>)</span><br><span class="line">        .Case(<span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>)</span><br><span class="line">        .Run((left, right, expected) =&gt;</span><br><span class="line">            (left &amp;&amp; right).Is(expected)</span><br><span class="line">        );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>このコードで重要なのは、次の2点です。</p>
+<ul>
+<li>テストデータの型がコンパイル時に検査される。</li>
+<li>4つのテストケースのうち、いずれかが表明に違反したり例外を投げたりしても、すべてのテストが実行される。</li>
+</ul>
+<p><code>ParameterizedTestBuilder</code> の実装に用いられている2つの特徴について説明します。</p>
+<h3 id="継続する表明"><a href="#継続する表明" class="headerlink" title="継続する表明"></a>継続する表明</h3><p><strong>EnumerableTest</strong> の表明は、失敗しても実行を停止しません。例えば、次のテストメソッドは2つの表明を含みますが、前者は失敗して、後者は成功します。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> IEnumerable&lt;Test&gt; <span class="title">MyTest</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">return</span> <span class="number">0.</span>Is(<span class="number">1</span>); <span class="comment">// 失敗する。</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">return</span> <span class="number">0.</span>Is(<span class="number">0</span>); <span class="comment">// 成功する。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>xUnit.NET や NUnit などでは「表明が失敗するとテストの実行が止まる」仕様になっています。この場合、縦にずらずらと表明を並べると、途中で止まったときに後ろのテストの結果が分からなくなり、厄介です。そのため、テストメソッドには表明を1つだけにするべきだといわれています。</p>
+<p><strong>EnumerableTest</strong> の継続する表明ではそのような問題はありませんので、縦にずらずらと表明を並べても問題ありません。実際、先ほどの test_operator_add は縦に4つの表明を並べるのと実質的に同じコードになります。</p>
+<h3 id="テストのグループ化と例外の捕捉"><a href="#テストのグループ化と例外の捕捉" class="headerlink" title="テストのグループ化と例外の捕捉"></a>テストのグループ化と例外の捕捉</h3><p><strong>EnumerableTest</strong> ではテストのシーケンスを1つのテストとして扱う機能があります。これは2つの機能を持ちます。</p>
+<p>1つ目は、テストのシーケンスを意味的なまとまりごとにグループ化するとことにより、テストの結果を見やすくすることです。というのも、1つのテストメソッドに表明をずらずらと並べていくと、いざ違反した表明を見つけたときに、その表明がどのテストケースに対応するのかが分かりづらいのです。</p>
+<p><code>ParameterizeTestBuilder</code> が生成するテストは、テストケースごとにテストをグループ化しています。どの表明がどのテストケースに対応するかは一目瞭然です。</p>
+<img src="/blog/2017-03-21/enumerable-test/EnumerableTest-screenshot-groups.png" title="screenshot">
+<p>また、テストのグループには例外を捕捉する機能もあります。すなわち、グループ内のいずれかのテストが例外を送出した場合、そのグループの実行は中断されますが、例外はテストグループにより捕捉されます。これにより、 <strong>グループ化されたテストは例外を送出しない</strong> ことが保証されます。</p>
+<p>※スタックオーバーフローは例外です。</p>
+<p>例えば次のコードは、2つのテストメソッド Test1, Test2 をそれぞれグループ化して実行しますが、仮に Test1 が例外を送出しても、それはグループ化を行うメソッド ToTestGroup により捕捉されますので、Test2 が実行されなくなることはありません。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> IEnumerable&lt;Test&gt; <span class="title">test</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">yield</span> return <span class="title">Test1</span>(<span class="params"></span>).<span class="title">ToTestGroup</span>(<span class="params"></span>)</span>;</span><br><span class="line">    <span class="function"><span class="keyword">yield</span> return <span class="title">Test2</span>(<span class="params"></span>).<span class="title">ToTestGroup</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>冒頭の test_operator_add でも、各テストケースはグループ化されており、例外を漏らさないようになっています。</p>
+<h2 id="苦労話"><a href="#苦労話" class="headerlink" title="苦労話"></a>苦労話</h2><p>次に <strong>EnumerableTest</strong> のテストランナー実装時の苦労話をします。</p>
+<h3 id="プロセス内リモート通信"><a href="#プロセス内リモート通信" class="headerlink" title="プロセス内リモート通信"></a>プロセス内リモート通信</h3><p>コンソール版のテストランナー開発は、ただただ書くだけなので簡単でした。.NET は動的リフレクションの機能が豊富で助かります。問題は WPF (GUI) 版です。</p>
+<p>コンソール版の実行時の流れは「テストアセンブリーをロード→テストを実行→結果を表示→終了」という具合ですが、WPF版は次のようになります。</p>
+<ul>
+<li>テストアセンブリーをロード</li>
+<li>テストを実行</li>
+<li>結果を表示</li>
+<li>メインループ<ul>
+<li>テストアセンブリーを <strong>アンロード</strong></li>
+<li>テストアセンブリーが更新されるまで待機</li>
+<li>テストアセンブリーが更新されたら再ロード</li>
+<li>テストを実行</li>
+<li>結果を <strong>更新</strong></li>
+</ul>
+</li>
+</ul>
+<p>なお、テストアセンブリーとは、テストメソッドが定義されたファイル (通常は .dll) のことです。それをロードして、実際にテストを実行して結果を表示するアプリのことを、テストランナーと呼んでいます。</p>
+<p>テストランナーは、テストアセンブリーに定義されたテストメソッドを読み込んで実行するわけですが、そのためにはテストアセンブリーを「アプリケーションドメイン (AppDomain)」というものにロードする必要があります。アプリケーションドメインはどのアプリケーションも1つは持っているので、そこにアセンブリーを入れればいいかと思ったのですが、そうはいきませんでした。</p>
+<p>問題は、テストアセンブリーがロードされているかぎり、その .dll ファイルがロックされてしまうことです。すなわち、ビルドしてもテストアセンブリーを更新できない状態になります。ビルドするたびにいちいちテストランナーを閉じて開き直すのはめんどうですから、テストランナーはテストの実行が終わったときにテストアセンブリーをアンロードするべきです。そのアンロードが問題でした。</p>
+<p>アプリケーションドメインからアセンブリーをアンロードする方法はありません。その代わり、アプリケーションドメイン自体をアンロードすることはできます。すなわち、テストランナーはこういう手順を踏む必要があるわけです。</p>
+<ul>
+<li>テストを実行するためのアプリケーションドメインを作る。</li>
+<li>テストを実行する。</li>
+<li>テストの実行が完了したとき、結果を元のアプリケーションドメインに渡す。(←めんどくさい)</li>
+<li>作成したアプリケーションドメインを削除する。</li>
+</ul>
+<p>問題となるのは、テストを実行した結果をウィンドウなどに表示するには、まずデータをテストランナーのアプリケーションドメインに移す必要があるということです。というのも、アプリケーションドメインの間では基本的に参照を渡すことができないので、一部のデータしかやりとりできません。可能なのは MarshalByRefObject を継承したオブジェクトの参照渡しと、Serializable 属性のついたオブジェクトの値渡しです。前者はただの参照渡しなので、オブジェクトが居住するアプリケーションドメインをアンロードしてしまうと、使用できなくなります 。</p>
+<p>テストの実行結果は、テストの実行の終了後にも参照したいわけですから、値渡ししなければなりません。したがって、すべてのデータに Serializable 属性をつける必要があります。しかし、テストの結果のデータにはユーザーが定義したクラスのインスタンスが含まれることもあります。例えば、<code>x.Is(y)</code> (x が y に等しいという表明) の結果には、情報として <code>x</code> と <code>y</code> の値 (どんな型かは分からない) も含まれているべきでしょう。これらの型に Serializable 属性をつけてもらうわけにもいきません。</p>
+<p>そういうわけで、 <strong>EnumerableTest</strong> ではデータをシリアライズ可能な形式 (MarshalValue) に変換してから、元のアプリケーションに送り返すようになっています。MarshalValue は、データのプロパティの値と、コレクションの中身 (<code>this[]</code>) からなる辞書のようなものです。</p>
+<p>要するに単一プロセスでリモート通信みたいなことをしているわけです。コンソール版だけでよかったんじゃ……</p>
+<h2 id="余談-Persimmon"><a href="#余談-Persimmon" class="headerlink" title="余談: Persimmon"></a>余談: Persimmon</h2><p>.NET 言語 F# には <a href="http://persimmon-projects.github.io/Persimmon/ja/" target="_blank" rel="noopener">Persimmon</a> という単体テストフレームワークがあり、<strong>EnumerableTest</strong> の着想はここから得ました。ぶっちゃけ Persimmon のほうが便利なので、F# を使える状況ならそちらを使いましょう。</p>
+<p>あまりに便利なので、筆者は C# を書くときですら、テストを F# + Persimmon で書いています。F# の型推論は素晴らしい……</p>
+<p>もともと <strong>EmumerableTest</strong> は自分用に作っていたのですが、<code>IEnumerable&lt;Test&gt;</code> やら <code>yield return</code> やらいちいち書くのが思いのほかめんどくさいということに気づいてしまったのでやめました。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2017-03-21/enumerable-test/" data-id="cjnspsyye002ckfcxo33rn46e" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/NET/">.NET</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/WPF/">WPF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ユニットテスト/">ユニットテスト</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-observable-collection-design-notes" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2017-03-10/observable-collection-design-notes/" class="article-date">
+  <time datetime="2017-03-10T05:42:00.000Z" itemprop="datePublished">2017-03-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017-03-10/observable-collection-design-notes/">観測可能なコレクションの設計考察</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://qiita.com/vain0x/items/772d2a17c7d1cb735dd1" target="_blank" rel="noopener">Qiita</a></p>
+<p>WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。<a href="https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock" target="_blank" rel="noopener">うまくいかない設計に基づく実装をけっこう書いてしまった</a> ので、その供養でもあります。</p>
+<h2 id="背景-WPF-のリストボックス"><a href="#背景-WPF-のリストボックス" class="headerlink" title="背景: WPF のリストボックス"></a>背景: WPF のリストボックス</h2><p><strong>WPF</strong> とは、Windows で動くネイティブ GUI アプリケーションを作成するためのフレームワークの1つです。</p>
+<p>WPF ではリストボックスのように複数の項目を含むコントロールを表示する際、バインディングという機能を用いて、次のように実装します。まず ObservableCollection のインスタンスを用意します。これはある機能を持つ、動的なリストです。要素は普通の文字列やオブジェクトでOK。このコレクションを (Binding オブジェクトでラップして) リストボックスの ItemsSource プロパティに設定すると、リストボックスに a, b, c という3つの項目が表示されます。興味深いのはここからで、ObservableCollection に要素を追加・削除すると、リストボックスの対応する項目も連動して追加・削除されるのです。</p>
+<p>WPF のリストボックスなどにバインドできるコレクションはなんでもいいですが、項目の連動機能を利用するには一定の条件をクリアする必要があります。その条件を満たすコレクションを、ここでは <strong>観測可能なコレクション</strong> と呼ぶことにします。例に挙げた ObservableCollection は観測可能なコレクションの代表例です。</p>
+<p>要素の連動をどうやっているか簡単に説明すると、まず観測可能なコレクションに要素が追加・削除されるたび、それが実装する INotifyCollectionChanged インターフェイスの CollectionChanged イベントが発生します。WPF はこれを購読していて、イベントの内容 (要素 x が i 番目に追加された、など) に合わせてリストボックスを操作します。</p>
+<h3 id="マルチスレッド問題"><a href="#マルチスレッド問題" class="headerlink" title="マルチスレッド問題"></a>マルチスレッド問題</h3><p>WPF は 他の GUI ライブラリーと同じように UI スレッドパターンを利用していて、すなわち UI スレッドと呼ばれる単一のスレッドからしか UI 要素を操作できません。</p>
+<p>さて、観測可能なコレクションに変更操作が加わるたび、イベントが発生して、WPF がリストボックスの項目を追加・削除するわけですが、イベントの発生とリストボックスの操作は同一のスレッドで行われるようです (※デフォルトの場合)。先述の通り WPF がリストボックスを触れるのは UI スレッドだけなので、観測可能なコレクションの CollectionChanged イベントも UI スレッドで起こさなければいけません。</p>
+<p>すべての処理を UI スレッドで行えば話は簡単なのですが、そうは問屋が卸しません。時間のかかる処理を UI スレッド上で実行すると、その間 UI 要素が応答しなくなってしまいます。そのため、時間のかかる処理は非 UI スレッド上で実行するのが普通です。</p>
+<p>そういうわけで、WPF アプリケーションではたいてい2つ以上のスレッドが走ります。問題は、複数のスレッドから単一のオブジェクトを操作すると恐怖の競合状態が発生することです。例えば、観測可能なコレクションがスレッド安全でない場合、非 UI スレッドでそれを変更するのと同時に UI スレッドからアクセスがあったとしたら、そこで競合状態になります。</p>
+<p>ここに3つの選択肢があります。</p>
+<ul>
+<li>(A) 観測可能なコレクションの操作はすべて UI スレッドで行う。</li>
+<li>(B) 観測可能なコレクションをスレッド安全にする。</li>
+<li>(C) スレッド安全ではないが競合は起きない方法をとる。(後述)</li>
+</ul>
+<p>(A) を選べば万事解決ですが、人間はめんどうくさがるものです。コレクションを操作するのにいちいち UI スレッドへのディスパッチを行うのはめんどうです。(C) は思いつきもしなかったので、筆者は (B) を選ぼうとしました。</p>
+<p>ここからが本題です。</p>
+<h2 id="B-案-スレッド安全な観測可能コレクション"><a href="#B-案-スレッド安全な観測可能コレクション" class="headerlink" title="(B)案: スレッド安全な観測可能コレクション"></a>(B)案: スレッド安全な観測可能コレクション</h2><p>観測可能なコレクションをスレッド安全にする方法は、筆者が思いつくかぎりでは4つほどあります。</p>
+<h3 id="方法1-スレッドによる所有"><a href="#方法1-スレッドによる所有" class="headerlink" title="方法1: スレッドによる所有"></a>方法1: スレッドによる所有</h3><p>観測可能なコレクションの代表例である ObservableCollection は、スレッド安全なコレクションです (※)。どのくらい安全かというと、<strong>非UIスレッドから操作すると例外が送出される</strong> のです。実にあんしんです。</p>
+<p>これすなわち、変更操作をするたびに UI スレッドへのディスパッチが必要ということです。さきほどの (A) 案と一緒ですね。</p>
+<p>※ここで、コレクションがスレッド安全であるとは、それに対して少なくとも1つの変更操作を含む複数の操作が同時に実行されたとしても競合状態を引き起こさないこと、と定義しておきます。ObservableCollection は1つのスレッドからしか触れませんから、競合状態を引き起こすことはありません。ゆえにスレッド安全となります。</p>
+<h3 id="方法2-排他ロック"><a href="#方法2-排他ロック" class="headerlink" title="方法2: 排他ロック"></a>方法2: 排他ロック</h3><p>スレッド安全性といえば排他ロックでしょう。排他ロックそのものの説明は割愛します。</p>
+<p>初め、筆者はこの方針で観測可能なコレクションを実装したのですが、スレッド安全性の保証で行き詰まりました。というのも、外部に晒したコレクションをロックで守るのがそもそも不可能だったのです。</p>
+<p>例えば、 <code>Enumerable.ToArray</code> 拡張メソッドの実装はだいたいこんな感じになっているはずです:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> X[] ToArray&lt;X&gt;(IEnumerable&lt;X&gt; xs)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> list = xs <span class="keyword">as</span> IList&lt;X&gt;;</span><br><span class="line">    <span class="keyword">if</span> (list != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> array = <span class="keyword">new</span> X[list.Count];</span><br><span class="line">        list.CopyTo(array, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 以下略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>こういう「リストの Count を参照した後、その値を利用して別の操作をする」みたいな処理では、Count から後続の処理までの間に要素数が変わらないようにする必要がありますが、ToArray がロックをとってくれていないのでそれは不可能です。</p>
+<p>書いたコードはお焚きあげに出しました。 R.I.P.</p>
+<h3 id="方法3-コレクション系インターフェイスを実装しない"><a href="#方法3-コレクション系インターフェイスを実装しない" class="headerlink" title="方法3. コレクション系インターフェイスを実装しない"></a>方法3. コレクション系インターフェイスを実装しない</h3><p>先ほどの ToArray 問題の原因は、<code>IList&lt;_&gt;</code> などのコレクション系インターフェイスが並行プログラミングをサポートしていないことにあります。そこで、それらのインターフェイスを捨てて、<code>IEnumerable&lt;_&gt;</code> だけを実装するようにすれば安全です。</p>
+<h4 id="GetEnumerator-の非効率性"><a href="#GetEnumerator-の非効率性" class="headerlink" title="GetEnumerator の非効率性"></a>GetEnumerator の非効率性</h4><p>この選択肢の利点と欠点を考えましょう。1つ目の欠点は、LINQ to IEnumerable が使えなくなることです。というのも、先述の <code>Enumerable.ToArray</code> は、渡されたシーケンス (IEnumerable) の実体の型がコレクションかどうかで条件分岐しています。コレクションでなければ Count などを参照できないので、GetEnumerator だけを使って処理を行います。一般的にシーケンスに対する GetEnumerator だけを使う実装は、著しく非効率な場合があります。例えば <code>Enumerable.Count</code> (シーケンスの長さを取得する) のように、コレクションであれば一瞬で実行できるはずの操作にも要素の数だけ時間がかかることになります。</p>
+<p>しかしこの欠点にはいちおうの対策があります。というのも、拡張メソッドはオーバーライドできませんが、シャドーイングはできるからです。そのため、<code>Enumerable.Count</code> のように効率の悪くなるメソッドに対して観測可能なコレクション用に特化したメソッドを用意しておくことで、ある程度の問題は解決します。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 読み取り専用の観測可能なコレクションを表すインターフェイスを定義しておく。</span></span><br><span class="line">public interface IReadOnlyObservableList&lt;T&gt;</span><br><span class="line">    : IEnumerable&lt;T&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">Task&lt;<span class="keyword">int</span>&gt; <span class="title">CountAsync</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 観測可能なコレクションに特化した拡張メソッドを定義しておく。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> ObservableListExtension</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> Count&lt;X&gt;(<span class="keyword">this</span> IReadOnlyObservableList&lt;X&gt; @<span class="keyword">this</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> @<span class="keyword">this</span>.CountAsync().Result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 効率のよい方のメソッドが使われる。</span></span><br><span class="line"><span class="keyword">new</span> MyObservableList&lt;<span class="keyword">int</span>&gt;().Count();</span><br></pre></td></tr></table></figure>
+<p>対象は Count(), Any(), ElementAt(int), Last() です。このくらいなら実装量的にも大丈夫でしょう。</p>
+<p>もちろん WPF は特化版のメソッドを使ってはくれませんが、WPF がコレクションの要素数を取得したりインデックスでアクセスしたりする場面が思いつかないので (あったら教えてください)、ひとまず問題なしとします。</p>
+<h4 id="スレッド安全性の確保"><a href="#スレッド安全性の確保" class="headerlink" title="スレッド安全性の確保"></a>スレッド安全性の確保</h4><p>標準のコレクション系インターフェイスを実装しないだけでは、まだスレッド安全になりません。UI スレッドから GetEnumerator が起動されることになるので、GetEnumerator と他の操作が同時に起動されても大丈夫なようにする (あるいは同時には起動されないようにする) 必要があります。</p>
+<p>これは比較的簡単にできます。例えば排他ロックを用いて、GetEnumerator を「ロックの中でリスト全体のコピーを作り、そのコピーの列挙子を返す」ようにする、などです。これは次のような実装になります。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// コレクションの要素を入れておくリスト</span></span><br><span class="line"><span class="keyword">readonly</span> List&lt;T&gt; list;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ロックオブジェクト</span></span><br><span class="line"><span class="keyword">readonly</span> <span class="keyword">object</span> gate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> X Invoke&lt;X&gt;(Func&lt;X&gt; f)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">lock</span> (gate)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> f();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> IEnumerator&lt;T&gt; <span class="title">GetEnumerator</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Invoke(() =&gt; list.ToList()).GetEnumerator();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>考えられる方法としては:</p>
+<ul>
+<li>排他ロック &amp; コピー</li>
+<li>単一スレッドへのディスパッチ &amp; コピー</li>
+<li>不変オブジェクト</li>
+</ul>
+<p>などがあります。詳細は割愛。</p>
+<h4 id="コレクション操作のインターフェイス"><a href="#コレクション操作のインターフェイス" class="headerlink" title="コレクション操作のインターフェイス"></a>コレクション操作のインターフェイス</h4><p>標準のコレクション系インターフェイスを実装しないということは、コレクションに対する挿入や除去の操作を独自に提供する必要があります。</p>
+<p>単純に <code>IList&lt;_&gt;</code> と同じインターフェイスを提供するのが自然です。</p>
+<p>スレッド安全性の保証に単一スレッドへのディスパッチを用いるのであれば、結果を Task として返すような非同期操作を持たせるのもありでしょう。</p>
+<h4 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h4><ul>
+<li>利点: スレッド安全性を獲得できる。</li>
+<li>欠点: 外法。</li>
+</ul>
+<h3 id="方法4-単一スレッドへのディスパッチ"><a href="#方法4-単一スレッドへのディスパッチ" class="headerlink" title="方法4. 単一スレッドへのディスパッチ"></a>方法4. 単一スレッドへのディスパッチ</h3><p>スレッド安全なコレクションを考える話に戻ります。</p>
+<p>次の方法は、コレクションへの変更を書き込む処理と、コレクションからデータを読み取る処理をすべて単一のスレッドで行う、というものです。すなわち、ある単一のスレッドではコレクションを普通に操作する代わり、それとは別のスレッドから操作しようとしたら、その単一のスレッドにコレクションへの操作を「依頼」する、ということです。ちなみに他のスレッドに処理を依頼することをディスパッチするというみたいです。</p>
+<p>この方法ではディスパッチ処理をコレクションの内部 (Add メソッドなど) で行うので、使う側はめんどくさくありません。</p>
+<p>スレッドの切り替えには、標準にある System.Threading.SynchronizationContext を使えばよいでしょう。WPF にある Dispatcher を使うという手もありますが、これは高機能すぎますし、sealed class なのでテストダブルが作れないという問題と、ライブラリーに対する依存関係が深くなる問題があるので、ひとまず置いておきます。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class ObservableList&lt;T&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">readonly</span> SynchronizationContext context =</span><br><span class="line">        SynchronizationContext.Current;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">readonly</span> List&lt;T&gt; list;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params">T <span class="keyword">value</span></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        context.Send(state =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// ここは UI スレッドで行われる。</span></span><br><span class="line">            list.Add(<span class="keyword">value</span>);</span><br><span class="line">        &#125;, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>この方法では、先述の ToArray 問題が解決できません。</p>
+<h2 id="C-案-UI-非UIスレッド間のスレッド安全性保証"><a href="#C-案-UI-非UIスレッド間のスレッド安全性保証" class="headerlink" title="(C)案: UI/非UIスレッド間のスレッド安全性保証"></a>(C)案: UI/非UIスレッド間のスレッド安全性保証</h2><p>コレクション自体をスレッド安全にするのではなく、ユーザーと WPF からの同時アクセスだけを防ぐ方針もありえます。その2つがどう違うのかというと、後者の場合は例えばユーザーが2つの非UIスレッドを作って、それらから単一のコレクションを同時に操作したときに、競合状態が起きうるということです。ただし、ユーザーがコレクションを操作しているのと同時に WPF (UI スレッド) がコレクションにアクセスしても、競合状態は起こりません。</p>
+<p>そもそもの目的を思い出すと、たしかにユーザーサイドでの同時アクセスまで面倒をみる必要はないように思えます。</p>
+<h3 id="EnableCollectionSynchronization"><a href="#EnableCollectionSynchronization" class="headerlink" title="EnableCollectionSynchronization"></a>EnableCollectionSynchronization</h3><p>実際にどうやるかというと、WPF が提供している BindingOperations.EnableCollectionSynchronization メソッドを使います。このメソッドをあらかじめコレクションに適用しておくことで、観測可能なコレクションを非UIスレッドから更新しても安全になるそうです。</p>
+<h3 id="所有スレッドの変更"><a href="#所有スレッドの変更" class="headerlink" title="所有スレッドの変更"></a>所有スレッドの変更</h3><p>これは筆者の経験に基づく憶測なのですが、ビューモデルの一生は2ステップに分かれます。1つはビューモデルのコンストラクターの内部で、データベースなどから取ってきた値にもとづいてコレクションなどに初期値を入れていく過程です。2つ目は、ビューモデルを UI 要素のプロパティにバインドして、ユーザーの操作のフィードバックを受ける過程です。</p>
+<p>ビューモデルの生成をUIスレッドでやるか非UIスレッドでやるかという考察は、それだけで記事が1つ書けるぐらいの内容だと思いますが、ここでは非UIスレッドでやると仮定します。その場合、観測可能なコレクションが生成されるのは非UIスレッドです。1つ目の過程 (初期値を入れていく) は、まだ UI 要素にバインドされていないので、非UIスレッドで行っても問題ありません。しかし2つ目の過程 (ユーザーの操作のフィードバックを受ける) は、もちろん UI スレッドで行う必要があります。</p>
+<p>観測可能なコレクションを所有するスレッドを動的に変更するのはどうか、というアイディアです。すなわち、第1過程では生成スレッド (非UIスレッド) に所有され、第2過程に移った段階で UI スレッドに所有されるようにする、ということです。</p>
+<p>スレッドの所有権を明示的にプログラムの中で表現しようとすると、委譲処理をどうやって起動するかが問題になります。委譲を行うタイミングは UI 要素にバインドされた瞬間ですが、これをフックする方法が分かりません。この方法は <del>もうめんどくさいのでかんがえたくない</del> さらなる検討の余地がありそうです。</p>
+<p>スレッドの所有権をプログラムで表現しない、すなわち「オブジェクトが特に制御しなくても操作元のスレッドが常に1つに限定されるように努力する」というのも1つの方法です。先述の2過程仮説が正しければ、次のような制約でコーディングすれば競合は回避できます: 観測可能コレクションは、それを所有するオブジェクトのコンストラクター、または UI スレッドでのみ操作できる。</p>
+<p>これはけっこう現実的で、例えば <a href="https://github.com/runceel/ReactiveProperty" target="_blank" rel="noopener">ReactiveProperty</a> が提供する観測可能なコレクションである ReactiveCollection は、そういう感じの使い方を想定しているようにみえます (※個人の感想です)。</p>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><ul>
+<li>ReactiveProperty をインストールしているなら、ReactiveCollection を使おう。</li>
+<li>.NET 4.5 以上なら、EnableCollectionSynchronization を使おう。</li>
+</ul>
+<p>本稿では、ぐだぐだな考察と考慮漏れだらけの迷走を経て、ReactiveCollection がなぜ安全に運用できているのかに対する納得できる仮説を得られた。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li>ugaya40 (2015)「StatefulModelについて」, the sea of fertility. <a href="http://ugaya40.hateblo.jp/entry/StatefulModel" target="_blank" rel="noopener">http://ugaya40.hateblo.jp/entry/StatefulModel</a>, (閲覧日: 2017年3月10日)</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/" data-id="cjnspsyyq0033kfcx6rlw6fk1" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/WPF/">WPF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/非同期/">非同期</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-breakable-loop-in-fsharp" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2017-03-05/breakable-loop-in-fsharp/" class="article-date">
+  <time datetime="2017-03-04T15:00:00.000Z" itemprop="datePublished">2017-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017-03-05/breakable-loop-in-fsharp/">break可能なループを書こう - 関数型プログラミングのテクニック</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://qiita.com/vain0x/items/ddef84e3959dffe6a88d" target="_blank" rel="noopener">Qiita</a></p>
+<p>手続き型言語を使う人に「F# のループ (for/while) は <code>break</code> できない」というと驚かれるかもしれません。筆者は驚きました。途中で終了する可能性のあるループを書けなくて困りそうですが、その心配は不要です。F# では <strong>末尾再帰関数</strong> を使って、<code>break</code> や <code>continue</code> のあるループと同じことができるからです。</p>
+<h2 id="例1-無条件の無限ループ"><a href="#例1-無条件の無限ループ" class="headerlink" title="例1: 無条件の無限ループ"></a>例1: 無条件の無限ループ</h2><p>まずは最も簡単な例を挙げます。<code>break</code> も <code>continue</code> も使わないループを、末尾再帰関数を使って書いてみましょう。ひたすら <code>yes</code> を出力するだけの、通称 yes コマンドです。C# だとこうですね。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">YesAll</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"yes"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これなら F# の <code>while</code> でも同様に書けますが、練習のため末尾再帰で書いてみましょう。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> yesAll () =</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">rec</span> loop () =</span><br><span class="line">        Console.WriteLine(<span class="string">"yes"</span>)</span><br><span class="line">        loop ()</span><br><span class="line">    loop ()</span><br></pre></td></tr></table></figure>
+<p>コードの説明をします。冒頭の <code>let yesAll () = ...</code> は関数の定義で、残りの部分がその本体です。<code>let rec loop () = ...</code> も関数の定義ですが (関数の中に関数！)、<code>rec</code> キーワードがついているので <code>loop</code> 関数は再帰的(<strong>rec</strong>ursive)です (再帰的な関数については後述)。</p>
+<p>F# は字下げに依存した構文を採用しています。<code>loop</code> 関数の定義は、字下げが <code>let</code> と同じ深さに戻ったところで終わります。すなわち、<code>loop</code> の本体は2行からなり、字下げの減っている最後の <code>loop ()</code> は含まれません。</p>
+<p><code>loop</code> 関数の定義の後ろにある <code>loop ()</code> は、事実上 <code>yesAll</code> が最初に実行する式ですが、単に loop 関数を起動するだけです。</p>
+<p>再帰についてもう少し解説します。<code>loop</code> の本体は「yes を出力する」式と「loop を起動する」式の2つからなります。loop の中で loop を起動すると、また「yes を出力する」と「loop を起動する」を実行することになります。すなわち、</p>
+<pre><code>loop を起動する
+= yes を出力して、次に loop を起動する
+= yes を出力して、次に yes を出力して、次に loop を起動する
+= yes を出力して、次に yes を出力して、次に yes を出力して、次に loop を起動する
+= ……
+</code></pre><p>という計算になります。無限ループですね。実際、これは C# で書いたものとほぼ同じループにコンパイルされるはずです。</p>
+<h3 id="機械的翻訳"><a href="#機械的翻訳" class="headerlink" title="機械的翻訳"></a>機械的翻訳</h3><p>C# の視点から loop 関数を解釈する手段を紹介します。まず C# のコードのうち、<code>while</code> の「末尾」に到達する部分に <code>continue</code> を挿入します。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C#</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">YesAll</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"yes"</span>); <span class="comment">// body</span></span><br><span class="line">        <span class="keyword">continue</span>; <span class="comment">// 追加</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>そして、一定の規則で F# のコードに変換します。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// F#</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> yesAll () =</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">rec</span> loop () =            <span class="comment">// while (true) &#123;</span></span><br><span class="line">        Console.WriteLine(<span class="string">"yes"</span>) <span class="comment">//   body</span></span><br><span class="line">        loop ()                  <span class="comment">//   continue;</span></span><br><span class="line">    loop ()                      <span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+<p>つまり、 <code>while (true) { ... }</code> を</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">rec</span> loop =</span><br><span class="line">    ...</span><br><span class="line">loop()</span><br></pre></td></tr></table></figure>
+<p>に置き換え、ループの本体のうち <code>continue</code> を <code>loop ()</code> に置き換えました。</p>
+<p>こうして簡単に末尾再帰バージョンを手に入れることができます。</p>
+<h2 id="例2-停止する無限ループ"><a href="#例2-停止する無限ループ" class="headerlink" title="例2: 停止する無限ループ"></a>例2: 停止する無限ループ</h2><p>先ほどの例で基本的な考え方を会得したので、<code>break</code> を使うループの例を見ていきましょう。</p>
+<p>以下の関数は、標準入力から行を読み込むたびに「叫ぶ」(大文字に変換して出力する)ものです。入力を読み切ったら自動的に終了することにします。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C#</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ScreamLine</span>(<span class="params"><span class="keyword">string</span> line</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Console.WriteLine(line.ToUpper() + <span class="string">"!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Scream</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 標準入力から1行を取得する。</span></span><br><span class="line">        <span class="comment">// 入力の終端に到達していたら、null が返る。</span></span><br><span class="line">        <span class="keyword">var</span> line = Console.ReadLine();</span><br><span class="line">        <span class="keyword">if</span> (line == <span class="literal">null</span>) <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        ScreamLine(line);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これを少しだけ変形します。<code>if</code> 文には常に <code>else</code> をつけ、末尾に到達する部分に <code>continue</code> を挿入します。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C#</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Run</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> line = Console.ReadLine();</span><br><span class="line">        <span class="keyword">if</span> (line == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ScreamLine(line);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>そして、前述の変換に加えて <code>break</code> を <code>()</code> に置き換えると完成です：</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// F#</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> screamLine (line: string) =</span><br><span class="line">    Console.WriteLine(line.ToUpper() + <span class="string">"!"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> scream () =</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">rec</span> loop () =                   <span class="comment">// while (true) &#123;</span></span><br><span class="line">        <span class="keyword">let</span> line = Console.ReadLine()   <span class="comment">//   var line = ...;</span></span><br><span class="line">        <span class="keyword">if</span> line = <span class="keyword">null</span> <span class="keyword">then</span>             <span class="comment">//   if (line == null) &#123;</span></span><br><span class="line">            ()                          <span class="comment">//     break;</span></span><br><span class="line">        <span class="keyword">else</span>                            <span class="comment">//   &#125; else &#123;</span></span><br><span class="line">            scream line                 <span class="comment">//     ...;</span></span><br><span class="line">            loop ()                     <span class="comment">//     continue;</span></span><br><span class="line">                                        <span class="comment">//   &#125;</span></span><br><span class="line">    loop ()                             <span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>()</code> と <code>break</code> が対応することのイメージが分からないと思いますが、直接的な対応はないので、 <code>scream ()</code> の挙動を説明します。</p>
+<p>この関数を <code>scream ()</code> のように起動すると、先程の <code>yesAll ()</code> と同じく <code>loop ()</code> が開始します。<code>loop</code> の結果は、読み取った行が <code>null</code> なら (= 入力が終了したら) <code>()</code> (ユニットという名前の定数) で、そうでなければ <code>else</code> 節の値になります。<code>else</code> 節では、入力を叫んだあとループをやり直しますが、yes コマンドとは違っていつかは入力が終わり <code>()</code> が返ってきます。結局、標準入出力の副作用を除けば</p>
+<pre><code>scream ()
+= loop ()
+= ...
+= loop ()
+= ()
+</code></pre><p>となります。<code>()</code> という「ループを伸ばさない式」のおかげで <code>loop</code> の連鎖が切れて、つまりループが終了して (<code>break</code> して) いますね。</p>
+<p>C# ではループを続けるのに <code>continue</code> は書かなくていい代わりに、終わらせるときに <code>break</code> を書きます。一方この末尾再帰関数のやりかたでは、ループを終わらせるのに <code>break</code> は書かなくていい代わりに、続けるときに <code>loop ()</code> を書くのです。</p>
+<h2 id="例3-有限回のループ"><a href="#例3-有限回のループ" class="headerlink" title="例3: 有限回のループ"></a>例3: 有限回のループ</h2><p>前の2つの例の <code>loop</code> 関数は、引数として <code>()</code> を受け取りましたが、実際は任意の引数が使えます。ループの「状態」を引数で持ち運ぶのはよくあることです。</p>
+<p>最後の例は、リストの各要素を1行ずつ表示していくループです。 F# だと <code>for</code> で書けますが、練習のため末尾再帰関数で書きます。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> PrintList&lt;X&gt;(IReadOnlyList&lt;X&gt; list)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (index &lt; list.Count)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"&#123;0&#125;"</span>, list[index]);</span><br><span class="line">        index++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>今回は <code>while</code> にガード節がありますが、これは <code>if</code> と <code>break</code> に簡単に分解できて、次のように変形できます：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C#</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> PrintList&lt;X&gt;(IReadOnlyList&lt;X&gt; list)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (index &lt; list.Count) <span class="comment">// 条件節</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"&#123;0&#125;"</span>, list[index]);</span><br><span class="line">            index++;</span><br><span class="line">            <span class="keyword">continue</span>; <span class="comment">// 追加</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>; <span class="comment">// 条件不成立 (index &gt;= list.Count) なら終了。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// F#</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> printList (list: IReadOnlyList&lt;_&gt;) =</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">rec</span> loop index =                           <span class="comment">// while (true) &#123;</span></span><br><span class="line">        <span class="keyword">if</span> index &lt; list.Count <span class="keyword">then</span>                 <span class="comment">//    if (...) &#123;</span></span><br><span class="line">            Console.WriteLine(<span class="string">"&#123;0&#125;"</span>, list.[index]) <span class="comment">//      ...;</span></span><br><span class="line">            loop (index + <span class="number">1</span>)                       <span class="comment">//      continue;</span></span><br><span class="line">        <span class="keyword">else</span>                                       <span class="comment">//    &#125; else &#123;</span></span><br><span class="line">            ()                                     <span class="comment">//      break;</span></span><br><span class="line">                                                   <span class="comment">//    &#125;</span></span><br><span class="line">    loop <span class="number">0</span>                                         <span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>loop</code> 関数の実行を簡単に追ってみましょう。<code>list</code> を長さ 3 のリストとすると、</p>
+<pre><code>loop 0
+= 0 &lt; 3 なら、出力して loop 1
+= loop 1
+= 1 &lt; 3 なら、出力して loop 2
+= loop 2
+= 2 &lt; 3 なら、出力して loop 3
+= loop 3
+= 3 &lt; 3 なら、出力して loop 4
+= (なにもしない)
+= ()
+</code></pre><p>となります。</p>
+<h2 id="まとめ-変換規則"><a href="#まとめ-変換規則" class="headerlink" title="まとめ: 変換規則"></a>まとめ: 変換規則</h2><ol>
+<li><code>for</code> や <code>foreach</code> は <code>while</code> に書き換える。</li>
+<li><code>while</code> の条件があれば、 <code>while (true)</code> にする代わりに <code>if (! 条件) break;</code> を挿入する。</li>
+<li>すべての <code>if</code> 文に <code>else</code> 節を補う。</li>
+<li><code>while</code> の末尾に到達する部分に <code>continue</code> を補う。</li>
+<li><code>break</code> を <code>()</code> にする。</li>
+</ol>
+<h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><p>本稿では、C# のループを比較的単純に末尾再帰関数に変換できることを紹介しました。実際のところ、再帰は再帰として理解したほうがいいと思いますが、こういう小手先のテクニックを用いて理解を深めていくのも1つの手かもしれません。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2017-03-05/breakable-loop-in-fsharp/" data-id="cjnspsyyc002bkfcxngzw43tw" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/F/">F#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/関数型プログラミング/">関数型プログラミング</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-friends-lang" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2017-02-12/friends-lang/" class="article-date">
+  <time datetime="2017-02-11T15:00:00.000Z" itemprop="datePublished">2017-02-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017-02-12/friends-lang/">すごーい！ きみはプログラミング言語を実装できるフレンズなんだね</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://qiita.com/vain0x/items/6d3b75f667d3ec7f1d2a" target="_blank" rel="noopener">Qiita</a></p>
+<p>ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！</p>
+<h2 id="サンプルコード"><a href="#サンプルコード" class="headerlink" title="サンプルコード"></a>サンプルコード</h2><h3 id="Socrates"><a href="#Socrates" class="headerlink" title="Socrates"></a>Socrates</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ かばんちゃん は ヒトの フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ あなた が ヒトの フレンズ なら</span><br><span class="line">あなた は しっぽのない フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">だれ が しっぽのない フレンズ なんだっけ？</span><br></pre></td></tr></table></figure>
+<p>出力:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">「だれ」は「かばんちゃん」、</span><br><span class="line">あってる？ (y/n)y</span><br><span class="line">やったー！</span><br></pre></td></tr></table></figure>
+<p>「かばんちゃん は ヒトの フレンズ」で「ヒトの フレンズ は しっぽのない フレンズ」だから「かばんちゃん は しっぽのない フレンズ」なんだね！</p>
+<p>たーのしー！</p>
+<h3 id="FizzBuzz"><a href="#FizzBuzz" class="headerlink" title="FizzBuzz"></a>FizzBuzz</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ 0 は 自然数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ の 次 も 自然数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ 0 は 3の倍数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 3の倍数の フレンズ なら</span><br><span class="line">きみ の 次 の 次 の 次 も 3の倍数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ 0 は 5の倍数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 5の倍数の フレンズ なら</span><br><span class="line">きみ の 次 の 次 の 次 の 次 の 次 も 5の倍数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ 0 は 15の倍数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 15の倍数の フレンズ なら</span><br><span class="line">きみ の 次 の 次 の 次 の 次 の 次 の 次 の 次 の</span><br><span class="line">次 の 次 の 次 の 次 の 次 の 次 の 次 の 次 も</span><br><span class="line">15の倍数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ きみ が 15の倍数の フレンズ なら</span><br><span class="line">きみ と FizzBuzz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 3の倍数の フレンズ なら</span><br><span class="line">きみ と Fizz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 5の倍数の フレンズ なら</span><br><span class="line">きみ と Buzz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ と きみ は FizzBuzz フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ 0 は きみ の 次 より 小さい フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ なら</span><br><span class="line">きみ の 次 は かのじょ の 次 より 小さい フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ なら</span><br><span class="line">きみ が きみ と かのじょ との 間の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ で</span><br><span class="line">かれ が きみ の 次 と かのじょ との 間の フレンズ なら</span><br><span class="line">かれ も きみ と かのじょ との 間の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">それ が 0 と 16 との 間の フレンズ で</span><br><span class="line">それ と だれ が FizzBuzz フレンズ なんだっけ？</span><br></pre></td></tr></table></figure>
+<p>出力:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">「それ」は0、</span><br><span class="line">「だれ」は「FizzBuzz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は1、</span><br><span class="line">「だれ」は1、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は2、</span><br><span class="line">「だれ」は2、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は3、</span><br><span class="line">「だれ」は「Fizz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は4、</span><br><span class="line">「だれ」は4、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は5、</span><br><span class="line">「だれ」は「Buzz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は6、</span><br><span class="line">「だれ」は「Fizz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は7、</span><br><span class="line">「だれ」は7、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は8、</span><br><span class="line">「だれ」は8、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は9、</span><br><span class="line">「だれ」は「Fizz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は10、</span><br><span class="line">「だれ」は「Buzz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は11、</span><br><span class="line">「だれ」は11、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は12、</span><br><span class="line">「だれ」は「Fizz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は13、</span><br><span class="line">「だれ」は13、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は14、</span><br><span class="line">「だれ」は14、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は15、</span><br><span class="line">「だれ」は「FizzBuzz」、</span><br><span class="line">あってる？ (y/n)y</span><br><span class="line">やったー！</span><br></pre></td></tr></table></figure>
+<p>わー！ すごーい！</p>
+<h2 id="解説"><a href="#解説" class="headerlink" title="解説"></a>解説</h2><p>Qiita なので技術的な話をします。</p>
+<p>処理系のソースコードは <a href="https://github.com/vain0x/friends-lang" target="_blank" rel="noopener">GitHub</a> にあります。</p>
+<h3 id="すごーい！-文"><a href="#すごーい！-文" class="headerlink" title="すごーい！ 文"></a>すごーい！ 文</h3><p>「すごーい！」で始まる文は、事実を表明するものです。例えば、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ かばんちゃん は ヒトの フレンズ なんだね！</span><br></pre></td></tr></table></figure>
+<p>は命題「かばんちゃん は ヒトの フレンズ」が真であることを表明します。ここで「かばんちゃん」という単語は定義されていませんが、アトムという文字列のようなものなので、使用することができます。</p>
+<p>「ヒトの」は述語の名前です。</p>
+<h3 id="なんだっけ？-文"><a href="#なんだっけ？-文" class="headerlink" title="なんだっけ？ 文"></a>なんだっけ？ 文</h3><p>「なんだっけ？」で終わる文は、「すごーい！」文で表明した事実を用いて、指定された命題を真にするような割り当てが存在するかを探索します。例えば、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">だれ が ヒトの フレンズ なんだっけ？</span><br></pre></td></tr></table></figure>
+<p>と問いかけると、変数「だれ」 <a href="変数は、「だれ」や「あなた」などのいくつかの予約語と、アンダーバーで始まる名前の識別子です。それ以外の識別子はアトムになります。">^var_naming</a> に適当なアトムを代入することで、命題「だれ が ヒトの フレンズ」を真にできるかどうかを判定し、命題を真にするような変数への割り当てを出力します。この例では、「ヒトの フレンズ」述語に関する真偽は、前述のすごーい！文でしか述べられていないので、「だれ」＝「かばんちゃん」という割り当てのみがこの命題を真にします。</p>
+<h3 id="条件つきのすごーい！文"><a href="#条件つきのすごーい！文" class="headerlink" title="条件つきのすごーい！文"></a>条件つきのすごーい！文</h3><p>条件つきのすごーい！文は、ある命題が真であるときに、別の命題が成り立つことを表明します。例えば、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ の 次 も 自然数の フレンズ なんだね！</span><br></pre></td></tr></table></figure>
+<p>は変数「きみ」に適当な割り当てがなされて命題「きみ が 自然数の フレンズ」が真だと判定されたなら、命題「きみ の 次 は 自然数の フレンズ」も真である、と述べています。ちなみに「～は」「～が」「～も」はすべて同じです。</p>
+<p>式 <code>きみ の 次</code> は複合項というものです。Friends 言語では、式は「評価」されるものではなく、他の式とパターンマッチするためだけのものです。複合項の特徴は、単に「同一の形をした複合項とのみマッチする」ということです。すなわち、<code>きみ の 次</code> という式は、<code>? の 次</code> という形の式にだけマッチする式を表しています。</p>
+<p>Friends 言語において <code>x の 次</code> という形の式は少しだけ特別で、自然数 <a href="ここでは0以上の整数のこと。">^natural_numbers</a> は「0 の 次 の 次 の … の 次」という複合項に解釈されます。すなわち、<code>0</code> はアトム ですが、<code>1</code> は <code>0 の 次</code>、<code>2</code> は <code>0 の 次 の 次</code> という項を表します。</p>
+<p>例えば、次の質問をすると、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ 0 は 自然数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ の 次 も 自然数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">3 は 自然数の フレンズ なんだっけ？</span><br></pre></td></tr></table></figure>
+<p>3 は 0 ではありませんから、2つ目の条件つきのすごーい！文を使って真偽を判定することになります。<br>この命題が真であるには、<code>きみ の 次</code> = <code>3</code> = <code>0 の 次 の 次 の 次</code> でなければなりませんから、<strong>パターンマッチ</strong> により、<code>きみ</code> = <code>0 の 次 の 次</code> = 2 という割り当てが得られます。<br>加えて、条件「2 が 自然数の フレンズ」が成り立たなければなりませんが、これも同様の方法で推論できます。<br>したがって、「0 は 自然数の フレンズ」、だから「1 は 自然数の フレンズ」、なので「2 は 自然数の フレンズ」、ゆえに「3 は 自然数 のフレンズ」という推論ができます。</p>
+<p>3の倍数、5の倍数、15の倍数の判定も同様に可能です。</p>
+<h3 id="たーのしー！節"><a href="#たーのしー！節" class="headerlink" title="たーのしー！節"></a>たーのしー！節</h3><p>FizzBuzz フレンズの定義を再掲します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ きみ が 15の倍数の フレンズ なら</span><br><span class="line">きみ と FizzBuzz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 3の倍数の フレンズ なら</span><br><span class="line">きみ と Fizz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 5の倍数の フレンズ なら</span><br><span class="line">きみ と Buzz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ と きみ は FizzBuzz フレンズ なんだね！</span><br></pre></td></tr></table></figure>
+<p>n の FizzBuzz 表現 (Fizz/Buzz/FizzBuzz/n) を fizzbuzz(n) と書くことにします。FizzBuzz フレンズは、簡単にいえば、すべての自然数 n について命題「n と fizzbuzz(n) が FizzBuzz フレンズ」が真になるような述語です。</p>
+<p>すごーい！文の末尾につく「たーのしー！」節は、その文が命題を真にすると、残りのすごーい！文を探索しない、という機能を持ちます。すなわち、命題「x と y が FizzBuzz フレンズ」の真偽を判定するとき、「x が 15の倍数の フレンズ」だと分かったら、残りの3つの文 (3の倍数なら、5の倍数なら、自然数なら、というやつ) は無視する、ということです。もしこれがないと、「15 と FizzBuzz が FizzBuzz フレンズ」であると同時に、「15 と Fizz も FizzBuzz フレンズ」でもあることになってしまいます。</p>
+<h3 id="助詞"><a href="#助詞" class="headerlink" title="助詞"></a>助詞</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ 0 は きみ の 次 より 小さい フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ なら</span><br><span class="line">きみ の 次 は かのじょ の 次 より 小さい フレンズ なんだね！</span><br></pre></td></tr></table></figure>
+<p>「x は y より 小さい フレンズ」は「x と y が 小さい フレンズ」を表す糖衣構文です。<br>それ以外は前述の通りです。</p>
+<h3 id="非決定性"><a href="#非決定性" class="headerlink" title="非決定性"></a>非決定性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ なら</span><br><span class="line">きみ が きみ と かのじょ との 間の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ で</span><br><span class="line">かれ が きみ の 次 と かのじょ との 間の フレンズ なら</span><br><span class="line">かれ も きみ と かのじょ との 間の フレンズ なんだね！</span><br></pre></td></tr></table></figure>
+<p>「x で y」という命題は、x と y が両方真である、という命題 (論理積) を表します。</p>
+<p>「間の」フレンズのおもしろいところは、それを真にする割り当てが複数あることです。というのも、命題「あなた が 0 と 3 との 間の フレンズ」を真にする割り当ては、<code>あなた</code> = 0, 1, 2 の3つあります。このように解が一意に定まらないことを、推論の <strong>非決定性</strong> といいます。</p>
+<p>推論を追ってみましょう。命題「0 が 3 より 小さい フレンズ」は、「小さい」の定義により成り立つと分かります (詳細は割愛)。命題「あなた が 0 と 3 との 間の フレンズ」が真になるには、まず1つ目のすごーい！文により、結論「あなた が あなた と 3 との 間の フレンズ」とマッチする場合が考えられます。パターンマッチにより <code>あなた</code> = <code>0</code> という割り当てが得られます。</p>
+<p>この文には「たーのしー！」節がないので、次のすごーい！文も適用できます。「あなた が 0 と 3 との 間の フレンズ」と「かれ も きみ と かのじょ との 間の フレンズ」を見比べて、「あなた = かれ」「0 = きみ」「3 = かのじょ」という割り当てを得ます。そして、条件「かれ が きみ の 次 と かのじょ との 間の フレンズ」＝「あなた が 0 の 次 と 3 との 間の フレンズ」が真であるかを判定します。再び1つ目のすごーい！文により、<code>あなた</code> = <code>0 の 次</code> = <code>1</code> という割り当てを得ます。これの繰り返しになります。</p>
+<h2 id="Prolog"><a href="#Prolog" class="headerlink" title="Prolog"></a>Prolog</h2><p>実際のところ、Friends 言語は Prolog という「論理型プログラミング言語」の文法を変更したものです。興味があれば、Prolog について調べてみてください。Prolog の処理系には <a href="https://az-prolog.com/" target="_blank" rel="noopener">AZ-Prolog</a> や <a href="http://www.swi-prolog.org/" target="_blank" rel="noopener">SWI-Prolog</a> などがあります。</p>
+<h2 id="動作環境"><a href="#動作環境" class="headerlink" title="動作環境"></a>動作環境</h2><p>(追記 3/7) Friends 言語を Mac や Linux でも動くようにしてもらえました。</p>
+<p><a href="http://leko.jp/archives/933" target="_blank" rel="noopener">すごーい！きみはフレンズ言語をDockerizeできるフレンズなんだね！</a></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="http://kemono-friends.jp/" target="_blank" rel="noopener">けものフレンズプロジェクト｜公式サイト</a></li>
+<li><a href="http://qiita.com/ShunIchikawa/items/6449f492dc38a7201162" target="_blank" rel="noopener">Prolog実践入門 - AIに特化した老舗言語</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2017-02-12/friends-lang/" data-id="cjnspsyyf002ekfcxqu60zmm4" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Prolog/">Prolog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ネタ/">ネタ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/プログラミング言語/">プログラミング言語</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/言語実装/">言語実装</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/blog/">&laquo; 前へ</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/3/">次へ &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新記事</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-31/diary/">近況 2018-10-31</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-09-30/diary/">近況 2018-09-30</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/NET/" style="font-size: 12px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 18px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 14px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 14px;">Tips</a> <a href="/blog/tags/WPF/" style="font-size: 14px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 12px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 16px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 12px;">競技プログラミング</a> <a href="/blog/tags/言語実装/" style="font-size: 10px;">言語実装</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 14px;">非同期</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vain0x<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">ブログ</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
+  
+    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
+  
+    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
+  
+    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

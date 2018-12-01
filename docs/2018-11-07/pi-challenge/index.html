@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128265968-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>円周率チャレンジにアルゴリズムでチャレンジ | vain0x&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="円周率チャレンジ というゲームが流行中です！ プログラムを使って良い解法を探索してみたので、考えたことを書いていきます。 円周率チャレンジとは 円周率チャレンジ「円周率チャレンジ」は，「ルートをとる(sqrt)」「2を足す(+2)」の２種類のボタンを使って，数字を円周率に近づけていくゲームです。できるだけ少ない回数でハイスコアを狙いましょう！  例えば +2, √, +2 という手順で操作を行うと">
+<meta name="keywords" content="Rust,アルゴリズム">
+<meta property="og:type" content="article">
+<meta property="og:title" content="円周率チャレンジにアルゴリズムでチャレンジ">
+<meta property="og:url" content="http://vain0x.github.io/blog/2018-11-07/pi-challenge/index.html">
+<meta property="og:site_name" content="vain0x&#39;s blog">
+<meta property="og:description" content="円周率チャレンジ というゲームが流行中です！ プログラムを使って良い解法を探索してみたので、考えたことを書いていきます。 円周率チャレンジとは 円周率チャレンジ「円周率チャレンジ」は，「ルートをとる(sqrt)」「2を足す(+2)」の２種類のボタンを使って，数字を円周率に近づけていくゲームです。できるだけ少ない回数でハイスコアを狙いましょう！  例えば +2, √, +2 という手順で操作を行うと">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-09T15:53:31.798Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="円周率チャレンジにアルゴリズムでチャレンジ">
+<meta name="twitter:description" content="円周率チャレンジ というゲームが流行中です！ プログラムを使って良い解法を探索してみたので、考えたことを書いていきます。 円周率チャレンジとは 円周率チャレンジ「円周率チャレンジ」は，「ルートをとる(sqrt)」「2を足す(+2)」の２種類のボタンを使って，数字を円周率に近づけていくゲームです。できるだけ少ない回数でハイスコアを狙いましょう！  例えば +2, √, +2 という手順で操作を行うと">
+<meta name="twitter:creator" content="@vain0x">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">ブログ</a>
+        
+          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+        
+          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+        
+          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
+        
+          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-pi-challenge" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-11-07/pi-challenge/" class="article-date">
+  <time datetime="2018-11-07T08:01:00.000Z" itemprop="datePublished">2018-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      円周率チャレンジにアルゴリズムでチャレンジ
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://rirosi.net/plus2/" target="_blank" rel="noopener">円周率チャレンジ</a> というゲームが流行中です！</p>
+<p>プログラムを使って良い解法を探索してみたので、考えたことを書いていきます。</p>
+<h2 id="円周率チャレンジとは"><a href="#円周率チャレンジとは" class="headerlink" title="円周率チャレンジとは"></a>円周率チャレンジとは</h2><blockquote>
+<h2 id="円周率チャレンジ"><a href="#円周率チャレンジ" class="headerlink" title="円周率チャレンジ"></a>円周率チャレンジ</h2><p>「円周率チャレンジ」は，「ルートをとる(sqrt)」「2を足す(+2)」の２種類のボタンを使って，<br>数字を円周率に近づけていくゲームです。できるだけ少ない回数でハイスコアを狙いましょう！</p>
+</blockquote>
+<p>例えば +2, √, +2 という手順で操作を行うと、数値は:</p>
+<p>0 → 2 → 1.41421.. → 3.41421..</p>
+<p>と変化して、円周率 π = 3.141592.. に近い数値になります。</p>
+<p>もっと手数を増やせば、 <strong>さらに円周率に近づけられるはず</strong> 。その最良手順を探すゲームです。</p>
+<h2 id="解法1-ビット全探索"><a href="#解法1-ビット全探索" class="headerlink" title="解法1: ビット全探索"></a>解法1: ビット全探索</h2><p>やはり最初に試すのは全探索でしょう！</p>
+<p>手数 N の最良手順を探すことを考えます。ここで手順とは「ルートをとる」と「+2 を足す」の2種類の要素からなる長さ N の列です。手順をすべて列挙して、計算結果と円周率を実際に比べてみれば、何が最良か分かるはずです。</p>
+<p>2種類の要素を 0, 1 で表せば、手順はビット列として扱えて、配列を使うより経済的に全探索できます。参考: <a href="https://qiita.com/drken/items/7c6ff2aa4d8fce1c9361#bit-%E5%85%A8%E6%8E%A2%E7%B4%A2" target="_blank" rel="noopener">ビット演算 (bit 演算) の使い方を総特集！ 〜 マスクビットから bit DP まで 〜 - Qiita</a></p>
+<p>操作列の「実行」は次のようなコードです。下位ビットから順番にみていき、 0 なら +2 の操作を、1 ならルートをとる操作を実行して、最終結果を得ます。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">eval</span></span>(ops: <span class="built_in">i64</span>, n: <span class="built_in">usize</span>) -&gt; <span class="built_in">f64</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> value = <span class="number">0.0_f64</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">        <span class="keyword">if</span> (ops &amp; (<span class="number">1</span> &lt;&lt; i)) == <span class="number">0</span> &#123;</span><br><span class="line">            value += <span class="number">2.0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            value = value.sqrt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これをすべての操作列に適用して、円周率の差が最小のものを探します。抜粋:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//..</span></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> best_diff = <span class="number">1e9</span>; <span class="comment">// 最小の差</span></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> best_ops = <span class="number">0</span>; <span class="comment">// 最小の差を達成した操作列</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ops <span class="keyword">in</span> <span class="number">0</span>..<span class="number">1</span> &lt;&lt; n &#123; <span class="comment">// 操作列の全列挙</span></span><br><span class="line">    <span class="keyword">let</span> value = eval(ops, n); <span class="comment">// 操作の実行</span></span><br><span class="line">    <span class="keyword">let</span> diff = (value - PI).abs(); <span class="comment">// 円周率との差</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> best_diff &gt; diff &#123; <span class="comment">// 最小値の更新</span></span><br><span class="line">        best_diff = diff;</span><br><span class="line">        best_ops = ops;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//..</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://play.rust-lang.org/?version=stable&amp;mode=release&amp;edition=2015&amp;gist=61011280947f9a6641333f63bc0b90cb" target="_blank" rel="noopener">コード全体はこちら</a></p>
+<p>時間がかかるのでリリースモードを使って (<code>cargo run --release</code>) 実行すると、こんな感じで手数ごとの良い操作列を出します:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">手数 数値                差                 操作</span><br><span class="line">#00 0.0000000000000000 3.1415926535897931</span><br><span class="line">#01 2.0000000000000000 1.1415926535897931 +</span><br><span class="line">..</span><br><span class="line">#27 3.1415927103795092 0.0000000567897160 +/++ +/// //// //// ++// +/++ ++/</span><br><span class="line">#28 3.1415926624518788 0.0000000088620857 +//+ ++// //// //// /++/ /+/+ +++/</span><br></pre></td></tr></table></figure>
+<p>これで手数 N=28 ぐらいまでの最良(?)手順が求まりました。それ以上は時間がかかりすぎるので、別の方法で探索したほうがよさそうです。</p>
+<h2 id="解法2-半分全列挙"><a href="#解法2-半分全列挙" class="headerlink" title="解法2: 半分全列挙"></a>解法2: 半分全列挙</h2><p>全探索では 0 から π に近づけましたが、逆に π から 0 に近づける操作列も考えられます。つまり、</p>
+<blockquote>
+<p>π から始めて、「2を引く」と「2乗する」を組み合わせて 0 に近づけるゲーム</p>
+</blockquote>
+<p>をやってもいいです。このことから、0 と π の <strong>両端から良い手順を探して繋ぐ</strong> という解法が出てきます。いわゆる半分全列挙です。</p>
+<p>具体的には:</p>
+<ul>
+<li>手数 N/2 の操作 F をすべて列挙して、その結果の数値を A とするとき、(A, F) というペアをすべて記録しておく。</li>
+<li>次に、手数 N/2 の操作 G をすべて列挙して、それを π から逆算したときの数値を B とする。</li>
+<li>メモから (B, F) に最も近いものを探して操作 F+G を作れば、これは π に近い数になる。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    F            G</span><br><span class="line">0   →   A ≒ B   →   π</span><br></pre></td></tr></table></figure>
+<p>計算量はどうでしょう。</p>
+<ul>
+<li>メモ ((A, F) の配列) を A についてソートしておけば、メモから探すのは二分探索ができます。</li>
+<li>ソートを工夫しなければ、全体として O(2^(N/2) log N) です。<ul>
+<li>これなら <strong>N = 50 ぐらいまでいけそう</strong> 。</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://play.rust-lang.org/?version=stable&amp;mode=release&amp;edition=2015&amp;gist=17cf3535110ee76685581525e57cad15" target="_blank" rel="noopener">コード全体はこちら</a></p>
+<p>しばらく待つと、53手のかなり強い手順が得られます。小数点以下15桁まで一致。</p>
+<h2 id="終わりに"><a href="#終わりに" class="headerlink" title="終わりに"></a>終わりに</h2><p>執筆時点で1位の (手数 53, スコア Infinity) には及びませんでした。おそらく二分探索の段階で近似的になりすぎてしまうからかなと思います。ヒューリスティックなアルゴリズムや数学的なアプローチの余地がまだまだありそうです。</p>
+<p>なにはともあれ、半分全列挙のよい練習になりました。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://tatsu-zine.com/books/procon-challenge" target="_blank" rel="noopener">プログラミングコンテストチャレンジブック [第2版]【委託】 - 達人出版会</a><ul>
+<li>通称蟻本。半分全列挙が載っていました</li>
+</ul>
+</li>
+</ul>
+<h2 id="Appendix-ソースコード"><a href="#Appendix-ソースコード" class="headerlink" title="Appendix. ソースコード"></a>Appendix. ソースコード</h2><details><br>    <summary>ビット全探索</summary><br><br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::<span class="built_in">f64</span>::consts::PI;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 操作列 ops の下位ビットから r 桁を実行して、結果の数値を得る。</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">eval</span></span>(ops: <span class="built_in">i64</span>, n: <span class="built_in">usize</span>) -&gt; <span class="built_in">f64</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> value = <span class="number">0.0_f64</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">        <span class="keyword">if</span> (ops &amp; (<span class="number">1</span> &lt;&lt; i)) == <span class="number">0</span> &#123;</span><br><span class="line">            value += <span class="number">2.0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            value = value.sqrt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 操作列を読みやすい文字列にする。</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">how</span></span>(ops: <span class="built_in">i64</span>, n: <span class="built_in">usize</span>) -&gt; <span class="built_in">String</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> acc = <span class="built_in">String</span>::new();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">        <span class="keyword">if</span> i &gt; <span class="number">0</span> &amp;&amp; i % <span class="number">4</span> == <span class="number">0</span> &#123;</span><br><span class="line">            acc.push(<span class="string">' '</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ops &amp; (<span class="number">1</span> &lt;&lt; i)) == <span class="number">0</span> &#123;</span><br><span class="line">            acc.push(<span class="string">'+'</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            acc.push(<span class="string">'/'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    acc</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="comment">// n: 手数</span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="number">0</span>..<span class="number">29</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> best_diff = <span class="number">1e9</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> best_ops = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> ops <span class="keyword">in</span> <span class="number">0</span>..<span class="number">1</span> &lt;&lt; n &#123;</span><br><span class="line">            <span class="keyword">let</span> value = eval(ops, n);</span><br><span class="line">            <span class="keyword">let</span> diff = (value - PI).abs();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> best_diff &gt; diff &#123;</span><br><span class="line">                best_diff = diff;</span><br><span class="line">                best_ops = ops;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> value = eval(best_ops, n);</span><br><span class="line">        <span class="keyword">let</span> diff = (value - PI).abs();</span><br><span class="line">        <span class="keyword">let</span> how = how(best_ops, n);</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">"#&#123;:&gt;02&#125; &#123;:&gt;.16&#125; &#123;:&gt;0.16&#125; &#123;&#125;"</span>, n, value, diff, how);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br></details>
+
+<details><br>    <summary>半分全列挙</summary><br><br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::<span class="built_in">f64</span>::consts::PI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">lower_bound</span></span>&lt;T: <span class="built_in">PartialOrd</span>&gt;(xs: &amp;[T], y: &amp;T) -&gt; <span class="built_in">usize</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> l = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> r = xs.len() + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> r - l &gt; <span class="number">1</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> m = l + (r - l) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> &amp;xs[m - <span class="number">1</span>] &lt; y &#123;</span><br><span class="line">            l = m;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            r = m;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    l</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 操作列 ops の下位ビットから n 桁を実行して、結果の数値を得る。</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">eval</span></span>(ops: <span class="built_in">i64</span>, n: <span class="built_in">usize</span>) -&gt; <span class="built_in">f64</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> value = <span class="number">0.0_f64</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">        <span class="keyword">if</span> (ops &amp; (<span class="number">1</span> &lt;&lt; i)) == <span class="number">0</span> &#123;</span><br><span class="line">            value += <span class="number">2.0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            value = value.sqrt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 操作列 ops の上位ビットから n 桁の逆操作を実行して、結果の数値を得る。</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">eval_inv</span></span>(ops: <span class="built_in">i64</span>, n: <span class="built_in">usize</span>) -&gt; <span class="built_in">f64</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> value = PI;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> (<span class="number">0</span>..n).rev() &#123;</span><br><span class="line">        <span class="keyword">if</span> (ops &amp; (<span class="number">1</span> &lt;&lt; i)) == <span class="number">0</span> &#123;</span><br><span class="line">            value -= <span class="number">2.0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            value *= value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 操作列を読みやすい文字列にする。</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">how</span></span>(ops: <span class="built_in">i64</span>, n: <span class="built_in">usize</span>) -&gt; <span class="built_in">String</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> acc = <span class="built_in">String</span>::new();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">        <span class="keyword">if</span> i &gt; <span class="number">0</span> &amp;&amp; i % <span class="number">4</span> == <span class="number">0</span> &#123;</span><br><span class="line">            acc.push(<span class="string">' '</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ops &amp; (<span class="number">1</span> &lt;&lt; i)) == <span class="number">0</span> &#123;</span><br><span class="line">            acc.push(<span class="string">'+'</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            acc.push(<span class="string">'/'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    acc</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 手数 n の操作の結果をすべて計算する。</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">enumerate</span></span>(n: <span class="built_in">usize</span>) -&gt; <span class="built_in">Vec</span>&lt;(<span class="built_in">f64</span>, <span class="built_in">i64</span>)&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> memo = <span class="built_in">vec!</span>[];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ops <span class="keyword">in</span> <span class="number">0</span>..<span class="number">1</span> &lt;&lt; n &#123;</span><br><span class="line">        <span class="keyword">let</span> value = eval(ops, n);</span><br><span class="line">        memo.push((value, ops));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    memo.sort_by(|(lx, _), (rx, _)| lx.partial_cmp(rx).unwrap());</span><br><span class="line">    memo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="comment">// n: 手数</span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="number">0</span>..<span class="number">54</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> ln = n / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">let</span> rn = n - ln;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> memo = enumerate(ln);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> best_diff = <span class="number">1e9</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> best_ops = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> r_ops <span class="keyword">in</span> <span class="number">0</span>..<span class="number">1</span> &lt;&lt; rn &#123;</span><br><span class="line">            <span class="keyword">let</span> mid = eval_inv(r_ops, rn);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> i = lower_bound(&amp;memo, &amp;(mid, r_ops));</span><br><span class="line">            <span class="keyword">if</span> !(i &lt; memo.len()) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">let</span> (_, l_ops) = memo[i];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> ops = (r_ops &lt;&lt; ln) | l_ops;</span><br><span class="line">            <span class="keyword">let</span> value = eval(ops, n);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> diff = (value - PI).abs();</span><br><span class="line">            <span class="keyword">if</span> best_diff &gt; diff &#123;</span><br><span class="line">                best_diff = diff;</span><br><span class="line">                best_ops = ops;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> value = eval(best_ops, n);</span><br><span class="line">        <span class="keyword">let</span> diff = (value - PI).abs();</span><br><span class="line">        <span class="keyword">let</span> how = how(best_ops, n);</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">"#&#123;:&gt;02&#125; &#123;:&gt;.16&#125; &#123;:&gt;.16&#125; &#123;&#125;"</span>, n, value, diff, how);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br></details>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-11-07/pi-challenge/" data-id="cjoa7fspp0000bkcx5uihi5mx" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Rust/">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/アルゴリズム/">アルゴリズム</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2018-11-30/diary/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">新しい記事へ</strong>
+      <div class="article-nav-title">
+        
+          近況 2018-11-30
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2018-10-31/diary/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">古い記事へ</strong>
+      <div class="article-nav-title">近況 2018-10-31</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新記事</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-31/diary/">近況 2018-10-31</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-09-30/diary/">近況 2018-09-30</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/NET/" style="font-size: 12px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 18px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 14px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 14px;">Tips</a> <a href="/blog/tags/WPF/" style="font-size: 14px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 12px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 16px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 12px;">競技プログラミング</a> <a href="/blog/tags/言語実装/" style="font-size: 10px;">言語実装</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 14px;">非同期</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vain0x<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">ブログ</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
+  
+    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
+  
+    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
+  
+    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128265968-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>SQLの検索条件と検索項目の分離 | vain0x&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="複数の検索条件があるときに検索項目をselect句で毎回列挙するのがだるい問題について考えました。 問題例えばブログシステムで、「最近の記事を列挙する」クエリーと「特定のカテゴリーの記事を列挙する」ものがあるとします。SQL文は次のようになるでしょう： 1234567891011121314151617-- 最近の記事を列挙するクエリーselect    -- 実際にはカラムがいっぱい並ぶ。">
+<meta name="keywords" content="Tips,Essay,データベース">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLの検索条件と検索項目の分離">
+<meta property="og:url" content="http://vain0x.github.io/blog/2018-01-05/sql-search-only-keys/index.html">
+<meta property="og:site_name" content="vain0x&#39;s blog">
+<meta property="og:description" content="複数の検索条件があるときに検索項目をselect句で毎回列挙するのがだるい問題について考えました。 問題例えばブログシステムで、「最近の記事を列挙する」クエリーと「特定のカテゴリーの記事を列挙する」ものがあるとします。SQL文は次のようになるでしょう： 1234567891011121314151617-- 最近の記事を列挙するクエリーselect    -- 実際にはカラムがいっぱい並ぶ。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-28T10:09:37.954Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQLの検索条件と検索項目の分離">
+<meta name="twitter:description" content="複数の検索条件があるときに検索項目をselect句で毎回列挙するのがだるい問題について考えました。 問題例えばブログシステムで、「最近の記事を列挙する」クエリーと「特定のカテゴリーの記事を列挙する」ものがあるとします。SQL文は次のようになるでしょう： 1234567891011121314151617-- 最近の記事を列挙するクエリーselect    -- 実際にはカラムがいっぱい並ぶ。">
+<meta name="twitter:creator" content="@vain0x">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">ブログ</a>
+        
+          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+        
+          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+        
+          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
+        
+          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-sql-search-only-keys" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-01-05/sql-search-only-keys/" class="article-date">
+  <time datetime="2018-01-05T14:30:37.000Z" itemprop="datePublished">2018-01-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SQLの検索条件と検索項目の分離
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>複数の検索条件があるときに検索項目をselect句で毎回列挙するのがだるい問題について考えました。</p>
+<h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><p>例えばブログシステムで、「最近の記事を列挙する」クエリーと「特定のカテゴリーの記事を列挙する」ものがあるとします。SQL文は次のようになるでしょう：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 最近の記事を列挙するクエリー</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    <span class="comment">-- 実際にはカラムがいっぱい並ぶ。</span></span><br><span class="line">    a.title</span><br><span class="line">    , a.created_at</span><br><span class="line">    , comments.content</span><br><span class="line">    , comments.created_at</span><br><span class="line">    , categories.category_name</span><br><span class="line"><span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">join</span> comments</span><br><span class="line">    <span class="keyword">using</span> (article_id)</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> categories</span><br><span class="line">    <span class="keyword">using</span> (category_id)</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    a.created_at &gt;= :first_date</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a.created_by <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 特定のカテゴリーの記事を列挙するクエリー</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    <span class="comment">-- 上のクエリーと似たような内容になる。</span></span><br><span class="line">    a.title</span><br><span class="line">    , a.created_at</span><br><span class="line">    , comments.content</span><br><span class="line">    , comments.created_at</span><br><span class="line">    , categories.category_name</span><br><span class="line"><span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">join</span> comments</span><br><span class="line">    <span class="keyword">using</span> (article_id)</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> categories</span><br><span class="line">    <span class="keyword">using</span> (category_id)</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    <span class="comment">-- ここは全く違う。</span></span><br><span class="line">    categories.category_id <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">and</span> categories.category_id = :category_id</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a.created_by <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
+<p>2つのクエリーは結合するテーブルの個数や検索条件こそ異なりますが、結果として得られるリストは同じです。SQLに重複が多くて、あとで困りそうです。</p>
+<h2 id="解決策"><a href="#解決策" class="headerlink" title="解決策"></a>解決策</h2><h3 id="1-アスタリスクとビュー"><a href="#1-アスタリスクとビュー" class="headerlink" title="1. アスタリスクとビュー"></a>1. アスタリスクとビュー</h3><p><code>select</code> 句に <code>*</code> を書くと、すべてのカラム名を列挙したことになります。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> *</span><br><span class="line"><span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">join</span> comments</span><br><span class="line">    <span class="keyword">using</span> (article_id)</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> categories</span><br><span class="line">    <span class="keyword">using</span> (category_id)</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    a.created_at &gt;= :first_date</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a.created_by <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
+<p>重複が大幅に減りました。基本的にはこれで十分でしょう。なお、 <code>*</code> を使うと「カラムが追加されるたびにデータ量が増え、しかもそのことに気づきづらい」などの問題があるので使うべきでないという意見もあります。</p>
+<p>テーブルを結合する部分が重複したままですが、これはビューを使うという手があります。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- ビューを定義しておく。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> article_aggregates <span class="keyword">as</span></span><br><span class="line">    <span class="keyword">select</span> *</span><br><span class="line">    <span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line">    <span class="keyword">join</span> comments <span class="keyword">using</span> (article_id)</span><br><span class="line">    <span class="keyword">left</span> <span class="keyword">join</span> categories <span class="keyword">using</span> (category_id);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 検索クエリー</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> a.*</span><br><span class="line"><span class="keyword">from</span> article_aggregates <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    a.created_at &gt;= :first_date</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a.created_by <span class="keyword">desc</span>;</span><br></pre></td></tr></table></figure>
+<p>あらかじめテーブルを結合して検索するビュー  <code>article_aggregates</code> を用意しておき、それを <code>from</code> 句に指定することにより、テーブルが始めから結合されているのと同じ状況でクエリーを書くことができます。</p>
+<p>依然として <code>order by</code> は重複したままです。</p>
+<h3 id="2-クエリービルダー"><a href="#2-クエリービルダー" class="headerlink" title="2. クエリービルダー"></a>2. クエリービルダー</h3><p>文字列連結やORM(EntityFrameworkなど)を用いて、カラムのリストを共通化する方法があります。(大げさにいうと)SQLを対象とするDSLを用意するのです。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 文字列連結を用いる方法。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    @(articleColumns.map(c =&gt; <span class="string">"a."</span> + c)</span><br><span class="line">    .concat(commentColumns.map(c =&gt; <span class="string">"comments."</span> + c))</span><br><span class="line">    .join(<span class="string">","</span>))</span><br><span class="line"><span class="keyword">from</span> article_aggregates <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    a.created_at &gt;= :first_date</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> @orders.join(<span class="string">","</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// クエリービルダーを用いる方法 (擬似コード)</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> a = db.articles_aggregate_view <span class="keyword">in</span></span><br><span class="line">    db.query()</span><br><span class="line">    .from(a)</span><br><span class="line">    .where(a.created_at &gt;= first_date)</span><br><span class="line">    .order_by([ &#123; desc: a.created_at &#125; ])</span><br></pre></td></tr></table></figure>
+<p>前述のビューを使う方法と合わせて、重複は完全になくなりました。</p>
+<p>この方法の問題は、SQL文を静的に取り出す(検索したりexplainにかけたりする)のが難しくなることです。また、SQLインジェクション攻撃に対策しておく必要があります。</p>
+<h3 id="3-検索とフェッチの分離"><a href="#3-検索とフェッチの分離" class="headerlink" title="3. 検索とフェッチの分離"></a>3. 検索とフェッチの分離</h3><ol>
+<li>あらかじめ、主キーのリストから必要なデータを列挙する方法を用意しておき、</li>
+<li>主キーだけを取得するクエリーを検索条件ごとに書く、</li>
+</ol>
+<p>という方法です。例えば次のようになります：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 主キーの値に基づいてレコードを検索するクエリー</span></span><br><span class="line"><span class="comment">-- (前述のテンプレートエンジンを使っている。)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    a.title</span><br><span class="line">    , a.created_at</span><br><span class="line">    , comments.content</span><br><span class="line">    , comments.created_at</span><br><span class="line">    , categories.category_name</span><br><span class="line"><span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">join</span> comments</span><br><span class="line">    <span class="keyword">using</span> (article_id)</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> categories</span><br><span class="line">    <span class="keyword">using</span> (category_id)</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    a.article_id <span class="keyword">in</span> ( @articleIds.join(<span class="string">","</span>) )</span><br><span class="line">    <span class="keyword">and</span> comments.comment_id <span class="keyword">in</span> ( @commentIds.join(<span class="string">","</span>) )</span><br><span class="line">    <span class="keyword">and</span> (categories.category_id <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">and</span> category_id = @categoryId)</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> a.created_by <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
+<p>検索のためのクエリーは次のとおりです：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 最近の記事(のID)を列挙するクエリー</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    a.article_id, comments.comment_id, a.category_id</span><br><span class="line"><span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">join</span> comments</span><br><span class="line">    <span class="keyword">using</span> (article_id)</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    a.created_at &gt;= :first_date</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 特定のタグがついた記事を列挙するクエリー</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">    a.article_id, comments.comment_id, a.category_id</span><br><span class="line"><span class="keyword">from</span> articles <span class="keyword">as</span> a</span><br><span class="line"><span class="keyword">join</span> comments</span><br><span class="line">    <span class="keyword">using</span> (article_id)</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> categories</span><br><span class="line">    <span class="keyword">using</span> (category_id)</span><br><span class="line"><span class="keyword">where</span></span><br><span class="line">    category_id <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">and</span> category_id = :category_id</span><br></pre></td></tr></table></figure>
+<p>クエリーの数が増えますが、 (テーブルの個数 + 1) 個ぐらいなら問題ないでしょう。</p>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><ul>
+<li>すべてのカラムをフェッチしたい場合は <code>*</code> を使い、</li>
+<li>フェッチしたくないカラムがある場合はクエリーを2段階に分ける、</li>
+</ul>
+<p>と良いかも！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-01-05/sql-search-only-keys/" data-id="cjnspsyy00014kfcxf1c46ocp" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Tips/">Tips</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/データベース/">データベース</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2018-01-13/intellisense-comfortable/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">新しい記事へ</strong>
+      <div class="article-nav-title">
+        
+          インテリセンス快適な構文とAPI
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2017-12-23/async-function-and-exception/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">古い記事へ</strong>
+      <div class="article-nav-title">async関数が例外を捕捉する挙動について</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新記事</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-31/diary/">近況 2018-10-31</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-09-30/diary/">近況 2018-09-30</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/NET/" style="font-size: 12px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 18px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 14px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 14px;">Tips</a> <a href="/blog/tags/WPF/" style="font-size: 14px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 12px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 16px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 12px;">競技プログラミング</a> <a href="/blog/tags/言語実装/" style="font-size: 10px;">言語実装</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 14px;">非同期</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vain0x<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">ブログ</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
+  
+    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
+  
+    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
+  
+    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

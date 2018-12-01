@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128265968-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>PaketとGistで始める簡単パッケージ管理 | vain0x&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Qiita 対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか) 導入モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。最初に思いつきそうな:  スクリプトが必要になるたびに、ファイルをコピーを作成して使う。(コピペ法)  という方法だと、例えばモジュールにバグがあった場合などにモジュールを書き換え">
+<meta name="keywords" content="HSP,パッケージ管理,Paket">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PaketとGistで始める簡単パッケージ管理">
+<meta property="og:url" content="http://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/index.html">
+<meta property="og:site_name" content="vain0x&#39;s blog">
+<meta property="og:description" content="Qiita 対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか) 導入モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。最初に思いつきそうな:  スクリプトが必要になるたびに、ファイルをコピーを作成して使う。(コピペ法)  という方法だと、例えばモジュールにバグがあった場合などにモジュールを書き換え">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-28T10:09:37.950Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PaketとGistで始める簡単パッケージ管理">
+<meta name="twitter:description" content="Qiita 対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか) 導入モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。最初に思いつきそうな:  スクリプトが必要になるたびに、ファイルをコピーを作成して使う。(コピペ法)  という方法だと、例えばモジュールにバグがあった場合などにモジュールを書き換え">
+<meta name="twitter:creator" content="@vain0x">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">ブログ</a>
+        
+          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+        
+          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+        
+          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
+        
+          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-package-management-with-paket-and-gist" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016-05-10/package-management-with-paket-and-gist/" class="article-date">
+  <time datetime="2016-05-09T15:00:00.000Z" itemprop="datePublished">2016-05-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PaketとGistで始める簡単パッケージ管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://qiita.com/vain0x/items/41f13fed6f88be7f4e7e" target="_blank" rel="noopener">Qiita</a></p>
+<p>対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)</p>
+<h2 id="導入"><a href="#導入" class="headerlink" title="導入"></a>導入</h2><p>モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。<br>最初に思いつきそうな:</p>
+<ul>
+<li>スクリプトが必要になるたびに、ファイルをコピーを作成して使う。(コピペ法)</li>
+</ul>
+<p>という方法だと、例えばモジュールにバグがあった場合などにモジュールを書き換えた後、それらのコピーを上書きして回ることになります。<br>めんどうですね。</p>
+<p>そのため:</p>
+<ul>
+<li>ファイルをまとめておいておき、それを直接 #include して使う。 (共有法)</li>
+</ul>
+<p>というようにしている人も少なくないでしょう。</p>
+<p>しかし、これにも少し問題があります。<br>スクリプトを配布するときに、どのファイルが必要なのか分からなくなるのです。<br>単純に「#include されているファイル」を集めるだけでは、「あるモジュールが他のモジュールを使用している」といった状況には対処できません。</p>
+<p>※不要なものも全部いっしょくたにして同梱してしまう、という富豪的な方法もあります。</p>
+<h2 id="パッケージ管理ツール"><a href="#パッケージ管理ツール" class="headerlink" title="パッケージ管理ツール"></a>パッケージ管理ツール</h2><p>さて、私がおすすめするのは、パッケージ管理ツールと呼ばれるツールを使用することです。<br>ここでは <a href="http://fsprojects.github.io/Paket" target="_blank" rel="noopener">Paket</a> を利用します。</p>
+<p>※Paket は HSPとは全く無関係な環境ために開発されているものですが、汎用的な機能を備えており、使うのがとても簡単なので、採用しています。</p>
+<h2 id="Paket-をインストールする"><a href="#Paket-をインストールする" class="headerlink" title="Paket をインストールする"></a>Paket をインストールする</h2><p>まず始めに、ひとまとまりのソフトウェアのスクリプトを入れていくためのフォルダを1個作ります。<br>以下、このフォルダを <strong>ソリューションルート</strong> と呼びます。</p>
+<p>次に、ソリューションルートに <code>.paket</code> という名前のフォルダを作ります。<br>(エクスプローラーでは、 <code>.paket.</code> という名前のフォルダを作ろうとすると、 <code>.paket</code> フォルダが作られます。興味深い。)<br>そこに、「<a href="https://github.com/fsprojects/Paket/releases/latest" target="_blank" rel="noopener">Paket の最新版</a>」から <code>paket.bootstrapper.exe</code> をダウンロードして配置し、実行します。<br>すると、最新版の <code>paket.exe</code> がダウンロードされます。<br>Paket のインストール作業はこれで完了です。簡単でしょう？</p>
+<h2 id="モジュールを使用する"><a href="#モジュールを使用する" class="headerlink" title="モジュールを使用する"></a>モジュールを使用する</h2><p>スクリプトからモジュールを使用するときの作業を解説します。<br>例として、拙作の dirlist_rec モジュールをインストールしてみます。</p>
+<blockquote>
+<p><a href="https://gist.github.com/vain0x/561a66531363ab1e0e73" target="_blank" rel="noopener">https://gist.github.com/vain0x/561a66531363ab1e0e73</a></p>
+</blockquote>
+<p>ソリューションルートに、 <code>paket.dependencies</code> という名前のファイルを作り、次のように記述します。<br>(すでにある場合は書き足します。)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gist vain0x/561a66531363ab1e0e73 dirlist_rec.hsp</span><br></pre></td></tr></table></figure>
+<p>※真ん中にある「vain0x/英数字」は、URLの末尾です。</p>
+<p><code>paket.dependencies</code> を更新したら、「paket install コマンド」を実行する必要があります。<br>そのためには、ソリューションルートをエクスプローラーで開き、「Shift キーを押しながら、ソリューションルートのフォルダを右クリック」して、「コマンドプロンプトを開く」メニューを選びます。<br>黒いコンソール画面が出てくるので、そこに次のように入力して enter を押します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.paket\paket install</span><br></pre></td></tr></table></figure>
+<p>すると、 <code>paket-files</code> フォルダの深いところに、 <code>dirlist_rec.hsp</code> がダウンロードされます。</p>
+<p>モジュールを実際に使ってみましょう。<br>ソリューションルートの下に <code>app</code> フォルダを作り、そこに <code>main.hsp</code> ファイルを作成して、以下のように記述してみます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;../paket-files/vain0x/561a66531363ab1e0e73/dirlist_rec.hsp&quot;</span><br><span class="line"></span><br><span class="line">  dirlist_rec paths, &quot;*.*&quot;</span><br><span class="line">  repeat stat</span><br><span class="line">    mes paths(cnt)</span><br><span class="line">  loop</span><br></pre></td></tr></table></figure>
+<p>dirlist_rec モジュールが使えていますね。</p>
+<h3 id="その他のコマンド"><a href="#その他のコマンド" class="headerlink" title="その他のコマンド"></a>その他のコマンド</h3><p>paket には install のほかにもたくさんコマンドがありますが、2つだけ紹介しておきます。<br>「.paket\paket update」を使うと、モジュールの最新版をダウンロードしてきます。<br>「.paket\paket outdated」を使うと、使用しているモジュールの、新しいバージョンがあるかを調べることができます。</p>
+<h2 id="モジュールを公開する"><a href="#モジュールを公開する" class="headerlink" title="モジュールを公開する"></a>モジュールを公開する</h2><p>最後に、モジュールを公開する方法を説明します。<br>ここでは一番簡単な、Gist というウェブサイトを使用する方法をとります。</p>
+<p>まず Github のアカウント(無料)を取得します。</p>
+<blockquote>
+<p><a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a></p>
+</blockquote>
+<p>ログインしてから、<a href="https://gist.github.com" target="_blank" rel="noopener">Gist</a> に行きます。<br>見て分かると思いますが、「Filename including extension…」と書かれた小さな入力欄に「ファイル名.hsp」を書き、大きいテキストボックスにスクリプトを貼り付けて、「Create secret/public gist」 を押せばアップロード完了です。</p>
+<p>※secret gist で公開すると、検索にひっかからないので、URLを知っている人だけがアクセスできるようになります。</p>
+<h2 id="モジュールの依存関係を記述する"><a href="#モジュールの依存関係を記述する" class="headerlink" title="モジュールの依存関係を記述する"></a>モジュールの依存関係を記述する</h2><p>モジュールが他のモジュールを使用している場合は、そのことを Paket に教えておくと便利です。<br>というのも、Paket はあるモジュールをダウンロードするとき、それが必要とする他のモジュールも一緒にダウンロードしてくれるのです。</p>
+<p>そのためには、先ほどスクリプトを書いて公開した Gist のページに行き、「Edit」ボタンを押して編集画面を開き、「Add file」ボタンを押します。</p>
+<p>新しいファイルには、やはり <code>paket.dependencies</code> という名前をつけて、上で例にあげたのと同様に「gist 誰々/英数字 ファイル名」などと書きます。<br>「Update」(更新)ボタンを押して保存するのを忘れませんよう。</p>
+<p>こうしておけば前述の通り、そのモジュールが paket install される際に、<br>必要な他のモジュールも一緒にダウンロードされるようになります。</p>
+<p>これが役に立つ場面もあることでしょう。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/" data-id="cjnspsyxk000ikfcxk7u767el" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/HSP/">HSP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Paket/">Paket</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/パッケージ管理/">パッケージ管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2016-08-18/null-object-patterns/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">新しい記事へ</strong>
+      <div class="article-nav-title">
+        
+          Nullオブジェクトパターンの紹介と正体
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新記事</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-31/diary/">近況 2018-10-31</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-09-30/diary/">近況 2018-09-30</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/NET/" style="font-size: 12px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 18px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 14px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 14px;">Tips</a> <a href="/blog/tags/WPF/" style="font-size: 14px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 12px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 16px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 12px;">競技プログラミング</a> <a href="/blog/tags/言語実装/" style="font-size: 10px;">言語実装</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 14px;">非同期</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vain0x<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">ブログ</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
+  
+    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
+  
+    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
+  
+    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

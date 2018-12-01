@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128265968-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>F#でベンチマークをとる | vain0x&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして BenchmarkDotNet があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。 1. 要約 書き出し ベンチマークは意外と大変という話について軽く触れる   導入 本稿の構成 開発環境の明記">
+<meta name="keywords" content="F#,チュートリアル">
+<meta property="og:type" content="article">
+<meta property="og:title" content="F#でベンチマークをとる">
+<meta property="og:url" content="http://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/index.html">
+<meta property="og:site_name" content="vain0x&#39;s blog">
+<meta property="og:description" content="ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして BenchmarkDotNet があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。 1. 要約 書き出し ベンチマークは意外と大変という話について軽く触れる   導入 本稿の構成 開発環境の明記">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-28T10:09:37.954Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="F#でベンチマークをとる">
+<meta name="twitter:description" content="ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして BenchmarkDotNet があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。 1. 要約 書き出し ベンチマークは意外と大変という話について軽く触れる   導入 本稿の構成 開発環境の明記">
+<meta name="twitter:creator" content="@vain0x">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">ブログ</a>
+        
+          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+        
+          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+        
+          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
+        
+          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-bench-fsharp-by-benchmark-dot-net" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/" class="article-date">
+  <time datetime="2018-09-03T14:59:34.000Z" itemprop="datePublished">2018-09-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      F#でベンチマークをとる
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして <a href="https://github.com/dotnet/BenchmarkDotNet" target="_blank" rel="noopener">BenchmarkDotNet</a> があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。</p>
+<h2 id="1-要約"><a href="#1-要約" class="headerlink" title="1. 要約"></a>1. 要約</h2><ul>
+<li>書き出し<ul>
+<li>ベンチマークは意外と大変という話について軽く触れる</li>
+</ul>
+</li>
+<li>導入<ul>
+<li>本稿の構成</li>
+<li>開発環境の明記</li>
+<li>BenchmarkDotNet のサンプル</li>
+</ul>
+</li>
+<li>例<ul>
+<li>一例として「素数判定」を実装する</li>
+<li>素数判定の簡単なベンチマークを書く</li>
+<li>ベンチマークを実行する</li>
+</ul>
+</li>
+<li>おまけ<ul>
+<li>軽くて速いベンチマークに設定する</li>
+<li>ベンチマークを watch する</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-開発環境"><a href="#2-開発環境" class="headerlink" title="2. 開発環境"></a>2. 開発環境</h2><p>F# の開発環境は Getting Started を参照: <a href="http://ionide.io/#getting-started" target="_blank" rel="noopener">Ionide - Crossplatform F# Editor Tools</a></p>
+<p>今回は次を使ってやっていきます。 (執筆日: 2018年8月9日)</p>
+<ul>
+<li>Windows 10</li>
+<li>.NET Core Cli Tools 2.1</li>
+<li>F# 4.1</li>
+<li>Visual Studio Code<ul>
+<li>ionide-fsharp</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-BenchmarkDotNet-にあるサンプルコード"><a href="#3-BenchmarkDotNet-にあるサンプルコード" class="headerlink" title="3. BenchmarkDotNet にあるサンプルコード"></a>3. BenchmarkDotNet にあるサンプルコード</h2><p>F# 用のサンプルをみるとだいたいのイメージはつかめます。</p>
+<p><a href="https://github.com/dotnet/BenchmarkDotNet/tree/v0.11.0/samples/BenchmarkDotNet.Samples.FSharp" target="_blank" rel="noopener">BenchmarkDotNet/samples/BenchmarkDotNet.Samples.FSharp at v0.11.0 · dotnet/BenchmarkDotNet</a></p>
+<h2 id="4-サンプルプロジェクトでやってみる"><a href="#4-サンプルプロジェクトでやってみる" class="headerlink" title="4. サンプルプロジェクトでやってみる"></a>4. サンプルプロジェクトでやってみる</h2><p>例として「素数判定」のベンチマークをやってみましょう。</p>
+<p>まずサンプルプロジェクトを普通のクラスライブラリーとして作ります。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet new classlib -lang F<span class="comment"># --name PrimeNum</span></span><br></pre></td></tr></table></figure>
+<p>そしてがんばって実装を書く:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PrieNum/Library.fs</span></span><br><span class="line"><span class="keyword">module</span> PrimeNum</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 以上 p 未満の整数で割り切れなければ素数、と判定する。</span></span><br><span class="line"><span class="comment">// 最大 p - 2 回のループ</span></span><br><span class="line"><span class="keyword">let</span> isPrimeBruteForce (p: int): bool =</span><br><span class="line">    <span class="keyword">if</span> p &lt; <span class="number">2</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">false</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">// go m ⇔ p が m 以上 p 未満の整数で割り切れない</span></span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">rec</span> go m = m &gt;= p || p % m &lt;&gt; <span class="number">0</span> &amp;&amp; go (m + <span class="number">1</span>)</span><br><span class="line">        go <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 以上 √p 以下の整数で割り切れなければ素数、と判定する。(証明略)</span></span><br><span class="line"><span class="comment">// 最大 √p - 1 回のループなので速いはず</span></span><br><span class="line"><span class="keyword">let</span> isPrime (p: int): bool =</span><br><span class="line">    <span class="keyword">if</span> p &lt; <span class="number">2</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">false</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">// √p</span></span><br><span class="line">        <span class="keyword">let</span> r = p |&gt; float |&gt; sqrt |&gt; int</span><br><span class="line">        <span class="comment">// go m ⇔ p が m 以上 r 以下の整数で割り切れない</span></span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">rec</span> go m = m &gt; r || p % m &lt;&gt; <span class="number">0</span> &amp;&amp; go (m + <span class="number">1</span>)</span><br><span class="line">        go <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>で、ベンチマークです。「実行するとベンチマーク処理を行うようなコンソールアプリ」を F# で作るという形になります。(ユニットテストでいうと expecto 方式)</p>
+<p>コンソールアプリのプロジェクトを作って、そこに BenchmarkDotNet をインストールします。(最新バージョンは <a href="https://www.nuget.org/packages/BenchmarkDotNet/" target="_blank" rel="noopener">NuGet</a> で確認しよう。)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ベンチマークするためのプロジェクトはコンソールアプリとして作る。</span></span><br><span class="line">dotnet new console -lang F<span class="comment"># --name PrimeNumBench</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># PrimeNumBench が PrimeNum を参照するようにする。</span></span><br><span class="line">dotnet add PrimeNumBench reference PrimeNum</span><br><span class="line"></span><br><span class="line"><span class="comment"># BenchmarkDotNet をインストールする。 (※やや時間がかかる)</span></span><br><span class="line">dotnet add PrimeNumBench package BenchmarkDotNet --version 0.11.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># インテリセンスが効くように、ここで一度ビルドしておく (※やや時間がかかる)</span></span><br><span class="line">dotnet build PrimeNumBench</span><br></pre></td></tr></table></figure>
+<p>試しに大きめの素数 10000019 (≒100万) が素数かどうかの判定にかかる時間を測定してみましょう。</p>
+<ul>
+<li>測定したい計算をクラスのメソッドとして定義する。<ul>
+<li>モジュールではなく。このあたりは C#-er の気持ちになる。</li>
+</ul>
+</li>
+<li>メソッドがベンチマーク対象であると分かるように <code>BenchmarkAttribute</code> をつける。</li>
+<li><code>main</code> でベンチマークを実行する関数を呼ぶ。</li>
+</ul>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PrimeNumBench/Program.fs</span></span><br><span class="line"><span class="keyword">module</span> Program</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet</span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet.Attributes</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">Benchmarks</span></span>() =</span><br><span class="line">    <span class="meta">[&lt;Benchmark&gt;]</span></span><br><span class="line">    <span class="keyword">member</span> this.IsPrimeBruteForceBench() =</span><br><span class="line">        PrimeNum.isPrimeBruteForce <span class="number">10</span>_000_019</span><br><span class="line"></span><br><span class="line">    <span class="meta">[&lt;Benchmark&gt;]</span></span><br><span class="line">    <span class="keyword">member</span> this.IsPrimeBench() =</span><br><span class="line">        PrimeNum.isPrime <span class="number">10</span>_000_019</span><br><span class="line"></span><br><span class="line"><span class="meta">[&lt;EntryPoint&gt;]</span></span><br><span class="line"><span class="keyword">let</span> main _ =</span><br><span class="line">    <span class="keyword">let</span> _summary = Running.BenchmarkRunner.Run&lt;Benchmarks&gt;()</span><br><span class="line">    <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>ベンチマークアプリを <strong>Release モードでビルドして</strong> 実行します。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet run -p PrimeNumBench -c Release</span><br></pre></td></tr></table></figure>
+<p>1分ぐらいかかるので待つと、結果が <em>(ログの海に溺れて)</em> 出てきます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">                 Method |         Mean |         Error |        StdDev |</span><br><span class="line">----------------------- |-------------:|--------------:|--------------:|</span><br><span class="line"> IsPrimeBruteForceBench | 69,125.13 us | 1,118.0498 us | 1,045.8244 us |</span><br><span class="line">           IsPrimeBench |     21.40 us |     0.1367 us |     0.1279 us |</span><br></pre></td></tr></table></figure>
+<p>平方根を取るだけでかなり良い最適化になってるっぽい。なお 1秒 = 1000 ms (ミリ秒) = 10万 us (マイクロ秒) です。</p>
+<h2 id="5-ベンチマークを軽量にする"><a href="#5-ベンチマークを軽量にする" class="headerlink" title="5. ベンチマークを軽量にする"></a>5. ベンチマークを軽量にする</h2><p>試行錯誤している段階ではもうちょっと早く結果がほしいので、ベンチマークの設定を変えて計測精度を下げる代わりに、ベンチマークにかかる時間を短くしてみます。</p>
+<p>ベンチマークをどのように実行するかの設定は Jobs にあるようです。参照: <a href="https://benchmarkdotnet.org/articles/configs/jobs.html" target="_blank" rel="noopener">Jobs | BenchmarkDotNet</a></p>
+<p>ウォームアップや反復の回数を固定するより、パラメーターをいじってアルゴリズムに任せたほうがいいらしいです。具体的にどうするか分からないので、デフォルトの設定でそういうのないかなと思ったんですが、よさげなプルリクが出ているので参考にします:</p>
+<p><a href="https://github.com/dotnet/BenchmarkDotNet/pull/825/files" target="_blank" rel="noopener">Accuracy based job attributes by Zhentar · Pull Request #825 · dotnet/BenchmarkDotNet</a></p>
+<p>相対誤差の上限を増やせばよさそう。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PrimeNumBench/Program.fs</span></span><br><span class="line"><span class="keyword">module</span> Program</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet</span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet.Attributes</span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet.Configs</span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet.Jobs</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">Benchmarks</span></span>() =</span><br><span class="line">    <span class="meta">[&lt;Benchmark&gt;]</span></span><br><span class="line">    <span class="keyword">member</span> this.IsPrimeBruteForceBench() =</span><br><span class="line">        PrimeNum.isPrimeBruteForce <span class="number">10</span>_000_019</span><br><span class="line"></span><br><span class="line">    <span class="meta">[&lt;Benchmark&gt;]</span></span><br><span class="line">    <span class="keyword">member</span> this.IsPrimeBench() =</span><br><span class="line">        PrimeNum.isPrime <span class="number">10</span>_000_019</span><br><span class="line"></span><br><span class="line"><span class="meta">[&lt;EntryPoint&gt;]</span></span><br><span class="line"><span class="keyword">let</span> main _ =</span><br><span class="line">    <span class="keyword">let</span> config =</span><br><span class="line">        <span class="keyword">let</span> rough = AccuracyMode(MaxRelativeError = <span class="number">0.1</span>)</span><br><span class="line">        <span class="keyword">let</span> quickRoughJob = Job(<span class="string">"QuickRough"</span>, rough, RunMode.Short)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> c = ManualConfig()</span><br><span class="line">        c.Add(quickRoughJob)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// その他の設定をデフォルトから継承する。</span></span><br><span class="line">        ManualConfig.Union(DefaultConfig.Instance, c)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> _summary = Running.BenchmarkRunner.Run&lt;Benchmarks&gt;(config)</span><br><span class="line">    <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>ビルドしてからベンチマークの完了まで20秒ぐらいになりました。</p>
+<h2 id="6-ベンチマークを自動実行する"><a href="#6-ベンチマークを自動実行する" class="headerlink" title="6. ベンチマークを自動実行する"></a>6. ベンチマークを自動実行する</h2><p>.NET Core 2.1 から標準入りした <code>dotnet-watch</code> ツールを使うと、ソースコードを更新するたびにベンチマークを自動実行できます。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet watch -p ./PrimeNumBench -- run -c Release</span><br></pre></td></tr></table></figure>
+<h2 id="7-レポートを公開する"><a href="#7-レポートを公開する" class="headerlink" title="7. レポートを公開する"></a>7. レポートを公開する</h2><p>結果を公開するには、 <code>BenchmarkDotNetArtifacts/results/*.md</code> にマークダウン(GFM)形式で出力されているのを貼っつける。環境の情報が自動で載るので楽です。(Qiita だと微妙に手直しが必要)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BenchmarkDotNet=v0.11.0, OS=Windows 10.0.16299.371 (1709/FallCreatorsUpdate/Redstone3)</span><br><span class="line">Intel Core i3-2310M CPU 2.10GHz (Sandy Bridge), 1 CPU, 4 logical and 2 physical cores</span><br><span class="line">Frequency=2046136 Hz, Resolution=488.7261 ns, Timer=TSC</span><br><span class="line">.NET Core SDK=2.1.302</span><br><span class="line">  [Host]     : .NET Core 2.1.2 (CoreCLR 4.6.26628.05, CoreFX 4.6.26629.01), 64bit RyuJIT DEBUG</span><br><span class="line">  DefaultJob : .NET Core 2.1.2 (CoreCLR 4.6.26628.05, CoreFX 4.6.26629.01), 64bit RyuJIT</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align:right">Mean</th>
+<th style="text-align:right">Error</th>
+<th style="text-align:right">StdDev</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IsPrimeBruteForceBench</td>
+<td style="text-align:right">69,125.13 us</td>
+<td style="text-align:right">1,118.0498 us</td>
+<td style="text-align:right">1,045.8244 us</td>
+</tr>
+<tr>
+<td>IsPrimeBench</td>
+<td style="text-align:right">21.40 us</td>
+<td style="text-align:right">0.1367 us</td>
+<td style="text-align:right">0.1279 us</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-おわりに"><a href="#8-おわりに" class="headerlink" title="8. おわりに"></a>8. おわりに</h2><p>よい計測ライフを！</p>
+<h2 id="A-その他"><a href="#A-その他" class="headerlink" title="A. その他"></a>A. その他</h2><ul>
+<li><p>Params 属性に言及したほうがよかったかも</p>
+<p>  <a href="https://benchmarkdotnet.org/articles/features/parameterization.html" target="_blank" rel="noopener">Parameterization | BenchmarkDotNet</a></p>
+</li>
+<li><p>Baesline 属性に言及したほうがよかったかも</p>
+<p>  <a href="https://benchmarkdotnet.org/articles/features/baselines.html" target="_blank" rel="noopener">Benchmark and Job Baselines | BenchmarkDotNet</a></p>
+</li>
+<li><p>サンプルは速さが非自明なもののほうがよかったかも</p>
+<p>  option vs voption とか</p>
+</li>
+</ul>
+<h2 id="B-関連リンク"><a href="#B-関連リンク" class="headerlink" title="B. 関連リンク"></a>B. 関連リンク</h2><ul>
+<li><p><a href="https://benchmarkdotnet.org/" target="_blank" rel="noopener">Showtime | BenchmarkDotNet</a></p>
+<p>  公式サイト</p>
+</li>
+<li><p><a href="https://qiita.com/NetSeed/items/30d8a76163622a4b5be1" target="_blank" rel="noopener">BenchmarkDotNetを使ってみる｡ - Qiita</a></p>
+<p>  紹介記事 (C#)</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/" data-id="cjnspsyyh002fkfcx8webqxv6" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/F/">F#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/チュートリアル/">チュートリアル</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2018-09-30/diary/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">新しい記事へ</strong>
+      <div class="article-nav-title">
+        
+          近況 2018-09-30
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2018-06-28/recurse-rust-closure/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">古い記事へ</strong>
+      <div class="article-nav-title">Rustのクロージャで再帰してみた</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新記事</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-31/diary/">近況 2018-10-31</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-09-30/diary/">近況 2018-09-30</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/NET/" style="font-size: 12px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 18px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 14px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 14px;">Tips</a> <a href="/blog/tags/WPF/" style="font-size: 14px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 12px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 16px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 12px;">競技プログラミング</a> <a href="/blog/tags/言語実装/" style="font-size: 10px;">言語実装</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 14px;">非同期</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vain0x<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">ブログ</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
+  
+    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
+  
+    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
+  
+    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

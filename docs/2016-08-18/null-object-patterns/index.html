@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128265968-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>Nullオブジェクトパターンの紹介と正体 | vain0x&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Qiita デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。 なぜ「Nullオブジェクト」が必要かC や C# などのいくつかの言語に null という概念があります。null はしばしば「何もない」や「失敗」といった 特殊な状態 を表す値として、null でない値と混ぜて使われますが、null と非 null の差異は">
+<meta name="keywords" content="C#,デザインパターン,オブジェクト指向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nullオブジェクトパターンの紹介と正体">
+<meta property="og:url" content="http://vain0x.github.io/blog/2016-08-18/null-object-patterns/index.html">
+<meta property="og:site_name" content="vain0x&#39;s blog">
+<meta property="og:description" content="Qiita デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。 なぜ「Nullオブジェクト」が必要かC や C# などのいくつかの言語に null という概念があります。null はしばしば「何もない」や「失敗」といった 特殊な状態 を表す値として、null でない値と混ぜて使われますが、null と非 null の差異は">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-28T10:09:37.950Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nullオブジェクトパターンの紹介と正体">
+<meta name="twitter:description" content="Qiita デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。 なぜ「Nullオブジェクト」が必要かC や C# などのいくつかの言語に null という概念があります。null はしばしば「何もない」や「失敗」といった 特殊な状態 を表す値として、null でない値と混ぜて使われますが、null と非 null の差異は">
+<meta name="twitter:creator" content="@vain0x">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">ブログ</a>
+        
+          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+        
+          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+        
+          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
+        
+          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-null-object-patterns" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2016-08-18/null-object-patterns/" class="article-date">
+  <time datetime="2016-08-17T15:00:00.000Z" itemprop="datePublished">2016-08-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Nullオブジェクトパターンの紹介と正体
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://qiita.com/vain0x/items/c8adb679a6c253e5261f" target="_blank" rel="noopener">Qiita</a></p>
+<p>デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。</p>
+<h2 id="なぜ「Nullオブジェクト」が必要か"><a href="#なぜ「Nullオブジェクト」が必要か" class="headerlink" title="なぜ「Nullオブジェクト」が必要か"></a>なぜ「Nullオブジェクト」が必要か</h2><p>C や C# などのいくつかの言語に null という概念があります。<code>null</code> はしばしば「何もない」や「失敗」といった <strong>特殊な状態</strong> を表す値として、null でない値と混ぜて使われますが、<code>null</code> と非 null の差異は次のようなやっかいな状況の引き金となります。</p>
+<p><code>null</code> と非 null の違いの一つに、備えるメソッドの種類があります [^null_diversity] 。例えばプログラミング言語 C# では、<code>null</code> のメソッドを呼ぼうとすると、例外が投げられます。</p>
+<p>[^null_diversity]: null の性質は言語によって異なります。例えば null に対して任意のメソッドを呼べるような言語に対して、本記事の話は無意味です。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 何らかのクラス X</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">X</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// オーバーライド可能なメソッド</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">SomeMethod</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ThrowNullReferenceException</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 型 X の変数 x を null にする。</span></span><br><span class="line">    X x = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// x (= null) のメソッドを呼ぶ。例外が投げられる。</span></span><br><span class="line">    x.SomeMethod();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>そのため、プログラムの処理中にエラーが起きると困る場合、 <code>null</code> のメソッドを呼んでしまわないようにする必要があります。</p>
+<p>このような事情から、「<code>null</code> でない場合だけ、メソッドを実行する」(<code>null</code> の場合は何もしない)ようにしたいことがしばしばあります。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">NotThrowNullReferenceException</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 型 X の変数 x を null にする。</span></span><br><span class="line">    X x = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// x が null でない場合だけ、メソッドを呼び出す。</span></span><br><span class="line">    <span class="keyword">if</span> (x != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        x.SomeMethod();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>しかしメソッドを呼ぶ際にいちいち if 文を書いていると、 if 文が大量に発生してしまいます。コードが増えるだけならまだしも、if 文を書き忘れて、意図せぬ例外を投げてしまうおそれもあります。</p>
+<p>このような状況を回避する方法の1つが、 <strong>Nullオブジェクト</strong> です。</p>
+<h2 id="Nullオブジェクトの作りかた"><a href="#Nullオブジェクトの作りかた" class="headerlink" title="Nullオブジェクトの作りかた"></a>Nullオブジェクトの作りかた</h2><p>Null オブジェクトとは、次のように定義される、「<code>null</code> の代わりに使われるオブジェクト」のことです。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// X を継承した新しいクラス</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">NullX</span></span><br><span class="line">    : <span class="title">X</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 「何もしない」メソッドとしてオーバーライドする。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SomeMethod</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>そして、型 X の変数には、<code>null</code> の代わりにこの NullX クラスのインスタンスを代入するようにします。これにより、変数が <code>null</code> ではないと分かるので、条件分岐を行わずとも安全にメソッドを呼び出せるようになります。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">NotThrowNullReferenceException</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 型 X の変数 x を (null ではなく) NullX のインスタンスにする。</span></span><br><span class="line">    X x = <span class="keyword">new</span> NullX();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// x は null でないと分かっているので、安心してメソッドを呼べる。</span></span><br><span class="line">    x.SomeMethod();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>めでたし、めでたし。</p>
+<h2 id="nullの発生源"><a href="#nullの発生源" class="headerlink" title="nullの発生源"></a>nullの発生源</h2><p>(ここからは私見になります。)</p>
+<p>ところで、そもそもなぜ、型 X の変数 (仮に <code>x</code> と呼ぶ) に <code>null</code> が入ってしまったのでしょうか。先ほどのサンプルでは、話を単純にするために <code>x</code> を使用する直前に <code>X x = null;</code> と書いていましたが、実際にはこんなコードはありえません。<code>x == null</code> になるには理由があるはずです。</p>
+<p>C# の場合、理由は2つ考えられます:</p>
+<ul>
+<li><code>x</code> は初期化されなかった。(C# では、初期化されていない <code>x</code> の値は <code>null</code> になります。)</li>
+<li>誰かが <code>x</code> に <code>null</code> を代入した。あるいは、誰かが <code>x</code> の初期値として <code>null</code> を指定した。</li>
+</ul>
+<h3 id="前者の場合"><a href="#前者の場合" class="headerlink" title="前者の場合"></a>前者の場合</h3><p>前者の場合、「<code>x</code> が初期化されないまま使用されている」ことになります。</p>
+<p>ここで確認する必要があるのは、「<code>x</code> が初期化されないまま使用されることがあると <strong>開発者が理解している</strong> かどうか」です。理解していないのなら、 <code>x == null</code> で条件分岐するのではなく、 <code>x</code> が必ず初期化されるようにコードを修正するべきです。なぜなら、「なぜ <code>x == null</code> になるのか分からないけれど、とりあえず <code>x == null</code> の場合は何もしないようにしておく」という考えは、<code>null</code> のメソッドを呼び出すことで起こるはずだった例外を「<a href="http://qiita.com/jkr_2255/items/c335566aeb748c61e931" target="_blank" rel="noopener">握りつぶす</a>」ことと等価だからです。</p>
+<p>一方、理解しているのであれば、それは <code>x</code> の初期化時に <code>null</code> を設定しているのと同じことですので、後者の場合に含まれると考えてよいでしょう。</p>
+<h3 id="後者の場合"><a href="#後者の場合" class="headerlink" title="後者の場合"></a>後者の場合</h3><p>後者の場合、<code>null</code> を設定した人は、どういう意図をもってそれをしたのでしょうか。言い換えると、<code>x == null</code> である場合に、コードがどう動くことを期待しているのでしょうか。</p>
+<p>もし「<code>x == null</code> の場合には、<code>x</code> を使用するコードは、何もしないべき」だと考えていたなら、そもそも <code>x</code> に <code>null</code> を設定するべきではありませんでした。なぜなら、 <strong><code>null</code> は「何もしない」を意味するものではない</strong> からです。本来の意図を正しく表現するには、<code>x</code> に「何もしないという挙動を持つインスタンス」を設定すべきなのです。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// X の派生クラスで、「何もしないという挙動」を持つもの</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">NullX</span></span><br><span class="line">    : <span class="title">X</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SomeMethod</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// 何もしない。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これがさきほどの <code>NullX</code> クラスです。名前に null とついてはいますが、<code>null</code> とは異なり、実体を持つ何かです。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><ul>
+<li><strong>問題</strong>: <code>null</code> のメソッドを呼んでしまわないように、条件分岐を書きすぎたり書き忘れたりしてしまう。</li>
+<li><strong>解決策</strong>: <code>null</code> を使わない。変数は適切なインスタンスで初期化する。</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a href="http://qiita.com/kasei-san/items/af10a948c34c317e7380" target="_blank" rel="noopener">NullObjectパターン - Qiita</a></p>
+<p>  Ruby によるサンプルコードと、Nullオブジェクトパターンの参考になるリンクが記載されています。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2016-08-18/null-object-patterns/" data-id="cjnspsyxm000kkfcx6h7358zu" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/オブジェクト指向/">オブジェクト指向</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/デザインパターン/">デザインパターン</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2016-12-07/why-git-edit/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">新しい記事へ</strong>
+      <div class="article-nav-title">
+        
+          GitEditを使うべき十の理由
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2016-05-10/package-management-with-paket-and-gist/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">古い記事へ</strong>
+      <div class="article-nav-title">PaketとGistで始める簡単パッケージ管理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新記事</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-31/diary/">近況 2018-10-31</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-09-30/diary/">近況 2018-09-30</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/NET/" style="font-size: 12px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 18px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 14px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 14px;">Tips</a> <a href="/blog/tags/WPF/" style="font-size: 14px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 12px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 16px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 12px;">競技プログラミング</a> <a href="/blog/tags/言語実装/" style="font-size: 10px;">言語実装</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 14px;">非同期</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vain0x<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">ブログ</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
+  
+    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
+  
+    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
+  
+    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

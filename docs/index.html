@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128265968-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>vain0x&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="A blog.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="vain0x&#39;s blog">
+<meta property="og:url" content="http://vain0x.github.io/blog/index.html">
+<meta property="og:site_name" content="vain0x&#39;s blog">
+<meta property="og:description" content="A blog.">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vain0x&#39;s blog">
+<meta name="twitter:description" content="A blog.">
+<meta name="twitter:creator" content="@vain0x">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">ブログ</a>
+        
+          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+        
+          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+        
+          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
+        
+          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-11-30/diary/" class="article-date">
+  <time datetime="2018-11-30T14:59:59.000Z" itemprop="datePublished">2018-11-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1ヶ月分のコミットメッセージとツイートを眺めていろいろ書くやつ、3回目</p>
+<ul>
+<li>前回: <a href="https://vain0x.github.io/blog/2018-10-31/diary/">https://vain0x.github.io/blog/2018-10-31/diary/</a></li>
+</ul>
+<h2 id="hsp3-debug-ginger"><a href="#hsp3-debug-ginger" class="headerlink" title="hsp3-debug-ginger"></a>hsp3-debug-ginger</h2><p><a href="https://github.com/vain0x/hsp3-debug-ginger" target="_blank" rel="noopener">https://github.com/vain0x/hsp3-debug-ginger</a></p>
+<h3 id="HDG-knowbug-について"><a href="#HDG-knowbug-について" class="headerlink" title="HDG: knowbug について"></a>HDG: knowbug について</h3><p>以前に HSP3 用のデバッガー knowbug を作った</p>
+<ul>
+<li><a href="https://github.com/vain0x/knowbug" target="_blank" rel="noopener">knowbug</a></li>
+<li>ほとんど完成しているので、更新していない</li>
+<li>いくつか心残りがある:<ul>
+<li>配列とかを1本の文字列 (YAMLっぽい形式) で表していて不便だった</li>
+<li>配列の要素やメンバ変数をツリービューのノードにしようとしてたけど、デバッグの途中で放棄してた</li>
+<li>HSP3 の utf-8 版に対応したい</li>
+<li>未対応の改善要望が来ている</li>
+</ul>
+</li>
+<li>生の Win32 API で GUI やってるところがきつくて knowbug はあんまりいじりたくない</li>
+</ul>
+<p>VSCode 用のデバッガーとして新たに作っているのが  <strong>hsp3-debug-ginger</strong></p>
+<h3 id="HDG-Debug-Adapter-Protocol-DAP"><a href="#HDG-Debug-Adapter-Protocol-DAP" class="headerlink" title="HDG: Debug Adapter Protocol (DAP)"></a>HDG: Debug Adapter Protocol (DAP)</h3><p>hsp3-debug-ginger は <strong>Debug Adapter Protocol</strong> という、開発ツール (IDE) とデバッガーと接続するプロトコルを使っている</p>
+<ul>
+<li>例えばエディターのデバッグ UI で停止ボタンを押したら、プロトコルに則った形式でデバッガーに停止イベントが通知されて、プログラムが停止する、みたいな感じ</li>
+<li>開発ツールからすると、何をデバッグしているか知らなくていい</li>
+<li>デバッガーからすると、ユーザーがどの IDE を使っているか知らなくていい</li>
+<li>VSCode はデバッガーと標準入出力で接続するけど、 HSP のデバッガーは DLL なので標準入出力を使えない</li>
+</ul>
+<h3 id="HDG-hsp3-debug-ginger-の構成"><a href="#HDG-hsp3-debug-ginger-の構成" class="headerlink" title="HDG: hsp3-debug-ginger の構成"></a>HDG: hsp3-debug-ginger の構成</h3><ul>
+<li>VSCode と標準入出力でつながる exe と、HSP からロードされる DLL を別個に作って、 WebSocket で繋げる、という構成にした</li>
+<li>WebSocket をわざわざ使う意味がないので TCP に置き換えた</li>
+<li>Windows のプロセス間通信はどうやるのか知らない</li>
+<li>両方 Rust で書いてる</li>
+<li>C++ だと WebSocket とか TCP とかマルチスレッドとか大変そう</li>
+<li>マルチスレッドの扱いはアクターモデルみたいな感じになってきた</li>
+<li>mpsc チャネルという、複数のスレッドから単一のスレッドにメッセージを送信する仕組みを使っている</li>
+<li>Rx.NET でいうと複数のスレッドに渡した Subject を Observable.Merge して単一スレッドで Subscribe する感じ</li>
+<li>これでメッセージを単一のスレッドにディスパッチしてすべての処理をそこでやれば安全</li>
+<li>と思ったけど HSP のメインスレッド上で行うべき処理が一部あって、どうするか困ってる</li>
+</ul>
+<h3 id="HDG-課題"><a href="#HDG-課題" class="headerlink" title="HDG: 課題"></a>HDG: 課題</h3><p>はやくテストを書きたい</p>
+<ul>
+<li>どこを分離したらテストできるのか分からない</li>
+</ul>
+<h2 id="milone-lang"><a href="#milone-lang" class="headerlink" title="milone-lang"></a>milone-lang</h2><p><a href="https://github.com/vain0x/milone-lang" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang</a></p>
+<h3 id="ML-クロージャ変換"><a href="#ML-クロージャ変換" class="headerlink" title="ML: クロージャ変換"></a>ML: クロージャ変換</h3><p>クロージャ変換が入った</p>
+<ul>
+<li>クロージャ変換について <a href="http://esumii.github.io/min-caml/tutorial-mincaml-16.htm" target="_blank" rel="noopener">http://esumii.github.io/min-caml/tutorial-mincaml-16.htm</a></li>
+<li>簡単にいうと、関数を定義しているところと使用しているところをうまいこと変換しないといけない</li>
+</ul>
+<p>これはいくつかのユースケースに分かれる</p>
+<ul>
+<li>1つ目は、 <strong>関数の定義の中で外側のローカル変数を使ってる</strong> ケース <a href="https://github.com/vain0x/milone-lang/commit/250de343ec44b8f5e7aac540520e9c679c4e194e" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang/commit/250de343ec44b8f5e7aac540520e9c679c4e194e</a></li>
+<li>そのままC言語に変換したらコンパイルできない</li>
+<li>ローカル変数を関数の引数経由で渡すように引数を増やす</li>
+</ul>
+<figure class="highlight fs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// before</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1 から u まで fizz buzz を表示する</span></span><br><span class="line"><span class="keyword">let</span> fizzBuzz u =</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">rec</span> go i =</span><br><span class="line">        <span class="keyword">if</span> i &lt;= u <span class="keyword">then</span> <span class="comment">// この u は関数 go のローカル変数じゃない</span></span><br><span class="line">            <span class="keyword">if</span> i % <span class="number">3</span> = <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">                <span class="comment">// 略</span></span><br><span class="line">            go (i + <span class="number">1</span>)</span><br><span class="line">    go <span class="number">0</span></span><br><span class="line"></span><br><span class="line">fizzBuzz <span class="number">15</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight fs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// after</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fizzBuzz u =</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">rec</span> go <span class="comment">(*追加*)</span>u i =</span><br><span class="line">        <span class="keyword">if</span> i &lt;= u <span class="keyword">then</span></span><br><span class="line">            <span class="keyword">if</span> i % <span class="number">3</span> = <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">                <span class="comment">// 略</span></span><br><span class="line">            go <span class="comment">(*追加*)</span>u (i + <span class="number">1</span>)</span><br><span class="line">    go <span class="comment">(*追加*)</span>u <span class="number">0</span></span><br><span class="line"></span><br><span class="line">fizzBuzz <span class="number">15</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>2つ目は、 <strong>関数呼び出しの引数が足りないケース</strong> <a href="https://github.com/vain0x/milone-lang/commit/e16e9418b09d66399c8e19e33a3b758f0328e43c" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang/commit/e16e9418b09d66399c8e19e33a3b758f0328e43c</a></li>
+<li>引数束縛して関数オブジェクトを作る必要がある</li>
+<li>関数オブジェクトはC言語の上では「関数」ではなくただの値なので <code>f(..)</code> という構文では呼べない<ul>
+<li>だから milone-lang の構文的には同一の式でも、関数オブジェクトを呼んでるのか関数を呼んでるのか区別する必要がある</li>
+</ul>
+</li>
+<li>関数オブジェクトは内部に持っている状態を隠蔽する必要がある<ul>
+<li>C言語の上で型に現れると互換性がなくなるから</li>
+<li><code>void*</code> を使うしかない</li>
+<li>最適化の効きが悪くなるので、すべてこれにするというわけにはいかない</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight fs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> add x y = x + y</span><br><span class="line"></span><br><span class="line"><span class="comment">// add は2引数なのに引数が1個</span></span><br><span class="line"><span class="keyword">let</span> inc = add <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 関数ではなく関数オブジェクトの呼び出しとしてC言語にする必要がある</span></span><br><span class="line">inc <span class="number">9</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// コンパイル後のイメージ</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// add を関数オブジェクト int -&gt; int から呼べるシグネチャにしたもの</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add1</span><span class="params">(<span class="keyword">void</span>* t, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> add(*(<span class="keyword">int</span>*)t, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 関数 int -&gt; int をコンパイルした結果</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">IntIntFun</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span>(*fun)(<span class="keyword">void</span>*, <span class="keyword">int</span>);</span><br><span class="line">    <span class="keyword">void</span>* env; <span class="comment">// 関数オブジェクトが持っている状態</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 関数オブジェクトを作る</span></span><br><span class="line"><span class="comment">// 状態と関数のペア</span></span><br><span class="line"><span class="keyword">int</span>* x = (<span class="keyword">int</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span> <span class="keyword">int</span>);</span><br><span class="line">*x = <span class="number">1</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">IntIntFun</span> <span class="title">inc</span> = &#123;</span></span><br><span class="line">    .fun = add1,</span><br><span class="line">    .env = (<span class="keyword">void</span>*)x,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 関数オブジェクトを呼び出す</span></span><br><span class="line"><span class="comment">// inc は関数ではないので inc() とはできない</span></span><br><span class="line">inc.fun(inc.env, <span class="number">9</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>関数の引数がないケース</strong> (<code>let f = add</code> みたいなやつ) もこれと同様に処理できる<ul>
+<li>関数参照は引数ゼロの引数束縛</li>
+</ul>
+</li>
+<li>あと <strong>関数の引数が多いケース</strong> (複数の呼び出しに分解する必要がある) とかある</li>
+</ul>
+<h3 id="ML-ユニオン型"><a href="#ML-ユニオン型" class="headerlink" title="ML: ユニオン型"></a>ML: ユニオン型</h3><p>ユニオン型 (判別共用体型) が入った <a href="https://github.com/vain0x/milone-lang/commit/2a994c3aa8bae0b4be38c2e5bbfee0a913e0e6d4" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang/commit/2a994c3aa8bae0b4be38c2e5bbfee0a913e0e6d4</a></p>
+<p>ただし再帰的定義はできない</p>
+<h3 id="ML-ステージ順序"><a href="#ML-ステージ順序" class="headerlink" title="ML: ステージ順序"></a>ML: ステージ順序</h3><p>いままでのソースコードの変換過程は、 パース → 型つけ → MIR化 → クロージャ変換 → C言語化、だった</p>
+<ul>
+<li>MIR化: パターンマッチを条件分岐に変換しつつ、入れ子になった式を平坦にする (K正規化する) という手順</li>
+</ul>
+<p>クロージャ変換は静的コード生成に近いものがある。これを MIR に対して行っていたせいで、入れ子になった式やパターンマッチを生成できなくて、生成処理が分かりにくかった。だから順番を入れ替えてる (作業中)</p>
+<p>パース → 型つけ → クロージャ変換 → MIR化 → C言語化</p>
+<h3 id="ML-その他"><a href="#ML-その他" class="headerlink" title="ML: その他"></a>ML: その他</h3><ul>
+<li><code>y |&gt; f x</code> は構文的には <code>f x</code> という関数オブジェクトに <code>x</code> を適用してるけど、実際には <code>f x y</code> が呼ばれるのでゼロコスト、というのが分かった</li>
+</ul>
+<h2 id="競プロ参戦記"><a href="#競プロ参戦記" class="headerlink" title="競プロ参戦記"></a>競プロ参戦記</h2><p>AtCoder でのコンテスト開催が少なかったため3回だけ</p>
+<ul>
+<li><a href="https://note.mu/vain0x/n/ned281cf01192?magazine_key=m9aa8513f4e97" target="_blank" rel="noopener">競プロ参戦記 第21回 「気温とあみだくじ」 ABC 113｜ベイン｜note</a></li>
+<li><a href="https://note.mu/vain0x/n/n22b97a3e44f8?magazine_key=m9aa8513f4e97" target="_blank" rel="noopener">競プロ参戦記 第22回 「最大の論理積」 / ドワンゴコン5 [ABC]｜ベイン｜note</a></li>
+<li><a href="https://note.mu/vain0x/n/n85e1dd5a0b3d?magazine_key=m9aa8513f4e97" target="_blank" rel="noopener">競プロ参戦記 #23 「チップストーリー」 / DDCC 2019 予選｜ベイン｜note</a></li>
+</ul>
+<p>転倒数の記事の閲覧数がなぜか増え続けていることに気づいた。わりと尻切れトンボな記事だったので、 BIT について加筆した</p>
+<ul>
+<li><a href="https://note.mu/vain0x/n/n0037d6468812" target="_blank" rel="noopener">競プロ参戦記 第10回「転倒数」  Chokudai Speed Run 001 [J]｜ベイン｜note</a></li>
+</ul>
+<h2 id="円周率チャレンジ"><a href="#円周率チャレンジ" class="headerlink" title="円周率チャレンジ"></a>円周率チャレンジ</h2><p>2 を足す操作と平方根をとる操作を繰り返して、数値を円周率に近づけるゲーム。半分全列挙を使って手順を探索した</p>
+<ul>
+<li><a href="https://vain0x.github.io/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a></li>
+</ul>
+<h2 id="ブログ"><a href="#ブログ" class="headerlink" title="ブログ"></a>ブログ</h2><ul>
+<li>ヘッダーに競プロ参戦記等へのリンクを貼った</li>
+<li>ローカライズのあやしい部分を修正した</li>
+</ul>
+<h2 id="Web-アプリ開発"><a href="#Web-アプリ開発" class="headerlink" title="Web アプリ開発"></a>Web アプリ開発</h2><ul>
+<li>前月同様、昨日は増えてるが品質は下がってる</li>
+<li>リファクタリングがいるのは分かるけど、どういう方向に持っていけばいいのか……</li>
+</ul>
+<h2 id="ガルパ"><a href="#ガルパ" class="headerlink" title="ガルパ"></a>ガルパ</h2><ul>
+<li>難度 26 楽曲でもフルコンボがたびたび出るようになってきた</li>
+<li>難度 27 楽曲を回復なしでクリアできるように練習してる</li>
+<li>左手プレイは練習してもうまくならないという限界を感じる<ul>
+<li>片方をホールドして動かしながら他方でタップ、みたいなのができない</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-11-30/diary/" data-id="cjp43fdwg0000mucxd6y62nuk" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-pi-challenge" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-11-07/pi-challenge/" class="article-date">
+  <time datetime="2018-11-07T08:01:00.000Z" itemprop="datePublished">2018-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://rirosi.net/plus2/" target="_blank" rel="noopener">円周率チャレンジ</a> というゲームが流行中です！</p>
+<p>プログラムを使って良い解法を探索してみたので、考えたことを書いていきます。</p>
+<h2 id="円周率チャレンジとは"><a href="#円周率チャレンジとは" class="headerlink" title="円周率チャレンジとは"></a>円周率チャレンジとは</h2><blockquote>
+<h2 id="円周率チャレンジ"><a href="#円周率チャレンジ" class="headerlink" title="円周率チャレンジ"></a>円周率チャレンジ</h2><p>「円周率チャレンジ」は，「ルートをとる(sqrt)」「2を足す(+2)」の２種類のボタンを使って，<br>数字を円周率に近づけていくゲームです。できるだけ少ない回数でハイスコアを狙いましょう！</p>
+</blockquote>
+<p>例えば +2, √, +2 という手順で操作を行うと、数値は:</p>
+<p>0 → 2 → 1.41421.. → 3.41421..</p>
+<p>と変化して、円周率 π = 3.141592.. に近い数値になります。</p>
+<p>もっと手数を増やせば、 <strong>さらに円周率に近づけられるはず</strong> 。その最良手順を探すゲームです。</p>
+<h2 id="解法1-ビット全探索"><a href="#解法1-ビット全探索" class="headerlink" title="解法1: ビット全探索"></a>解法1: ビット全探索</h2><p>やはり最初に試すのは全探索でしょう！</p>
+<p>手数 N の最良手順を探すことを考えます。ここで手順とは「ルートをとる」と「+2 を足す」の2種類の要素からなる長さ N の列です。手順をすべて列挙して、計算結果と円周率を実際に比べてみれば、何が最良か分かるはずです。</p>
+<p>2種類の要素を 0, 1 で表せば、手順はビット列として扱えて、配列を使うより経済的に全探索できます。参考: <a href="https://qiita.com/drken/items/7c6ff2aa4d8fce1c9361#bit-%E5%85%A8%E6%8E%A2%E7%B4%A2" target="_blank" rel="noopener">ビット演算 (bit 演算) の使い方を総特集！ 〜 マスクビットから bit DP まで 〜 - Qiita</a></p>
+<p>操作列の「実行」は次のようなコードです。下位ビットから順番にみていき、 0 なら +2 の操作を、1 ならルートをとる操作を実行して、最終結果を得ます。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">eval</span></span>(ops: <span class="built_in">i64</span>, n: <span class="built_in">usize</span>) -&gt; <span class="built_in">f64</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> value = <span class="number">0.0_f64</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">        <span class="keyword">if</span> (ops &amp; (<span class="number">1</span> &lt;&lt; i)) == <span class="number">0</span> &#123;</span><br><span class="line">            value += <span class="number">2.0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            value = value.sqrt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これをすべての操作列に適用して、円周率の差が最小のものを探します。抜粋:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//..</span></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> best_diff = <span class="number">1e9</span>; <span class="comment">// 最小の差</span></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> best_ops = <span class="number">0</span>; <span class="comment">// 最小の差を達成した操作列</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ops <span class="keyword">in</span> <span class="number">0</span>..<span class="number">1</span> &lt;&lt; n &#123; <span class="comment">// 操作列の全列挙</span></span><br><span class="line">    <span class="keyword">let</span> value = eval(ops, n); <span class="comment">// 操作の実行</span></span><br><span class="line">    <span class="keyword">let</span> diff = (value - PI).abs(); <span class="comment">// 円周率との差</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> best_diff &gt; diff &#123; <span class="comment">// 最小値の更新</span></span><br><span class="line">        best_diff = diff;</span><br><span class="line">        best_ops = ops;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//..</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://play.rust-lang.org/?version=stable&amp;mode=release&amp;edition=2015&amp;gist=61011280947f9a6641333f63bc0b90cb" target="_blank" rel="noopener">コード全体はこちら</a></p>
+<p>時間がかかるのでリリースモードを使って (<code>cargo run --release</code>) 実行すると、こんな感じで手数ごとの良い操作列を出します:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">手数 数値                差                 操作</span><br><span class="line">#00 0.0000000000000000 3.1415926535897931</span><br><span class="line">#01 2.0000000000000000 1.1415926535897931 +</span><br><span class="line">..</span><br><span class="line">#27 3.1415927103795092 0.0000000567897160 +/++ +/// //// //// ++// +/++ ++/</span><br><span class="line">#28 3.1415926624518788 0.0000000088620857 +//+ ++// //// //// /++/ /+/+ +++/</span><br></pre></td></tr></table></figure>
+<p>これで手数 N=28 ぐらいまでの最良(?)手順が求まりました。それ以上は時間がかかりすぎるので、別の方法で探索したほうがよさそうです。</p>
+<h2 id="解法2-半分全列挙"><a href="#解法2-半分全列挙" class="headerlink" title="解法2: 半分全列挙"></a>解法2: 半分全列挙</h2><p>全探索では 0 から π に近づけましたが、逆に π から 0 に近づける操作列も考えられます。つまり、</p>
+<blockquote>
+<p>π から始めて、「2を引く」と「2乗する」を組み合わせて 0 に近づけるゲーム</p>
+</blockquote>
+<p>をやってもいいです。このことから、0 と π の <strong>両端から良い手順を探して繋ぐ</strong> という解法が出てきます。いわゆる半分全列挙です。</p>
+<p>具体的には:</p>
+<ul>
+<li>手数 N/2 の操作 F をすべて列挙して、その結果の数値を A とするとき、(A, F) というペアをすべて記録しておく。</li>
+<li>次に、手数 N/2 の操作 G をすべて列挙して、それを π から逆算したときの数値を B とする。</li>
+<li>メモから (B, F) に最も近いものを探して操作 F+G を作れば、これは π に近い数になる。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    F            G</span><br><span class="line">0   →   A ≒ B   →   π</span><br></pre></td></tr></table></figure>
+<p>計算量はどうでしょう。</p>
+<ul>
+<li>メモ ((A, F) の配列) を A についてソートしておけば、メモから探すのは二分探索ができます。</li>
+<li>ソートを工夫しなければ、全体として O(2^(N/2) log N) です。<ul>
+<li>これなら <strong>N = 50 ぐらいまでいけそう</strong> 。</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://play.rust-lang.org/?version=stable&amp;mode=release&amp;edition=2015&amp;gist=17cf3535110ee76685581525e57cad15" target="_blank" rel="noopener">コード全体はこちら</a></p>
+<p>しばらく待つと、53手のかなり強い手順が得られます。小数点以下15桁まで一致。</p>
+<h2 id="終わりに"><a href="#終わりに" class="headerlink" title="終わりに"></a>終わりに</h2><p>執筆時点で1位の (手数 53, スコア Infinity) には及びませんでした。おそらく二分探索の段階で近似的になりすぎてしまうからかなと思います。ヒューリスティックなアルゴリズムや数学的なアプローチの余地がまだまだありそうです。</p>
+<p>なにはともあれ、半分全列挙のよい練習になりました。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://tatsu-zine.com/books/procon-challenge" target="_blank" rel="noopener">プログラミングコンテストチャレンジブック [第2版]【委託】 - 達人出版会</a><ul>
+<li>通称蟻本。半分全列挙が載っていました</li>
+</ul>
+</li>
+</ul>
+<h2 id="Appendix-ソースコード"><a href="#Appendix-ソースコード" class="headerlink" title="Appendix. ソースコード"></a>Appendix. ソースコード</h2><details><br>    <summary>ビット全探索</summary><br><br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::<span class="built_in">f64</span>::consts::PI;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 操作列 ops の下位ビットから r 桁を実行して、結果の数値を得る。</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">eval</span></span>(ops: <span class="built_in">i64</span>, n: <span class="built_in">usize</span>) -&gt; <span class="built_in">f64</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> value = <span class="number">0.0_f64</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">        <span class="keyword">if</span> (ops &amp; (<span class="number">1</span> &lt;&lt; i)) == <span class="number">0</span> &#123;</span><br><span class="line">            value += <span class="number">2.0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            value = value.sqrt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 操作列を読みやすい文字列にする。</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">how</span></span>(ops: <span class="built_in">i64</span>, n: <span class="built_in">usize</span>) -&gt; <span class="built_in">String</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> acc = <span class="built_in">String</span>::new();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">        <span class="keyword">if</span> i &gt; <span class="number">0</span> &amp;&amp; i % <span class="number">4</span> == <span class="number">0</span> &#123;</span><br><span class="line">            acc.push(<span class="string">' '</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ops &amp; (<span class="number">1</span> &lt;&lt; i)) == <span class="number">0</span> &#123;</span><br><span class="line">            acc.push(<span class="string">'+'</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            acc.push(<span class="string">'/'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    acc</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="comment">// n: 手数</span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="number">0</span>..<span class="number">29</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> best_diff = <span class="number">1e9</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> best_ops = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> ops <span class="keyword">in</span> <span class="number">0</span>..<span class="number">1</span> &lt;&lt; n &#123;</span><br><span class="line">            <span class="keyword">let</span> value = eval(ops, n);</span><br><span class="line">            <span class="keyword">let</span> diff = (value - PI).abs();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> best_diff &gt; diff &#123;</span><br><span class="line">                best_diff = diff;</span><br><span class="line">                best_ops = ops;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> value = eval(best_ops, n);</span><br><span class="line">        <span class="keyword">let</span> diff = (value - PI).abs();</span><br><span class="line">        <span class="keyword">let</span> how = how(best_ops, n);</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">"#&#123;:&gt;02&#125; &#123;:&gt;.16&#125; &#123;:&gt;0.16&#125; &#123;&#125;"</span>, n, value, diff, how);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br></details>
+
+<details><br>    <summary>半分全列挙</summary><br><br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::<span class="built_in">f64</span>::consts::PI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">lower_bound</span></span>&lt;T: <span class="built_in">PartialOrd</span>&gt;(xs: &amp;[T], y: &amp;T) -&gt; <span class="built_in">usize</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> l = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> r = xs.len() + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> r - l &gt; <span class="number">1</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> m = l + (r - l) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> &amp;xs[m - <span class="number">1</span>] &lt; y &#123;</span><br><span class="line">            l = m;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            r = m;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    l</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 操作列 ops の下位ビットから n 桁を実行して、結果の数値を得る。</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">eval</span></span>(ops: <span class="built_in">i64</span>, n: <span class="built_in">usize</span>) -&gt; <span class="built_in">f64</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> value = <span class="number">0.0_f64</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">        <span class="keyword">if</span> (ops &amp; (<span class="number">1</span> &lt;&lt; i)) == <span class="number">0</span> &#123;</span><br><span class="line">            value += <span class="number">2.0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            value = value.sqrt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 操作列 ops の上位ビットから n 桁の逆操作を実行して、結果の数値を得る。</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">eval_inv</span></span>(ops: <span class="built_in">i64</span>, n: <span class="built_in">usize</span>) -&gt; <span class="built_in">f64</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> value = PI;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> (<span class="number">0</span>..n).rev() &#123;</span><br><span class="line">        <span class="keyword">if</span> (ops &amp; (<span class="number">1</span> &lt;&lt; i)) == <span class="number">0</span> &#123;</span><br><span class="line">            value -= <span class="number">2.0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            value *= value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 操作列を読みやすい文字列にする。</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">how</span></span>(ops: <span class="built_in">i64</span>, n: <span class="built_in">usize</span>) -&gt; <span class="built_in">String</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> acc = <span class="built_in">String</span>::new();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">        <span class="keyword">if</span> i &gt; <span class="number">0</span> &amp;&amp; i % <span class="number">4</span> == <span class="number">0</span> &#123;</span><br><span class="line">            acc.push(<span class="string">' '</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ops &amp; (<span class="number">1</span> &lt;&lt; i)) == <span class="number">0</span> &#123;</span><br><span class="line">            acc.push(<span class="string">'+'</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            acc.push(<span class="string">'/'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    acc</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 手数 n の操作の結果をすべて計算する。</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">enumerate</span></span>(n: <span class="built_in">usize</span>) -&gt; <span class="built_in">Vec</span>&lt;(<span class="built_in">f64</span>, <span class="built_in">i64</span>)&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> memo = <span class="built_in">vec!</span>[];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ops <span class="keyword">in</span> <span class="number">0</span>..<span class="number">1</span> &lt;&lt; n &#123;</span><br><span class="line">        <span class="keyword">let</span> value = eval(ops, n);</span><br><span class="line">        memo.push((value, ops));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    memo.sort_by(|(lx, _), (rx, _)| lx.partial_cmp(rx).unwrap());</span><br><span class="line">    memo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="comment">// n: 手数</span></span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="number">0</span>..<span class="number">54</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> ln = n / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">let</span> rn = n - ln;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> memo = enumerate(ln);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> best_diff = <span class="number">1e9</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> best_ops = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> r_ops <span class="keyword">in</span> <span class="number">0</span>..<span class="number">1</span> &lt;&lt; rn &#123;</span><br><span class="line">            <span class="keyword">let</span> mid = eval_inv(r_ops, rn);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> i = lower_bound(&amp;memo, &amp;(mid, r_ops));</span><br><span class="line">            <span class="keyword">if</span> !(i &lt; memo.len()) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">let</span> (_, l_ops) = memo[i];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> ops = (r_ops &lt;&lt; ln) | l_ops;</span><br><span class="line">            <span class="keyword">let</span> value = eval(ops, n);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">let</span> diff = (value - PI).abs();</span><br><span class="line">            <span class="keyword">if</span> best_diff &gt; diff &#123;</span><br><span class="line">                best_diff = diff;</span><br><span class="line">                best_ops = ops;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> value = eval(best_ops, n);</span><br><span class="line">        <span class="keyword">let</span> diff = (value - PI).abs();</span><br><span class="line">        <span class="keyword">let</span> how = how(best_ops, n);</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">"#&#123;:&gt;02&#125; &#123;:&gt;.16&#125; &#123;:&gt;.16&#125; &#123;&#125;"</span>, n, value, diff, how);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br></details>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-11-07/pi-challenge/" data-id="cjoa7fspp0000bkcx5uihi5mx" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Rust/">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/アルゴリズム/">アルゴリズム</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-10-31/diary/" class="article-date">
+  <time datetime="2018-10-31T14:59:59.000Z" itemprop="datePublished">2018-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-10-31/diary/">近況 2018-10-31</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><a href="https://vain0x.github.io/blog/2018-09-30/diary/">前月</a></li>
+</ul>
+<h3 id="milone-lang"><a href="#milone-lang" class="headerlink" title="milone-lang"></a>milone-lang</h3><ul>
+<li><a href="https://github.com/vain0x/milone-lang" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang</a></li>
+<li>F# のサブセットのコンパイラ milone-lang を作ってる</li>
+<li>前月苦しんでいた字下げ依存構文の構文解析問題はほぼ解決した<ul>
+<li>次のトークンの位置が低すぎたらパースを中止する、みたいな動き</li>
+<li>結果的に再帰下降パーサーとしては自然な実装になった</li>
+</ul>
+</li>
+<li>インタプリタを捨てて、C言語のコードを生成するようにした<ul>
+<li>インタプリタの実装は klac-lang でやったから退屈に感じる</li>
+<li>最終的にはアセンブリや Web Assembly や LLVM をターゲットにしたいが、モチベを維持するために機能追加を優先していく</li>
+</ul>
+</li>
+<li>演算や条件分岐や関数などの基本機能が入った</li>
+<li>シンプルな型推論が入った<ul>
+<li>単一化ベースだが、まだ多相関数は禁止しているのでHMじゃない</li>
+</ul>
+</li>
+<li>ジェネリクスを入れようとして、オートボクシングと型推論の兼ね合いで悩んだ<ul>
+<li>ジェネリクスはやめて、単相化することにした</li>
+<li>例えばタプルは、生成後のCのコードでは型引数ごとに別々の構造体になる</li>
+</ul>
+</li>
+<li>近い目標として、字句解析器をコンパイルしたい<ul>
+<li>リストを入れないと何もできない</li>
+<li>クロージャもほしいけど難しいかも</li>
+</ul>
+</li>
+<li>参考<ul>
+<li>TaPL</li>
+<li><a href="http://esumii.github.io/min-caml/" target="_blank" rel="noopener">速攻MinCamlコンパイラ概説</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="環境再構築"><a href="#環境再構築" class="headerlink" title="環境再構築"></a>環境再構築</h3><ul>
+<li>今年頭 (2018年1月) にパソコンを買い替えた<ul>
+<li><a href="https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/">Ubuntuデスクトップを使い始めた | vain0x’s blog</a></li>
+</ul>
+</li>
+<li>Ubuntu デスクトップという試みはうまくいっている</li>
+<li>パフォーマンス問題があった<ul>
+<li>Chrome のタブを大量に開いたり VSCode を複数起動すると重たくなる</li>
+</ul>
+</li>
+<li>メモリを 16GB に、ハードディスクを SSD にした</li>
+<li>SSD 換装は初めてだったけど簡単にできた<ul>
+<li>SATAケーブルとSATA電源ケーブルを買ったけど、HDDと繋ぎかえるだけだからいらなかった</li>
+<li>SSD はメンディングテープで固定した</li>
+</ul>
+</li>
+<li>ついでにクリーンインストールした</li>
+</ul>
+<h3 id="競プロ参戦記"><a href="#競プロ参戦記" class="headerlink" title="競プロ参戦記"></a>競プロ参戦記</h3><ul>
+<li>8月中旬から note.mu で <a href="https://note.mu/vain0x/m/m9aa8513f4e97" target="_blank" rel="noopener">競プロ参戦記</a> を始めた</li>
+<li>AGC で惨敗して、2週間ぐらい競プロから離れていた</li>
+<li>先週の天下一は参加して、そこそこの成績だった</li>
+<li>まったりやっていく</li>
+</ul>
+<h3 id="toml-hummer"><a href="#toml-hummer" class="headerlink" title="toml-hummer"></a>toml-hummer</h3><ul>
+<li><a href="https://github.com/vain0x/toml-hummer" target="_blank" rel="noopener">https://github.com/vain0x/toml-hummer</a></li>
+<li>F# 用の TOML パーサー</li>
+<li>あまり進んでない</li>
+<li>日時リテラルを扱えるようになりつつある</li>
+</ul>
+<h3 id="React"><a href="#React" class="headerlink" title="React"></a>React</h3><ul>
+<li>機能追加はうまくいっている</li>
+<li>データベース処理ごとテストしてる<ul>
+<li>依存関係を切るの難しい</li>
+</ul>
+</li>
+<li>履歴移動でコンポーネントの状態が初期化される問題はまだ放置してる</li>
+<li>サーバーとクライアントで行ったり来たりする処理の見通しが悪い<ul>
+<li>ステートマシンみたいになってしまう</li>
+<li>再帰下降パーサーみたいに書きたい</li>
+</ul>
+</li>
+</ul>
+<h3 id="ガルパ"><a href="#ガルパ" class="headerlink" title="ガルパ"></a>ガルパ</h3><ul>
+<li>ファントムシーフ (Expert 27) はクリアできた</li>
+<li>今後は 26 帯の精度を上げていきたい</li>
+<li>某の影響をで左手プレイを練習している</li>
+</ul>
+<h3 id="その他"><a href="#その他" class="headerlink" title="その他"></a>その他</h3><ul>
+<li>AtCoder の提出を Git リポジトリにまとめるツールを書いた<ul>
+<li><a href="https://github.com/vain0x/submissions-sync" target="_blank" rel="noopener">https://github.com/vain0x/submissions-sync</a></li>
+<li>GitHub に自動でコミットしたいという野望がある</li>
+</ul>
+</li>
+<li>投稿専用の Twitter クライアント Solotter を地味に改修した<ul>
+<li><a href="https://github.com/vain0x/solotter-web" target="_blank" rel="noopener">https://github.com/vain0x/solotter-web</a></li>
+<li>Express.js で書いていたのが React になった</li>
+<li>いろいろ足したい機能があるけど、いまは milone-lang が優先</li>
+</ul>
+</li>
+<li>記事を投稿した<ul>
+<li><a href="https://qiita.com/vain0x/items/512784ff60ce599dccae" target="_blank" rel="noopener">Rustで競プロするときのプラクティス [2018秋] - Qiita</a></li>
+</ul>
+</li>
+<li>このブログをなんとかしたい<ul>
+<li>更新作業を楽にしたい</li>
+<li>画像を載せやすくしたい</li>
+<li>記事一覧をつけたい</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-10-31/diary/" data-id="cjnsw4f790000u3cxch3jkb5g" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-rust-procon" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-10-07/rust-procon/" class="article-date">
+  <time datetime="2018-10-07T11:00:00.000Z" itemprop="datePublished">2018-10-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。</p>
+<h2 id="筆者"><a href="#筆者" class="headerlink" title="筆者"></a>筆者</h2><ul>
+<li>AtCoder 水色</li>
+<li><a href="https://note.mu/vain0x/n/ndcec1623a167" target="_blank" rel="noopener">競プロ参戦記</a> やってます</li>
+</ul>
+<h2 id="フレームワーク"><a href="#フレームワーク" class="headerlink" title="フレームワーク"></a>フレームワーク</h2><p><a href="https://github.com/vain0x/procon/blob/f016133b83c42196837e1b2490ecb5e57ce1ff40/rust/src/main.rs" target="_blank" rel="noopener">自作フレームワークはこちら</a> 。いつもこれの main 関数の中に解答を書いて提出しています。</p>
+<h2 id="入力のパース"><a href="#入力のパース" class="headerlink" title="入力のパース"></a>入力のパース</h2><p>標準機能だけで入力をパースしようとするとだるいです。Qiita にも、すでにこの問題を解決しようという記事がいくつか上がっています。</p>
+<p>私は上述のフレームワークに含まれている <a href="https://github.com/vain0x/procon/blob/f016133b83c42196837e1b2490ecb5e57ce1ff40/rust/src/main.rs#L25-L47" target="_blank" rel="noopener"><code>read!</code> マクロ</a> を使っています。実装が短い (23行) のと、見た目が関数っぽくて好み。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//! グラフのパースの例</span></span><br><span class="line"><span class="keyword">let</span> (N, M) = read!(<span class="built_in">usize</span>, <span class="built_in">usize</span>);</span><br><span class="line"><span class="keyword">let</span> weightd_edges = read![[<span class="built_in">usize</span>, <span class="built_in">usize</span>, <span class="built_in">i64</span>]; M];</span><br></pre></td></tr></table></figure>
+<p>パフォーマンスは若干悪くて、C++ で std::cin を使うより2倍ぐらい遅いです。それでも 10^6 個の整数を読むのに 100 ms 未満なので問題はないはず。ベンチマーク: <a href="https://github.com/vain0x/scan-bench" target="_blank" rel="noopener">scan-bench</a></p>
+<h2 id="デバッグ用のマクロ"><a href="#デバッグ用のマクロ" class="headerlink" title="デバッグ用のマクロ"></a>デバッグ用のマクロ</h2><p><a href="https://qiita.com/yamoridon/items/3be3f0515a79567a0588" target="_blank" rel="noopener">LLDB を使うとデバッグ実行できるらしい</a> です。私はやってなくて、いつも print デバッグしています。</p>
+<h3 id="debug-条件コンパイル"><a href="#debug-条件コンパイル" class="headerlink" title="debug!: 条件コンパイル"></a>debug!: 条件コンパイル</h3><p>デバッグ出力の消し忘れで WA とかは避けたいです。 <a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/conditional-compilation.html" target="_blank" rel="noopener">条件コンパイル</a> を使って、ローカルではデバッグ出力が出る、ジャッジ時は出ない、というふうにしています。</p>
+<p>Debug/Release での分岐は <a href="https://users.rust-lang.org/t/conditional-compilation-for-debug-release/1098/3" target="_blank" rel="noopener">debug_assertions を使えばできる</a> そうです。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// デバッグビルドではこっちの定義が使われる。</span></span><br><span class="line"><span class="meta">#[cfg(debug_assertions)]</span></span><br><span class="line"><span class="built_in">macro_rules!</span> debug &#123;</span><br><span class="line">    <span class="comment">// 略</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// リリースビルドではこっちの定義が使われて、 debug!(..) が無になる。</span></span><br><span class="line"><span class="meta">#[cfg(not(debug_assertions))]</span></span><br><span class="line"><span class="built_in">macro_rules!</span> debug &#123;</span><br><span class="line">    ($($arg:expr),*) =&gt; &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="debug-定義の省略"><a href="#debug-定義の省略" class="headerlink" title="debug!: 定義の省略"></a>debug!: 定義の省略</h3><p>ジャッジに不要なコードを提出に含めるのは <em>なんとなく</em> 抵抗があります。そこで、定義はローカルのファイルに書いておき、手元でのデバッグ実行時だけ <code>include!</code> で定義を取り込むという方法があります。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// デバッグ時はローカルのファイルから定義を読み込む</span></span><br><span class="line"><span class="meta">#[cfg(debug_assertions)]</span></span><br><span class="line">include!&#123;<span class="string">"./procon/debug.rs"</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// リリース時に debug!(..) を消す</span></span><br><span class="line"><span class="meta">#[cfg(not(debug_assertions))]</span></span><br><span class="line"><span class="built_in">macro_rules!</span> debug &#123;</span><br><span class="line">    ($($arg:expr),*) =&gt; &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これで debug! マクロを高機能化しても提出コードが膨れ上がることはなくなります。</p>
+<h3 id="余談-dbg"><a href="#余談-dbg" class="headerlink" title="余談: dbg!"></a>余談: dbg!</h3><p>ちなみに、将来のバージョンでは公式に <code>dbg!</code> という print デバッグ用途のマクロが入るそうです。参考：<a href="https://github.com/rust-lang/rfcs/blob/master/text/2361-dbg-macro.md" target="_blank" rel="noopener">rfcs/2361-dbg-macro.md at master · rust-lang/rfcs</a></p>
+<h2 id="数値型"><a href="#数値型" class="headerlink" title="数値型"></a>数値型</h2><p>数値型は <a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/primitive-types.html" target="_blank" rel="noopener">プリミティブ型</a> に載っているとおりたくさんありますが、よく使うのは4つ:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">i64</td>
+<td style="text-align:left">10^18 ぐらいまで扱える</td>
+</tr>
+<tr>
+<td style="text-align:left">usize</td>
+<td style="text-align:left">スライスや Vec の添字に使う</td>
+</tr>
+<tr>
+<td style="text-align:left">f64</td>
+<td style="text-align:left">浮動小数点数</td>
+</tr>
+<tr>
+<td style="text-align:left">char</td>
+<td style="text-align:left">文字 (厳密には Unicode scalar value)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="数値型-usize"><a href="#数値型-usize" class="headerlink" title="数値型: usize"></a>数値型: usize</h3><p>usize を int の感覚で書いてると微妙にハマります。マイナスにオーバーフローしたとき、Debug モードでは実行時エラーになります。Release モードではエラーになりませんが、符号なし型なのでマイナスにはならないことに注意です。</p>
+<p>例えば次のコード (x, y: usize) はおかしくて、<code>x &lt; y</code> のとき Debug モードではエラーになり、Release モードでも <code>max</code> は機能してません。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">max(<span class="number">0</span>, x - y) <span class="comment">// ✘ ダメ</span></span><br></pre></td></tr></table></figure>
+<p>オーバーフローしないようにするか、i64 を経由すれば動きます:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// monus</span></span><br><span class="line">x - min(x, y)</span><br><span class="line"></span><br><span class="line"><span class="comment">// または、i64 を経由する</span></span><br><span class="line">max(<span class="number">0</span>, x <span class="keyword">as</span> <span class="built_in">i64</span> - y <span class="keyword">as</span> <span class="built_in">i64</span>) <span class="keyword">as</span> <span class="built_in">usize</span></span><br></pre></td></tr></table></figure>
+<h2 id="文字列"><a href="#文字列" class="headerlink" title="文字列"></a>文字列</h2><p>Rust の標準的な文字列型である String (と str) は utf-8 なので、ランダムアクセスできません。そういうときは文字の列 <code>Vec&lt;char&gt;</code> で持つようにします。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s: <span class="built_in">String</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 文字の列に変換</span></span><br><span class="line"><span class="keyword">let</span> s = s.chars().collect::&lt;<span class="built_in">Vec</span>&lt;_&gt;&gt;();</span><br></pre></td></tr></table></figure>
+<p>これは若干パフォーマンスが悪いです。一時期は <code>Vec&lt;u8&gt;</code> を使っていたんですが、デバッグ出力時に u8 が数字で出るのが不便だったのでやめました……</p>
+<h2 id="Vec"><a href="#Vec" class="headerlink" title="Vec"></a>Vec</h2><p>イテレータを Vec に変換する <code>.collect::&lt;Vec&lt;_&gt;&gt;</code> は頻出ですが、タイプがつらいので略記を用意してます。</p>
+<p>自作トレイトをすべてのイテレータに実装させることで、 C# の拡張メソッドのようなことができます。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">IteratorExt</span></span>: <span class="built_in">Iterator</span> + <span class="built_in">Sized</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">vec</span></span>(<span class="keyword">self</span>) -&gt; <span class="built_in">Vec</span>&lt;Self::Item&gt; &#123;</span><br><span class="line">        <span class="keyword">self</span>.collect()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span>&lt;T: <span class="built_in">Iterator</span>&gt; IteratorExt <span class="keyword">for</span> T &#123;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// e.g.</span></span><br><span class="line"><span class="keyword">let</span> xs = (<span class="number">0</span>..N).map(|i| i + <span class="number">1</span>).vec();</span><br></pre></td></tr></table></figure>
+<h2 id="再帰"><a href="#再帰" class="headerlink" title="再帰"></a>再帰</h2><p>ローカル変数を利用する再帰関数について、7月に「 <a href="https://qiita.com/vain0x/items/90c9580aa34926160ac1" target="_blank" rel="noopener">Rustのクロージャで再帰してみた</a> 」という記事を書きました。クロージャは、mut な変数を書き換えないなら簡単に再帰にできるという結論です。</p>
+<p>mut な変数を書き換えたいなら RefCell とかを使う、と記事では書きました。struct を定義したほうがいいこともあります。いずれにせよ手間なので、マクロで簡略化を図りたいと思っています。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/" target="_blank" rel="noopener">公式のドキュメントの和訳</a><ul>
+<li>必読</li>
+</ul>
+</li>
+<li><a href="https://qiita.com/hatoo@github/items/fa14ad36a1b568d14f3e" target="_blank" rel="noopener">Rustで競技プログラミング スターターキット - Qiita</a><ul>
+<li>コンパイラバージョンの固定 (rustup override set)</li>
+<li>BinaryHeap を昇順で使う方法 (Reverse)</li>
+<li>浮動小数点で sort などを使う方法 (impl Ord)</li>
+<li>深い再帰でスタックオーバーフローしないようにする方法 (std::thread)</li>
+<li>などについてはこの記事を読んでください</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-10-07/rust-procon/" data-id="cjnspsyy00013kfcxpz9z8pfw" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Rust/">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/競技プログラミング/">競技プログラミング</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-09-30/diary/" class="article-date">
+  <time datetime="2018-09-30T14:59:59.000Z" itemprop="datePublished">2018-09-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-09-30/diary/">近況 2018-09-30</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>校正の手間を省くため、なるべく箇条書きでやっていく<ul>
+<li>通常の文章を書く頭は README と競プロ参戦記に使う</li>
+</ul>
+</li>
+<li>Twitter ではなく、まとまったものを書いていきたい</li>
+</ul>
+<h3 id="競プロ参戦記"><a href="#競プロ参戦記" class="headerlink" title="競プロ参戦記"></a>競プロ参戦記</h3><ul>
+<li>8月中旬から note.mu で <a href="https://note.mu/vain0x/m/m9aa8513f4e97" target="_blank" rel="noopener">競プロ参戦記</a> を始めた</li>
+<li>3日で終わるかと思ったけど1ヶ月は続いた</li>
+<li>成長やモチベに貢献しているかは微妙<ul>
+<li>以前に参戦記で書いたことと同様の手順で解ける問題をとき損ねるという事件があった</li>
+<li><a href="https://note.mu/vain0x/n/n556db26bb3a8" target="_blank" rel="noopener">競プロ参戦記 第16回「偶奇と多節腕」 ARC103 [CD]｜ベイン｜note</a></li>
+</ul>
+</li>
+<li>note.mu を選んだ理由<ul>
+<li>日本語で書ける、技術よりな日記を書ける、デザインが良い、という条件を満たしてる</li>
+<li>Qiita には日記を書きづらい</li>
+<li>Codeforces blog は日本語では書きづらい</li>
+<li>自前のブログは更新がめんどい</li>
+</ul>
+</li>
+<li>note.mu の問題<ul>
+<li>エディターが微妙に使いづらい</li>
+</ul>
+</li>
+</ul>
+<h3 id="Milone-言語を作り始めた"><a href="#Milone-言語を作り始めた" class="headerlink" title="Milone 言語を作り始めた"></a>Milone 言語を作り始めた</h3><ul>
+<li>リポジトリ: <a href="https://github.com/vain0x/milone-lang" target="_blank" rel="noopener">milone-lang</a></li>
+<li>セキュリティキャンプや Turing Complete FM の影響でC言語のセルフホスティングコンパイラを作るのが大流行</li>
+<li>私もやりたいけどCコンパイラは乗り遅れ感</li>
+<li>自作言語なら楽？</li>
+<li>Rust っぽい構文をさっと考えて実装開始<ul>
+<li>道のりが長すぎて既に飽き気味</li>
+</ul>
+</li>
+<li>F# のサブセットにしようとしてる<ul>
+<li>字下げ依存構文の解析がつらすぎて飽き気味</li>
+</ul>
+</li>
+</ul>
+<h3 id="F-用のTOMLパーサを書き始めた"><a href="#F-用のTOMLパーサを書き始めた" class="headerlink" title="F# 用のTOMLパーサを書き始めた"></a>F# 用のTOMLパーサを書き始めた</h3><ul>
+<li>リポジトリ: <a href="https://github.com/vain0x/toml-hummer" target="_blank" rel="noopener">toml-hummer</a></li>
+<li>習作。既存の TOML パーサ実装はある</li>
+<li>字句解析 → 字句リストを再帰下降パース、という手順でやる<ul>
+<li>パーサコンビネータ (FParsec) もパーサジェネレータ (FsYacc) もいらない、言語機能だけでパースできる、っていうのをやりたい</li>
+<li>パースはわりとすんなりいけてる</li>
+<li>字句解析が正規表現でかなりがちゃがちゃしてる、ここをもっと簡単にしたい</li>
+</ul>
+</li>
+<li>エラー報告の精度を上げるのは大変そう<ul>
+<li>何を使っても大変</li>
+<li>Rust コンパイラのエラー報告はとても偉い</li>
+</ul>
+</li>
+<li>TOML のデータ構造の持ちかたで迷ってる</li>
+</ul>
+<h3 id="React-を始めた"><a href="#React-を始めた" class="headerlink" title="React を始めた"></a>React を始めた</h3><ul>
+<li>Vue.js をちょっとだけやったことはあった<ul>
+<li>極めて便利だけど型や環境構築が煩雑という印象だった</li>
+</ul>
+</li>
+<li>Node.js + SPA の環境構築になれてきた</li>
+<li>とはいえいろいろ諦めた<ul>
+<li>Live Reload</li>
+<li>Hot Module Replacement</li>
+<li>ブラウザ上でのテスト (karma)</li>
+<li>レンダリングのテスト (enzyme)</li>
+</ul>
+</li>
+<li>コードに静的な型がついて、ドメイン層のユニットテストが高速に実行できたらそれでいいと思う</li>
+<li>TypeScript を書く場合、 Vue.js と違って React はシンプルな型がつくのが嬉しい<ul>
+<li>Vue のコンポーネントの型はやばい</li>
+</ul>
+</li>
+<li>ブラウザ履歴の管理や、URL と state の同期がよく分からない</li>
+</ul>
+<h3 id="fsharp-error-builders"><a href="#fsharp-error-builders" class="headerlink" title="fsharp-error-builders"></a>fsharp-error-builders</h3><ul>
+<li>リポジトリ: <a href="https://github.com/vain0x/fsharp-error-builders" target="_blank" rel="noopener">fsharp-error-builders</a><ul>
+<li>F# 用の Option/Result のコンピュテーションビルダーを提供するライブラリ</li>
+</ul>
+</li>
+<li>プロジェクトの名前を変えた<ul>
+<li>リポジトリはハイフン区切りがいい</li>
+</ul>
+</li>
+<li>パフォーマンスの改善を試みた<ul>
+<li>inline をつけてメソッド呼び出しを減らした</li>
+<li><code>Some ()</code> をキャッシュした</li>
+</ul>
+</li>
+<li>それでも for 式はコンピュテーション式の外側で書くより2倍ぐらい遅い<ul>
+<li>F# でパフォーマンスといえば、F# では型引数をどれだけ導入しても煩雑にならないので、構造体をガンガン使うようなコードでは C# に有利がつく可能性がないこともない</li>
+</ul>
+</li>
+</ul>
+<h3 id="Rust-で競プロの入力をパースするマクロ"><a href="#Rust-で競プロの入力をパースするマクロ" class="headerlink" title="Rust で競プロの入力をパースするマクロ"></a>Rust で競プロの入力をパースするマクロ</h3><ul>
+<li>リポジトリ: <a href="https://github.com/vain0x/scan-bench" target="_blank" rel="noopener">scan-bench</a></li>
+<li>Rust で競プロの入力をパースするコードを書くのはとてもめんどい</li>
+<li>いま使ってる read! マクロは悪くないが、性能が低い</li>
+<li>変数を大量に定義するのはマクロでやるのがよい</li>
+<li>scan! マクロを作ってみた<ul>
+<li>シンプルとはいえわりとひどい記述になってるので作り直すかも</li>
+</ul>
+</li>
+<li>std::cin と比較してベンチマークをとった<ul>
+<li>2倍ぐらいは速かった</li>
+</ul>
+</li>
+<li>Travis の設定をやった<ul>
+<li>こういう chore に時間をかけすぎている</li>
+</ul>
+</li>
+</ul>
+<h3 id="ガルパ-リズムゲーム-を始めた"><a href="#ガルパ-リズムゲーム-を始めた" class="headerlink" title="ガルパ (リズムゲーム) を始めた"></a>ガルパ (リズムゲーム) を始めた</h3><ul>
+<li>初音ミクコラボにつられてほいほいインストールした</li>
+<li>リズムゲームはひさしぶり</li>
+<li>最初は Normal や Hard でも四苦八苦していた</li>
+<li>毎日練習してたら Expert ができたりできなかったりするようになった</li>
+<li>ファントムシーフ (Expert 27) は何度も練習してるけどクリアできない</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-09-30/diary/" data-id="cjnspsyxt000rkfcxmiuob029" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-bench-fsharp-by-benchmark-dot-net" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/" class="article-date">
+  <time datetime="2018-09-03T14:59:34.000Z" itemprop="datePublished">2018-09-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/">F#でベンチマークをとる</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして <a href="https://github.com/dotnet/BenchmarkDotNet" target="_blank" rel="noopener">BenchmarkDotNet</a> があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。</p>
+<h2 id="1-要約"><a href="#1-要約" class="headerlink" title="1. 要約"></a>1. 要約</h2><ul>
+<li>書き出し<ul>
+<li>ベンチマークは意外と大変という話について軽く触れる</li>
+</ul>
+</li>
+<li>導入<ul>
+<li>本稿の構成</li>
+<li>開発環境の明記</li>
+<li>BenchmarkDotNet のサンプル</li>
+</ul>
+</li>
+<li>例<ul>
+<li>一例として「素数判定」を実装する</li>
+<li>素数判定の簡単なベンチマークを書く</li>
+<li>ベンチマークを実行する</li>
+</ul>
+</li>
+<li>おまけ<ul>
+<li>軽くて速いベンチマークに設定する</li>
+<li>ベンチマークを watch する</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-開発環境"><a href="#2-開発環境" class="headerlink" title="2. 開発環境"></a>2. 開発環境</h2><p>F# の開発環境は Getting Started を参照: <a href="http://ionide.io/#getting-started" target="_blank" rel="noopener">Ionide - Crossplatform F# Editor Tools</a></p>
+<p>今回は次を使ってやっていきます。 (執筆日: 2018年8月9日)</p>
+<ul>
+<li>Windows 10</li>
+<li>.NET Core Cli Tools 2.1</li>
+<li>F# 4.1</li>
+<li>Visual Studio Code<ul>
+<li>ionide-fsharp</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-BenchmarkDotNet-にあるサンプルコード"><a href="#3-BenchmarkDotNet-にあるサンプルコード" class="headerlink" title="3. BenchmarkDotNet にあるサンプルコード"></a>3. BenchmarkDotNet にあるサンプルコード</h2><p>F# 用のサンプルをみるとだいたいのイメージはつかめます。</p>
+<p><a href="https://github.com/dotnet/BenchmarkDotNet/tree/v0.11.0/samples/BenchmarkDotNet.Samples.FSharp" target="_blank" rel="noopener">BenchmarkDotNet/samples/BenchmarkDotNet.Samples.FSharp at v0.11.0 · dotnet/BenchmarkDotNet</a></p>
+<h2 id="4-サンプルプロジェクトでやってみる"><a href="#4-サンプルプロジェクトでやってみる" class="headerlink" title="4. サンプルプロジェクトでやってみる"></a>4. サンプルプロジェクトでやってみる</h2><p>例として「素数判定」のベンチマークをやってみましょう。</p>
+<p>まずサンプルプロジェクトを普通のクラスライブラリーとして作ります。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet new classlib -lang F<span class="comment"># --name PrimeNum</span></span><br></pre></td></tr></table></figure>
+<p>そしてがんばって実装を書く:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PrieNum/Library.fs</span></span><br><span class="line"><span class="keyword">module</span> PrimeNum</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 以上 p 未満の整数で割り切れなければ素数、と判定する。</span></span><br><span class="line"><span class="comment">// 最大 p - 2 回のループ</span></span><br><span class="line"><span class="keyword">let</span> isPrimeBruteForce (p: int): bool =</span><br><span class="line">    <span class="keyword">if</span> p &lt; <span class="number">2</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">false</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">// go m ⇔ p が m 以上 p 未満の整数で割り切れない</span></span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">rec</span> go m = m &gt;= p || p % m &lt;&gt; <span class="number">0</span> &amp;&amp; go (m + <span class="number">1</span>)</span><br><span class="line">        go <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 以上 √p 以下の整数で割り切れなければ素数、と判定する。(証明略)</span></span><br><span class="line"><span class="comment">// 最大 √p - 1 回のループなので速いはず</span></span><br><span class="line"><span class="keyword">let</span> isPrime (p: int): bool =</span><br><span class="line">    <span class="keyword">if</span> p &lt; <span class="number">2</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">false</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">// √p</span></span><br><span class="line">        <span class="keyword">let</span> r = p |&gt; float |&gt; sqrt |&gt; int</span><br><span class="line">        <span class="comment">// go m ⇔ p が m 以上 r 以下の整数で割り切れない</span></span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">rec</span> go m = m &gt; r || p % m &lt;&gt; <span class="number">0</span> &amp;&amp; go (m + <span class="number">1</span>)</span><br><span class="line">        go <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>で、ベンチマークです。「実行するとベンチマーク処理を行うようなコンソールアプリ」を F# で作るという形になります。(ユニットテストでいうと expecto 方式)</p>
+<p>コンソールアプリのプロジェクトを作って、そこに BenchmarkDotNet をインストールします。(最新バージョンは <a href="https://www.nuget.org/packages/BenchmarkDotNet/" target="_blank" rel="noopener">NuGet</a> で確認しよう。)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ベンチマークするためのプロジェクトはコンソールアプリとして作る。</span></span><br><span class="line">dotnet new console -lang F<span class="comment"># --name PrimeNumBench</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># PrimeNumBench が PrimeNum を参照するようにする。</span></span><br><span class="line">dotnet add PrimeNumBench reference PrimeNum</span><br><span class="line"></span><br><span class="line"><span class="comment"># BenchmarkDotNet をインストールする。 (※やや時間がかかる)</span></span><br><span class="line">dotnet add PrimeNumBench package BenchmarkDotNet --version 0.11.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># インテリセンスが効くように、ここで一度ビルドしておく (※やや時間がかかる)</span></span><br><span class="line">dotnet build PrimeNumBench</span><br></pre></td></tr></table></figure>
+<p>試しに大きめの素数 10000019 (≒100万) が素数かどうかの判定にかかる時間を測定してみましょう。</p>
+<ul>
+<li>測定したい計算をクラスのメソッドとして定義する。<ul>
+<li>モジュールではなく。このあたりは C#-er の気持ちになる。</li>
+</ul>
+</li>
+<li>メソッドがベンチマーク対象であると分かるように <code>BenchmarkAttribute</code> をつける。</li>
+<li><code>main</code> でベンチマークを実行する関数を呼ぶ。</li>
+</ul>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PrimeNumBench/Program.fs</span></span><br><span class="line"><span class="keyword">module</span> Program</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet</span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet.Attributes</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">Benchmarks</span></span>() =</span><br><span class="line">    <span class="meta">[&lt;Benchmark&gt;]</span></span><br><span class="line">    <span class="keyword">member</span> this.IsPrimeBruteForceBench() =</span><br><span class="line">        PrimeNum.isPrimeBruteForce <span class="number">10</span>_000_019</span><br><span class="line"></span><br><span class="line">    <span class="meta">[&lt;Benchmark&gt;]</span></span><br><span class="line">    <span class="keyword">member</span> this.IsPrimeBench() =</span><br><span class="line">        PrimeNum.isPrime <span class="number">10</span>_000_019</span><br><span class="line"></span><br><span class="line"><span class="meta">[&lt;EntryPoint&gt;]</span></span><br><span class="line"><span class="keyword">let</span> main _ =</span><br><span class="line">    <span class="keyword">let</span> _summary = Running.BenchmarkRunner.Run&lt;Benchmarks&gt;()</span><br><span class="line">    <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>ベンチマークアプリを <strong>Release モードでビルドして</strong> 実行します。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet run -p PrimeNumBench -c Release</span><br></pre></td></tr></table></figure>
+<p>1分ぐらいかかるので待つと、結果が <em>(ログの海に溺れて)</em> 出てきます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">                 Method |         Mean |         Error |        StdDev |</span><br><span class="line">----------------------- |-------------:|--------------:|--------------:|</span><br><span class="line"> IsPrimeBruteForceBench | 69,125.13 us | 1,118.0498 us | 1,045.8244 us |</span><br><span class="line">           IsPrimeBench |     21.40 us |     0.1367 us |     0.1279 us |</span><br></pre></td></tr></table></figure>
+<p>平方根を取るだけでかなり良い最適化になってるっぽい。なお 1秒 = 1000 ms (ミリ秒) = 10万 us (マイクロ秒) です。</p>
+<h2 id="5-ベンチマークを軽量にする"><a href="#5-ベンチマークを軽量にする" class="headerlink" title="5. ベンチマークを軽量にする"></a>5. ベンチマークを軽量にする</h2><p>試行錯誤している段階ではもうちょっと早く結果がほしいので、ベンチマークの設定を変えて計測精度を下げる代わりに、ベンチマークにかかる時間を短くしてみます。</p>
+<p>ベンチマークをどのように実行するかの設定は Jobs にあるようです。参照: <a href="https://benchmarkdotnet.org/articles/configs/jobs.html" target="_blank" rel="noopener">Jobs | BenchmarkDotNet</a></p>
+<p>ウォームアップや反復の回数を固定するより、パラメーターをいじってアルゴリズムに任せたほうがいいらしいです。具体的にどうするか分からないので、デフォルトの設定でそういうのないかなと思ったんですが、よさげなプルリクが出ているので参考にします:</p>
+<p><a href="https://github.com/dotnet/BenchmarkDotNet/pull/825/files" target="_blank" rel="noopener">Accuracy based job attributes by Zhentar · Pull Request #825 · dotnet/BenchmarkDotNet</a></p>
+<p>相対誤差の上限を増やせばよさそう。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PrimeNumBench/Program.fs</span></span><br><span class="line"><span class="keyword">module</span> Program</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet</span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet.Attributes</span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet.Configs</span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet.Jobs</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">Benchmarks</span></span>() =</span><br><span class="line">    <span class="meta">[&lt;Benchmark&gt;]</span></span><br><span class="line">    <span class="keyword">member</span> this.IsPrimeBruteForceBench() =</span><br><span class="line">        PrimeNum.isPrimeBruteForce <span class="number">10</span>_000_019</span><br><span class="line"></span><br><span class="line">    <span class="meta">[&lt;Benchmark&gt;]</span></span><br><span class="line">    <span class="keyword">member</span> this.IsPrimeBench() =</span><br><span class="line">        PrimeNum.isPrime <span class="number">10</span>_000_019</span><br><span class="line"></span><br><span class="line"><span class="meta">[&lt;EntryPoint&gt;]</span></span><br><span class="line"><span class="keyword">let</span> main _ =</span><br><span class="line">    <span class="keyword">let</span> config =</span><br><span class="line">        <span class="keyword">let</span> rough = AccuracyMode(MaxRelativeError = <span class="number">0.1</span>)</span><br><span class="line">        <span class="keyword">let</span> quickRoughJob = Job(<span class="string">"QuickRough"</span>, rough, RunMode.Short)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> c = ManualConfig()</span><br><span class="line">        c.Add(quickRoughJob)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// その他の設定をデフォルトから継承する。</span></span><br><span class="line">        ManualConfig.Union(DefaultConfig.Instance, c)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> _summary = Running.BenchmarkRunner.Run&lt;Benchmarks&gt;(config)</span><br><span class="line">    <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>ビルドしてからベンチマークの完了まで20秒ぐらいになりました。</p>
+<h2 id="6-ベンチマークを自動実行する"><a href="#6-ベンチマークを自動実行する" class="headerlink" title="6. ベンチマークを自動実行する"></a>6. ベンチマークを自動実行する</h2><p>.NET Core 2.1 から標準入りした <code>dotnet-watch</code> ツールを使うと、ソースコードを更新するたびにベンチマークを自動実行できます。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet watch -p ./PrimeNumBench -- run -c Release</span><br></pre></td></tr></table></figure>
+<h2 id="7-レポートを公開する"><a href="#7-レポートを公開する" class="headerlink" title="7. レポートを公開する"></a>7. レポートを公開する</h2><p>結果を公開するには、 <code>BenchmarkDotNetArtifacts/results/*.md</code> にマークダウン(GFM)形式で出力されているのを貼っつける。環境の情報が自動で載るので楽です。(Qiita だと微妙に手直しが必要)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BenchmarkDotNet=v0.11.0, OS=Windows 10.0.16299.371 (1709/FallCreatorsUpdate/Redstone3)</span><br><span class="line">Intel Core i3-2310M CPU 2.10GHz (Sandy Bridge), 1 CPU, 4 logical and 2 physical cores</span><br><span class="line">Frequency=2046136 Hz, Resolution=488.7261 ns, Timer=TSC</span><br><span class="line">.NET Core SDK=2.1.302</span><br><span class="line">  [Host]     : .NET Core 2.1.2 (CoreCLR 4.6.26628.05, CoreFX 4.6.26629.01), 64bit RyuJIT DEBUG</span><br><span class="line">  DefaultJob : .NET Core 2.1.2 (CoreCLR 4.6.26628.05, CoreFX 4.6.26629.01), 64bit RyuJIT</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align:right">Mean</th>
+<th style="text-align:right">Error</th>
+<th style="text-align:right">StdDev</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IsPrimeBruteForceBench</td>
+<td style="text-align:right">69,125.13 us</td>
+<td style="text-align:right">1,118.0498 us</td>
+<td style="text-align:right">1,045.8244 us</td>
+</tr>
+<tr>
+<td>IsPrimeBench</td>
+<td style="text-align:right">21.40 us</td>
+<td style="text-align:right">0.1367 us</td>
+<td style="text-align:right">0.1279 us</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-おわりに"><a href="#8-おわりに" class="headerlink" title="8. おわりに"></a>8. おわりに</h2><p>よい計測ライフを！</p>
+<h2 id="A-その他"><a href="#A-その他" class="headerlink" title="A. その他"></a>A. その他</h2><ul>
+<li><p>Params 属性に言及したほうがよかったかも</p>
+<p>  <a href="https://benchmarkdotnet.org/articles/features/parameterization.html" target="_blank" rel="noopener">Parameterization | BenchmarkDotNet</a></p>
+</li>
+<li><p>Baesline 属性に言及したほうがよかったかも</p>
+<p>  <a href="https://benchmarkdotnet.org/articles/features/baselines.html" target="_blank" rel="noopener">Benchmark and Job Baselines | BenchmarkDotNet</a></p>
+</li>
+<li><p>サンプルは速さが非自明なもののほうがよかったかも</p>
+<p>  option vs voption とか</p>
+</li>
+</ul>
+<h2 id="B-関連リンク"><a href="#B-関連リンク" class="headerlink" title="B. 関連リンク"></a>B. 関連リンク</h2><ul>
+<li><p><a href="https://benchmarkdotnet.org/" target="_blank" rel="noopener">Showtime | BenchmarkDotNet</a></p>
+<p>  公式サイト</p>
+</li>
+<li><p><a href="https://qiita.com/NetSeed/items/30d8a76163622a4b5be1" target="_blank" rel="noopener">BenchmarkDotNetを使ってみる｡ - Qiita</a></p>
+<p>  紹介記事 (C#)</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/" data-id="cjnspsyyh002fkfcx8webqxv6" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/F/">F#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/チュートリアル/">チュートリアル</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-recurse-rust-closure" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-06-28/recurse-rust-closure/" class="article-date">
+  <time datetime="2018-06-28T14:17:41.000Z" itemprop="datePublished">2018-06-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-06-28/recurse-rust-closure/">Rustのクロージャで再帰してみた</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>クロージャを再帰呼び出しする方法を考えました。</p>
+<p>競技プログラミングではローカル変数を書き換えながら再帰する処理がよく出てきます。しかし Rust でそれを書こうとするとやや冗長になりがちです。</p>
+<p>本稿では小さなヘルパーを用意して記述を簡略化することを試みました。</p>
+<ul>
+<li>環境: Rust 1.15.1 (AtCoder での現在のバージョン)</li>
+<li>筆者: AtCoder もうすぐ青といい続けて1年</li>
+</ul>
+<h2 id="要約"><a href="#要約" class="headerlink" title="要約"></a>要約</h2><ul>
+<li>競プロではよく再帰する。</li>
+<li>小さなアダプタを書くと再帰呼び出しできる。</li>
+<li>イミュータブルなクロージャはローカル変数を書き換えられない。<ul>
+<li><code>RefCell</code> で対処する。</li>
+</ul>
+</li>
+<li>成果:<ul>
+<li><a href="https://play.rust-lang.org/?gist=97ad8427affee25a31656d750d2a01d6&amp;version=stable&amp;mode=debug" target="_blank" rel="noopener">Fn で再帰するやつ</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="用例1-階乗"><a href="#用例1-階乗" class="headerlink" title="用例1: 階乗"></a>用例1: 階乗</h2><p>単純な例として、階乗の計算を再帰で書けるようにしましょう。内部で自身を参照するために、クロージャは引数に <code>fact</code> (階乗関数) を受け取るようにする方針でいきます。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fact_5 = recurse(<span class="number">5</span>, &amp;|n, fact| &#123;</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">1</span> &#123;</span><br><span class="line">        <span class="number">1_i64</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        n * fact(n - <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">assert_eq!</span>(<span class="number">1</span> * <span class="number">2</span> * <span class="number">3</span> * <span class="number">4</span> * <span class="number">5</span>, fact_5);</span><br></pre></td></tr></table></figure>
+<p>ここで <code>recurse(x, f)</code> が <code>f(x, f)</code> の意味になるように後で定義するヘルパーです。</p>
+<p>「なぜ作った関数を即座に起動するのか」という疑問があると思いますが、それは実際にそういう用途が多いからです。再帰関数がほしいときは <code>|x| recurse(x, &amp;|x, f| ..)</code> のようにクロージャ化する運用でも大丈夫でしょう。</p>
+<h2 id="実装1-イミュータブル版"><a href="#実装1-イミュータブル版" class="headerlink" title="実装1: イミュータブル版"></a>実装1: イミュータブル版</h2><p><code>recurse</code> の実装は簡単で、<code>fn</code> で定義した関数が再帰可能であることを利用します。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">recurse</span></span>&lt;X, Y&gt;(x: X, f: &amp;<span class="built_in">Fn</span>(X, &amp;<span class="built_in">Fn</span>(X) -&gt; Y) -&gt; Y) -&gt; Y &#123;</span><br><span class="line">    f(x, &amp;|x: X| recurse(x, &amp;f))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意点は、クロージャの引数の型がまたそのクロージャの型で……という無限の循環を避けるため、関数を <a href="https://rust-lang-ja.github.io/the-rust-programming-language-ja/1.6/book/trait-objects.html" target="_blank" rel="noopener">トレイトオブジェクト</a> への参照という形で扱っていることです。</p>
+<p><code>Fn(X) -&gt; Y</code> というのは「型 <code>X</code> の値を受け取って型 <code>Y</code> の値を返す関数」の型を表すトレイトで、ある種のクロージャは自動的に <code>Fn</code> を実装した型になります。参照: <a href="https://doc.rust-lang.org/std/ops/trait.Fn.html" target="_blank" rel="noopener">std::ops::Fn - Rust</a></p>
+<pre><code>&amp;Fn(X, &amp;Fn(X) -&gt; Y) -&gt; Y
+        ^^^^^^^^^^           再帰関数の型 (クロージャの引数)
+ ^^^^^^^^^^^^^^^^^^^^^^^     定義したクロージャのトレイトオブジェクトの型
+</code></pre><h2 id="用例2-DFSで連結成分分解"><a href="#用例2-DFSで連結成分分解" class="headerlink" title="用例2: DFSで連結成分分解"></a>用例2: DFSで連結成分分解</h2><p>次に現実的な例として、グラフの連結成分分解を深さ優先探索で書いてみます。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//   0 -- 1</span></span><br><span class="line"><span class="comment">//   | \</span></span><br><span class="line"><span class="comment">//   |  \</span></span><br><span class="line"><span class="comment">//   2 -- 3    4--5</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="keyword">let</span> graph =</span><br><span class="line">    <span class="built_in">vec!</span>[</span><br><span class="line">        <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">        <span class="built_in">vec!</span>[<span class="number">0</span>],</span><br><span class="line">        <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">3</span>],</span><br><span class="line">        <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">2</span>],</span><br><span class="line">        <span class="built_in">vec!</span>[<span class="number">5</span>],</span><br><span class="line">        <span class="built_in">vec!</span>[<span class="number">4</span>],</span><br><span class="line">    ];</span><br><span class="line"><span class="keyword">let</span> n = graph.len();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> roots = RefCell::new(<span class="built_in">vec!</span>[n; n]);</span><br><span class="line"><span class="keyword">for</span> u <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">    recurse(u, &amp;|v, go| &#123;</span><br><span class="line">        <span class="keyword">if</span> roots.borrow()[v] &lt; n &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        roots.borrow_mut()[v] = u;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> &amp;w <span class="keyword">in</span> graph[v].iter() &#123;</span><br><span class="line">            go(w);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">assert_eq!</span>(&amp;*roots.borrow(), &amp;[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">4</span>]);</span><br></pre></td></tr></table></figure>
+<p>頂点 <code>v</code> が属す連結成分の代表を <code>roots[v]</code> に入れていきます。</p>
+<p>このとき、再帰の途中で配列を更新する必要があります。しかし <code>roots</code> を let <strong>mut</strong> でミュータブル配列として宣言すると、先ほどの <code>recurse</code> は使えません。というもの、外部のミュータブルな変数を借用するクロージャは <code>Fn</code> トレイトを実装しないからです。</p>
+<p>ここでは <code>RefCell</code> を使ってこの問題を回避しています。クロージャに渡すのが <code>RefCell</code> へのイミュータブルな参照でも、内部の値をミュータブルとして扱えます。参照: <a href="https://rust-lang-ja.github.io/the-rust-programming-language-ja/1.6/book/choosing-your-guarantees.html#refcellt" target="_blank" rel="noopener">保証を選ぶ</a></p>
+<p>なんにせよ、それなりに簡潔に再帰処理ができました！</p>
+<ul>
+<li><a href="https://play.rust-lang.org/?gist=97ad8427affee25a31656d750d2a01d6&amp;version=stable&amp;mode=debug" target="_blank" rel="noopener">Rust Playground で試す</a></li>
+</ul>
+<h2 id="実装2-ミュータブル版"><a href="#実装2-ミュータブル版" class="headerlink" title="実装2. ミュータブル版"></a>実装2. ミュータブル版</h2><p><strong>追記</strong>: ミュータブルなローカル変数を書き換えながらクロージャを再帰呼び出しする方法について記述していましたが、 <a href="https://qiita.com/vain0x/items/90c9580aa34926160ac1#comment-1988da50c4701cc0add8" target="_blank" rel="noopener">安全でないコードが書けてしまう</a> ので取り下げました。</p>
+<details><br><summary>変更前の内容はたたんであります。</summary><br><div><br>記述量を減らすのが目的なので、 <code>RefCell</code> をなくす方法も考えてみます。<br><br>クロージャの型が自動で実装するトレイトは <code>Fn</code> のほかに <code>FnMut</code> もあります。<code>FnMut</code> は、簡単にいうと「ミュータブルな状態を持つ関数」の型が実装すべきトレイトです。参照: <a href="https://doc.rust-lang.org/std/ops/trait.FnMut.html" target="_blank" rel="noopener">std::ops::FnMut - Rust</a><br><br>外部のミュータブルな状態 (例えば <code>let mut roots = ...</code>) を触りながら再帰できるように、クロージャが <code>FnMut</code> でもいいようにしてみます。すると、借用検査が <strong>通りません</strong> 。<br><br>通せるようにしたのが以下です:<br><br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">recurse</span></span>&lt;X, Y&gt;(x: X, f: &amp;<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X, &amp;<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X) -&gt; Y) -&gt; Y) -&gt; Y &#123;</span><br><span class="line">    <span class="keyword">let</span> fp = f <span class="keyword">as</span> *<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X, &amp;<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X) -&gt; Y) -&gt; Y;</span><br><span class="line">    <span class="keyword">let</span> f1 = <span class="keyword">unsafe</span> &#123; &amp;<span class="keyword">mut</span> *fp &#125;;</span><br><span class="line">    <span class="keyword">let</span> f2 = <span class="keyword">unsafe</span> &#123; &amp;<span class="keyword">mut</span> *fp &#125;;</span><br><span class="line">    f1(x, &amp;<span class="keyword">mut</span> |x: X| recurse(x, f2))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>これをみると分かるように、 <code>recurse</code> は受け取ったクロージャへの参照を2つに複製します: 即座に呼び出すための参照と、再帰用に呼び出すための参照です。ミュータブルな参照は複製できないので、<code>unsafe</code> を使って強制的に複製しています。<br><br>「unsafe だから危険じゃないのか」という疑問がありますが、実行中のクロージャが自分への参照を self, f で2重に受け取っているだけなので、たぶん大丈夫です。<br><br>これで深さ優先探索の例を書き直すと、<code>RefCell</code> が消失してすっきり。<br><br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> roots = <span class="built_in">vec!</span>[n; n];</span><br><span class="line"><span class="keyword">for</span> u <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">    recurse(u, &amp;<span class="keyword">mut</span> |v, go| &#123;</span><br><span class="line">        <span class="keyword">if</span> roots[v] &lt; n &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        roots[v] = u;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> &amp;w <span class="keyword">in</span> graph[v].iter() &#123;</span><br><span class="line">            go(w);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><a href="https://play.rust-lang.org/?gist=bceca5a2af42a5436996b99712cb28ed&amp;version=stable&amp;mode=debug" target="_blank" rel="noopener">Rust Playground で試す</a><br></div><br></details>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a href="https://github.com/Hoverbear/rust-rosetta/issues/450#issuecomment-175848086" target="_blank" rel="noopener">Stebalien commented on 28 Jan 2016</a></p>
+<p>  Zコンビネータを使ってクロージャを再帰可能にするコードの例。引数として受け取る再帰関数の型は推論されないっぽい。</p>
+</li>
+<li><p><a href="https://www.google.co.jp/search?q=無名再帰&amp;oq=無名再帰" target="_blank" rel="noopener">無名再帰 - Google 検索</a></p>
+<p>  クロージャのような匿名の関数を再帰呼び出しすることを無名再帰というらしい。</p>
+</li>
+</ul>
+<details><br><summary>Source code</summary><br><br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#![allow(dead_code)]</span></span><br><span class="line"><span class="meta">#![allow(unused_macros)]</span></span><br><span class="line"><span class="meta">#![allow(unused_imports)]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">recurse</span></span>&lt;X, Y&gt;(x: X, f: &amp;<span class="built_in">Fn</span>(X, &amp;<span class="built_in">Fn</span>(X) -&gt; Y) -&gt; Y) -&gt; Y &#123;</span><br><span class="line">    f(x, &amp;|x: X| recurse(x, &amp;f))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">macro_rules!</span> memo &#123;</span><br><span class="line">    (| $f:ident, $($p:ident $(: $t:ty)*),* | $body:expr) =&gt; &#123;&#123;</span><br><span class="line">        <span class="keyword">use</span> std;</span><br><span class="line">        <span class="keyword">let</span> memo = std::cell::RefCell::new(std::collections::HashMap::new());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">move</span> |$($p $(: $t)*),*| &#123;</span><br><span class="line">            recurse(</span><br><span class="line">                <span class="meta">#[allow(unused_parens)]</span></span><br><span class="line">                &#123; ($($p),*) &#125;,</span><br><span class="line">                &amp;|$($p $(: $t)*),*, $f| &#123;</span><br><span class="line">                    <span class="keyword">let</span> args = ($($p),*).clone();</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> <span class="literal">Some</span>(&amp;y) = memo.borrow().get(&amp;args) &#123;</span><br><span class="line">                        <span class="keyword">return</span> y;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">let</span> y = $body;</span><br><span class="line">                    memo.borrow_mut().insert(args, y.clone());</span><br><span class="line">                    y</span><br><span class="line">                &#125;</span><br><span class="line">            )</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[cfg(test)]</span></span><br><span class="line"><span class="keyword">mod</span> tests &#123;</span><br><span class="line">    <span class="keyword">use</span> super::*;</span><br><span class="line">    <span class="keyword">use</span> std::cell::RefCell;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">graph</span></span>() -&gt; <span class="built_in">Vec</span>&lt;<span class="built_in">Vec</span>&lt;<span class="built_in">usize</span>&gt;&gt; &#123;</span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="comment">//   0 -- 1</span></span><br><span class="line">        <span class="comment">//   | \</span></span><br><span class="line">        <span class="comment">//   |  \</span></span><br><span class="line">        <span class="comment">//   2 -- 3    4--5</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="built_in">vec!</span>[</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">0</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">3</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">2</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">5</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">4</span>],</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">test_fact</span></span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> fact = |n| recurse(n, &amp;|n, fact| <span class="keyword">if</span> n &lt;= <span class="number">1</span> &#123; <span class="number">1_i64</span> &#125; <span class="keyword">else</span> &#123; n * fact(n - <span class="number">1</span>) &#125;);</span><br><span class="line">        <span class="built_in">assert_eq!</span>(fact(<span class="number">1</span>), <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">assert_eq!</span>(fact(<span class="number">5</span>), <span class="number">120</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">test_dfs</span></span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> graph = graph();</span><br><span class="line">        <span class="keyword">let</span> n = graph.len();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> roots = RefCell::new(<span class="built_in">vec!</span>[n; n]);</span><br><span class="line">        <span class="keyword">for</span> u <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">            recurse(u, &amp;|v, go| &#123;</span><br><span class="line">                <span class="keyword">if</span> roots.borrow()[v] &lt; n &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                roots.borrow_mut()[v] = u;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> &amp;w <span class="keyword">in</span> graph[v].iter() &#123;</span><br><span class="line">                    go(w);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">assert_eq!</span>(&amp;*roots.borrow(), &amp;[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">4</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">test_memoized_fib</span></span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> fib = memo!(|fib, n: <span class="built_in">i32</span>| <span class="keyword">if</span> n &lt;= <span class="number">1</span> &#123;</span><br><span class="line">            <span class="number">1_i64</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            fib(n - <span class="number">1</span>) + fib(n - <span class="number">2</span>)</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">assert_eq!</span>(fib(<span class="number">5</span>), <span class="number">8</span>);</span><br><span class="line">        <span class="built_in">assert_eq!</span>(fib(<span class="number">20</span>), <span class="number">10946</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#![allow(dead_code)]</span></span><br><span class="line"><span class="meta">#![allow(unused_imports)]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">recurse</span></span>&lt;X, Y&gt;(x: X, f: &amp;<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X, &amp;<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X) -&gt; Y) -&gt; Y) -&gt; Y &#123;</span><br><span class="line">    <span class="keyword">let</span> fp = f <span class="keyword">as</span> *<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X, &amp;<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X) -&gt; Y) -&gt; Y;</span><br><span class="line">    <span class="keyword">let</span> f1 = <span class="keyword">unsafe</span> &#123; &amp;<span class="keyword">mut</span> *fp &#125;;</span><br><span class="line">    <span class="keyword">let</span> f2 = <span class="keyword">unsafe</span> &#123; &amp;<span class="keyword">mut</span> *fp &#125;;</span><br><span class="line">    f1(x, &amp;<span class="keyword">mut</span> |x: X| recurse(x, f2))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[cfg(test)]</span></span><br><span class="line"><span class="keyword">mod</span> tests &#123;</span><br><span class="line">    <span class="keyword">use</span> super::*;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">graph</span></span>() -&gt; <span class="built_in">Vec</span>&lt;<span class="built_in">Vec</span>&lt;<span class="built_in">usize</span>&gt;&gt; &#123;</span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="comment">//   0 -- 1</span></span><br><span class="line">        <span class="comment">//   | \</span></span><br><span class="line">        <span class="comment">//   |  \</span></span><br><span class="line">        <span class="comment">//   2 -- 3    4--5</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="built_in">vec!</span>[</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">0</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">3</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">2</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">5</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">4</span>],</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">test_fact</span></span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> fact = |n| recurse(n, &amp;<span class="keyword">mut</span> |n, fact| <span class="keyword">if</span> n &lt;= <span class="number">1</span> &#123; <span class="number">1</span> &#125; <span class="keyword">else</span> &#123; n * fact(n - <span class="number">1</span>) &#125;);</span><br><span class="line">        <span class="built_in">assert_eq!</span>(fact(<span class="number">1</span>), <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">assert_eq!</span>(fact(<span class="number">5</span>), <span class="number">120</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">test_dfs</span></span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> graph = graph();</span><br><span class="line">        <span class="keyword">let</span> n = graph.len();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> roots = <span class="built_in">vec!</span>[n; n];</span><br><span class="line">        <span class="keyword">for</span> u <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">            recurse(u, &amp;<span class="keyword">mut</span> |v, go| &#123;</span><br><span class="line">                <span class="keyword">if</span> roots[v] &lt; n &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                roots[v] = u;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> &amp;w <span class="keyword">in</span> graph[v].iter() &#123;</span><br><span class="line">                    go(w);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">assert_eq!</span>(roots, <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">4</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">test_closure_is_dropped</span></span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> n = <span class="number">4</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">D</span></span>&lt;<span class="symbol">'a</span>&gt;(<span class="keyword">pub</span> &amp;<span class="symbol">'a</span> <span class="keyword">mut</span> <span class="built_in">i32</span>);</span><br><span class="line">        <span class="keyword">impl</span>&lt;<span class="symbol">'a</span>&gt; <span class="built_in">Drop</span> <span class="keyword">for</span> D&lt;<span class="symbol">'a</span>&gt; &#123;</span><br><span class="line">            <span class="function"><span class="keyword">fn</span> <span class="title">drop</span></span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>) &#123;</span><br><span class="line">                *<span class="keyword">self</span>.<span class="number">0</span> += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line">            recurse(<span class="number">0</span>, &amp;<span class="keyword">mut</span> |i, go| &#123;</span><br><span class="line">                <span class="keyword">let</span> d = D(&amp;<span class="keyword">mut</span> k);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> i &gt;= n &#123;</span><br><span class="line">                    <span class="built_in">assert_eq!</span>(*d.<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                go(i + <span class="number">1</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">assert_eq!</span>(k, n + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br></details>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/" data-id="cjnspsyyi002gkfcxa9wxdr1n" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Rust/">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/競技プログラミング/">競技プログラミング</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-fsharp-record-literal-and-type-annotation" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-03-11/fsharp-record-literal-and-type-annotation/" class="article-date">
+  <time datetime="2018-03-11T04:06:00.000Z" itemprop="datePublished">2018-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-03-11/fsharp-record-literal-and-type-annotation/">[F#][小ネタ] レコードリテラルと型注釈</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>F# のレコードリテラルのちょっとした問題とちょっとした解決策。</p>
+<h2 id="問題1-フィールド名が重複しているとき"><a href="#問題1-フィールド名が重複しているとき" class="headerlink" title="問題1: フィールド名が重複しているとき"></a>問題1: フィールド名が重複しているとき</h2><p>F# のレコード型を構築する構文では、フィールドの名前から型が推測される。複数のレコード型が同一の名前のフィールドを定義しているとき、そのフィールドは最後に定義されたレコード型のフィールドとみなされる。</p>
+<ul>
+<li>参考: <a href="https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/records" target="_blank" rel="noopener">Records (F#) | Microsoft Docs</a></li>
+</ul>
+<p>例えば REPL (<code>fsharpi</code>) で次のようにすると:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ fsharpi</span><br><span class="line"></span><br><span class="line"><span class="comment">// Input</span></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">User</span> </span>=</span><br><span class="line">  &#123;</span><br><span class="line">    Id: int64</span><br><span class="line">    Name: string</span><br><span class="line">  &#125;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">Book</span> </span>=</span><br><span class="line">  &#123;</span><br><span class="line">    Id: int64</span><br><span class="line">    Name: string</span><br><span class="line">  &#125;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">&#123; Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125; ;;</span><br></pre></td></tr></table></figure>
+<p>このレコードは Book 型に推論されて、</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Output</span></span><br><span class="line"><span class="keyword">val</span> it : Book = &#123;Id = <span class="number">1</span>L;</span><br><span class="line">                 Name = <span class="string">"Foo"</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>となる。</p>
+<h2 id="解決1-フィールドを型名で修飾する"><a href="#解決1-フィールドを型名で修飾する" class="headerlink" title="解決1: フィールドを型名で修飾する"></a>解決1: フィールドを型名で修飾する</h2><p>この状態で <code>User</code> をインスタンス化するには、いずれかのフィールド名を修飾付きで指定すればいい。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Input</span></span><br><span class="line">&#123; User.Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125; ;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Output</span></span><br><span class="line"><span class="keyword">val</span> it : User = &#123;Id = <span class="number">1</span>L;</span><br><span class="line">                 Name = <span class="string">"Foo"</span>;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="問題2-レコード型がスコープにないとき"><a href="#問題2-レコード型がスコープにないとき" class="headerlink" title="問題2: レコード型がスコープにないとき"></a>問題2: レコード型がスコープにないとき</h2><p>レコード型がスコープに入っていないとき、つまりそのレコード型が定義されている module や namespace を open していないとき、レコードリテラルの構文はかなり冗長になる。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ fsharpi</span><br><span class="line"></span><br><span class="line"><span class="comment">// Input</span></span><br><span class="line"><span class="keyword">module</span> Types =</span><br><span class="line">  <span class="class"><span class="keyword">type</span> <span class="title">User</span> </span>=</span><br><span class="line">    &#123;</span><br><span class="line">      Id: int64</span><br><span class="line">      Name: string</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">type</span> <span class="title">Book</span> </span>=</span><br><span class="line">    &#123;</span><br><span class="line">      Id: int64</span><br><span class="line">      Name: string</span><br><span class="line">    &#125;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">module</span> T = Types;;</span><br><span class="line"></span><br><span class="line">&#123; T.User.Id = <span class="number">1</span>L; T.User.Name = <span class="string">"Foo"</span> &#125; ;;</span><br></pre></td></tr></table></figure>
+<p>注意点は、 <code>T.User.Id</code> を見た時点でレコードの型が決定されるにもかかわらず <code>Name</code> の修飾を省略できないことだ:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Input</span></span><br><span class="line">&#123; T.User.Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125; ;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Output</span></span><br><span class="line">  &#123; T.User.Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125; ;;</span><br><span class="line">  ------------------^^^^</span><br><span class="line"></span><br><span class="line">error FS0039: The record label 'Name' is not defined.</span><br></pre></td></tr></table></figure>
+<h2 id="解決2-型注釈をつける"><a href="#解決2-型注釈をつける" class="headerlink" title="解決2: 型注釈をつける"></a>解決2: 型注釈をつける</h2><p>レコードリテラルの型を明示的に指定すると、非修飾でフィールド名を使えるようだ:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Input</span></span><br><span class="line">(&#123; Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125;: T.User) ;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Output</span></span><br><span class="line"><span class="keyword">val</span> it : Types.User = &#123;Id = <span class="number">1</span>L;</span><br><span class="line">                       Name = <span class="string">"Foo"</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>束縛時に型を指定してもよい。型名が前に来るので、こちらのほうが読みやすい気がする:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Input</span></span><br><span class="line"><span class="keyword">let</span> user: T.User = &#123; Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125;</span><br><span class="line">user ;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Output</span></span><br><span class="line"><span class="keyword">val</span> it : Types.User = &#123;Id = <span class="number">1</span>L;</span><br><span class="line">                       Name = <span class="string">"Foo"</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>さらに、次のように <code>id</code> を経由すると型名とリテラルの近接性がより明確になる:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Input</span></span><br><span class="line">id&lt;T.User&gt; &#123; Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125; ;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Output</span></span><br><span class="line"><span class="keyword">val</span> it : Types.User = &#123;Id = <span class="number">1</span>L;</span><br><span class="line">                       Name = <span class="string">"Foo"</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>これはやりすぎかもしれない、というのも初見では <code>id</code> がなんのためにあるのか分からないからだ。</p>
+<h2 id="修飾の強制"><a href="#修飾の強制" class="headerlink" title="修飾の強制"></a>修飾の強制</h2><p>レコード型に <code>[&lt;RequireQualifiedAccess&gt;]</code> をつかうと、レコード型をスコープに入れてもフィールド名はスコープに入らなくなる。つまり、前述の冗長な構文を使う必要がある……とずっと思っていたが、「型注釈」の方法であれば問題ない。</p>
+<p>この属性をつけておくと、フィールド名が重複するかどうか気にしなくてよくなる。重複したフィールド名が後ろに追加されることでレコードリテラルの型が変わることもなくなる。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">[&lt;RequireQualifiedAccess&gt;]</span></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">User</span> </span>=</span><br><span class="line">  &#123;</span><br><span class="line">    Id: int64</span><br><span class="line">    Name: string</span><br><span class="line">  &#125;</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">(&#123; Id = <span class="number">1</span>L; Name = <span class="string">"Foo"</span> &#125;: User) ;;</span><br></pre></td></tr></table></figure>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><ul>
+<li>フィールド名の重複を避けよう。</li>
+<li>フィールド名が重複しているときは <code>型名.フィールド名 = ...</code> としよう。</li>
+<li>レコード型がスコープにないときは <code>({ ... }: 型名)</code> としよう。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-03-11/fsharp-record-literal-and-type-annotation/" data-id="cjnspsyxx000ukfcxll830uwr" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/F/">F#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Tips/">Tips</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-commit-message-prefixes" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-01-30/commit-message-prefixes/" class="article-date">
+  <time datetime="2018-01-30T13:40:38.000Z" itemprop="datePublished">2018-01-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-01-30/commit-message-prefixes/">『コミットメッセージに「プレフィックス」をつける』を検討した</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Qiita で <a href="https://qiita.com/numanomanu/items/45dd285b286a1f7280ed" target="_blank" rel="noopener">コミットメッセージに 「プレフィックス」 をつける</a> というアイディアが紹介されていて、その効用の一つとして挙げられている:</p>
+<blockquote>
+<p>プレフィックスを意識しながら順序立てて機能を作成する癖が身につく</p>
+</blockquote>
+<p>という点が、試験運用していて実際に魅力的だと感じた。</p>
+<p>関連して、どうやら <a href="http://pronama.azurewebsites.net/2015/06/20/github-emoji-commit-message/" target="_blank" rel="noopener">テキストエディター Atom のリポジトリーではコミットメッセージに絵文字をつけるようにしている</a> らしい。</p>
+<p>しかし GitHub のコロン記法 (<code>:sparkles:</code> みたいなの) はターミナル上では絵文字として表示されないし、そもそも特定のサービスに不必要に依存したくない。では utf-8 の絵文字そのものではどうかというと、フォントによっては表示されなかったり、 utf-8 に依存するのが気になる。ターミナル上では色がつかない (※フォントによる) ので視認性もいまいちだ。</p>
+<p>入力が面倒だという問題は、コミットフックでコロン記法 (<code>:sparkles:</code> みたいなの) から絵文字に自動で変換するという案もある (※試していない)。</p>
+<p>また、単純に ASCII 文字を使うという手もある。 <code>+ Add new feature</code> とか <code>- Remove a file</code> みたいな感じだ。 <code>+</code> と <code>-</code> ぐらいならいいが、それ以外はかなり涙ぐましい状態になる。</p>
+<p>以下の観点について比較してみよう。</p>
+<ul>
+<li><strong>楽さ</strong>。プレフィックスをつけてコミットメッセージを書くのに手間がかからないほうがよい。</li>
+<li><strong>明確さ</strong>。表記と意味の関係が自然であるほど覚えやすく、曖昧性が低い。初めて見た人にでも意味が分かるとなおよい。</li>
+<li><strong>視認性</strong>。プレフィックスの意味を把握している人にとって、パット見て分かりやすいか。</li>
+<li><strong>依存関係</strong>。寿命のなさそうな技術に依存するのはマイナス。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">種類</th>
+<th style="text-align:left">楽さ</th>
+<th style="text-align:left">明確さ</th>
+<th style="text-align:left">視認性</th>
+<th style="text-align:left">依存関係</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>英語</strong></td>
+<td style="text-align:left">○</td>
+<td style="text-align:left">○</td>
+<td style="text-align:left">△</td>
+<td style="text-align:left">○</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>絵文字</strong></td>
+<td style="text-align:left">×</td>
+<td style="text-align:left">△</td>
+<td style="text-align:left">○</td>
+<td style="text-align:left">△</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>コロン記法</strong></td>
+<td style="text-align:left">△</td>
+<td style="text-align:left">△</td>
+<td style="text-align:left">○</td>
+<td style="text-align:left">×</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ASCII</strong></td>
+<td style="text-align:left">○</td>
+<td style="text-align:left">×</td>
+<td style="text-align:left">△</td>
+<td style="text-align:left">○</td>
+</tr>
+</tbody>
+</table>
+<p>依存関係の評価に関して念のためにいうと、 GitHub や utf-8 に限界を感じているわけではなくて、10年後ぐらいにひょっこり消えてる可能性がないこともないぐらいの意味。</p>
+<p>そういうわけで <code>feat:</code> とかを使っていくことにする。</p>
+<h2 id="関連リンク"><a href="#関連リンク" class="headerlink" title="関連リンク"></a>関連リンク</h2><ul>
+<li>numanomanu (2018) 「【今日からできる】コミットメッセージに 「プレフィックス」 をつけるだけで、開発効率が上がった話」 <a href="https://qiita.com/numanomanu/items/45dd285b286a1f7280ed" target="_blank" rel="noopener">https://qiita.com/numanomanu/items/45dd285b286a1f7280ed</a> (2018/01/28 アクセス.)</li>
+<li>jz5 (2015) 「GitHub で絵文字入りコミットメッセージを活用しているプロジェクトを調べてみた」 <a href="http://pronama.azurewebsites.net/2015/06/20/github-emoji-commit-message/" target="_blank" rel="noopener">http://pronama.azurewebsites.net/2015/06/20/github-emoji-commit-message/</a> (2018/01/28 アクセス.)</li>
+<li><a href="https://github.com/atom/atom/blob/ca71d581036ed093dd2df964fcc9bec0b5f7ff0d/CONTRIBUTING.md#git-commit-messages" target="_blank" rel="noopener">atom/atom の CONTRIBUTING.md で絵文字について書かれている部分</a> (2018/01/30 アクセス.)</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-01-30/commit-message-prefixes/" data-id="cjnspsyxx000wkfcxrrcksr3m" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/バージョン管理/">バージョン管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-new-to-ubuntu" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-01-28/new-to-ubuntu/" class="article-date">
+  <time datetime="2018-01-28T08:53:43.000Z" itemprop="datePublished">2018-01-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-01-28/new-to-ubuntu/">Ubuntuデスクトップを使い始めた</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>普段づかいする環境をWindowsからUbuntuに移した話。</p>
+<h2 id="要約"><a href="#要約" class="headerlink" title="要約"></a>要約</h2><ul>
+<li>もともと Windows 10 だった。</li>
+<li>Linux が便利らしいので、やってみたかった。</li>
+<li>調べてみたらかなり試す価値がありそうだった。</li>
+<li>安めのパソコンを買って試しているが、あまり問題がない。</li>
+</ul>
+<h2 id="調査"><a href="#調査" class="headerlink" title="調査"></a>調査</h2><p>2017年11月ぐらいのこと。使っていたノートパソコン(dynabook)が2011年ぐらいからの古株なので、買い替えることにした。</p>
+<p>Linux 環境は Windows よりプログラミングに向いている [要出典] 的な話をわりと聞くので一度試してみようと思い、仮想環境を使ったり、普段の作業がどのぐらい Ubuntu でもできるのか調査したりした。</p>
+<p>同じ用途のアプリが Ubuntu 環境でも提供されているというのもあるし、いまはウェブアプリやクロスプラットフォーム対応のアプリが多いので、替えが効かないのは Visual Studio (C# や F# での開発に使う) ぐらいだった。それに関しても、 .NET Core 2.0 のリリース以後、じわじわ VSCode に移行している。WPF で GUI アプリが作れなくなるが、他の GUI ツールキットを覚えるいい機会だろう。</p>
+<p>予想外だったのは Sublime Text 3 の Ubuntu 版が日本語 IME と相性が悪くて使いづらいことで、いまは VSCode で代用している。メモ帳 (Markdown エディター) 代わりとしてはオーバースペックなので何か用意したい。</p>
+<h2 id="構築"><a href="#構築" class="headerlink" title="構築"></a>構築</h2><p>次に Ubuntu をインストールすべきパソコンを探した。メーカーによっては起動できないのもあるらしい (※よく知らない) ので、実際にインストールして動かした人のいるものを選ぶのがよさそうだ。次の記事を参考にして、 Inspiron のデスクトップを買った:</p>
+<p>参考: <a href="http://www.dell.com/support/article/jp/ja/jpbsd1/sln151664/%E3%83%87%E3%83%ABpc%E3%81%ABubuntu-linux%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95?lang=ja" target="_blank" rel="noopener">デルPCにUbuntu Linuxをインストールする方法</a></p>
+<p>インストール手順まで詳しく書いてあって、ぽちぽちしたらできた。マウスやキーボードもそのまま動いて安心した。</p>
+<h2 id="移行"><a href="#移行" class="headerlink" title="移行"></a>移行</h2><p>データの移行時は文字コードの問題があった。テキストファイルの一部が shift_jis だったが、これは nkf コマンドを使ってすべて utf-8 にした。シェルスクリプトの簡単な練習になった。</p>
+<p>音楽ファイルのメタタグも一部が shift_jis なために文字化けしていたが、これは Windows のアプリで一括変換した。どうも <strong>一部壊れている</strong> ような気がする。気のせいだと思いたい。</p>
+<h2 id="現状"><a href="#現状" class="headerlink" title="現状"></a>現状</h2><p>何か問題が起こったときに対処できるか、というのが一番の不安要素だが、いまのところ問題はない。やったことといえば、まだ外付けハードディスクが自動的にマウントされるように fstab の設定を書いたぐらいだが。</p>
+<p>それに、このごろは Web 系の勉強 (HTML/CSS/ES2016/TypeScript/Node.js/Vue.js) で忙しくて、OS 非依存なレイヤーしか触っていいない。</p>
+<p>Clang (C++) で競プロをやったり、 OCaml で TaPL のサンプルを動かしたりしたい。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/" data-id="cjnspsyxy000ykfcxwqbbc38y" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/2/">次へ &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新記事</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-31/diary/">近況 2018-10-31</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2018-09-30/diary/">近況 2018-09-30</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/NET/" style="font-size: 12px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 18px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 14px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 14px;">Tips</a> <a href="/blog/tags/WPF/" style="font-size: 14px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 12px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 16px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 12px;">競技プログラミング</a> <a href="/blog/tags/言語実装/" style="font-size: 10px;">言語実装</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 14px;">非同期</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 vain0x<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">ブログ</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
+  
+    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
+  
+    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
+  
+    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
