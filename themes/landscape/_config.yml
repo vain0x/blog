@@ -1,21 +1,23 @@
 # Header
 menu:
-  Home: /
-  Archives: /archives
+  ブログ: /
+  記事一覧: /archives
+  競プロ参戦記: https://note.mu/vain0x/m/m9aa8513f4e97
+  Qiita: https://qiita.com/vain0x
+  GitHub: https://github.com/vain0x
 rss: /atom.xml
 
 # Content
-excerpt_link: Read More
+excerpt_link: 続きを読む
 fancybox: true
 
 # Sidebar
 sidebar: right
 widgets:
-- category
-- tag
-- tagcloud
-- archive
 - recent_posts
+- tagcloud
+# - category
+# - tag
 
 # display widgets at the bottom of index pages (pagination == 2)
 index_widgets:
@@ -24,14 +26,14 @@ index_widgets:
 # - archive
 
 # widget behavior
-archive_type: 'monthly'
+archive_type: 'yearly'
 show_count: false
 
 # Miscellaneous
-google_analytics:
+google_analytics: UA-128265968-1
 gauges_analytics:
-favicon: /favicon.png
-twitter:
+favicon: /blog/favicon.jpg
+twitter: vain0x
 google_plus:
 fb_admins:
 fb_app_id:
