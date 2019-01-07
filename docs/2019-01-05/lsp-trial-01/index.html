@@ -18,20 +18,20 @@ ga('send', 'pageview');
 
 
   
-  <title>LSP 学習記 #1 | vain0x&#39;s blog</title>
+  <title>LSP学習記 #1 | vain0x&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。 第1回では LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作ります。 おことわり読者には Node.js と TypeScript の基本的な知識を前提とします。 若干解説調の文章になってしまっていますが、">
 <meta name="keywords" content="言語実装">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LSP 学習記 #1">
+<meta property="og:title" content="LSP学習記 #1">
 <meta property="og:url" content="http://vain0x.github.io/blog/2019-01-05/lsp-trial-01/index.html">
 <meta property="og:site_name" content="vain0x&#39;s blog">
 <meta property="og:description" content="LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。 第1回では LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作ります。 おことわり読者には Node.js と TypeScript の基本的な知識を前提とします。 若干解説調の文章になってしまっていますが、">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qiita-image-store.s3.amazonaws.com/0/74340/38f57697-5ace-02c9-a8b4-e7831b7a0c54.png">
-<meta property="og:updated_time" content="2019-01-05T15:12:39.825Z">
+<meta property="og:updated_time" content="2019-01-07T13:19:37.314Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LSP 学習記 #1">
+<meta name="twitter:title" content="LSP学習記 #1">
 <meta name="twitter:description" content="LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。 第1回では LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作ります。 おことわり読者には Node.js と TypeScript の基本的な知識を前提とします。 若干解説調の文章になってしまっていますが、">
 <meta name="twitter:image" content="https://qiita-image-store.s3.amazonaws.com/0/74340/38f57697-5ace-02c9-a8b4-e7831b7a0c54.png">
 <meta name="twitter:creator" content="@vain0x">
@@ -102,7 +102,7 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      LSP 学習記 #1
+      LSP学習記 #1
     </h1>
   
 
@@ -265,9 +265,15 @@ ga('send', 'pageview');
 <li>注: この設定だとあらゆるテキストファイルに関して警告を出してしまうので、何か間違っていそう。</li>
 </ul>
 <p>動いている様子はだいたい同じです。</p>
-<h2 id="次回"><a href="#次回" class="headerlink" title="次回"></a>次回</h2><p>次はもっとプログラミング言語らしいものを検証して、構文エラーの警告表示を出せるようにする予定です。</p>
+<h2 id="まとめと次回"><a href="#まとめと次回" class="headerlink" title="まとめと次回"></a>まとめと次回</h2><p>今回のポイントは以下の3点でした。</p>
 <ul>
-<li>そのあとに変数のリネームやシンボル参照の検索などをやっていきたい。</li>
+<li>LSP ではクライアントとサーバーがリクエストとレスポンスを投げ合う (ときどき通知)</li>
+<li>クライアントの通知を受け取れた / クライアントに通知を送れた</li>
+<li>自作 LSP サーバーが任意のエディタで動いてて楽しい</li>
+</ul>
+<p>次はもっとプログラミング言語らしいものを検証して、構文エラーの警告を出せるようにします。そのあと、変数のリネームやシンボル参照の検索などをやっていきたいです。</p>
+<ul>
+<li>次回: <a href="https://qiita.com/vain0x/items/490ae33ba3db3c829c13" target="_blank" rel="noopener">LSP学習記 #2 クラゲ言語の構文解析</a></li>
 </ul>
 
       
@@ -308,7 +314,7 @@ ga('send', 'pageview');
       <ul>
         
           <li>
-            <a href="/blog/2019-01-05/lsp-trial-01/">LSP 学習記 #1</a>
+            <a href="/blog/2019-01-05/lsp-trial-01/">LSP学習記 #1</a>
           </li>
         
           <li>
