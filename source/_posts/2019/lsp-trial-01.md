@@ -1,7 +1,9 @@
 ---
 title: "LSP学習記 #1"
 tags:
-- 言語実装
+- 言語処理系
+- TypeScript
+- LanguageServerProtocol
 date: 2019-01-05 23:52:00
 permalink: lsp-trial-01
 ---
