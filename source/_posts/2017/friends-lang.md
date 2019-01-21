@@ -4,7 +4,7 @@ date: 2017-02-12 00:00:00
 permalink: friends-lang
 tags:
   - プログラミング言語
-  - 言語実装
+  - 言語処理系
   - Prolog
   - ネタ
 ---
