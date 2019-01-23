@@ -53,7 +53,7 @@
 
   </section>
 <% } %>
-
+<% if (!index && post.comments) { %>
 <section id="comments">
   <script
     src="https://utteranc.es/client.js"
@@ -64,3 +64,4 @@
     async>
   </script>
 </section>
+<% } %>
