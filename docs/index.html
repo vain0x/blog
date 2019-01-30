@@ -88,6 +88,143 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2019-01-30/diary/" class="article-date">
+  <time datetime="2019-01-30T11:07:49.000Z" itemprop="datePublished">2019-01-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019-01-30/diary/">近況 2019-01-30</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今月の活動のまとめ</p>
+<ul>
+<li>前月分 <a href="https://vain0x.github.io/blog/2018-12-31/diary/">https://vain0x.github.io/blog/2018-12-31/diary/</a></li>
+</ul>
+<h2 id="LSP学習記の連載を書いた"><a href="#LSP学習記の連載を書いた" class="headerlink" title="LSP学習記の連載を書いた"></a>LSP学習記の連載を書いた</h2><ul>
+<li>自作言語 <a href="https://github.com/vain0x/curage-lang" target="_blank" rel="noopener">curage-lang</a> の LSP サーバーを実装していくシリーズ</li>
+<li>LSP (Language Server Protocol) は、いわゆるインテリセンス (ソースコードに警告を出したり入力補完をしたりするやつ) の実装をテキストエディターから分離するのに使える通信プロトコル</li>
+<li>エディターの実装 (特に GUI) に全く触らなくてもインテリセンスが作れて最高<ul>
+<li>JSON を送受信するだけだから、ユニットテストも書きやすい</li>
+</ul>
+</li>
+<li>curage-lang はとてもミニで、let 文で変数を定義する、以外の機能はない</li>
+<li>それでも LSP サーバーの実装の雰囲気は十分につかめた</li>
+</ul>
+<h4 id="LSP学習記-現時点での記事一覧"><a href="#LSP学習記-現時点での記事一覧" class="headerlink" title="LSP学習記: 現時点での記事一覧"></a>LSP学習記: 現時点での記事一覧</h4><ul>
+<li><a href="https://qiita.com/vain0x/items/d050fe7c8b342ed2004e" target="_blank" rel="noopener">LSP学習記 #1</a><ul>
+<li>LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作った</li>
+</ul>
+</li>
+<li><a href="https://qiita.com/vain0x/items/490ae33ba3db3c829c13" target="_blank" rel="noopener">LSP学習記 #2 クラゲ言語の構文解析</a><ul>
+<li>構文解析を行い、構文エラーがリアルタイムで出るようにした</li>
+</ul>
+</li>
+<li><a href="https://qiita.com/vain0x/items/31252d77066505ce6117" target="_blank" rel="noopener">LSP学習記 #3 シンボルとハイライト</a><ul>
+<li>ローカル変数定義の静的解析を行い、変数をハイライトする機能を実装した</li>
+</ul>
+</li>
+<li><a href="https://qiita.com/vain0x/items/8414dca7425057f1bbd8" target="_blank" rel="noopener">LSP学習記 #4 シンボルのリネーム - Qiita</a><ul>
+<li>名前の変更機能を実装した</li>
+</ul>
+</li>
+</ul>
+<h2 id="競技プログラミングの成績がよかった"><a href="#競技プログラミングの成績がよかった" class="headerlink" title="競技プログラミングの成績がよかった"></a>競技プログラミングの成績がよかった</h2><p>1年以上前から「そろそろ青」の水色だったが、ついに <strong>青</strong> になった。</p>
+<ul>
+<li>今月も週末は AtCoder に参加した</li>
+<li><a href="https://note.mu/vain0x/n/n995face26f4c" target="_blank" rel="noopener">競プロ参戦記 #28 「白黒経路とカードゲーム」 | エイシング 2019 [ABCD]｜ベイン｜note</a><ul>
+<li>D完</li>
+</ul>
+</li>
+<li><a href="https://note.mu/vain0x/n/n3c2c2c425830" target="_blank" rel="noopener">競プロ参戦記 #29 「最小全域木」 | KEYENCE 2019 [ABCE]｜ベイン｜note</a><ul>
+<li>ABC-E完</li>
+</ul>
+</li>
+<li><a href="https://note.mu/vain0x/n/n78a0d99f0fb9" target="_blank" rel="noopener">競プロ参戦記 #30 「花壇とスシ」  | ABC 116｜ベイン｜note</a><ul>
+<li>C完</li>
+</ul>
+</li>
+<li><a href="https://note.mu/vain0x/n/nef874855fde5" target="_blank" rel="noopener">競プロ参戦記 #31 「料理 / 木の復元」 | 全国統一2019｜ベイン｜note</a><ul>
+<li>D完</li>
+</ul>
+</li>
+</ul>
+<h2 id="競プロ用言語を作り始めた"><a href="#競プロ用言語を作り始めた" class="headerlink" title="競プロ用言語を作り始めた"></a>競プロ用言語を作り始めた</h2><p>picomet-lang <a href="https://github.com/vain0x/picomet-lang" target="_blank" rel="noopener">https://github.com/vain0x/picomet-lang</a></p>
+<ul>
+<li>精選10問こと <a href="https://atcoder.jp/contests/abs/tasks" target="_blank" rel="noopener">AtCoder Beginners Selection</a> を自作言語で解くプロジェクト</li>
+<li>コンパイラにソースコードを埋め込んで提出、実行中にコンパイル→評価、という流れにする……つもりだった<ul>
+<li>でもコンパイラをジャッジ側で実行する必要はない</li>
+<li>手元で中間言語を生成してランタイムに埋め込めば十分</li>
+</ul>
+</li>
+<li><a href="https://github.com/rui314/9cc" target="_blank" rel="noopener">9cc</a> や <a href="http://esumii.github.io/min-caml" target="_blank" rel="noopener">MinCaml</a> を参考にアセンブリ風の中間言語へのコンパイルを試みている<ul>
+<li>C言語をターゲットにしている milone-lang ではやらなかった分野</li>
+<li>関数の呼び出しがなかなか難しい</li>
+</ul>
+</li>
+</ul>
+<h2 id="ポートフォリオサイトを作った"><a href="#ポートフォリオサイトを作った" class="headerlink" title="ポートフォリオサイトを作った"></a>ポートフォリオサイトを作った</h2><p>vain0x’s Page <a href="https://vain0x.github.io">https://vain0x.github.io</a></p>
+<ul>
+<li>このドメインのルート、長いこと Hello! しか書かれてなかったページ</li>
+<li>イチから作り直した</li>
+<li>CSS は慣れてきたので手書きにした</li>
+<li>背景に濃色のグラデーションと透過を使って手軽にそれっぽさを出した</li>
+<li>HTML はテンプレートエンジンではなく、JSX 記法 + <a href="https://github.com/kriasoft/hyperapp-render" target="_blank" rel="noopener">hyperapp-render</a> で静的生成した</li>
+<li>いまのところプロジェクト (knowbug や milone-lang) や連載記事の紹介を載せている</li>
+</ul>
+<h2 id="ブログにコメント欄を追加した"><a href="#ブログにコメント欄を追加した" class="headerlink" title="ブログにコメント欄を追加した"></a>ブログにコメント欄を追加した</h2><ul>
+<li><a href="https://utteranc.es" target="_blank" rel="noopener">utterances</a></li>
+<li>コメント欄を表示して、送信されたデータは GitHub issues に追加される、という仕組み</li>
+<li>サーバーを用意しなくていいという利点</li>
+<li>GitHub にサインインしないとコメントできないという欠点</li>
+</ul>
+<h2 id="ミローネ言語-詰まり中"><a href="#ミローネ言語-詰まり中" class="headerlink" title="ミローネ言語: 詰まり中"></a>ミローネ言語: 詰まり中</h2><p>milone-lang <a href="https://github.com/vain0x/milone-lang" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang</a></p>
+<ul>
+<li>多相関数の実装が難しくて困ってる</li>
+</ul>
+<h2 id="ガルパ-リズムゲーム"><a href="#ガルパ-リズムゲーム" class="headerlink" title="ガルパ (リズムゲーム)"></a>ガルパ (リズムゲーム)</h2><ul>
+<li>人差し指2本でプレイしていたが、右手の中指を含めて3本にした<ul>
+<li>指の負担の分散、高難度の精度向上、という効果を期待</li>
+<li>ノーツに叩く指をアサインする組み合わせが増加し、脳の処理負荷が重くなるので難しい</li>
+<li>いまは慣れてきた</li>
+</ul>
+</li>
+<li>左手の中指も使った4本打鍵も練習中</li>
+<li>2nd Season 悪くない</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2019-01-30/diary/" data-id="cjrj7i8zs0000ttcxmq84jl5r" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-lsp-trial-01" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2019-01-05/lsp-trial-01/" class="article-date">
@@ -279,7 +416,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2019-01-05/lsp-trial-01/" data-id="cjqjlxpr400022vcxdxc5vxlz" class="article-share-link">共有</a>
+      <a data-url="http://vain0x.github.io/blog/2019-01-05/lsp-trial-01/" data-id="cjrghybg4002xlqcxrz0ed7za" class="article-share-link">共有</a>
       
       
       
@@ -419,7 +556,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-12-31/diary/" data-id="cjqbxs9ju0000fwcx35k0n5ga" class="article-share-link">共有</a>
+      <a data-url="http://vain0x.github.io/blog/2018-12-31/diary/" data-id="cjrghybfe000zlqcxi79x7ew3" class="article-share-link">共有</a>
       
       
       
@@ -511,7 +648,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-12-16/siku-siku-primes/" data-id="cjpqxn8rx0000ijcxxgo0ijdz" class="article-share-link">共有</a>
+      <a data-url="http://vain0x.github.io/blog/2018-12-16/siku-siku-primes/" data-id="cjrghybfi0018lqcx0w7ba88w" class="article-share-link">共有</a>
       
       
       
@@ -673,7 +810,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-11-30/diary/" data-id="cjp43fdwg0000mucxd6y62nuk" class="article-share-link">共有</a>
+      <a data-url="http://vain0x.github.io/blog/2018-11-30/diary/" data-id="cjrghybg0002olqcx1k0l9pt1" class="article-share-link">共有</a>
       
       
       
@@ -768,7 +905,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-11-07/pi-challenge/" data-id="cjoa7fspp0000bkcx5uihi5mx" class="article-share-link">共有</a>
+      <a data-url="http://vain0x.github.io/blog/2018-11-07/pi-challenge/" data-id="cjrghybg2002slqcxn2lrkype" class="article-share-link">共有</a>
       
       
       
@@ -918,7 +1055,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-10-31/diary/" data-id="cjnsw4f790000u3cxch3jkb5g" class="article-share-link">共有</a>
+      <a data-url="http://vain0x.github.io/blog/2018-10-31/diary/" data-id="cjrghybfe000xlqcxp7ciwqgy" class="article-share-link">共有</a>
       
       
       
@@ -1033,7 +1170,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-10-07/rust-procon/" data-id="cjnspsyy00013kfcxpz9z8pfw" class="article-share-link">共有</a>
+      <a data-url="http://vain0x.github.io/blog/2018-10-07/rust-procon/" data-id="cjrghybfj001blqcx5g0ecle7" class="article-share-link">共有</a>
       
       
       
@@ -1196,7 +1333,7 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-09-30/diary/" data-id="cjnspsyxt000rkfcxmiuob029" class="article-share-link">共有</a>
+      <a data-url="http://vain0x.github.io/blog/2018-09-30/diary/" data-id="cjrghybfd000ulqcxhefwwqcc" class="article-share-link">共有</a>
       
       
       
@@ -1353,104 +1490,11 @@ ga('send', 'pageview');
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/" data-id="cjnspsyyh002fkfcx8webqxv6" class="article-share-link">共有</a>
+      <a data-url="http://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/" data-id="cjrghybg0002plqcxpui63fca" class="article-share-link">共有</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/F/">F#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/チュートリアル/">チュートリアル</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-recurse-rust-closure" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2018-06-28/recurse-rust-closure/" class="article-date">
-  <time datetime="2018-06-28T14:17:41.000Z" itemprop="datePublished">2018-06-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018-06-28/recurse-rust-closure/">Rustのクロージャで再帰してみた</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>クロージャを再帰呼び出しする方法を考えました。</p>
-<p>競技プログラミングではローカル変数を書き換えながら再帰する処理がよく出てきます。しかし Rust でそれを書こうとするとやや冗長になりがちです。</p>
-<p>本稿では小さなヘルパーを用意して記述を簡略化することを試みました。</p>
-<ul>
-<li>環境: Rust 1.15.1 (AtCoder での現在のバージョン)</li>
-<li>筆者: AtCoder もうすぐ青といい続けて1年</li>
-</ul>
-<h2 id="要約"><a href="#要約" class="headerlink" title="要約"></a>要約</h2><ul>
-<li>競プロではよく再帰する。</li>
-<li>小さなアダプタを書くと再帰呼び出しできる。</li>
-<li>イミュータブルなクロージャはローカル変数を書き換えられない。<ul>
-<li><code>RefCell</code> で対処する。</li>
-</ul>
-</li>
-<li>成果:<ul>
-<li><a href="https://play.rust-lang.org/?gist=97ad8427affee25a31656d750d2a01d6&amp;version=stable&amp;mode=debug" target="_blank" rel="noopener">Fn で再帰するやつ</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="用例1-階乗"><a href="#用例1-階乗" class="headerlink" title="用例1: 階乗"></a>用例1: 階乗</h2><p>単純な例として、階乗の計算を再帰で書けるようにしましょう。内部で自身を参照するために、クロージャは引数に <code>fact</code> (階乗関数) を受け取るようにする方針でいきます。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fact_5 = recurse(<span class="number">5</span>, &amp;|n, fact| &#123;</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">1</span> &#123;</span><br><span class="line">        <span class="number">1_i64</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        n * fact(n - <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">assert_eq!</span>(<span class="number">1</span> * <span class="number">2</span> * <span class="number">3</span> * <span class="number">4</span> * <span class="number">5</span>, fact_5);</span><br></pre></td></tr></table></figure>
-<p>ここで <code>recurse(x, f)</code> が <code>f(x, f)</code> の意味になるように後で定義するヘルパーです。</p>
-<p>「なぜ作った関数を即座に起動するのか」という疑問があると思いますが、それは実際にそういう用途が多いからです。再帰関数がほしいときは <code>|x| recurse(x, &amp;|x, f| ..)</code> のようにクロージャ化する運用でも大丈夫でしょう。</p>
-<h2 id="実装1-イミュータブル版"><a href="#実装1-イミュータブル版" class="headerlink" title="実装1: イミュータブル版"></a>実装1: イミュータブル版</h2><p><code>recurse</code> の実装は簡単で、<code>fn</code> で定義した関数が再帰可能であることを利用します。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">recurse</span></span>&lt;X, Y&gt;(x: X, f: &amp;<span class="built_in">Fn</span>(X, &amp;<span class="built_in">Fn</span>(X) -&gt; Y) -&gt; Y) -&gt; Y &#123;</span><br><span class="line">    f(x, &amp;|x: X| recurse(x, &amp;f))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意点は、クロージャの引数の型がまたそのクロージャの型で……という無限の循環を避けるため、関数を <a href="https://rust-lang-ja.github.io/the-rust-programming-language-ja/1.6/book/trait-objects.html" target="_blank" rel="noopener">トレイトオブジェクト</a> への参照という形で扱っていることです。</p>
-<p><code>Fn(X) -&gt; Y</code> というのは「型 <code>X</code> の値を受け取って型 <code>Y</code> の値を返す関数」の型を表すトレイトで、ある種のクロージャは自動的に <code>Fn</code> を実装した型になります。参照: <a href="https://doc.rust-lang.org/std/ops/trait.Fn.html" target="_blank" rel="noopener">std::ops::Fn - Rust</a></p>
-<pre><code>&amp;Fn(X, &amp;Fn(X) -&gt; Y) -&gt; Y
-        ^^^^^^^^^^           再帰関数の型 (クロージャの引数)
- ^^^^^^^^^^^^^^^^^^^^^^^     定義したクロージャのトレイトオブジェクトの型
-</code></pre><h2 id="用例2-DFSで連結成分分解"><a href="#用例2-DFSで連結成分分解" class="headerlink" title="用例2: DFSで連結成分分解"></a>用例2: DFSで連結成分分解</h2><p>次に現実的な例として、グラフの連結成分分解を深さ優先探索で書いてみます。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//   0 -- 1</span></span><br><span class="line"><span class="comment">//   | \</span></span><br><span class="line"><span class="comment">//   |  \</span></span><br><span class="line"><span class="comment">//   2 -- 3    4--5</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="keyword">let</span> graph =</span><br><span class="line">    <span class="built_in">vec!</span>[</span><br><span class="line">        <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">        <span class="built_in">vec!</span>[<span class="number">0</span>],</span><br><span class="line">        <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">3</span>],</span><br><span class="line">        <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">2</span>],</span><br><span class="line">        <span class="built_in">vec!</span>[<span class="number">5</span>],</span><br><span class="line">        <span class="built_in">vec!</span>[<span class="number">4</span>],</span><br><span class="line">    ];</span><br><span class="line"><span class="keyword">let</span> n = graph.len();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> roots = RefCell::new(<span class="built_in">vec!</span>[n; n]);</span><br><span class="line"><span class="keyword">for</span> u <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">    recurse(u, &amp;|v, go| &#123;</span><br><span class="line">        <span class="keyword">if</span> roots.borrow()[v] &lt; n &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        roots.borrow_mut()[v] = u;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> &amp;w <span class="keyword">in</span> graph[v].iter() &#123;</span><br><span class="line">            go(w);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">assert_eq!</span>(&amp;*roots.borrow(), &amp;[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">4</span>]);</span><br></pre></td></tr></table></figure>
-<p>頂点 <code>v</code> が属す連結成分の代表を <code>roots[v]</code> に入れていきます。</p>
-<p>このとき、再帰の途中で配列を更新する必要があります。しかし <code>roots</code> を let <strong>mut</strong> でミュータブル配列として宣言すると、先ほどの <code>recurse</code> は使えません。というもの、外部のミュータブルな変数を借用するクロージャは <code>Fn</code> トレイトを実装しないからです。</p>
-<p>ここでは <code>RefCell</code> を使ってこの問題を回避しています。クロージャに渡すのが <code>RefCell</code> へのイミュータブルな参照でも、内部の値をミュータブルとして扱えます。参照: <a href="https://rust-lang-ja.github.io/the-rust-programming-language-ja/1.6/book/choosing-your-guarantees.html#refcellt" target="_blank" rel="noopener">保証を選ぶ</a></p>
-<p>なんにせよ、それなりに簡潔に再帰処理ができました！</p>
-<ul>
-<li><a href="https://play.rust-lang.org/?gist=97ad8427affee25a31656d750d2a01d6&amp;version=stable&amp;mode=debug" target="_blank" rel="noopener">Rust Playground で試す</a></li>
-</ul>
-<h2 id="実装2-ミュータブル版"><a href="#実装2-ミュータブル版" class="headerlink" title="実装2. ミュータブル版"></a>実装2. ミュータブル版</h2><p><strong>追記</strong>: ミュータブルなローカル変数を書き換えながらクロージャを再帰呼び出しする方法について記述していましたが、 <a href="https://qiita.com/vain0x/items/90c9580aa34926160ac1#comment-1988da50c4701cc0add8" target="_blank" rel="noopener">安全でないコードが書けてしまう</a> ので取り下げました。</p>
-<details><br><summary>変更前の内容はたたんであります。</summary><br><div><br>記述量を減らすのが目的なので、 <code>RefCell</code> をなくす方法も考えてみます。<br><br>クロージャの型が自動で実装するトレイトは <code>Fn</code> のほかに <code>FnMut</code> もあります。<code>FnMut</code> は、簡単にいうと「ミュータブルな状態を持つ関数」の型が実装すべきトレイトです。参照: <a href="https://doc.rust-lang.org/std/ops/trait.FnMut.html" target="_blank" rel="noopener">std::ops::FnMut - Rust</a><br><br>外部のミュータブルな状態 (例えば <code>let mut roots = ...</code>) を触りながら再帰できるように、クロージャが <code>FnMut</code> でもいいようにしてみます。すると、借用検査が <strong>通りません</strong> 。<br><br>通せるようにしたのが以下です:<br><br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">recurse</span></span>&lt;X, Y&gt;(x: X, f: &amp;<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X, &amp;<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X) -&gt; Y) -&gt; Y) -&gt; Y &#123;</span><br><span class="line">    <span class="keyword">let</span> fp = f <span class="keyword">as</span> *<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X, &amp;<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X) -&gt; Y) -&gt; Y;</span><br><span class="line">    <span class="keyword">let</span> f1 = <span class="keyword">unsafe</span> &#123; &amp;<span class="keyword">mut</span> *fp &#125;;</span><br><span class="line">    <span class="keyword">let</span> f2 = <span class="keyword">unsafe</span> &#123; &amp;<span class="keyword">mut</span> *fp &#125;;</span><br><span class="line">    f1(x, &amp;<span class="keyword">mut</span> |x: X| recurse(x, f2))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>これをみると分かるように、 <code>recurse</code> は受け取ったクロージャへの参照を2つに複製します: 即座に呼び出すための参照と、再帰用に呼び出すための参照です。ミュータブルな参照は複製できないので、<code>unsafe</code> を使って強制的に複製しています。<br><br>「unsafe だから危険じゃないのか」という疑問がありますが、実行中のクロージャが自分への参照を self, f で2重に受け取っているだけなので、たぶん大丈夫です。<br><br>これで深さ優先探索の例を書き直すと、<code>RefCell</code> が消失してすっきり。<br><br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> roots = <span class="built_in">vec!</span>[n; n];</span><br><span class="line"><span class="keyword">for</span> u <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">    recurse(u, &amp;<span class="keyword">mut</span> |v, go| &#123;</span><br><span class="line">        <span class="keyword">if</span> roots[v] &lt; n &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        roots[v] = u;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> &amp;w <span class="keyword">in</span> graph[v].iter() &#123;</span><br><span class="line">            go(w);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><a href="https://play.rust-lang.org/?gist=bceca5a2af42a5436996b99712cb28ed&amp;version=stable&amp;mode=debug" target="_blank" rel="noopener">Rust Playground で試す</a><br></div><br></details>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><p><a href="https://github.com/Hoverbear/rust-rosetta/issues/450#issuecomment-175848086" target="_blank" rel="noopener">Stebalien commented on 28 Jan 2016</a></p>
-<p>  Zコンビネータを使ってクロージャを再帰可能にするコードの例。引数として受け取る再帰関数の型は推論されないっぽい。</p>
-</li>
-<li><p><a href="https://www.google.co.jp/search?q=無名再帰&amp;oq=無名再帰" target="_blank" rel="noopener">無名再帰 - Google 検索</a></p>
-<p>  クロージャのような匿名の関数を再帰呼び出しすることを無名再帰というらしい。</p>
-</li>
-</ul>
-<details><br><summary>Source code</summary><br><br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#![allow(dead_code)]</span></span><br><span class="line"><span class="meta">#![allow(unused_macros)]</span></span><br><span class="line"><span class="meta">#![allow(unused_imports)]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">recurse</span></span>&lt;X, Y&gt;(x: X, f: &amp;<span class="built_in">Fn</span>(X, &amp;<span class="built_in">Fn</span>(X) -&gt; Y) -&gt; Y) -&gt; Y &#123;</span><br><span class="line">    f(x, &amp;|x: X| recurse(x, &amp;f))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">macro_rules!</span> memo &#123;</span><br><span class="line">    (| $f:ident, $($p:ident $(: $t:ty)*),* | $body:expr) =&gt; &#123;&#123;</span><br><span class="line">        <span class="keyword">use</span> std;</span><br><span class="line">        <span class="keyword">let</span> memo = std::cell::RefCell::new(std::collections::HashMap::new());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">move</span> |$($p $(: $t)*),*| &#123;</span><br><span class="line">            recurse(</span><br><span class="line">                <span class="meta">#[allow(unused_parens)]</span></span><br><span class="line">                &#123; ($($p),*) &#125;,</span><br><span class="line">                &amp;|$($p $(: $t)*),*, $f| &#123;</span><br><span class="line">                    <span class="keyword">let</span> args = ($($p),*).clone();</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> <span class="literal">Some</span>(&amp;y) = memo.borrow().get(&amp;args) &#123;</span><br><span class="line">                        <span class="keyword">return</span> y;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">let</span> y = $body;</span><br><span class="line">                    memo.borrow_mut().insert(args, y.clone());</span><br><span class="line">                    y</span><br><span class="line">                &#125;</span><br><span class="line">            )</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[cfg(test)]</span></span><br><span class="line"><span class="keyword">mod</span> tests &#123;</span><br><span class="line">    <span class="keyword">use</span> super::*;</span><br><span class="line">    <span class="keyword">use</span> std::cell::RefCell;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">graph</span></span>() -&gt; <span class="built_in">Vec</span>&lt;<span class="built_in">Vec</span>&lt;<span class="built_in">usize</span>&gt;&gt; &#123;</span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="comment">//   0 -- 1</span></span><br><span class="line">        <span class="comment">//   | \</span></span><br><span class="line">        <span class="comment">//   |  \</span></span><br><span class="line">        <span class="comment">//   2 -- 3    4--5</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="built_in">vec!</span>[</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">0</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">3</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">2</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">5</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">4</span>],</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">test_fact</span></span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> fact = |n| recurse(n, &amp;|n, fact| <span class="keyword">if</span> n &lt;= <span class="number">1</span> &#123; <span class="number">1_i64</span> &#125; <span class="keyword">else</span> &#123; n * fact(n - <span class="number">1</span>) &#125;);</span><br><span class="line">        <span class="built_in">assert_eq!</span>(fact(<span class="number">1</span>), <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">assert_eq!</span>(fact(<span class="number">5</span>), <span class="number">120</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">test_dfs</span></span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> graph = graph();</span><br><span class="line">        <span class="keyword">let</span> n = graph.len();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> roots = RefCell::new(<span class="built_in">vec!</span>[n; n]);</span><br><span class="line">        <span class="keyword">for</span> u <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">            recurse(u, &amp;|v, go| &#123;</span><br><span class="line">                <span class="keyword">if</span> roots.borrow()[v] &lt; n &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                roots.borrow_mut()[v] = u;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> &amp;w <span class="keyword">in</span> graph[v].iter() &#123;</span><br><span class="line">                    go(w);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">assert_eq!</span>(&amp;*roots.borrow(), &amp;[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">4</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">test_memoized_fib</span></span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> fib = memo!(|fib, n: <span class="built_in">i32</span>| <span class="keyword">if</span> n &lt;= <span class="number">1</span> &#123;</span><br><span class="line">            <span class="number">1_i64</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            fib(n - <span class="number">1</span>) + fib(n - <span class="number">2</span>)</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">assert_eq!</span>(fib(<span class="number">5</span>), <span class="number">8</span>);</span><br><span class="line">        <span class="built_in">assert_eq!</span>(fib(<span class="number">20</span>), <span class="number">10946</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#![allow(dead_code)]</span></span><br><span class="line"><span class="meta">#![allow(unused_imports)]</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">recurse</span></span>&lt;X, Y&gt;(x: X, f: &amp;<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X, &amp;<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X) -&gt; Y) -&gt; Y) -&gt; Y &#123;</span><br><span class="line">    <span class="keyword">let</span> fp = f <span class="keyword">as</span> *<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X, &amp;<span class="keyword">mut</span> <span class="built_in">FnMut</span>(X) -&gt; Y) -&gt; Y;</span><br><span class="line">    <span class="keyword">let</span> f1 = <span class="keyword">unsafe</span> &#123; &amp;<span class="keyword">mut</span> *fp &#125;;</span><br><span class="line">    <span class="keyword">let</span> f2 = <span class="keyword">unsafe</span> &#123; &amp;<span class="keyword">mut</span> *fp &#125;;</span><br><span class="line">    f1(x, &amp;<span class="keyword">mut</span> |x: X| recurse(x, f2))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[cfg(test)]</span></span><br><span class="line"><span class="keyword">mod</span> tests &#123;</span><br><span class="line">    <span class="keyword">use</span> super::*;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">graph</span></span>() -&gt; <span class="built_in">Vec</span>&lt;<span class="built_in">Vec</span>&lt;<span class="built_in">usize</span>&gt;&gt; &#123;</span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="comment">//   0 -- 1</span></span><br><span class="line">        <span class="comment">//   | \</span></span><br><span class="line">        <span class="comment">//   |  \</span></span><br><span class="line">        <span class="comment">//   2 -- 3    4--5</span></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        <span class="built_in">vec!</span>[</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">0</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">3</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">2</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">5</span>],</span><br><span class="line">            <span class="built_in">vec!</span>[<span class="number">4</span>],</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">test_fact</span></span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> fact = |n| recurse(n, &amp;<span class="keyword">mut</span> |n, fact| <span class="keyword">if</span> n &lt;= <span class="number">1</span> &#123; <span class="number">1</span> &#125; <span class="keyword">else</span> &#123; n * fact(n - <span class="number">1</span>) &#125;);</span><br><span class="line">        <span class="built_in">assert_eq!</span>(fact(<span class="number">1</span>), <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">assert_eq!</span>(fact(<span class="number">5</span>), <span class="number">120</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">test_dfs</span></span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> graph = graph();</span><br><span class="line">        <span class="keyword">let</span> n = graph.len();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> roots = <span class="built_in">vec!</span>[n; n];</span><br><span class="line">        <span class="keyword">for</span> u <span class="keyword">in</span> <span class="number">0</span>..n &#123;</span><br><span class="line">            recurse(u, &amp;<span class="keyword">mut</span> |v, go| &#123;</span><br><span class="line">                <span class="keyword">if</span> roots[v] &lt; n &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                roots[v] = u;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> &amp;w <span class="keyword">in</span> graph[v].iter() &#123;</span><br><span class="line">                    go(w);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">assert_eq!</span>(roots, <span class="built_in">vec!</span>[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">4</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#[test]</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">test_closure_is_dropped</span></span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> n = <span class="number">4</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> k = <span class="number">0</span>;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">D</span></span>&lt;<span class="symbol">'a</span>&gt;(<span class="keyword">pub</span> &amp;<span class="symbol">'a</span> <span class="keyword">mut</span> <span class="built_in">i32</span>);</span><br><span class="line">        <span class="keyword">impl</span>&lt;<span class="symbol">'a</span>&gt; <span class="built_in">Drop</span> <span class="keyword">for</span> D&lt;<span class="symbol">'a</span>&gt; &#123;</span><br><span class="line">            <span class="function"><span class="keyword">fn</span> <span class="title">drop</span></span>(&amp;<span class="keyword">mut</span> <span class="keyword">self</span>) &#123;</span><br><span class="line">                *<span class="keyword">self</span>.<span class="number">0</span> += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line">            recurse(<span class="number">0</span>, &amp;<span class="keyword">mut</span> |i, go| &#123;</span><br><span class="line">                <span class="keyword">let</span> d = D(&amp;<span class="keyword">mut</span> k);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> i &gt;= n &#123;</span><br><span class="line">                    <span class="built_in">assert_eq!</span>(*d.<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                go(i + <span class="number">1</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">assert_eq!</span>(k, n + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br></details>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/" data-id="cjnspsyyi002gkfcxa9wxdr1n" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Rust/">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/競技プログラミング/">競技プログラミング</a></li></ul>
 
     </footer>
   </div>
@@ -1480,6 +1524,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/blog/2019-01-30/diary/">近況 2019-01-30</a>
+          </li>
+        
+          <li>
             <a href="/blog/2019-01-05/lsp-trial-01/">LSP学習記 #1</a>
           </li>
         
@@ -1495,10 +1543,6 @@ ga('send', 'pageview');
             <a href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
           </li>
         
-          <li>
-            <a href="/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1508,7 +1552,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">タグクラウド</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/NET/" style="font-size: 12px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 18px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 16px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 10px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 14px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 14px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 14px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 12px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 18px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 12px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 12px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 14px;">非同期</a>
+      <a href="/blog/tags/NET/" style="font-size: 11.67px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 16.67px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 15px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 10px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 13.33px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 13.33px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 13.33px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.67px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 18.33px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.67px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 11.67px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 13.33px;">非同期</a>
     </div>
   </div>
 
