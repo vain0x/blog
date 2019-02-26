@@ -1,7 +1,7 @@
 ---
 title: "LSP学習記 #2 クラゲ言語の構文解析"
 tags:
-- LSP
+- LSP学習記
 - LanguageServerProtocol
 - TypeScript
 - 言語処理系
@@ -310,4 +310,4 @@ Sublime Text 3 での動作例です:
 
 次はソースコードの振る舞いに踏み込んだ静的解析を行い、シンボル参照のハイライトができるようにします。
 
-- 次回: [LSP学習記 #3 シンボルとハイライト - Qiita](https://qiita.com/vain0x/items/31252d77066505ce6117)
+- 次回: [LSP学習記 #3 シンボルとハイライト](https://vain0x.github.io/blog/2019-01-10/lsp-trial-03/)

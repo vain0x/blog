@@ -4,14 +4,15 @@ tags:
 - LanguageServerProtocol
 - TypeScript
 - 言語処理系
+- LSP学習記
 date: 2019-01-10 22:12:00
 permalink: lsp-trial-03
 ---
 
 自作言語の LSP サーバーを作るプロジェクトの第3回です。今回はシンボルテーブルを作ってシンボルのハイライト機能を実装します。
 
-- 初回: [LSP学習記 #1](https://qiita.com/vain0x/items/d050fe7c8b342ed2004e)
-- 前回: [LSP学習記 #2 クラゲ言語の構文解析](https://qiita.com/vain0x/items/490ae33ba3db3c829c13)
+- 初回: [LSP学習記 #1](https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/)
+- 前回: [LSP学習記 #2 クラゲ言語の構文解析](https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/)
 - 今回のソースコード: [curage-lang v0.4.0](https://github.com/vain0x/curage-lang/tree/v0.4.0)
 
 ## let文とシャドーイング
@@ -267,4 +268,3 @@ interface DocumentHighlight {
 - シンボル (symbol) やセマンティックモデル (semantic model) などの用語は Roslyn API (C#コンパイラ) を参考にしています。
 - ヒットテストは「マウスカーソルでクリックしたとき、それがボタンに当たったかどうかを判定する」といった状況で使う動詞なので、今回の用途は微妙かもしれません。
 - 「環境」や「シンボルテーブル」といった概念は言語処理系の入門書によく出てきます。
-

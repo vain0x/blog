@@ -4,6 +4,7 @@ tags:
 - 言語処理系
 - TypeScript
 - LanguageServerProtocol
+- LSP学習記
 date: 2019-01-05 23:52:00
 permalink: lsp-trial-01
 ---
@@ -280,4 +281,4 @@ VSCode は開発中の拡張機能をデバッグできます。
 
 次はもっとプログラミング言語らしいものを検証して、構文エラーの警告を出せるようにします。そのあと、変数のリネームやシンボル参照の検索などをやっていきたいです。
 
-- 次回: [LSP学習記 #2 クラゲ言語の構文解析](https://qiita.com/vain0x/items/490ae33ba3db3c829c13)
+- 次回: [LSP学習記 #2 クラゲ言語の構文解析](https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/)
