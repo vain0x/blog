@@ -28,7 +28,7 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="vain0x&#39;s blog">
 <meta property="og:description" content="HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。 10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できているとい">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-26T13:35:05.934Z">
+<meta property="og:updated_time" content="2019-02-26T14:21:37.808Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HSP3 でスクリプト言語の処理系を書く">
 <meta name="twitter:description" content="HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。 10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できているとい">
@@ -162,6 +162,18 @@ ga('send', 'pageview');
 <p>negi-lang のコードはいまのところ十分に手を入れやすく、klac-lang のような泥沼ではない。他の機能を入れるのもおそらく困難ではない。</p>
 <p>というわけで klac-lang の供養ができた。</p>
 <h2 id="未解決問題"><a href="#未解決問題" class="headerlink" title="未解決問題"></a>未解決問題</h2><p>このインタプリタに使いみちがないという問題は解決できてない。</p>
+<h2 id="その他"><a href="#その他" class="headerlink" title="その他"></a>その他</h2><ul>
+<li><a href="https://github.com/honobonosun/linter-hsp3" target="_blank" rel="noopener">linter-hsp3</a> がとても便利だった<ul>
+<li>特に HSP でもっともストレスフルな瞬間、「error 26 : パラメーター引数名は使用されています」を事前に教えてくれるので気分的に楽になる</li>
+</ul>
+</li>
+<li>はじめ、Rust のように式の中に文を書けるような文法にしていたが、<code>break</code> などのジャンプ命令によってスタックの構造が壊れてしまうということを知った<ul>
+<li>例えば <code>while (p()) { s += (if (q()) { break } else { 1 }) }</code> みたいな式だと、<code>+=</code> の左辺の <code>s</code> がスタックに乗った状態で <code>break</code> に到達してしまうので、ジャンプする前にそれをポップする必要がある。</li>
+<li>レジスタマシンなら問題ない？</li>
+</ul>
+</li>
+<li>enum で定義した定数をうっかり別の系統のと混ぜてしまうバグが、「定数値がいまは偶然同じだから動いてる」ような状態になってないかな？ と思って、定数値がすべて重複しないように変更してみたら、案の定そういうミスが見つかったということがあった <a href="https://github.com/vain0x/negi-lang/commit/8d668b95b8e5884bcac995f57e045d90fab14dee" target="_blank" rel="noopener">https://github.com/vain0x/negi-lang/commit/8d668b95b8e5884bcac995f57e045d90fab14dee</a></li>
+</ul>
 
       
     </div>
