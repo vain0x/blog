@@ -29,7 +29,7 @@ ga('send', 'pageview');
 <meta property="og:description" content="自作言語の LSP サーバーを作るプロジェクトの第3回です。今回はシンボルテーブルを作ってシンボルのハイライト機能を実装します。  初回: LSP学習記 #1 前回: LSP学習記 #2 クラゲ言語の構文解析 今回のソースコード: curage-lang v0.4.0  let文とシャドーイング前回構文を定義したように、 クラゲ言語 (curage-lang) のプログラムは let 文の繰り返し">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qiita-image-store.s3.amazonaws.com/0/74340/d9da9328-5a47-49b1-0a39-784fab38a091.png">
-<meta property="og:updated_time" content="2019-02-26T13:35:05.934Z">
+<meta property="og:updated_time" content="2019-02-26T13:37:35.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LSP学習記 #3 シンボルとハイライト">
 <meta name="twitter:description" content="自作言語の LSP サーバーを作るプロジェクトの第3回です。今回はシンボルテーブルを作ってシンボルのハイライト機能を実装します。  初回: LSP学習記 #1 前回: LSP学習記 #2 クラゲ言語の構文解析 今回のソースコード: curage-lang v0.4.0  let文とシャドーイング前回構文を定義したように、 クラゲ言語 (curage-lang) のプログラムは let 文の繰り返し">
@@ -191,7 +191,7 @@ ga('send', 'pageview');
 </ul>
 <p>次は、用意したシンボルテーブルをさらに活用して、「名前の変更」を実装します。</p>
 <ul>
-<li>次回: <a href="https://qiita.com/vain0x/items/8414dca7425057f1bbd8" target="_blank" rel="noopener">LSP学習記 #4 シンボルのリネーム</a></li>
+<li>次回: <a href="https://vain0x.github.io/blog/2019-01-16/lsp-trial-04/">LSP学習記 #4 シンボルのリネーム</a></li>
 </ul>
 <h2 id="余談-シンボル参照の検索について"><a href="#余談-シンボル参照の検索について" class="headerlink" title="余談: シンボル参照の検索について"></a>余談: シンボル参照の検索について</h2><p>今回のシンボルテーブルを使うことで、 <code>textDocument/definition</code> (定義へのジャンプ) と <code>textDocument/references</code> (シンボルの検索) は簡単に実装できると思います。やってみましょう！</p>
 <h2 id="余談-用語について"><a href="#余談-用語について" class="headerlink" title="余談: 用語について"></a>余談: 用語について</h2><ul>
