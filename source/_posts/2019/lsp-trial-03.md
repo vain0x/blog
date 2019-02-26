@@ -257,7 +257,7 @@ interface DocumentHighlight {
 
 次は、用意したシンボルテーブルをさらに活用して、「名前の変更」を実装します。
 
-- 次回: [LSP学習記 #4 シンボルのリネーム](https://qiita.com/vain0x/items/8414dca7425057f1bbd8)
+- 次回: [LSP学習記 #4 シンボルのリネーム](https://vain0x.github.io/blog/2019-01-16/lsp-trial-04/)
 
 ## 余談: シンボル参照の検索について
 
