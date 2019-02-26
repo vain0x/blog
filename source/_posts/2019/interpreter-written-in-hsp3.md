@@ -1,9 +1,8 @@
 ---
-title: "HSP3 でスクリプト言語の処理系を書く 再挑戦編"
+title: "HSP3 でスクリプト言語の処理系を書く"
 tags:
 - 言語処理系
 - HSP3
-- エッセイ
 date: 2019-02-26 22:25:00
 permalink: interpreter-written-in-hsp3
 ---
