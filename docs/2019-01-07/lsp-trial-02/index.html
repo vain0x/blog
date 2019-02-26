@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128265968-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>LSP学習記 #2 クラゲ言語の構文解析 | vain0x&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="LSP サーバーを作っていくプロジェクトの第2回です。  前回: LSP学習記 #1  前回は警告の表示までできるようになりました。しかしこの調子で自明な機能を足し続けても楽しくないので、新しいプログラミング言語を作ります。自作言語処理系とともに LSP サーバーを育てていく予定です。  今回のソースコード: curage-lang v0.3.0  構文クラゲ言語 (curage-lang) の構">
+<meta name="keywords" content="言語処理系,TypeScript,LanguageServerProtocol,LSP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LSP学習記 #2 クラゲ言語の構文解析">
+<meta property="og:url" content="http://vain0x.github.io/blog/2019-01-07/lsp-trial-02/index.html">
+<meta property="og:site_name" content="vain0x&#39;s blog">
+<meta property="og:description" content="LSP サーバーを作っていくプロジェクトの第2回です。  前回: LSP学習記 #1  前回は警告の表示までできるようになりました。しかしこの調子で自明な機能を足し続けても楽しくないので、新しいプログラミング言語を作ります。自作言語処理系とともに LSP サーバーを育てていく予定です。  今回のソースコード: curage-lang v0.3.0  構文クラゲ言語 (curage-lang) の構">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://qiita-image-store.s3.amazonaws.com/0/74340/9b92693c-b6e2-7d04-d097-7e2f1d84a2bf.png">
+<meta property="og:updated_time" content="2019-02-26T13:30:21.651Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LSP学習記 #2 クラゲ言語の構文解析">
+<meta name="twitter:description" content="LSP サーバーを作っていくプロジェクトの第2回です。  前回: LSP学習記 #1  前回は警告の表示までできるようになりました。しかしこの調子で自明な機能を足し続けても楽しくないので、新しいプログラミング言語を作ります。自作言語処理系とともに LSP サーバーを育てていく予定です。  今回のソースコード: curage-lang v0.3.0  構文クラゲ言語 (curage-lang) の構">
+<meta name="twitter:image" content="https://qiita-image-store.s3.amazonaws.com/0/74340/9b92693c-b6e2-7d04-d097-7e2f1d84a2bf.png">
+<meta name="twitter:creator" content="@vain0x">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="https://vain0x.github.io">ホーム</a>
+        
+          <a class="main-nav-link" href="/blog/">ブログ</a>
+        
+          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+        
+          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+        
+          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
+        
+          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-lsp-trial-02" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2019-01-07/lsp-trial-02/" class="article-date">
+  <time datetime="2019-01-07T13:13:00.000Z" itemprop="datePublished">2019-01-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LSP学習記 #2 クラゲ言語の構文解析
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>LSP サーバーを作っていくプロジェクトの第2回です。</p>
+<ul>
+<li>前回: <a href="https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/">LSP学習記 #1</a></li>
+</ul>
+<p>前回は警告の表示までできるようになりました。しかしこの調子で自明な機能を足し続けても楽しくないので、新しいプログラミング言語を作ります。自作言語処理系とともに LSP サーバーを育てていく予定です。</p>
+<ul>
+<li>今回のソースコード: <a href="https://github.com/vain0x/curage-lang/tree/v0.3.0" target="_blank" rel="noopener">curage-lang v0.3.0</a></li>
+</ul>
+<h2 id="構文"><a href="#構文" class="headerlink" title="構文"></a>構文</h2><p><strong>クラゲ言語</strong> (curage-lang) の構文は、なるべく解析が楽になるように決めました。そのため、記号ではなくキーワードを多用したり、改行が文の区切りだったりします。</p>
+<p>以下のとおりです:</p>
+<ul>
+<li>プログラムは文の並び</li>
+<li>文は改行区切り</li>
+<li>文は <code>let</code> 文のみ<ul>
+<li>分岐などは後で追加 (予定)</li>
+</ul>
+</li>
+<li>式は整数または名前<ul>
+<li>足し算などは後で追加 (予定)</li>
+</ul>
+</li>
+</ul>
+<p>let文の凡例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let 名前 be 式</span><br></pre></td></tr></table></figure>
+<p>プログラムの例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let x be 1</span><br><span class="line">let y be x</span><br></pre></td></tr></table></figure>
+<h2 id="字句解析"><a href="#字句解析" class="headerlink" title="字句解析"></a>字句解析</h2><p>ソースコードが文字列のままでは扱いにくいです。そこで、ソースコードを「トークン」のリストに分解します。トークンというのは、単語や数値、記号などのことです。</p>
+<ul>
+<li><code>let x be 1</code> → <code>&quot;let&quot;, &quot;x&quot;, &quot;be&quot;, &quot;1&quot;</code></li>
+</ul>
+<p>クラゲ言語では、スペースは重要じゃないのでトークンではないことにします。</p>
+<p>一方、改行はトークンにします。「文の終わり」として構文上、重要だからです。実際には、ファイル末尾に改行がないケースに備えて <strong>文の終わり</strong> に特殊なトークンを自動挿入するようにします。</p>
+<h3 id="字句解析-実装"><a href="#字句解析-実装" class="headerlink" title="字句解析: 実装"></a>字句解析: 実装</h3><p>ソースコードを行ごとに分解した後、その行を正規表現で分解する、という方針にしました。これは正規表現の <code>exec</code> メソッドを使うと簡単です。 JavaScript の新機能である配列の分割代入と一緒に使うと簡潔に書けます。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec" target="_blank" rel="noopener">RegExp.prototype.exec() | MDN</a></li>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank" rel="noopener">分割代入 | MDN</a></li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">const</span> source = <span class="string">"let x be 1\nlet y be x\n"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// スペース、整数、名前、あるいは「解釈できない任意の文字」のどれかにマッチ</span></span><br><span class="line">    <span class="keyword">const</span> tokenRegexp = <span class="regexp">/( +)|([+-]?[0-9]+\b)|([a-zA-Z0-9_]+\b)|(.)/g</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 行ごとに分解</span></span><br><span class="line">    <span class="keyword">const</span> lines = source.split(<span class="regexp">/\r\n|\n/</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> line = <span class="number">0</span>; line &lt; lines.length; line++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (lines[line].trim() === <span class="string">""</span>) <span class="keyword">continue</span> <span class="comment">// 空行は無視</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            <span class="comment">// 次のマッチを探す</span></span><br><span class="line">            <span class="keyword">const</span> match = tokenRegexp.exec(lines[line])</span><br><span class="line"></span><br><span class="line">            <span class="comment">// マッチしなければ (= 行末に達したら) 終わり</span></span><br><span class="line">            <span class="keyword">if</span> (!match) <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 各変数には各グループにマッチした文字列が入る</span></span><br><span class="line">            <span class="comment">// どれか1つ以外は undefined</span></span><br><span class="line">            <span class="keyword">const</span> [__, space, int, name, invalid] = match</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (space) <span class="keyword">continue</span> <span class="comment">// スペースは無視</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (invalid) <span class="built_in">console</span>.warn(<span class="string">"invalid: "</span> + invalid)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (int) <span class="built_in">console</span>.log(<span class="string">"int: "</span> + int)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (name) &#123;</span><br><span class="line">                <span class="keyword">if</span> (name === <span class="string">"let"</span> || name === <span class="string">"be"</span>) &#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(name)</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">"name: "</span> + name)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"eol"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>出力:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let</span><br><span class="line">name: x</span><br><span class="line">be</span><br><span class="line">int: 1</span><br><span class="line">eol</span><br><span class="line">let</span><br><span class="line">name: y</span><br><span class="line">be</span><br><span class="line">name: x</span><br><span class="line">eol</span><br></pre></td></tr></table></figure>
+<ul>
+<li>メモ: 解釈できない文字がソースコード上にあった場合に備えて <code>.</code> にマッチするようにしました。解釈できない文字は次の工程でエラーになります。このパターンがないと、解釈できない文字を見落としてしまいます。</li>
+</ul>
+<h3 id="字句解析-位置情報"><a href="#字句解析-位置情報" class="headerlink" title="字句解析: 位置情報"></a>字句解析: 位置情報</h3><p>前回見たとおり、ソースコードに警告を出すには警告範囲の指定が必要でした。そのため、字句解析する際に、「そのトークンがどの位置にあるか」を記録しておくことにします。</p>
+<p>トークンには文字列の他に、種類 (int/name/etc.) と範囲を持たせます。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> TokenType =</span><br><span class="line">  | <span class="string">"int"</span> | <span class="string">"name"</span> | <span class="string">"let"</span> | <span class="string">"be"</span> | <span class="string">"eol"</span> | <span class="string">"invalid"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Token &#123;</span><br><span class="line">  <span class="keyword">type</span>: TokenType,</span><br><span class="line">  value: <span class="built_in">string</span>,</span><br><span class="line">  range: Range,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Range</code> は LSP で定義されているインターフェイスです。「何行目何列目」から「何行目何列目」まで、というかたちでテキストの範囲を表します。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// テキスト上の範囲</span></span><br><span class="line"><span class="keyword">interface</span> Range &#123;</span><br><span class="line">    start: Position,</span><br><span class="line">    end: Position,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// テキスト上の位置</span></span><br><span class="line"><span class="keyword">interface</span> Position &#123;</span><br><span class="line">    line: <span class="built_in">number</span>,</span><br><span class="line">    character: <span class="built_in">number</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上記の解析処理を変更して、トークンを <code>console.log</code> するのではなくリスト <code>Token[]</code> にまとめて返すようにしたのが以下です:</p>
+<p><a href="https://github.com/vain0x/curage-lang/blob/v0.3.0/lsp/src/curage-server.ts#L121-L189" target="_blank" rel="noopener">tokenize 関数の実装</a></p>
+<h2 id="構文解析"><a href="#構文解析" class="headerlink" title="構文解析"></a>構文解析</h2><p>次に構文解析です。この工程では、トークンのリストを解析して、ソースコードが構文的に正しいかを検査します。構文的に誤りがあったら警告を出します。</p>
+<p>クラゲ言語の文法なら、トークンのリストが let 文の繰り返し、つまり「let, 名前, be, 式, 改行」の繰り返しになっていればOK。</p>
+<p>逆に <code>let a</code> で文が途切れてたり、 <code>let 3 be 5</code> のようにトークンの種類がおかしかったらダメ。</p>
+<p>重要なのは、 <strong>誤っている部分があってもパースを止めない</strong> ことです。</p>
+<ul>
+<li>未完成のミニ言語処理系は構文エラーを検出すると異常終了しがちですが、LSP サーバーには構文エラーをクライアントに報告してほしいので、終了させてはダメです。</li>
+<li>実用上、ドキュメント内のなるべく多くの構文エラーを一斉に指摘してくれたほうが便利です。</li>
+</ul>
+<p>今回は「エラーを見つけたら次の改行までスキップする」ことにします。これで複数の行のエラーを同時に検出できます。</p>
+<h3 id="構文解析-実装"><a href="#構文解析-実装" class="headerlink" title="構文解析: 実装"></a>構文解析: 実装</h3><p>構文解析の実装を考えます。トークンを前から見ていくのでトークンの位置 <code>i</code> を変数として持ちます。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// トークンの位置</span></span><br><span class="line"><span class="keyword">let</span> i = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 検出した diagnostic のリスト</span></span><br><span class="line"><span class="keyword">const</span> diagnostics: Diagnostic[] = []</span><br></pre></td></tr></table></figure>
+<p>トップダウンに見ていくと、構文解析の全体としてはトークンリスト上のループです。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (i &lt; tokens.length) &#123;</span><br><span class="line">  parseLetStatement()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>let</code> 文をパースする方法は、トークンが文法で指定された順序で現れるかどうか、地道に調べます。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> parseLetStatement = (): <span class="function"><span class="params">void</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (tokens[i].type !== <span class="string">"let"</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> warn(<span class="string">"Expected 'let'."</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  i++</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (tokens[i].type !== <span class="string">"name"</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> warn(<span class="string">"Expected a name."</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  i++</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (tokens[i].type !== <span class="string">"be"</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> warn(<span class="string">"Expected 'be'."</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  i++</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!tryParseExpression()) &#123;</span><br><span class="line">    <span class="keyword">return</span> warn(<span class="string">"Expected an expression."</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (tokens[i].type !== <span class="string">"eol"</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> warn(<span class="string">"Expected an end of line."</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  i++</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>式の解析は、いまは簡単です。トークンが整数か名前ならOK。</p>
+<ul>
+<li>足し算や掛け算を式として認めると複雑になります。</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isAtomicExpression = <span class="function">(<span class="params">token: Token</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> token.type === <span class="string">"int"</span> || token.type === <span class="string">"name"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> tryParseExpression = (): <span class="function"><span class="params">boolean</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!isAtomicExpression(tokens[i])) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  i++</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>誤りを見つけたときは、前述の通り行を読み飛ばします。行を読み飛ばして警告を出す関数 <code>warn</code> を使っています。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> warn = <span class="function">(<span class="params">message: <span class="built_in">string</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; range &#125; = skipLine()</span><br><span class="line">  diagnostics.push(&#123;</span><br><span class="line">    severity: DiagnosticSeverity.Warning,</span><br><span class="line">    message,</span><br><span class="line">    range,</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>行の読み飛ばしの処理がややこしいですが、トークンのリストの区間を考えます。区間の末尾が改行になるかトークンのリストの末尾に達するまで、区間を広げていくイメージです。最後に区間の末尾 (改行の次) にジャンプします。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> skipLine = (): &#123; range: Range &#125; =&gt; &#123;</span><br><span class="line">  <span class="comment">// 区間の開始点</span></span><br><span class="line">  <span class="keyword">const</span> l = i</span><br><span class="line">  <span class="keyword">if</span> (l &gt;= tokens.length) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; range: tokens[tokens.length - <span class="number">1</span>].range &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 区間の終わり (r 番目は含まないので r-1 番目が最後のトークン)</span></span><br><span class="line">  <span class="keyword">let</span> r = l + <span class="number">1</span></span><br><span class="line">  <span class="keyword">while</span> (r &lt; tokens.length &amp;&amp; tokens[r - <span class="number">1</span>].type !== <span class="string">"eol"</span>) &#123;</span><br><span class="line">    r++</span><br><span class="line">  &#125;</span><br><span class="line">  assert.ok(l &lt; r &amp;&amp; (r &gt;= tokens.length || tokens[r - <span class="number">1</span>].type === <span class="string">"eol"</span>))</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> range = &#123;</span><br><span class="line">    start: tokens[l].range.start,</span><br><span class="line">    end: tokens[r - <span class="number">1</span>].range.end,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  i = r</span><br><span class="line">  <span class="keyword">return</span> &#123; range &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>区間のイメージはこんな感じ (カッコが区間を表す):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let a [ 2 eol ]</span><br><span class="line">      ^ Expected &apos;be&apos;</span><br><span class="line">let ..</span><br></pre></td></tr></table></figure>
+<p>これで構文解析ができました。</p>
+<p>前回作った検証処理をこの構文解析で差し替えれば、クラゲ言語の LSP サーバーができます。</p>
+<h2 id="動作確認"><a href="#動作確認" class="headerlink" title="動作確認"></a>動作確認</h2><p>Sublime Text 3 での動作例です:</p>
+<p><img src="https://qiita-image-store.s3.amazonaws.com/0/74340/9b92693c-b6e2-7d04-d097-7e2f1d84a2bf.png" alt=""></p>
+<h2 id="まとめと次回"><a href="#まとめと次回" class="headerlink" title="まとめと次回"></a>まとめと次回</h2><p>今回のポイントは以下の3点でした。</p>
+<ul>
+<li><code>exec</code> と分割代入は便利</li>
+<li>位置情報は必須</li>
+<li>エラーからの復帰は重要</li>
+</ul>
+<p>次はソースコードの振る舞いに踏み込んだ静的解析を行い、シンボル参照のハイライトができるようにします。</p>
+<ul>
+<li>次回: <a href="https://qiita.com/vain0x/items/31252d77066505ce6117" target="_blank" rel="noopener">LSP学習記 #3 シンボルとハイライト - Qiita</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2019-01-07/lsp-trial-02/" data-id="cjslt6g8400095vcxgkbm64uo" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/LSP/">LSP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/LanguageServerProtocol/">LanguageServerProtocol</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/TypeScript/">TypeScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/言語処理系/">言語処理系</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2019-01-10/lsp-trial-03/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">新しい記事へ</strong>
+      <div class="article-nav-title">
+        
+          LSP学習記 #3 シンボルとハイライト
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2019-01-05/lsp-trial-01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">古い記事へ</strong>
+      <div class="article-nav-title">LSP学習記 #1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<section id="comments">
+  <script src="https://utteranc.es/client.js" repo="vain0x/blog" issue-term="pathname" theme="github-light" crossorigin="anonymous" async>
+  </script>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新記事</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2019-02-26/interpreter-written-in-hsp3/">HSP3 でスクリプト言語の処理系を書く 再挑戦編</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019-01-30/diary/">近況 2019-01-30</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019-01-16/lsp-trial-04/">LSP学習記 #4 シンボルのリネーム</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019-01-10/lsp-trial-03/">LSP学習記 #3 シンボルとハイライト</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019-01-07/lsp-trial-02/">LSP学習記 #2 クラゲ言語の構文解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/NET/" style="font-size: 11.67px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 16.67px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 15px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP/" style="font-size: 10px;">LSP</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 15px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 13.33px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 13.33px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 15px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 13.33px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/エッセイ/" style="font-size: 10px;">エッセイ</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.67px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 18.33px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.67px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 16.67px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 13.33px;">非同期</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 vain0x<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="https://vain0x.github.io" class="mobile-nav-link">ホーム</a>
+  
+    <a href="/blog/" class="mobile-nav-link">ブログ</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
+  
+    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
+  
+    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
+  
+    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

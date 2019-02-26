@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128265968-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <title>LSP学習記 #4 シンボルのリネーム | vain0x&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="自作言語の LSP サーバーを作るプロジェクトの第4回です。今回はソースコードを変更する機能の例として、シンボルのリネームを実装してみました。  初回: LSP学習記 #1 前回: LSP学習記 #3 シンボルとハイライト 今回のソースコード: curage-lang v0.5.0  名前の変更変数などの名前を変更するとき、単純な文字列置換では「同名だが異なる変数」といったものまで巻き添えにしてし">
+<meta name="keywords" content="TypeScript,LanguageServerProtocol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LSP学習記 #4 シンボルのリネーム">
+<meta property="og:url" content="http://vain0x.github.io/blog/2019-01-16/lsp-trial-04/index.html">
+<meta property="og:site_name" content="vain0x&#39;s blog">
+<meta property="og:description" content="自作言語の LSP サーバーを作るプロジェクトの第4回です。今回はソースコードを変更する機能の例として、シンボルのリネームを実装してみました。  初回: LSP学習記 #1 前回: LSP学習記 #3 シンボルとハイライト 今回のソースコード: curage-lang v0.5.0  名前の変更変数などの名前を変更するとき、単純な文字列置換では「同名だが異なる変数」といったものまで巻き添えにしてし">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-26T13:30:21.651Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LSP学習記 #4 シンボルのリネーム">
+<meta name="twitter:description" content="自作言語の LSP サーバーを作るプロジェクトの第4回です。今回はソースコードを変更する機能の例として、シンボルのリネームを実装してみました。  初回: LSP学習記 #1 前回: LSP学習記 #3 シンボルとハイライト 今回のソースコード: curage-lang v0.5.0  名前の変更変数などの名前を変更するとき、単純な文字列置換では「同名だが異なる変数」といったものまで巻き添えにしてし">
+<meta name="twitter:creator" content="@vain0x">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/blog/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/blog/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="https://vain0x.github.io">ホーム</a>
+        
+          <a class="main-nav-link" href="/blog/">ブログ</a>
+        
+          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+        
+          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+        
+          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
+        
+          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-lsp-trial-04" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2019-01-16/lsp-trial-04/" class="article-date">
+  <time datetime="2019-01-16T13:17:00.000Z" itemprop="datePublished">2019-01-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LSP学習記 #4 シンボルのリネーム
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>自作言語の LSP サーバーを作るプロジェクトの第4回です。今回はソースコードを変更する機能の例として、シンボルのリネームを実装してみました。</p>
+<ul>
+<li>初回: <a href="https://qiita.com/vain0x/items/d050fe7c8b342ed2004e" target="_blank" rel="noopener">LSP学習記 #1</a></li>
+<li>前回: <a href="https://qiita.com/vain0x/items/31252d77066505ce6117" target="_blank" rel="noopener">LSP学習記 #3 シンボルとハイライト</a></li>
+<li>今回のソースコード: <a href="https://github.com/vain0x/curage-lang/tree/v0.5.0" target="_blank" rel="noopener">curage-lang v0.5.0</a></li>
+</ul>
+<h2 id="名前の変更"><a href="#名前の変更" class="headerlink" title="名前の変更"></a>名前の変更</h2><p>変数などの名前を変更するとき、単純な文字列置換では「同名だが異なる変数」といったものまで巻き添えにしてしまいます。安全に変更するには、前回のようにシンボル情報を解析しておくほうがよいです。そういうわけで、LSP サーバーの機能に「名前の変更」があります。</p>
+<p>具体的には、 LSP クライアントは <a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_rename" target="_blank" rel="noopener">textDocument/rename リクエスト</a> で、どの位置にあるシンボルをどんな名前に変えるべきかという情報をサーバーに送信してくれます。</p>
+<p>このとき、具体的なソースコードの変更点を生成してレスポンスすれば、名前の変更ができるようです。</p>
+<ul>
+<li>注: 前回と同様に、LSP クライアントからのリクエストをもらうには、サーバーの <code>capabilities</code> に <code>textDocument.renameProvider: true</code> の指定が必要です。</li>
+</ul>
+<h3 id="名前の変更-変更操作の表現"><a href="#名前の変更-変更操作の表現" class="headerlink" title="名前の変更: 変更操作の表現"></a>名前の変更: 変更操作の表現</h3><p>ソースコードに対する変更は <code>TextEdit</code> インターフェイスで定義されていて、「ある範囲の文字列を別の文字列で置換する」ような形式です。 <code>Array.splice</code> 方式。</p>
+<p>例えば次の文字列の範囲 <code>[0, 4] .. [0, 5]</code> (<code>x</code> の部分) を文字列 “new_x” で置換する、みたいな感じです。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let x be 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let new_x be 1</span><br></pre></td></tr></table></figure>
+<p>いまのクラゲ言語は1つのファイルにしかソースコードを書けませんが、一般には名前の変更は複数のファイルを変更することになります。<code>rename</code> レスポンスで返すべきオブジェクトは、 <code>WorkspaceEdit</code> というインターフェイスで定義されていて、ファイルの URI から変更操作へのマップのようなものです。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> WorkspaceEdit &#123;</span><br><span class="line">    <span class="comment">// URI から変更操作の配列へのマップ</span></span><br><span class="line">    changes?: &#123; [uri: <span class="built_in">string</span>]: TextEdit[]; &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 以下略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="実装"><a href="#実装" class="headerlink" title="実装"></a>実装</h2><p>実装は、前回作ったシンボルテーブルを利用すれば簡単です。</p>
+<p>前回は「ドキュメントのハイライトする範囲」を計算しましたが、今回はそれを「名前の変更を適用する範囲」として使えばOK。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; definition, references &#125; = symbolDefinition <span class="comment">// ヒットテストで見つけたシンボル</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 変更操作の配列</span></span><br><span class="line"><span class="keyword">const</span> textEdits: TextEdit[] = []</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定義の置換</span></span><br><span class="line">textEdits.push(&#123;</span><br><span class="line">  range: definition.range,</span><br><span class="line">  newText: newName,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> r of references) &#123;</span><br><span class="line">  <span class="comment">// 参照の置換</span></span><br><span class="line">  textEdits.push(&#123;</span><br><span class="line">    range: r.range,</span><br><span class="line">    newText: newName,</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// WorkspaceEdit インターフェイスに合うオブジェクトを作る</span></span><br><span class="line"><span class="keyword">const</span> changes = &#123; [uri]: textEdits &#125;</span><br><span class="line"><span class="keyword">return</span> &#123; changes &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>変更点: <a href="https://github.com/vain0x/curage-lang/commit/603b2c52fe19390a667c25710ad1bcf8af78aaba" target="_blank" rel="noopener">feat: Support symbol renaming</a></li>
+</ul>
+<h2 id="prepareRename"><a href="#prepareRename" class="headerlink" title="prepareRename"></a>prepareRename</h2><p><code>textDocument/prepareRename</code> リクエストという、 <code>rename</code> の前に送られてくるリクエストがあります。名前の変更ができない位置 (例えば let キーワードの上) では <code>prepareName</code> の結果として <code>null</code> を返すことで、名前の変更が不可能であることをクライアントに伝えられる……らしいんですが、実装してみても効果が見られなかったので詳細は略。</p>
+<ul>
+<li>変更点: <a href="https://github.com/vain0x/curage-lang/commit/e91697aed1edd1cd56be54a2c701112aed71e504" target="_blank" rel="noopener">feat: Support ‘prepareRename’</a></li>
+</ul>
+<h2 id="TextDocumentEdit"><a href="#TextDocumentEdit" class="headerlink" title="TextDocumentEdit"></a>TextDocumentEdit</h2><p>LSP の仕様をよく読むと <code>WorkspaceEdit.changes</code> ではなく <code>documentChanges</code> を使ったほうがよいみたいです。</p>
+<p>LSP サーバーが処理をしている間にも、ドキュメントはユーザーによって絶え間なく変更されているので、同じドキュメントにも古いバージョンと新しいバージョンがあります。名前の変更がどのバージョンを処理したのかを指定すると、クライアント側が嬉しいらしいです。</p>
+<p><code>WorkspaceEdit.documentChanges</code> には <code>TextDocumentEdit</code> (の配列) を指定しますが、これはドキュメントの URI だけでなくバージョンも指定した変更操作を表しています。</p>
+<ul>
+<li>変更点: <a href="https://github.com/vain0x/curage-lang/commit/a666135fe04e3345bcaef09bc80b8b269d24415f" target="_blank" rel="noopener">feat: Provide document version in response </a></li>
+</ul>
+<h2 id="注意-安全でない変更"><a href="#注意-安全でない変更" class="headerlink" title="注意: 安全でない変更"></a>注意: 安全でない変更</h2><p>今回の実装では、場合によってはコードの意味を変えてしまいます。例えば次のコードの <code>x</code> を <code>y</code> という名前に変えると、2つ目の <code>x</code> が途中に挟まってる <code>y</code> を指すものになってしまいます。これは本来ならユーザーに警告したほうがよいです。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let x be 1</span><br><span class="line">let y be 2</span><br><span class="line">let _ be x</span><br></pre></td></tr></table></figure>
+<h2 id="次回"><a href="#次回" class="headerlink" title="次回"></a>次回</h2><p>次回は未定です。そろそろ簡単な計算のできる言語にしつつ、入力補完やホバーあたりをやっていこうかと考えています。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2019-01-16/lsp-trial-04/" data-id="cjslt6g7q00015vcxrvsyn6kh" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/LanguageServerProtocol/">LanguageServerProtocol</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/TypeScript/">TypeScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/2019-01-30/diary/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">新しい記事へ</strong>
+      <div class="article-nav-title">
+        
+          近況 2019-01-30
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/2019-01-10/lsp-trial-03/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">古い記事へ</strong>
+      <div class="article-nav-title">LSP学習記 #3 シンボルとハイライト</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+<section id="comments">
+  <script src="https://utteranc.es/client.js" repo="vain0x/blog" issue-term="pathname" theme="github-light" crossorigin="anonymous" async>
+  </script>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新記事</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/2019-02-26/interpreter-written-in-hsp3/">HSP3 でスクリプト言語の処理系を書く 再挑戦編</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019-01-30/diary/">近況 2019-01-30</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019-01-16/lsp-trial-04/">LSP学習記 #4 シンボルのリネーム</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019-01-10/lsp-trial-03/">LSP学習記 #3 シンボルとハイライト</a>
+          </li>
+        
+          <li>
+            <a href="/blog/2019-01-07/lsp-trial-02/">LSP学習記 #2 クラゲ言語の構文解析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/NET/" style="font-size: 11.67px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 16.67px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 15px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP/" style="font-size: 10px;">LSP</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 15px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 13.33px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 13.33px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 15px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 13.33px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/エッセイ/" style="font-size: 10px;">エッセイ</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.67px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 18.33px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.67px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 16.67px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 13.33px;">非同期</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 vain0x<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="https://vain0x.github.io" class="mobile-nav-link">ホーム</a>
+  
+    <a href="/blog/" class="mobile-nav-link">ブログ</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
+  
+    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
+  
+    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
+  
+    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

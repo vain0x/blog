@@ -88,6 +88,591 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-10-31/diary/" class="article-date">
+  <time datetime="2018-10-31T14:59:59.000Z" itemprop="datePublished">2018-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-10-31/diary/">近況 2018-10-31</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><a href="https://vain0x.github.io/blog/2018-09-30/diary/">前月</a></li>
+</ul>
+<h3 id="milone-lang"><a href="#milone-lang" class="headerlink" title="milone-lang"></a>milone-lang</h3><ul>
+<li><a href="https://github.com/vain0x/milone-lang" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang</a></li>
+<li>F# のサブセットのコンパイラ milone-lang を作ってる</li>
+<li>前月苦しんでいた字下げ依存構文の構文解析問題はほぼ解決した<ul>
+<li>次のトークンの位置が低すぎたらパースを中止する、みたいな動き</li>
+<li>結果的に再帰下降パーサーとしては自然な実装になった</li>
+</ul>
+</li>
+<li>インタプリタを捨てて、C言語のコードを生成するようにした<ul>
+<li>インタプリタの実装は klac-lang でやったから退屈に感じる</li>
+<li>最終的にはアセンブリや Web Assembly や LLVM をターゲットにしたいが、モチベを維持するために機能追加を優先していく</li>
+</ul>
+</li>
+<li>演算や条件分岐や関数などの基本機能が入った</li>
+<li>シンプルな型推論が入った<ul>
+<li>単一化ベースだが、まだ多相関数は禁止しているのでHMじゃない</li>
+</ul>
+</li>
+<li>ジェネリクスを入れようとして、オートボクシングと型推論の兼ね合いで悩んだ<ul>
+<li>ジェネリクスはやめて、単相化することにした</li>
+<li>例えばタプルは、生成後のCのコードでは型引数ごとに別々の構造体になる</li>
+</ul>
+</li>
+<li>近い目標として、字句解析器をコンパイルしたい<ul>
+<li>リストを入れないと何もできない</li>
+<li>クロージャもほしいけど難しいかも</li>
+</ul>
+</li>
+<li>参考<ul>
+<li>TaPL</li>
+<li><a href="http://esumii.github.io/min-caml/" target="_blank" rel="noopener">速攻MinCamlコンパイラ概説</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="環境再構築"><a href="#環境再構築" class="headerlink" title="環境再構築"></a>環境再構築</h3><ul>
+<li>今年頭 (2018年1月) にパソコンを買い替えた<ul>
+<li><a href="https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/">Ubuntuデスクトップを使い始めた | vain0x’s blog</a></li>
+</ul>
+</li>
+<li>Ubuntu デスクトップという試みはうまくいっている</li>
+<li>パフォーマンス問題があった<ul>
+<li>Chrome のタブを大量に開いたり VSCode を複数起動すると重たくなる</li>
+</ul>
+</li>
+<li>メモリを 16GB に、ハードディスクを SSD にした</li>
+<li>SSD 換装は初めてだったけど簡単にできた<ul>
+<li>SATAケーブルとSATA電源ケーブルを買ったけど、HDDと繋ぎかえるだけだからいらなかった</li>
+<li>SSD はメンディングテープで固定した</li>
+</ul>
+</li>
+<li>ついでにクリーンインストールした</li>
+</ul>
+<h3 id="競プロ参戦記"><a href="#競プロ参戦記" class="headerlink" title="競プロ参戦記"></a>競プロ参戦記</h3><ul>
+<li>8月中旬から note.mu で <a href="https://note.mu/vain0x/m/m9aa8513f4e97" target="_blank" rel="noopener">競プロ参戦記</a> を始めた</li>
+<li>AGC で惨敗して、2週間ぐらい競プロから離れていた</li>
+<li>先週の天下一は参加して、そこそこの成績だった</li>
+<li>まったりやっていく</li>
+</ul>
+<h3 id="toml-hummer"><a href="#toml-hummer" class="headerlink" title="toml-hummer"></a>toml-hummer</h3><ul>
+<li><a href="https://github.com/vain0x/toml-hummer" target="_blank" rel="noopener">https://github.com/vain0x/toml-hummer</a></li>
+<li>F# 用の TOML パーサー</li>
+<li>あまり進んでない</li>
+<li>日時リテラルを扱えるようになりつつある</li>
+</ul>
+<h3 id="React"><a href="#React" class="headerlink" title="React"></a>React</h3><ul>
+<li>機能追加はうまくいっている</li>
+<li>データベース処理ごとテストしてる<ul>
+<li>依存関係を切るの難しい</li>
+</ul>
+</li>
+<li>履歴移動でコンポーネントの状態が初期化される問題はまだ放置してる</li>
+<li>サーバーとクライアントで行ったり来たりする処理の見通しが悪い<ul>
+<li>ステートマシンみたいになってしまう</li>
+<li>再帰下降パーサーみたいに書きたい</li>
+</ul>
+</li>
+</ul>
+<h3 id="ガルパ"><a href="#ガルパ" class="headerlink" title="ガルパ"></a>ガルパ</h3><ul>
+<li>ファントムシーフ (Expert 27) はクリアできた</li>
+<li>今後は 26 帯の精度を上げていきたい</li>
+<li>某の影響をで左手プレイを練習している</li>
+</ul>
+<h3 id="その他"><a href="#その他" class="headerlink" title="その他"></a>その他</h3><ul>
+<li>AtCoder の提出を Git リポジトリにまとめるツールを書いた<ul>
+<li><a href="https://github.com/vain0x/submissions-sync" target="_blank" rel="noopener">https://github.com/vain0x/submissions-sync</a></li>
+<li>GitHub に自動でコミットしたいという野望がある</li>
+</ul>
+</li>
+<li>投稿専用の Twitter クライアント Solotter を地味に改修した<ul>
+<li><a href="https://github.com/vain0x/solotter-web" target="_blank" rel="noopener">https://github.com/vain0x/solotter-web</a></li>
+<li>Express.js で書いていたのが React になった</li>
+<li>いろいろ足したい機能があるけど、いまは milone-lang が優先</li>
+</ul>
+</li>
+<li>記事を投稿した<ul>
+<li><a href="https://qiita.com/vain0x/items/512784ff60ce599dccae" target="_blank" rel="noopener">Rustで競プロするときのプラクティス [2018秋] - Qiita</a></li>
+</ul>
+</li>
+<li>このブログをなんとかしたい<ul>
+<li>更新作業を楽にしたい</li>
+<li>画像を載せやすくしたい</li>
+<li>記事一覧をつけたい</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-10-31/diary/" data-id="cjrghybfe000xlqcxp7ciwqgy" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-rust-procon" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-10-07/rust-procon/" class="article-date">
+  <time datetime="2018-10-07T11:00:00.000Z" itemprop="datePublished">2018-10-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。</p>
+<h2 id="筆者"><a href="#筆者" class="headerlink" title="筆者"></a>筆者</h2><ul>
+<li>AtCoder 水色</li>
+<li><a href="https://note.mu/vain0x/n/ndcec1623a167" target="_blank" rel="noopener">競プロ参戦記</a> やってます</li>
+</ul>
+<h2 id="フレームワーク"><a href="#フレームワーク" class="headerlink" title="フレームワーク"></a>フレームワーク</h2><p><a href="https://github.com/vain0x/procon/blob/f016133b83c42196837e1b2490ecb5e57ce1ff40/rust/src/main.rs" target="_blank" rel="noopener">自作フレームワークはこちら</a> 。いつもこれの main 関数の中に解答を書いて提出しています。</p>
+<h2 id="入力のパース"><a href="#入力のパース" class="headerlink" title="入力のパース"></a>入力のパース</h2><p>標準機能だけで入力をパースしようとするとだるいです。Qiita にも、すでにこの問題を解決しようという記事がいくつか上がっています。</p>
+<p>私は上述のフレームワークに含まれている <a href="https://github.com/vain0x/procon/blob/f016133b83c42196837e1b2490ecb5e57ce1ff40/rust/src/main.rs#L25-L47" target="_blank" rel="noopener"><code>read!</code> マクロ</a> を使っています。実装が短い (23行) のと、見た目が関数っぽくて好み。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//! グラフのパースの例</span></span><br><span class="line"><span class="keyword">let</span> (N, M) = read!(<span class="built_in">usize</span>, <span class="built_in">usize</span>);</span><br><span class="line"><span class="keyword">let</span> weightd_edges = read![[<span class="built_in">usize</span>, <span class="built_in">usize</span>, <span class="built_in">i64</span>]; M];</span><br></pre></td></tr></table></figure>
+<p>パフォーマンスは若干悪くて、C++ で std::cin を使うより2倍ぐらい遅いです。それでも 10^6 個の整数を読むのに 100 ms 未満なので問題はないはず。ベンチマーク: <a href="https://github.com/vain0x/scan-bench" target="_blank" rel="noopener">scan-bench</a></p>
+<h2 id="デバッグ用のマクロ"><a href="#デバッグ用のマクロ" class="headerlink" title="デバッグ用のマクロ"></a>デバッグ用のマクロ</h2><p><a href="https://qiita.com/yamoridon/items/3be3f0515a79567a0588" target="_blank" rel="noopener">LLDB を使うとデバッグ実行できるらしい</a> です。私はやってなくて、いつも print デバッグしています。</p>
+<h3 id="debug-条件コンパイル"><a href="#debug-条件コンパイル" class="headerlink" title="debug!: 条件コンパイル"></a>debug!: 条件コンパイル</h3><p>デバッグ出力の消し忘れで WA とかは避けたいです。 <a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/conditional-compilation.html" target="_blank" rel="noopener">条件コンパイル</a> を使って、ローカルではデバッグ出力が出る、ジャッジ時は出ない、というふうにしています。</p>
+<p>Debug/Release での分岐は <a href="https://users.rust-lang.org/t/conditional-compilation-for-debug-release/1098/3" target="_blank" rel="noopener">debug_assertions を使えばできる</a> そうです。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// デバッグビルドではこっちの定義が使われる。</span></span><br><span class="line"><span class="meta">#[cfg(debug_assertions)]</span></span><br><span class="line"><span class="built_in">macro_rules!</span> debug &#123;</span><br><span class="line">    <span class="comment">// 略</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// リリースビルドではこっちの定義が使われて、 debug!(..) が無になる。</span></span><br><span class="line"><span class="meta">#[cfg(not(debug_assertions))]</span></span><br><span class="line"><span class="built_in">macro_rules!</span> debug &#123;</span><br><span class="line">    ($($arg:expr),*) =&gt; &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="debug-定義の省略"><a href="#debug-定義の省略" class="headerlink" title="debug!: 定義の省略"></a>debug!: 定義の省略</h3><p>ジャッジに不要なコードを提出に含めるのは <em>なんとなく</em> 抵抗があります。そこで、定義はローカルのファイルに書いておき、手元でのデバッグ実行時だけ <code>include!</code> で定義を取り込むという方法があります。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// デバッグ時はローカルのファイルから定義を読み込む</span></span><br><span class="line"><span class="meta">#[cfg(debug_assertions)]</span></span><br><span class="line">include!&#123;<span class="string">"./procon/debug.rs"</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// リリース時に debug!(..) を消す</span></span><br><span class="line"><span class="meta">#[cfg(not(debug_assertions))]</span></span><br><span class="line"><span class="built_in">macro_rules!</span> debug &#123;</span><br><span class="line">    ($($arg:expr),*) =&gt; &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これで debug! マクロを高機能化しても提出コードが膨れ上がることはなくなります。</p>
+<h3 id="余談-dbg"><a href="#余談-dbg" class="headerlink" title="余談: dbg!"></a>余談: dbg!</h3><p>ちなみに、将来のバージョンでは公式に <code>dbg!</code> という print デバッグ用途のマクロが入るそうです。参考：<a href="https://github.com/rust-lang/rfcs/blob/master/text/2361-dbg-macro.md" target="_blank" rel="noopener">rfcs/2361-dbg-macro.md at master · rust-lang/rfcs</a></p>
+<h2 id="数値型"><a href="#数値型" class="headerlink" title="数値型"></a>数値型</h2><p>数値型は <a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/primitive-types.html" target="_blank" rel="noopener">プリミティブ型</a> に載っているとおりたくさんありますが、よく使うのは4つ:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">i64</td>
+<td style="text-align:left">10^18 ぐらいまで扱える</td>
+</tr>
+<tr>
+<td style="text-align:left">usize</td>
+<td style="text-align:left">スライスや Vec の添字に使う</td>
+</tr>
+<tr>
+<td style="text-align:left">f64</td>
+<td style="text-align:left">浮動小数点数</td>
+</tr>
+<tr>
+<td style="text-align:left">char</td>
+<td style="text-align:left">文字 (厳密には Unicode scalar value)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="数値型-usize"><a href="#数値型-usize" class="headerlink" title="数値型: usize"></a>数値型: usize</h3><p>usize を int の感覚で書いてると微妙にハマります。マイナスにオーバーフローしたとき、Debug モードでは実行時エラーになります。Release モードではエラーになりませんが、符号なし型なのでマイナスにはならないことに注意です。</p>
+<p>例えば次のコード (x, y: usize) はおかしくて、<code>x &lt; y</code> のとき Debug モードではエラーになり、Release モードでも <code>max</code> は機能してません。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">max(<span class="number">0</span>, x - y) <span class="comment">// ✘ ダメ</span></span><br></pre></td></tr></table></figure>
+<p>オーバーフローしないようにするか、i64 を経由すれば動きます:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// monus</span></span><br><span class="line">x - min(x, y)</span><br><span class="line"></span><br><span class="line"><span class="comment">// または、i64 を経由する</span></span><br><span class="line">max(<span class="number">0</span>, x <span class="keyword">as</span> <span class="built_in">i64</span> - y <span class="keyword">as</span> <span class="built_in">i64</span>) <span class="keyword">as</span> <span class="built_in">usize</span></span><br></pre></td></tr></table></figure>
+<h2 id="文字列"><a href="#文字列" class="headerlink" title="文字列"></a>文字列</h2><p>Rust の標準的な文字列型である String (と str) は utf-8 なので、ランダムアクセスできません。そういうときは文字の列 <code>Vec&lt;char&gt;</code> で持つようにします。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s: <span class="built_in">String</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 文字の列に変換</span></span><br><span class="line"><span class="keyword">let</span> s = s.chars().collect::&lt;<span class="built_in">Vec</span>&lt;_&gt;&gt;();</span><br></pre></td></tr></table></figure>
+<p>これは若干パフォーマンスが悪いです。一時期は <code>Vec&lt;u8&gt;</code> を使っていたんですが、デバッグ出力時に u8 が数字で出るのが不便だったのでやめました……</p>
+<h2 id="Vec"><a href="#Vec" class="headerlink" title="Vec"></a>Vec</h2><p>イテレータを Vec に変換する <code>.collect::&lt;Vec&lt;_&gt;&gt;</code> は頻出ですが、タイプがつらいので略記を用意してます。</p>
+<p>自作トレイトをすべてのイテレータに実装させることで、 C# の拡張メソッドのようなことができます。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">IteratorExt</span></span>: <span class="built_in">Iterator</span> + <span class="built_in">Sized</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">vec</span></span>(<span class="keyword">self</span>) -&gt; <span class="built_in">Vec</span>&lt;Self::Item&gt; &#123;</span><br><span class="line">        <span class="keyword">self</span>.collect()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span>&lt;T: <span class="built_in">Iterator</span>&gt; IteratorExt <span class="keyword">for</span> T &#123;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// e.g.</span></span><br><span class="line"><span class="keyword">let</span> xs = (<span class="number">0</span>..N).map(|i| i + <span class="number">1</span>).vec();</span><br></pre></td></tr></table></figure>
+<h2 id="再帰"><a href="#再帰" class="headerlink" title="再帰"></a>再帰</h2><p>ローカル変数を利用する再帰関数について、7月に「 <a href="https://qiita.com/vain0x/items/90c9580aa34926160ac1" target="_blank" rel="noopener">Rustのクロージャで再帰してみた</a> 」という記事を書きました。クロージャは、mut な変数を書き換えないなら簡単に再帰にできるという結論です。</p>
+<p>mut な変数を書き換えたいなら RefCell とかを使う、と記事では書きました。struct を定義したほうがいいこともあります。いずれにせよ手間なので、マクロで簡略化を図りたいと思っています。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/" target="_blank" rel="noopener">公式のドキュメントの和訳</a><ul>
+<li>必読</li>
+</ul>
+</li>
+<li><a href="https://qiita.com/hatoo@github/items/fa14ad36a1b568d14f3e" target="_blank" rel="noopener">Rustで競技プログラミング スターターキット - Qiita</a><ul>
+<li>コンパイラバージョンの固定 (rustup override set)</li>
+<li>BinaryHeap を昇順で使う方法 (Reverse)</li>
+<li>浮動小数点で sort などを使う方法 (impl Ord)</li>
+<li>深い再帰でスタックオーバーフローしないようにする方法 (std::thread)</li>
+<li>などについてはこの記事を読んでください</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-10-07/rust-procon/" data-id="cjrghybfj001blqcx5g0ecle7" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Rust/">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/競技プログラミング/">競技プログラミング</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-09-30/diary/" class="article-date">
+  <time datetime="2018-09-30T14:59:59.000Z" itemprop="datePublished">2018-09-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-09-30/diary/">近況 2018-09-30</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>校正の手間を省くため、なるべく箇条書きでやっていく<ul>
+<li>通常の文章を書く頭は README と競プロ参戦記に使う</li>
+</ul>
+</li>
+<li>Twitter ではなく、まとまったものを書いていきたい</li>
+</ul>
+<h3 id="競プロ参戦記"><a href="#競プロ参戦記" class="headerlink" title="競プロ参戦記"></a>競プロ参戦記</h3><ul>
+<li>8月中旬から note.mu で <a href="https://note.mu/vain0x/m/m9aa8513f4e97" target="_blank" rel="noopener">競プロ参戦記</a> を始めた</li>
+<li>3日で終わるかと思ったけど1ヶ月は続いた</li>
+<li>成長やモチベに貢献しているかは微妙<ul>
+<li>以前に参戦記で書いたことと同様の手順で解ける問題をとき損ねるという事件があった</li>
+<li><a href="https://note.mu/vain0x/n/n556db26bb3a8" target="_blank" rel="noopener">競プロ参戦記 第16回「偶奇と多節腕」 ARC103 [CD]｜ベイン｜note</a></li>
+</ul>
+</li>
+<li>note.mu を選んだ理由<ul>
+<li>日本語で書ける、技術よりな日記を書ける、デザインが良い、という条件を満たしてる</li>
+<li>Qiita には日記を書きづらい</li>
+<li>Codeforces blog は日本語では書きづらい</li>
+<li>自前のブログは更新がめんどい</li>
+</ul>
+</li>
+<li>note.mu の問題<ul>
+<li>エディターが微妙に使いづらい</li>
+</ul>
+</li>
+</ul>
+<h3 id="Milone-言語を作り始めた"><a href="#Milone-言語を作り始めた" class="headerlink" title="Milone 言語を作り始めた"></a>Milone 言語を作り始めた</h3><ul>
+<li>リポジトリ: <a href="https://github.com/vain0x/milone-lang" target="_blank" rel="noopener">milone-lang</a></li>
+<li>セキュリティキャンプや Turing Complete FM の影響でC言語のセルフホスティングコンパイラを作るのが大流行</li>
+<li>私もやりたいけどCコンパイラは乗り遅れ感</li>
+<li>自作言語なら楽？</li>
+<li>Rust っぽい構文をさっと考えて実装開始<ul>
+<li>道のりが長すぎて既に飽き気味</li>
+</ul>
+</li>
+<li>F# のサブセットにしようとしてる<ul>
+<li>字下げ依存構文の解析がつらすぎて飽き気味</li>
+</ul>
+</li>
+</ul>
+<h3 id="F-用のTOMLパーサを書き始めた"><a href="#F-用のTOMLパーサを書き始めた" class="headerlink" title="F# 用のTOMLパーサを書き始めた"></a>F# 用のTOMLパーサを書き始めた</h3><ul>
+<li>リポジトリ: <a href="https://github.com/vain0x/toml-hummer" target="_blank" rel="noopener">toml-hummer</a></li>
+<li>習作。既存の TOML パーサ実装はある</li>
+<li>字句解析 → 字句リストを再帰下降パース、という手順でやる<ul>
+<li>パーサコンビネータ (FParsec) もパーサジェネレータ (FsYacc) もいらない、言語機能だけでパースできる、っていうのをやりたい</li>
+<li>パースはわりとすんなりいけてる</li>
+<li>字句解析が正規表現でかなりがちゃがちゃしてる、ここをもっと簡単にしたい</li>
+</ul>
+</li>
+<li>エラー報告の精度を上げるのは大変そう<ul>
+<li>何を使っても大変</li>
+<li>Rust コンパイラのエラー報告はとても偉い</li>
+</ul>
+</li>
+<li>TOML のデータ構造の持ちかたで迷ってる</li>
+</ul>
+<h3 id="React-を始めた"><a href="#React-を始めた" class="headerlink" title="React を始めた"></a>React を始めた</h3><ul>
+<li>Vue.js をちょっとだけやったことはあった<ul>
+<li>極めて便利だけど型や環境構築が煩雑という印象だった</li>
+</ul>
+</li>
+<li>Node.js + SPA の環境構築になれてきた</li>
+<li>とはいえいろいろ諦めた<ul>
+<li>Live Reload</li>
+<li>Hot Module Replacement</li>
+<li>ブラウザ上でのテスト (karma)</li>
+<li>レンダリングのテスト (enzyme)</li>
+</ul>
+</li>
+<li>コードに静的な型がついて、ドメイン層のユニットテストが高速に実行できたらそれでいいと思う</li>
+<li>TypeScript を書く場合、 Vue.js と違って React はシンプルな型がつくのが嬉しい<ul>
+<li>Vue のコンポーネントの型はやばい</li>
+</ul>
+</li>
+<li>ブラウザ履歴の管理や、URL と state の同期がよく分からない</li>
+</ul>
+<h3 id="fsharp-error-builders"><a href="#fsharp-error-builders" class="headerlink" title="fsharp-error-builders"></a>fsharp-error-builders</h3><ul>
+<li>リポジトリ: <a href="https://github.com/vain0x/fsharp-error-builders" target="_blank" rel="noopener">fsharp-error-builders</a><ul>
+<li>F# 用の Option/Result のコンピュテーションビルダーを提供するライブラリ</li>
+</ul>
+</li>
+<li>プロジェクトの名前を変えた<ul>
+<li>リポジトリはハイフン区切りがいい</li>
+</ul>
+</li>
+<li>パフォーマンスの改善を試みた<ul>
+<li>inline をつけてメソッド呼び出しを減らした</li>
+<li><code>Some ()</code> をキャッシュした</li>
+</ul>
+</li>
+<li>それでも for 式はコンピュテーション式の外側で書くより2倍ぐらい遅い<ul>
+<li>F# でパフォーマンスといえば、F# では型引数をどれだけ導入しても煩雑にならないので、構造体をガンガン使うようなコードでは C# に有利がつく可能性がないこともない</li>
+</ul>
+</li>
+</ul>
+<h3 id="Rust-で競プロの入力をパースするマクロ"><a href="#Rust-で競プロの入力をパースするマクロ" class="headerlink" title="Rust で競プロの入力をパースするマクロ"></a>Rust で競プロの入力をパースするマクロ</h3><ul>
+<li>リポジトリ: <a href="https://github.com/vain0x/scan-bench" target="_blank" rel="noopener">scan-bench</a></li>
+<li>Rust で競プロの入力をパースするコードを書くのはとてもめんどい</li>
+<li>いま使ってる read! マクロは悪くないが、性能が低い</li>
+<li>変数を大量に定義するのはマクロでやるのがよい</li>
+<li>scan! マクロを作ってみた<ul>
+<li>シンプルとはいえわりとひどい記述になってるので作り直すかも</li>
+</ul>
+</li>
+<li>std::cin と比較してベンチマークをとった<ul>
+<li>2倍ぐらいは速かった</li>
+</ul>
+</li>
+<li>Travis の設定をやった<ul>
+<li>こういう chore に時間をかけすぎている</li>
+</ul>
+</li>
+</ul>
+<h3 id="ガルパ-リズムゲーム-を始めた"><a href="#ガルパ-リズムゲーム-を始めた" class="headerlink" title="ガルパ (リズムゲーム) を始めた"></a>ガルパ (リズムゲーム) を始めた</h3><ul>
+<li>初音ミクコラボにつられてほいほいインストールした</li>
+<li>リズムゲームはひさしぶり</li>
+<li>最初は Normal や Hard でも四苦八苦していた</li>
+<li>毎日練習してたら Expert ができたりできなかったりするようになった</li>
+<li>ファントムシーフ (Expert 27) は何度も練習してるけどクリアできない</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-09-30/diary/" data-id="cjrghybfd000ulqcxhefwwqcc" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-bench-fsharp-by-benchmark-dot-net" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/" class="article-date">
+  <time datetime="2018-09-03T14:59:34.000Z" itemprop="datePublished">2018-09-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/">F#でベンチマークをとる</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして <a href="https://github.com/dotnet/BenchmarkDotNet" target="_blank" rel="noopener">BenchmarkDotNet</a> があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。</p>
+<h2 id="1-要約"><a href="#1-要約" class="headerlink" title="1. 要約"></a>1. 要約</h2><ul>
+<li>書き出し<ul>
+<li>ベンチマークは意外と大変という話について軽く触れる</li>
+</ul>
+</li>
+<li>導入<ul>
+<li>本稿の構成</li>
+<li>開発環境の明記</li>
+<li>BenchmarkDotNet のサンプル</li>
+</ul>
+</li>
+<li>例<ul>
+<li>一例として「素数判定」を実装する</li>
+<li>素数判定の簡単なベンチマークを書く</li>
+<li>ベンチマークを実行する</li>
+</ul>
+</li>
+<li>おまけ<ul>
+<li>軽くて速いベンチマークに設定する</li>
+<li>ベンチマークを watch する</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-開発環境"><a href="#2-開発環境" class="headerlink" title="2. 開発環境"></a>2. 開発環境</h2><p>F# の開発環境は Getting Started を参照: <a href="http://ionide.io/#getting-started" target="_blank" rel="noopener">Ionide - Crossplatform F# Editor Tools</a></p>
+<p>今回は次を使ってやっていきます。 (執筆日: 2018年8月9日)</p>
+<ul>
+<li>Windows 10</li>
+<li>.NET Core Cli Tools 2.1</li>
+<li>F# 4.1</li>
+<li>Visual Studio Code<ul>
+<li>ionide-fsharp</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-BenchmarkDotNet-にあるサンプルコード"><a href="#3-BenchmarkDotNet-にあるサンプルコード" class="headerlink" title="3. BenchmarkDotNet にあるサンプルコード"></a>3. BenchmarkDotNet にあるサンプルコード</h2><p>F# 用のサンプルをみるとだいたいのイメージはつかめます。</p>
+<p><a href="https://github.com/dotnet/BenchmarkDotNet/tree/v0.11.0/samples/BenchmarkDotNet.Samples.FSharp" target="_blank" rel="noopener">BenchmarkDotNet/samples/BenchmarkDotNet.Samples.FSharp at v0.11.0 · dotnet/BenchmarkDotNet</a></p>
+<h2 id="4-サンプルプロジェクトでやってみる"><a href="#4-サンプルプロジェクトでやってみる" class="headerlink" title="4. サンプルプロジェクトでやってみる"></a>4. サンプルプロジェクトでやってみる</h2><p>例として「素数判定」のベンチマークをやってみましょう。</p>
+<p>まずサンプルプロジェクトを普通のクラスライブラリーとして作ります。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet new classlib -lang F<span class="comment"># --name PrimeNum</span></span><br></pre></td></tr></table></figure>
+<p>そしてがんばって実装を書く:</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PrieNum/Library.fs</span></span><br><span class="line"><span class="keyword">module</span> PrimeNum</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 以上 p 未満の整数で割り切れなければ素数、と判定する。</span></span><br><span class="line"><span class="comment">// 最大 p - 2 回のループ</span></span><br><span class="line"><span class="keyword">let</span> isPrimeBruteForce (p: int): bool =</span><br><span class="line">    <span class="keyword">if</span> p &lt; <span class="number">2</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">false</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">// go m ⇔ p が m 以上 p 未満の整数で割り切れない</span></span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">rec</span> go m = m &gt;= p || p % m &lt;&gt; <span class="number">0</span> &amp;&amp; go (m + <span class="number">1</span>)</span><br><span class="line">        go <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 以上 √p 以下の整数で割り切れなければ素数、と判定する。(証明略)</span></span><br><span class="line"><span class="comment">// 最大 √p - 1 回のループなので速いはず</span></span><br><span class="line"><span class="keyword">let</span> isPrime (p: int): bool =</span><br><span class="line">    <span class="keyword">if</span> p &lt; <span class="number">2</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">false</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">// √p</span></span><br><span class="line">        <span class="keyword">let</span> r = p |&gt; float |&gt; sqrt |&gt; int</span><br><span class="line">        <span class="comment">// go m ⇔ p が m 以上 r 以下の整数で割り切れない</span></span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">rec</span> go m = m &gt; r || p % m &lt;&gt; <span class="number">0</span> &amp;&amp; go (m + <span class="number">1</span>)</span><br><span class="line">        go <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>で、ベンチマークです。「実行するとベンチマーク処理を行うようなコンソールアプリ」を F# で作るという形になります。(ユニットテストでいうと expecto 方式)</p>
+<p>コンソールアプリのプロジェクトを作って、そこに BenchmarkDotNet をインストールします。(最新バージョンは <a href="https://www.nuget.org/packages/BenchmarkDotNet/" target="_blank" rel="noopener">NuGet</a> で確認しよう。)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ベンチマークするためのプロジェクトはコンソールアプリとして作る。</span></span><br><span class="line">dotnet new console -lang F<span class="comment"># --name PrimeNumBench</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># PrimeNumBench が PrimeNum を参照するようにする。</span></span><br><span class="line">dotnet add PrimeNumBench reference PrimeNum</span><br><span class="line"></span><br><span class="line"><span class="comment"># BenchmarkDotNet をインストールする。 (※やや時間がかかる)</span></span><br><span class="line">dotnet add PrimeNumBench package BenchmarkDotNet --version 0.11.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># インテリセンスが効くように、ここで一度ビルドしておく (※やや時間がかかる)</span></span><br><span class="line">dotnet build PrimeNumBench</span><br></pre></td></tr></table></figure>
+<p>試しに大きめの素数 10000019 (≒100万) が素数かどうかの判定にかかる時間を測定してみましょう。</p>
+<ul>
+<li>測定したい計算をクラスのメソッドとして定義する。<ul>
+<li>モジュールではなく。このあたりは C#-er の気持ちになる。</li>
+</ul>
+</li>
+<li>メソッドがベンチマーク対象であると分かるように <code>BenchmarkAttribute</code> をつける。</li>
+<li><code>main</code> でベンチマークを実行する関数を呼ぶ。</li>
+</ul>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PrimeNumBench/Program.fs</span></span><br><span class="line"><span class="keyword">module</span> Program</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet</span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet.Attributes</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">Benchmarks</span></span>() =</span><br><span class="line">    <span class="meta">[&lt;Benchmark&gt;]</span></span><br><span class="line">    <span class="keyword">member</span> this.IsPrimeBruteForceBench() =</span><br><span class="line">        PrimeNum.isPrimeBruteForce <span class="number">10</span>_000_019</span><br><span class="line"></span><br><span class="line">    <span class="meta">[&lt;Benchmark&gt;]</span></span><br><span class="line">    <span class="keyword">member</span> this.IsPrimeBench() =</span><br><span class="line">        PrimeNum.isPrime <span class="number">10</span>_000_019</span><br><span class="line"></span><br><span class="line"><span class="meta">[&lt;EntryPoint&gt;]</span></span><br><span class="line"><span class="keyword">let</span> main _ =</span><br><span class="line">    <span class="keyword">let</span> _summary = Running.BenchmarkRunner.Run&lt;Benchmarks&gt;()</span><br><span class="line">    <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>ベンチマークアプリを <strong>Release モードでビルドして</strong> 実行します。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet run -p PrimeNumBench -c Release</span><br></pre></td></tr></table></figure>
+<p>1分ぐらいかかるので待つと、結果が <em>(ログの海に溺れて)</em> 出てきます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">                 Method |         Mean |         Error |        StdDev |</span><br><span class="line">----------------------- |-------------:|--------------:|--------------:|</span><br><span class="line"> IsPrimeBruteForceBench | 69,125.13 us | 1,118.0498 us | 1,045.8244 us |</span><br><span class="line">           IsPrimeBench |     21.40 us |     0.1367 us |     0.1279 us |</span><br></pre></td></tr></table></figure>
+<p>平方根を取るだけでかなり良い最適化になってるっぽい。なお 1秒 = 1000 ms (ミリ秒) = 10万 us (マイクロ秒) です。</p>
+<h2 id="5-ベンチマークを軽量にする"><a href="#5-ベンチマークを軽量にする" class="headerlink" title="5. ベンチマークを軽量にする"></a>5. ベンチマークを軽量にする</h2><p>試行錯誤している段階ではもうちょっと早く結果がほしいので、ベンチマークの設定を変えて計測精度を下げる代わりに、ベンチマークにかかる時間を短くしてみます。</p>
+<p>ベンチマークをどのように実行するかの設定は Jobs にあるようです。参照: <a href="https://benchmarkdotnet.org/articles/configs/jobs.html" target="_blank" rel="noopener">Jobs | BenchmarkDotNet</a></p>
+<p>ウォームアップや反復の回数を固定するより、パラメーターをいじってアルゴリズムに任せたほうがいいらしいです。具体的にどうするか分からないので、デフォルトの設定でそういうのないかなと思ったんですが、よさげなプルリクが出ているので参考にします:</p>
+<p><a href="https://github.com/dotnet/BenchmarkDotNet/pull/825/files" target="_blank" rel="noopener">Accuracy based job attributes by Zhentar · Pull Request #825 · dotnet/BenchmarkDotNet</a></p>
+<p>相対誤差の上限を増やせばよさそう。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PrimeNumBench/Program.fs</span></span><br><span class="line"><span class="keyword">module</span> Program</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet</span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet.Attributes</span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet.Configs</span><br><span class="line"><span class="keyword">open</span> BenchmarkDotNet.Jobs</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">Benchmarks</span></span>() =</span><br><span class="line">    <span class="meta">[&lt;Benchmark&gt;]</span></span><br><span class="line">    <span class="keyword">member</span> this.IsPrimeBruteForceBench() =</span><br><span class="line">        PrimeNum.isPrimeBruteForce <span class="number">10</span>_000_019</span><br><span class="line"></span><br><span class="line">    <span class="meta">[&lt;Benchmark&gt;]</span></span><br><span class="line">    <span class="keyword">member</span> this.IsPrimeBench() =</span><br><span class="line">        PrimeNum.isPrime <span class="number">10</span>_000_019</span><br><span class="line"></span><br><span class="line"><span class="meta">[&lt;EntryPoint&gt;]</span></span><br><span class="line"><span class="keyword">let</span> main _ =</span><br><span class="line">    <span class="keyword">let</span> config =</span><br><span class="line">        <span class="keyword">let</span> rough = AccuracyMode(MaxRelativeError = <span class="number">0.1</span>)</span><br><span class="line">        <span class="keyword">let</span> quickRoughJob = Job(<span class="string">"QuickRough"</span>, rough, RunMode.Short)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> c = ManualConfig()</span><br><span class="line">        c.Add(quickRoughJob)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// その他の設定をデフォルトから継承する。</span></span><br><span class="line">        ManualConfig.Union(DefaultConfig.Instance, c)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> _summary = Running.BenchmarkRunner.Run&lt;Benchmarks&gt;(config)</span><br><span class="line">    <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>ビルドしてからベンチマークの完了まで20秒ぐらいになりました。</p>
+<h2 id="6-ベンチマークを自動実行する"><a href="#6-ベンチマークを自動実行する" class="headerlink" title="6. ベンチマークを自動実行する"></a>6. ベンチマークを自動実行する</h2><p>.NET Core 2.1 から標準入りした <code>dotnet-watch</code> ツールを使うと、ソースコードを更新するたびにベンチマークを自動実行できます。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet watch -p ./PrimeNumBench -- run -c Release</span><br></pre></td></tr></table></figure>
+<h2 id="7-レポートを公開する"><a href="#7-レポートを公開する" class="headerlink" title="7. レポートを公開する"></a>7. レポートを公開する</h2><p>結果を公開するには、 <code>BenchmarkDotNetArtifacts/results/*.md</code> にマークダウン(GFM)形式で出力されているのを貼っつける。環境の情報が自動で載るので楽です。(Qiita だと微妙に手直しが必要)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BenchmarkDotNet=v0.11.0, OS=Windows 10.0.16299.371 (1709/FallCreatorsUpdate/Redstone3)</span><br><span class="line">Intel Core i3-2310M CPU 2.10GHz (Sandy Bridge), 1 CPU, 4 logical and 2 physical cores</span><br><span class="line">Frequency=2046136 Hz, Resolution=488.7261 ns, Timer=TSC</span><br><span class="line">.NET Core SDK=2.1.302</span><br><span class="line">  [Host]     : .NET Core 2.1.2 (CoreCLR 4.6.26628.05, CoreFX 4.6.26629.01), 64bit RyuJIT DEBUG</span><br><span class="line">  DefaultJob : .NET Core 2.1.2 (CoreCLR 4.6.26628.05, CoreFX 4.6.26629.01), 64bit RyuJIT</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th style="text-align:right">Mean</th>
+<th style="text-align:right">Error</th>
+<th style="text-align:right">StdDev</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IsPrimeBruteForceBench</td>
+<td style="text-align:right">69,125.13 us</td>
+<td style="text-align:right">1,118.0498 us</td>
+<td style="text-align:right">1,045.8244 us</td>
+</tr>
+<tr>
+<td>IsPrimeBench</td>
+<td style="text-align:right">21.40 us</td>
+<td style="text-align:right">0.1367 us</td>
+<td style="text-align:right">0.1279 us</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-おわりに"><a href="#8-おわりに" class="headerlink" title="8. おわりに"></a>8. おわりに</h2><p>よい計測ライフを！</p>
+<h2 id="A-その他"><a href="#A-その他" class="headerlink" title="A. その他"></a>A. その他</h2><ul>
+<li><p>Params 属性に言及したほうがよかったかも</p>
+<p>  <a href="https://benchmarkdotnet.org/articles/features/parameterization.html" target="_blank" rel="noopener">Parameterization | BenchmarkDotNet</a></p>
+</li>
+<li><p>Baesline 属性に言及したほうがよかったかも</p>
+<p>  <a href="https://benchmarkdotnet.org/articles/features/baselines.html" target="_blank" rel="noopener">Benchmark and Job Baselines | BenchmarkDotNet</a></p>
+</li>
+<li><p>サンプルは速さが非自明なもののほうがよかったかも</p>
+<p>  option vs voption とか</p>
+</li>
+</ul>
+<h2 id="B-関連リンク"><a href="#B-関連リンク" class="headerlink" title="B. 関連リンク"></a>B. 関連リンク</h2><ul>
+<li><p><a href="https://benchmarkdotnet.org/" target="_blank" rel="noopener">Showtime | BenchmarkDotNet</a></p>
+<p>  公式サイト</p>
+</li>
+<li><p><a href="https://qiita.com/NetSeed/items/30d8a76163622a4b5be1" target="_blank" rel="noopener">BenchmarkDotNetを使ってみる｡ - Qiita</a></p>
+<p>  紹介記事 (C#)</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/" data-id="cjrghybg0002plqcxpui63fca" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/F/">F#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/チュートリアル/">チュートリアル</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-recurse-rust-closure" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018-06-28/recurse-rust-closure/" class="article-date">
@@ -571,279 +1156,11 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-async-function-and-exception" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2017-12-23/async-function-and-exception/" class="article-date">
-  <time datetime="2017-12-22T15:00:00.000Z" itemprop="datePublished">2017-12-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2017-12-23/async-function-and-exception/">async関数が例外を捕捉する挙動について</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="現象"><a href="#現象" class="headerlink" title="現象"></a>現象</h2><p>C# では async キーワードでマークされた関数の内部では await 式が使えるようになります。では、 await を使わなくていい場合はつけなくてもいいのでしょうか？</p>
-<p>例えば、次の <code>NeverAsync</code> メソッドと <code>NeverNoAsync</code> メソッドは、どちらもタスクを返す非同期な関数ですが、実際に非同期な処理 (<code>FooAsync</code>) を実行する前に例外を投げてしまうとします。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">SampleClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// async キーワードがついている。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="keyword">int</span>&gt; <span class="title">NeverAsync</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> FooAsync();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// async キーワードなし。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Task&lt;<span class="keyword">int</span>&gt; <span class="title">NeverNoAsync</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception();</span><br><span class="line">        <span class="keyword">return</span> FooAsync();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="keyword">int</span>&gt; <span class="title">FooAsync</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// なにか非同期な処理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>これらのメソッドを起動した結果は次のようになります。</p>
-<ul>
-<li>async がついている <code>NeverAsync</code> のほうは <code>throw</code> の時点で return してタスクを返します。返されたタスクは Faulted 状態になっていて、 <code>Exception</code> プロパティーから送出された例外を取得できます。</li>
-<li>async のついていない <code>NeverNoAsync</code> のほうは、当たり前ですが、例外を伝播します。</li>
-</ul>
-<p>つまり async キーワードがついているだけで、次のような try-catch 文が生成されていると解釈できます。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Task&lt;<span class="keyword">int</span>&gt; <span class="title">NeverAsync_Compiled</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* async メソッドの中身 (throw とか FooAsync とか) */</span></span><br><span class="line">        <span class="keyword">return</span> <span class="comment">/* 返されるタスク */</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> Task.FromException&lt;<span class="keyword">int</span>&gt;(ex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="影響"><a href="#影響" class="headerlink" title="影響"></a>影響</h2><p>この挙動の違いの影響を受ける例を挙げます。次のように非同期操作のエラー処理を <code>ContinueWith</code> で書くと、</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">BarAsync()</span><br><span class="line">.ContinueWith(task =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (task.Status)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> TaskStatus.Faulted:</span><br><span class="line">            <span class="keyword">var</span> ex = task.Exception;</span><br><span class="line">            <span class="comment">// エラー処理</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>非同期メソッド <code>BarAsync</code> に async キーワードがついていなくて例外が投げられたとき、エラー処理が行われるのではなく例外が伝播されます。</p>
-<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><ul>
-<li>async キーワードをつけると、例外が捕捉されてエラー状態のタスクを返すようになる。</li>
-<li><code>async () =&gt; await FooAsync()</code> と <code>() =&gt; FooAsync()</code> は例外発生時の挙動が異なる。</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="http://d.hatena.ne.jp/naga_sawa/20160703/1467517912" target="_blank" rel="noopener">C# 非同期メソッドを作るにあたり、例外が出るタイミングでハマったメモ - ..たれろぐ..</a> (2017年10月16日閲覧)</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2017-12-23/async-function-and-exception/" data-id="cjrghybf9000nlqcxuaq5lg8n" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Tips/">Tips</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/非同期/">非同期</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-csharp-constructor-generation-01" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2017-12-04/csharp-constructor-generation-01/" class="article-date">
-  <time datetime="2017-12-03T15:31:05.000Z" itemprop="datePublished">2017-12-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2017-12-04/csharp-constructor-generation-01/">[C#] コンストラクタの自動生成 #1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="要約"><a href="#要約" class="headerlink" title="要約"></a>要約</h2><p>C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。</p>
-<h2 id="例"><a href="#例" class="headerlink" title="例"></a>例</h2><ul>
-<li>引数の値をフィールドやプロパティーに代入する処理だけからなるコンストラクターを <strong>完全コンストラクター</strong> と呼ぶ。<ul>
-<li>現実のコンストラクターは入力検証 (参照型の値が null でないことを検査したり、数値の範囲を検査したりすること) を含むことが多いが、それでも完全コンストラクターと呼ぶかは <strong>調整中</strong> 。</li>
-</ul>
-</li>
-</ul>
-<p>次のようなクラスがあるとき、</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">Person</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> Age &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Name &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>次のように完全コンストラクターを機械的に生成したい。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">Person</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> Age &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Name &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成されたコンストラクター</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span>(<span class="params"><span class="keyword">int</span> age, <span class="keyword">string</span> name</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Age = age;</span><br><span class="line">        Name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="関連ツールと言語サポート"><a href="#関連ツールと言語サポート" class="headerlink" title="関連ツールと言語サポート"></a>関連ツールと言語サポート</h2><p>完全コンストラクターを生成するツールはすでにある。</p>
-<h3 id="RecordConstructorGenerator"><a href="#RecordConstructorGenerator" class="headerlink" title="RecordConstructorGenerator"></a><strong><a href="https://github.com/ufcpp/RecordConstructorGenerator" target="_blank" rel="noopener">RecordConstructorGenerator</a></strong></h3><p>Visual Studio 2015 でアナライザーが使えるようになり、静的コード生成などの処理を IDE 上で行なうのが簡単になった。この「RecordConstructorGenerator」アナライザーをインストールしておくと、手軽に完全コンストラクターを自動生成できる。</p>
-<p>極めて便利だが、しかし、少しだけ不満がある。</p>
-<ul>
-<li>自動実装プロパティーへの代入処理は生成されるが、フィールドへの代入処理も生成してほしい。</li>
-<li>null 検査を生成してほしいことがある。</li>
-</ul>
-<p>実装が分かりやすくて、後述の自作アナライザーの参考になった。</p>
-<h3 id="Visual-Studio-2017"><a href="#Visual-Studio-2017" class="headerlink" title="Visual Studio 2017"></a>Visual Studio 2017</h3><p>Visual Studio 2017 では、標準で完全コンストラクターを生成する機能が追加された。(Roslyn の機能か？)</p>
-<p>どのフィールド・プロパティーについて代入処理を生成するかを選べるので便利。また、同じ方法で、同値性の定義なども生成できる。とはいえ、メンバーが追加・削除されたときの自動修正にまでは対応していない。</p>
-<h3 id="自作-RecordTypeAnalyzer"><a href="#自作-RecordTypeAnalyzer" class="headerlink" title="自作/RecordTypeAnalyzer"></a>自作/<a href="https://github.com/vain0x/RecordTypeAnalyzer" target="_blank" rel="noopener">RecordTypeAnalyzer</a></h3><p>困ったときは自作。</p>
-<p>完全コンストラクターやコピーコンストラクタ―のみならず、等価性や比較の自動生成など、 F# のレコード型が備えるような、さまざまな機能を自動生成し、さらに定義の変更に合わせて自動修正する機能を備えたアナライザー、というのを目指した。</p>
-<p>ところで、レコード型で等価性などを定義できるのは、型がイミュータブルだからだ。イミュータブルでない型に構造的同値性を定義するわけにはいかないので、型がイミュータブルかどうかを自動で判定する機能を実装した。問題は、完全コンストラクターを実装したい対象の型は、イミュータブルなものに限らないということだ。このあたりを考慮すると、仕様が複雑化してくる。</p>
-<p>やや詰め込みすぎて、アナライザー初心者にはつらくなってきた。そこで、いったん仕様を縮小して動くものを作ることにした。いま思うと、この時点で「RecordConstructorGenerator を改造する」方向に進まなかったのは悪い癖だろう。</p>
-<h3 id="自作-BoilerplateConstructorGenerator"><a href="#自作-BoilerplateConstructorGenerator" class="headerlink" title="自作/BoilerplateConstructorGenerator"></a>自作/<a href="https://github.com/vain0x/BoilerplateConstructorGenerator" target="_blank" rel="noopener">BoilerplateConstructorGenerator</a></h3><p>完全コンストラクターやコピーコンストラクタ―の自動生成と、定義が変わったときの自動修正機能を備えたアナライザー、というのを目指した。</p>
-<p>自動修正はコンストラクターの実装を分析して検出しようとしたが、前述のようにバリデーションの扱いのせいで誤検出がひどかったのでやめた。 <code>// analyzer: complete-constructor</code> というマジックコメントを挿入することで検出することにした。</p>
-<p>現時点ではこれを使っている。コピーコンストラクターの自動生成機能がないことと、なぜか変更点がないのに変更が検出されている状態になる不具合があるのでリリースに至っていないが、なかなか快適だ。</p>
-<h2 id="余談-レコード型"><a href="#余談-レコード型" class="headerlink" title="余談: レコード型"></a>余談: レコード型</h2><p>C# にも言語機能としてレコード型を導入する計画がある。 C# 8.0 候補とのことなので期待して待っていよう。</p>
-<p><a href="https://github.com/dotnet/csharplang/issues/39" target="_blank" rel="noopener">Champion “Records” · Issue #39 · dotnet/csharplang</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/" data-id="cjrghybfa000plqcxk1bfr6mj" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-why-ireadonlylist-should-implement-ilist" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/" class="article-date">
-  <time datetime="2017-05-20T11:00:09.000Z" itemprop="datePublished">2017-05-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/">IReadOnlyListがIListを実装すべき理由</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>主張: <code>IReadOnlyList&lt;_&gt;</code> を実装するクラスは、 <code>IList&lt;_&gt;</code> と <code>IList</code> も実装したほうがいい。</p>
-<p>理由は2つあります。</p>
-<h2 id="理由1-IEnumerable-拡張メソッド"><a href="#理由1-IEnumerable-拡張メソッド" class="headerlink" title="理由1: IEnumerable 拡張メソッド"></a>理由1: IEnumerable 拡張メソッド</h2><p>1つ目の理由は、<code>IEnumerable&lt;_&gt;</code> に対する拡張メソッドが <code>IReadOnlyList&lt;_&gt;</code> ではなく <code>IList&lt;_&gt;</code> 用に最適化されているからです。</p>
-<p><code>IEnumerable&lt;_&gt;</code> に対する拡張メソッドはインターフェイス経由では <code>GetEnumerator</code> メソッドしか起動できないので、例えばシーケンスの最後の要素を取得するメソッド (<code>Last</code>) を素直に実装するには、1度すべての要素を列挙して、最後の値を返すことになります。これではパフォーマンスが損なので、与えられたシーケンスをまず <code>IList&lt;_&gt;</code> に動的キャストできないか試みて、可能ならインデックスを使って最後の要素を取得する、という最適化が入っています。 (<a href="https://referencesource.microsoft.com/#System.Core/System/Linq/Enumerable.cs,3628defc5be1468a" target="_blank" rel="noopener">Enumerable.Last の参考実装</a>)</p>
-<p>したがって、「<code>IReadOnlyList&lt;_&gt;</code> が <code>IEnumerable&lt;_&gt;</code> にキャストされて <code>Enumerable.Last</code> される」といったシナリオのパフォーマンスを最大化するために、 <code>IList&lt;_&gt;</code> を実装しておいたほうがいいわけです。</p>
-<h2 id="理由2-WPF"><a href="#理由2-WPF" class="headerlink" title="理由2: WPF"></a>理由2: WPF</h2><p>2つ目の理由は、WPF アプリケーションから参照されうるクラスライブラリーに限った話になりますが、「WPF の DataGrid はコレクションが非ジェネリックな <code>IList</code> を実装していることを前提としている」ことです。</p>
-<p>簡単にいうと、DataGrid (表) に <code>IList</code> を実装していないコレクションを渡すと、セルの編集ができなくなります。詳細については、既に Qiita に記事があるので、こちらを参照してください:</p>
-<p><a href="http://qiita.com/gaya_K/items/d1737fc829502c916d18" target="_blank" rel="noopener">DataGrid（WPF） の ItemsSource には IList が必要</a></p>
-<p>~~また、実際の動きを確認したい場合はこちらからソースコードを入手できます:</p>
-<p><a href="https://github.com/vain0x/VainZero.Sandbox.CSharp/tree/2017-05-20-DataGrid" target="_blank" rel="noopener">DataGrid.ItemsSource が IList を実装している場合としていない場合の比較</a>~~ (リンク切れ)</p>
-<h2 id="例外"><a href="#例外" class="headerlink" title="例外"></a>例外</h2><p>もちろん上記で述べたような懸念があたらないことが分かっているケースでは、<code>IList&lt;_&gt;</code> や <code>IList</code> を実装しなくてもよいでしょう。</p>
-<h2 id="おまけ-ReadOnlyCollection"><a href="#おまけ-ReadOnlyCollection" class="headerlink" title="おまけ: ReadOnlyCollection"></a>おまけ: ReadOnlyCollection</h2><p><code>IList&lt;_&gt;</code> はメンバーの数が多くて、実装するのは非常にめんどうですが、 <code>IList&lt;_&gt;</code> をラップして読み取り専用なリスト (<code>IReadOnlyList&lt;_&gt;</code>) として振る舞わせる <code>ReadOnlyCollection&lt;_&gt;</code> というのが標準にあります。これを継承して実装すると楽です。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/" data-id="cjrghybfc000slqcxtuj1gbsk" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/NET/">.NET</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-switch-on-await" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2017-04-05/switch-on-await/" class="article-date">
-  <time datetime="2017-04-05T06:00:00.000Z" itemprop="datePublished">2017-04-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2017-04-05/switch-on-await/">awaitでスレッドを切り替える</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://qiita.com/vain0x/items/945591e96b7338478cb5" target="_blank" rel="noopener">Qiita</a></p>
-<p>awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。</p>
-<p>実装とサンプルはここにあります: <a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2" target="_blank" rel="noopener">await-for-context-switching.cs</a></p>
-<h2 id="前提-Awaitable-パターン"><a href="#前提-Awaitable-パターン" class="headerlink" title="前提: Awaitable パターン"></a>前提: Awaitable パターン</h2><ul>
-<li>Awaitable パターンについては <a href="http://ufcpp.net/study/csharp/sp5_awaitable.html#awaiter" target="_blank" rel="noopener">非同期メソッドの内部実装</a> などを参照。</li>
-</ul>
-<h2 id="OK-await-→-UI-処理"><a href="#OK-await-→-UI-処理" class="headerlink" title="OK: await → UI 処理"></a>OK: await → UI 処理</h2><p>まず await が1つだけの非同期メソッドでは、Task に対する await が自動的に同期コンテクスト (SynchronizationContext) を捕捉する機能を用いることで、以下のように簡単にかけます。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Do は UI スレッドで起動されるとする。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重い処理を非同期で実行する。</span></span><br><span class="line">    <span class="keyword">var</span> x = <span class="keyword">await</span> HeavyTask();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// UI スレッドで結果を使う。</span></span><br><span class="line">    UIOperation(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="問題-await-→-await-→-UI-操作"><a href="#問題-await-→-await-→-UI-操作" class="headerlink" title="問題: await → await → UI 操作"></a>問題: await → await → UI 操作</h2><p>しかし await が2回以上ある場合に同様に書くと、必要以上に早く UI スレッドに戻ってしまいます。以下の例では、2つ目の重たい非同期処理である <code>SecondHeavyTask</code> が完了するまで、UI スレッドがブロックされます。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Do は UI スレッドで起動されるとする。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重たい非同期処理</span></span><br><span class="line">    <span class="keyword">var</span> x = <span class="keyword">await</span> HeavyTask();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// もう1つ重たい非同期処理 (!)</span></span><br><span class="line">    <span class="keyword">var</span> y = <span class="keyword">await</span> SecondHeavyTask(x);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ここは UI スレッドに戻って処理したい。</span></span><br><span class="line">    UIOperation(x, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>これを避けるには、 Task.Run や ContinueWith などを使って、await を1つにまとめる必要があります。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a =</span><br><span class="line">        <span class="keyword">await</span> Task.Run(<span class="keyword">async</span> () =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> x = <span class="keyword">await</span> HeavyTask();</span><br><span class="line">            <span class="keyword">var</span> y = <span class="keyword">await</span> SecondHeavyTask(x);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> &#123; x, y &#125;;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    UIOperation(a.x, a.y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>インデントが2段階深くなることと、変数を匿名型経由で渡していることが気になります。</p>
-<p>冒頭のヘルパーメソッドを使うと次のようにできます。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> context = <span class="keyword">await</span> TaskModule.SwitchToTaskPool();</span><br><span class="line">    <span class="keyword">var</span> x = <span class="keyword">await</span> HeavyTask();</span><br><span class="line">    <span class="keyword">var</span> y = <span class="keyword">await</span> SecondHeavyTask();</span><br><span class="line">    <span class="keyword">await</span> context;</span><br><span class="line">    UIOperation(x, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>これには</p>
-<ul>
-<li>インデントが浅くなった。</li>
-<li>同期コンテクストを使うこと (UI 操作の直前で UI スレッドに戻ること) が明確になった。</li>
-</ul>
-<p>という利点があります。</p>
-<h2 id="仕組み"><a href="#仕組み" class="headerlink" title="仕組み"></a>仕組み</h2><p>ヘルパーメソッドの仕組みを簡単に説明しておきます。</p>
-<h3 id="継続"><a href="#継続" class="headerlink" title="継続"></a>継続</h3><p><code>await</code> には継続を取り出す機能があります。どういうことかというと、例えば次の「task を await して、その結果を使って何か処理をする」コードは:</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="keyword">await</span> task;</span><br><span class="line">F(x);</span><br></pre></td></tr></table></figure>
-<p><code>await</code> の時点で <code>task</code> が完了していなかったとすると、次のようなコードと同様の振る舞いになります:</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> awaiter = task.GetAwaiter();</span><br><span class="line">awaiter.OnCompleted(() =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> x = awaiter.GetResult();</span><br><span class="line">    F(x);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">return</span> nextTask;  <span class="comment">// ←コンパイラーが生成するタスク</span></span><br></pre></td></tr></table></figure>
-<p>※実際にこのように変換されるわけではありません。雰囲気大事。</p>
-<p>ここで <code>awaiter.OnCompleted</code> にラムダ式が渡されていますが、これが継続です。</p>
-<p><code>GetAwaiter</code> メソッド経由で生成される awaiter を自作することで、この継続を好きなように使えます。</p>
-<h3 id="SwitchToTaskPool"><a href="#SwitchToTaskPool" class="headerlink" title="SwitchToTaskPool"></a>SwitchToTaskPool</h3><p><a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2#file-await-for-context-switching-cs-L186" target="_blank" rel="noopener">TaskModule.SwitchToTaskPool</a> は awaitable のインスタンスを生成するだけのメソッドです。ついでにここで同期コンテクストを捕まえています。</p>
-<p>awaitable/awaiter の実装は <a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2#file-await-for-context-switching-cs-L94" target="_blank" rel="noopener">これ</a> です。<code>GetAwaiter</code> が起動されたときにすることが特にないので、awaitable と awaiter を同じインスタンスにしています。先述の通り、この awaitable の <code>OnCompleted</code> メソッドに継続が渡されるわけですが、これは継続をタスクプール上で実行させるために <code>Task.Run</code> に渡します。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnCompleted</span>(<span class="params">Action continuation</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Task.Run(continuation);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>そのため、 <code>await TaskModule.SwitchToTaskPool</code> より後ろの部分がタスクプールで実行されることになります。</p>
-<p>また、await 式の結果は <code>awaiter.GetResult</code> から取得されます。 <code>Task&lt;_&gt;</code> の場合はタスクの結果の値がそうです。<code>SwitchToTaskPoolAwaitable</code> の場合は保存しておいた同期コンテクストを返すようになっています。</p>
-<h3 id="同期コンテクストを-await-する"><a href="#同期コンテクストを-await-する" class="headerlink" title="同期コンテクストを await する"></a>同期コンテクストを await する</h3><p><code>await</code> 式には、<code>Task</code> に限らず <code>GetAwaiter</code> メソッドを提供する任意の値を渡せますが、 <code>GetAwaiter</code> は拡張メソッドでもかまいません。</p>
-<p><code>SynchronizationContext</code> はいかにも <code>await</code> 可能な感じなので、次のように <code>GetAwaiter</code> を生やしています。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SynchronizationContextAwaiter <span class="title">GetAwaiter</span>(<span class="params"><span class="keyword">this</span> SynchronizationContext @<span class="keyword">this</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> SynchronizationContextAwaiter(@<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>これが生成する <a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2#file-await-for-context-switching-cs-L138" target="_blank" rel="noopener">SynchronizationContextAwaiter</a> は、先ほどの SwitchToTaskPoolAwaitable とほぼ同じで、継続をタスクプールではなく同期コンテクストに放り込むものです。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2017-04-05/switch-on-await/" data-id="cjrghybfb000qlqcxobz1uwvh" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/非同期/">非同期</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/blog/">&laquo; 前へ</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/3/">次へ &raquo;</a>
+    <a class="extend prev" rel="prev" href="/blog/">&laquo; 前へ</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><a class="extend next" rel="next" href="/blog/page/3/">次へ &raquo;</a>
   </nav>
 
 </section>
@@ -857,23 +1174,23 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/blog/2019-02-26/interpreter-written-in-hsp3/">HSP3 でスクリプト言語の処理系を書く 再挑戦編</a>
+          </li>
+        
+          <li>
             <a href="/blog/2019-01-30/diary/">近況 2019-01-30</a>
           </li>
         
           <li>
-            <a href="/blog/2019-01-05/lsp-trial-01/">LSP学習記 #1</a>
+            <a href="/blog/2019-01-16/lsp-trial-04/">LSP学習記 #4 シンボルのリネーム</a>
           </li>
         
           <li>
-            <a href="/blog/2018-12-31/diary/">近況 2018-12-31</a>
+            <a href="/blog/2019-01-10/lsp-trial-03/">LSP学習記 #3 シンボルとハイライト</a>
           </li>
         
           <li>
-            <a href="/blog/2018-12-16/siku-siku-primes/">シクシク素数列を F# でやってみた</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+            <a href="/blog/2019-01-07/lsp-trial-02/">LSP学習記 #2 クラゲ言語の構文解析</a>
           </li>
         
       </ul>
@@ -885,7 +1202,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">タグクラウド</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/NET/" style="font-size: 11.67px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 16.67px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 15px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 10px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 13.33px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 13.33px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 13.33px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.67px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 18.33px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.67px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 11.67px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 13.33px;">非同期</a>
+      <a href="/blog/tags/NET/" style="font-size: 11.67px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 16.67px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 15px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP/" style="font-size: 10px;">LSP</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 15px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 13.33px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 13.33px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 15px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 13.33px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/エッセイ/" style="font-size: 10px;">エッセイ</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.67px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 18.33px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.67px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 16.67px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 13.33px;">非同期</a>
     </div>
   </div>
 

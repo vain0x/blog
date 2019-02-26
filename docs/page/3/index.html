@@ -88,6 +88,274 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-async-function-and-exception" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2017-12-23/async-function-and-exception/" class="article-date">
+  <time datetime="2017-12-22T15:00:00.000Z" itemprop="datePublished">2017-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017-12-23/async-function-and-exception/">async関数が例外を捕捉する挙動について</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="現象"><a href="#現象" class="headerlink" title="現象"></a>現象</h2><p>C# では async キーワードでマークされた関数の内部では await 式が使えるようになります。では、 await を使わなくていい場合はつけなくてもいいのでしょうか？</p>
+<p>例えば、次の <code>NeverAsync</code> メソッドと <code>NeverNoAsync</code> メソッドは、どちらもタスクを返す非同期な関数ですが、実際に非同期な処理 (<code>FooAsync</code>) を実行する前に例外を投げてしまうとします。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">SampleClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// async キーワードがついている。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="keyword">int</span>&gt; <span class="title">NeverAsync</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> FooAsync();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// async キーワードなし。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Task&lt;<span class="keyword">int</span>&gt; <span class="title">NeverNoAsync</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception();</span><br><span class="line">        <span class="keyword">return</span> FooAsync();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="keyword">int</span>&gt; <span class="title">FooAsync</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// なにか非同期な処理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これらのメソッドを起動した結果は次のようになります。</p>
+<ul>
+<li>async がついている <code>NeverAsync</code> のほうは <code>throw</code> の時点で return してタスクを返します。返されたタスクは Faulted 状態になっていて、 <code>Exception</code> プロパティーから送出された例外を取得できます。</li>
+<li>async のついていない <code>NeverNoAsync</code> のほうは、当たり前ですが、例外を伝播します。</li>
+</ul>
+<p>つまり async キーワードがついているだけで、次のような try-catch 文が生成されていると解釈できます。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Task&lt;<span class="keyword">int</span>&gt; <span class="title">NeverAsync_Compiled</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* async メソッドの中身 (throw とか FooAsync とか) */</span></span><br><span class="line">        <span class="keyword">return</span> <span class="comment">/* 返されるタスク */</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> Task.FromException&lt;<span class="keyword">int</span>&gt;(ex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="影響"><a href="#影響" class="headerlink" title="影響"></a>影響</h2><p>この挙動の違いの影響を受ける例を挙げます。次のように非同期操作のエラー処理を <code>ContinueWith</code> で書くと、</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">BarAsync()</span><br><span class="line">.ContinueWith(task =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (task.Status)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> TaskStatus.Faulted:</span><br><span class="line">            <span class="keyword">var</span> ex = task.Exception;</span><br><span class="line">            <span class="comment">// エラー処理</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>非同期メソッド <code>BarAsync</code> に async キーワードがついていなくて例外が投げられたとき、エラー処理が行われるのではなく例外が伝播されます。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><ul>
+<li>async キーワードをつけると、例外が捕捉されてエラー状態のタスクを返すようになる。</li>
+<li><code>async () =&gt; await FooAsync()</code> と <code>() =&gt; FooAsync()</code> は例外発生時の挙動が異なる。</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://d.hatena.ne.jp/naga_sawa/20160703/1467517912" target="_blank" rel="noopener">C# 非同期メソッドを作るにあたり、例外が出るタイミングでハマったメモ - ..たれろぐ..</a> (2017年10月16日閲覧)</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2017-12-23/async-function-and-exception/" data-id="cjrghybf9000nlqcxuaq5lg8n" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Tips/">Tips</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/非同期/">非同期</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-csharp-constructor-generation-01" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2017-12-04/csharp-constructor-generation-01/" class="article-date">
+  <time datetime="2017-12-03T15:31:05.000Z" itemprop="datePublished">2017-12-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017-12-04/csharp-constructor-generation-01/">[C#] コンストラクタの自動生成 #1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="要約"><a href="#要約" class="headerlink" title="要約"></a>要約</h2><p>C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。</p>
+<h2 id="例"><a href="#例" class="headerlink" title="例"></a>例</h2><ul>
+<li>引数の値をフィールドやプロパティーに代入する処理だけからなるコンストラクターを <strong>完全コンストラクター</strong> と呼ぶ。<ul>
+<li>現実のコンストラクターは入力検証 (参照型の値が null でないことを検査したり、数値の範囲を検査したりすること) を含むことが多いが、それでも完全コンストラクターと呼ぶかは <strong>調整中</strong> 。</li>
+</ul>
+</li>
+</ul>
+<p>次のようなクラスがあるとき、</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">Person</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> Age &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Name &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>次のように完全コンストラクターを機械的に生成したい。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">Person</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> Age &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Name &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生成されたコンストラクター</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span>(<span class="params"><span class="keyword">int</span> age, <span class="keyword">string</span> name</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Age = age;</span><br><span class="line">        Name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="関連ツールと言語サポート"><a href="#関連ツールと言語サポート" class="headerlink" title="関連ツールと言語サポート"></a>関連ツールと言語サポート</h2><p>完全コンストラクターを生成するツールはすでにある。</p>
+<h3 id="RecordConstructorGenerator"><a href="#RecordConstructorGenerator" class="headerlink" title="RecordConstructorGenerator"></a><strong><a href="https://github.com/ufcpp/RecordConstructorGenerator" target="_blank" rel="noopener">RecordConstructorGenerator</a></strong></h3><p>Visual Studio 2015 でアナライザーが使えるようになり、静的コード生成などの処理を IDE 上で行なうのが簡単になった。この「RecordConstructorGenerator」アナライザーをインストールしておくと、手軽に完全コンストラクターを自動生成できる。</p>
+<p>極めて便利だが、しかし、少しだけ不満がある。</p>
+<ul>
+<li>自動実装プロパティーへの代入処理は生成されるが、フィールドへの代入処理も生成してほしい。</li>
+<li>null 検査を生成してほしいことがある。</li>
+</ul>
+<p>実装が分かりやすくて、後述の自作アナライザーの参考になった。</p>
+<h3 id="Visual-Studio-2017"><a href="#Visual-Studio-2017" class="headerlink" title="Visual Studio 2017"></a>Visual Studio 2017</h3><p>Visual Studio 2017 では、標準で完全コンストラクターを生成する機能が追加された。(Roslyn の機能か？)</p>
+<p>どのフィールド・プロパティーについて代入処理を生成するかを選べるので便利。また、同じ方法で、同値性の定義なども生成できる。とはいえ、メンバーが追加・削除されたときの自動修正にまでは対応していない。</p>
+<h3 id="自作-RecordTypeAnalyzer"><a href="#自作-RecordTypeAnalyzer" class="headerlink" title="自作/RecordTypeAnalyzer"></a>自作/<a href="https://github.com/vain0x/RecordTypeAnalyzer" target="_blank" rel="noopener">RecordTypeAnalyzer</a></h3><p>困ったときは自作。</p>
+<p>完全コンストラクターやコピーコンストラクタ―のみならず、等価性や比較の自動生成など、 F# のレコード型が備えるような、さまざまな機能を自動生成し、さらに定義の変更に合わせて自動修正する機能を備えたアナライザー、というのを目指した。</p>
+<p>ところで、レコード型で等価性などを定義できるのは、型がイミュータブルだからだ。イミュータブルでない型に構造的同値性を定義するわけにはいかないので、型がイミュータブルかどうかを自動で判定する機能を実装した。問題は、完全コンストラクターを実装したい対象の型は、イミュータブルなものに限らないということだ。このあたりを考慮すると、仕様が複雑化してくる。</p>
+<p>やや詰め込みすぎて、アナライザー初心者にはつらくなってきた。そこで、いったん仕様を縮小して動くものを作ることにした。いま思うと、この時点で「RecordConstructorGenerator を改造する」方向に進まなかったのは悪い癖だろう。</p>
+<h3 id="自作-BoilerplateConstructorGenerator"><a href="#自作-BoilerplateConstructorGenerator" class="headerlink" title="自作/BoilerplateConstructorGenerator"></a>自作/<a href="https://github.com/vain0x/BoilerplateConstructorGenerator" target="_blank" rel="noopener">BoilerplateConstructorGenerator</a></h3><p>完全コンストラクターやコピーコンストラクタ―の自動生成と、定義が変わったときの自動修正機能を備えたアナライザー、というのを目指した。</p>
+<p>自動修正はコンストラクターの実装を分析して検出しようとしたが、前述のようにバリデーションの扱いのせいで誤検出がひどかったのでやめた。 <code>// analyzer: complete-constructor</code> というマジックコメントを挿入することで検出することにした。</p>
+<p>現時点ではこれを使っている。コピーコンストラクターの自動生成機能がないことと、なぜか変更点がないのに変更が検出されている状態になる不具合があるのでリリースに至っていないが、なかなか快適だ。</p>
+<h2 id="余談-レコード型"><a href="#余談-レコード型" class="headerlink" title="余談: レコード型"></a>余談: レコード型</h2><p>C# にも言語機能としてレコード型を導入する計画がある。 C# 8.0 候補とのことなので期待して待っていよう。</p>
+<p><a href="https://github.com/dotnet/csharplang/issues/39" target="_blank" rel="noopener">Champion “Records” · Issue #39 · dotnet/csharplang</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/" data-id="cjrghybfa000plqcxk1bfr6mj" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-why-ireadonlylist-should-implement-ilist" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/" class="article-date">
+  <time datetime="2017-05-20T11:00:09.000Z" itemprop="datePublished">2017-05-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/">IReadOnlyListがIListを実装すべき理由</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>主張: <code>IReadOnlyList&lt;_&gt;</code> を実装するクラスは、 <code>IList&lt;_&gt;</code> と <code>IList</code> も実装したほうがいい。</p>
+<p>理由は2つあります。</p>
+<h2 id="理由1-IEnumerable-拡張メソッド"><a href="#理由1-IEnumerable-拡張メソッド" class="headerlink" title="理由1: IEnumerable 拡張メソッド"></a>理由1: IEnumerable 拡張メソッド</h2><p>1つ目の理由は、<code>IEnumerable&lt;_&gt;</code> に対する拡張メソッドが <code>IReadOnlyList&lt;_&gt;</code> ではなく <code>IList&lt;_&gt;</code> 用に最適化されているからです。</p>
+<p><code>IEnumerable&lt;_&gt;</code> に対する拡張メソッドはインターフェイス経由では <code>GetEnumerator</code> メソッドしか起動できないので、例えばシーケンスの最後の要素を取得するメソッド (<code>Last</code>) を素直に実装するには、1度すべての要素を列挙して、最後の値を返すことになります。これではパフォーマンスが損なので、与えられたシーケンスをまず <code>IList&lt;_&gt;</code> に動的キャストできないか試みて、可能ならインデックスを使って最後の要素を取得する、という最適化が入っています。 (<a href="https://referencesource.microsoft.com/#System.Core/System/Linq/Enumerable.cs,3628defc5be1468a" target="_blank" rel="noopener">Enumerable.Last の参考実装</a>)</p>
+<p>したがって、「<code>IReadOnlyList&lt;_&gt;</code> が <code>IEnumerable&lt;_&gt;</code> にキャストされて <code>Enumerable.Last</code> される」といったシナリオのパフォーマンスを最大化するために、 <code>IList&lt;_&gt;</code> を実装しておいたほうがいいわけです。</p>
+<h2 id="理由2-WPF"><a href="#理由2-WPF" class="headerlink" title="理由2: WPF"></a>理由2: WPF</h2><p>2つ目の理由は、WPF アプリケーションから参照されうるクラスライブラリーに限った話になりますが、「WPF の DataGrid はコレクションが非ジェネリックな <code>IList</code> を実装していることを前提としている」ことです。</p>
+<p>簡単にいうと、DataGrid (表) に <code>IList</code> を実装していないコレクションを渡すと、セルの編集ができなくなります。詳細については、既に Qiita に記事があるので、こちらを参照してください:</p>
+<p><a href="http://qiita.com/gaya_K/items/d1737fc829502c916d18" target="_blank" rel="noopener">DataGrid（WPF） の ItemsSource には IList が必要</a></p>
+<p>~~また、実際の動きを確認したい場合はこちらからソースコードを入手できます:</p>
+<p><a href="https://github.com/vain0x/VainZero.Sandbox.CSharp/tree/2017-05-20-DataGrid" target="_blank" rel="noopener">DataGrid.ItemsSource が IList を実装している場合としていない場合の比較</a>~~ (リンク切れ)</p>
+<h2 id="例外"><a href="#例外" class="headerlink" title="例外"></a>例外</h2><p>もちろん上記で述べたような懸念があたらないことが分かっているケースでは、<code>IList&lt;_&gt;</code> や <code>IList</code> を実装しなくてもよいでしょう。</p>
+<h2 id="おまけ-ReadOnlyCollection"><a href="#おまけ-ReadOnlyCollection" class="headerlink" title="おまけ: ReadOnlyCollection"></a>おまけ: ReadOnlyCollection</h2><p><code>IList&lt;_&gt;</code> はメンバーの数が多くて、実装するのは非常にめんどうですが、 <code>IList&lt;_&gt;</code> をラップして読み取り専用なリスト (<code>IReadOnlyList&lt;_&gt;</code>) として振る舞わせる <code>ReadOnlyCollection&lt;_&gt;</code> というのが標準にあります。これを継承して実装すると楽です。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/" data-id="cjrghybfc000slqcxtuj1gbsk" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/NET/">.NET</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-switch-on-await" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2017-04-05/switch-on-await/" class="article-date">
+  <time datetime="2017-04-05T06:00:00.000Z" itemprop="datePublished">2017-04-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017-04-05/switch-on-await/">awaitでスレッドを切り替える</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://qiita.com/vain0x/items/945591e96b7338478cb5" target="_blank" rel="noopener">Qiita</a></p>
+<p>awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。</p>
+<p>実装とサンプルはここにあります: <a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2" target="_blank" rel="noopener">await-for-context-switching.cs</a></p>
+<h2 id="前提-Awaitable-パターン"><a href="#前提-Awaitable-パターン" class="headerlink" title="前提: Awaitable パターン"></a>前提: Awaitable パターン</h2><ul>
+<li>Awaitable パターンについては <a href="http://ufcpp.net/study/csharp/sp5_awaitable.html#awaiter" target="_blank" rel="noopener">非同期メソッドの内部実装</a> などを参照。</li>
+</ul>
+<h2 id="OK-await-→-UI-処理"><a href="#OK-await-→-UI-処理" class="headerlink" title="OK: await → UI 処理"></a>OK: await → UI 処理</h2><p>まず await が1つだけの非同期メソッドでは、Task に対する await が自動的に同期コンテクスト (SynchronizationContext) を捕捉する機能を用いることで、以下のように簡単にかけます。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Do は UI スレッドで起動されるとする。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重い処理を非同期で実行する。</span></span><br><span class="line">    <span class="keyword">var</span> x = <span class="keyword">await</span> HeavyTask();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// UI スレッドで結果を使う。</span></span><br><span class="line">    UIOperation(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="問題-await-→-await-→-UI-操作"><a href="#問題-await-→-await-→-UI-操作" class="headerlink" title="問題: await → await → UI 操作"></a>問題: await → await → UI 操作</h2><p>しかし await が2回以上ある場合に同様に書くと、必要以上に早く UI スレッドに戻ってしまいます。以下の例では、2つ目の重たい非同期処理である <code>SecondHeavyTask</code> が完了するまで、UI スレッドがブロックされます。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Do は UI スレッドで起動されるとする。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重たい非同期処理</span></span><br><span class="line">    <span class="keyword">var</span> x = <span class="keyword">await</span> HeavyTask();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// もう1つ重たい非同期処理 (!)</span></span><br><span class="line">    <span class="keyword">var</span> y = <span class="keyword">await</span> SecondHeavyTask(x);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ここは UI スレッドに戻って処理したい。</span></span><br><span class="line">    UIOperation(x, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これを避けるには、 Task.Run や ContinueWith などを使って、await を1つにまとめる必要があります。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a =</span><br><span class="line">        <span class="keyword">await</span> Task.Run(<span class="keyword">async</span> () =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> x = <span class="keyword">await</span> HeavyTask();</span><br><span class="line">            <span class="keyword">var</span> y = <span class="keyword">await</span> SecondHeavyTask(x);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> &#123; x, y &#125;;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    UIOperation(a.x, a.y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>インデントが2段階深くなることと、変数を匿名型経由で渡していることが気になります。</p>
+<p>冒頭のヘルパーメソッドを使うと次のようにできます。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> context = <span class="keyword">await</span> TaskModule.SwitchToTaskPool();</span><br><span class="line">    <span class="keyword">var</span> x = <span class="keyword">await</span> HeavyTask();</span><br><span class="line">    <span class="keyword">var</span> y = <span class="keyword">await</span> SecondHeavyTask();</span><br><span class="line">    <span class="keyword">await</span> context;</span><br><span class="line">    UIOperation(x, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これには</p>
+<ul>
+<li>インデントが浅くなった。</li>
+<li>同期コンテクストを使うこと (UI 操作の直前で UI スレッドに戻ること) が明確になった。</li>
+</ul>
+<p>という利点があります。</p>
+<h2 id="仕組み"><a href="#仕組み" class="headerlink" title="仕組み"></a>仕組み</h2><p>ヘルパーメソッドの仕組みを簡単に説明しておきます。</p>
+<h3 id="継続"><a href="#継続" class="headerlink" title="継続"></a>継続</h3><p><code>await</code> には継続を取り出す機能があります。どういうことかというと、例えば次の「task を await して、その結果を使って何か処理をする」コードは:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="keyword">await</span> task;</span><br><span class="line">F(x);</span><br></pre></td></tr></table></figure>
+<p><code>await</code> の時点で <code>task</code> が完了していなかったとすると、次のようなコードと同様の振る舞いになります:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> awaiter = task.GetAwaiter();</span><br><span class="line">awaiter.OnCompleted(() =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> x = awaiter.GetResult();</span><br><span class="line">    F(x);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">return</span> nextTask;  <span class="comment">// ←コンパイラーが生成するタスク</span></span><br></pre></td></tr></table></figure>
+<p>※実際にこのように変換されるわけではありません。雰囲気大事。</p>
+<p>ここで <code>awaiter.OnCompleted</code> にラムダ式が渡されていますが、これが継続です。</p>
+<p><code>GetAwaiter</code> メソッド経由で生成される awaiter を自作することで、この継続を好きなように使えます。</p>
+<h3 id="SwitchToTaskPool"><a href="#SwitchToTaskPool" class="headerlink" title="SwitchToTaskPool"></a>SwitchToTaskPool</h3><p><a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2#file-await-for-context-switching-cs-L186" target="_blank" rel="noopener">TaskModule.SwitchToTaskPool</a> は awaitable のインスタンスを生成するだけのメソッドです。ついでにここで同期コンテクストを捕まえています。</p>
+<p>awaitable/awaiter の実装は <a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2#file-await-for-context-switching-cs-L94" target="_blank" rel="noopener">これ</a> です。<code>GetAwaiter</code> が起動されたときにすることが特にないので、awaitable と awaiter を同じインスタンスにしています。先述の通り、この awaitable の <code>OnCompleted</code> メソッドに継続が渡されるわけですが、これは継続をタスクプール上で実行させるために <code>Task.Run</code> に渡します。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnCompleted</span>(<span class="params">Action continuation</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Task.Run(continuation);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>そのため、 <code>await TaskModule.SwitchToTaskPool</code> より後ろの部分がタスクプールで実行されることになります。</p>
+<p>また、await 式の結果は <code>awaiter.GetResult</code> から取得されます。 <code>Task&lt;_&gt;</code> の場合はタスクの結果の値がそうです。<code>SwitchToTaskPoolAwaitable</code> の場合は保存しておいた同期コンテクストを返すようになっています。</p>
+<h3 id="同期コンテクストを-await-する"><a href="#同期コンテクストを-await-する" class="headerlink" title="同期コンテクストを await する"></a>同期コンテクストを await する</h3><p><code>await</code> 式には、<code>Task</code> に限らず <code>GetAwaiter</code> メソッドを提供する任意の値を渡せますが、 <code>GetAwaiter</code> は拡張メソッドでもかまいません。</p>
+<p><code>SynchronizationContext</code> はいかにも <code>await</code> 可能な感じなので、次のように <code>GetAwaiter</code> を生やしています。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SynchronizationContextAwaiter <span class="title">GetAwaiter</span>(<span class="params"><span class="keyword">this</span> SynchronizationContext @<span class="keyword">this</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> SynchronizationContextAwaiter(@<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>これが生成する <a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2#file-await-for-context-switching-cs-L138" target="_blank" rel="noopener">SynchronizationContextAwaiter</a> は、先ほどの SwitchToTaskPoolAwaitable とほぼ同じで、継続をタスクプールではなく同期コンテクストに放り込むものです。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2017-04-05/switch-on-await/" data-id="cjrghybfb000qlqcxobz1uwvh" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/非同期/">非同期</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-enumerable-test" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2017-03-21/enumerable-test/" class="article-date">
@@ -735,248 +1003,11 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-why-git-edit" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2016-12-07/why-git-edit/" class="article-date">
-  <time datetime="2016-12-06T15:00:00.000Z" itemprop="datePublished">2016-12-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2016-12-07/why-git-edit/">GitEditを使うべき十の理由</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://qiita.com/vain0x/items/a97df4bd0f5f7de19d64" target="_blank" rel="noopener">Qiita</a></p>
-<p><a href="https://github.com/vain0x/GitEdit" target="_blank" rel="noopener">GitEdit</a> とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。</p>
-<h2 id="要約"><a href="#要約" class="headerlink" title="要約"></a>要約</h2><ul>
-<li>vi を覚えるのはめんどくさい。</li>
-<li>Git 用のテキストエディターとして使うための条件が意外と多い。</li>
-<li>結局、ふさわしいエディターが見つからなかったので自作した。</li>
-<li>ぜひ<a href="https://github.com/vain0x/GitEdit/releases/latest" target="_blank" rel="noopener">ダウンロード</a>して下さい。</li>
-</ul>
-<h2 id="十の理由"><a href="#十の理由" class="headerlink" title="十の理由"></a>十の理由</h2><h3 id="1-軽量"><a href="#1-軽量" class="headerlink" title="1. 軽量"></a>1. 軽量</h3><p>機能を必要最小限に絞っているため、とても起動が速いです。</p>
-<h3 id="2-文字コード"><a href="#2-文字コード" class="headerlink" title="2. 文字コード"></a>2. 文字コード</h3><p>日本語話者として、コミットメッセージに日本語を混ぜたい場面は少なくないでしょう。コミットメッセージに日本語を含めるには、ファイルを utf-8 などの文字コードで保存する必要があります。</p>
-<p>ここで問題なのは、コミットメッセージを書き込むファイルを開く段階では、そのファイルに日本語の (すなわち半角文字ではない) 文字が含まれていないことがよくあるため、エディターが文字コードを判断するのが難しいということです。例えば、私が長らく愛用していた TeraPad は、半角文字だけからなるファイルを標準の文字コード (shift_jis) で開いてしまいます。</p>
-<p>git_edit はそのようなファイルを utf-8 (BOM なし) で開くようになっています。</p>
-<h3 id="3-改行文字"><a href="#3-改行文字" class="headerlink" title="3. 改行文字"></a>3. 改行文字</h3><p><code>git add --patch</code> の <code>e</code> オプションなどを使って差分を編集するとき、Git から提示されるファイルは改行コードが LF になっていて、保存するときも LF でなければエラーになってしまいます。そのため、編集に使うテキストエディタは改行コードを正しく扱う (あるいはLFだけ扱う) 必要があります。git_edit のエディター部分である AvalonEdit は、そのあたりちゃんとできています。</p>
-<h3 id="4-構文強調"><a href="#4-構文強調" class="headerlink" title="4. 構文強調"></a>4. 構文強調</h3><p><code>git commit</code> に <code>-v</code> オプションをつけると、コミットメッセージを保存するファイルにの後半に差分(diff)をつけてくれます。コミットの内容がコミットメッセージを考える材料として使いやすく提示されるわけです。この機能のサポートとして、git_edit はコミットメッセージの編集時に diff の構文強調を有効化します。</p>
-<h3 id="5-「保存して終了」コマンド"><a href="#5-「保存して終了」コマンド" class="headerlink" title="5. 「保存して終了」コマンド"></a>5. 「保存して終了」コマンド</h3><p>コミットメッセージや <code>rebase -i</code> の todo リストなどは、テキストを保存してからエディターを閉じる必要があります。git_edit では、1回のキー入力 (<code>Ctrl+W</code>) で保存→閉じるという2アクションを行えるようになっています。</p>
-<h3 id="6-「クリアして終了」コマンド"><a href="#6-「クリアして終了」コマンド" class="headerlink" title="6. 「クリアして終了」コマンド"></a>6. 「クリアして終了」コマンド</h3><p>コミットメッセージや <code>rebase -i</code> の todo リストなどは、ファイルの中身を空っぽにして保存することで処理を「キャンセル」することができます。git_edit にはそのためのコマンド <code>Ctrl+Shift+W</code> があります。</p>
-<h3 id="7-入力補完"><a href="#7-入力補完" class="headerlink" title="7. 入力補完"></a>7. 入力補完</h3><p>Control + Space で入力補完が効きます。</p>
-<h3 id="8-テキストエディターエンジン-AvalonEdit"><a href="#8-テキストエディターエンジン-AvalonEdit" class="headerlink" title="8. テキストエディターエンジン AvalonEdit"></a>8. テキストエディターエンジン AvalonEdit</h3><p>名前がかっこいい。</p>
-<h3 id="9-まとめ"><a href="#9-まとめ" class="headerlink" title="9. まとめ"></a>9. まとめ</h3><p>Git 用のテキストエディターに要求した条件のまとめ:</p>
-<ul>
-<li>起動が速い。</li>
-<li>保存と終了が速い。</li>
-<li>OS標準の文字コードより utf-8 (BOMなし) を優先する。</li>
-<li>改行文字が LF のファイルを LF のまま編集・保存できる。</li>
-<li>diff の構文着色ができる。</li>
-<li>入力補完ができる。</li>
-</ul>
-<h2 id="10-おわりに"><a href="#10-おわりに" class="headerlink" title="10. おわりに"></a>10. おわりに</h2><p>この文章は <a href="https://www.sublimetext.com/3" target="_blank" rel="noopener">Sublime Text 3</a> で書きました。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2016-12-07/why-git-edit/" data-id="cjrghybf7000mlqcxf19uekis" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/テキストエディタ/">テキストエディタ</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-null-object-patterns" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2016-08-18/null-object-patterns/" class="article-date">
-  <time datetime="2016-08-17T15:00:00.000Z" itemprop="datePublished">2016-08-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2016-08-18/null-object-patterns/">Nullオブジェクトパターンの紹介と正体</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://qiita.com/vain0x/items/c8adb679a6c253e5261f" target="_blank" rel="noopener">Qiita</a></p>
-<p>デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。</p>
-<h2 id="なぜ「Nullオブジェクト」が必要か"><a href="#なぜ「Nullオブジェクト」が必要か" class="headerlink" title="なぜ「Nullオブジェクト」が必要か"></a>なぜ「Nullオブジェクト」が必要か</h2><p>C や C# などのいくつかの言語に null という概念があります。<code>null</code> はしばしば「何もない」や「失敗」といった <strong>特殊な状態</strong> を表す値として、null でない値と混ぜて使われますが、<code>null</code> と非 null の差異は次のようなやっかいな状況の引き金となります。</p>
-<p><code>null</code> と非 null の違いの一つに、備えるメソッドの種類があります [^null_diversity] 。例えばプログラミング言語 C# では、<code>null</code> のメソッドを呼ぼうとすると、例外が投げられます。</p>
-<p>[^null_diversity]: null の性質は言語によって異なります。例えば null に対して任意のメソッドを呼べるような言語に対して、本記事の話は無意味です。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 何らかのクラス X</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">X</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// オーバーライド可能なメソッド</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">SomeMethod</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ThrowNullReferenceException</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 型 X の変数 x を null にする。</span></span><br><span class="line">    X x = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// x (= null) のメソッドを呼ぶ。例外が投げられる。</span></span><br><span class="line">    x.SomeMethod();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>そのため、プログラムの処理中にエラーが起きると困る場合、 <code>null</code> のメソッドを呼んでしまわないようにする必要があります。</p>
-<p>このような事情から、「<code>null</code> でない場合だけ、メソッドを実行する」(<code>null</code> の場合は何もしない)ようにしたいことがしばしばあります。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">NotThrowNullReferenceException</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 型 X の変数 x を null にする。</span></span><br><span class="line">    X x = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// x が null でない場合だけ、メソッドを呼び出す。</span></span><br><span class="line">    <span class="keyword">if</span> (x != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        x.SomeMethod();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>しかしメソッドを呼ぶ際にいちいち if 文を書いていると、 if 文が大量に発生してしまいます。コードが増えるだけならまだしも、if 文を書き忘れて、意図せぬ例外を投げてしまうおそれもあります。</p>
-<p>このような状況を回避する方法の1つが、 <strong>Nullオブジェクト</strong> です。</p>
-<h2 id="Nullオブジェクトの作りかた"><a href="#Nullオブジェクトの作りかた" class="headerlink" title="Nullオブジェクトの作りかた"></a>Nullオブジェクトの作りかた</h2><p>Null オブジェクトとは、次のように定義される、「<code>null</code> の代わりに使われるオブジェクト」のことです。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// X を継承した新しいクラス</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">NullX</span></span><br><span class="line">    : <span class="title">X</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 「何もしない」メソッドとしてオーバーライドする。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SomeMethod</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>そして、型 X の変数には、<code>null</code> の代わりにこの NullX クラスのインスタンスを代入するようにします。これにより、変数が <code>null</code> ではないと分かるので、条件分岐を行わずとも安全にメソッドを呼び出せるようになります。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">NotThrowNullReferenceException</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 型 X の変数 x を (null ではなく) NullX のインスタンスにする。</span></span><br><span class="line">    X x = <span class="keyword">new</span> NullX();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// x は null でないと分かっているので、安心してメソッドを呼べる。</span></span><br><span class="line">    x.SomeMethod();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>めでたし、めでたし。</p>
-<h2 id="nullの発生源"><a href="#nullの発生源" class="headerlink" title="nullの発生源"></a>nullの発生源</h2><p>(ここからは私見になります。)</p>
-<p>ところで、そもそもなぜ、型 X の変数 (仮に <code>x</code> と呼ぶ) に <code>null</code> が入ってしまったのでしょうか。先ほどのサンプルでは、話を単純にするために <code>x</code> を使用する直前に <code>X x = null;</code> と書いていましたが、実際にはこんなコードはありえません。<code>x == null</code> になるには理由があるはずです。</p>
-<p>C# の場合、理由は2つ考えられます:</p>
-<ul>
-<li><code>x</code> は初期化されなかった。(C# では、初期化されていない <code>x</code> の値は <code>null</code> になります。)</li>
-<li>誰かが <code>x</code> に <code>null</code> を代入した。あるいは、誰かが <code>x</code> の初期値として <code>null</code> を指定した。</li>
-</ul>
-<h3 id="前者の場合"><a href="#前者の場合" class="headerlink" title="前者の場合"></a>前者の場合</h3><p>前者の場合、「<code>x</code> が初期化されないまま使用されている」ことになります。</p>
-<p>ここで確認する必要があるのは、「<code>x</code> が初期化されないまま使用されることがあると <strong>開発者が理解している</strong> かどうか」です。理解していないのなら、 <code>x == null</code> で条件分岐するのではなく、 <code>x</code> が必ず初期化されるようにコードを修正するべきです。なぜなら、「なぜ <code>x == null</code> になるのか分からないけれど、とりあえず <code>x == null</code> の場合は何もしないようにしておく」という考えは、<code>null</code> のメソッドを呼び出すことで起こるはずだった例外を「<a href="http://qiita.com/jkr_2255/items/c335566aeb748c61e931" target="_blank" rel="noopener">握りつぶす</a>」ことと等価だからです。</p>
-<p>一方、理解しているのであれば、それは <code>x</code> の初期化時に <code>null</code> を設定しているのと同じことですので、後者の場合に含まれると考えてよいでしょう。</p>
-<h3 id="後者の場合"><a href="#後者の場合" class="headerlink" title="後者の場合"></a>後者の場合</h3><p>後者の場合、<code>null</code> を設定した人は、どういう意図をもってそれをしたのでしょうか。言い換えると、<code>x == null</code> である場合に、コードがどう動くことを期待しているのでしょうか。</p>
-<p>もし「<code>x == null</code> の場合には、<code>x</code> を使用するコードは、何もしないべき」だと考えていたなら、そもそも <code>x</code> に <code>null</code> を設定するべきではありませんでした。なぜなら、 <strong><code>null</code> は「何もしない」を意味するものではない</strong> からです。本来の意図を正しく表現するには、<code>x</code> に「何もしないという挙動を持つインスタンス」を設定すべきなのです。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// X の派生クラスで、「何もしないという挙動」を持つもの</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">NullX</span></span><br><span class="line">    : <span class="title">X</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SomeMethod</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// 何もしない。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>これがさきほどの <code>NullX</code> クラスです。名前に null とついてはいますが、<code>null</code> とは異なり、実体を持つ何かです。</p>
-<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><ul>
-<li><strong>問題</strong>: <code>null</code> のメソッドを呼んでしまわないように、条件分岐を書きすぎたり書き忘れたりしてしまう。</li>
-<li><strong>解決策</strong>: <code>null</code> を使わない。変数は適切なインスタンスで初期化する。</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><p><a href="http://qiita.com/kasei-san/items/af10a948c34c317e7380" target="_blank" rel="noopener">NullObjectパターン - Qiita</a></p>
-<p>  Ruby によるサンプルコードと、Nullオブジェクトパターンの参考になるリンクが記載されています。</p>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2016-08-18/null-object-patterns/" data-id="cjrghybf1000hlqcxi8dl5m0l" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/オブジェクト指向/">オブジェクト指向</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/デザインパターン/">デザインパターン</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
-    <article id="post-package-management-with-paket-and-gist" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2016-05-10/package-management-with-paket-and-gist/" class="article-date">
-  <time datetime="2016-05-09T15:00:00.000Z" itemprop="datePublished">2016-05-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2016-05-10/package-management-with-paket-and-gist/">PaketとGistで始める簡単パッケージ管理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://qiita.com/vain0x/items/41f13fed6f88be7f4e7e" target="_blank" rel="noopener">Qiita</a></p>
-<p>対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)</p>
-<h2 id="導入"><a href="#導入" class="headerlink" title="導入"></a>導入</h2><p>モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。<br>最初に思いつきそうな:</p>
-<ul>
-<li>スクリプトが必要になるたびに、ファイルをコピーを作成して使う。(コピペ法)</li>
-</ul>
-<p>という方法だと、例えばモジュールにバグがあった場合などにモジュールを書き換えた後、それらのコピーを上書きして回ることになります。<br>めんどうですね。</p>
-<p>そのため:</p>
-<ul>
-<li>ファイルをまとめておいておき、それを直接 #include して使う。 (共有法)</li>
-</ul>
-<p>というようにしている人も少なくないでしょう。</p>
-<p>しかし、これにも少し問題があります。<br>スクリプトを配布するときに、どのファイルが必要なのか分からなくなるのです。<br>単純に「#include されているファイル」を集めるだけでは、「あるモジュールが他のモジュールを使用している」といった状況には対処できません。</p>
-<p>※不要なものも全部いっしょくたにして同梱してしまう、という富豪的な方法もあります。</p>
-<h2 id="パッケージ管理ツール"><a href="#パッケージ管理ツール" class="headerlink" title="パッケージ管理ツール"></a>パッケージ管理ツール</h2><p>さて、私がおすすめするのは、パッケージ管理ツールと呼ばれるツールを使用することです。<br>ここでは <a href="http://fsprojects.github.io/Paket" target="_blank" rel="noopener">Paket</a> を利用します。</p>
-<p>※Paket は HSPとは全く無関係な環境ために開発されているものですが、汎用的な機能を備えており、使うのがとても簡単なので、採用しています。</p>
-<h2 id="Paket-をインストールする"><a href="#Paket-をインストールする" class="headerlink" title="Paket をインストールする"></a>Paket をインストールする</h2><p>まず始めに、ひとまとまりのソフトウェアのスクリプトを入れていくためのフォルダを1個作ります。<br>以下、このフォルダを <strong>ソリューションルート</strong> と呼びます。</p>
-<p>次に、ソリューションルートに <code>.paket</code> という名前のフォルダを作ります。<br>(エクスプローラーでは、 <code>.paket.</code> という名前のフォルダを作ろうとすると、 <code>.paket</code> フォルダが作られます。興味深い。)<br>そこに、「<a href="https://github.com/fsprojects/Paket/releases/latest" target="_blank" rel="noopener">Paket の最新版</a>」から <code>paket.bootstrapper.exe</code> をダウンロードして配置し、実行します。<br>すると、最新版の <code>paket.exe</code> がダウンロードされます。<br>Paket のインストール作業はこれで完了です。簡単でしょう？</p>
-<h2 id="モジュールを使用する"><a href="#モジュールを使用する" class="headerlink" title="モジュールを使用する"></a>モジュールを使用する</h2><p>スクリプトからモジュールを使用するときの作業を解説します。<br>例として、拙作の dirlist_rec モジュールをインストールしてみます。</p>
-<blockquote>
-<p><a href="https://gist.github.com/vain0x/561a66531363ab1e0e73" target="_blank" rel="noopener">https://gist.github.com/vain0x/561a66531363ab1e0e73</a></p>
-</blockquote>
-<p>ソリューションルートに、 <code>paket.dependencies</code> という名前のファイルを作り、次のように記述します。<br>(すでにある場合は書き足します。)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gist vain0x/561a66531363ab1e0e73 dirlist_rec.hsp</span><br></pre></td></tr></table></figure>
-<p>※真ん中にある「vain0x/英数字」は、URLの末尾です。</p>
-<p><code>paket.dependencies</code> を更新したら、「paket install コマンド」を実行する必要があります。<br>そのためには、ソリューションルートをエクスプローラーで開き、「Shift キーを押しながら、ソリューションルートのフォルダを右クリック」して、「コマンドプロンプトを開く」メニューを選びます。<br>黒いコンソール画面が出てくるので、そこに次のように入力して enter を押します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.paket\paket install</span><br></pre></td></tr></table></figure>
-<p>すると、 <code>paket-files</code> フォルダの深いところに、 <code>dirlist_rec.hsp</code> がダウンロードされます。</p>
-<p>モジュールを実際に使ってみましょう。<br>ソリューションルートの下に <code>app</code> フォルダを作り、そこに <code>main.hsp</code> ファイルを作成して、以下のように記述してみます。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;../paket-files/vain0x/561a66531363ab1e0e73/dirlist_rec.hsp&quot;</span><br><span class="line"></span><br><span class="line">  dirlist_rec paths, &quot;*.*&quot;</span><br><span class="line">  repeat stat</span><br><span class="line">    mes paths(cnt)</span><br><span class="line">  loop</span><br></pre></td></tr></table></figure>
-<p>dirlist_rec モジュールが使えていますね。</p>
-<h3 id="その他のコマンド"><a href="#その他のコマンド" class="headerlink" title="その他のコマンド"></a>その他のコマンド</h3><p>paket には install のほかにもたくさんコマンドがありますが、2つだけ紹介しておきます。<br>「.paket\paket update」を使うと、モジュールの最新版をダウンロードしてきます。<br>「.paket\paket outdated」を使うと、使用しているモジュールの、新しいバージョンがあるかを調べることができます。</p>
-<h2 id="モジュールを公開する"><a href="#モジュールを公開する" class="headerlink" title="モジュールを公開する"></a>モジュールを公開する</h2><p>最後に、モジュールを公開する方法を説明します。<br>ここでは一番簡単な、Gist というウェブサイトを使用する方法をとります。</p>
-<p>まず Github のアカウント(無料)を取得します。</p>
-<blockquote>
-<p><a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a></p>
-</blockquote>
-<p>ログインしてから、<a href="https://gist.github.com" target="_blank" rel="noopener">Gist</a> に行きます。<br>見て分かると思いますが、「Filename including extension…」と書かれた小さな入力欄に「ファイル名.hsp」を書き、大きいテキストボックスにスクリプトを貼り付けて、「Create secret/public gist」 を押せばアップロード完了です。</p>
-<p>※secret gist で公開すると、検索にひっかからないので、URLを知っている人だけがアクセスできるようになります。</p>
-<h2 id="モジュールの依存関係を記述する"><a href="#モジュールの依存関係を記述する" class="headerlink" title="モジュールの依存関係を記述する"></a>モジュールの依存関係を記述する</h2><p>モジュールが他のモジュールを使用している場合は、そのことを Paket に教えておくと便利です。<br>というのも、Paket はあるモジュールをダウンロードするとき、それが必要とする他のモジュールも一緒にダウンロードしてくれるのです。</p>
-<p>そのためには、先ほどスクリプトを書いて公開した Gist のページに行き、「Edit」ボタンを押して編集画面を開き、「Add file」ボタンを押します。</p>
-<p>新しいファイルには、やはり <code>paket.dependencies</code> という名前をつけて、上で例にあげたのと同様に「gist 誰々/英数字 ファイル名」などと書きます。<br>「Update」(更新)ボタンを押して保存するのを忘れませんよう。</p>
-<p>こうしておけば前述の通り、そのモジュールが paket install される際に、<br>必要な他のモジュールも一緒にダウンロードされるようになります。</p>
-<p>これが役に立つ場面もあることでしょう。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/" data-id="cjrghybf5000klqcxygg9gjy6" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/HSP/">HSP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Paket/">Paket</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/パッケージ管理/">パッケージ管理</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/blog/page/2/">&laquo; 前へ</a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/blog/page/2/">&laquo; 前へ</a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><a class="extend next" rel="next" href="/blog/page/4/">次へ &raquo;</a>
   </nav>
 
 </section>
@@ -990,23 +1021,23 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/blog/2019-02-26/interpreter-written-in-hsp3/">HSP3 でスクリプト言語の処理系を書く 再挑戦編</a>
+          </li>
+        
+          <li>
             <a href="/blog/2019-01-30/diary/">近況 2019-01-30</a>
           </li>
         
           <li>
-            <a href="/blog/2019-01-05/lsp-trial-01/">LSP学習記 #1</a>
+            <a href="/blog/2019-01-16/lsp-trial-04/">LSP学習記 #4 シンボルのリネーム</a>
           </li>
         
           <li>
-            <a href="/blog/2018-12-31/diary/">近況 2018-12-31</a>
+            <a href="/blog/2019-01-10/lsp-trial-03/">LSP学習記 #3 シンボルとハイライト</a>
           </li>
         
           <li>
-            <a href="/blog/2018-12-16/siku-siku-primes/">シクシク素数列を F# でやってみた</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+            <a href="/blog/2019-01-07/lsp-trial-02/">LSP学習記 #2 クラゲ言語の構文解析</a>
           </li>
         
       </ul>
@@ -1018,7 +1049,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">タグクラウド</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/NET/" style="font-size: 11.67px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 16.67px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 15px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 10px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 13.33px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 13.33px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 10px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 13.33px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.67px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 18.33px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.67px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 11.67px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 13.33px;">非同期</a>
+      <a href="/blog/tags/NET/" style="font-size: 11.67px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 16.67px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 15px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP/" style="font-size: 10px;">LSP</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 15px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 13.33px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 13.33px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 15px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 13.33px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/エッセイ/" style="font-size: 10px;">エッセイ</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.67px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 18.33px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.67px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 16.67px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 13.33px;">非同期</a>
     </div>
   </div>
 
