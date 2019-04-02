@@ -88,6 +88,77 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-intellisense-comfortable" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-01-13/intellisense-comfortable/" class="article-date">
+  <time datetime="2018-01-13T14:08:23.000Z" itemprop="datePublished">2018-01-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-01-13/intellisense-comfortable/">インテリセンス快適な構文とAPI</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>インテリセンスの快適さと言語の構文に関するエッセイ。</p>
+<h2 id="Intellisensability"><a href="#Intellisensability" class="headerlink" title="Intellisensability"></a>Intellisensability</h2><p>コードを書いているときに入力補完の候補とその概要がポップアップメニューに出てくるやつを <strong>インテリセンス</strong> と呼ぶことにします。インテリセンスを使うとコードを書くのが楽になりますが、頻繁に暴発する場合は逆に手間になります。インテリセンスが役に立っている状態を <strong>インテリセンス快適</strong> と呼ぶことにします。</p>
+<h2 id="インテリセンス快適な構文"><a href="#インテリセンス快適な構文" class="headerlink" title="インテリセンス快適な構文"></a>インテリセンス快適な構文</h2><h3 id="暴発の例-既知の単語と新しい単語"><a href="#暴発の例-既知の単語と新しい単語" class="headerlink" title="暴発の例: 既知の単語と新しい単語"></a>暴発の例: 既知の単語と新しい単語</h3><p>インテリセンスが暴発しやすい状況の1つに、ユーザーが新しい単語を書こうとしているときに、既存の単語を補完候補に出してしまう現象があります。ここでいう新しい単語とは、まだ定義を書いていない変数や関数の名前です。例えば1引数のラムダ式 (関数オブジェクトのリテラル) の構文が <code>&lt;parameter&gt; =&gt; &lt;expression&gt;</code> だったとして、次のようなコードを書くと、</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xs = <span class="keyword">new</span>[] &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line">xs.Select(x =&gt; x + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>最後の行の <code>xs.Select(</code> の後、入力補完は <code>Select</code> の引数として式を期待して使用可能な名前 (<code>xs</code> など) を補完しようとし、入力しようとしている単語 (<code>x</code>) をハイジャックしがちです。</p>
+<p>一方、同じ種類のラムダ式の構文が <code>fun &lt;parameter&gt; -&gt; &lt;expression&gt;</code> だった場合、これは <code>fun</code> キーワードの直後の式は新しい単語ではないので、入力補完を抑制 <strong>でき</strong> ます。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> xs = [|<span class="number">1</span>; <span class="number">2</span>; <span class="number">3</span>|]</span><br><span class="line"></span><br><span class="line">xs |&gt; Array.map (<span class="keyword">fun</span> x -&gt; x + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="暴発の例-参照と定義の語順"><a href="#暴発の例-参照と定義の語順" class="headerlink" title="暴発の例: 参照と定義の語順"></a>暴発の例: 参照と定義の語順</h3><p>似たような例として、語順の問題もあります。例えば次の関数の定義では、型パラメーター <code>T</code> を定義される位置 (<code>&lt;T&gt;</code>) より前の位置 (<code>T Identity</code>) に書かなければいけませんが、この段階では補完候補として <code>T</code> が現れないので、他の <code>T</code> から始まる単語を入力しがちです。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C#</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> T Identity&lt;T&gt;(T <span class="keyword">value</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一方 Java では、型パラメーターを定義する位置を移動することにより、この問題を解決しています。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">identity</span><span class="params">(T value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最近見つけた別の例に TypeScript の <code>import</code> があります。これは他のファイル (モジュール) にある定義を参照できるようにするための構文で、次のように書けます:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// "./other.ts" で定義されている A, B, C を修飾なしで参照可能にする。</span></span><br><span class="line"><span class="keyword">import</span> &#123; A, B, C &#125; <span class="keyword">from</span> <span class="string">"./other"</span>;</span><br></pre></td></tr></table></figure>
+<p>波括弧の中を入力している段階では、どのモジュールを参照するつもりなのかインテリセンスが知らないので、入力補完は起きません。しかし、先に <code>import { } from &quot;./other&quot;;</code> と書いてから波括弧の中に戻ることで入力補完ができるようになります。もし語順が逆だったら、カーソルの移動なしで入力補完ができていたでしょう:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 擬似コード</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">"./other"</span> &#123; A, B, C &#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="快適な構文の例-ドット記法"><a href="#快適な構文の例-ドット記法" class="headerlink" title="快適な構文の例: ドット記法"></a>快適な構文の例: ドット記法</h3><p>C系の構文を持つオブジェクト指向言語 (C++ とか) では <code>x.m</code> でメンバーを参照しますが、 <code>.</code> を入力したときに入力補完が起こるのが通例です。これにより、入力中の式に対して可能な操作をワンタッチで検索でき、メモリアクセスの負荷を減らします。</p>
+<p>前述の上のコードにある <code>xs.Select</code> についても、配列 <code>xs</code> に対する map 操作の名前を忘れても <code>xs.</code> と書いた瞬間に候補が出て、それをざっと眺めれば <code>Select</code> を思い出すことができるはずです。(たぶん)</p>
+<p>一方、前述の下のコード (<code>xs |&gt; Array.map</code>) では、<code>xs</code> を書いた後に配列の操作が <code>Array</code> モジュール (※名前空間のようなもの) に含まれていることを思い出さなければ連鎖を続けることができません。ややインテリセンス快適さを損ねます。</p>
+<p>C# には、型の定義に対して非侵入的にメソッドを増やすことができる、拡張メソッドという糖衣構文があり、これのおかげでインテリセンス快適さがかなり高まります。前述の <code>Select</code> がその一例です。拡張メソッドを定義するには、関数の定義の第一引数に <code>this</code> というキーワードをつければいいのですが、</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定義側</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">Scream</span>(<span class="params"><span class="keyword">this</span> <span class="keyword">string</span> message</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> message.ToUpper() + <span class="string">"!"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 参照側</span></span><br><span class="line"><span class="keyword">var</span> message = <span class="string">"hello"</span>.Scream(); <span class="comment">// Scream("hello") の糖衣構文</span></span><br><span class="line">Console.WriteLine(message); <span class="comment">//=&gt; HELLO!</span></span><br></pre></td></tr></table></figure>
+<p>もしこの制約がなかったら、 <code>&quot;hello&quot;.</code> と入力した瞬間に第一引数の型が <code>string</code> であるすべての関数が候補に上がってしまい、一覧性を失います。</p>
+<h2 id="インテリセンス快適でないAPIの例"><a href="#インテリセンス快適でないAPIの例" class="headerlink" title="インテリセンス快適でないAPIの例"></a>インテリセンス快適でないAPIの例</h2><p>最高にインテリセンス快適な状況は、入力したい単語の一部を数文字入力した時点で、候補リストの一番上にその単語が現れて、そのままコミットするという流れです。候補に現れても一番上でなければ、マウスで選択するにせよ、カーソル移動するにせよ、追加の手間がかかります。</p>
+<p>API の設計によってインテリセンスの検索性を損ねることがあります。C# で、もし2つの値が等しいことを表明する関数が <code>Assert.Equal</code> (<code>Assert</code> モジュールの中の <code>Equal</code> 関数) だったら、 <code>Assert.Equals</code> (すべての型に継承される関数の1つ) と混乱します。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等しくなければ表明エラー</span></span><br><span class="line">Assert.Equal(actual, expected);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 何も起こらない。</span></span><br><span class="line">Assert.Equals(left, right);</span><br></pre></td></tr></table></figure>
+<p>これは日本語入力の際に「か」(→ 火 可 …)などを漢字変換するときの問題に似ています。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>言語やAPIはインテリセンス快適さをなるべく損ねないように作りましょう。</p>
+<h2 id="関連リンク"><a href="#関連リンク" class="headerlink" title="関連リンク"></a>関連リンク</h2><ul>
+<li>id:tosaka2(2016)「グラニ インターン体験記」, <a href="http://tosaka2.hatenablog.com/entry/2016/09/27/183801" target="_blank" rel="noopener">http://tosaka2.hatenablog.com/entry/2016/09/27/183801</a> 2018年1月12日アクセス.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/" data-id="cjrghybfh0016lqcxyh1qi17s" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/プログラミング言語/">プログラミング言語</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-sql-search-only-keys" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018-01-05/sql-search-only-keys/" class="article-date">
@@ -842,169 +913,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-reports-with-wpf" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2016-12-25/reports-with-wpf/" class="article-date">
-  <time datetime="2016-12-24T15:00:00.000Z" itemprop="datePublished">2016-12-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2016-12-25/reports-with-wpf/">WPF/XAMLで帳票のデザイン・印刷を行う</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://qiita.com/vain0x/items/0ec44dc198433675ea2f" target="_blank" rel="noopener">Qiita</a></p>
-<p>※これは <a href="http://qiita.com/advent-calendar/2016/xaml" target="_blank" rel="noopener">XAML Advent Calendar 2016</a> の25日目の記事です。</p>
-<p>WPF/XAML を使って帳票のデザインから印刷までやってみたという話です。ソースコードが GitHub にありますので、それと同様にやればできます。</p>
-<p><a href="https://github.com/vain0x/VainZero.WpfReportPrinting" target="_blank" rel="noopener">vain0x/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル</a></p>
-<h2 id="要約"><a href="#要約" class="headerlink" title="要約"></a>要約</h2><ul>
-<li>XAML というマークアップ言語で帳票のデザインから印刷までできれば、たくさんの利点がある。</li>
-<li>WPF アプリケーションで帳票のプレビューや印刷を行うサンプルを作った。</li>
-<li>ページネーションが大変だったけどなんとかなった。</li>
-</ul>
-<h2 id="前提知識"><a href="#前提知識" class="headerlink" title="前提知識"></a>前提知識</h2><p>XAML、WPF について簡単に説明します。</p>
-<p>XAML とは、GUIアプリケーションの外観を記述するマークアップ言語です。WEB 系の人には「HTML+CSS みたいなもの」といえばイメージしやすいのではないでしょうか。</p>
-<p>WPF とは、XAML と .NET 言語 (C# など) を用いて、Windows PC 用のネイティヴ アプリケーションを作るためのフレームワークです。XAML は WPF 以外でも使いますが、筆者は WPF しかやったことがないので、ひとまず本稿のターゲットは WPF のみとします。</p>
-<h2 id="利点"><a href="#利点" class="headerlink" title="利点"></a>利点</h2><p>WPF/XAML で帳票を作ることにはいくつかの利点があります。</p>
-<ul>
-<li><strong>無料</strong><ul>
-<li>WPFは Visual Studio (無料) をインストールすれば無料で使えます。商用利用する場合は、Visual Studio の有償ライセンスを購入することで、やはりWPFは無料で使えます。</li>
-</ul>
-</li>
-<li><strong>学習コストの削減</strong><ul>
-<li>本稿と先述のソースコードをご覧いただければ、みなさんはWPFの知識だけで帳票のデザインから印刷まで行えるようになります。すなわち、帳票フレームワークに習熟するコストを省略できるわけです。</li>
-<li>特に、帳票フレームワーク固有のデザイナーではなく、Visual Studio の高機能なXAMLデザイナーを利用して、プレビューを見ながらデザインを行える、というのも大きな利点です。これについては、参考リンクのブログ記事が詳しいです。</li>
-</ul>
-</li>
-<li><strong>プレビューの容易さ</strong><ul>
-<li>詳しくは後述しますが、帳票をXAMLで作ることで、プレビューはほぼ完璧にできます。プレビュー機能もWPFで簡単に実装でき、メインのアプリケーションとシームレスに繋がります。</li>
-</ul>
-</li>
-<li><strong>ビューモデルの流用</strong><ul>
-<li>帳票として印刷するデータ (GUIオブジェクト) の背景となるデータ構造として、WPFアプリケーションにあるものをそのまま使えることがあります。例えば、ユーザーが画面上の入力フォームにデータを記入し、それと等価な帳票を印刷する、といった場合です。</li>
-</ul>
-</li>
-<li><strong>XAML本来の利点</strong>――拡張性、可変レイアウト、など<ul>
-<li>XAMLの売りとして、あらゆる要素の外観を完全にカスタマイズできる、というのがあります。これは帳票の用途にも役立つでしょう。実際、今回のサンプルでもスタイル機能をふんだんに活用しています。</li>
-<li>ウィンドウサイズを意識することなくウィンドウをデザインできるのと同様に、用紙サイズを意識することなく帳票を作れます。</li>
-</ul>
-</li>
-</ul>
-<h2 id="簡単な帳票"><a href="#簡単な帳票" class="headerlink" title="簡単な帳票"></a>簡単な帳票</h2><p>まずは簡単な帳票を例に挙げて、印刷する方法まで一通り解説します。簡単な帳票とは、タイトルがどーんとあって、日付が右寄せで、あとは本文という感じです。まずはプレビュー画面のスクリーンショットをご覧ください。</p>
-<img src="/blog/2016-12-25/reports-with-wpf/hello-world-report.png" title="簡単な帳票のプレビュー画面">
-<p>ビューモデルと XAML は次のようになっています。UI要素はプレビュー用と印刷用の2つ (以上) をインスタンス化する必要があるので、 DataTemplate の形で定義しています。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 印刷するページに対応するビューモデル。</span></span><br><span class="line"><span class="comment">// データをXAML側に埋め込んでしまったので中身がない。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">HelloWorldPageViewModel</span></span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">    上記のビューモデルの表示方法を定義するテンプレート。</span></span><br><span class="line"><span class="comment">    Window.Resources プロパティの下に配置する。</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">DataTemplate</span> <span class="attr">DataType</span>=<span class="string">"&#123;x:Type local:HelloWorldPageViewModel&#125;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grid</span> <span class="attr">Margin</span>=<span class="string">"30"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">StackPanel</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">TextBlock</span> <span class="attr">HorizontalAlignment</span>=<span class="string">"Center"</span> <span class="attr">FontSize</span>=<span class="string">"30"</span> <span class="attr">Text</span>=<span class="string">"ハローワールド"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">TextBlock</span> <span class="attr">HorizontalAlignment</span>=<span class="string">"Right"</span> <span class="attr">Text</span>=<span class="string">"2007/08/31"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">TextBlock</span> <span class="attr">Text</span>=<span class="string">"Hello, world!"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">DataTemplate</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="プレビュー"><a href="#プレビュー" class="headerlink" title="プレビュー"></a>プレビュー</h3><p>帳票のデザインが終わったので、次はプレビューです。</p>
-<p>プレビューは、簡単にいえば、上に書いた XAML を「紙っぽいパネル」に載せるだけです。紙っぽさの演出についてはソースコードを参照してください。</p>
-<p>ここで重要なのは紙のサイズ (A4 とか) です。というのも、ページネーションや文章の折り返しなどが用紙サイズに依存してしまうため、プレビュー時点で用紙サイズを決定しておくのが無難です。(もちろんプレビューをしないというのも1つの手です。)</p>
-<p>用紙サイズ (mm 単位) から要素のサイズを換算するには、dpi を知る必要がありますが、ここで嬉しいお知らせがあります。後述するように、印刷時にはUI要素を FixedDocument というクラスの子孫要素に配置するのですが、FixedDocument の中身は 96dpi で固定されます。すなわち、FixedDocument の中身 (印刷するデータ) を 96dpi 決め打ちで作成しておけば、その FixedDocument を 600dpi のレーザープリンターに送信しても、同じ見栄えのものが印刷されるようになっています。 (参考: <a href="https://msdn.microsoft.com/ja-jp/library/ms748388%28v=vs.110%29.aspx?f=255&amp;MSPPError=-2147217396" target="_blank" rel="noopener">WPF のドキュメント</a>)</p>
-<p>要するに、印刷するデータは 96dpi で作ればよいわけです。</p>
-<p>例えば A4 (縦) は、ISO 規格で 210mm×297mm と決まっており、1 inch = 25.40 mm 、1 inch = 96 pixel で換算すれば 793.70×1122.52 となります。このサイズで作った紙っぽいパネルにページの中身を配置すれば、実際に印刷されるのと同じ見栄えのプレビューを表示できます。</p>
-<p>次は印刷です。</p>
-<h3 id="プリンターの選択"><a href="#プリンターの選択" class="headerlink" title="プリンターの選択"></a>プリンターの選択</h3><p>どのプリンターで印刷するかは、ユーザーに選択させる方法と、プログラム側で指定する方法の2通りがあります。</p>
-<p>ユーザーに選択させる場合は、 <code>System.Windows.Controls</code> 名前空間の <code>PrintDialog</code> クラスを使います。(参考: <a href="https://msdn.microsoft.com/ja-jp/library/system.windows.controls.printdialog%28v=vs.110%29.aspx?f=255&amp;MSPPError=-2147217396" target="_blank" rel="noopener">PrintDialog クラス (System.Windows.Controls)</a>)</p>
-<p>なお、プレビュー画面で選択された用紙サイズを印刷ダイアログの初期設定値にする方法は <del>時間が足りず調べられていません</del> 読者の演習課題とします。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Windows.Controls;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> printDialog = <span class="keyword">new</span> PrintDialog();</span><br><span class="line">    <span class="keyword">var</span> result = printDialog.ShowDialog();</span><br><span class="line">    <span class="keyword">if</span> (!result.HasValue || !result.Value)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 印刷ダイアログがキャンセルされた。</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 後の工程で使用する。</span></span><br><span class="line">    <span class="keyword">var</span> queue = printDialog.PrintQueue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>プログラム側で指定する場合は、プリントサーバーというのを使用するようです。詳しくは読者の演習課題とします。</p>
-<p>ここでは、コンピューター自身を表すサーバー (localhost みたいなもの) である <code>LocalPrintServer</code> から、デフォルトのプリンターを指定する方法をとります。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// System.Printing を参照に追加する必要があります。</span></span><br><span class="line"><span class="keyword">using</span> System.Printing;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params">Size pageSize</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> printServer = <span class="keyword">new</span> LocalPrintServer();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 既定のプリンターを表す PrintQueue を取得する。</span></span><br><span class="line">    <span class="keyword">var</span> queue = printServer.DefaultPrintQueue;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// プレビュー画面で用紙サイズを選択させる場合は、用紙サイズを設定しておく。</span></span><br><span class="line">    <span class="keyword">var</span> ticket = queue.PrintTicket;</span><br><span class="line">    ticket.PageMediaSize = <span class="keyword">new</span> PageMediaSize(pageSize.Width, pageSize.Height);;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="FixedDocument-の生成"><a href="#FixedDocument-の生成" class="headerlink" title="FixedDocument の生成"></a>FixedDocument の生成</h3><p>先述の通り、印刷するデータを持つ FixedDocument のインスタンスを用意します。この作業は再利用可能な形式にしてあります。</p>
-<p>まず「印刷するデータを複数のページに分割する」機能 (ページネーション) を提供するインターフェイスを定義しておきます。<code>IPaginatable</code> と呼びましょう。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Windows;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IPaginatable</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> ページのサイズを受け取って、オブジェクトのリストを返す。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> リストに含まれる各オブジェクトは、それぞれ1つのページの中身を表す。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function">IReadOnlyList&lt;<span class="keyword">object</span>&gt; <span class="title">Paginate</span>(<span class="params">Size pageSize</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>いま例にとっているハローワールド帳票では、常に1つのページになりますので、Paginate メソッドは1つのオブジェクトを返せばよいわけです。次のようになります。 [^ireport]</p>
-<p>[^ireport]: GitHub においてあるソースコードでは、HelloWorldReport は IPaginatable だけでなく、IPaginatable を拡張する IReport というインターフェイスを実装していますが、それはサンプルの都合です。あまり気にしなくてかまいません。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">sealed</span> <span class="keyword">class</span> <span class="title">HelloWorldReport</span></span><br><span class="line">    : <span class="title">IPaginatable</span></span><br><span class="line">&#123;</span><br><span class="line">    IReadOnlyList&lt;<span class="keyword">object</span>&gt; Pages &#123; <span class="keyword">get</span>; &#125; =</span><br><span class="line">        <span class="keyword">new</span> <span class="keyword">object</span>[]</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">new</span> HelloWorldPageViewModel(),</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IReadOnlyList&lt;<span class="keyword">object</span>&gt; <span class="title">Paginate</span>(<span class="params">Size size</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> Pages;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>あとは次の拡張メソッドを呼ぶだけです。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">PaginatableExtension</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> FixedDocument</span><br><span class="line">        ToFixedDocument(<span class="keyword">this</span> IPaginatable paginatable, Size pageSize)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> document = <span class="keyword">new</span> FixedDocument();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> content <span class="keyword">in</span> paginatable.Paginate(pageSize))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> presenter =</span><br><span class="line">                <span class="keyword">new</span> ContentPresenter()</span><br><span class="line">                &#123;</span><br><span class="line">                    Content = content,</span><br><span class="line">                    Width = pageSize.Width,</span><br><span class="line">                    Height = pageSize.Height,</span><br><span class="line">                &#125;;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> page =</span><br><span class="line">                <span class="keyword">new</span> FixedPage()</span><br><span class="line">                &#123;</span><br><span class="line">                    Width = pageSize.Width,</span><br><span class="line">                    Height = pageSize.Height,</span><br><span class="line">                &#125;;</span><br><span class="line">            page.Children.Add(presenter);</span><br><span class="line"></span><br><span class="line">            page.Measure(pageSize);</span><br><span class="line">            page.Arrange(<span class="keyword">new</span> Rect(<span class="keyword">new</span> Point(<span class="number">0</span>, <span class="number">0</span>), pageSize));</span><br><span class="line">            page.UpdateLayout();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> pageContent = <span class="keyword">new</span> PageContent() &#123; Child = page &#125;;</span><br><span class="line">            document.Pages.Add(pageContent);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> document;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>このメソッドは、Paginate メソッドが返したリストの各要素につき、それを固定サイズの ContentPresenter に入れて、それを FixedPage に入れて、それを PageContent に入れて、それを FixedDocument に入れる、という感じです。</p>
-<p>こうして FixedDocument を手に入れました。</p>
-<h3 id="プリンターへの送信"><a href="#プリンターへの送信" class="headerlink" title="プリンターへの送信"></a>プリンターへの送信</h3><p>最後に、この FixedDocument を、選択されたプリンターに送信すれば完了です。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// System.Printing の参照を追加する必要があります。</span></span><br><span class="line"><span class="keyword">using</span> System.Printing;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> writer = PrintQueue.CreateXpsDocumentWriter(queue);</span><br><span class="line">    writer.Write(document);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>できました。</p>
-<h2 id="複雑な帳票"><a href="#複雑な帳票" class="headerlink" title="複雑な帳票"></a>複雑な帳票</h2><p>次に複数ページの帳票、すなわちページネーションの方法を解説します。</p>
-<p>まずはプレビュー画面のスクリーンショットをごらんください。</p>
-<img src="/blog/2016-12-25/reports-with-wpf/paginated-report.png" title="ページネーションを含む帳票のスクリーンショット">
-<p>XAML は結構な分量なので省略します。表の部分には、 <del>スタイルをガチガチに決めた DataGrid</del> <strong>HeaderedGrid という DataGrid のようなもの</strong> [^DataGrid_issue]を使用しています。</p>
-<p>[^DataGrid_issue]: 一部のプリンターでは、DataGrid や ListView のレイアウトが乱れてしまう、という問題があるようです。これについては調査中です。DataGrid を使用していたころのバージョンは、タグ <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/tree/v1.2.0" target="_blank" rel="noopener">v1.2.0</a> にあります。</p>
-<p>簡単な帳票との差は、Paginate メソッドの実装だけです。</p>
-<h3 id="Paginate"><a href="#Paginate" class="headerlink" title="Paginate"></a>Paginate</h3><p>ここでは実際にUI要素をインスタンス化することでページネーションを行います。(というか、それ以外にうまい方法があるのでしょうか。)</p>
-<p>おおまかな手順は次の通りです。</p>
-<ol start="0">
-<li>すべての行のデータを持った帳票を生成する。</li>
-<li>帳票の中にある ScrollViewer を見つける。<ul>
-<li>Visual Tree を辿ればよい。詳しくは参考リンクにあるブログ記事を参照。</li>
-</ul>
-</li>
-<li>「スクロールなしで見えている行の数」を数える。<ul>
-<li>ScrollViewer.ViewportHeight が「スクロールなしで見える範囲の実際の高さ (ピクセル単位)」になっているので、各行の高さ (ActualHeight) の和がそれを超えない範囲を調べる。</li>
-</ul>
-</li>
-<li>それらの行からなる帳票を生成する。これを1ページとする。</li>
-<li>前のページに含まれる行を非表示にする。</li>
-<li>次のページに表示すべき行だけが表示された状態になるので、繰り返し。</li>
-</ol>
-<p>実際のソースコードはやや長いので、最初に張ったリンクから見てもらえればと思います。帳票の定義は Demo プロジェクトの <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/blob/v1.3.0/VainZero.WpfReportPrinting.Demo/Reports/OrderForm.cs" target="_blank" rel="noopener">Reports/OrderForm.cs</a> の中にあります。ページネーションは、 Core プロジェクトの <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/blob/v1.3.0/VainZero.WpfReportPrinting.Core/Windows/Documents/ISingleHeaderedGridPage.cs" target="_blank" rel="noopener">Windows/Documents/ISingleHeaderedGridPage.cs</a> にあります。</p>
-<h2 id="サンプルプログラムの概略"><a href="#サンプルプログラムの概略" class="headerlink" title="サンプルプログラムの概略"></a>サンプルプログラムの概略</h2><p>必殺「ソースコードをごらんください」を思ったより使ってしまったので、サンプルプログラムの概略について説明します。</p>
-<p>念のためリンクを再掲します:<br><a href="https://github.com/vain0x/VainZero.WpfReportPrinting" target="_blank" rel="noopener">vain0x/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル</a></p>
-<h3 id="ソリューション構成"><a href="#ソリューション構成" class="headerlink" title="ソリューション構成"></a>ソリューション構成</h3><p>ソリューションは <code>VainZero.WpfReportPrinting.Core</code> と <code>VainZero.WpfReportPrinting.Demo</code> の2つのプロジェクトからなります。</p>
-<p>前者 (<code>.Core</code>) は再利用可能な部品で、そのまま流用できるようになっています。中身は、先述の <code>IPaginatable</code> とその拡張メソッド、および VisualTree がらみの小さな拡張メソッドです。</p>
-<p>後者 (<code>.Demo</code>) は、帳票のプレビューと印刷の機能を持つアプリケーションです。印刷時のオプションは多数ありますので、これをベースにして、必要によりカスタマイズしながら作るのがよいと思います。</p>
-<h3 id="使い方"><a href="#使い方" class="headerlink" title="使い方"></a>使い方</h3><p>まず使い方から説明します。</p>
-<p><code>.Demo</code> アプリを実行すると、ウィンドウが1つ表示されます。まずは左側のペインにあるリストボックスで、プレビューする帳票の種類を選びます。種類というのは、本稿で挙げた「簡単な帳票」(ハローワールド)と「複雑な帳票」(注文書)の2つです。</p>
-<p>右側ペインの上部には、コンボボックスと印刷ボタンがあります。左端のコンボボックスでは、紙のサイズを指定します。紙のサイズが変わるたびにページネーションが再計算されるのがミソです。</p>
-<p>右側ペインの残りの部分はプレビューです。</p>
-<p>印刷ボタンを押すと、デフォルトのプリンターで印刷されます。(印刷ダイアログは表示されません。)</p>
-<h3 id="実装"><a href="#実装" class="headerlink" title="実装"></a>実装</h3><p>メインウィンドウ (MainWindow.xaml) の中身は、1つの <code>SampleReportPreviewer</code> クラス (を DataTemplate で表示したもの) であり、これは先述の通り「左側ペイン」(帳票セレクター/<code>Reports.ReportSelector</code>)と「右側ペイン」(プレビューアー/<code>Previewing.Previewer</code>)からなります。</p>
-<p><code>ReportSelector</code> は本当にただの <code>ListBox</code> ですが、2つ注意するところがあります。</p>
-<p>1点は、<a href="https://github.com/runceel/ReactiveProperty" target="_blank" rel="noopener">ReactiveProperty</a> というクラスです。これは平たくいえば次のようなクラスです (※実際の定義ではありません)。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class ReactiveProperty&lt;T&gt;</span><br><span class="line">    : INotifyPropertyChanged</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">event</span> PropertyChangedEventHandler PropertyChanged;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> T _value;</span><br><span class="line">    <span class="keyword">public</span> T Value</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123; <span class="keyword">return</span> _value; &#125;</span><br><span class="line">        <span class="keyword">set</span></span><br><span class="line">        &#123;</span><br><span class="line">            _value = <span class="keyword">value</span>;</span><br><span class="line">            PropertyChanged?.Invoke(<span class="keyword">this</span>, <span class="keyword">new</span> PropertyChangedEventArgs(<span class="keyword">nameof</span>(Value)));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>値をこれでラップしておくことで、 <code>INotifyPropertyChanged</code> の実装をいちいち手書きする (あるいは継承する) 必要がなくなる、という寸法ですね。</p>
-<p>もう1点は、リストボックスの各要素の型である <code>IReport</code> です。注釈にも書きましたが、これは <code>IPaginatable</code> に1つのプロパティを加えただけのインターフェイスです。そのプロパティ (<code>ReportName</code>) というのは、単にリストボックスの各項目に表示するための名前(文字列)です。そのため、<code>IPaginatable</code> と同じだと思ってかまいません。</p>
-<p>さて、プレビューアーにあるコンボボックスも同様のことに気をつければ問題ないはずです。</p>
-<p><code>Previewer</code> のコンストラクターにある <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/blob/v1.1.0/VainZero.WpfReportPrinting.Demo/Previewing/Previewer.cs#L42" target="_blank" rel="noopener">この式</a> は、Rx を知らないと読み解けないかもしれません。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Pages =</span><br><span class="line">    Report.CombineLatest(</span><br><span class="line">        MediaSizeSelector.SelectedSize,</span><br><span class="line">        (r, pageSize) =&gt; r.Paginate(pageSize)</span><br><span class="line">    )</span><br><span class="line">    .ToReadOnlyReactiveProperty();</span><br></pre></td></tr></table></figure>
-<p>これは平たくいえば「<code>Report</code>, <code>MediaSizeSelector.SelectedSize</code> の最新の値を <code>r</code>, <code>pageSize</code> とするとき、 <code>r.Paginate(pageSize)</code> の結果を <code>Pages</code> の値とする」という意味です。もう少し手続き的にいえば、まず <code>Report</code> と <code></code>MediaSizeSelector.SelectedSize<code>の値をとってきて、</code>Paginate` します。加えて、そのどちらかのプロパティが変更されるたび (リストボックスやコンボボックスの選択要素が変わるたび)、ページネーションを再試行します。</p>
-<p>最後に印刷ボタンですが、これは押されたとき、<code>Previewer.PrintCommand</code>→<code>Previewer.Print</code> を経由して <code>Printer.Print</code> まで行き、そこからは前半で述べた感じです。FixedDocument を作って、デフォルトのプリンターを取得して、ページサイズを指定して、印刷。</p>
-<h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><p>いかがでしたでしょうか。不明点などあればコメントないし <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/issues" target="_blank" rel="noopener">イシュー</a> をお願いします。</p>
-<h2 id="参考リンク"><a href="#参考リンク" class="headerlink" title="参考リンク"></a>参考リンク</h2><h3 id="帳票関連"><a href="#帳票関連" class="headerlink" title="帳票関連"></a>帳票関連</h3><ul>
-<li><a href="http://koty.hatenablog.com/entry/2013/12/15/122352" target="_blank" rel="noopener">WPFを帳票フレームワークとして使う - @kotyのブログ</a></li>
-</ul>
-<h3 id="WPF関連"><a href="#WPF関連" class="headerlink" title="WPF関連"></a>WPF関連</h3><ul>
-<li><a href="http://stackoverflow.com/a/7601504/6419575" target="_blank" rel="noopener">c# - Check visible rows in a WPF DataGrid - Stack Overflow</a></li>
-<li><a href="http://blog.xin9le.net/entry/2013/10/29/222336" target="_blank" rel="noopener">VisualTreeの子孫要素を取得する - xin9le.net</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2016-12-25/reports-with-wpf/" data-id="cjrghybgc003plqcxlikcexeh" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/WPF/">WPF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/印刷/">印刷</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1023,6 +931,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/blog/2019-03-31/diary/">近況 2019-03-31</a>
+          </li>
+        
+          <li>
             <a href="/blog/2019-02-27/diary/">近況 2019-02-27</a>
           </li>
         
@@ -1036,10 +948,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/blog/2019-01-16/lsp-trial-04/">LSP学習記 #4 シンボルのリネーム</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-01-10/lsp-trial-03/">LSP学習記 #3 シンボルとハイライト</a>
           </li>
         
       </ul>

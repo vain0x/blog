@@ -88,6 +88,168 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-11-30/diary/" class="article-date">
+  <time datetime="2018-11-30T14:59:59.000Z" itemprop="datePublished">2018-11-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-11-30/diary/">近況 2018-11-30</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1ヶ月分のコミットメッセージとツイートを眺めていろいろ書くやつ、3回目</p>
+<ul>
+<li>前回: <a href="https://vain0x.github.io/blog/2018-10-31/diary/">https://vain0x.github.io/blog/2018-10-31/diary/</a></li>
+</ul>
+<h2 id="hsp3-debug-ginger"><a href="#hsp3-debug-ginger" class="headerlink" title="hsp3-debug-ginger"></a>hsp3-debug-ginger</h2><p><a href="https://github.com/vain0x/hsp3-debug-ginger" target="_blank" rel="noopener">https://github.com/vain0x/hsp3-debug-ginger</a></p>
+<h3 id="HDG-knowbug-について"><a href="#HDG-knowbug-について" class="headerlink" title="HDG: knowbug について"></a>HDG: knowbug について</h3><p>以前に HSP3 用のデバッガー knowbug を作った</p>
+<ul>
+<li><a href="https://github.com/vain0x/knowbug" target="_blank" rel="noopener">knowbug</a></li>
+<li>ほとんど完成しているので、更新していない</li>
+<li>いくつか心残りがある:<ul>
+<li>配列とかを1本の文字列 (YAMLっぽい形式) で表していて不便だった</li>
+<li>配列の要素やメンバ変数をツリービューのノードにしようとしてたけど、デバッグの途中で放棄してた</li>
+<li>HSP3 の utf-8 版に対応したい</li>
+<li>未対応の改善要望が来ている</li>
+</ul>
+</li>
+<li>生の Win32 API で GUI やってるところがきつくて knowbug はあんまりいじりたくない</li>
+</ul>
+<p>VSCode 用のデバッガーとして新たに作っているのが  <strong>hsp3-debug-ginger</strong></p>
+<h3 id="HDG-Debug-Adapter-Protocol-DAP"><a href="#HDG-Debug-Adapter-Protocol-DAP" class="headerlink" title="HDG: Debug Adapter Protocol (DAP)"></a>HDG: Debug Adapter Protocol (DAP)</h3><p>hsp3-debug-ginger は <strong>Debug Adapter Protocol</strong> という、開発ツール (IDE) とデバッガーと接続するプロトコルを使っている</p>
+<ul>
+<li>例えばエディターのデバッグ UI で停止ボタンを押したら、プロトコルに則った形式でデバッガーに停止イベントが通知されて、プログラムが停止する、みたいな感じ</li>
+<li>開発ツールからすると、何をデバッグしているか知らなくていい</li>
+<li>デバッガーからすると、ユーザーがどの IDE を使っているか知らなくていい</li>
+<li>VSCode はデバッガーと標準入出力で接続するけど、 HSP のデバッガーは DLL なので標準入出力を使えない</li>
+</ul>
+<h3 id="HDG-hsp3-debug-ginger-の構成"><a href="#HDG-hsp3-debug-ginger-の構成" class="headerlink" title="HDG: hsp3-debug-ginger の構成"></a>HDG: hsp3-debug-ginger の構成</h3><ul>
+<li>VSCode と標準入出力でつながる exe と、HSP からロードされる DLL を別個に作って、 WebSocket で繋げる、という構成にした</li>
+<li>WebSocket をわざわざ使う意味がないので TCP に置き換えた</li>
+<li>Windows のプロセス間通信はどうやるのか知らない</li>
+<li>両方 Rust で書いてる</li>
+<li>C++ だと WebSocket とか TCP とかマルチスレッドとか大変そう</li>
+<li>マルチスレッドの扱いはアクターモデルみたいな感じになってきた</li>
+<li>mpsc チャネルという、複数のスレッドから単一のスレッドにメッセージを送信する仕組みを使っている</li>
+<li>Rx.NET でいうと複数のスレッドに渡した Subject を Observable.Merge して単一スレッドで Subscribe する感じ</li>
+<li>これでメッセージを単一のスレッドにディスパッチしてすべての処理をそこでやれば安全</li>
+<li>と思ったけど HSP のメインスレッド上で行うべき処理が一部あって、どうするか困ってる</li>
+</ul>
+<h3 id="HDG-課題"><a href="#HDG-課題" class="headerlink" title="HDG: 課題"></a>HDG: 課題</h3><p>はやくテストを書きたい</p>
+<ul>
+<li>どこを分離したらテストできるのか分からない</li>
+</ul>
+<h2 id="milone-lang"><a href="#milone-lang" class="headerlink" title="milone-lang"></a>milone-lang</h2><p><a href="https://github.com/vain0x/milone-lang" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang</a></p>
+<h3 id="ML-クロージャ変換"><a href="#ML-クロージャ変換" class="headerlink" title="ML: クロージャ変換"></a>ML: クロージャ変換</h3><p>クロージャ変換が入った</p>
+<ul>
+<li>クロージャ変換について <a href="http://esumii.github.io/min-caml/tutorial-mincaml-16.htm" target="_blank" rel="noopener">http://esumii.github.io/min-caml/tutorial-mincaml-16.htm</a></li>
+<li>簡単にいうと、関数を定義しているところと使用しているところをうまいこと変換しないといけない</li>
+</ul>
+<p>これはいくつかのユースケースに分かれる</p>
+<ul>
+<li>1つ目は、 <strong>関数の定義の中で外側のローカル変数を使ってる</strong> ケース <a href="https://github.com/vain0x/milone-lang/commit/250de343ec44b8f5e7aac540520e9c679c4e194e" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang/commit/250de343ec44b8f5e7aac540520e9c679c4e194e</a></li>
+<li>そのままC言語に変換したらコンパイルできない</li>
+<li>ローカル変数を関数の引数経由で渡すように引数を増やす</li>
+</ul>
+<figure class="highlight fs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// before</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1 から u まで fizz buzz を表示する</span></span><br><span class="line"><span class="keyword">let</span> fizzBuzz u =</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">rec</span> go i =</span><br><span class="line">        <span class="keyword">if</span> i &lt;= u <span class="keyword">then</span> <span class="comment">// この u は関数 go のローカル変数じゃない</span></span><br><span class="line">            <span class="keyword">if</span> i % <span class="number">3</span> = <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">                <span class="comment">// 略</span></span><br><span class="line">            go (i + <span class="number">1</span>)</span><br><span class="line">    go <span class="number">0</span></span><br><span class="line"></span><br><span class="line">fizzBuzz <span class="number">15</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight fs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// after</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fizzBuzz u =</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">rec</span> go <span class="comment">(*追加*)</span>u i =</span><br><span class="line">        <span class="keyword">if</span> i &lt;= u <span class="keyword">then</span></span><br><span class="line">            <span class="keyword">if</span> i % <span class="number">3</span> = <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">                <span class="comment">// 略</span></span><br><span class="line">            go <span class="comment">(*追加*)</span>u (i + <span class="number">1</span>)</span><br><span class="line">    go <span class="comment">(*追加*)</span>u <span class="number">0</span></span><br><span class="line"></span><br><span class="line">fizzBuzz <span class="number">15</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>2つ目は、 <strong>関数呼び出しの引数が足りないケース</strong> <a href="https://github.com/vain0x/milone-lang/commit/e16e9418b09d66399c8e19e33a3b758f0328e43c" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang/commit/e16e9418b09d66399c8e19e33a3b758f0328e43c</a></li>
+<li>引数束縛して関数オブジェクトを作る必要がある</li>
+<li>関数オブジェクトはC言語の上では「関数」ではなくただの値なので <code>f(..)</code> という構文では呼べない<ul>
+<li>だから milone-lang の構文的には同一の式でも、関数オブジェクトを呼んでるのか関数を呼んでるのか区別する必要がある</li>
+</ul>
+</li>
+<li>関数オブジェクトは内部に持っている状態を隠蔽する必要がある<ul>
+<li>C言語の上で型に現れると互換性がなくなるから</li>
+<li><code>void*</code> を使うしかない</li>
+<li>最適化の効きが悪くなるので、すべてこれにするというわけにはいかない</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight fs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> add x y = x + y</span><br><span class="line"></span><br><span class="line"><span class="comment">// add は2引数なのに引数が1個</span></span><br><span class="line"><span class="keyword">let</span> inc = add <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 関数ではなく関数オブジェクトの呼び出しとしてC言語にする必要がある</span></span><br><span class="line">inc <span class="number">9</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// コンパイル後のイメージ</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// add を関数オブジェクト int -&gt; int から呼べるシグネチャにしたもの</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add1</span><span class="params">(<span class="keyword">void</span>* t, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> add(*(<span class="keyword">int</span>*)t, y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 関数 int -&gt; int をコンパイルした結果</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">IntIntFun</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span>(*fun)(<span class="keyword">void</span>*, <span class="keyword">int</span>);</span><br><span class="line">    <span class="keyword">void</span>* env; <span class="comment">// 関数オブジェクトが持っている状態</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 関数オブジェクトを作る</span></span><br><span class="line"><span class="comment">// 状態と関数のペア</span></span><br><span class="line"><span class="keyword">int</span>* x = (<span class="keyword">int</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span> <span class="keyword">int</span>);</span><br><span class="line">*x = <span class="number">1</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">IntIntFun</span> <span class="title">inc</span> = &#123;</span></span><br><span class="line">    .fun = add1,</span><br><span class="line">    .env = (<span class="keyword">void</span>*)x,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 関数オブジェクトを呼び出す</span></span><br><span class="line"><span class="comment">// inc は関数ではないので inc() とはできない</span></span><br><span class="line">inc.fun(inc.env, <span class="number">9</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>関数の引数がないケース</strong> (<code>let f = add</code> みたいなやつ) もこれと同様に処理できる<ul>
+<li>関数参照は引数ゼロの引数束縛</li>
+</ul>
+</li>
+<li>あと <strong>関数の引数が多いケース</strong> (複数の呼び出しに分解する必要がある) とかある</li>
+</ul>
+<h3 id="ML-ユニオン型"><a href="#ML-ユニオン型" class="headerlink" title="ML: ユニオン型"></a>ML: ユニオン型</h3><p>ユニオン型 (判別共用体型) が入った <a href="https://github.com/vain0x/milone-lang/commit/2a994c3aa8bae0b4be38c2e5bbfee0a913e0e6d4" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang/commit/2a994c3aa8bae0b4be38c2e5bbfee0a913e0e6d4</a></p>
+<p>ただし再帰的定義はできない</p>
+<h3 id="ML-ステージ順序"><a href="#ML-ステージ順序" class="headerlink" title="ML: ステージ順序"></a>ML: ステージ順序</h3><p>いままでのソースコードの変換過程は、 パース → 型つけ → MIR化 → クロージャ変換 → C言語化、だった</p>
+<ul>
+<li>MIR化: パターンマッチを条件分岐に変換しつつ、入れ子になった式を平坦にする (K正規化する) という手順</li>
+</ul>
+<p>クロージャ変換は静的コード生成に近いものがある。これを MIR に対して行っていたせいで、入れ子になった式やパターンマッチを生成できなくて、生成処理が分かりにくかった。だから順番を入れ替えてる (作業中)</p>
+<p>パース → 型つけ → クロージャ変換 → MIR化 → C言語化</p>
+<h3 id="ML-その他"><a href="#ML-その他" class="headerlink" title="ML: その他"></a>ML: その他</h3><ul>
+<li><code>y |&gt; f x</code> は構文的には <code>f x</code> という関数オブジェクトに <code>x</code> を適用してるけど、実際には <code>f x y</code> が呼ばれるのでゼロコスト、というのが分かった</li>
+</ul>
+<h2 id="競プロ参戦記"><a href="#競プロ参戦記" class="headerlink" title="競プロ参戦記"></a>競プロ参戦記</h2><p>AtCoder でのコンテスト開催が少なかったため3回だけ</p>
+<ul>
+<li><a href="https://note.mu/vain0x/n/ned281cf01192?magazine_key=m9aa8513f4e97" target="_blank" rel="noopener">競プロ参戦記 第21回 「気温とあみだくじ」 ABC 113｜ベイン｜note</a></li>
+<li><a href="https://note.mu/vain0x/n/n22b97a3e44f8?magazine_key=m9aa8513f4e97" target="_blank" rel="noopener">競プロ参戦記 第22回 「最大の論理積」 / ドワンゴコン5 [ABC]｜ベイン｜note</a></li>
+<li><a href="https://note.mu/vain0x/n/n85e1dd5a0b3d?magazine_key=m9aa8513f4e97" target="_blank" rel="noopener">競プロ参戦記 #23 「チップストーリー」 / DDCC 2019 予選｜ベイン｜note</a></li>
+</ul>
+<p>転倒数の記事の閲覧数がなぜか増え続けていることに気づいた。わりと尻切れトンボな記事だったので、 BIT について加筆した</p>
+<ul>
+<li><a href="https://note.mu/vain0x/n/n0037d6468812" target="_blank" rel="noopener">競プロ参戦記 第10回「転倒数」  Chokudai Speed Run 001 [J]｜ベイン｜note</a></li>
+</ul>
+<h2 id="円周率チャレンジ"><a href="#円周率チャレンジ" class="headerlink" title="円周率チャレンジ"></a>円周率チャレンジ</h2><p>2 を足す操作と平方根をとる操作を繰り返して、数値を円周率に近づけるゲーム。半分全列挙を使って手順を探索した</p>
+<ul>
+<li><a href="https://vain0x.github.io/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a></li>
+</ul>
+<h2 id="ブログ"><a href="#ブログ" class="headerlink" title="ブログ"></a>ブログ</h2><ul>
+<li>ヘッダーに競プロ参戦記等へのリンクを貼った</li>
+<li>ローカライズのあやしい部分を修正した</li>
+</ul>
+<h2 id="Web-アプリ開発"><a href="#Web-アプリ開発" class="headerlink" title="Web アプリ開発"></a>Web アプリ開発</h2><ul>
+<li>前月同様、昨日は増えてるが品質は下がってる</li>
+<li>リファクタリングがいるのは分かるけど、どういう方向に持っていけばいいのか……</li>
+</ul>
+<h2 id="ガルパ"><a href="#ガルパ" class="headerlink" title="ガルパ"></a>ガルパ</h2><ul>
+<li>難度 26 楽曲でもフルコンボがたびたび出るようになってきた</li>
+<li>難度 27 楽曲を回復なしでクリアできるように練習してる</li>
+<li>左手プレイは練習してもうまくならないという限界を感じる<ul>
+<li>片方をホールドして動かしながら他方でタップ、みたいなのができない</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-11-30/diary/" data-id="cjrghybg0002olqcx1k0l9pt1" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-pi-challenge" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018-11-07/pi-challenge/" class="article-date">
@@ -1106,77 +1268,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-intellisense-comfortable" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2018-01-13/intellisense-comfortable/" class="article-date">
-  <time datetime="2018-01-13T14:08:23.000Z" itemprop="datePublished">2018-01-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018-01-13/intellisense-comfortable/">インテリセンス快適な構文とAPI</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>インテリセンスの快適さと言語の構文に関するエッセイ。</p>
-<h2 id="Intellisensability"><a href="#Intellisensability" class="headerlink" title="Intellisensability"></a>Intellisensability</h2><p>コードを書いているときに入力補完の候補とその概要がポップアップメニューに出てくるやつを <strong>インテリセンス</strong> と呼ぶことにします。インテリセンスを使うとコードを書くのが楽になりますが、頻繁に暴発する場合は逆に手間になります。インテリセンスが役に立っている状態を <strong>インテリセンス快適</strong> と呼ぶことにします。</p>
-<h2 id="インテリセンス快適な構文"><a href="#インテリセンス快適な構文" class="headerlink" title="インテリセンス快適な構文"></a>インテリセンス快適な構文</h2><h3 id="暴発の例-既知の単語と新しい単語"><a href="#暴発の例-既知の単語と新しい単語" class="headerlink" title="暴発の例: 既知の単語と新しい単語"></a>暴発の例: 既知の単語と新しい単語</h3><p>インテリセンスが暴発しやすい状況の1つに、ユーザーが新しい単語を書こうとしているときに、既存の単語を補完候補に出してしまう現象があります。ここでいう新しい単語とは、まだ定義を書いていない変数や関数の名前です。例えば1引数のラムダ式 (関数オブジェクトのリテラル) の構文が <code>&lt;parameter&gt; =&gt; &lt;expression&gt;</code> だったとして、次のようなコードを書くと、</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xs = <span class="keyword">new</span>[] &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line">xs.Select(x =&gt; x + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<p>最後の行の <code>xs.Select(</code> の後、入力補完は <code>Select</code> の引数として式を期待して使用可能な名前 (<code>xs</code> など) を補完しようとし、入力しようとしている単語 (<code>x</code>) をハイジャックしがちです。</p>
-<p>一方、同じ種類のラムダ式の構文が <code>fun &lt;parameter&gt; -&gt; &lt;expression&gt;</code> だった場合、これは <code>fun</code> キーワードの直後の式は新しい単語ではないので、入力補完を抑制 <strong>でき</strong> ます。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> xs = [|<span class="number">1</span>; <span class="number">2</span>; <span class="number">3</span>|]</span><br><span class="line"></span><br><span class="line">xs |&gt; Array.map (<span class="keyword">fun</span> x -&gt; x + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="暴発の例-参照と定義の語順"><a href="#暴発の例-参照と定義の語順" class="headerlink" title="暴発の例: 参照と定義の語順"></a>暴発の例: 参照と定義の語順</h3><p>似たような例として、語順の問題もあります。例えば次の関数の定義では、型パラメーター <code>T</code> を定義される位置 (<code>&lt;T&gt;</code>) より前の位置 (<code>T Identity</code>) に書かなければいけませんが、この段階では補完候補として <code>T</code> が現れないので、他の <code>T</code> から始まる単語を入力しがちです。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C#</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> T Identity&lt;T&gt;(T <span class="keyword">value</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>一方 Java では、型パラメーターを定義する位置を移動することにより、この問題を解決しています。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">identity</span><span class="params">(T value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最近見つけた別の例に TypeScript の <code>import</code> があります。これは他のファイル (モジュール) にある定義を参照できるようにするための構文で、次のように書けます:</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// "./other.ts" で定義されている A, B, C を修飾なしで参照可能にする。</span></span><br><span class="line"><span class="keyword">import</span> &#123; A, B, C &#125; <span class="keyword">from</span> <span class="string">"./other"</span>;</span><br></pre></td></tr></table></figure>
-<p>波括弧の中を入力している段階では、どのモジュールを参照するつもりなのかインテリセンスが知らないので、入力補完は起きません。しかし、先に <code>import { } from &quot;./other&quot;;</code> と書いてから波括弧の中に戻ることで入力補完ができるようになります。もし語順が逆だったら、カーソルの移動なしで入力補完ができていたでしょう:</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 擬似コード</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">"./other"</span> &#123; A, B, C &#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="快適な構文の例-ドット記法"><a href="#快適な構文の例-ドット記法" class="headerlink" title="快適な構文の例: ドット記法"></a>快適な構文の例: ドット記法</h3><p>C系の構文を持つオブジェクト指向言語 (C++ とか) では <code>x.m</code> でメンバーを参照しますが、 <code>.</code> を入力したときに入力補完が起こるのが通例です。これにより、入力中の式に対して可能な操作をワンタッチで検索でき、メモリアクセスの負荷を減らします。</p>
-<p>前述の上のコードにある <code>xs.Select</code> についても、配列 <code>xs</code> に対する map 操作の名前を忘れても <code>xs.</code> と書いた瞬間に候補が出て、それをざっと眺めれば <code>Select</code> を思い出すことができるはずです。(たぶん)</p>
-<p>一方、前述の下のコード (<code>xs |&gt; Array.map</code>) では、<code>xs</code> を書いた後に配列の操作が <code>Array</code> モジュール (※名前空間のようなもの) に含まれていることを思い出さなければ連鎖を続けることができません。ややインテリセンス快適さを損ねます。</p>
-<p>C# には、型の定義に対して非侵入的にメソッドを増やすことができる、拡張メソッドという糖衣構文があり、これのおかげでインテリセンス快適さがかなり高まります。前述の <code>Select</code> がその一例です。拡張メソッドを定義するには、関数の定義の第一引数に <code>this</code> というキーワードをつければいいのですが、</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定義側</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">Scream</span>(<span class="params"><span class="keyword">this</span> <span class="keyword">string</span> message</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> message.ToUpper() + <span class="string">"!"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 参照側</span></span><br><span class="line"><span class="keyword">var</span> message = <span class="string">"hello"</span>.Scream(); <span class="comment">// Scream("hello") の糖衣構文</span></span><br><span class="line">Console.WriteLine(message); <span class="comment">//=&gt; HELLO!</span></span><br></pre></td></tr></table></figure>
-<p>もしこの制約がなかったら、 <code>&quot;hello&quot;.</code> と入力した瞬間に第一引数の型が <code>string</code> であるすべての関数が候補に上がってしまい、一覧性を失います。</p>
-<h2 id="インテリセンス快適でないAPIの例"><a href="#インテリセンス快適でないAPIの例" class="headerlink" title="インテリセンス快適でないAPIの例"></a>インテリセンス快適でないAPIの例</h2><p>最高にインテリセンス快適な状況は、入力したい単語の一部を数文字入力した時点で、候補リストの一番上にその単語が現れて、そのままコミットするという流れです。候補に現れても一番上でなければ、マウスで選択するにせよ、カーソル移動するにせよ、追加の手間がかかります。</p>
-<p>API の設計によってインテリセンスの検索性を損ねることがあります。C# で、もし2つの値が等しいことを表明する関数が <code>Assert.Equal</code> (<code>Assert</code> モジュールの中の <code>Equal</code> 関数) だったら、 <code>Assert.Equals</code> (すべての型に継承される関数の1つ) と混乱します。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等しくなければ表明エラー</span></span><br><span class="line">Assert.Equal(actual, expected);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 何も起こらない。</span></span><br><span class="line">Assert.Equals(left, right);</span><br></pre></td></tr></table></figure>
-<p>これは日本語入力の際に「か」(→ 火 可 …)などを漢字変換するときの問題に似ています。</p>
-<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>言語やAPIはインテリセンス快適さをなるべく損ねないように作りましょう。</p>
-<h2 id="関連リンク"><a href="#関連リンク" class="headerlink" title="関連リンク"></a>関連リンク</h2><ul>
-<li>id:tosaka2(2016)「グラニ インターン体験記」, <a href="http://tosaka2.hatenablog.com/entry/2016/09/27/183801" target="_blank" rel="noopener">http://tosaka2.hatenablog.com/entry/2016/09/27/183801</a> 2018年1月12日アクセス.</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/" data-id="cjrghybfh0016lqcxyh1qi17s" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/プログラミング言語/">プログラミング言語</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1195,6 +1286,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/blog/2019-03-31/diary/">近況 2019-03-31</a>
+          </li>
+        
+          <li>
             <a href="/blog/2019-02-27/diary/">近況 2019-02-27</a>
           </li>
         
@@ -1208,10 +1303,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/blog/2019-01-16/lsp-trial-04/">LSP学習記 #4 シンボルのリネーム</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-01-10/lsp-trial-03/">LSP学習記 #3 シンボルとハイライト</a>
           </li>
         
       </ul>

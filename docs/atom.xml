@@ -6,7 +6,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://vain0x.github.io/blog/"/>
-  <updated>2019-02-27T12:59:21.570Z</updated>
+  <updated>2019-04-02T14:30:39.775Z</updated>
   <id>http://vain0x.github.io/blog/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>近況 2019-03-31</title>
+    <link href="http://vain0x.github.io/blog/2019-03-31/diary/"/>
+    <id>http://vain0x.github.io/blog/2019-03-31/diary/</id>
+    <published>2019-03-31T14:59:59.000Z</published>
+    <updated>2019-04-02T14:30:39.775Z</updated>
+    
+    <content type="html"><![CDATA[<p>今月の活動のまとめ</p><ul><li>前月分 <a href="https://vain0x.github.io/blog/2019-02-27/diary">https://vain0x.github.io/blog/2019-02-27/diary</a></li></ul><h2 id="picomet-lang"><a href="#picomet-lang" class="headerlink" title="picomet-lang"></a>picomet-lang</h2><p><a href="https://github.com/vain0x/picomet-lang" target="_blank" rel="noopener">https://github.com/vain0x/picomet-lang</a></p><ul><li>自作のプログラミング言語処理系</li><li>curage-lang　を参考に、hover などの機能を持つ LSP サーバーを用意した</li><li>相互再帰関数や HM 型推論を実装した</li><li>malloc 的なもので <code>[int]</code> (int の配列) を動的確保できるようになったので、たいていの問題は解けるようになった<ul><li>現実的には動的配列やハッシュテーブルがないと辛い</li></ul></li><li>バックエンドよりフロントエンドに力を入れて、最小実用製品にしたほうがよさそうな気がしてきた</li><li>Docker を使って手軽にビルドできるようにしたが、やめた<ul><li>Windows でも Ubuntu でもビルドしづらくなっただけだった</li><li>ビルドするための bash スクリプトを用意しつつ、Windows 向けには別途インストラクションを README に書くということにした</li></ul></li></ul><h2 id="ネギ言語"><a href="#ネギ言語" class="headerlink" title="ネギ言語"></a>ネギ言語</h2><p><a href="https://github.com/vain0x/negi-lang" target="_blank" rel="noopener">https://github.com/vain0x/negi-lang</a></p><ul><li>C言語に移植してみた</li><li>初めてC言語でまとまったコードを書いた</li><li>動的配列と enum class がほしかった</li></ul><h2 id="Tsunotoshi"><a href="#Tsunotoshi" class="headerlink" title="Tsunotoshi"></a>Tsunotoshi</h2><p><a href="https://github.com/vain0x/tsunotoshi" target="_blank" rel="noopener">https://github.com/vain0x/tsunotoshi</a></p><ul><li>オンラインブックマークアプリ</li><li>実験的に、サーバーサイドレンダリングを行うような仕組みに変更しているが、迷走中</li></ul><h2 id="競技プログラミング"><a href="#競技プログラミング" class="headerlink" title="競技プログラミング"></a>競技プログラミング</h2><p>週末の AtCoder に加えて Codeforces の問題もいくつか解いた。成績は芳しくない。</p><ul><li><a href="https://qiita.com/vain0x/items/b869075e3df587e2ecde" target="_blank" rel="noopener">競プロ参戦記 #35 Decayed Bridges | ABC 120</a></li><li><a href="https://qiita.com/vain0x/items/9faf89f843f96d8c46cd" target="_blank" rel="noopener">競プロ参戦記 #36 XOR World | ABC 121</a></li><li><a href="https://qiita.com/vain0x/items/cd075fd5229fa6ec5ef5" target="_blank" rel="noopener">競プロ参戦記 #37 Skyscrapers | CR #545 Div.2</a></li><li><a href="https://qiita.com/vain0x/items/9adda58a3fc6d31fff3e" target="_blank" rel="noopener">競プロ参戦記 #38 Reversi | AGC 31</a></li><li><a href="https://qiita.com/vain0x/items/671ebca10c08b161d1bf" target="_blank" rel="noopener">競プロ参戦記 #39 Minimum Triangulation | エデュフォ 62 Div.2</a></li></ul><h2 id="ガルパ-リズムゲーム"><a href="#ガルパ-リズムゲーム" class="headerlink" title="ガルパ (リズムゲーム)"></a>ガルパ (リズムゲーム)</h2><ul><li>EX トライマスターを取得した (2回目)</li><li>2nd Season 最高だった</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今月の活動のまとめ&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;前月分 &lt;a href=&quot;https://vain0x.github.io/blog/2019-02-27/diary&quot;&gt;https://vain0x.github.io/blog/2019-02-27/diary&lt;/a&gt;&lt;/l
+      
+    
+    </summary>
+    
+    
+      <category term="日記" scheme="http://vain0x.github.io/blog/tags/%E6%97%A5%E8%A8%98/"/>
+    
+  </entry>
   
   <entry>
     <title>近況 2019-02-27</title>
@@ -525,32 +550,6 @@
     
     
       <category term="日記" scheme="http://vain0x.github.io/blog/tags/%E6%97%A5%E8%A8%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>インテリセンス快適な構文とAPI</title>
-    <link href="http://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/"/>
-    <id>http://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/</id>
-    <published>2018-01-13T14:08:23.000Z</published>
-    <updated>2018-12-01T12:04:26.874Z</updated>
-    
-    <content type="html"><![CDATA[<p>インテリセンスの快適さと言語の構文に関するエッセイ。</p><h2 id="Intellisensability"><a href="#Intellisensability" class="headerlink" title="Intellisensability"></a>Intellisensability</h2><p>コードを書いているときに入力補完の候補とその概要がポップアップメニューに出てくるやつを <strong>インテリセンス</strong> と呼ぶことにします。インテリセンスを使うとコードを書くのが楽になりますが、頻繁に暴発する場合は逆に手間になります。インテリセンスが役に立っている状態を <strong>インテリセンス快適</strong> と呼ぶことにします。</p><h2 id="インテリセンス快適な構文"><a href="#インテリセンス快適な構文" class="headerlink" title="インテリセンス快適な構文"></a>インテリセンス快適な構文</h2><h3 id="暴発の例-既知の単語と新しい単語"><a href="#暴発の例-既知の単語と新しい単語" class="headerlink" title="暴発の例: 既知の単語と新しい単語"></a>暴発の例: 既知の単語と新しい単語</h3><p>インテリセンスが暴発しやすい状況の1つに、ユーザーが新しい単語を書こうとしているときに、既存の単語を補完候補に出してしまう現象があります。ここでいう新しい単語とは、まだ定義を書いていない変数や関数の名前です。例えば1引数のラムダ式 (関数オブジェクトのリテラル) の構文が <code>&lt;parameter&gt; =&gt; &lt;expression&gt;</code> だったとして、次のようなコードを書くと、</p><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xs = <span class="keyword">new</span>[] &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;;</span><br><span class="line"></span><br><span class="line">xs.Select(x =&gt; x + <span class="number">1</span>);</span><br></pre></td></tr></table></figure><p>最後の行の <code>xs.Select(</code> の後、入力補完は <code>Select</code> の引数として式を期待して使用可能な名前 (<code>xs</code> など) を補完しようとし、入力しようとしている単語 (<code>x</code>) をハイジャックしがちです。</p><p>一方、同じ種類のラムダ式の構文が <code>fun &lt;parameter&gt; -&gt; &lt;expression&gt;</code> だった場合、これは <code>fun</code> キーワードの直後の式は新しい単語ではないので、入力補完を抑制 <strong>でき</strong> ます。</p><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> xs = [|<span class="number">1</span>; <span class="number">2</span>; <span class="number">3</span>|]</span><br><span class="line"></span><br><span class="line">xs |&gt; Array.map (<span class="keyword">fun</span> x -&gt; x + <span class="number">1</span>)</span><br></pre></td></tr></table></figure><h3 id="暴発の例-参照と定義の語順"><a href="#暴発の例-参照と定義の語順" class="headerlink" title="暴発の例: 参照と定義の語順"></a>暴発の例: 参照と定義の語順</h3><p>似たような例として、語順の問題もあります。例えば次の関数の定義では、型パラメーター <code>T</code> を定義される位置 (<code>&lt;T&gt;</code>) より前の位置 (<code>T Identity</code>) に書かなければいけませんが、この段階では補完候補として <code>T</code> が現れないので、他の <code>T</code> から始まる単語を入力しがちです。</p><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C#</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> T Identity&lt;T&gt;(T <span class="keyword">value</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">value</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>一方 Java では、型パラメーターを定義する位置を移動することにより、この問題を解決しています。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">identity</span><span class="params">(T value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>最近見つけた別の例に TypeScript の <code>import</code> があります。これは他のファイル (モジュール) にある定義を参照できるようにするための構文で、次のように書けます:</p><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// "./other.ts" で定義されている A, B, C を修飾なしで参照可能にする。</span></span><br><span class="line"><span class="keyword">import</span> &#123; A, B, C &#125; <span class="keyword">from</span> <span class="string">"./other"</span>;</span><br></pre></td></tr></table></figure><p>波括弧の中を入力している段階では、どのモジュールを参照するつもりなのかインテリセンスが知らないので、入力補完は起きません。しかし、先に <code>import { } from &quot;./other&quot;;</code> と書いてから波括弧の中に戻ることで入力補完ができるようになります。もし語順が逆だったら、カーソルの移動なしで入力補完ができていたでしょう:</p><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 擬似コード</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">"./other"</span> &#123; A, B, C &#125;;</span><br></pre></td></tr></table></figure><h3 id="快適な構文の例-ドット記法"><a href="#快適な構文の例-ドット記法" class="headerlink" title="快適な構文の例: ドット記法"></a>快適な構文の例: ドット記法</h3><p>C系の構文を持つオブジェクト指向言語 (C++ とか) では <code>x.m</code> でメンバーを参照しますが、 <code>.</code> を入力したときに入力補完が起こるのが通例です。これにより、入力中の式に対して可能な操作をワンタッチで検索でき、メモリアクセスの負荷を減らします。</p><p>前述の上のコードにある <code>xs.Select</code> についても、配列 <code>xs</code> に対する map 操作の名前を忘れても <code>xs.</code> と書いた瞬間に候補が出て、それをざっと眺めれば <code>Select</code> を思い出すことができるはずです。(たぶん)</p><p>一方、前述の下のコード (<code>xs |&gt; Array.map</code>) では、<code>xs</code> を書いた後に配列の操作が <code>Array</code> モジュール (※名前空間のようなもの) に含まれていることを思い出さなければ連鎖を続けることができません。ややインテリセンス快適さを損ねます。</p><p>C# には、型の定義に対して非侵入的にメソッドを増やすことができる、拡張メソッドという糖衣構文があり、これのおかげでインテリセンス快適さがかなり高まります。前述の <code>Select</code> がその一例です。拡張メソッドを定義するには、関数の定義の第一引数に <code>this</code> というキーワードをつければいいのですが、</p><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定義側</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">Scream</span>(<span class="params"><span class="keyword">this</span> <span class="keyword">string</span> message</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> message.ToUpper() + <span class="string">"!"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 参照側</span></span><br><span class="line"><span class="keyword">var</span> message = <span class="string">"hello"</span>.Scream(); <span class="comment">// Scream("hello") の糖衣構文</span></span><br><span class="line">Console.WriteLine(message); <span class="comment">//=&gt; HELLO!</span></span><br></pre></td></tr></table></figure><p>もしこの制約がなかったら、 <code>&quot;hello&quot;.</code> と入力した瞬間に第一引数の型が <code>string</code> であるすべての関数が候補に上がってしまい、一覧性を失います。</p><h2 id="インテリセンス快適でないAPIの例"><a href="#インテリセンス快適でないAPIの例" class="headerlink" title="インテリセンス快適でないAPIの例"></a>インテリセンス快適でないAPIの例</h2><p>最高にインテリセンス快適な状況は、入力したい単語の一部を数文字入力した時点で、候補リストの一番上にその単語が現れて、そのままコミットするという流れです。候補に現れても一番上でなければ、マウスで選択するにせよ、カーソル移動するにせよ、追加の手間がかかります。</p><p>API の設計によってインテリセンスの検索性を損ねることがあります。C# で、もし2つの値が等しいことを表明する関数が <code>Assert.Equal</code> (<code>Assert</code> モジュールの中の <code>Equal</code> 関数) だったら、 <code>Assert.Equals</code> (すべての型に継承される関数の1つ) と混乱します。</p><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等しくなければ表明エラー</span></span><br><span class="line">Assert.Equal(actual, expected);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 何も起こらない。</span></span><br><span class="line">Assert.Equals(left, right);</span><br></pre></td></tr></table></figure><p>これは日本語入力の際に「か」(→ 火 可 …)などを漢字変換するときの問題に似ています。</p><h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>言語やAPIはインテリセンス快適さをなるべく損ねないように作りましょう。</p><h2 id="関連リンク"><a href="#関連リンク" class="headerlink" title="関連リンク"></a>関連リンク</h2><ul><li>id:tosaka2(2016)「グラニ インターン体験記」, <a href="http://tosaka2.hatenablog.com/entry/2016/09/27/183801" target="_blank" rel="noopener">http://tosaka2.hatenablog.com/entry/2016/09/27/183801</a> 2018年1月12日アクセス.</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;インテリセンスの快適さと言語の構文に関するエッセイ。&lt;/p&gt;
-&lt;h2 id=&quot;Intellisensability&quot;&gt;&lt;a href=&quot;#Intellisensability&quot; class=&quot;headerlink&quot; title=&quot;Intellisensability&quot;&gt;&lt;/
-      
-    
-    </summary>
-    
-    
-      <category term="Essay" scheme="http://vain0x.github.io/blog/tags/Essay/"/>
-    
-      <category term="プログラミング言語" scheme="http://vain0x.github.io/blog/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E/"/>
     
   </entry>
   
