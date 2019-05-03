@@ -88,6 +88,67 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-new-to-ubuntu" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-01-28/new-to-ubuntu/" class="article-date">
+  <time datetime="2018-01-28T08:53:43.000Z" itemprop="datePublished">2018-01-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-01-28/new-to-ubuntu/">Ubuntuデスクトップを使い始めた</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>普段づかいする環境をWindowsからUbuntuに移した話。</p>
+<h2 id="要約"><a href="#要約" class="headerlink" title="要約"></a>要約</h2><ul>
+<li>もともと Windows 10 だった。</li>
+<li>Linux が便利らしいので、やってみたかった。</li>
+<li>調べてみたらかなり試す価値がありそうだった。</li>
+<li>安めのパソコンを買って試しているが、あまり問題がない。</li>
+</ul>
+<h2 id="調査"><a href="#調査" class="headerlink" title="調査"></a>調査</h2><p>2017年11月ぐらいのこと。使っていたノートパソコン(dynabook)が2011年ぐらいからの古株なので、買い替えることにした。</p>
+<p>Linux 環境は Windows よりプログラミングに向いている [要出典] 的な話をわりと聞くので一度試してみようと思い、仮想環境を使ったり、普段の作業がどのぐらい Ubuntu でもできるのか調査したりした。</p>
+<p>同じ用途のアプリが Ubuntu 環境でも提供されているというのもあるし、いまはウェブアプリやクロスプラットフォーム対応のアプリが多いので、替えが効かないのは Visual Studio (C# や F# での開発に使う) ぐらいだった。それに関しても、 .NET Core 2.0 のリリース以後、じわじわ VSCode に移行している。WPF で GUI アプリが作れなくなるが、他の GUI ツールキットを覚えるいい機会だろう。</p>
+<p>予想外だったのは Sublime Text 3 の Ubuntu 版が日本語 IME と相性が悪くて使いづらいことで、いまは VSCode で代用している。メモ帳 (Markdown エディター) 代わりとしてはオーバースペックなので何か用意したい。</p>
+<h2 id="構築"><a href="#構築" class="headerlink" title="構築"></a>構築</h2><p>次に Ubuntu をインストールすべきパソコンを探した。メーカーによっては起動できないのもあるらしい (※よく知らない) ので、実際にインストールして動かした人のいるものを選ぶのがよさそうだ。次の記事を参考にして、 Inspiron のデスクトップを買った:</p>
+<p>参考: <a href="http://www.dell.com/support/article/jp/ja/jpbsd1/sln151664/%E3%83%87%E3%83%ABpc%E3%81%ABubuntu-linux%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95?lang=ja" target="_blank" rel="noopener">デルPCにUbuntu Linuxをインストールする方法</a></p>
+<p>インストール手順まで詳しく書いてあって、ぽちぽちしたらできた。マウスやキーボードもそのまま動いて安心した。</p>
+<h2 id="移行"><a href="#移行" class="headerlink" title="移行"></a>移行</h2><p>データの移行時は文字コードの問題があった。テキストファイルの一部が shift_jis だったが、これは nkf コマンドを使ってすべて utf-8 にした。シェルスクリプトの簡単な練習になった。</p>
+<p>音楽ファイルのメタタグも一部が shift_jis なために文字化けしていたが、これは Windows のアプリで一括変換した。どうも <strong>一部壊れている</strong> ような気がする。気のせいだと思いたい。</p>
+<h2 id="現状"><a href="#現状" class="headerlink" title="現状"></a>現状</h2><p>何か問題が起こったときに対処できるか、というのが一番の不安要素だが、いまのところ問題はない。やったことといえば、まだ外付けハードディスクが自動的にマウントされるように fstab の設定を書いたぐらいだが。</p>
+<p>それに、このごろは Web 系の勉強 (HTML/CSS/ES2016/TypeScript/Node.js/Vue.js) で忙しくて、OS 非依存なレイヤーしか触っていいない。</p>
+<p>Clang (C++) で競プロをやったり、 OCaml で TaPL のサンプルを動かしたりしたい。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/" data-id="cjrghybfg0013lqcx3wglhczw" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-intellisense-comfortable" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018-01-13/intellisense-comfortable/" class="article-date">
@@ -824,95 +885,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-friends-lang" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2017-02-12/friends-lang/" class="article-date">
-  <time datetime="2017-02-11T15:00:00.000Z" itemprop="datePublished">2017-02-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2017-02-12/friends-lang/">すごーい！ きみはプログラミング言語を実装できるフレンズなんだね</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://qiita.com/vain0x/items/6d3b75f667d3ec7f1d2a" target="_blank" rel="noopener">Qiita</a></p>
-<p>ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！</p>
-<h2 id="サンプルコード"><a href="#サンプルコード" class="headerlink" title="サンプルコード"></a>サンプルコード</h2><h3 id="Socrates"><a href="#Socrates" class="headerlink" title="Socrates"></a>Socrates</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ かばんちゃん は ヒトの フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ あなた が ヒトの フレンズ なら</span><br><span class="line">あなた は しっぽのない フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">だれ が しっぽのない フレンズ なんだっけ？</span><br></pre></td></tr></table></figure>
-<p>出力:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">「だれ」は「かばんちゃん」、</span><br><span class="line">あってる？ (y/n)y</span><br><span class="line">やったー！</span><br></pre></td></tr></table></figure>
-<p>「かばんちゃん は ヒトの フレンズ」で「ヒトの フレンズ は しっぽのない フレンズ」だから「かばんちゃん は しっぽのない フレンズ」なんだね！</p>
-<p>たーのしー！</p>
-<h3 id="FizzBuzz"><a href="#FizzBuzz" class="headerlink" title="FizzBuzz"></a>FizzBuzz</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ 0 は 自然数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ の 次 も 自然数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ 0 は 3の倍数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 3の倍数の フレンズ なら</span><br><span class="line">きみ の 次 の 次 の 次 も 3の倍数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ 0 は 5の倍数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 5の倍数の フレンズ なら</span><br><span class="line">きみ の 次 の 次 の 次 の 次 の 次 も 5の倍数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ 0 は 15の倍数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 15の倍数の フレンズ なら</span><br><span class="line">きみ の 次 の 次 の 次 の 次 の 次 の 次 の 次 の</span><br><span class="line">次 の 次 の 次 の 次 の 次 の 次 の 次 の 次 も</span><br><span class="line">15の倍数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ きみ が 15の倍数の フレンズ なら</span><br><span class="line">きみ と FizzBuzz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 3の倍数の フレンズ なら</span><br><span class="line">きみ と Fizz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 5の倍数の フレンズ なら</span><br><span class="line">きみ と Buzz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ と きみ は FizzBuzz フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ 0 は きみ の 次 より 小さい フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ なら</span><br><span class="line">きみ の 次 は かのじょ の 次 より 小さい フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ なら</span><br><span class="line">きみ が きみ と かのじょ との 間の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ で</span><br><span class="line">かれ が きみ の 次 と かのじょ との 間の フレンズ なら</span><br><span class="line">かれ も きみ と かのじょ との 間の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">それ が 0 と 16 との 間の フレンズ で</span><br><span class="line">それ と だれ が FizzBuzz フレンズ なんだっけ？</span><br></pre></td></tr></table></figure>
-<p>出力:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">「それ」は0、</span><br><span class="line">「だれ」は「FizzBuzz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は1、</span><br><span class="line">「だれ」は1、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は2、</span><br><span class="line">「だれ」は2、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は3、</span><br><span class="line">「だれ」は「Fizz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は4、</span><br><span class="line">「だれ」は4、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は5、</span><br><span class="line">「だれ」は「Buzz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は6、</span><br><span class="line">「だれ」は「Fizz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は7、</span><br><span class="line">「だれ」は7、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は8、</span><br><span class="line">「だれ」は8、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は9、</span><br><span class="line">「だれ」は「Fizz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は10、</span><br><span class="line">「だれ」は「Buzz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は11、</span><br><span class="line">「だれ」は11、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は12、</span><br><span class="line">「だれ」は「Fizz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は13、</span><br><span class="line">「だれ」は13、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は14、</span><br><span class="line">「だれ」は14、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は15、</span><br><span class="line">「だれ」は「FizzBuzz」、</span><br><span class="line">あってる？ (y/n)y</span><br><span class="line">やったー！</span><br></pre></td></tr></table></figure>
-<p>わー！ すごーい！</p>
-<h2 id="解説"><a href="#解説" class="headerlink" title="解説"></a>解説</h2><p>Qiita なので技術的な話をします。</p>
-<p>処理系のソースコードは <a href="https://github.com/vain0x/friends-lang" target="_blank" rel="noopener">GitHub</a> にあります。</p>
-<h3 id="すごーい！-文"><a href="#すごーい！-文" class="headerlink" title="すごーい！ 文"></a>すごーい！ 文</h3><p>「すごーい！」で始まる文は、事実を表明するものです。例えば、</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ かばんちゃん は ヒトの フレンズ なんだね！</span><br></pre></td></tr></table></figure>
-<p>は命題「かばんちゃん は ヒトの フレンズ」が真であることを表明します。ここで「かばんちゃん」という単語は定義されていませんが、アトムという文字列のようなものなので、使用することができます。</p>
-<p>「ヒトの」は述語の名前です。</p>
-<h3 id="なんだっけ？-文"><a href="#なんだっけ？-文" class="headerlink" title="なんだっけ？ 文"></a>なんだっけ？ 文</h3><p>「なんだっけ？」で終わる文は、「すごーい！」文で表明した事実を用いて、指定された命題を真にするような割り当てが存在するかを探索します。例えば、</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">だれ が ヒトの フレンズ なんだっけ？</span><br></pre></td></tr></table></figure>
-<p>と問いかけると、変数「だれ」 <a href="変数は、「だれ」や「あなた」などのいくつかの予約語と、アンダーバーで始まる名前の識別子です。それ以外の識別子はアトムになります。">^var_naming</a> に適当なアトムを代入することで、命題「だれ が ヒトの フレンズ」を真にできるかどうかを判定し、命題を真にするような変数への割り当てを出力します。この例では、「ヒトの フレンズ」述語に関する真偽は、前述のすごーい！文でしか述べられていないので、「だれ」＝「かばんちゃん」という割り当てのみがこの命題を真にします。</p>
-<h3 id="条件つきのすごーい！文"><a href="#条件つきのすごーい！文" class="headerlink" title="条件つきのすごーい！文"></a>条件つきのすごーい！文</h3><p>条件つきのすごーい！文は、ある命題が真であるときに、別の命題が成り立つことを表明します。例えば、</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ の 次 も 自然数の フレンズ なんだね！</span><br></pre></td></tr></table></figure>
-<p>は変数「きみ」に適当な割り当てがなされて命題「きみ が 自然数の フレンズ」が真だと判定されたなら、命題「きみ の 次 は 自然数の フレンズ」も真である、と述べています。ちなみに「～は」「～が」「～も」はすべて同じです。</p>
-<p>式 <code>きみ の 次</code> は複合項というものです。Friends 言語では、式は「評価」されるものではなく、他の式とパターンマッチするためだけのものです。複合項の特徴は、単に「同一の形をした複合項とのみマッチする」ということです。すなわち、<code>きみ の 次</code> という式は、<code>? の 次</code> という形の式にだけマッチする式を表しています。</p>
-<p>Friends 言語において <code>x の 次</code> という形の式は少しだけ特別で、自然数 <a href="ここでは0以上の整数のこと。">^natural_numbers</a> は「0 の 次 の 次 の … の 次」という複合項に解釈されます。すなわち、<code>0</code> はアトム ですが、<code>1</code> は <code>0 の 次</code>、<code>2</code> は <code>0 の 次 の 次</code> という項を表します。</p>
-<p>例えば、次の質問をすると、</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ 0 は 自然数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ の 次 も 自然数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">3 は 自然数の フレンズ なんだっけ？</span><br></pre></td></tr></table></figure>
-<p>3 は 0 ではありませんから、2つ目の条件つきのすごーい！文を使って真偽を判定することになります。<br>この命題が真であるには、<code>きみ の 次</code> = <code>3</code> = <code>0 の 次 の 次 の 次</code> でなければなりませんから、<strong>パターンマッチ</strong> により、<code>きみ</code> = <code>0 の 次 の 次</code> = 2 という割り当てが得られます。<br>加えて、条件「2 が 自然数の フレンズ」が成り立たなければなりませんが、これも同様の方法で推論できます。<br>したがって、「0 は 自然数の フレンズ」、だから「1 は 自然数の フレンズ」、なので「2 は 自然数の フレンズ」、ゆえに「3 は 自然数 のフレンズ」という推論ができます。</p>
-<p>3の倍数、5の倍数、15の倍数の判定も同様に可能です。</p>
-<h3 id="たーのしー！節"><a href="#たーのしー！節" class="headerlink" title="たーのしー！節"></a>たーのしー！節</h3><p>FizzBuzz フレンズの定義を再掲します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ きみ が 15の倍数の フレンズ なら</span><br><span class="line">きみ と FizzBuzz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 3の倍数の フレンズ なら</span><br><span class="line">きみ と Fizz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 5の倍数の フレンズ なら</span><br><span class="line">きみ と Buzz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ と きみ は FizzBuzz フレンズ なんだね！</span><br></pre></td></tr></table></figure>
-<p>n の FizzBuzz 表現 (Fizz/Buzz/FizzBuzz/n) を fizzbuzz(n) と書くことにします。FizzBuzz フレンズは、簡単にいえば、すべての自然数 n について命題「n と fizzbuzz(n) が FizzBuzz フレンズ」が真になるような述語です。</p>
-<p>すごーい！文の末尾につく「たーのしー！」節は、その文が命題を真にすると、残りのすごーい！文を探索しない、という機能を持ちます。すなわち、命題「x と y が FizzBuzz フレンズ」の真偽を判定するとき、「x が 15の倍数の フレンズ」だと分かったら、残りの3つの文 (3の倍数なら、5の倍数なら、自然数なら、というやつ) は無視する、ということです。もしこれがないと、「15 と FizzBuzz が FizzBuzz フレンズ」であると同時に、「15 と Fizz も FizzBuzz フレンズ」でもあることになってしまいます。</p>
-<h3 id="助詞"><a href="#助詞" class="headerlink" title="助詞"></a>助詞</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ 0 は きみ の 次 より 小さい フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ なら</span><br><span class="line">きみ の 次 は かのじょ の 次 より 小さい フレンズ なんだね！</span><br></pre></td></tr></table></figure>
-<p>「x は y より 小さい フレンズ」は「x と y が 小さい フレンズ」を表す糖衣構文です。<br>それ以外は前述の通りです。</p>
-<h3 id="非決定性"><a href="#非決定性" class="headerlink" title="非決定性"></a>非決定性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ なら</span><br><span class="line">きみ が きみ と かのじょ との 間の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ で</span><br><span class="line">かれ が きみ の 次 と かのじょ との 間の フレンズ なら</span><br><span class="line">かれ も きみ と かのじょ との 間の フレンズ なんだね！</span><br></pre></td></tr></table></figure>
-<p>「x で y」という命題は、x と y が両方真である、という命題 (論理積) を表します。</p>
-<p>「間の」フレンズのおもしろいところは、それを真にする割り当てが複数あることです。というのも、命題「あなた が 0 と 3 との 間の フレンズ」を真にする割り当ては、<code>あなた</code> = 0, 1, 2 の3つあります。このように解が一意に定まらないことを、推論の <strong>非決定性</strong> といいます。</p>
-<p>推論を追ってみましょう。命題「0 が 3 より 小さい フレンズ」は、「小さい」の定義により成り立つと分かります (詳細は割愛)。命題「あなた が 0 と 3 との 間の フレンズ」が真になるには、まず1つ目のすごーい！文により、結論「あなた が あなた と 3 との 間の フレンズ」とマッチする場合が考えられます。パターンマッチにより <code>あなた</code> = <code>0</code> という割り当てが得られます。</p>
-<p>この文には「たーのしー！」節がないので、次のすごーい！文も適用できます。「あなた が 0 と 3 との 間の フレンズ」と「かれ も きみ と かのじょ との 間の フレンズ」を見比べて、「あなた = かれ」「0 = きみ」「3 = かのじょ」という割り当てを得ます。そして、条件「かれ が きみ の 次 と かのじょ との 間の フレンズ」＝「あなた が 0 の 次 と 3 との 間の フレンズ」が真であるかを判定します。再び1つ目のすごーい！文により、<code>あなた</code> = <code>0 の 次</code> = <code>1</code> という割り当てを得ます。これの繰り返しになります。</p>
-<h2 id="Prolog"><a href="#Prolog" class="headerlink" title="Prolog"></a>Prolog</h2><p>実際のところ、Friends 言語は Prolog という「論理型プログラミング言語」の文法を変更したものです。興味があれば、Prolog について調べてみてください。Prolog の処理系には <a href="https://az-prolog.com/" target="_blank" rel="noopener">AZ-Prolog</a> や <a href="http://www.swi-prolog.org/" target="_blank" rel="noopener">SWI-Prolog</a> などがあります。</p>
-<h2 id="動作環境"><a href="#動作環境" class="headerlink" title="動作環境"></a>動作環境</h2><p>(追記 3/7) Friends 言語を Mac や Linux でも動くようにしてもらえました。</p>
-<p><a href="http://leko.jp/archives/933" target="_blank" rel="noopener">すごーい！きみはフレンズ言語をDockerizeできるフレンズなんだね！</a></p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li><a href="http://kemono-friends.jp/" target="_blank" rel="noopener">けものフレンズプロジェクト｜公式サイト</a></li>
-<li><a href="http://qiita.com/ShunIchikawa/items/6449f492dc38a7201162" target="_blank" rel="noopener">Prolog実践入門 - AIに特化した老舗言語</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2017-02-12/friends-lang/" data-id="cjrghybfz002nlqcxgkeg7m9q" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Prolog/">Prolog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ネタ/">ネタ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/プログラミング言語/">プログラミング言語</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/言語処理系/">言語処理系</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -931,6 +903,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/blog/2019-04-30/diary/">近況 2019-04-30</a>
+          </li>
+        
+          <li>
             <a href="/blog/2019-03-31/diary/">近況 2019-03-31</a>
           </li>
         
@@ -944,10 +920,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/blog/2019-01-30/diary/">近況 2019-01-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-01-16/lsp-trial-04/">LSP学習記 #4 シンボルのリネーム</a>
           </li>
         
       </ul>

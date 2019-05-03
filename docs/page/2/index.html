@@ -88,6 +88,98 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-siku-siku-primes" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-12-16/siku-siku-primes/" class="article-date">
+  <time datetime="2018-12-16T01:34:43.000Z" itemprop="datePublished">2018-12-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-12-16/siku-siku-primes/">シクシク素数列を F# でやってみた</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。</p>
+<p><a href="https://qiita.com/advent-calendar/2018/4949prime-series" target="_blank" rel="noopener">シクシク素数列 Advent Calendar 2018 - Qiita</a></p>
+<h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><blockquote>
+<ul>
+<li>数値に4か9を含む素数をシクシク素数と呼ぶことにします<ul>
+<li>19とか41とか149とか。</li>
+</ul>
+</li>
+<li>標準入力として正の整数 N を与えたら N 番目までのシクシク素数を半角カンマ区切りで標準出力してください<ul>
+<li>例 N = 9 の場合、 19,29,41,43,47,59,79,89,97</li>
+</ul>
+</li>
+<li>N は最大で 100 とします</li>
+</ul>
+</blockquote>
+<h2 id="考察"><a href="#考察" class="headerlink" title="考察"></a>考察</h2><p>10進数展開に4か9を含む整数を <strong>シクシク数</strong> と呼ぶことにします。こうするとシクシク素数の条件は</p>
+<ul>
+<li>シクシク数であること</li>
+<li>素数であること</li>
+</ul>
+<p>の2つに分割できて、シンプルに実装できそうです。</p>
+<h2 id="実装"><a href="#実装" class="headerlink" title="実装"></a>実装</h2><p>なるべく読みやすい実装を心がけて書いていきましょう！</p>
+<p>実装方法はたくさんありますが、今回はやんごとなき理由から seq を中心に使っています。</p>
+<h3 id="実装-素数判定"><a href="#実装-素数判定" class="headerlink" title="実装: 素数判定"></a>実装: 素数判定</h3><p>はじめに素数判定の関数を作ります。よくあるやりかたですが、 2 以上 √n 以下の数で割ってみて、いずれも割り切れなければ素数、と判定します。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isPrime n =</span><br><span class="line">  <span class="comment">// n が2未満のケースは除外</span></span><br><span class="line">  <span class="keyword">if</span> n &lt; <span class="number">2</span> <span class="keyword">then</span> <span class="keyword">false</span> <span class="keyword">else</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// √n の整数部分</span></span><br><span class="line">  <span class="keyword">let</span> r = n |&gt; float |&gt; sqrt |&gt; int</span><br><span class="line"></span><br><span class="line">  seq &#123; <span class="number">2.</span>.r &#125; |&gt; Seq.forall (<span class="keyword">fun</span> m -&gt; n % m &lt;&gt; <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p><code>seq { 2..r }</code> は 2 から r 以下の数からなる数列を表しています。この中の値をそれぞれ m として、 <code>n % m &lt;&gt; 0</code> がすべてについて成り立てばOK。</p>
+<p><code>seq</code> と <code>Seq.</code> ですでにシクシク感が出ていますが、シクシク数の判定は次です。</p>
+<h3 id="実装-シクシク数の判定"><a href="#実装-シクシク数の判定" class="headerlink" title="実装: シクシク数の判定"></a>実装: シクシク数の判定</h3><p>シクシク数かどうかの判定では、 n の10進展開を計算します。割り算を使うことで n を1桁目とそれ以外の部分に分解できるというのがポイント。</p>
+<ul>
+<li><code>n / 10</code> は、n から1桁目を取り除いたもの</li>
+<li><code>n % 10</code> は n の1桁目</li>
+</ul>
+<p>そのため <code>n / 10</code> を10進展開したものに <code>n % 10</code> を付け足せば、n の各桁の数からなる列を構成できます。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">rec</span> digits n =</span><br><span class="line">  seq &#123;</span><br><span class="line">    <span class="keyword">if</span> n &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">      <span class="keyword">yield!</span> digits (n / <span class="number">10</span>)</span><br><span class="line">      <span class="keyword">yield</span> n % <span class="number">10</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>ここでの <code>seq { .. }</code> はブロック内で <code>yield</code> された値からなる列を表します。他の言語にあるリストの内包表記みたいなもの。<code>yield!</code> は複数の値を一挙に <code>yield</code> することを表しています。</p>
+<p>シクシク数の判定は、これで得られた各桁の数のどれかが 4, 9 に等しいかどうかを判定すればOK。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isSikuSiku n =</span><br><span class="line">  digits n |&gt; Seq.exists (<span class="keyword">fun</span> d -&gt; d = <span class="number">4</span> || d = <span class="number">9</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="実装-シクシク素数列挙"><a href="#実装-シクシク素数列挙" class="headerlink" title="実装: シクシク素数列挙"></a>実装: シクシク素数列挙</h3><p>これでシクシク素数判定関数のできあがり！</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isSikuSikuPrime n =</span><br><span class="line">  isSikuSiku n &amp;&amp; isPrime n</span><br></pre></td></tr></table></figure>
+<p>非負整数を列挙して、シクシク素数であるものに絞り込むことで、シクシク素数を昇順に列挙します。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sikuSikuPrimes =</span><br><span class="line">  seq &#123;</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="number">0.</span>.Int32.MaxValue <span class="keyword">do</span></span><br><span class="line">      <span class="keyword">if</span> isSikuSikuPrime n <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p><code>seq { .. }</code> の中身は必要に応じて計算されるので、実際には全整数についてのループが回るわけではないので安心してください。</p>
+<p><code>Seq.take N</code> を使うと、列の前から N 個の要素が列挙された時点で計算を打ち切るようにできます。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sikuSikuPrimes |&gt; Seq.take N</span><br></pre></td></tr></table></figure>
+<h3 id="実装-main"><a href="#実装-main" class="headerlink" title="実装: main"></a>実装: main</h3><p>最後に標準入出力を書きます。</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> System</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> N = Console.ReadLine() |&gt; int</span><br><span class="line"></span><br><span class="line">sikuSikuPrimes</span><br><span class="line">|&gt; Seq.take N</span><br><span class="line">|&gt; Seq.map string</span><br><span class="line">|&gt; String.concat <span class="string">","</span></span><br><span class="line">|&gt; printfn <span class="string">"%s"</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://dotnetfiddle.net/mIJ1qY" target="_blank" rel="noopener">.NET Fiddle で試す</a></p>
+<h2 id="おまけ"><a href="#おまけ" class="headerlink" title="おまけ"></a>おまけ</h2><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> System</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> isPrime n =</span><br><span class="line">  <span class="keyword">if</span> n &lt; <span class="number">2</span> <span class="keyword">then</span> <span class="keyword">false</span> <span class="keyword">else</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> r = n |&gt; float |&gt; sqrt |&gt; int</span><br><span class="line">  seq &#123; <span class="number">2.</span>.r &#125; |&gt; Seq.forall (<span class="keyword">fun</span> m -&gt; n % m &lt;&gt; <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> testPrime () =</span><br><span class="line">  <span class="keyword">assert</span> (isPrime <span class="number">2</span>)</span><br><span class="line">  <span class="keyword">assert</span> (isPrime <span class="number">19</span>)</span><br><span class="line">  <span class="keyword">assert</span> (isPrime <span class="number">4</span> |&gt; not)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">rec</span> digits n =</span><br><span class="line">  seq &#123;</span><br><span class="line">    <span class="keyword">if</span> n &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">      <span class="keyword">yield!</span> digits (n / <span class="number">10</span>)</span><br><span class="line">      <span class="keyword">yield</span> n % <span class="number">10</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> testDigits () =</span><br><span class="line">  <span class="keyword">assert</span> (digits <span class="number">0</span> |&gt; Seq.isEmpty)</span><br><span class="line">  <span class="keyword">assert</span> (digits <span class="number">2019</span> |&gt; Seq.toList = [<span class="number">2</span>; <span class="number">0</span>; <span class="number">1</span>; <span class="number">9</span>])</span><br><span class="line"></span><br><span class="line">testDigits ()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> isSikuSiku n =</span><br><span class="line">  digits n |&gt; Seq.exists (<span class="keyword">fun</span> d -&gt; d = <span class="number">4</span> || d = <span class="number">9</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> testIsSikuSiku () =</span><br><span class="line">  <span class="keyword">assert</span> (isSikuSiku <span class="number">42</span>)</span><br><span class="line">  <span class="keyword">assert</span> (isSikuSiku <span class="number">2019</span>)</span><br><span class="line">  <span class="keyword">assert</span> (isSikuSiku <span class="number">12356780</span> |&gt; not)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> isSikuSikuPrime n =</span><br><span class="line">  isSikuSiku n &amp;&amp; isPrime n</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> sikuSikuPrimes =</span><br><span class="line">  seq &#123;</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="number">0.</span>.Int32.MaxValue <span class="keyword">do</span></span><br><span class="line">      <span class="keyword">if</span> isSikuSikuPrime n <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> N = Console.ReadLine() |&gt; int</span><br><span class="line">sikuSikuPrimes</span><br><span class="line">|&gt; Seq.take N</span><br><span class="line">|&gt; Seq.map string</span><br><span class="line">|&gt; String.concat <span class="string">","</span></span><br><span class="line">|&gt; printfn <span class="string">"%s"</span></span><br></pre></td></tr></table></figure>
+<p>出力例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ fsharpi ./Program.fsx</span><br><span class="line">100</span><br><span class="line">19,29,41,43,47,59,79,89,97,109,139,149,179,191,193,197,199,229,239,241,269,293,347,349,359,379,389,397,401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,509,541,547,569,593,599,619,641,643,647,659,691,709,719,739,743,769,797,809,829,839,859,907,911,919,929,937,941,947,953,967,971,977,983,991,997,1009,1019,1039,1049,1069,1091,1093,1097,1109,1129,1193,1229,1249,1259,1279,1289,1291,1297,1319</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-12-16/siku-siku-primes/" data-id="cjrghybfi0018lqcx0w7ba88w" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/F/">F#</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018-11-30/diary/" class="article-date">
@@ -1207,67 +1299,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-new-to-ubuntu" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2018-01-28/new-to-ubuntu/" class="article-date">
-  <time datetime="2018-01-28T08:53:43.000Z" itemprop="datePublished">2018-01-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018-01-28/new-to-ubuntu/">Ubuntuデスクトップを使い始めた</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>普段づかいする環境をWindowsからUbuntuに移した話。</p>
-<h2 id="要約"><a href="#要約" class="headerlink" title="要約"></a>要約</h2><ul>
-<li>もともと Windows 10 だった。</li>
-<li>Linux が便利らしいので、やってみたかった。</li>
-<li>調べてみたらかなり試す価値がありそうだった。</li>
-<li>安めのパソコンを買って試しているが、あまり問題がない。</li>
-</ul>
-<h2 id="調査"><a href="#調査" class="headerlink" title="調査"></a>調査</h2><p>2017年11月ぐらいのこと。使っていたノートパソコン(dynabook)が2011年ぐらいからの古株なので、買い替えることにした。</p>
-<p>Linux 環境は Windows よりプログラミングに向いている [要出典] 的な話をわりと聞くので一度試してみようと思い、仮想環境を使ったり、普段の作業がどのぐらい Ubuntu でもできるのか調査したりした。</p>
-<p>同じ用途のアプリが Ubuntu 環境でも提供されているというのもあるし、いまはウェブアプリやクロスプラットフォーム対応のアプリが多いので、替えが効かないのは Visual Studio (C# や F# での開発に使う) ぐらいだった。それに関しても、 .NET Core 2.0 のリリース以後、じわじわ VSCode に移行している。WPF で GUI アプリが作れなくなるが、他の GUI ツールキットを覚えるいい機会だろう。</p>
-<p>予想外だったのは Sublime Text 3 の Ubuntu 版が日本語 IME と相性が悪くて使いづらいことで、いまは VSCode で代用している。メモ帳 (Markdown エディター) 代わりとしてはオーバースペックなので何か用意したい。</p>
-<h2 id="構築"><a href="#構築" class="headerlink" title="構築"></a>構築</h2><p>次に Ubuntu をインストールすべきパソコンを探した。メーカーによっては起動できないのもあるらしい (※よく知らない) ので、実際にインストールして動かした人のいるものを選ぶのがよさそうだ。次の記事を参考にして、 Inspiron のデスクトップを買った:</p>
-<p>参考: <a href="http://www.dell.com/support/article/jp/ja/jpbsd1/sln151664/%E3%83%87%E3%83%ABpc%E3%81%ABubuntu-linux%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95?lang=ja" target="_blank" rel="noopener">デルPCにUbuntu Linuxをインストールする方法</a></p>
-<p>インストール手順まで詳しく書いてあって、ぽちぽちしたらできた。マウスやキーボードもそのまま動いて安心した。</p>
-<h2 id="移行"><a href="#移行" class="headerlink" title="移行"></a>移行</h2><p>データの移行時は文字コードの問題があった。テキストファイルの一部が shift_jis だったが、これは nkf コマンドを使ってすべて utf-8 にした。シェルスクリプトの簡単な練習になった。</p>
-<p>音楽ファイルのメタタグも一部が shift_jis なために文字化けしていたが、これは Windows のアプリで一括変換した。どうも <strong>一部壊れている</strong> ような気がする。気のせいだと思いたい。</p>
-<h2 id="現状"><a href="#現状" class="headerlink" title="現状"></a>現状</h2><p>何か問題が起こったときに対処できるか、というのが一番の不安要素だが、いまのところ問題はない。やったことといえば、まだ外付けハードディスクが自動的にマウントされるように fstab の設定を書いたぐらいだが。</p>
-<p>それに、このごろは Web 系の勉強 (HTML/CSS/ES2016/TypeScript/Node.js/Vue.js) で忙しくて、OS 非依存なレイヤーしか触っていいない。</p>
-<p>Clang (C++) で競プロをやったり、 OCaml で TaPL のサンプルを動かしたりしたい。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/" data-id="cjrghybfg0013lqcx3wglhczw" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1286,6 +1317,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/blog/2019-04-30/diary/">近況 2019-04-30</a>
+          </li>
+        
+          <li>
             <a href="/blog/2019-03-31/diary/">近況 2019-03-31</a>
           </li>
         
@@ -1299,10 +1334,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/blog/2019-01-30/diary/">近況 2019-01-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-01-16/lsp-trial-04/">LSP学習記 #4 シンボルのリネーム</a>
           </li>
         
       </ul>

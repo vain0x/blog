@@ -90,6 +90,147 @@ ga('send', 'pageview');
   
     <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
+    <a href="/blog/2019-04-30/diary/" class="article-date">
+  <time datetime="2019-04-30T14:59:59.000Z" itemprop="datePublished">2019-04-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019-04-30/diary/">近況 2019-04-30</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今月の活動のまとめ</p>
+<ul>
+<li>前月分 <a href="https://vain0x.github.io/blog/2019-03-31/diary">https://vain0x.github.io/blog/2019-03-31/diary</a></li>
+</ul>
+<h2 id="picomet-lang"><a href="#picomet-lang" class="headerlink" title="picomet-lang"></a>picomet-lang</h2><p><a href="https://github.com/vain0x/picomet-lang/commits?since=2019-03-31&amp;until=2019-04-30" target="_blank" rel="noopener">https://github.com/vain0x/picomet-lang/commits?since=2019-03-31&amp;until=2019-04-30</a></p>
+<ul>
+<li>自作のプログラミング言語処理系</li>
+<li><code>&amp;&amp;</code> や <code>-=</code> などの細かい機能を実装した</li>
+<li>正準化を実装した</li>
+</ul>
+<p>正準化 (canonicalize) は「式」から副作用を排除する操作。picomet-lang では代入や関数呼び出しを式として認めているので、式を評価すると副作用が起こりうる。そのため <code>x + y</code> を評価するとき <code>x</code>, <code>y</code> のどちらを先に評価するかで結果が変わる。例えば <code>y + x</code> に書き換えたりできない。これでは後々の解析でプログラムを変形するのが困難になる。</p>
+<p>そこで、プログラムを次のような条件を満たす中間言語に変形する。</p>
+<ul>
+<li>プログラムは文の列である</li>
+<li>文は if や return のような制御文、関数呼び出し、代入である</li>
+<li>式はリテラル、変数、演算である</li>
+</ul>
+<p>例えば以下は、関数呼び出しが入れ子になっていたり、引数式の評価の途中で代入が発生する厄介な式である。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f(g(<span class="keyword">if</span> y == <span class="number">0</span> &#123;</span><br><span class="line">    y += <span class="number">1</span>;</span><br><span class="line">    x</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    x / y</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+<p>この例では、文を外側に移動したり、中間変数を導入したりして、条件を満たすように変形できる。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> y == <span class="number">0</span> &#123;</span><br><span class="line">    y += <span class="number">1</span></span><br><span class="line">    t = x</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    t = x / y</span><br><span class="line">&#125;</span><br><span class="line">u = g(t)</span><br><span class="line">_ = f(u)</span><br></pre></td></tr></table></figure>
+<p>この形式はC言語やアセンブリに近くて、後続のコード生成がやりやすい。</p>
+<p>そういえば「<a href="https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/">HSP3 でスクリプト言語の処理系を書く</a>」の記事に以下のように書いたが、</p>
+<blockquote>
+<p>はじめ、Rust のように式の中に文を書けるような文法にしていたが、break などのジャンプ命令によってスタックの構造が壊れてしまうということを知った<br>例えば while (p()) { s += (if (q()) { break } else { 1 }) } みたいな式だと、+= の左辺の s がスタックに乗った状態で break に到達してしまうので、ジャンプする前にそれをポップする必要がある。</p>
+</blockquote>
+<p>正準化を施せば問題なさそうだ。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 正準化前: 式の中にジャンプ命令があるので問題を起こす</span></span><br><span class="line"><span class="keyword">while</span> p() &#123;</span><br><span class="line">    s += <span class="keyword">if</span> q() &#123;</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 正準化後: 問題ない</span></span><br><span class="line"><span class="keyword">while</span> p() &#123;</span><br><span class="line">    <span class="keyword">if</span> q() &#123;</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        t = <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    s += t</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ネギ言語"><a href="#ネギ言語" class="headerlink" title="ネギ言語"></a>ネギ言語</h2><p><a href="https://github.com/vain0x/negi-lang/commits?since=2019-03-31&amp;until=2019-04-30" target="_blank" rel="noopener">https://github.com/vain0x/negi-lang/commits?since=2019-03-31&amp;until=2019-04-30</a></p>
+<ul>
+<li>HSP3 で書いたスクリプト言語処理系</li>
+<li>GC が高確率でスタックオーバーフローを起こす問題がさすがに好ましくないので、マークをつける処理を再帰からループに書き換えた</li>
+<li>簡易的なマップ (連想配列) を実装した</li>
+</ul>
+<h2 id="hsp3-ginger"><a href="#hsp3-ginger" class="headerlink" title="hsp3-ginger"></a>hsp3-ginger</h2><p><a href="https://github.com/vain0x/hsp3-ginger" target="_blank" rel="noopener">https://github.com/vain0x/hsp3-ginger</a></p>
+<ul>
+<li>VSCode で HSP3 の開発を行うための拡張機能</li>
+<li>とりあえずシンタックスの定義を用意した<ul>
+<li>Atom 用のものを微調整しただけ</li>
+</ul>
+</li>
+<li>まったりやっていく</li>
+</ul>
+<h2 id="競技プログラミング"><a href="#競技プログラミング" class="headerlink" title="競技プログラミング"></a>競技プログラミング</h2><p>週末に AtCoder に参加し、気まぐれに Codeforces (コドフォ) に1回参加した。ABC は安定して全完。高難度の問題への取り組みはいまいち。</p>
+<ul>
+<li><a href="https://qiita.com/vain0x/items/911a7ef1c5834d60503b" target="_blank" rel="noopener">競プロ参戦記 #40 Cake 123 | ABC123</a></li>
+<li><a href="https://qiita.com/vain0x/items/99a93d17426f88bd26de" target="_blank" rel="noopener">競プロ参戦記 #41 Handstand | ABC124</a></li>
+<li><a href="https://qiita.com/vain0x/items/bfad6cb1fa7bec912e06" target="_blank" rel="noopener">競プロ参戦記 #42 Polynomial Divisors | Tenka1 2019</a></li>
+<li><a href="https://qiita.com/vain0x/items/c3ab29132c1558f791e9" target="_blank" rel="noopener">競プロ参戦記 #43 Flipping Signs | ABC 125</a></li>
+<li><a href="https://qiita.com/vain0x/items/80cc96b3c83dfd5f17a6" target="_blank" rel="noopener">競プロ参戦記 #44 Three Religions | コドフォ #556 Div.2</a></li>
+</ul>
+<h2 id="Underpass-Webアプリ"><a href="#Underpass-Webアプリ" class="headerlink" title="Underpass (Webアプリ)"></a>Underpass (Webアプリ)</h2><p><a href="https://github.com/vain0x/underpass" target="_blank" rel="noopener">https://github.com/vain0x/underpass</a></p>
+<ul>
+<li>任意のパスフレーズを厳しく制限されたパスワードに変換するアプリ</li>
+<li>まれに「数字、小文字、大文字」を含む10文字以下のパスワード、などを要求されることがある</li>
+<li>そういうパスワードは作れないこともないが、<strong>安全性を覚えやすさを両立できない</strong></li>
+<li>安全かつ覚えやすいパスフレーズからそういうパスワードを導出するためのアプリがこれ</li>
+<li>ほんとに安全なのか自信がない</li>
+</ul>
+<h2 id="Who-to-Follow"><a href="#Who-to-Follow" class="headerlink" title="Who-to-Follow"></a>Who-to-Follow</h2><p><a href="https://github.com/vain0x/who-to-follow-examples" target="_blank" rel="noopener">https://github.com/vain0x/who-to-follow-examples</a></p>
+<ul>
+<li>Elm で who-to-follow のサンプルを書いてみた</li>
+<li>ユーザーをランダムに3人表示する、×ボタンを押すと別のユーザーを表示する、というもの<ul>
+<li>ユーザーのリストは GitHub の API でとってくる</li>
+</ul>
+</li>
+<li>非同期処理や乱数生成が出てくるので Cmd の練習になった</li>
+<li>本当は TypeScript + Redux でも同じのを書いて比較という形にしたかった<ul>
+<li>Redux がめんどくさくなってやめた</li>
+</ul>
+</li>
+</ul>
+<h2 id="その他"><a href="#その他" class="headerlink" title="その他"></a>その他</h2><h3 id="その他-WPF-のビューモデルを自動生成するやつ"><a href="#その他-WPF-のビューモデルを自動生成するやつ" class="headerlink" title="その他: WPF のビューモデルを自動生成するやつ"></a>その他: WPF のビューモデルを自動生成するやつ</h3><p><a href="https://github.com/vain0x/playground/blob/1a6012bb8d2d1002c690e7a614c2b7316b16e19b/play/2019-04-24-virtual-view-model-for-wpf/wpf_sands/MainWindow.xaml.cs#L472" target="_blank" rel="noopener">https://github.com/vain0x/playground/blob/1a6012bb8d2d1002c690e7a614c2b7316b16e19b/play/2019-04-24-virtual-view-model-for-wpf/wpf_sands/MainWindow.xaml.cs#L472</a></p>
+<ul>
+<li>イミュータブルなオブジェクトのツリーからミュータブルなオブジェクトのツリー (<code>INotifyPropertyChanged</code> を実装してる) を作って、それを差分更新していく、というもの</li>
+<li>TwoWay バインディングをどうにかしないといけないのが辛い</li>
+</ul>
+<h3 id="その他-WPF-の-FontFamily-が異常に重たい"><a href="#その他-WPF-の-FontFamily-が異常に重たい" class="headerlink" title="その他: WPF の FontFamily が異常に重たい"></a>その他: WPF の FontFamily が異常に重たい</h3><ul>
+<li>WPF で作っていたアプリの動作が重かった</li>
+<li>TextBlock や TextBox に FontFamily でローカルのフォントファイル (Noto Sans CJK JP) を指定するのをやめたらかなり早くなった</li>
+<li>小さい再現コードを作ってないから別の原因かもしれない</li>
+</ul>
+<h3 id="その他-PHP-のアロー関数の構文が良い"><a href="#その他-PHP-のアロー関数の構文が良い" class="headerlink" title="その他: PHP のアロー関数の構文が良い"></a>その他: PHP のアロー関数の構文が良い</h3><ul>
+<li>「<a href="https://qiita.com/rana_kualu/items/7fbdd520a7e355599f7d" target="_blank" rel="noopener">PHPでアロー関数を使えるようになる</a>」という記事を読んだ</li>
+<li>PHP 7.4 から <code>fn($x, $y, ..) =&gt; z</code> という短い構文のラムダ式が入る<ul>
+<li>いままでは昔の JavaScript と同様の <code>function($x, $y, ..) { return $z; }</code> のような形式しかなかった</li>
+</ul>
+</li>
+<li>C# や JavaScript の <code>(x, y, ..) =&gt; z</code> という構文 (先頭に <code>fn</code> キーワードがない) は曖昧性やパーサーの実装への影響の大きさから却下されたらしい</li>
+<li>C# のアロー関数構文は構文解析やエラー耐性の面から好ましくないので、<strong>PHP 流のラムダ式が流行ると嬉しい</strong></li>
+<li>私の自作言語のラムダ式構文は以下:<ul>
+<li>klac-lang: <code>(x, y, ..) =&gt; z</code> (C# と同じ、構文解析にめちゃくちゃ苦労した)</li>
+<li>milone-lang: <code>fun x y .. -&gt; z</code> (F# と同じ)</li>
+<li>picomet-lang: <code>|x, y, ..| z</code> (Rust と同じ)</li>
+<li>negi-lang: <code>fun(x, y, ..) z</code> (PHP に似ているが <code>=&gt;</code> がない)</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2019-04-30/diary/" data-id="cjv8ddqyk0000mlcx9saphs90" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
     <a href="/blog/2019-03-31/diary/" class="article-date">
   <time datetime="2019-03-31T14:59:59.000Z" itemprop="datePublished">2019-03-31</time>
 </a>
@@ -1170,98 +1311,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-siku-siku-primes" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2018-12-16/siku-siku-primes/" class="article-date">
-  <time datetime="2018-12-16T01:34:43.000Z" itemprop="datePublished">2018-12-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018-12-16/siku-siku-primes/">シクシク素数列を F# でやってみた</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。</p>
-<p><a href="https://qiita.com/advent-calendar/2018/4949prime-series" target="_blank" rel="noopener">シクシク素数列 Advent Calendar 2018 - Qiita</a></p>
-<h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><blockquote>
-<ul>
-<li>数値に4か9を含む素数をシクシク素数と呼ぶことにします<ul>
-<li>19とか41とか149とか。</li>
-</ul>
-</li>
-<li>標準入力として正の整数 N を与えたら N 番目までのシクシク素数を半角カンマ区切りで標準出力してください<ul>
-<li>例 N = 9 の場合、 19,29,41,43,47,59,79,89,97</li>
-</ul>
-</li>
-<li>N は最大で 100 とします</li>
-</ul>
-</blockquote>
-<h2 id="考察"><a href="#考察" class="headerlink" title="考察"></a>考察</h2><p>10進数展開に4か9を含む整数を <strong>シクシク数</strong> と呼ぶことにします。こうするとシクシク素数の条件は</p>
-<ul>
-<li>シクシク数であること</li>
-<li>素数であること</li>
-</ul>
-<p>の2つに分割できて、シンプルに実装できそうです。</p>
-<h2 id="実装"><a href="#実装" class="headerlink" title="実装"></a>実装</h2><p>なるべく読みやすい実装を心がけて書いていきましょう！</p>
-<p>実装方法はたくさんありますが、今回はやんごとなき理由から seq を中心に使っています。</p>
-<h3 id="実装-素数判定"><a href="#実装-素数判定" class="headerlink" title="実装: 素数判定"></a>実装: 素数判定</h3><p>はじめに素数判定の関数を作ります。よくあるやりかたですが、 2 以上 √n 以下の数で割ってみて、いずれも割り切れなければ素数、と判定します。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isPrime n =</span><br><span class="line">  <span class="comment">// n が2未満のケースは除外</span></span><br><span class="line">  <span class="keyword">if</span> n &lt; <span class="number">2</span> <span class="keyword">then</span> <span class="keyword">false</span> <span class="keyword">else</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// √n の整数部分</span></span><br><span class="line">  <span class="keyword">let</span> r = n |&gt; float |&gt; sqrt |&gt; int</span><br><span class="line"></span><br><span class="line">  seq &#123; <span class="number">2.</span>.r &#125; |&gt; Seq.forall (<span class="keyword">fun</span> m -&gt; n % m &lt;&gt; <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-<p><code>seq { 2..r }</code> は 2 から r 以下の数からなる数列を表しています。この中の値をそれぞれ m として、 <code>n % m &lt;&gt; 0</code> がすべてについて成り立てばOK。</p>
-<p><code>seq</code> と <code>Seq.</code> ですでにシクシク感が出ていますが、シクシク数の判定は次です。</p>
-<h3 id="実装-シクシク数の判定"><a href="#実装-シクシク数の判定" class="headerlink" title="実装: シクシク数の判定"></a>実装: シクシク数の判定</h3><p>シクシク数かどうかの判定では、 n の10進展開を計算します。割り算を使うことで n を1桁目とそれ以外の部分に分解できるというのがポイント。</p>
-<ul>
-<li><code>n / 10</code> は、n から1桁目を取り除いたもの</li>
-<li><code>n % 10</code> は n の1桁目</li>
-</ul>
-<p>そのため <code>n / 10</code> を10進展開したものに <code>n % 10</code> を付け足せば、n の各桁の数からなる列を構成できます。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">rec</span> digits n =</span><br><span class="line">  seq &#123;</span><br><span class="line">    <span class="keyword">if</span> n &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">      <span class="keyword">yield!</span> digits (n / <span class="number">10</span>)</span><br><span class="line">      <span class="keyword">yield</span> n % <span class="number">10</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>ここでの <code>seq { .. }</code> はブロック内で <code>yield</code> された値からなる列を表します。他の言語にあるリストの内包表記みたいなもの。<code>yield!</code> は複数の値を一挙に <code>yield</code> することを表しています。</p>
-<p>シクシク数の判定は、これで得られた各桁の数のどれかが 4, 9 に等しいかどうかを判定すればOK。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isSikuSiku n =</span><br><span class="line">  digits n |&gt; Seq.exists (<span class="keyword">fun</span> d -&gt; d = <span class="number">4</span> || d = <span class="number">9</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="実装-シクシク素数列挙"><a href="#実装-シクシク素数列挙" class="headerlink" title="実装: シクシク素数列挙"></a>実装: シクシク素数列挙</h3><p>これでシクシク素数判定関数のできあがり！</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isSikuSikuPrime n =</span><br><span class="line">  isSikuSiku n &amp;&amp; isPrime n</span><br></pre></td></tr></table></figure>
-<p>非負整数を列挙して、シクシク素数であるものに絞り込むことで、シクシク素数を昇順に列挙します。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sikuSikuPrimes =</span><br><span class="line">  seq &#123;</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="number">0.</span>.Int32.MaxValue <span class="keyword">do</span></span><br><span class="line">      <span class="keyword">if</span> isSikuSikuPrime n <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p><code>seq { .. }</code> の中身は必要に応じて計算されるので、実際には全整数についてのループが回るわけではないので安心してください。</p>
-<p><code>Seq.take N</code> を使うと、列の前から N 個の要素が列挙された時点で計算を打ち切るようにできます。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sikuSikuPrimes |&gt; Seq.take N</span><br></pre></td></tr></table></figure>
-<h3 id="実装-main"><a href="#実装-main" class="headerlink" title="実装: main"></a>実装: main</h3><p>最後に標準入出力を書きます。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> System</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> N = Console.ReadLine() |&gt; int</span><br><span class="line"></span><br><span class="line">sikuSikuPrimes</span><br><span class="line">|&gt; Seq.take N</span><br><span class="line">|&gt; Seq.map string</span><br><span class="line">|&gt; String.concat <span class="string">","</span></span><br><span class="line">|&gt; printfn <span class="string">"%s"</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://dotnetfiddle.net/mIJ1qY" target="_blank" rel="noopener">.NET Fiddle で試す</a></p>
-<h2 id="おまけ"><a href="#おまけ" class="headerlink" title="おまけ"></a>おまけ</h2><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> System</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> isPrime n =</span><br><span class="line">  <span class="keyword">if</span> n &lt; <span class="number">2</span> <span class="keyword">then</span> <span class="keyword">false</span> <span class="keyword">else</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> r = n |&gt; float |&gt; sqrt |&gt; int</span><br><span class="line">  seq &#123; <span class="number">2.</span>.r &#125; |&gt; Seq.forall (<span class="keyword">fun</span> m -&gt; n % m &lt;&gt; <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> testPrime () =</span><br><span class="line">  <span class="keyword">assert</span> (isPrime <span class="number">2</span>)</span><br><span class="line">  <span class="keyword">assert</span> (isPrime <span class="number">19</span>)</span><br><span class="line">  <span class="keyword">assert</span> (isPrime <span class="number">4</span> |&gt; not)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">rec</span> digits n =</span><br><span class="line">  seq &#123;</span><br><span class="line">    <span class="keyword">if</span> n &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">      <span class="keyword">yield!</span> digits (n / <span class="number">10</span>)</span><br><span class="line">      <span class="keyword">yield</span> n % <span class="number">10</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> testDigits () =</span><br><span class="line">  <span class="keyword">assert</span> (digits <span class="number">0</span> |&gt; Seq.isEmpty)</span><br><span class="line">  <span class="keyword">assert</span> (digits <span class="number">2019</span> |&gt; Seq.toList = [<span class="number">2</span>; <span class="number">0</span>; <span class="number">1</span>; <span class="number">9</span>])</span><br><span class="line"></span><br><span class="line">testDigits ()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> isSikuSiku n =</span><br><span class="line">  digits n |&gt; Seq.exists (<span class="keyword">fun</span> d -&gt; d = <span class="number">4</span> || d = <span class="number">9</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> testIsSikuSiku () =</span><br><span class="line">  <span class="keyword">assert</span> (isSikuSiku <span class="number">42</span>)</span><br><span class="line">  <span class="keyword">assert</span> (isSikuSiku <span class="number">2019</span>)</span><br><span class="line">  <span class="keyword">assert</span> (isSikuSiku <span class="number">12356780</span> |&gt; not)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> isSikuSikuPrime n =</span><br><span class="line">  isSikuSiku n &amp;&amp; isPrime n</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> sikuSikuPrimes =</span><br><span class="line">  seq &#123;</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="number">0.</span>.Int32.MaxValue <span class="keyword">do</span></span><br><span class="line">      <span class="keyword">if</span> isSikuSikuPrime n <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> N = Console.ReadLine() |&gt; int</span><br><span class="line">sikuSikuPrimes</span><br><span class="line">|&gt; Seq.take N</span><br><span class="line">|&gt; Seq.map string</span><br><span class="line">|&gt; String.concat <span class="string">","</span></span><br><span class="line">|&gt; printfn <span class="string">"%s"</span></span><br></pre></td></tr></table></figure>
-<p>出力例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ fsharpi ./Program.fsx</span><br><span class="line">100</span><br><span class="line">19,29,41,43,47,59,79,89,97,109,139,149,179,191,193,197,199,229,239,241,269,293,347,349,359,379,389,397,401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,509,541,547,569,593,599,619,641,643,647,659,691,709,719,739,743,769,797,809,829,839,859,907,911,919,929,937,941,947,953,967,971,977,983,991,997,1009,1019,1039,1049,1069,1091,1093,1097,1109,1129,1193,1229,1249,1259,1279,1289,1291,1297,1319</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-12-16/siku-siku-primes/" data-id="cjrghybfi0018lqcx0w7ba88w" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/F/">F#</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1280,6 +1329,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/blog/2019-04-30/diary/">近況 2019-04-30</a>
+          </li>
+        
+          <li>
             <a href="/blog/2019-03-31/diary/">近況 2019-03-31</a>
           </li>
         
@@ -1293,10 +1346,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/blog/2019-01-30/diary/">近況 2019-01-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-01-16/lsp-trial-04/">LSP学習記 #4 シンボルのリネーム</a>
           </li>
         
       </ul>

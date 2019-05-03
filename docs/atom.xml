@@ -6,7 +6,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://vain0x.github.io/blog/"/>
-  <updated>2019-04-02T14:30:39.775Z</updated>
+  <updated>2019-05-03T17:46:15.021Z</updated>
   <id>http://vain0x.github.io/blog/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>近況 2019-04-30</title>
+    <link href="http://vain0x.github.io/blog/2019-04-30/diary/"/>
+    <id>http://vain0x.github.io/blog/2019-04-30/diary/</id>
+    <published>2019-04-30T14:59:59.000Z</published>
+    <updated>2019-05-03T17:46:15.021Z</updated>
+    
+    <content type="html"><![CDATA[<p>今月の活動のまとめ</p><ul><li>前月分 <a href="https://vain0x.github.io/blog/2019-03-31/diary">https://vain0x.github.io/blog/2019-03-31/diary</a></li></ul><h2 id="picomet-lang"><a href="#picomet-lang" class="headerlink" title="picomet-lang"></a>picomet-lang</h2><p><a href="https://github.com/vain0x/picomet-lang/commits?since=2019-03-31&amp;until=2019-04-30" target="_blank" rel="noopener">https://github.com/vain0x/picomet-lang/commits?since=2019-03-31&amp;until=2019-04-30</a></p><ul><li>自作のプログラミング言語処理系</li><li><code>&amp;&amp;</code> や <code>-=</code> などの細かい機能を実装した</li><li>正準化を実装した</li></ul><p>正準化 (canonicalize) は「式」から副作用を排除する操作。picomet-lang では代入や関数呼び出しを式として認めているので、式を評価すると副作用が起こりうる。そのため <code>x + y</code> を評価するとき <code>x</code>, <code>y</code> のどちらを先に評価するかで結果が変わる。例えば <code>y + x</code> に書き換えたりできない。これでは後々の解析でプログラムを変形するのが困難になる。</p><p>そこで、プログラムを次のような条件を満たす中間言語に変形する。</p><ul><li>プログラムは文の列である</li><li>文は if や return のような制御文、関数呼び出し、代入である</li><li>式はリテラル、変数、演算である</li></ul><p>例えば以下は、関数呼び出しが入れ子になっていたり、引数式の評価の途中で代入が発生する厄介な式である。</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f(g(<span class="keyword">if</span> y == <span class="number">0</span> &#123;</span><br><span class="line">    y += <span class="number">1</span>;</span><br><span class="line">    x</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    x / y</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure><p>この例では、文を外側に移動したり、中間変数を導入したりして、条件を満たすように変形できる。</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> y == <span class="number">0</span> &#123;</span><br><span class="line">    y += <span class="number">1</span></span><br><span class="line">    t = x</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    t = x / y</span><br><span class="line">&#125;</span><br><span class="line">u = g(t)</span><br><span class="line">_ = f(u)</span><br></pre></td></tr></table></figure><p>この形式はC言語やアセンブリに近くて、後続のコード生成がやりやすい。</p><p>そういえば「<a href="https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/">HSP3 でスクリプト言語の処理系を書く</a>」の記事に以下のように書いたが、</p><blockquote><p>はじめ、Rust のように式の中に文を書けるような文法にしていたが、break などのジャンプ命令によってスタックの構造が壊れてしまうということを知った<br>例えば while (p()) { s += (if (q()) { break } else { 1 }) } みたいな式だと、+= の左辺の s がスタックに乗った状態で break に到達してしまうので、ジャンプする前にそれをポップする必要がある。</p></blockquote><p>正準化を施せば問題なさそうだ。</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 正準化前: 式の中にジャンプ命令があるので問題を起こす</span></span><br><span class="line"><span class="keyword">while</span> p() &#123;</span><br><span class="line">    s += <span class="keyword">if</span> q() &#123;</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 正準化後: 問題ない</span></span><br><span class="line"><span class="keyword">while</span> p() &#123;</span><br><span class="line">    <span class="keyword">if</span> q() &#123;</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        t = <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    s += t</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="ネギ言語"><a href="#ネギ言語" class="headerlink" title="ネギ言語"></a>ネギ言語</h2><p><a href="https://github.com/vain0x/negi-lang/commits?since=2019-03-31&amp;until=2019-04-30" target="_blank" rel="noopener">https://github.com/vain0x/negi-lang/commits?since=2019-03-31&amp;until=2019-04-30</a></p><ul><li>HSP3 で書いたスクリプト言語処理系</li><li>GC が高確率でスタックオーバーフローを起こす問題がさすがに好ましくないので、マークをつける処理を再帰からループに書き換えた</li><li>簡易的なマップ (連想配列) を実装した</li></ul><h2 id="hsp3-ginger"><a href="#hsp3-ginger" class="headerlink" title="hsp3-ginger"></a>hsp3-ginger</h2><p><a href="https://github.com/vain0x/hsp3-ginger" target="_blank" rel="noopener">https://github.com/vain0x/hsp3-ginger</a></p><ul><li>VSCode で HSP3 の開発を行うための拡張機能</li><li>とりあえずシンタックスの定義を用意した<ul><li>Atom 用のものを微調整しただけ</li></ul></li><li>まったりやっていく</li></ul><h2 id="競技プログラミング"><a href="#競技プログラミング" class="headerlink" title="競技プログラミング"></a>競技プログラミング</h2><p>週末に AtCoder に参加し、気まぐれに Codeforces (コドフォ) に1回参加した。ABC は安定して全完。高難度の問題への取り組みはいまいち。</p><ul><li><a href="https://qiita.com/vain0x/items/911a7ef1c5834d60503b" target="_blank" rel="noopener">競プロ参戦記 #40 Cake 123 | ABC123</a></li><li><a href="https://qiita.com/vain0x/items/99a93d17426f88bd26de" target="_blank" rel="noopener">競プロ参戦記 #41 Handstand | ABC124</a></li><li><a href="https://qiita.com/vain0x/items/bfad6cb1fa7bec912e06" target="_blank" rel="noopener">競プロ参戦記 #42 Polynomial Divisors | Tenka1 2019</a></li><li><a href="https://qiita.com/vain0x/items/c3ab29132c1558f791e9" target="_blank" rel="noopener">競プロ参戦記 #43 Flipping Signs | ABC 125</a></li><li><a href="https://qiita.com/vain0x/items/80cc96b3c83dfd5f17a6" target="_blank" rel="noopener">競プロ参戦記 #44 Three Religions | コドフォ #556 Div.2</a></li></ul><h2 id="Underpass-Webアプリ"><a href="#Underpass-Webアプリ" class="headerlink" title="Underpass (Webアプリ)"></a>Underpass (Webアプリ)</h2><p><a href="https://github.com/vain0x/underpass" target="_blank" rel="noopener">https://github.com/vain0x/underpass</a></p><ul><li>任意のパスフレーズを厳しく制限されたパスワードに変換するアプリ</li><li>まれに「数字、小文字、大文字」を含む10文字以下のパスワード、などを要求されることがある</li><li>そういうパスワードは作れないこともないが、<strong>安全性を覚えやすさを両立できない</strong></li><li>安全かつ覚えやすいパスフレーズからそういうパスワードを導出するためのアプリがこれ</li><li>ほんとに安全なのか自信がない</li></ul><h2 id="Who-to-Follow"><a href="#Who-to-Follow" class="headerlink" title="Who-to-Follow"></a>Who-to-Follow</h2><p><a href="https://github.com/vain0x/who-to-follow-examples" target="_blank" rel="noopener">https://github.com/vain0x/who-to-follow-examples</a></p><ul><li>Elm で who-to-follow のサンプルを書いてみた</li><li>ユーザーをランダムに3人表示する、×ボタンを押すと別のユーザーを表示する、というもの<ul><li>ユーザーのリストは GitHub の API でとってくる</li></ul></li><li>非同期処理や乱数生成が出てくるので Cmd の練習になった</li><li>本当は TypeScript + Redux でも同じのを書いて比較という形にしたかった<ul><li>Redux がめんどくさくなってやめた</li></ul></li></ul><h2 id="その他"><a href="#その他" class="headerlink" title="その他"></a>その他</h2><h3 id="その他-WPF-のビューモデルを自動生成するやつ"><a href="#その他-WPF-のビューモデルを自動生成するやつ" class="headerlink" title="その他: WPF のビューモデルを自動生成するやつ"></a>その他: WPF のビューモデルを自動生成するやつ</h3><p><a href="https://github.com/vain0x/playground/blob/1a6012bb8d2d1002c690e7a614c2b7316b16e19b/play/2019-04-24-virtual-view-model-for-wpf/wpf_sands/MainWindow.xaml.cs#L472" target="_blank" rel="noopener">https://github.com/vain0x/playground/blob/1a6012bb8d2d1002c690e7a614c2b7316b16e19b/play/2019-04-24-virtual-view-model-for-wpf/wpf_sands/MainWindow.xaml.cs#L472</a></p><ul><li>イミュータブルなオブジェクトのツリーからミュータブルなオブジェクトのツリー (<code>INotifyPropertyChanged</code> を実装してる) を作って、それを差分更新していく、というもの</li><li>TwoWay バインディングをどうにかしないといけないのが辛い</li></ul><h3 id="その他-WPF-の-FontFamily-が異常に重たい"><a href="#その他-WPF-の-FontFamily-が異常に重たい" class="headerlink" title="その他: WPF の FontFamily が異常に重たい"></a>その他: WPF の FontFamily が異常に重たい</h3><ul><li>WPF で作っていたアプリの動作が重かった</li><li>TextBlock や TextBox に FontFamily でローカルのフォントファイル (Noto Sans CJK JP) を指定するのをやめたらかなり早くなった</li><li>小さい再現コードを作ってないから別の原因かもしれない</li></ul><h3 id="その他-PHP-のアロー関数の構文が良い"><a href="#その他-PHP-のアロー関数の構文が良い" class="headerlink" title="その他: PHP のアロー関数の構文が良い"></a>その他: PHP のアロー関数の構文が良い</h3><ul><li>「<a href="https://qiita.com/rana_kualu/items/7fbdd520a7e355599f7d" target="_blank" rel="noopener">PHPでアロー関数を使えるようになる</a>」という記事を読んだ</li><li>PHP 7.4 から <code>fn($x, $y, ..) =&gt; z</code> という短い構文のラムダ式が入る<ul><li>いままでは昔の JavaScript と同様の <code>function($x, $y, ..) { return $z; }</code> のような形式しかなかった</li></ul></li><li>C# や JavaScript の <code>(x, y, ..) =&gt; z</code> という構文 (先頭に <code>fn</code> キーワードがない) は曖昧性やパーサーの実装への影響の大きさから却下されたらしい</li><li>C# のアロー関数構文は構文解析やエラー耐性の面から好ましくないので、<strong>PHP 流のラムダ式が流行ると嬉しい</strong></li><li>私の自作言語のラムダ式構文は以下:<ul><li>klac-lang: <code>(x, y, ..) =&gt; z</code> (C# と同じ、構文解析にめちゃくちゃ苦労した)</li><li>milone-lang: <code>fun x y .. -&gt; z</code> (F# と同じ)</li><li>picomet-lang: <code>|x, y, ..| z</code> (Rust と同じ)</li><li>negi-lang: <code>fun(x, y, ..) z</code> (PHP に似ているが <code>=&gt;</code> がない)</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今月の活動のまとめ&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;前月分 &lt;a href=&quot;https://vain0x.github.io/blog/2019-03-31/diary&quot;&gt;https://vain0x.github.io/blog/2019-03-31/diary&lt;/a&gt;&lt;/l
+      
+    
+    </summary>
+    
+    
+      <category term="日記" scheme="http://vain0x.github.io/blog/tags/%E6%97%A5%E8%A8%98/"/>
+    
+  </entry>
   
   <entry>
     <title>近況 2019-03-31</title>
@@ -525,31 +550,6 @@
       <category term="バージョン管理" scheme="http://vain0x.github.io/blog/tags/%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E7%AE%A1%E7%90%86/"/>
     
       <category term="Essay" scheme="http://vain0x.github.io/blog/tags/Essay/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Ubuntuデスクトップを使い始めた</title>
-    <link href="http://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/"/>
-    <id>http://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/</id>
-    <published>2018-01-28T08:53:43.000Z</published>
-    <updated>2018-12-01T12:04:26.874Z</updated>
-    
-    <content type="html"><![CDATA[<p>普段づかいする環境をWindowsからUbuntuに移した話。</p><h2 id="要約"><a href="#要約" class="headerlink" title="要約"></a>要約</h2><ul><li>もともと Windows 10 だった。</li><li>Linux が便利らしいので、やってみたかった。</li><li>調べてみたらかなり試す価値がありそうだった。</li><li>安めのパソコンを買って試しているが、あまり問題がない。</li></ul><h2 id="調査"><a href="#調査" class="headerlink" title="調査"></a>調査</h2><p>2017年11月ぐらいのこと。使っていたノートパソコン(dynabook)が2011年ぐらいからの古株なので、買い替えることにした。</p><p>Linux 環境は Windows よりプログラミングに向いている [要出典] 的な話をわりと聞くので一度試してみようと思い、仮想環境を使ったり、普段の作業がどのぐらい Ubuntu でもできるのか調査したりした。</p><p>同じ用途のアプリが Ubuntu 環境でも提供されているというのもあるし、いまはウェブアプリやクロスプラットフォーム対応のアプリが多いので、替えが効かないのは Visual Studio (C# や F# での開発に使う) ぐらいだった。それに関しても、 .NET Core 2.0 のリリース以後、じわじわ VSCode に移行している。WPF で GUI アプリが作れなくなるが、他の GUI ツールキットを覚えるいい機会だろう。</p><p>予想外だったのは Sublime Text 3 の Ubuntu 版が日本語 IME と相性が悪くて使いづらいことで、いまは VSCode で代用している。メモ帳 (Markdown エディター) 代わりとしてはオーバースペックなので何か用意したい。</p><h2 id="構築"><a href="#構築" class="headerlink" title="構築"></a>構築</h2><p>次に Ubuntu をインストールすべきパソコンを探した。メーカーによっては起動できないのもあるらしい (※よく知らない) ので、実際にインストールして動かした人のいるものを選ぶのがよさそうだ。次の記事を参考にして、 Inspiron のデスクトップを買った:</p><p>参考: <a href="http://www.dell.com/support/article/jp/ja/jpbsd1/sln151664/%E3%83%87%E3%83%ABpc%E3%81%ABubuntu-linux%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95?lang=ja" target="_blank" rel="noopener">デルPCにUbuntu Linuxをインストールする方法</a></p><p>インストール手順まで詳しく書いてあって、ぽちぽちしたらできた。マウスやキーボードもそのまま動いて安心した。</p><h2 id="移行"><a href="#移行" class="headerlink" title="移行"></a>移行</h2><p>データの移行時は文字コードの問題があった。テキストファイルの一部が shift_jis だったが、これは nkf コマンドを使ってすべて utf-8 にした。シェルスクリプトの簡単な練習になった。</p><p>音楽ファイルのメタタグも一部が shift_jis なために文字化けしていたが、これは Windows のアプリで一括変換した。どうも <strong>一部壊れている</strong> ような気がする。気のせいだと思いたい。</p><h2 id="現状"><a href="#現状" class="headerlink" title="現状"></a>現状</h2><p>何か問題が起こったときに対処できるか、というのが一番の不安要素だが、いまのところ問題はない。やったことといえば、まだ外付けハードディスクが自動的にマウントされるように fstab の設定を書いたぐらいだが。</p><p>それに、このごろは Web 系の勉強 (HTML/CSS/ES2016/TypeScript/Node.js/Vue.js) で忙しくて、OS 非依存なレイヤーしか触っていいない。</p><p>Clang (C++) で競プロをやったり、 OCaml で TaPL のサンプルを動かしたりしたい。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;普段づかいする環境をWindowsからUbuntuに移した話。&lt;/p&gt;
-&lt;h2 id=&quot;要約&quot;&gt;&lt;a href=&quot;#要約&quot; class=&quot;headerlink&quot; title=&quot;要約&quot;&gt;&lt;/a&gt;要約&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;もともと Windows 10 だった。&lt;/li&gt;
-      
-    
-    </summary>
-    
-    
-      <category term="日記" scheme="http://vain0x.github.io/blog/tags/%E6%97%A5%E8%A8%98/"/>
     
   </entry>
   
