@@ -88,6 +88,146 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-12-31/diary/" class="article-date">
+  <time datetime="2018-12-31T14:59:59.000Z" itemprop="datePublished">2018-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-12-31/diary/">近況 2018-12-31</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今月の進捗など</p>
+<ul>
+<li>前月分: <a href="https://vain0x.github.io/blog/2018-11-30/diary/">https://vain0x.github.io/blog/2018-11-30/diary/</a></li>
+</ul>
+<h2 id="hsp3-debug-ginger"><a href="#hsp3-debug-ginger" class="headerlink" title="hsp3-debug-ginger"></a>hsp3-debug-ginger</h2><p><a href="https://github.com/vain0x/hsp3-debug-ginger" target="_blank" rel="noopener">https://github.com/vain0x/hsp3-debug-ginger</a></p>
+<ul>
+<li>前月からやっている、VSCode 対応の HSP デバッガーを作るプロジェクト</li>
+<li>前回の近況では進捗を書き忘れていた</li>
+<li>最小限の機能が揃った<ul>
+<li>グローバル変数を基本型の1次元配列まで表示できる</li>
+<li>assert とかで止まったときに実行中の行がエディター上で強調表示される</li>
+<li>VSCode の一時停止ボタンやステップインボタンで実行の制御ができる</li>
+</ul>
+</li>
+<li>アルファ版のプレリリースを出した</li>
+<li>課題はたくさんある<ul>
+<li>インストール手順が煩雑すぎる</li>
+<li>挙動がおかしい<ul>
+<li>実行中の行にスクロールしてくれない</li>
+</ul>
+</li>
+<li>基本的な機能の不足<ul>
+<li>logmes</li>
+<li>2次元以上の配列の表示</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="milone-lang"><a href="#milone-lang" class="headerlink" title="milone-lang"></a>milone-lang</h2><p><a href="https://github.com/vain0x/milone-lang" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang</a></p>
+<ul>
+<li>セルフホストを目指している F# サブセットのコンパイラ</li>
+<li>リファクタリング、エラーハンドリングの強化、パーサーの微修正などの細かい作業をした</li>
+<li>README にプロジェクトの進捗状況やコンパイル手順などを書いた</li>
+<li>パターンマッチを強化した</li>
+<li>when パターンは、パターンに合致した後に追加の <code>if</code> 文を足せばいい</li>
+<li>as パターンは、パターンに合致するかの判定の前に変数への代入を行えばいい</li>
+<li>or パターンの一部<ul>
+<li>パターンを選言標準形的なものにするとやりやすい</li>
+<li>例えばパターン <code>Foo (A | B) :: _</code> を <code>Foo A :: _ | Foo B :: _</code> にする</li>
+<li>つまり <code>|</code> が一番外側に来るようにする</li>
+<li><code>|</code> の左右のパターンについてそれぞれ合致するか試して、どっちかに合致したら <code>-&gt;</code> の内側に <code>goto</code> する</li>
+<li>いまのところ or を含むパターンでは変数を束縛できない</li>
+</ul>
+</li>
+</ul>
+<h2 id="curage-lang"><a href="#curage-lang" class="headerlink" title="curage-lang"></a>curage-lang</h2><p><a href="https://github.com/vain0x/curage-lang" target="_blank" rel="noopener">https://github.com/vain0x/curage-lang</a></p>
+<ul>
+<li>Language Server Protocol (LSP) の練習用のプロジェクトを始めた</li>
+<li>LSP は Debugger Adapter Protocol と似てるけど、より複雑で難しい</li>
+<li>既存のパーサーを使うのはめんどくさいので処理系を一から書いていて、いちおう自作言語という扱い</li>
+<li>クラゲ言語</li>
+<li>Rust 風の構文 (予定)</li>
+<li>単純な型システム (予定)</li>
+<li>インタプリタ上での実行 (予定)</li>
+<li>いまのところ構文エラーを VSCode 上に警告として表示するやつ (textDocument/publishDiagnostics) だけできている</li>
+<li>Node (TypeScript) 用に LSP の実装の基盤となるフレームワーク的なものがある<ul>
+<li>vscode-languageserver</li>
+<li>何をやっているのかよく分からないので使っていない</li>
+</ul>
+</li>
+</ul>
+<h2 id="競技プログラミング"><a href="#競技プログラミング" class="headerlink" title="競技プログラミング"></a>競技プログラミング</h2><ul>
+<li>AtCoder に毎週参加している</li>
+<li>レートは青に漸近中 (1557 → 1580 → 1582)</li>
+<li><a href="https://note.mu/vain0x/n/ne88e557f5859" target="_blank" rel="noopener">競プロ参戦記 #24 「約数75」 ABC 114｜ベイン｜note</a></li>
+<li><a href="https://note.mu/vain0x/n/n539b9a9ac173" target="_blank" rel="noopener">競プロ参戦記 #25 「クリスマス多次元バーガー」 ABC 115｜ベイン｜note</a></li>
+<li><a href="https://note.mu/vain0x/n/n6aa8c41c4b77" target="_blank" rel="noopener">競プロ参戦記 #26 「和が2冪」  AGC 29 [AB]｜ベイン｜note</a></li>
+<li><a href="https://note.mu/vain0x/n/nb6b19dd4245a" target="_blank" rel="noopener">競プロ参戦記 #27 「ゲーム」 CADDi 2018 [CD]｜ベイン｜note</a></li>
+</ul>
+<h2 id="ウェブアプリ開発"><a href="#ウェブアプリ開発" class="headerlink" title="ウェブアプリ開発"></a>ウェブアプリ開発</h2><ul>
+<li>UI を作り込んだ</li>
+<li>on-the-fly で描画するには複雑なグラフを SVG 画像として生成するスクリプトを書いた<ul>
+<li>Fabric.js でラップされた Canvas API を使って図形を描画して、SVG にエクスポートして、ローカルサーバーに送信して、ファイルに保存する、という遠回り。1回動いたら十分なのでよし</li>
+</ul>
+</li>
+</ul>
+<h2 id="Qiita"><a href="#Qiita" class="headerlink" title="Qiita"></a>Qiita</h2><ul>
+<li><a href="https://qiita.com/vain0x/items/8f8b6effb32cd68c22f3" target="_blank" rel="noopener">シクシク素数列を F# でやってみた - Qiita</a> を投稿した<ul>
+<li>F# で素数判定をやるサンプルコード的なもの</li>
+</ul>
+</li>
+<li><a href="https://qiita.com/yasuabe2613/items/5ab33e103e4105630e4c" target="_blank" rel="noopener">Domain Modeling Made Functional まとめ - Qiita</a> を読んだ<ul>
+<li>元になった F# で DDD をやる本も読んでいる</li>
+</ul>
+</li>
+</ul>
+<h2 id="Trickle"><a href="#Trickle" class="headerlink" title="Trickle"></a>Trickle</h2><ul>
+<li>Trickle を始めた</li>
+<li>トピックごとに活動記録を書いていけるスマートフォンアプリ</li>
+<li>参考 <a href="http://blog.h13i32maru.jp/entry/2018/11/12/092904" target="_blank" rel="noopener">http://blog.h13i32maru.jp/entry/2018/11/12/092904</a></li>
+<li>ガルパメモの垂れ流しになってる</li>
+</ul>
+<h2 id="ガルパ-リズムゲーム"><a href="#ガルパ-リズムゲーム" class="headerlink" title="ガルパ (リズムゲーム)"></a>ガルパ (リズムゲーム)</h2><ul>
+<li>難度26の精度は確実に上がってきている</li>
+<li>難度27以上については、マジックアワーをフルコンボした以外に進歩がない</li>
+<li>アニメの 1st season 良かった</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-12-31/diary/" data-id="cjrghybfe000zlqcxi79x7ew3" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-siku-siku-primes" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018-12-16/siku-siku-primes/" class="article-date">
@@ -1193,112 +1333,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-commit-message-prefixes" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2018-01-30/commit-message-prefixes/" class="article-date">
-  <time datetime="2018-01-30T13:40:38.000Z" itemprop="datePublished">2018-01-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018-01-30/commit-message-prefixes/">『コミットメッセージに「プレフィックス」をつける』を検討した</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Qiita で <a href="https://qiita.com/numanomanu/items/45dd285b286a1f7280ed" target="_blank" rel="noopener">コミットメッセージに 「プレフィックス」 をつける</a> というアイディアが紹介されていて、その効用の一つとして挙げられている:</p>
-<blockquote>
-<p>プレフィックスを意識しながら順序立てて機能を作成する癖が身につく</p>
-</blockquote>
-<p>という点が、試験運用していて実際に魅力的だと感じた。</p>
-<p>関連して、どうやら <a href="http://pronama.azurewebsites.net/2015/06/20/github-emoji-commit-message/" target="_blank" rel="noopener">テキストエディター Atom のリポジトリーではコミットメッセージに絵文字をつけるようにしている</a> らしい。</p>
-<p>しかし GitHub のコロン記法 (<code>:sparkles:</code> みたいなの) はターミナル上では絵文字として表示されないし、そもそも特定のサービスに不必要に依存したくない。では utf-8 の絵文字そのものではどうかというと、フォントによっては表示されなかったり、 utf-8 に依存するのが気になる。ターミナル上では色がつかない (※フォントによる) ので視認性もいまいちだ。</p>
-<p>入力が面倒だという問題は、コミットフックでコロン記法 (<code>:sparkles:</code> みたいなの) から絵文字に自動で変換するという案もある (※試していない)。</p>
-<p>また、単純に ASCII 文字を使うという手もある。 <code>+ Add new feature</code> とか <code>- Remove a file</code> みたいな感じだ。 <code>+</code> と <code>-</code> ぐらいならいいが、それ以外はかなり涙ぐましい状態になる。</p>
-<p>以下の観点について比較してみよう。</p>
-<ul>
-<li><strong>楽さ</strong>。プレフィックスをつけてコミットメッセージを書くのに手間がかからないほうがよい。</li>
-<li><strong>明確さ</strong>。表記と意味の関係が自然であるほど覚えやすく、曖昧性が低い。初めて見た人にでも意味が分かるとなおよい。</li>
-<li><strong>視認性</strong>。プレフィックスの意味を把握している人にとって、パット見て分かりやすいか。</li>
-<li><strong>依存関係</strong>。寿命のなさそうな技術に依存するのはマイナス。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">種類</th>
-<th style="text-align:left">楽さ</th>
-<th style="text-align:left">明確さ</th>
-<th style="text-align:left">視認性</th>
-<th style="text-align:left">依存関係</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><strong>英語</strong></td>
-<td style="text-align:left">○</td>
-<td style="text-align:left">○</td>
-<td style="text-align:left">△</td>
-<td style="text-align:left">○</td>
-</tr>
-<tr>
-<td style="text-align:left"><strong>絵文字</strong></td>
-<td style="text-align:left">×</td>
-<td style="text-align:left">△</td>
-<td style="text-align:left">○</td>
-<td style="text-align:left">△</td>
-</tr>
-<tr>
-<td style="text-align:left"><strong>コロン記法</strong></td>
-<td style="text-align:left">△</td>
-<td style="text-align:left">△</td>
-<td style="text-align:left">○</td>
-<td style="text-align:left">×</td>
-</tr>
-<tr>
-<td style="text-align:left"><strong>ASCII</strong></td>
-<td style="text-align:left">○</td>
-<td style="text-align:left">×</td>
-<td style="text-align:left">△</td>
-<td style="text-align:left">○</td>
-</tr>
-</tbody>
-</table>
-<p>依存関係の評価に関して念のためにいうと、 GitHub や utf-8 に限界を感じているわけではなくて、10年後ぐらいにひょっこり消えてる可能性がないこともないぐらいの意味。</p>
-<p>そういうわけで <code>feat:</code> とかを使っていくことにする。</p>
-<h2 id="関連リンク"><a href="#関連リンク" class="headerlink" title="関連リンク"></a>関連リンク</h2><ul>
-<li>numanomanu (2018) 「【今日からできる】コミットメッセージに 「プレフィックス」 をつけるだけで、開発効率が上がった話」 <a href="https://qiita.com/numanomanu/items/45dd285b286a1f7280ed" target="_blank" rel="noopener">https://qiita.com/numanomanu/items/45dd285b286a1f7280ed</a> (2018/01/28 アクセス.)</li>
-<li>jz5 (2015) 「GitHub で絵文字入りコミットメッセージを活用しているプロジェクトを調べてみた」 <a href="http://pronama.azurewebsites.net/2015/06/20/github-emoji-commit-message/" target="_blank" rel="noopener">http://pronama.azurewebsites.net/2015/06/20/github-emoji-commit-message/</a> (2018/01/28 アクセス.)</li>
-<li><a href="https://github.com/atom/atom/blob/ca71d581036ed093dd2df964fcc9bec0b5f7ff0d/CONTRIBUTING.md#git-commit-messages" target="_blank" rel="noopener">atom/atom の CONTRIBUTING.md で絵文字について書かれている部分</a> (2018/01/30 アクセス.)</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-01-30/commit-message-prefixes/" data-id="cjrghybff0011lqcxrnawawyq" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/バージョン管理/">バージョン管理</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1317,6 +1351,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/blog/2019-05-31/diary/">近況 2019-05-31</a>
+          </li>
+        
+          <li>
             <a href="/blog/2019-04-30/diary/">近況 2019-04-30</a>
           </li>
         
@@ -1332,10 +1370,6 @@ ga('send', 'pageview');
             <a href="/blog/2019-02-26/interpreter-written-in-hsp3/">HSP3 でスクリプト言語の処理系を書く</a>
           </li>
         
-          <li>
-            <a href="/blog/2019-01-30/diary/">近況 2019-01-30</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1345,7 +1379,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">タグクラウド</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/NET/" style="font-size: 11.43px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 15.71px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14.29px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 14.29px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 14.29px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 12.86px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 12.86px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 14.29px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 12.86px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.43px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 18.57px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.43px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 17.14px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 12.86px;">非同期</a>
+      <a href="/blog/tags/NET/" style="font-size: 11.67px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 16.67px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 15px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 15px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 15px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 13.33px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 13.33px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 15px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 13.33px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.67px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 20px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.67px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 18.33px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 13.33px;">非同期</a>
     </div>
   </div>
 

@@ -88,6 +88,112 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-commit-message-prefixes" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2018-01-30/commit-message-prefixes/" class="article-date">
+  <time datetime="2018-01-30T13:40:38.000Z" itemprop="datePublished">2018-01-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2018-01-30/commit-message-prefixes/">『コミットメッセージに「プレフィックス」をつける』を検討した</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Qiita で <a href="https://qiita.com/numanomanu/items/45dd285b286a1f7280ed" target="_blank" rel="noopener">コミットメッセージに 「プレフィックス」 をつける</a> というアイディアが紹介されていて、その効用の一つとして挙げられている:</p>
+<blockquote>
+<p>プレフィックスを意識しながら順序立てて機能を作成する癖が身につく</p>
+</blockquote>
+<p>という点が、試験運用していて実際に魅力的だと感じた。</p>
+<p>関連して、どうやら <a href="http://pronama.azurewebsites.net/2015/06/20/github-emoji-commit-message/" target="_blank" rel="noopener">テキストエディター Atom のリポジトリーではコミットメッセージに絵文字をつけるようにしている</a> らしい。</p>
+<p>しかし GitHub のコロン記法 (<code>:sparkles:</code> みたいなの) はターミナル上では絵文字として表示されないし、そもそも特定のサービスに不必要に依存したくない。では utf-8 の絵文字そのものではどうかというと、フォントによっては表示されなかったり、 utf-8 に依存するのが気になる。ターミナル上では色がつかない (※フォントによる) ので視認性もいまいちだ。</p>
+<p>入力が面倒だという問題は、コミットフックでコロン記法 (<code>:sparkles:</code> みたいなの) から絵文字に自動で変換するという案もある (※試していない)。</p>
+<p>また、単純に ASCII 文字を使うという手もある。 <code>+ Add new feature</code> とか <code>- Remove a file</code> みたいな感じだ。 <code>+</code> と <code>-</code> ぐらいならいいが、それ以外はかなり涙ぐましい状態になる。</p>
+<p>以下の観点について比較してみよう。</p>
+<ul>
+<li><strong>楽さ</strong>。プレフィックスをつけてコミットメッセージを書くのに手間がかからないほうがよい。</li>
+<li><strong>明確さ</strong>。表記と意味の関係が自然であるほど覚えやすく、曖昧性が低い。初めて見た人にでも意味が分かるとなおよい。</li>
+<li><strong>視認性</strong>。プレフィックスの意味を把握している人にとって、パット見て分かりやすいか。</li>
+<li><strong>依存関係</strong>。寿命のなさそうな技術に依存するのはマイナス。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">種類</th>
+<th style="text-align:left">楽さ</th>
+<th style="text-align:left">明確さ</th>
+<th style="text-align:left">視認性</th>
+<th style="text-align:left">依存関係</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>英語</strong></td>
+<td style="text-align:left">○</td>
+<td style="text-align:left">○</td>
+<td style="text-align:left">△</td>
+<td style="text-align:left">○</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>絵文字</strong></td>
+<td style="text-align:left">×</td>
+<td style="text-align:left">△</td>
+<td style="text-align:left">○</td>
+<td style="text-align:left">△</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>コロン記法</strong></td>
+<td style="text-align:left">△</td>
+<td style="text-align:left">△</td>
+<td style="text-align:left">○</td>
+<td style="text-align:left">×</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ASCII</strong></td>
+<td style="text-align:left">○</td>
+<td style="text-align:left">×</td>
+<td style="text-align:left">△</td>
+<td style="text-align:left">○</td>
+</tr>
+</tbody>
+</table>
+<p>依存関係の評価に関して念のためにいうと、 GitHub や utf-8 に限界を感じているわけではなくて、10年後ぐらいにひょっこり消えてる可能性がないこともないぐらいの意味。</p>
+<p>そういうわけで <code>feat:</code> とかを使っていくことにする。</p>
+<h2 id="関連リンク"><a href="#関連リンク" class="headerlink" title="関連リンク"></a>関連リンク</h2><ul>
+<li>numanomanu (2018) 「【今日からできる】コミットメッセージに 「プレフィックス」 をつけるだけで、開発効率が上がった話」 <a href="https://qiita.com/numanomanu/items/45dd285b286a1f7280ed" target="_blank" rel="noopener">https://qiita.com/numanomanu/items/45dd285b286a1f7280ed</a> (2018/01/28 アクセス.)</li>
+<li>jz5 (2015) 「GitHub で絵文字入りコミットメッセージを活用しているプロジェクトを調べてみた」 <a href="http://pronama.azurewebsites.net/2015/06/20/github-emoji-commit-message/" target="_blank" rel="noopener">http://pronama.azurewebsites.net/2015/06/20/github-emoji-commit-message/</a> (2018/01/28 アクセス.)</li>
+<li><a href="https://github.com/atom/atom/blob/ca71d581036ed093dd2df964fcc9bec0b5f7ff0d/CONTRIBUTING.md#git-commit-messages" target="_blank" rel="noopener">atom/atom の CONTRIBUTING.md で絵文字について書かれている部分</a> (2018/01/30 アクセス.)</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2018-01-30/commit-message-prefixes/" data-id="cjrghybff0011lqcxrnawawyq" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/バージョン管理/">バージョン管理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-new-to-ubuntu" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2018-01-28/new-to-ubuntu/" class="article-date">
@@ -777,114 +883,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-breakable-loop-in-fsharp" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2017-03-05/breakable-loop-in-fsharp/" class="article-date">
-  <time datetime="2017-03-04T15:00:00.000Z" itemprop="datePublished">2017-03-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2017-03-05/breakable-loop-in-fsharp/">break可能なループを書こう - 関数型プログラミングのテクニック</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://qiita.com/vain0x/items/ddef84e3959dffe6a88d" target="_blank" rel="noopener">Qiita</a></p>
-<p>手続き型言語を使う人に「F# のループ (for/while) は <code>break</code> できない」というと驚かれるかもしれません。筆者は驚きました。途中で終了する可能性のあるループを書けなくて困りそうですが、その心配は不要です。F# では <strong>末尾再帰関数</strong> を使って、<code>break</code> や <code>continue</code> のあるループと同じことができるからです。</p>
-<h2 id="例1-無条件の無限ループ"><a href="#例1-無条件の無限ループ" class="headerlink" title="例1: 無条件の無限ループ"></a>例1: 無条件の無限ループ</h2><p>まずは最も簡単な例を挙げます。<code>break</code> も <code>continue</code> も使わないループを、末尾再帰関数を使って書いてみましょう。ひたすら <code>yes</code> を出力するだけの、通称 yes コマンドです。C# だとこうですね。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">YesAll</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"yes"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>これなら F# の <code>while</code> でも同様に書けますが、練習のため末尾再帰で書いてみましょう。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> yesAll () =</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">rec</span> loop () =</span><br><span class="line">        Console.WriteLine(<span class="string">"yes"</span>)</span><br><span class="line">        loop ()</span><br><span class="line">    loop ()</span><br></pre></td></tr></table></figure>
-<p>コードの説明をします。冒頭の <code>let yesAll () = ...</code> は関数の定義で、残りの部分がその本体です。<code>let rec loop () = ...</code> も関数の定義ですが (関数の中に関数！)、<code>rec</code> キーワードがついているので <code>loop</code> 関数は再帰的(<strong>rec</strong>ursive)です (再帰的な関数については後述)。</p>
-<p>F# は字下げに依存した構文を採用しています。<code>loop</code> 関数の定義は、字下げが <code>let</code> と同じ深さに戻ったところで終わります。すなわち、<code>loop</code> の本体は2行からなり、字下げの減っている最後の <code>loop ()</code> は含まれません。</p>
-<p><code>loop</code> 関数の定義の後ろにある <code>loop ()</code> は、事実上 <code>yesAll</code> が最初に実行する式ですが、単に loop 関数を起動するだけです。</p>
-<p>再帰についてもう少し解説します。<code>loop</code> の本体は「yes を出力する」式と「loop を起動する」式の2つからなります。loop の中で loop を起動すると、また「yes を出力する」と「loop を起動する」を実行することになります。すなわち、</p>
-<pre><code>loop を起動する
-= yes を出力して、次に loop を起動する
-= yes を出力して、次に yes を出力して、次に loop を起動する
-= yes を出力して、次に yes を出力して、次に yes を出力して、次に loop を起動する
-= ……
-</code></pre><p>という計算になります。無限ループですね。実際、これは C# で書いたものとほぼ同じループにコンパイルされるはずです。</p>
-<h3 id="機械的翻訳"><a href="#機械的翻訳" class="headerlink" title="機械的翻訳"></a>機械的翻訳</h3><p>C# の視点から loop 関数を解釈する手段を紹介します。まず C# のコードのうち、<code>while</code> の「末尾」に到達する部分に <code>continue</code> を挿入します。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C#</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">YesAll</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"yes"</span>); <span class="comment">// body</span></span><br><span class="line">        <span class="keyword">continue</span>; <span class="comment">// 追加</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>そして、一定の規則で F# のコードに変換します。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// F#</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> yesAll () =</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">rec</span> loop () =            <span class="comment">// while (true) &#123;</span></span><br><span class="line">        Console.WriteLine(<span class="string">"yes"</span>) <span class="comment">//   body</span></span><br><span class="line">        loop ()                  <span class="comment">//   continue;</span></span><br><span class="line">    loop ()                      <span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
-<p>つまり、 <code>while (true) { ... }</code> を</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">rec</span> loop =</span><br><span class="line">    ...</span><br><span class="line">loop()</span><br></pre></td></tr></table></figure>
-<p>に置き換え、ループの本体のうち <code>continue</code> を <code>loop ()</code> に置き換えました。</p>
-<p>こうして簡単に末尾再帰バージョンを手に入れることができます。</p>
-<h2 id="例2-停止する無限ループ"><a href="#例2-停止する無限ループ" class="headerlink" title="例2: 停止する無限ループ"></a>例2: 停止する無限ループ</h2><p>先ほどの例で基本的な考え方を会得したので、<code>break</code> を使うループの例を見ていきましょう。</p>
-<p>以下の関数は、標準入力から行を読み込むたびに「叫ぶ」(大文字に変換して出力する)ものです。入力を読み切ったら自動的に終了することにします。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C#</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ScreamLine</span>(<span class="params"><span class="keyword">string</span> line</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Console.WriteLine(line.ToUpper() + <span class="string">"!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Scream</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 標準入力から1行を取得する。</span></span><br><span class="line">        <span class="comment">// 入力の終端に到達していたら、null が返る。</span></span><br><span class="line">        <span class="keyword">var</span> line = Console.ReadLine();</span><br><span class="line">        <span class="keyword">if</span> (line == <span class="literal">null</span>) <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        ScreamLine(line);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>これを少しだけ変形します。<code>if</code> 文には常に <code>else</code> をつけ、末尾に到達する部分に <code>continue</code> を挿入します。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C#</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Run</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> line = Console.ReadLine();</span><br><span class="line">        <span class="keyword">if</span> (line == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ScreamLine(line);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>そして、前述の変換に加えて <code>break</code> を <code>()</code> に置き換えると完成です：</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// F#</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> screamLine (line: string) =</span><br><span class="line">    Console.WriteLine(line.ToUpper() + <span class="string">"!"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> scream () =</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">rec</span> loop () =                   <span class="comment">// while (true) &#123;</span></span><br><span class="line">        <span class="keyword">let</span> line = Console.ReadLine()   <span class="comment">//   var line = ...;</span></span><br><span class="line">        <span class="keyword">if</span> line = <span class="keyword">null</span> <span class="keyword">then</span>             <span class="comment">//   if (line == null) &#123;</span></span><br><span class="line">            ()                          <span class="comment">//     break;</span></span><br><span class="line">        <span class="keyword">else</span>                            <span class="comment">//   &#125; else &#123;</span></span><br><span class="line">            scream line                 <span class="comment">//     ...;</span></span><br><span class="line">            loop ()                     <span class="comment">//     continue;</span></span><br><span class="line">                                        <span class="comment">//   &#125;</span></span><br><span class="line">    loop ()                             <span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
-<p><code>()</code> と <code>break</code> が対応することのイメージが分からないと思いますが、直接的な対応はないので、 <code>scream ()</code> の挙動を説明します。</p>
-<p>この関数を <code>scream ()</code> のように起動すると、先程の <code>yesAll ()</code> と同じく <code>loop ()</code> が開始します。<code>loop</code> の結果は、読み取った行が <code>null</code> なら (= 入力が終了したら) <code>()</code> (ユニットという名前の定数) で、そうでなければ <code>else</code> 節の値になります。<code>else</code> 節では、入力を叫んだあとループをやり直しますが、yes コマンドとは違っていつかは入力が終わり <code>()</code> が返ってきます。結局、標準入出力の副作用を除けば</p>
-<pre><code>scream ()
-= loop ()
-= ...
-= loop ()
-= ()
-</code></pre><p>となります。<code>()</code> という「ループを伸ばさない式」のおかげで <code>loop</code> の連鎖が切れて、つまりループが終了して (<code>break</code> して) いますね。</p>
-<p>C# ではループを続けるのに <code>continue</code> は書かなくていい代わりに、終わらせるときに <code>break</code> を書きます。一方この末尾再帰関数のやりかたでは、ループを終わらせるのに <code>break</code> は書かなくていい代わりに、続けるときに <code>loop ()</code> を書くのです。</p>
-<h2 id="例3-有限回のループ"><a href="#例3-有限回のループ" class="headerlink" title="例3: 有限回のループ"></a>例3: 有限回のループ</h2><p>前の2つの例の <code>loop</code> 関数は、引数として <code>()</code> を受け取りましたが、実際は任意の引数が使えます。ループの「状態」を引数で持ち運ぶのはよくあることです。</p>
-<p>最後の例は、リストの各要素を1行ずつ表示していくループです。 F# だと <code>for</code> で書けますが、練習のため末尾再帰関数で書きます。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> PrintList&lt;X&gt;(IReadOnlyList&lt;X&gt; list)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (index &lt; list.Count)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"&#123;0&#125;"</span>, list[index]);</span><br><span class="line">        index++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>今回は <code>while</code> にガード節がありますが、これは <code>if</code> と <code>break</code> に簡単に分解できて、次のように変形できます：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C#</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> PrintList&lt;X&gt;(IReadOnlyList&lt;X&gt; list)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (index &lt; list.Count) <span class="comment">// 条件節</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"&#123;0&#125;"</span>, list[index]);</span><br><span class="line">            index++;</span><br><span class="line">            <span class="keyword">continue</span>; <span class="comment">// 追加</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>; <span class="comment">// 条件不成立 (index &gt;= list.Count) なら終了。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// F#</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> printList (list: IReadOnlyList&lt;_&gt;) =</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">rec</span> loop index =                           <span class="comment">// while (true) &#123;</span></span><br><span class="line">        <span class="keyword">if</span> index &lt; list.Count <span class="keyword">then</span>                 <span class="comment">//    if (...) &#123;</span></span><br><span class="line">            Console.WriteLine(<span class="string">"&#123;0&#125;"</span>, list.[index]) <span class="comment">//      ...;</span></span><br><span class="line">            loop (index + <span class="number">1</span>)                       <span class="comment">//      continue;</span></span><br><span class="line">        <span class="keyword">else</span>                                       <span class="comment">//    &#125; else &#123;</span></span><br><span class="line">            ()                                     <span class="comment">//      break;</span></span><br><span class="line">                                                   <span class="comment">//    &#125;</span></span><br><span class="line">    loop <span class="number">0</span>                                         <span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
-<p><code>loop</code> 関数の実行を簡単に追ってみましょう。<code>list</code> を長さ 3 のリストとすると、</p>
-<pre><code>loop 0
-= 0 &lt; 3 なら、出力して loop 1
-= loop 1
-= 1 &lt; 3 なら、出力して loop 2
-= loop 2
-= 2 &lt; 3 なら、出力して loop 3
-= loop 3
-= 3 &lt; 3 なら、出力して loop 4
-= (なにもしない)
-= ()
-</code></pre><p>となります。</p>
-<h2 id="まとめ-変換規則"><a href="#まとめ-変換規則" class="headerlink" title="まとめ: 変換規則"></a>まとめ: 変換規則</h2><ol>
-<li><code>for</code> や <code>foreach</code> は <code>while</code> に書き換える。</li>
-<li><code>while</code> の条件があれば、 <code>while (true)</code> にする代わりに <code>if (! 条件) break;</code> を挿入する。</li>
-<li>すべての <code>if</code> 文に <code>else</code> 節を補う。</li>
-<li><code>while</code> の末尾に到達する部分に <code>continue</code> を補う。</li>
-<li><code>break</code> を <code>()</code> にする。</li>
-</ol>
-<h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><p>本稿では、C# のループを比較的単純に末尾再帰関数に変換できることを紹介しました。実際のところ、再帰は再帰として理解したほうがいいと思いますが、こういう小手先のテクニックを用いて理解を深めていくのも1つの手かもしれません。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2017-03-05/breakable-loop-in-fsharp/" data-id="cjrghybfw002klqcx1c2pzrjz" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/F/">F#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/関数型プログラミング/">関数型プログラミング</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -903,6 +901,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/blog/2019-05-31/diary/">近況 2019-05-31</a>
+          </li>
+        
+          <li>
             <a href="/blog/2019-04-30/diary/">近況 2019-04-30</a>
           </li>
         
@@ -918,10 +920,6 @@ ga('send', 'pageview');
             <a href="/blog/2019-02-26/interpreter-written-in-hsp3/">HSP3 でスクリプト言語の処理系を書く</a>
           </li>
         
-          <li>
-            <a href="/blog/2019-01-30/diary/">近況 2019-01-30</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -931,7 +929,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">タグクラウド</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/NET/" style="font-size: 11.43px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 15.71px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14.29px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 14.29px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 14.29px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 12.86px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 12.86px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 14.29px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 12.86px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.43px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 18.57px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.43px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 17.14px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 12.86px;">非同期</a>
+      <a href="/blog/tags/NET/" style="font-size: 11.67px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 16.67px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 15px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 15px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 15px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 13.33px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 13.33px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 15px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 13.33px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.67px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 20px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.67px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 18.33px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 13.33px;">非同期</a>
     </div>
   </div>
 

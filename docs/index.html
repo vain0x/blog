@@ -90,6 +90,306 @@ ga('send', 'pageview');
   
     <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
+    <a href="/blog/2019-05-31/diary/" class="article-date">
+  <time datetime="2019-05-31T14:59:59.000Z" itemprop="datePublished">2019-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019-05-31/diary/">近況 2019-05-31</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今月の活動のまとめ</p>
+<ul>
+<li>前月分 <a href="https://vain0x.github.io/blog/2019-04-30/diary">https://vain0x.github.io/blog/2019-04-30/diary</a></li>
+</ul>
+<h2 id="ミローネ言語"><a href="#ミローネ言語" class="headerlink" title="ミローネ言語"></a>ミローネ言語</h2><p><a href="https://github.com/vain0x/milone-lang/commits?author=vain0x&amp;since=2019-04-30&amp;until=2019-05-31" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang/commits?author=vain0x&amp;since=2019-04-30&amp;until=2019-05-31</a></p>
+<ul>
+<li>セルフホスティングを目指している F# サブセットのコンパイラ</li>
+</ul>
+<h3 id="ミローネ-多相関数の単相化"><a href="#ミローネ-多相関数の単相化" class="headerlink" title="ミローネ: 多相関数の単相化"></a>ミローネ: 多相関数の単相化</h3><p><a href="https://github.com/vain0x/milone-lang/blob/628adf3b38c27a79d3c58936e2b9ca1d01d99693/boot/MiloneLang/Monomorphizing.fs" target="_blank" rel="noopener">Monomorphizing.fs</a></p>
+<ul>
+<li>多相関数の単相化を実装した</li>
+<li>C++ のテンプレートのように型引数ごとにコード複製する</li>
+<li>コードのコメントにおおよそ解説を書いた</li>
+<li>例えば以下の flip は任意のペアに作用するジェネリック関数であり、そのままではC言語にコンパイルできない</li>
+</ul>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> flip (x, y) = (y, x)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>以下のような呼び出しがあるとする</li>
+</ul>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>, <span class="string">"one"</span>) |&gt; flip</span><br></pre></td></tr></table></figure>
+<ul>
+<li>この式における flip には <code>(int, string) -&gt; (string, int)</code> という単相型がついている</li>
+<li>この型を使用箇所の型 (use-site type) と呼ぶ</li>
+<li>flip を複製して、この単相型を持たせたものを用意する (単相化インスタンスと呼ぶ)</li>
+<li>flip の呼び出しを単相化インスタンスの呼び出しに変換する</li>
+</ul>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> flipForIntStringPair (x: int, y: string) = (y, x)</span><br><span class="line"></span><br><span class="line">(<span class="number">1</span>, <span class="string">"one"</span>) |&gt; flipForIntStringPair</span><br></pre></td></tr></table></figure>
+<ul>
+<li>この変換をひたすら繰り返す</li>
+<li>このアルゴリズムは基本的なケースではたぶん動く</li>
+<li>効率が悪いし、そもそも停止性を証明できてない</li>
+<li>ひとまず開発当初からの懸念だった多相関数のコード生成ができて安心した</li>
+</ul>
+<h3 id="ミローネ-モジュール内の相互再帰"><a href="#ミローネ-モジュール内の相互再帰" class="headerlink" title="ミローネ: モジュール内の相互再帰"></a>ミローネ: モジュール内の相互再帰</h3><p><a href="https://github.com/vain0x/milone-lang/commit/8eb8b30b1b90b842a2062bdfe2b14125ac9f4d42" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang/commit/8eb8b30b1b90b842a2062bdfe2b14125ac9f4d42</a></p>
+<ul>
+<li>F# には module rec という機能があって、rec キーワードつきで定義したモジュールに配置された関数は相互参照できる</li>
+<li>構文解析や型推論をはじめとして、コンパイラの各ステージは巨大な相互再帰として実装されている</li>
+<li>そのためこの機能は重要。(必須ではない。<code>let .. and ..</code> 構文を使うという手もある。関数オブジェクトを使うという手もある)</li>
+<li>アルゴリズムは単純なトポロジカルソートと接ぎ木</li>
+</ul>
+<p>手順:</p>
+<ul>
+<li>最初のモジュール (<code>Foo/Foo.milone</code>) をパースする</li>
+<li><code>open Foo.Bar</code> のような open 文を収集しておく</li>
+<li>open されているモジュール (<code>Foo/Bar.milone</code> など) を探してパースする</li>
+<li>これを再帰的に繰り返すとトポロジカルオーダーでモジュールが並ぶ</li>
+<li>あとは各モジュールの抽象構文木を接合する</li>
+</ul>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Bar</span></span><br><span class="line"><span class="keyword">let</span> bar () = .. <span class="keyword">in</span> ()</span><br><span class="line"></span><br><span class="line"><span class="comment">// Foo</span></span><br><span class="line"><span class="keyword">let</span> main _ = .. <span class="keyword">in</span> ()</span><br><span class="line"></span><br><span class="line"><span class="comment">// ↓↓↓</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> bar () = .. <span class="keyword">in</span></span><br><span class="line"><span class="keyword">let</span> main _ = .. <span class="keyword">in</span> ()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>これだと open していないモジュールに含まれる関数が見えてしまったりするが、そのへんは厳密にしてない</li>
+<li>セルフホスティングという目的の障害にならない問題は積極的に無視していく</li>
+</ul>
+<h3 id="ミローネ-再帰的な判別共用体"><a href="#ミローネ-再帰的な判別共用体" class="headerlink" title="ミローネ: 再帰的な判別共用体"></a>ミローネ: 再帰的な判別共用体</h3><p><a href="https://github.com/vain0x/milone-lang/commit/d9dbc8e5e8fc71318d2d4a10c7c302c64c32e2a1" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang/commit/d9dbc8e5e8fc71318d2d4a10c7c302c64c32e2a1</a></p>
+<ul>
+<li>F# の判別共用体は Struct 属性をつけなければヒープに確保されて参照として取り扱われる</li>
+<li>そのため判別共用体がその型自身への参照を持つようなことも可能</li>
+<li>ミローネ言語コンパイラでも抽象構文木の型などにこの機能を利用している</li>
+</ul>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// よくある抽象構文木</span></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">Expr</span> </span>=</span><br><span class="line">    | Int <span class="keyword">of</span> int</span><br><span class="line">    | Add <span class="keyword">of</span> Expr * Expr <span class="comment">// Expr 自身を再帰的に参照している</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>判別共用体はトークンの種類にも使われている</li>
+</ul>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">TokenKind</span> </span>=</span><br><span class="line">    | Int <span class="keyword">of</span> int</span><br><span class="line">    | Plus</span><br><span class="line">    | ParenL <span class="comment">// (</span></span><br><span class="line">    | ParenR <span class="comment">// )</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>ペイロード (<code>of int</code> の部分) を持たないバリアント (Int とか Plus とか) を参照として取り扱うとき、いちいち malloc するのは無駄</li>
+<li>F# では定数として扱われていて、おそらく同一のインスタンスが使いまわされる</li>
+<li>場合分けが発生するし、ペイロードのないバリアントのリストを事前に列挙してグローバル変数を宣言して……みたいなコードを書くことになってめんどくさい</li>
+<li>ペイロードをポインタ経由で持つ、というルールにした</li>
+<li>例えば TokenKind はC言語で以下の型に表現する</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> TokenKindTag &#123;</span><br><span class="line">    Int, Plus, ParenL, ParenR,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TokenKind</span> &#123;</span></span><br><span class="line">    <span class="keyword">enum</span> TokenKindTag tag;</span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> *int_; <span class="comment">// Int of int のペイロード</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>ペイロードのないバリアントは <code>(struct TokenKind){.tag = Plus}</code> のように値で生成される</li>
+<li>理想的には再帰型のみポインタ経由で参照するという方針にしたい</li>
+<li>あるいは「ペイロードの sizeof が16バイトを超えるとき」みたいな判定でもいいかも</li>
+<li>再帰型のペイロードならタグ (enum) のサイズがついて 4 + 4 + .. &gt; 16 になる</li>
+<li>そもそも抽象構文木の表現に再帰的な判別共用体を使わないという実装方針もありうる</li>
+</ul>
+<h3 id="ミローネ-ラムダ式"><a href="#ミローネ-ラムダ式" class="headerlink" title="ミローネ: ラムダ式"></a>ミローネ: ラムダ式</h3><ul>
+<li>抽象構文木を組み替える雑実装</li>
+<li><code>fun x -&gt; y</code> を <code>let f x = y in f</code> にする</li>
+</ul>
+<h2 id="競技プログラミング"><a href="#競技プログラミング" class="headerlink" title="競技プログラミング"></a>競技プログラミング</h2><p>週末は AtCoder に参加。ABC が6問構成になって、かなりエキサイティング</p>
+<ul>
+<li><a href="https://qiita.com/vain0x/items/fd9854b5863f1634dd04" target="_blank" rel="noopener">競プロ参戦記 #45 DivRem Number | diverta 2019</a></li>
+<li><a href="https://qiita.com/vain0x/items/8fcd5bf0704b3011b8fc" target="_blank" rel="noopener">競プロ参戦記 #46 XOR Matching | ABC 126</a></li>
+<li><a href="https://qiita.com/vain0x/items/87f227f867749600b5ee" target="_blank" rel="noopener">競プロ参戦記 #47 Cell Distance | ABC 127</a></li>
+<li>競プロ参戦記 #48 Frog Jump | ABC 128 (TODO: 明日書く)</li>
+</ul>
+<h2 id="picomet-lang"><a href="#picomet-lang" class="headerlink" title="picomet-lang"></a>picomet-lang</h2><p><a href="https://github.com/vain0x/picomet-lang" target="_blank" rel="noopener">https://github.com/vain0x/picomet-lang</a></p>
+<ul>
+<li>JavaScript をターゲットにコンパイルする作業を開始した<ul>
+<li>全然できてない</li>
+</ul>
+</li>
+</ul>
+<h2 id="その他"><a href="#その他" class="headerlink" title="その他"></a>その他</h2><p>ゴールデンウィークにやろうとしたことができなかったので、終わってからいろいろやった</p>
+<blockquote>
+<p>イベントを利用してパーサーと構文木を分離するやつ、具象構文木をラップして抽象構文木を作るやつ、ロスレスな具象構文木を作ってラウンドトリップさせるやつ、とかの理解を深めるつもりだったのに (2019/05/03)</p>
+</blockquote>
+<h2 id="その他-イベント型のパーサー"><a href="#その他-イベント型のパーサー" class="headerlink" title="その他: イベント型のパーサー"></a>その他: イベント型のパーサー</h2><p><a href="https://github.com/vain0x/playground/tree/master/play/2019-05-04-event-based-parser" target="_blank" rel="noopener">https://github.com/vain0x/playground/tree/master/play/2019-05-04-event-based-parser</a></p>
+<ul>
+<li><a href="https://github.com/rust-analyzer/rust-analyzer" target="_blank" rel="noopener">rust-analyzer</a> の ra_parser (Rust の構文解析の実装) で採用されている方式の小さい版</li>
+<li>構文解析の結果としてツリーではなく「イベント」のリストを生成するというもの (リンク先を参照)</li>
+<li>ツリーの設計とパーサーの実装を切り離せる</li>
+<li>パーサーが「トークンのリストに階層構造を作る」という作業しかしなくなる (できなくなる)<ul>
+<li>トークンを増減させたり順番を入れ替えたりということはしない</li>
+<li>そういうのはイベントを受け取ってツリーを組み立てる部分の責務</li>
+</ul>
+</li>
+<li>親子関係の指定を厳密にしなくてよくなる</li>
+<li>エラー耐性が高い、らしいが感覚はつかめていない</li>
+</ul>
+<blockquote>
+<p>字句解析はソースコードを区間分割して各区間に種類を割り当てるもの、構文解析はトークンのリストを (順番を変えずに) ツリーにするもの、みたいな直観を得つつある (2019/05/05)</p>
+</blockquote>
+<h2 id="その他-rowan-の-TypeScript-移植"><a href="#その他-rowan-の-TypeScript-移植" class="headerlink" title="その他: rowan の TypeScript 移植"></a>その他: rowan の TypeScript 移植</h2><p><a href="https://github.com/vain0x/playground/tree/master/play/2019-05-06-picolyn" target="_blank" rel="noopener">https://github.com/vain0x/playground/tree/master/play/2019-05-06-picolyn</a></p>
+<ul>
+<li><a href="https://github.com/rust-analyzer/rowan" target="_blank" rel="noopener">rowan</a> というライブラリがある<ul>
+<li>ロスレスな具象構文木を扱う対象言語非依存のライブラリ</li>
+<li>Roslyn (C#) や Swift コンパイラなどで採用されているらしい Red/Green ツリーの実装</li>
+</ul>
+</li>
+<li>Rust で書かれているのでメモリ管理が煩雑</li>
+<li>実装を参考にしながら TypeScript で小さく作り直してる</li>
+<li>これをラップして抽象構文木として操作するあたりの直観がまだ得られていない</li>
+</ul>
+<h2 id="その他-prettier-printer-の-Rust-移植"><a href="#その他-prettier-printer-の-Rust-移植" class="headerlink" title="その他: prettier printer の Rust 移植"></a>その他: prettier printer の Rust 移植</h2><p><a href="https://github.com/vain0x/playground/tree/master/play/2019-05-11-prettier-printer-rust-from-scratch" target="_blank" rel="noopener">https://github.com/vain0x/playground/tree/master/play/2019-05-11-prettier-printer-rust-from-scratch</a></p>
+<ul>
+<li>空白と改行を自動的に使い分けて最適な文字列描画のレイアウトを構成するアルゴリズム</li>
+<li>中身を読んで、Haskell で書かれた参考実装を Rust に移植してみた</li>
+<li>(自作言語の) コードフォーマッターを作るときに使えるかもしれない</li>
+</ul>
+<h2 id="その他-C-のコンストラクタ自動生成ツール-for-VSCode"><a href="#その他-C-のコンストラクタ自動生成ツール-for-VSCode" class="headerlink" title="その他: C# のコンストラクタ自動生成ツール (for VSCode)"></a>その他: C# のコンストラクタ自動生成ツール (for VSCode)</h2><p><a href="https://github.com/vain0x/csharpextensions" target="_blank" rel="noopener">https://github.com/vain0x/csharpextensions</a></p>
+<ul>
+<li>VSCode 上で動く C# 拡張</li>
+<li>既存の拡張 (C# extensions) に類似機能があったが、思うように動かないケースがあった<ul>
+<li>sealed class や struct に反応しない</li>
+<li>(プロパティではなく) フィールドに対応していない</li>
+</ul>
+</li>
+<li>開発も停止していたので fork して自分好みに書き換えた<ul>
+<li>正規表現ベースかつやっつけ改修なので、正常に動かないケースも少なくない</li>
+</ul>
+</li>
+<li>publish した<ul>
+<li><code>vain0x.csharp-gen-ctor</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="その他-クラゲ言語"><a href="#その他-クラゲ言語" class="headerlink" title="その他: クラゲ言語"></a>その他: クラゲ言語</h2><p><a href="https://github.com/vain0x/curage-lang" target="_blank" rel="noopener">https://github.com/vain0x/curage-lang</a></p>
+<ul>
+<li>LSP の動作確認のスクリーンショットをつけた</li>
+<li><a href="https://github.com/vain0x/curage-lang/compare/v0.1.0...v0.2.0" target="_blank" rel="noopener">バージョン間の差分</a> へのリンクをつけた</li>
+</ul>
+<h2 id="その他-WPF-ナビゲーションサンプル"><a href="#その他-WPF-ナビゲーションサンプル" class="headerlink" title="その他: WPF ナビゲーションサンプル"></a>その他: WPF ナビゲーションサンプル</h2><p><a href="https://github.com/vain0x/wpf-nav-sample" target="_blank" rel="noopener">https://github.com/vain0x/wpf-nav-sample</a></p>
+<ul>
+<li>ページ遷移を含むアプリの構成のサンプル</li>
+<li>2年ぐらい前に作っていたやつをせっかくなので完成させた</li>
+<li>要点:<ul>
+<li>DataTemplate を使うとビューモデルからビューへのマッピングを作れる</li>
+<li>ContentPresenter を使うとビューモデル層で表示するコントロールを切り替えられて、ページ遷移ができる</li>
+<li>RelativeSource を使うとビューモデル上でのフレームとページの相互参照を回避できる</li>
+</ul>
+</li>
+</ul>
+<h2 id="その他-Rx"><a href="#その他-Rx" class="headerlink" title="その他: Rx"></a>その他: Rx</h2><p>Rx.NET (<a href="https://github.com/dotnet/reactive" target="_blank" rel="noopener">dotnet/reactive</a>) と <a href="https://github.com/runceel/ReactiveProperty" target="_blank" rel="noopener">ReactiveProperty</a> を使った WPF アプリを改修して思ったことのメモ書き</p>
+<p>要点:</p>
+<ul>
+<li>WPF と Rx の組み合わせは必然</li>
+<li>Flux は冗長性と引き換えにすべてを解決する</li>
+<li>Rx ストリームの自動停止を有効活用すべし</li>
+</ul>
+<h3 id="Rx-PropertyChanged-から-Rx-への道筋"><a href="#Rx-PropertyChanged-から-Rx-への道筋" class="headerlink" title="Rx: PropertyChanged から Rx への道筋"></a>Rx: PropertyChanged から Rx への道筋</h3><ul>
+<li>WPF のバインディング機能には <code>INotifyPropertyChanged.PropertyChanged</code> (プロパティの値が変化したときに起こすイベント) を適切に発火する必要がある</li>
+<li><code>string NameSan =&gt; Name + &quot;さん&quot;</code> みたいな get プロパティについても発火する必要がある</li>
+<li>この例では Name が変化したときに NameSan が変化した旨のイベントを発火しなければいけない</li>
+<li>そうしないと NameSan をバインディングしている部分の UI に変更が反映されない</li>
+<li>つまり「Name が NameSan に依存されている」ことを Name が知っている、という記述</li>
+<li>この例では単一オブジェクト内での依存だが、他のオブジェクトに依存されることもある</li>
+<li>依存関係を逆転して「NameSan が Name に依存している」ように記述したい</li>
+<li>オブザーバーパターンを使う</li>
+<li>C# におけるオブザーバーパターンの実装では event と Rx がよい</li>
+<li>Rx を使う</li>
+</ul>
+<h3 id="Rx-Flux"><a href="#Rx-Flux" class="headerlink" title="Rx: Flux"></a>Rx: Flux</h3><ul>
+<li>ReactiveProperty (new で作ったもの) をあちこちに置くと整合性を維持するのが難しい<ul>
+<li>TODO: これは詳細を書いた方がいい</li>
+</ul>
+</li>
+<li>イミュータブルなデータ (S) を値とする ReactiveProperty を1個だけ用意する</li>
+<li>残りはそこから導出する (<code>state.Select().ToReactiveProperty()</code> とする)</li>
+<li>データの変更を通知するための <code>Subject&lt;Func&lt;S, S&gt;&gt;</code> を用意しておいて、各コンポーネントに渡す</li>
+<li>例えば導出した RP が TwoWay バインディングで変化したら、変更に基づくデータの更新関数を onNext して渡す<ul>
+<li><code>Text.Subscribe(text =&gt; subject.OnNext(state =&gt; state.SetText(text)))</code> みたいな</li>
+</ul>
+</li>
+</ul>
+<p>利点:</p>
+<ul>
+<li>整合性の維持がとても簡単になる</li>
+<li>変更を集約する subject に ObserveOn(dispatcher) を挟むだけでスレッドセーフになる<ul>
+<li>別スレッドからも変更操作をしたいときにやる</li>
+<li>シングルスレッドモデルなのでパフォーマンスは下がる</li>
+</ul>
+</li>
+<li>おまけ: 根元の ReactiveProperty を Dispose しただけで下流が一気に停止する<ul>
+<li>Subscribe したときに発生する IDisposable を CompositeDisposable に詰めていく作業をしなくていい</li>
+</ul>
+</li>
+</ul>
+<p>欠点:</p>
+<ul>
+<li>コードがやたら冗長<ul>
+<li>CRUD してるだけの部分とかは N 倍になる</li>
+</ul>
+</li>
+</ul>
+<p>注意点:</p>
+<ul>
+<li>ReactiveProperty は Subscribe した瞬間に発火するので、それがイミュータブルなデータに差分を作ってしまうと無駄にループが回る<ul>
+<li>イミュータブルなデータの更新時に、差分がないことを検出して同一インスタンス (this) を返すようにしておく</li>
+<li>あるいはイミュータブルなデータが構造的同値性を備えるようにしておく</li>
+</ul>
+</li>
+</ul>
+<h3 id="Rx-可変コレクションの集計"><a href="#Rx-可変コレクションの集計" class="headerlink" title="Rx: 可変コレクションの集計"></a>Rx: 可変コレクションの集計</h3><ul>
+<li>可変コレクション (ObservableCollection) の要素から飛んでくる通知 (IObservable が出力するイベントを通知と呼ぶことにする) を集計する方法で苦労していた</li>
+<li>コレクションに Add/Remove が起こるたびに Merge をやり直すという力技だった<ul>
+<li>パフォーマンスが悪すぎる</li>
+</ul>
+</li>
+<li>上記の方法でおおよそ解決した</li>
+</ul>
+<p>簡単にかくと:</p>
+<ul>
+<li>イミュータブルなデータには配列 (ImmutableArray) でコレクションの各要素に対応するデータを持つ</li>
+<li>変化するたび、コレクション側で差分を計算して ObservableCollection に対応する変更を行う</li>
+<li>データが追加されたときは対応する要素を生成する<ul>
+<li>自分がリストに含まれているかを TakeWhile でチェックしておく</li>
+<li>要素の生成時に、要素内の変更を購読して上述の subject に送るようにしておく</li>
+</ul>
+</li>
+<li>データが削除されたときは対応する要素を削除する<ul>
+<li>TakeWhile のおかげで要素は自動で停止するので、特に Dispose などをする必要はない</li>
+</ul>
+</li>
+<li>結局、この可変コレクションがしているのは差分を計算して同期するというだけで、IObservable/IDisposable のわずらわしさからは解放されている</li>
+</ul>
+<p>課題:</p>
+<ul>
+<li>差分計算が難しい<ul>
+<li>現状は1要素の Add/Remove しかないから簡単</li>
+<li>Move が入ると大変</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2019-05-31/diary/" data-id="cjwc7ucgq0000i2cx1l8lnpjy" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
+    <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
     <a href="/blog/2019-04-30/diary/" class="article-date">
   <time datetime="2019-04-30T14:59:59.000Z" itemprop="datePublished">2019-04-30</time>
 </a>
@@ -1171,146 +1471,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-diary" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2018-12-31/diary/" class="article-date">
-  <time datetime="2018-12-31T14:59:59.000Z" itemprop="datePublished">2018-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2018-12-31/diary/">近況 2018-12-31</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今月の進捗など</p>
-<ul>
-<li>前月分: <a href="https://vain0x.github.io/blog/2018-11-30/diary/">https://vain0x.github.io/blog/2018-11-30/diary/</a></li>
-</ul>
-<h2 id="hsp3-debug-ginger"><a href="#hsp3-debug-ginger" class="headerlink" title="hsp3-debug-ginger"></a>hsp3-debug-ginger</h2><p><a href="https://github.com/vain0x/hsp3-debug-ginger" target="_blank" rel="noopener">https://github.com/vain0x/hsp3-debug-ginger</a></p>
-<ul>
-<li>前月からやっている、VSCode 対応の HSP デバッガーを作るプロジェクト</li>
-<li>前回の近況では進捗を書き忘れていた</li>
-<li>最小限の機能が揃った<ul>
-<li>グローバル変数を基本型の1次元配列まで表示できる</li>
-<li>assert とかで止まったときに実行中の行がエディター上で強調表示される</li>
-<li>VSCode の一時停止ボタンやステップインボタンで実行の制御ができる</li>
-</ul>
-</li>
-<li>アルファ版のプレリリースを出した</li>
-<li>課題はたくさんある<ul>
-<li>インストール手順が煩雑すぎる</li>
-<li>挙動がおかしい<ul>
-<li>実行中の行にスクロールしてくれない</li>
-</ul>
-</li>
-<li>基本的な機能の不足<ul>
-<li>logmes</li>
-<li>2次元以上の配列の表示</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="milone-lang"><a href="#milone-lang" class="headerlink" title="milone-lang"></a>milone-lang</h2><p><a href="https://github.com/vain0x/milone-lang" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang</a></p>
-<ul>
-<li>セルフホストを目指している F# サブセットのコンパイラ</li>
-<li>リファクタリング、エラーハンドリングの強化、パーサーの微修正などの細かい作業をした</li>
-<li>README にプロジェクトの進捗状況やコンパイル手順などを書いた</li>
-<li>パターンマッチを強化した</li>
-<li>when パターンは、パターンに合致した後に追加の <code>if</code> 文を足せばいい</li>
-<li>as パターンは、パターンに合致するかの判定の前に変数への代入を行えばいい</li>
-<li>or パターンの一部<ul>
-<li>パターンを選言標準形的なものにするとやりやすい</li>
-<li>例えばパターン <code>Foo (A | B) :: _</code> を <code>Foo A :: _ | Foo B :: _</code> にする</li>
-<li>つまり <code>|</code> が一番外側に来るようにする</li>
-<li><code>|</code> の左右のパターンについてそれぞれ合致するか試して、どっちかに合致したら <code>-&gt;</code> の内側に <code>goto</code> する</li>
-<li>いまのところ or を含むパターンでは変数を束縛できない</li>
-</ul>
-</li>
-</ul>
-<h2 id="curage-lang"><a href="#curage-lang" class="headerlink" title="curage-lang"></a>curage-lang</h2><p><a href="https://github.com/vain0x/curage-lang" target="_blank" rel="noopener">https://github.com/vain0x/curage-lang</a></p>
-<ul>
-<li>Language Server Protocol (LSP) の練習用のプロジェクトを始めた</li>
-<li>LSP は Debugger Adapter Protocol と似てるけど、より複雑で難しい</li>
-<li>既存のパーサーを使うのはめんどくさいので処理系を一から書いていて、いちおう自作言語という扱い</li>
-<li>クラゲ言語</li>
-<li>Rust 風の構文 (予定)</li>
-<li>単純な型システム (予定)</li>
-<li>インタプリタ上での実行 (予定)</li>
-<li>いまのところ構文エラーを VSCode 上に警告として表示するやつ (textDocument/publishDiagnostics) だけできている</li>
-<li>Node (TypeScript) 用に LSP の実装の基盤となるフレームワーク的なものがある<ul>
-<li>vscode-languageserver</li>
-<li>何をやっているのかよく分からないので使っていない</li>
-</ul>
-</li>
-</ul>
-<h2 id="競技プログラミング"><a href="#競技プログラミング" class="headerlink" title="競技プログラミング"></a>競技プログラミング</h2><ul>
-<li>AtCoder に毎週参加している</li>
-<li>レートは青に漸近中 (1557 → 1580 → 1582)</li>
-<li><a href="https://note.mu/vain0x/n/ne88e557f5859" target="_blank" rel="noopener">競プロ参戦記 #24 「約数75」 ABC 114｜ベイン｜note</a></li>
-<li><a href="https://note.mu/vain0x/n/n539b9a9ac173" target="_blank" rel="noopener">競プロ参戦記 #25 「クリスマス多次元バーガー」 ABC 115｜ベイン｜note</a></li>
-<li><a href="https://note.mu/vain0x/n/n6aa8c41c4b77" target="_blank" rel="noopener">競プロ参戦記 #26 「和が2冪」  AGC 29 [AB]｜ベイン｜note</a></li>
-<li><a href="https://note.mu/vain0x/n/nb6b19dd4245a" target="_blank" rel="noopener">競プロ参戦記 #27 「ゲーム」 CADDi 2018 [CD]｜ベイン｜note</a></li>
-</ul>
-<h2 id="ウェブアプリ開発"><a href="#ウェブアプリ開発" class="headerlink" title="ウェブアプリ開発"></a>ウェブアプリ開発</h2><ul>
-<li>UI を作り込んだ</li>
-<li>on-the-fly で描画するには複雑なグラフを SVG 画像として生成するスクリプトを書いた<ul>
-<li>Fabric.js でラップされた Canvas API を使って図形を描画して、SVG にエクスポートして、ローカルサーバーに送信して、ファイルに保存する、という遠回り。1回動いたら十分なのでよし</li>
-</ul>
-</li>
-</ul>
-<h2 id="Qiita"><a href="#Qiita" class="headerlink" title="Qiita"></a>Qiita</h2><ul>
-<li><a href="https://qiita.com/vain0x/items/8f8b6effb32cd68c22f3" target="_blank" rel="noopener">シクシク素数列を F# でやってみた - Qiita</a> を投稿した<ul>
-<li>F# で素数判定をやるサンプルコード的なもの</li>
-</ul>
-</li>
-<li><a href="https://qiita.com/yasuabe2613/items/5ab33e103e4105630e4c" target="_blank" rel="noopener">Domain Modeling Made Functional まとめ - Qiita</a> を読んだ<ul>
-<li>元になった F# で DDD をやる本も読んでいる</li>
-</ul>
-</li>
-</ul>
-<h2 id="Trickle"><a href="#Trickle" class="headerlink" title="Trickle"></a>Trickle</h2><ul>
-<li>Trickle を始めた</li>
-<li>トピックごとに活動記録を書いていけるスマートフォンアプリ</li>
-<li>参考 <a href="http://blog.h13i32maru.jp/entry/2018/11/12/092904" target="_blank" rel="noopener">http://blog.h13i32maru.jp/entry/2018/11/12/092904</a></li>
-<li>ガルパメモの垂れ流しになってる</li>
-</ul>
-<h2 id="ガルパ-リズムゲーム"><a href="#ガルパ-リズムゲーム" class="headerlink" title="ガルパ (リズムゲーム)"></a>ガルパ (リズムゲーム)</h2><ul>
-<li>難度26の精度は確実に上がってきている</li>
-<li>難度27以上については、マジックアワーをフルコンボした以外に進歩がない</li>
-<li>アニメの 1st season 良かった</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-12-31/diary/" data-id="cjrghybfe000zlqcxi79x7ew3" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1329,6 +1489,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/blog/2019-05-31/diary/">近況 2019-05-31</a>
+          </li>
+        
+          <li>
             <a href="/blog/2019-04-30/diary/">近況 2019-04-30</a>
           </li>
         
@@ -1344,10 +1508,6 @@ ga('send', 'pageview');
             <a href="/blog/2019-02-26/interpreter-written-in-hsp3/">HSP3 でスクリプト言語の処理系を書く</a>
           </li>
         
-          <li>
-            <a href="/blog/2019-01-30/diary/">近況 2019-01-30</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1357,7 +1517,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">タグクラウド</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/NET/" style="font-size: 11.43px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 15.71px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14.29px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 14.29px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 14.29px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 12.86px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 12.86px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 14.29px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 12.86px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.43px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 18.57px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.43px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 17.14px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 12.86px;">非同期</a>
+      <a href="/blog/tags/NET/" style="font-size: 11.67px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 16.67px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 15px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 15px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 15px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 13.33px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 13.33px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 15px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 13.33px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.67px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 20px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.67px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 18.33px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 13.33px;">非同期</a>
     </div>
   </div>
 
