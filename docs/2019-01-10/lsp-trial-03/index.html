@@ -90,7 +90,7 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-lsp-trial-03" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-lsp-trial-03" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2019-01-10/lsp-trial-03/" class="article-date">
   <time datetime="2019-01-10T13:12:00.000Z" itemprop="datePublished">2019-01-10</time>
@@ -133,7 +133,7 @@ ga('send', 'pageview');
 <li>注: <code>textDocument/documentHighlight</code> リクエストが来るのは LSP サーバーがこの機能に対応している場合のみです。<code>initialize</code> レスポンスに指定する <code>capabilities</code> に設定が必要です。(詳細は実際のコードを参照)</li>
 </ul>
 <p>言葉で説明してもアレなので、今回の動作例を先に貼ります:</p>
-<p><img src="https://qiita-image-store.s3.amazonaws.com/0/74340/d9da9328-5a47-49b1-0a39-784fab38a091.png" alt=""></p>
+<p><img src="https://qiita-image-store.s3.amazonaws.com/0/74340/d9da9328-5a47-49b1-0a39-784fab38a091.png" alt></p>
 <p>(カーソル上にある <code>x</code> と、同じ変数を指す <code>x</code> がすべてハイライトされているが、他の変数はハイライトされていない、という状況)</p>
 <p>カーソル位置にある名前が指しているシンボルと同一のシンボルをハイライトさせる。これが今回の目標です。</p>
 <h2 id="実装"><a href="#実装" class="headerlink" title="実装"></a>実装</h2><p>そういうわけで、ソースコード上の名前がどのシンボルに対応するのかを調べる処理を書きます。</p>
