@@ -88,6 +88,122 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-observable-collection-design-notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2017-03-10/observable-collection-design-notes/" class="article-date">
+  <time datetime="2017-03-10T05:42:00.000Z" itemprop="datePublished">2017-03-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2017-03-10/observable-collection-design-notes/">観測可能なコレクションの設計考察</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://qiita.com/vain0x/items/772d2a17c7d1cb735dd1" target="_blank" rel="noopener">Qiita</a></p>
+<p>WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。<a href="https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock" target="_blank" rel="noopener">うまくいかない設計に基づく実装をけっこう書いてしまった</a> ので、その供養でもあります。</p>
+<h2 id="背景-WPF-のリストボックス"><a href="#背景-WPF-のリストボックス" class="headerlink" title="背景: WPF のリストボックス"></a>背景: WPF のリストボックス</h2><p><strong>WPF</strong> とは、Windows で動くネイティブ GUI アプリケーションを作成するためのフレームワークの1つです。</p>
+<p>WPF ではリストボックスのように複数の項目を含むコントロールを表示する際、バインディングという機能を用いて、次のように実装します。まず ObservableCollection のインスタンスを用意します。これはある機能を持つ、動的なリストです。要素は普通の文字列やオブジェクトでOK。このコレクションを (Binding オブジェクトでラップして) リストボックスの ItemsSource プロパティに設定すると、リストボックスに a, b, c という3つの項目が表示されます。興味深いのはここからで、ObservableCollection に要素を追加・削除すると、リストボックスの対応する項目も連動して追加・削除されるのです。</p>
+<p>WPF のリストボックスなどにバインドできるコレクションはなんでもいいですが、項目の連動機能を利用するには一定の条件をクリアする必要があります。その条件を満たすコレクションを、ここでは <strong>観測可能なコレクション</strong> と呼ぶことにします。例に挙げた ObservableCollection は観測可能なコレクションの代表例です。</p>
+<p>要素の連動をどうやっているか簡単に説明すると、まず観測可能なコレクションに要素が追加・削除されるたび、それが実装する INotifyCollectionChanged インターフェイスの CollectionChanged イベントが発生します。WPF はこれを購読していて、イベントの内容 (要素 x が i 番目に追加された、など) に合わせてリストボックスを操作します。</p>
+<h3 id="マルチスレッド問題"><a href="#マルチスレッド問題" class="headerlink" title="マルチスレッド問題"></a>マルチスレッド問題</h3><p>WPF は 他の GUI ライブラリーと同じように UI スレッドパターンを利用していて、すなわち UI スレッドと呼ばれる単一のスレッドからしか UI 要素を操作できません。</p>
+<p>さて、観測可能なコレクションに変更操作が加わるたび、イベントが発生して、WPF がリストボックスの項目を追加・削除するわけですが、イベントの発生とリストボックスの操作は同一のスレッドで行われるようです (※デフォルトの場合)。先述の通り WPF がリストボックスを触れるのは UI スレッドだけなので、観測可能なコレクションの CollectionChanged イベントも UI スレッドで起こさなければいけません。</p>
+<p>すべての処理を UI スレッドで行えば話は簡単なのですが、そうは問屋が卸しません。時間のかかる処理を UI スレッド上で実行すると、その間 UI 要素が応答しなくなってしまいます。そのため、時間のかかる処理は非 UI スレッド上で実行するのが普通です。</p>
+<p>そういうわけで、WPF アプリケーションではたいてい2つ以上のスレッドが走ります。問題は、複数のスレッドから単一のオブジェクトを操作すると恐怖の競合状態が発生することです。例えば、観測可能なコレクションがスレッド安全でない場合、非 UI スレッドでそれを変更するのと同時に UI スレッドからアクセスがあったとしたら、そこで競合状態になります。</p>
+<p>ここに3つの選択肢があります。</p>
+<ul>
+<li>(A) 観測可能なコレクションの操作はすべて UI スレッドで行う。</li>
+<li>(B) 観測可能なコレクションをスレッド安全にする。</li>
+<li>(C) スレッド安全ではないが競合は起きない方法をとる。(後述)</li>
+</ul>
+<p>(A) を選べば万事解決ですが、人間はめんどうくさがるものです。コレクションを操作するのにいちいち UI スレッドへのディスパッチを行うのはめんどうです。(C) は思いつきもしなかったので、筆者は (B) を選ぼうとしました。</p>
+<p>ここからが本題です。</p>
+<h2 id="B-案-スレッド安全な観測可能コレクション"><a href="#B-案-スレッド安全な観測可能コレクション" class="headerlink" title="(B)案: スレッド安全な観測可能コレクション"></a>(B)案: スレッド安全な観測可能コレクション</h2><p>観測可能なコレクションをスレッド安全にする方法は、筆者が思いつくかぎりでは4つほどあります。</p>
+<h3 id="方法1-スレッドによる所有"><a href="#方法1-スレッドによる所有" class="headerlink" title="方法1: スレッドによる所有"></a>方法1: スレッドによる所有</h3><p>観測可能なコレクションの代表例である ObservableCollection は、スレッド安全なコレクションです (※)。どのくらい安全かというと、<strong>非UIスレッドから操作すると例外が送出される</strong> のです。実にあんしんです。</p>
+<p>これすなわち、変更操作をするたびに UI スレッドへのディスパッチが必要ということです。さきほどの (A) 案と一緒ですね。</p>
+<p>※ここで、コレクションがスレッド安全であるとは、それに対して少なくとも1つの変更操作を含む複数の操作が同時に実行されたとしても競合状態を引き起こさないこと、と定義しておきます。ObservableCollection は1つのスレッドからしか触れませんから、競合状態を引き起こすことはありません。ゆえにスレッド安全となります。</p>
+<h3 id="方法2-排他ロック"><a href="#方法2-排他ロック" class="headerlink" title="方法2: 排他ロック"></a>方法2: 排他ロック</h3><p>スレッド安全性といえば排他ロックでしょう。排他ロックそのものの説明は割愛します。</p>
+<p>初め、筆者はこの方針で観測可能なコレクションを実装したのですが、スレッド安全性の保証で行き詰まりました。というのも、外部に晒したコレクションをロックで守るのがそもそも不可能だったのです。</p>
+<p>例えば、 <code>Enumerable.ToArray</code> 拡張メソッドの実装はだいたいこんな感じになっているはずです:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> X[] ToArray&lt;X&gt;(IEnumerable&lt;X&gt; xs)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> list = xs <span class="keyword">as</span> IList&lt;X&gt;;</span><br><span class="line">    <span class="keyword">if</span> (list != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> array = <span class="keyword">new</span> X[list.Count];</span><br><span class="line">        list.CopyTo(array, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 以下略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>こういう「リストの Count を参照した後、その値を利用して別の操作をする」みたいな処理では、Count から後続の処理までの間に要素数が変わらないようにする必要がありますが、ToArray がロックをとってくれていないのでそれは不可能です。</p>
+<p>書いたコードはお焚きあげに出しました。 R.I.P.</p>
+<h3 id="方法3-コレクション系インターフェイスを実装しない"><a href="#方法3-コレクション系インターフェイスを実装しない" class="headerlink" title="方法3. コレクション系インターフェイスを実装しない"></a>方法3. コレクション系インターフェイスを実装しない</h3><p>先ほどの ToArray 問題の原因は、<code>IList&lt;_&gt;</code> などのコレクション系インターフェイスが並行プログラミングをサポートしていないことにあります。そこで、それらのインターフェイスを捨てて、<code>IEnumerable&lt;_&gt;</code> だけを実装するようにすれば安全です。</p>
+<h4 id="GetEnumerator-の非効率性"><a href="#GetEnumerator-の非効率性" class="headerlink" title="GetEnumerator の非効率性"></a>GetEnumerator の非効率性</h4><p>この選択肢の利点と欠点を考えましょう。1つ目の欠点は、LINQ to IEnumerable が使えなくなることです。というのも、先述の <code>Enumerable.ToArray</code> は、渡されたシーケンス (IEnumerable) の実体の型がコレクションかどうかで条件分岐しています。コレクションでなければ Count などを参照できないので、GetEnumerator だけを使って処理を行います。一般的にシーケンスに対する GetEnumerator だけを使う実装は、著しく非効率な場合があります。例えば <code>Enumerable.Count</code> (シーケンスの長さを取得する) のように、コレクションであれば一瞬で実行できるはずの操作にも要素の数だけ時間がかかることになります。</p>
+<p>しかしこの欠点にはいちおうの対策があります。というのも、拡張メソッドはオーバーライドできませんが、シャドーイングはできるからです。そのため、<code>Enumerable.Count</code> のように効率の悪くなるメソッドに対して観測可能なコレクション用に特化したメソッドを用意しておくことで、ある程度の問題は解決します。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 読み取り専用の観測可能なコレクションを表すインターフェイスを定義しておく。</span></span><br><span class="line">public interface IReadOnlyObservableList&lt;T&gt;</span><br><span class="line">    : IEnumerable&lt;T&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">Task&lt;<span class="keyword">int</span>&gt; <span class="title">CountAsync</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 観測可能なコレクションに特化した拡張メソッドを定義しておく。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> ObservableListExtension</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> Count&lt;X&gt;(<span class="keyword">this</span> IReadOnlyObservableList&lt;X&gt; @<span class="keyword">this</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> @<span class="keyword">this</span>.CountAsync().Result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 効率のよい方のメソッドが使われる。</span></span><br><span class="line"><span class="keyword">new</span> MyObservableList&lt;<span class="keyword">int</span>&gt;().Count();</span><br></pre></td></tr></table></figure>
+<p>対象は Count(), Any(), ElementAt(int), Last() です。このくらいなら実装量的にも大丈夫でしょう。</p>
+<p>もちろん WPF は特化版のメソッドを使ってはくれませんが、WPF がコレクションの要素数を取得したりインデックスでアクセスしたりする場面が思いつかないので (あったら教えてください)、ひとまず問題なしとします。</p>
+<h4 id="スレッド安全性の確保"><a href="#スレッド安全性の確保" class="headerlink" title="スレッド安全性の確保"></a>スレッド安全性の確保</h4><p>標準のコレクション系インターフェイスを実装しないだけでは、まだスレッド安全になりません。UI スレッドから GetEnumerator が起動されることになるので、GetEnumerator と他の操作が同時に起動されても大丈夫なようにする (あるいは同時には起動されないようにする) 必要があります。</p>
+<p>これは比較的簡単にできます。例えば排他ロックを用いて、GetEnumerator を「ロックの中でリスト全体のコピーを作り、そのコピーの列挙子を返す」ようにする、などです。これは次のような実装になります。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// コレクションの要素を入れておくリスト</span></span><br><span class="line"><span class="keyword">readonly</span> List&lt;T&gt; list;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ロックオブジェクト</span></span><br><span class="line"><span class="keyword">readonly</span> <span class="keyword">object</span> gate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> X Invoke&lt;X&gt;(Func&lt;X&gt; f)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">lock</span> (gate)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> f();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> IEnumerator&lt;T&gt; <span class="title">GetEnumerator</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Invoke(() =&gt; list.ToList()).GetEnumerator();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>考えられる方法としては:</p>
+<ul>
+<li>排他ロック &amp; コピー</li>
+<li>単一スレッドへのディスパッチ &amp; コピー</li>
+<li>不変オブジェクト</li>
+</ul>
+<p>などがあります。詳細は割愛。</p>
+<h4 id="コレクション操作のインターフェイス"><a href="#コレクション操作のインターフェイス" class="headerlink" title="コレクション操作のインターフェイス"></a>コレクション操作のインターフェイス</h4><p>標準のコレクション系インターフェイスを実装しないということは、コレクションに対する挿入や除去の操作を独自に提供する必要があります。</p>
+<p>単純に <code>IList&lt;_&gt;</code> と同じインターフェイスを提供するのが自然です。</p>
+<p>スレッド安全性の保証に単一スレッドへのディスパッチを用いるのであれば、結果を Task として返すような非同期操作を持たせるのもありでしょう。</p>
+<h4 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h4><ul>
+<li>利点: スレッド安全性を獲得できる。</li>
+<li>欠点: 外法。</li>
+</ul>
+<h3 id="方法4-単一スレッドへのディスパッチ"><a href="#方法4-単一スレッドへのディスパッチ" class="headerlink" title="方法4. 単一スレッドへのディスパッチ"></a>方法4. 単一スレッドへのディスパッチ</h3><p>スレッド安全なコレクションを考える話に戻ります。</p>
+<p>次の方法は、コレクションへの変更を書き込む処理と、コレクションからデータを読み取る処理をすべて単一のスレッドで行う、というものです。すなわち、ある単一のスレッドではコレクションを普通に操作する代わり、それとは別のスレッドから操作しようとしたら、その単一のスレッドにコレクションへの操作を「依頼」する、ということです。ちなみに他のスレッドに処理を依頼することをディスパッチするというみたいです。</p>
+<p>この方法ではディスパッチ処理をコレクションの内部 (Add メソッドなど) で行うので、使う側はめんどくさくありません。</p>
+<p>スレッドの切り替えには、標準にある System.Threading.SynchronizationContext を使えばよいでしょう。WPF にある Dispatcher を使うという手もありますが、これは高機能すぎますし、sealed class なのでテストダブルが作れないという問題と、ライブラリーに対する依存関係が深くなる問題があるので、ひとまず置いておきます。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class ObservableList&lt;T&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">readonly</span> SynchronizationContext context =</span><br><span class="line">        SynchronizationContext.Current;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">readonly</span> List&lt;T&gt; list;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params">T <span class="keyword">value</span></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        context.Send(state =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// ここは UI スレッドで行われる。</span></span><br><span class="line">            list.Add(<span class="keyword">value</span>);</span><br><span class="line">        &#125;, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>この方法では、先述の ToArray 問題が解決できません。</p>
+<h2 id="C-案-UI-非UIスレッド間のスレッド安全性保証"><a href="#C-案-UI-非UIスレッド間のスレッド安全性保証" class="headerlink" title="(C)案: UI/非UIスレッド間のスレッド安全性保証"></a>(C)案: UI/非UIスレッド間のスレッド安全性保証</h2><p>コレクション自体をスレッド安全にするのではなく、ユーザーと WPF からの同時アクセスだけを防ぐ方針もありえます。その2つがどう違うのかというと、後者の場合は例えばユーザーが2つの非UIスレッドを作って、それらから単一のコレクションを同時に操作したときに、競合状態が起きうるということです。ただし、ユーザーがコレクションを操作しているのと同時に WPF (UI スレッド) がコレクションにアクセスしても、競合状態は起こりません。</p>
+<p>そもそもの目的を思い出すと、たしかにユーザーサイドでの同時アクセスまで面倒をみる必要はないように思えます。</p>
+<h3 id="EnableCollectionSynchronization"><a href="#EnableCollectionSynchronization" class="headerlink" title="EnableCollectionSynchronization"></a>EnableCollectionSynchronization</h3><p>実際にどうやるかというと、WPF が提供している BindingOperations.EnableCollectionSynchronization メソッドを使います。このメソッドをあらかじめコレクションに適用しておくことで、観測可能なコレクションを非UIスレッドから更新しても安全になるそうです。</p>
+<h3 id="所有スレッドの変更"><a href="#所有スレッドの変更" class="headerlink" title="所有スレッドの変更"></a>所有スレッドの変更</h3><p>これは筆者の経験に基づく憶測なのですが、ビューモデルの一生は2ステップに分かれます。1つはビューモデルのコンストラクターの内部で、データベースなどから取ってきた値にもとづいてコレクションなどに初期値を入れていく過程です。2つ目は、ビューモデルを UI 要素のプロパティにバインドして、ユーザーの操作のフィードバックを受ける過程です。</p>
+<p>ビューモデルの生成をUIスレッドでやるか非UIスレッドでやるかという考察は、それだけで記事が1つ書けるぐらいの内容だと思いますが、ここでは非UIスレッドでやると仮定します。その場合、観測可能なコレクションが生成されるのは非UIスレッドです。1つ目の過程 (初期値を入れていく) は、まだ UI 要素にバインドされていないので、非UIスレッドで行っても問題ありません。しかし2つ目の過程 (ユーザーの操作のフィードバックを受ける) は、もちろん UI スレッドで行う必要があります。</p>
+<p>観測可能なコレクションを所有するスレッドを動的に変更するのはどうか、というアイディアです。すなわち、第1過程では生成スレッド (非UIスレッド) に所有され、第2過程に移った段階で UI スレッドに所有されるようにする、ということです。</p>
+<p>スレッドの所有権を明示的にプログラムの中で表現しようとすると、委譲処理をどうやって起動するかが問題になります。委譲を行うタイミングは UI 要素にバインドされた瞬間ですが、これをフックする方法が分かりません。この方法は <del>もうめんどくさいのでかんがえたくない</del> さらなる検討の余地がありそうです。</p>
+<p>スレッドの所有権をプログラムで表現しない、すなわち「オブジェクトが特に制御しなくても操作元のスレッドが常に1つに限定されるように努力する」というのも1つの方法です。先述の2過程仮説が正しければ、次のような制約でコーディングすれば競合は回避できます: 観測可能コレクションは、それを所有するオブジェクトのコンストラクター、または UI スレッドでのみ操作できる。</p>
+<p>これはけっこう現実的で、例えば <a href="https://github.com/runceel/ReactiveProperty" target="_blank" rel="noopener">ReactiveProperty</a> が提供する観測可能なコレクションである ReactiveCollection は、そういう感じの使い方を想定しているようにみえます (※個人の感想です)。</p>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><ul>
+<li>ReactiveProperty をインストールしているなら、ReactiveCollection を使おう。</li>
+<li>.NET 4.5 以上なら、EnableCollectionSynchronization を使おう。</li>
+</ul>
+<p>本稿では、ぐだぐだな考察と考慮漏れだらけの迷走を経て、ReactiveCollection がなぜ安全に運用できているのかに対する納得できる仮説を得られた。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li>ugaya40 (2015)「StatefulModelについて」, the sea of fertility. <a href="http://ugaya40.hateblo.jp/entry/StatefulModel" target="_blank" rel="noopener">http://ugaya40.hateblo.jp/entry/StatefulModel</a>, (閲覧日: 2017年3月10日)</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/" data-id="cjrghybgd003qlqcxznrs1adj" class="article-share-link">共有</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/WPF/">WPF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/非同期/">非同期</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+
+  
     <article id="post-breakable-loop-in-fsharp" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2017-03-05/breakable-loop-in-fsharp/" class="article-date">
@@ -775,6 +891,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/blog/2019-06-30/diary/">近況 2019-06-30</a>
+          </li>
+        
+          <li>
             <a href="/blog/2019-05-31/diary/">近況 2019-05-31</a>
           </li>
         
@@ -790,10 +910,6 @@ ga('send', 'pageview');
             <a href="/blog/2019-02-27/diary/">近況 2019-02-27</a>
           </li>
         
-          <li>
-            <a href="/blog/2019-02-26/interpreter-written-in-hsp3/">HSP3 でスクリプト言語の処理系を書く</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -803,7 +919,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">タグクラウド</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/NET/" style="font-size: 11.67px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 20px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 16.67px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 15px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 15px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 15px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 13.33px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 13.33px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 15px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 13.33px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.67px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 20px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.67px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 18.33px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 13.33px;">非同期</a>
+      <a href="/blog/tags/NET/" style="font-size: 11.43px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 18.57px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 15.71px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14.29px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 14.29px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 14.29px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 12.86px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 12.86px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 14.29px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 12.86px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.43px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 20px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.43px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 17.14px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 12.86px;">非同期</a>
     </div>
   </div>
 
