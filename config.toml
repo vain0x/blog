@@ -1,1 +1,27 @@
 baseURL = "http://example.org/"
+theme = "beautifulhugo"
+
+title = "ベインのブログ"
+
+languageCode = "ja-jp"
+DefaultContentLanguage = "ja"
+
+metaDataFormat = "yaml"
+
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+
+[[menu.mai]]
+name = "アーカイブ"
+url = "posts"
+weight = 1
+
+[[menu.main]]
+name = "タグ"
+url = "tags"
+weight = 1
+
+[[menu.main]]
+name = "About"
+url = "https://vain0x.github.io"
+weight = 1
