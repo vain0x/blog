@@ -1,0 +1,43 @@
+---
+title: 近況 2019-02-27
+type: "post"
+date: 2019-02-27 23:31:49
+permalink: diary
+tags:
+  - 日記
+---
+
+今月の活動のまとめ
+
+<!--more-->
+
+- 前月分: <https://vain0x.github.io/blog/2019-01-30/diary/>
+
+## ネギ言語
+
+HSP3 で JavaScript 風の構文を持つ自作言語のインタプリタを書くプロジェクトを始めた。
+
+<https://github.com/vain0x/negi-lang>
+
+- 詳細はこちらの記事を参照: [HSP3 でスクリプト言語の処理系を書く | vain0x's blog](https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/)
+
+## 競プロ参戦記
+
+今月も週末に AtCoder に参加した。Qiita に移転した。
+
+- [競プロ参戦記 #32 偶奇 | みんぷろ2019 \[ABC\]｜ベイン｜note](https://note.mu/vain0x/n/n07b1b0686624)
+- [競プロ参戦記 #33 Match Matching | ABC 118 - Qiita](https://qiita.com/vain0x/items/e72df0b0a2e1b653d5a5)
+- [競プロ参戦記 #34 Lazy Faith | ABC 119 - Qiita](https://qiita.com/vain0x/items/9a8a881f5170dc8eaa62)
+
+## ブックマークアプリ
+
+<https://github.com/vain0x/tsunotoshi>
+
+- オンラインブックマークアプリ
+- 何かしらのウェブアプリを書いて公開したかったので作っている
+- モチベーションは低め
+
+## ガルパ (リズムゲーム)
+
+- God knows... (難度28) をフルコンボできた
+- EXトライマスターの称号を獲得した

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# See <https://gohugo.io/hosting-and-deployment/hosting-on-github/>.
+
+set -eux
+
+if [[ git status -s ]]
+then
+    echo "The working directory is dirty. Please commit any pending changes."
+    exit 1;
+fi
+
+if [[ "$(git rev-parse --abbrev-ref HEAD)" != "develop" ]]
+then
+    echo "Use `git checkout develop` first"
+    exit 1;
+fi
+
+git checkout master
+git merge --no-ff develop
+
+hugo
+git add .
+git commit --allow-empty -m "Build"
+git push origin master
+
+git checkout develop
+git push origin develop
