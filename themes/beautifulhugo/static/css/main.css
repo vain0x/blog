@@ -15,9 +15,14 @@
 
 /* --- General --- */
 
+html {
+  /* 1rem = 1.0rem. */
+  font-size: 62.5%;
+}
+
 body {
   font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
-  font-size: 18px;
+  font-size: 1.6rem;
   position: relative;
   display: flex;
   flex-flow: column;
@@ -158,7 +163,7 @@ img {
 
 .navbar-custom .nav li a {
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 1.2rem;
   letter-spacing: 1px;
 }
 
@@ -227,7 +232,7 @@ img {
   }
 
   #main-navbar .nav > li > a {
-    font-size: 10px;
+    font-size: 1.0rem;
     padding: 4px;
   }
 }
@@ -297,7 +302,7 @@ img {
 }
 .navbar-custom .nav .navlinks-container .navlinks-children a {
   display: block;
-  padding: 10px;
+  padding: 1.0rem;
   padding-left: 30px;
   background: #f5f5f5ee;
   text-decoration: none !important;
@@ -326,7 +331,7 @@ img {
     position: absolute;
   }
   .navbar-custom .nav .navlinks-container .navlinks-children a {
-    padding-left: 10px;
+    padding-left: 1.0rem;
     border: 1px solid #eaeaea;
     border-width: 0 1px 1px;
   }
@@ -337,7 +342,7 @@ img {
 footer {
   padding: 30px 0;
   margin-top: auto;
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 
 footer a {
@@ -355,7 +360,7 @@ footer .copyright {
 }
 footer .theme-by {
   text-align: center;
-  margin: 10px 0 0;
+  margin: 1.0rem 0 0;
 }
 
 @media only screen and (min-width: 768px) {
@@ -363,10 +368,10 @@ footer .theme-by {
     padding: 50px 0;
   }
   footer .footer-links {
-    font-size: 18px;
+    font-size: 1.6rem;
   }
   footer .copyright {
-    font-size: 16px;
+    font-size: 1.4rem;
   }
 }
 
@@ -405,12 +410,12 @@ footer .theme-by {
 .post-preview .post-subtitle {
   margin: 0;
   font-weight: 300;
-  margin-bottom: 10px;
+  margin-bottom: 1.0rem;
 }
 .post-preview .post-meta,
 .post-heading .post-meta {
   /* color: #808080; */
-  margin: 0 0 10px;
+  margin: 0 0 1.0rem;
 }
 .post-preview .post-meta a,
 .post-heading .post-meta a {
@@ -426,7 +431,7 @@ footer .theme-by {
 }
 .post-entry {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 1.0rem;
 }
 .post-image {
   float: right;
@@ -459,7 +464,7 @@ footer .theme-by {
 .blog-tags {
   font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
   /* color: #999; */
-  font-size: 15px;
+  font-size: 1.4rem;
   margin-bottom: 30px;
 }
 
@@ -490,7 +495,7 @@ footer .theme-by {
 
 @media only screen and (min-width: 768px) {
   .post-preview .blog-tags {
-    margin-top: 10px;
+    margin-top: 1.0rem;
   }
 }
 
@@ -562,7 +567,7 @@ footer .theme-by {
   display: block;
   font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
   font-weight: 300;
-  margin: 10px 0 0;
+  margin: 1.0rem 0 0;
 }
 .intro-header .post-heading .post-subheading {
   margin-bottom: 20px;
@@ -582,7 +587,7 @@ footer .theme-by {
 .intro-header.big-img .img-desc {
   background: rgba(30, 30, 30, 0.6);
   position: absolute;
-  padding: 5px 10px;
+  padding: 5px 1.0rem;
   font-size: 11px;
   color: #EEE;
   font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
@@ -609,7 +614,7 @@ footer .theme-by {
     font-size: 50px;
   }
   .intro-header.big-img .img-desc {
-    font-size: 14px;
+    font-size: 1.4rem;
   }
 }
 
@@ -648,8 +653,8 @@ footer .theme-by {
 
 .caption {
   text-align: center;
-  font-size: 14px;
-  padding: 10px;
+  font-size: 1.4rem;
+  padding: 1.0rem;
   font-style: italic;
   margin: 0;
   display: block;
@@ -662,10 +667,10 @@ footer .theme-by {
 .pager li a {
   font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 800;
   letter-spacing: 1px;
-  padding: 10px 5px;
+  padding: 1.0rem 5px;
   background: var(--app-main-container-background);
   border-color: transparent;
   border-radius: 0;
@@ -684,11 +689,11 @@ footer .theme-by {
 }
 
 .pager {
-  margin: 10px 0 0;
+  margin: 1.0rem 0 0;
 }
 
 .pager.blog-pager {
-  margin-top:10px;
+  margin-top:1.0rem;
 }
 
 h4.panel-title > span.badge {
