@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2018-11-08s on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/2018-11-08/</link>
+    <description>Recent content in 2018-11-08s on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Thu, 08 Nov 2018 02:01:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/2018-11-08/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>円周率チャレンジにアルゴリズムでチャレンジ</title>
+      <link>https://vain0x.github.io/blog/2018-11-08/pi-challenge/</link>
+      <pubDate>Thu, 08 Nov 2018 02:01:00 +0900</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2018-11-08/pi-challenge/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://rirosi.net/plus2/&#34;&gt;円周率チャレンジ&lt;/a&gt; というゲームが流行中です！&lt;/p&gt;
+
+&lt;p&gt;プログラムを使って良い解法を探索してみたので、考えたことを書いていきます。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2017-12-04s on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/2017-12-04/</link>
+    <description>Recent content in 2017-12-04s on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Mon, 04 Dec 2017 00:31:05 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/2017-12-04/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[C#] コンストラクタの自動生成 #1</title>
+      <link>https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/</link>
+      <pubDate>Mon, 04 Dec 2017 00:31:05 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/</guid>
+      <description>&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
+
+&lt;p&gt;C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

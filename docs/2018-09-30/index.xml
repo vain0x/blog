@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2018-09-30s on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/2018-09-30/</link>
+    <description>Recent content in 2018-09-30s on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 30 Sep 2018 23:59:59 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/2018-09-30/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>近況 2018-09-30</title>
+      <link>https://vain0x.github.io/blog/2018-09-30/diary/</link>
+      <pubDate>Sun, 30 Sep 2018 23:59:59 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2018-09-30/diary/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;校正の手間を省くため、なるべく箇条書きでやっていく
+
+&lt;ul&gt;
+&lt;li&gt;通常の文章を書く頭は README と競プロ参戦記に使う&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Twitter ではなく、まとまったものを書いていきたい&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

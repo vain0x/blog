@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2018-10-31s on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/2018-10-31/</link>
+    <description>Recent content in 2018-10-31s on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Wed, 31 Oct 2018 23:59:59 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/2018-10-31/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>近況 2018-10-31</title>
+      <link>https://vain0x.github.io/blog/2018-10-31/diary/</link>
+      <pubDate>Wed, 31 Oct 2018 23:59:59 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2018-10-31/diary/</guid>
+      <description>&lt;p&gt;今月の活動まとめ&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://vain0x.github.io/blog/2018-09-30/diary/&#34;&gt;前月&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

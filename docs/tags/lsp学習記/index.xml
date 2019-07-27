@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LSP学習記 on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/tags/lsp%E5%AD%A6%E7%BF%92%E8%A8%98/</link>
+    <description>Recent content in LSP学習記 on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Wed, 16 Jan 2019 22:17:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/tags/lsp%E5%AD%A6%E7%BF%92%E8%A8%98/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LSP学習記 #4 シンボルのリネーム</title>
+      <link>https://vain0x.github.io/blog/2019-01-16/lsp-trial-04/</link>
+      <pubDate>Wed, 16 Jan 2019 22:17:00 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2019-01-16/lsp-trial-04/</guid>
+      <description>&lt;p&gt;自作言語の LSP サーバーを作るプロジェクトの第4回です。今回はソースコードを変更する機能の例として、シンボルのリネームを実装してみました。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>LSP学習記 #3 シンボルとハイライト</title>
+      <link>https://vain0x.github.io/blog/2019-01-10/lsp-trial-03/</link>
+      <pubDate>Thu, 10 Jan 2019 22:12:00 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2019-01-10/lsp-trial-03/</guid>
+      <description>&lt;p&gt;自作言語の LSP サーバーを作るプロジェクトの第3回です。今回はシンボルテーブルを作ってシンボルのハイライト機能を実装します。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>LSP学習記 #2 クラゲ言語の構文解析</title>
+      <link>https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/</link>
+      <pubDate>Mon, 07 Jan 2019 22:13:00 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/</guid>
+      <description>&lt;p&gt;LSP サーバーを作っていくプロジェクトの第2回です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;前回: &lt;a href=&#34;https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/&#34;&gt;LSP学習記 #1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;前回は警告の表示までできるようになりました。しかしこの調子で自明な機能を足し続けても楽しくないので、新しいプログラミング言語を作ります。自作言語処理系とともに LSP サーバーを育てていく予定です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;今回のソースコード: &lt;a href=&#34;https://github.com/vain0x/curage-lang/tree/v0.3.0&#34;&gt;curage-lang v0.3.0&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>LSP学習記 #1</title>
+      <link>https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/</link>
+      <pubDate>Sat, 05 Jan 2019 23:52:00 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/</guid>
+      <description>&lt;p&gt;LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。&lt;/p&gt;
+
+&lt;p&gt;第1回では LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作ります。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

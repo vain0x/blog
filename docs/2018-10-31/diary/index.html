@@ -1,354 +1,492 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>近況 2018-10-31 - ベインのブログ</title>
+  <meta property="og:title" content="近況 2018-10-31" />
+  <meta name="twitter:title" content="近況 2018-10-31" />
+  <meta name="description" content="今月の活動まとめ
+
+
+前月
+">
+  <meta property="og:description" content="今月の活動まとめ
+
+
+前月
+">
+  <meta name="twitter:description" content="今月の活動まとめ
+
+
+前月
+"><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-128265968-1', 'auto');
-ga('send', 'pageview');
-
+  
+  
+  
+}
 </script>
-<!-- End Google Analytics -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2018-10-31\/diary\/",
+          "name": "近況 2018 10 31"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : ""
+  },
+  "headline": "近況 2018-10-31",
+  "description" : "今月の活動まとめ\n 前月 ",
+  "inLanguage" : "ja",
+  "wordCount":  124 ,
+  "datePublished" : "2018-10-31T23:59:59",
+  "dateModified" : "2018-10-31T23:59:59",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "日記" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2018-10-31\/diary\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="近況 2018-10-31" />
+<meta property="og:description" content="今月の活動まとめ
 
 
-  
-  <title>近況 2018-10-31 | vain0x&#39;s blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="前月  milone-lang https://github.com/vain0x/milone-lang F# のサブセットのコンパイラ milone-lang を作ってる 前月苦しんでいた字下げ依存構文の構文解析問題はほぼ解決した 次のトークンの位置が低すぎたらパースを中止する、みたいな動き 結果的に再帰下降パーサーとしては自然な実装になった   インタプリタを捨てて、C言語のコードを生成す">
-<meta name="keywords" content="日記">
-<meta property="og:type" content="article">
-<meta property="og:title" content="近況 2018-10-31">
-<meta property="og:url" content="http://vain0x.github.io/blog/2018-10-31/diary/index.html">
-<meta property="og:site_name" content="vain0x&#39;s blog">
-<meta property="og:description" content="前月  milone-lang https://github.com/vain0x/milone-lang F# のサブセットのコンパイラ milone-lang を作ってる 前月苦しんでいた字下げ依存構文の構文解析問題はほぼ解決した 次のトークンの位置が低すぎたらパースを中止する、みたいな動き 結果的に再帰下降パーサーとしては自然な実装になった   インタプリタを捨てて、C言語のコードを生成す">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-01T12:04:26.874Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="近況 2018-10-31">
-<meta name="twitter:description" content="前月  milone-lang https://github.com/vain0x/milone-lang F# のサブセットのコンパイラ milone-lang を作ってる 前月苦しんでいた字下げ依存構文の構文解析問題はほぼ解決した 次のトークンの位置が低すぎたらパースを中止する、みたいな動き 結果的に再帰下降パーサーとしては自然な実装になった   インタプリタを捨てて、C言語のコードを生成す">
-<meta name="twitter:creator" content="@vain0x">
-  
-    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/blog/favicon.jpg">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/blog/css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
-      </h1>
-      
+前月
+">
+<meta property="og:url" content="https://vain0x.github.io/blog/2018-10-31/diary/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="近況 2018-10-31" />
+  <meta name="twitter:description" content="今月の活動まとめ
+
+
+前月
+">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/2018-10-31/diary/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="generator" content="Hugo 0.56.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">メニューを切り替え</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
         
-          <a class="main-nav-link" href="https://vain0x.github.io">ホーム</a>
+          
+            <li>
+              <a title="About" href="https://vain0x.github.io">About</a>
+            </li>
+          
         
-          <a class="main-nav-link" href="/blog/">ブログ</a>
+          
+            <li>
+              <a title="タグ" href="/blog/tags">タグ</a>
+            </li>
+          
         
-          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+
         
-          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+
         
-          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
-        
-          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-diary" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2018-10-31/diary/" class="article-date">
-  <time datetime="2018-10-31T14:59:59.000Z" itemprop="datePublished">2018-10-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
   
-    <h1 class="article-title" itemprop="name">
-      近況 2018-10-31
-    </h1>
+  
   
 
-      </header>
+
+
+
+
+
+  
+
+  <header class="header-section ">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>近況 2018-10-31</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2018年10月31日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>今月の活動まとめ</p>
+
+<ul>
 <li><a href="https://vain0x.github.io/blog/2018-09-30/diary/">前月</a></li>
 </ul>
-<h3 id="milone-lang"><a href="#milone-lang" class="headerlink" title="milone-lang"></a>milone-lang</h3><ul>
-<li><a href="https://github.com/vain0x/milone-lang" target="_blank" rel="noopener">https://github.com/vain0x/milone-lang</a></li>
+
+<h3 id="milone-lang">milone-lang</h3>
+
+<ul>
+<li><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></li>
 <li>F# のサブセットのコンパイラ milone-lang を作ってる</li>
-<li>前月苦しんでいた字下げ依存構文の構文解析問題はほぼ解決した<ul>
+<li>前月苦しんでいた字下げ依存構文の構文解析問題はほぼ解決した
+
+<ul>
 <li>次のトークンの位置が低すぎたらパースを中止する、みたいな動き</li>
 <li>結果的に再帰下降パーサーとしては自然な実装になった</li>
-</ul>
-</li>
-<li>インタプリタを捨てて、C言語のコードを生成するようにした<ul>
+</ul></li>
+<li>インタプリタを捨てて、C言語のコードを生成するようにした
+
+<ul>
 <li>インタプリタの実装は klac-lang でやったから退屈に感じる</li>
 <li>最終的にはアセンブリや Web Assembly や LLVM をターゲットにしたいが、モチベを維持するために機能追加を優先していく</li>
-</ul>
-</li>
+</ul></li>
 <li>演算や条件分岐や関数などの基本機能が入った</li>
-<li>シンプルな型推論が入った<ul>
+<li>シンプルな型推論が入った
+
+<ul>
 <li>単一化ベースだが、まだ多相関数は禁止しているのでHMじゃない</li>
-</ul>
-</li>
-<li>ジェネリクスを入れようとして、オートボクシングと型推論の兼ね合いで悩んだ<ul>
+</ul></li>
+<li>ジェネリクスを入れようとして、オートボクシングと型推論の兼ね合いで悩んだ
+
+<ul>
 <li>ジェネリクスはやめて、単相化することにした</li>
 <li>例えばタプルは、生成後のCのコードでは型引数ごとに別々の構造体になる</li>
-</ul>
-</li>
-<li>近い目標として、字句解析器をコンパイルしたい<ul>
+</ul></li>
+<li>近い目標として、字句解析器をコンパイルしたい
+
+<ul>
 <li>リストを入れないと何もできない</li>
 <li>クロージャもほしいけど難しいかも</li>
-</ul>
-</li>
-<li>参考<ul>
+</ul></li>
+<li>参考
+
+<ul>
 <li>TaPL</li>
-<li><a href="http://esumii.github.io/min-caml/" target="_blank" rel="noopener">速攻MinCamlコンパイラ概説</a></li>
+<li><a href="http://esumii.github.io/min-caml/">速攻MinCamlコンパイラ概説</a></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="環境再構築"><a href="#環境再構築" class="headerlink" title="環境再構築"></a>環境再構築</h3><ul>
-<li>今年頭 (2018年1月) にパソコンを買い替えた<ul>
-<li><a href="https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/">Ubuntuデスクトップを使い始めた | vain0x’s blog</a></li>
-</ul>
-</li>
+
+<h3 id="環境再構築">環境再構築</h3>
+
+<ul>
+<li>今年頭 (2018年1月) にパソコンを買い替えた
+
+<ul>
+<li><a href="https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/">Ubuntuデスクトップを使い始めた | vain0x&rsquo;s blog</a></li>
+</ul></li>
 <li>Ubuntu デスクトップという試みはうまくいっている</li>
-<li>パフォーマンス問題があった<ul>
+<li>パフォーマンス問題があった
+
+<ul>
 <li>Chrome のタブを大量に開いたり VSCode を複数起動すると重たくなる</li>
-</ul>
-</li>
+</ul></li>
 <li>メモリを 16GB に、ハードディスクを SSD にした</li>
-<li>SSD 換装は初めてだったけど簡単にできた<ul>
+<li>SSD 換装は初めてだったけど簡単にできた
+
+<ul>
 <li>SATAケーブルとSATA電源ケーブルを買ったけど、HDDと繋ぎかえるだけだからいらなかった</li>
 <li>SSD はメンディングテープで固定した</li>
-</ul>
-</li>
+</ul></li>
 <li>ついでにクリーンインストールした</li>
 </ul>
-<h3 id="競プロ参戦記"><a href="#競プロ参戦記" class="headerlink" title="競プロ参戦記"></a>競プロ参戦記</h3><ul>
-<li>8月中旬から note.mu で <a href="https://note.mu/vain0x/m/m9aa8513f4e97" target="_blank" rel="noopener">競プロ参戦記</a> を始めた</li>
+
+<h3 id="競プロ参戦記">競プロ参戦記</h3>
+
+<ul>
+<li>8月中旬から note.mu で <a href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a> を始めた</li>
 <li>AGC で惨敗して、2週間ぐらい競プロから離れていた</li>
 <li>先週の天下一は参加して、そこそこの成績だった</li>
 <li>まったりやっていく</li>
 </ul>
-<h3 id="toml-hummer"><a href="#toml-hummer" class="headerlink" title="toml-hummer"></a>toml-hummer</h3><ul>
-<li><a href="https://github.com/vain0x/toml-hummer" target="_blank" rel="noopener">https://github.com/vain0x/toml-hummer</a></li>
+
+<h3 id="toml-hummer">toml-hummer</h3>
+
+<ul>
+<li><a href="https://github.com/vain0x/toml-hummer">https://github.com/vain0x/toml-hummer</a></li>
 <li>F# 用の TOML パーサー</li>
 <li>あまり進んでない</li>
 <li>日時リテラルを扱えるようになりつつある</li>
 </ul>
-<h3 id="React"><a href="#React" class="headerlink" title="React"></a>React</h3><ul>
+
+<h3 id="react">React</h3>
+
+<ul>
 <li>機能追加はうまくいっている</li>
-<li>データベース処理ごとテストしてる<ul>
+<li>データベース処理ごとテストしてる
+
+<ul>
 <li>依存関係を切るの難しい</li>
-</ul>
-</li>
+</ul></li>
 <li>履歴移動でコンポーネントの状態が初期化される問題はまだ放置してる</li>
-<li>サーバーとクライアントで行ったり来たりする処理の見通しが悪い<ul>
+<li>サーバーとクライアントで行ったり来たりする処理の見通しが悪い
+
+<ul>
 <li>ステートマシンみたいになってしまう</li>
 <li>再帰下降パーサーみたいに書きたい</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="ガルパ"><a href="#ガルパ" class="headerlink" title="ガルパ"></a>ガルパ</h3><ul>
+
+<h3 id="ガルパ">ガルパ</h3>
+
+<ul>
 <li>ファントムシーフ (Expert 27) はクリアできた</li>
 <li>今後は 26 帯の精度を上げていきたい</li>
 <li>某の影響をで左手プレイを練習している</li>
 </ul>
-<h3 id="その他"><a href="#その他" class="headerlink" title="その他"></a>その他</h3><ul>
-<li>AtCoder の提出を Git リポジトリにまとめるツールを書いた<ul>
-<li><a href="https://github.com/vain0x/submissions-sync" target="_blank" rel="noopener">https://github.com/vain0x/submissions-sync</a></li>
+
+<h3 id="その他">その他</h3>
+
+<ul>
+<li>AtCoder の提出を Git リポジトリにまとめるツールを書いた
+
+<ul>
+<li><a href="https://github.com/vain0x/submissions-sync">https://github.com/vain0x/submissions-sync</a></li>
 <li>GitHub に自動でコミットしたいという野望がある</li>
-</ul>
-</li>
-<li>投稿専用の Twitter クライアント Solotter を地味に改修した<ul>
-<li><a href="https://github.com/vain0x/solotter-web" target="_blank" rel="noopener">https://github.com/vain0x/solotter-web</a></li>
+</ul></li>
+<li>投稿専用の Twitter クライアント Solotter を地味に改修した
+
+<ul>
+<li><a href="https://github.com/vain0x/solotter-web">https://github.com/vain0x/solotter-web</a></li>
 <li>Express.js で書いていたのが React になった</li>
 <li>いろいろ足したい機能があるけど、いまは milone-lang が優先</li>
-</ul>
-</li>
-<li>記事を投稿した<ul>
-<li><a href="https://qiita.com/vain0x/items/512784ff60ce599dccae" target="_blank" rel="noopener">Rustで競プロするときのプラクティス [2018秋] - Qiita</a></li>
-</ul>
-</li>
-<li>このブログをなんとかしたい<ul>
+</ul></li>
+<li>記事を投稿した
+
+<ul>
+<li><a href="https://qiita.com/vain0x/items/512784ff60ce599dccae">Rustで競プロするときのプラクティス [2018秋] - Qiita</a></li>
+</ul></li>
+<li>このブログをなんとかしたい
+
+<ul>
 <li>更新作業を楽にしたい</li>
 <li>画像を載せやすくしたい</li>
 <li>記事一覧をつけたい</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/%E6%97%A5%E8%A8%98/">日記</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+      </article>
 
       
+        <ul class="pager blog-pager">
+          
+          
+        </ul>
+      
+
+
+      
+
     </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-10-31/diary/" data-id="cjrghybfe000xlqcxp7ciwqgy" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/日記/">日記</a></li></ul>
-
-    </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/blog/2018-11-07/pi-challenge/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">新しい記事へ</strong>
-      <div class="article-nav-title">
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2019
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+        </p>
         
-          円周率チャレンジにアルゴリズムでチャレンジ
-        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.56.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
       </div>
-    </a>
-  
-  
-    <a href="/blog/2018-10-07/rust-procon/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">古い記事へ</strong>
-      <div class="article-nav-title">Rustで競プロするときのプラクティス [2018秋]</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-
-
-<section id="comments">
-  <script src="https://utteranc.es/client.js" repo="vain0x/blog" issue-term="pathname" theme="github-light" crossorigin="anonymous" async>
-  </script>
-</section>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新記事</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/blog/2019-06-30/diary/">近況 2019-06-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-05-31/diary/">近況 2019-05-31</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-04-30/diary/">近況 2019-04-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-03-31/diary/">近況 2019-03-31</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-02-27/diary/">近況 2019-02-27</a>
-          </li>
-        
-      </ul>
     </div>
   </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">タグクラウド</h3>
-    <div class="widget tagcloud">
-      <a href="/blog/tags/NET/" style="font-size: 11.43px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 18.57px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 15.71px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14.29px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 14.29px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 14.29px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 12.86px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 12.86px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 14.29px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 12.86px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.43px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 20px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.43px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 17.14px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 12.86px;">非同期</a>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 vain0x<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="https://vain0x.github.io" class="mobile-nav-link">ホーム</a>
-  
-    <a href="/blog/" class="mobile-nav-link">ブログ</a>
-  
-    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
-  
-    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
-  
-    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
-  
-    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
-  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/blog/js/script.js"></script>
+<script src="https://vain0x.github.io/blog/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://vain0x.github.io/blog/js/load-photoswipe.js"></script>
 
 
 
 
-  </div>
-</body>
+
+
+
+
+
+  </body>
 </html>
+

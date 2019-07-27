@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2018-01-28s on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/2018-01-28/</link>
+    <description>Recent content in 2018-01-28s on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 28 Jan 2018 17:53:43 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/2018-01-28/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ubuntuデスクトップを使い始めた</title>
+      <link>https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/</link>
+      <pubDate>Sun, 28 Jan 2018 17:53:43 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/</guid>
+      <description>&lt;p&gt;普段づかいする環境をWindowsからUbuntuに移した話。&lt;/p&gt;
+
+&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;もともと Windows 10 だった。&lt;/li&gt;
+&lt;li&gt;Linux が便利らしいので、やってみたかった。&lt;/li&gt;
+&lt;li&gt;調べてみたらかなり試す価値がありそうだった。&lt;/li&gt;
+&lt;li&gt;安めのパソコンを買って試しているが、あまり問題がない。&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2016-12-07s on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/2016-12-07/</link>
+    <description>Recent content in 2016-12-07s on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Wed, 07 Dec 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/2016-12-07/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GitEditを使うべき十の理由</title>
+      <link>https://vain0x.github.io/blog/2016-12-07/why-git-edit/</link>
+      <pubDate>Wed, 07 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2016-12-07/why-git-edit/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/a97df4bd0f5f7de19d64&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/vain0x/GitEdit&#34;&gt;GitEdit&lt;/a&gt; とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。&lt;/p&gt;
+
+&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;vi を覚えるのはめんどくさい。&lt;/li&gt;
+&lt;li&gt;Git 用のテキストエディターとして使うための条件が意外と多い。&lt;/li&gt;
+&lt;li&gt;結局、ふさわしいエディターが見つからなかったので自作した。&lt;/li&gt;
+&lt;li&gt;ぜひ&lt;a href=&#34;https://github.com/vain0x/GitEdit/releases/latest&#34;&gt;ダウンロード&lt;/a&gt;して下さい。&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

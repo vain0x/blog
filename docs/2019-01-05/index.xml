@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2019-01-05s on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/2019-01-05/</link>
+    <description>Recent content in 2019-01-05s on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sat, 05 Jan 2019 23:52:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/2019-01-05/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LSP学習記 #1</title>
+      <link>https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/</link>
+      <pubDate>Sat, 05 Jan 2019 23:52:00 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/</guid>
+      <description>&lt;p&gt;LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。&lt;/p&gt;
+
+&lt;p&gt;第1回では LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作ります。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

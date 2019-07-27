@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>デザインパターン on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/tags/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3/</link>
+    <description>Recent content in デザインパターン on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Thu, 18 Aug 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/tags/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Nullオブジェクトパターンの紹介と正体</title>
+      <link>https://vain0x.github.io/blog/2016-08-18/null-object-patterns/</link>
+      <pubDate>Thu, 18 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2016-08-18/null-object-patterns/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://qiita.com/vain0x/items/c8adb679a6c253e5261f&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

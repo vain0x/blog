@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HSP on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/tags/hsp/</link>
+    <description>Recent content in HSP on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Tue, 10 May 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/tags/hsp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>PaketとGistで始める簡単パッケージ管理</title>
+      <link>https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/</link>
+      <pubDate>Tue, 10 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/41f13fed6f88be7f4e7e&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)&lt;/p&gt;
+
+&lt;h2 id=&#34;導入&#34;&gt;導入&lt;/h2&gt;
+
+&lt;p&gt;モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。
+最初に思いつきそうな:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;スクリプトが必要になるたびに、ファイルをコピーを作成して使う。(コピペ法)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;という方法だと、例えばモジュールにバグがあった場合などにモジュールを書き換えた後、それらのコピーを上書きして回ることになります。
+めんどうですね。&lt;/p&gt;
+
+&lt;p&gt;そのため:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ファイルをまとめておいておき、それを直接 #include して使う。 (共有法)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;というようにしている人も少なくないでしょう。&lt;/p&gt;
+
+&lt;p&gt;しかし、これにも少し問題があります。
+スクリプトを配布するときに、どのファイルが必要なのか分からなくなるのです。
+単純に「#include されているファイル」を集めるだけでは、「あるモジュールが他のモジュールを使用している」といった状況には対処できません。&lt;/p&gt;
+
+&lt;p&gt;※不要なものも全部いっしょくたにして同梱してしまう、という富豪的な方法もあります。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

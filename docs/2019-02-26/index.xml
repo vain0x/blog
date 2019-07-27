@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2019-02-26s on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/2019-02-26/</link>
+    <description>Recent content in 2019-02-26s on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Tue, 26 Feb 2019 22:25:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/2019-02-26/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>HSP3 でスクリプト言語の処理系を書く</title>
+      <link>https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/</link>
+      <pubDate>Tue, 26 Feb 2019 22:25:00 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/</guid>
+      <description>&lt;p&gt;HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。&lt;/p&gt;
+
+&lt;p&gt;10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できているという実感が得られた。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2017-03-05s on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/2017-03-05/</link>
+    <description>Recent content in 2017-03-05s on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 05 Mar 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/2017-03-05/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>break可能なループを書こう - 関数型プログラミングのテクニック</title>
+      <link>https://vain0x.github.io/blog/2017-03-05/breakable-loop-in-fsharp/</link>
+      <pubDate>Sun, 05 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2017-03-05/breakable-loop-in-fsharp/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/ddef84e3959dffe6a88d&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;手続き型言語を使う人に「F# のループ (for/while) は &lt;code&gt;break&lt;/code&gt; できない」というと驚かれるかもしれません。筆者は驚きました。途中で終了する可能性のあるループを書けなくて困りそうですが、その心配は不要です。F# では &lt;strong&gt;末尾再帰関数&lt;/strong&gt; を使って、&lt;code&gt;break&lt;/code&gt; や &lt;code&gt;continue&lt;/code&gt; のあるループと同じことができるからです。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

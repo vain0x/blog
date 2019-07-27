@@ -1,320 +1,560 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>観測可能なコレクションの設計考察 - ベインのブログ</title>
+  <meta property="og:title" content="観測可能なコレクションの設計考察" />
+  <meta name="twitter:title" content="観測可能なコレクションの設計考察" />
+  <meta name="description" content="Qiita
+
+WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。うまくいかない設計に基づく実装をけっこう書いてしまった ので、その供養でもあります。">
+  <meta property="og:description" content="Qiita
+
+WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。うまくいかない設計に基づく実装をけっこう書いてしまった ので、その供養でもあります。">
+  <meta name="twitter:description" content="Qiita
+
+WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。うまくいかない設計に基づく実装をけっこう書いてしまった ので、その供養でもあります。"><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-128265968-1', 'auto');
-ga('send', 'pageview');
-
+  
+  
+  
+}
 </script>
-<!-- End Google Analytics -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2017-03-10\/observable-collection-design-notes\/",
+          "name": "観測可能なコレクションの設計考察"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : ""
+  },
+  "headline": "観測可能なコレクションの設計考察",
+  "description" : "Qiita\nWPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。うまくいかない設計に基づく実装をけっこう書いてしまった ので、その供養でもあります。\n",
+  "inLanguage" : "ja",
+  "wordCount":  409 ,
+  "datePublished" : "2017-03-10T14:42:00",
+  "dateModified" : "2017-03-10T14:42:00",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "C#, WPF, 非同期" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2017-03-10\/observable-collection-design-notes\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="観測可能なコレクションの設計考察" />
+<meta property="og:description" content="Qiita
+
+WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。うまくいかない設計に基づく実装をけっこう書いてしまった ので、その供養でもあります。">
+<meta property="og:url" content="https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="観測可能なコレクションの設計考察" />
+  <meta name="twitter:description" content="Qiita
+
+WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。うまくいかない設計に基づく実装をけっこう書いてしまった ので、その供養でもあります。">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="generator" content="Hugo 0.56.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
 
 
-  
-  <title>観測可能なコレクションの設計考察 | vain0x&#39;s blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Qiita WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。うまくいかない設計に基づく実装をけっこう書いてしまった ので、その供養でもあります。 背景: WPF のリストボックスWPF とは、Windows で動くネイティブ GUI アプリケーションを作成するためのフレームワークの1つです。 WPF ではリストボックスのように複数の項目を含むコントロールを表示する際、バインディ">
-<meta name="keywords" content="C#,非同期,WPF">
-<meta property="og:type" content="article">
-<meta property="og:title" content="観測可能なコレクションの設計考察">
-<meta property="og:url" content="http://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/index.html">
-<meta property="og:site_name" content="vain0x&#39;s blog">
-<meta property="og:description" content="Qiita WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。うまくいかない設計に基づく実装をけっこう書いてしまった ので、その供養でもあります。 背景: WPF のリストボックスWPF とは、Windows で動くネイティブ GUI アプリケーションを作成するためのフレームワークの1つです。 WPF ではリストボックスのように複数の項目を含むコントロールを表示する際、バインディ">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-01T12:04:26.874Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="観測可能なコレクションの設計考察">
-<meta name="twitter:description" content="Qiita WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。うまくいかない設計に基づく実装をけっこう書いてしまった ので、その供養でもあります。 背景: WPF のリストボックスWPF とは、Windows で動くネイティブ GUI アプリケーションを作成するためのフレームワークの1つです。 WPF ではリストボックスのように複数の項目を含むコントロールを表示する際、バインディ">
-<meta name="twitter:creator" content="@vain0x">
-  
-    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/blog/favicon.jpg">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/blog/css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
-      </h1>
-      
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">メニューを切り替え</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
         
-          <a class="main-nav-link" href="https://vain0x.github.io">ホーム</a>
+          
+            <li>
+              <a title="About" href="https://vain0x.github.io">About</a>
+            </li>
+          
         
-          <a class="main-nav-link" href="/blog/">ブログ</a>
+          
+            <li>
+              <a title="タグ" href="/blog/tags">タグ</a>
+            </li>
+          
         
-          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+
         
-          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+
         
-          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
-        
-          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-observable-collection-design-notes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2017-03-10/observable-collection-design-notes/" class="article-date">
-  <time datetime="2017-03-10T05:42:00.000Z" itemprop="datePublished">2017-03-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
   
-    <h1 class="article-title" itemprop="name">
-      観測可能なコレクションの設計考察
-    </h1>
+  
   
 
-      </header>
+
+
+
+
+
+  
+
+  <header class="header-section ">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://qiita.com/vain0x/items/772d2a17c7d1cb735dd1" target="_blank" rel="noopener">Qiita</a></p>
-<p>WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。<a href="https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock" target="_blank" rel="noopener">うまくいかない設計に基づく実装をけっこう書いてしまった</a> ので、その供養でもあります。</p>
-<h2 id="背景-WPF-のリストボックス"><a href="#背景-WPF-のリストボックス" class="headerlink" title="背景: WPF のリストボックス"></a>背景: WPF のリストボックス</h2><p><strong>WPF</strong> とは、Windows で動くネイティブ GUI アプリケーションを作成するためのフレームワークの1つです。</p>
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>観測可能なコレクションの設計考察</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2017年3月10日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p><a href="http://qiita.com/vain0x/items/772d2a17c7d1cb735dd1">Qiita</a></p>
+
+<p>WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。<a href="https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock">うまくいかない設計に基づく実装をけっこう書いてしまった</a> ので、その供養でもあります。</p>
+
+<h2 id="背景-wpf-のリストボックス">背景: WPF のリストボックス</h2>
+
+<p><strong>WPF</strong> とは、Windows で動くネイティブ GUI アプリケーションを作成するためのフレームワークの1つです。</p>
+
 <p>WPF ではリストボックスのように複数の項目を含むコントロールを表示する際、バインディングという機能を用いて、次のように実装します。まず ObservableCollection のインスタンスを用意します。これはある機能を持つ、動的なリストです。要素は普通の文字列やオブジェクトでOK。このコレクションを (Binding オブジェクトでラップして) リストボックスの ItemsSource プロパティに設定すると、リストボックスに a, b, c という3つの項目が表示されます。興味深いのはここからで、ObservableCollection に要素を追加・削除すると、リストボックスの対応する項目も連動して追加・削除されるのです。</p>
+
 <p>WPF のリストボックスなどにバインドできるコレクションはなんでもいいですが、項目の連動機能を利用するには一定の条件をクリアする必要があります。その条件を満たすコレクションを、ここでは <strong>観測可能なコレクション</strong> と呼ぶことにします。例に挙げた ObservableCollection は観測可能なコレクションの代表例です。</p>
+
 <p>要素の連動をどうやっているか簡単に説明すると、まず観測可能なコレクションに要素が追加・削除されるたび、それが実装する INotifyCollectionChanged インターフェイスの CollectionChanged イベントが発生します。WPF はこれを購読していて、イベントの内容 (要素 x が i 番目に追加された、など) に合わせてリストボックスを操作します。</p>
-<h3 id="マルチスレッド問題"><a href="#マルチスレッド問題" class="headerlink" title="マルチスレッド問題"></a>マルチスレッド問題</h3><p>WPF は 他の GUI ライブラリーと同じように UI スレッドパターンを利用していて、すなわち UI スレッドと呼ばれる単一のスレッドからしか UI 要素を操作できません。</p>
+
+<h3 id="マルチスレッド問題">マルチスレッド問題</h3>
+
+<p>WPF は 他の GUI ライブラリーと同じように UI スレッドパターンを利用していて、すなわち UI スレッドと呼ばれる単一のスレッドからしか UI 要素を操作できません。</p>
+
 <p>さて、観測可能なコレクションに変更操作が加わるたび、イベントが発生して、WPF がリストボックスの項目を追加・削除するわけですが、イベントの発生とリストボックスの操作は同一のスレッドで行われるようです (※デフォルトの場合)。先述の通り WPF がリストボックスを触れるのは UI スレッドだけなので、観測可能なコレクションの CollectionChanged イベントも UI スレッドで起こさなければいけません。</p>
+
 <p>すべての処理を UI スレッドで行えば話は簡単なのですが、そうは問屋が卸しません。時間のかかる処理を UI スレッド上で実行すると、その間 UI 要素が応答しなくなってしまいます。そのため、時間のかかる処理は非 UI スレッド上で実行するのが普通です。</p>
+
 <p>そういうわけで、WPF アプリケーションではたいてい2つ以上のスレッドが走ります。問題は、複数のスレッドから単一のオブジェクトを操作すると恐怖の競合状態が発生することです。例えば、観測可能なコレクションがスレッド安全でない場合、非 UI スレッドでそれを変更するのと同時に UI スレッドからアクセスがあったとしたら、そこで競合状態になります。</p>
+
 <p>ここに3つの選択肢があります。</p>
+
 <ul>
 <li>(A) 観測可能なコレクションの操作はすべて UI スレッドで行う。</li>
 <li>(B) 観測可能なコレクションをスレッド安全にする。</li>
-<li>(C) スレッド安全ではないが競合は起きない方法をとる。(後述)</li>
+<li>&copy; スレッド安全ではないが競合は起きない方法をとる。(後述)</li>
 </ul>
-<p>(A) を選べば万事解決ですが、人間はめんどうくさがるものです。コレクションを操作するのにいちいち UI スレッドへのディスパッチを行うのはめんどうです。(C) は思いつきもしなかったので、筆者は (B) を選ぼうとしました。</p>
+
+<p>(A) を選べば万事解決ですが、人間はめんどうくさがるものです。コレクションを操作するのにいちいち UI スレッドへのディスパッチを行うのはめんどうです。&copy; は思いつきもしなかったので、筆者は (B) を選ぼうとしました。</p>
+
 <p>ここからが本題です。</p>
-<h2 id="B-案-スレッド安全な観測可能コレクション"><a href="#B-案-スレッド安全な観測可能コレクション" class="headerlink" title="(B)案: スレッド安全な観測可能コレクション"></a>(B)案: スレッド安全な観測可能コレクション</h2><p>観測可能なコレクションをスレッド安全にする方法は、筆者が思いつくかぎりでは4つほどあります。</p>
-<h3 id="方法1-スレッドによる所有"><a href="#方法1-スレッドによる所有" class="headerlink" title="方法1: スレッドによる所有"></a>方法1: スレッドによる所有</h3><p>観測可能なコレクションの代表例である ObservableCollection は、スレッド安全なコレクションです (※)。どのくらい安全かというと、<strong>非UIスレッドから操作すると例外が送出される</strong> のです。実にあんしんです。</p>
+
+<h2 id="b-案-スレッド安全な観測可能コレクション">(B)案: スレッド安全な観測可能コレクション</h2>
+
+<p>観測可能なコレクションをスレッド安全にする方法は、筆者が思いつくかぎりでは4つほどあります。</p>
+
+<h3 id="方法1-スレッドによる所有">方法1: スレッドによる所有</h3>
+
+<p>観測可能なコレクションの代表例である ObservableCollection は、スレッド安全なコレクションです (※)。どのくらい安全かというと、<strong>非UIスレッドから操作すると例外が送出される</strong> のです。実にあんしんです。</p>
+
 <p>これすなわち、変更操作をするたびに UI スレッドへのディスパッチが必要ということです。さきほどの (A) 案と一緒ですね。</p>
+
 <p>※ここで、コレクションがスレッド安全であるとは、それに対して少なくとも1つの変更操作を含む複数の操作が同時に実行されたとしても競合状態を引き起こさないこと、と定義しておきます。ObservableCollection は1つのスレッドからしか触れませんから、競合状態を引き起こすことはありません。ゆえにスレッド安全となります。</p>
-<h3 id="方法2-排他ロック"><a href="#方法2-排他ロック" class="headerlink" title="方法2: 排他ロック"></a>方法2: 排他ロック</h3><p>スレッド安全性といえば排他ロックでしょう。排他ロックそのものの説明は割愛します。</p>
+
+<h3 id="方法2-排他ロック">方法2: 排他ロック</h3>
+
+<p>スレッド安全性といえば排他ロックでしょう。排他ロックそのものの説明は割愛します。</p>
+
 <p>初め、筆者はこの方針で観測可能なコレクションを実装したのですが、スレッド安全性の保証で行き詰まりました。というのも、外部に晒したコレクションをロックで守るのがそもそも不可能だったのです。</p>
+
 <p>例えば、 <code>Enumerable.ToArray</code> 拡張メソッドの実装はだいたいこんな感じになっているはずです:</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> X[] ToArray&lt;X&gt;(IEnumerable&lt;X&gt; xs)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> list = xs <span class="keyword">as</span> IList&lt;X&gt;;</span><br><span class="line">    <span class="keyword">if</span> (list != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> array = <span class="keyword">new</span> X[list.Count];</span><br><span class="line">        list.CopyTo(array, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 以下略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="n">X</span><span class="p">[]</span> <span class="n">ToArray</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">xs</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">list</span> <span class="p">=</span> <span class="n">xs</span> <span class="k">as</span> <span class="n">IList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">list</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">var</span> <span class="n">array</span> <span class="p">=</span> <span class="k">new</span> <span class="n">X</span><span class="p">[</span><span class="n">list</span><span class="p">.</span><span class="n">Count</span><span class="p">];</span>
+        <span class="n">list</span><span class="p">.</span><span class="n">CopyTo</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">array</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// 以下略
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div>
 <p>こういう「リストの Count を参照した後、その値を利用して別の操作をする」みたいな処理では、Count から後続の処理までの間に要素数が変わらないようにする必要がありますが、ToArray がロックをとってくれていないのでそれは不可能です。</p>
+
 <p>書いたコードはお焚きあげに出しました。 R.I.P.</p>
-<h3 id="方法3-コレクション系インターフェイスを実装しない"><a href="#方法3-コレクション系インターフェイスを実装しない" class="headerlink" title="方法3. コレクション系インターフェイスを実装しない"></a>方法3. コレクション系インターフェイスを実装しない</h3><p>先ほどの ToArray 問題の原因は、<code>IList&lt;_&gt;</code> などのコレクション系インターフェイスが並行プログラミングをサポートしていないことにあります。そこで、それらのインターフェイスを捨てて、<code>IEnumerable&lt;_&gt;</code> だけを実装するようにすれば安全です。</p>
-<h4 id="GetEnumerator-の非効率性"><a href="#GetEnumerator-の非効率性" class="headerlink" title="GetEnumerator の非効率性"></a>GetEnumerator の非効率性</h4><p>この選択肢の利点と欠点を考えましょう。1つ目の欠点は、LINQ to IEnumerable が使えなくなることです。というのも、先述の <code>Enumerable.ToArray</code> は、渡されたシーケンス (IEnumerable) の実体の型がコレクションかどうかで条件分岐しています。コレクションでなければ Count などを参照できないので、GetEnumerator だけを使って処理を行います。一般的にシーケンスに対する GetEnumerator だけを使う実装は、著しく非効率な場合があります。例えば <code>Enumerable.Count</code> (シーケンスの長さを取得する) のように、コレクションであれば一瞬で実行できるはずの操作にも要素の数だけ時間がかかることになります。</p>
+
+<h3 id="方法3-コレクション系インターフェイスを実装しない">方法3. コレクション系インターフェイスを実装しない</h3>
+
+<p>先ほどの ToArray 問題の原因は、<code>IList&lt;_&gt;</code> などのコレクション系インターフェイスが並行プログラミングをサポートしていないことにあります。そこで、それらのインターフェイスを捨てて、<code>IEnumerable&lt;_&gt;</code> だけを実装するようにすれば安全です。</p>
+
+<h4 id="getenumerator-の非効率性">GetEnumerator の非効率性</h4>
+
+<p>この選択肢の利点と欠点を考えましょう。1つ目の欠点は、LINQ to IEnumerable が使えなくなることです。というのも、先述の <code>Enumerable.ToArray</code> は、渡されたシーケンス (IEnumerable) の実体の型がコレクションかどうかで条件分岐しています。コレクションでなければ Count などを参照できないので、GetEnumerator だけを使って処理を行います。一般的にシーケンスに対する GetEnumerator だけを使う実装は、著しく非効率な場合があります。例えば <code>Enumerable.Count</code> (シーケンスの長さを取得する) のように、コレクションであれば一瞬で実行できるはずの操作にも要素の数だけ時間がかかることになります。</p>
+
 <p>しかしこの欠点にはいちおうの対策があります。というのも、拡張メソッドはオーバーライドできませんが、シャドーイングはできるからです。そのため、<code>Enumerable.Count</code> のように効率の悪くなるメソッドに対して観測可能なコレクション用に特化したメソッドを用意しておくことで、ある程度の問題は解決します。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 読み取り専用の観測可能なコレクションを表すインターフェイスを定義しておく。</span></span><br><span class="line">public interface IReadOnlyObservableList&lt;T&gt;</span><br><span class="line">    : IEnumerable&lt;T&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">Task&lt;<span class="keyword">int</span>&gt; <span class="title">CountAsync</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 観測可能なコレクションに特化した拡張メソッドを定義しておく。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> ObservableListExtension</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> Count&lt;X&gt;(<span class="keyword">this</span> IReadOnlyObservableList&lt;X&gt; @<span class="keyword">this</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> @<span class="keyword">this</span>.CountAsync().Result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 効率のよい方のメソッドが使われる。</span></span><br><span class="line"><span class="keyword">new</span> MyObservableList&lt;<span class="keyword">int</span>&gt;().Count();</span><br></pre></td></tr></table></figure>
+<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// 読み取り専用の観測可能なコレクションを表すインターフェイスを定義しておく。
+</span><span class="c1"></span><span class="k">public</span> <span class="k">interface</span> <span class="n">IReadOnlyObservableList</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+    <span class="p">:</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="n">Task</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">CountAsync</span><span class="p">();</span>
+
+    <span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// 観測可能なコレクションに特化した拡張メソッドを定義しておく。
+</span><span class="c1"></span><span class="k">public</span> <span class="k">static</span> <span class="n">ObservableListExtension</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">Count</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="k">this</span> <span class="n">IReadOnlyObservableList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">@this</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">@this</span><span class="p">.</span><span class="n">CountAsync</span><span class="p">().</span><span class="n">Result</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 効率のよい方のメソッドが使われる。
+</span><span class="c1"></span><span class="k">new</span> <span class="n">MyObservableList</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;().</span><span class="n">Count</span><span class="p">();</span>
+</code></pre></div>
 <p>対象は Count(), Any(), ElementAt(int), Last() です。このくらいなら実装量的にも大丈夫でしょう。</p>
+
 <p>もちろん WPF は特化版のメソッドを使ってはくれませんが、WPF がコレクションの要素数を取得したりインデックスでアクセスしたりする場面が思いつかないので (あったら教えてください)、ひとまず問題なしとします。</p>
-<h4 id="スレッド安全性の確保"><a href="#スレッド安全性の確保" class="headerlink" title="スレッド安全性の確保"></a>スレッド安全性の確保</h4><p>標準のコレクション系インターフェイスを実装しないだけでは、まだスレッド安全になりません。UI スレッドから GetEnumerator が起動されることになるので、GetEnumerator と他の操作が同時に起動されても大丈夫なようにする (あるいは同時には起動されないようにする) 必要があります。</p>
+
+<h4 id="スレッド安全性の確保">スレッド安全性の確保</h4>
+
+<p>標準のコレクション系インターフェイスを実装しないだけでは、まだスレッド安全になりません。UI スレッドから GetEnumerator が起動されることになるので、GetEnumerator と他の操作が同時に起動されても大丈夫なようにする (あるいは同時には起動されないようにする) 必要があります。</p>
+
 <p>これは比較的簡単にできます。例えば排他ロックを用いて、GetEnumerator を「ロックの中でリスト全体のコピーを作り、そのコピーの列挙子を返す」ようにする、などです。これは次のような実装になります。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// コレクションの要素を入れておくリスト</span></span><br><span class="line"><span class="keyword">readonly</span> List&lt;T&gt; list;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ロックオブジェクト</span></span><br><span class="line"><span class="keyword">readonly</span> <span class="keyword">object</span> gate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> X Invoke&lt;X&gt;(Func&lt;X&gt; f)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">lock</span> (gate)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> f();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> IEnumerator&lt;T&gt; <span class="title">GetEnumerator</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Invoke(() =&gt; list.ToList()).GetEnumerator();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp">    <span class="c1">// コレクションの要素を入れておくリスト
+</span><span class="c1"></span>    <span class="k">readonly</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">;</span>
+
+    <span class="c1">// ロックオブジェクト
+</span><span class="c1"></span>    <span class="k">readonly</span> <span class="kt">object</span> <span class="n">gate</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="n">X</span> <span class="n">Invoke</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">f</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">lock</span> <span class="p">(</span><span class="n">gate</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="n">f</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="n">IEnumerator</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">GetEnumerator</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Invoke</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">list</span><span class="p">.</span><span class="n">ToList</span><span class="p">()).</span><span class="n">GetEnumerator</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div>
 <p>考えられる方法としては:</p>
+
 <ul>
 <li>排他ロック &amp; コピー</li>
 <li>単一スレッドへのディスパッチ &amp; コピー</li>
 <li>不変オブジェクト</li>
 </ul>
+
 <p>などがあります。詳細は割愛。</p>
-<h4 id="コレクション操作のインターフェイス"><a href="#コレクション操作のインターフェイス" class="headerlink" title="コレクション操作のインターフェイス"></a>コレクション操作のインターフェイス</h4><p>標準のコレクション系インターフェイスを実装しないということは、コレクションに対する挿入や除去の操作を独自に提供する必要があります。</p>
+
+<h4 id="コレクション操作のインターフェイス">コレクション操作のインターフェイス</h4>
+
+<p>標準のコレクション系インターフェイスを実装しないということは、コレクションに対する挿入や除去の操作を独自に提供する必要があります。</p>
+
 <p>単純に <code>IList&lt;_&gt;</code> と同じインターフェイスを提供するのが自然です。</p>
+
 <p>スレッド安全性の保証に単一スレッドへのディスパッチを用いるのであれば、結果を Task として返すような非同期操作を持たせるのもありでしょう。</p>
-<h4 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h4><ul>
+
+<h4 id="まとめ">まとめ</h4>
+
+<ul>
 <li>利点: スレッド安全性を獲得できる。</li>
 <li>欠点: 外法。</li>
 </ul>
-<h3 id="方法4-単一スレッドへのディスパッチ"><a href="#方法4-単一スレッドへのディスパッチ" class="headerlink" title="方法4. 単一スレッドへのディスパッチ"></a>方法4. 単一スレッドへのディスパッチ</h3><p>スレッド安全なコレクションを考える話に戻ります。</p>
+
+<h3 id="方法4-単一スレッドへのディスパッチ">方法4. 単一スレッドへのディスパッチ</h3>
+
+<p>スレッド安全なコレクションを考える話に戻ります。</p>
+
 <p>次の方法は、コレクションへの変更を書き込む処理と、コレクションからデータを読み取る処理をすべて単一のスレッドで行う、というものです。すなわち、ある単一のスレッドではコレクションを普通に操作する代わり、それとは別のスレッドから操作しようとしたら、その単一のスレッドにコレクションへの操作を「依頼」する、ということです。ちなみに他のスレッドに処理を依頼することをディスパッチするというみたいです。</p>
+
 <p>この方法ではディスパッチ処理をコレクションの内部 (Add メソッドなど) で行うので、使う側はめんどくさくありません。</p>
+
 <p>スレッドの切り替えには、標準にある System.Threading.SynchronizationContext を使えばよいでしょう。WPF にある Dispatcher を使うという手もありますが、これは高機能すぎますし、sealed class なのでテストダブルが作れないという問題と、ライブラリーに対する依存関係が深くなる問題があるので、ひとまず置いておきます。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class ObservableList&lt;T&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">readonly</span> SynchronizationContext context =</span><br><span class="line">        SynchronizationContext.Current;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">readonly</span> List&lt;T&gt; list;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Add</span>(<span class="params">T <span class="keyword">value</span></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        context.Send(state =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// ここは UI スレッドで行われる。</span></span><br><span class="line">            list.Add(<span class="keyword">value</span>);</span><br><span class="line">        &#125;, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">ObservableList</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="k">readonly</span> <span class="n">SynchronizationContext</span> <span class="n">context</span> <span class="p">=</span>
+        <span class="n">SynchronizationContext</span><span class="p">.</span><span class="n">Current</span><span class="p">;</span>
+
+    <span class="k">readonly</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="n">Add</span><span class="p">(</span><span class="n">T</span> <span class="k">value</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">context</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="n">state</span> <span class="p">=&gt;</span>
+        <span class="p">{</span>
+            <span class="c1">// ここは UI スレッドで行われる。
+</span><span class="c1"></span>            <span class="n">list</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">value</span><span class="p">);</span>
+        <span class="p">},</span> <span class="k">null</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>この方法では、先述の ToArray 問題が解決できません。</p>
-<h2 id="C-案-UI-非UIスレッド間のスレッド安全性保証"><a href="#C-案-UI-非UIスレッド間のスレッド安全性保証" class="headerlink" title="(C)案: UI/非UIスレッド間のスレッド安全性保証"></a>(C)案: UI/非UIスレッド間のスレッド安全性保証</h2><p>コレクション自体をスレッド安全にするのではなく、ユーザーと WPF からの同時アクセスだけを防ぐ方針もありえます。その2つがどう違うのかというと、後者の場合は例えばユーザーが2つの非UIスレッドを作って、それらから単一のコレクションを同時に操作したときに、競合状態が起きうるということです。ただし、ユーザーがコレクションを操作しているのと同時に WPF (UI スレッド) がコレクションにアクセスしても、競合状態は起こりません。</p>
+
+<h2 id="c-案-ui-非uiスレッド間のスレッド安全性保証">&copy;案: UI/非UIスレッド間のスレッド安全性保証</h2>
+
+<p>コレクション自体をスレッド安全にするのではなく、ユーザーと WPF からの同時アクセスだけを防ぐ方針もありえます。その2つがどう違うのかというと、後者の場合は例えばユーザーが2つの非UIスレッドを作って、それらから単一のコレクションを同時に操作したときに、競合状態が起きうるということです。ただし、ユーザーがコレクションを操作しているのと同時に WPF (UI スレッド) がコレクションにアクセスしても、競合状態は起こりません。</p>
+
 <p>そもそもの目的を思い出すと、たしかにユーザーサイドでの同時アクセスまで面倒をみる必要はないように思えます。</p>
-<h3 id="EnableCollectionSynchronization"><a href="#EnableCollectionSynchronization" class="headerlink" title="EnableCollectionSynchronization"></a>EnableCollectionSynchronization</h3><p>実際にどうやるかというと、WPF が提供している BindingOperations.EnableCollectionSynchronization メソッドを使います。このメソッドをあらかじめコレクションに適用しておくことで、観測可能なコレクションを非UIスレッドから更新しても安全になるそうです。</p>
-<h3 id="所有スレッドの変更"><a href="#所有スレッドの変更" class="headerlink" title="所有スレッドの変更"></a>所有スレッドの変更</h3><p>これは筆者の経験に基づく憶測なのですが、ビューモデルの一生は2ステップに分かれます。1つはビューモデルのコンストラクターの内部で、データベースなどから取ってきた値にもとづいてコレクションなどに初期値を入れていく過程です。2つ目は、ビューモデルを UI 要素のプロパティにバインドして、ユーザーの操作のフィードバックを受ける過程です。</p>
+
+<h3 id="enablecollectionsynchronization">EnableCollectionSynchronization</h3>
+
+<p>実際にどうやるかというと、WPF が提供している BindingOperations.EnableCollectionSynchronization メソッドを使います。このメソッドをあらかじめコレクションに適用しておくことで、観測可能なコレクションを非UIスレッドから更新しても安全になるそうです。</p>
+
+<h3 id="所有スレッドの変更">所有スレッドの変更</h3>
+
+<p>これは筆者の経験に基づく憶測なのですが、ビューモデルの一生は2ステップに分かれます。1つはビューモデルのコンストラクターの内部で、データベースなどから取ってきた値にもとづいてコレクションなどに初期値を入れていく過程です。2つ目は、ビューモデルを UI 要素のプロパティにバインドして、ユーザーの操作のフィードバックを受ける過程です。</p>
+
 <p>ビューモデルの生成をUIスレッドでやるか非UIスレッドでやるかという考察は、それだけで記事が1つ書けるぐらいの内容だと思いますが、ここでは非UIスレッドでやると仮定します。その場合、観測可能なコレクションが生成されるのは非UIスレッドです。1つ目の過程 (初期値を入れていく) は、まだ UI 要素にバインドされていないので、非UIスレッドで行っても問題ありません。しかし2つ目の過程 (ユーザーの操作のフィードバックを受ける) は、もちろん UI スレッドで行う必要があります。</p>
+
 <p>観測可能なコレクションを所有するスレッドを動的に変更するのはどうか、というアイディアです。すなわち、第1過程では生成スレッド (非UIスレッド) に所有され、第2過程に移った段階で UI スレッドに所有されるようにする、ということです。</p>
+
 <p>スレッドの所有権を明示的にプログラムの中で表現しようとすると、委譲処理をどうやって起動するかが問題になります。委譲を行うタイミングは UI 要素にバインドされた瞬間ですが、これをフックする方法が分かりません。この方法は <del>もうめんどくさいのでかんがえたくない</del> さらなる検討の余地がありそうです。</p>
+
 <p>スレッドの所有権をプログラムで表現しない、すなわち「オブジェクトが特に制御しなくても操作元のスレッドが常に1つに限定されるように努力する」というのも1つの方法です。先述の2過程仮説が正しければ、次のような制約でコーディングすれば競合は回避できます: 観測可能コレクションは、それを所有するオブジェクトのコンストラクター、または UI スレッドでのみ操作できる。</p>
-<p>これはけっこう現実的で、例えば <a href="https://github.com/runceel/ReactiveProperty" target="_blank" rel="noopener">ReactiveProperty</a> が提供する観測可能なコレクションである ReactiveCollection は、そういう感じの使い方を想定しているようにみえます (※個人の感想です)。</p>
-<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><ul>
+
+<p>これはけっこう現実的で、例えば <a href="https://github.com/runceel/ReactiveProperty">ReactiveProperty</a> が提供する観測可能なコレクションである ReactiveCollection は、そういう感じの使い方を想定しているようにみえます (※個人の感想です)。</p>
+
+<h2 id="結論">結論</h2>
+
+<ul>
 <li>ReactiveProperty をインストールしているなら、ReactiveCollection を使おう。</li>
 <li>.NET 4.5 以上なら、EnableCollectionSynchronization を使おう。</li>
 </ul>
+
 <p>本稿では、ぐだぐだな考察と考慮漏れだらけの迷走を経て、ReactiveCollection がなぜ安全に運用できているのかに対する納得できる仮説を得られた。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li>ugaya40 (2015)「StatefulModelについて」, the sea of fertility. <a href="http://ugaya40.hateblo.jp/entry/StatefulModel" target="_blank" rel="noopener">http://ugaya40.hateblo.jp/entry/StatefulModel</a>, (閲覧日: 2017年3月10日)</li>
+
+<h2 id="参考文献">参考文献</h2>
+
+<ul>
+<li>ugaya40 (2015)「StatefulModelについて」, the sea of fertility. <a href="http://ugaya40.hateblo.jp/entry/StatefulModel">http://ugaya40.hateblo.jp/entry/StatefulModel</a>, (閲覧日: 2017年3月10日)</li>
 </ul>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/" data-id="cjrghybgd003qlqcxznrs1adj" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/WPF/">WPF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/非同期/">非同期</a></li></ul>
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/c/">C#</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/wpf/">WPF</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/%E9%9D%9E%E5%90%8C%E6%9C%9F/">非同期</a>&nbsp;
+            
+          </div>
+        
 
-    </footer>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/blog/2017-03-21/enumerable-test/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">新しい記事へ</strong>
-      <div class="article-nav-title">
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2019
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+        </p>
         
-          EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話
-        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.56.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
       </div>
-    </a>
-  
-  
-    <a href="/blog/2017-03-05/breakable-loop-in-fsharp/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">古い記事へ</strong>
-      <div class="article-nav-title">break可能なループを書こう - 関数型プログラミングのテクニック</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-
-
-<section id="comments">
-  <script src="https://utteranc.es/client.js" repo="vain0x/blog" issue-term="pathname" theme="github-light" crossorigin="anonymous" async>
-  </script>
-</section>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新記事</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/blog/2019-06-30/diary/">近況 2019-06-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-05-31/diary/">近況 2019-05-31</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-04-30/diary/">近況 2019-04-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-03-31/diary/">近況 2019-03-31</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-02-27/diary/">近況 2019-02-27</a>
-          </li>
-        
-      </ul>
     </div>
   </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">タグクラウド</h3>
-    <div class="widget tagcloud">
-      <a href="/blog/tags/NET/" style="font-size: 11.43px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 18.57px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 15.71px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14.29px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 14.29px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 14.29px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 12.86px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 12.86px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 14.29px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 12.86px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.43px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 20px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.43px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 17.14px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 12.86px;">非同期</a>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 vain0x<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="https://vain0x.github.io" class="mobile-nav-link">ホーム</a>
-  
-    <a href="/blog/" class="mobile-nav-link">ブログ</a>
-  
-    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
-  
-    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
-  
-    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
-  
-    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
-  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/blog/js/script.js"></script>
+<script src="https://vain0x.github.io/blog/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://vain0x.github.io/blog/js/load-photoswipe.js"></script>
 
 
 
 
-  </div>
-</body>
+
+
+
+
+
+  </body>
 </html>
+

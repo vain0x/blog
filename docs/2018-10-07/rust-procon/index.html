@@ -1,319 +1,490 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Rustで競プロするときのプラクティス [2018秋] - ベインのブログ</title>
+  <meta property="og:title" content="Rustで競プロするときのプラクティス [2018秋]" />
+  <meta name="twitter:title" content="Rustで競プロするときのプラクティス [2018秋]" />
+  <meta name="description" content="競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。">
+  <meta property="og:description" content="競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。">
+  <meta name="twitter:description" content="競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。"><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-128265968-1', 'auto');
-ga('send', 'pageview');
-
+  
+  
+  
+}
 </script>
-<!-- End Google Analytics -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2018-10-07\/rust-procon\/",
+          "name": "Rustで競プロするときのプラクティス [2018秋]"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : ""
+  },
+  "headline": "Rustで競プロするときのプラクティス [2018秋]",
+  "description" : "競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。\n",
+  "inLanguage" : "ja",
+  "wordCount":  211 ,
+  "datePublished" : "2018-10-07T20:00:00",
+  "dateModified" : "2018-10-07T20:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "Rust, 競技プログラミング" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2018-10-07\/rust-procon\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Rustで競プロするときのプラクティス [2018秋]" />
+<meta property="og:description" content="競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。">
+<meta property="og:url" content="https://vain0x.github.io/blog/2018-10-07/rust-procon/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="Rustで競プロするときのプラクティス [2018秋]" />
+  <meta name="twitter:description" content="競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/2018-10-07/rust-procon/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="generator" content="Hugo 0.56.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
 
 
-  
-  <title>Rustで競プロするときのプラクティス [2018秋] | vain0x&#39;s blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。 筆者 AtCoder 水色 競プロ参戦記 やってます  フレームワーク自作フレームワークはこちら 。いつもこれの main 関数の中に解答を書いて提出しています。 入力のパース標準機能だけで入力をパースしようとするとだるいです。Qiita にも、すでにこの問題を解決しようという記事がいくつか上がって">
-<meta name="keywords" content="Rust,競技プログラミング">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Rustで競プロするときのプラクティス [2018秋]">
-<meta property="og:url" content="http://vain0x.github.io/blog/2018-10-07/rust-procon/index.html">
-<meta property="og:site_name" content="vain0x&#39;s blog">
-<meta property="og:description" content="競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。 筆者 AtCoder 水色 競プロ参戦記 やってます  フレームワーク自作フレームワークはこちら 。いつもこれの main 関数の中に解答を書いて提出しています。 入力のパース標準機能だけで入力をパースしようとするとだるいです。Qiita にも、すでにこの問題を解決しようという記事がいくつか上がって">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-01T12:04:26.874Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Rustで競プロするときのプラクティス [2018秋]">
-<meta name="twitter:description" content="競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。 筆者 AtCoder 水色 競プロ参戦記 やってます  フレームワーク自作フレームワークはこちら 。いつもこれの main 関数の中に解答を書いて提出しています。 入力のパース標準機能だけで入力をパースしようとするとだるいです。Qiita にも、すでにこの問題を解決しようという記事がいくつか上がって">
-<meta name="twitter:creator" content="@vain0x">
-  
-    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/blog/favicon.jpg">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/blog/css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
-      </h1>
-      
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">メニューを切り替え</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
         
-          <a class="main-nav-link" href="https://vain0x.github.io">ホーム</a>
+          
+            <li>
+              <a title="About" href="https://vain0x.github.io">About</a>
+            </li>
+          
         
-          <a class="main-nav-link" href="/blog/">ブログ</a>
+          
+            <li>
+              <a title="タグ" href="/blog/tags">タグ</a>
+            </li>
+          
         
-          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+
         
-          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+
         
-          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
-        
-          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-rust-procon" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2018-10-07/rust-procon/" class="article-date">
-  <time datetime="2018-10-07T11:00:00.000Z" itemprop="datePublished">2018-10-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
   
-    <h1 class="article-title" itemprop="name">
-      Rustで競プロするときのプラクティス [2018秋]
-    </h1>
+  
   
 
-      </header>
+
+
+
+
+
+  
+
+  <header class="header-section ">
     
-    <div class="article-entry" itemprop="articleBody">
-      
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Rustで競プロするときのプラクティス [2018秋]</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2018年10月7日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
         <p>競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。</p>
-<h2 id="筆者"><a href="#筆者" class="headerlink" title="筆者"></a>筆者</h2><ul>
+
+<h2 id="筆者">筆者</h2>
+
+<ul>
 <li>AtCoder 水色</li>
-<li><a href="https://note.mu/vain0x/n/ndcec1623a167" target="_blank" rel="noopener">競プロ参戦記</a> やってます</li>
+<li><a href="https://note.mu/vain0x/n/ndcec1623a167">競プロ参戦記</a> やってます</li>
 </ul>
-<h2 id="フレームワーク"><a href="#フレームワーク" class="headerlink" title="フレームワーク"></a>フレームワーク</h2><p><a href="https://github.com/vain0x/procon/blob/f016133b83c42196837e1b2490ecb5e57ce1ff40/rust/src/main.rs" target="_blank" rel="noopener">自作フレームワークはこちら</a> 。いつもこれの main 関数の中に解答を書いて提出しています。</p>
-<h2 id="入力のパース"><a href="#入力のパース" class="headerlink" title="入力のパース"></a>入力のパース</h2><p>標準機能だけで入力をパースしようとするとだるいです。Qiita にも、すでにこの問題を解決しようという記事がいくつか上がっています。</p>
-<p>私は上述のフレームワークに含まれている <a href="https://github.com/vain0x/procon/blob/f016133b83c42196837e1b2490ecb5e57ce1ff40/rust/src/main.rs#L25-L47" target="_blank" rel="noopener"><code>read!</code> マクロ</a> を使っています。実装が短い (23行) のと、見た目が関数っぽくて好み。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//! グラフのパースの例</span></span><br><span class="line"><span class="keyword">let</span> (N, M) = read!(<span class="built_in">usize</span>, <span class="built_in">usize</span>);</span><br><span class="line"><span class="keyword">let</span> weightd_edges = read![[<span class="built_in">usize</span>, <span class="built_in">usize</span>, <span class="built_in">i64</span>]; M];</span><br></pre></td></tr></table></figure>
-<p>パフォーマンスは若干悪くて、C++ で std::cin を使うより2倍ぐらい遅いです。それでも 10^6 個の整数を読むのに 100 ms 未満なので問題はないはず。ベンチマーク: <a href="https://github.com/vain0x/scan-bench" target="_blank" rel="noopener">scan-bench</a></p>
-<h2 id="デバッグ用のマクロ"><a href="#デバッグ用のマクロ" class="headerlink" title="デバッグ用のマクロ"></a>デバッグ用のマクロ</h2><p><a href="https://qiita.com/yamoridon/items/3be3f0515a79567a0588" target="_blank" rel="noopener">LLDB を使うとデバッグ実行できるらしい</a> です。私はやってなくて、いつも print デバッグしています。</p>
-<h3 id="debug-条件コンパイル"><a href="#debug-条件コンパイル" class="headerlink" title="debug!: 条件コンパイル"></a>debug!: 条件コンパイル</h3><p>デバッグ出力の消し忘れで WA とかは避けたいです。 <a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/conditional-compilation.html" target="_blank" rel="noopener">条件コンパイル</a> を使って、ローカルではデバッグ出力が出る、ジャッジ時は出ない、というふうにしています。</p>
-<p>Debug/Release での分岐は <a href="https://users.rust-lang.org/t/conditional-compilation-for-debug-release/1098/3" target="_blank" rel="noopener">debug_assertions を使えばできる</a> そうです。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// デバッグビルドではこっちの定義が使われる。</span></span><br><span class="line"><span class="meta">#[cfg(debug_assertions)]</span></span><br><span class="line"><span class="built_in">macro_rules!</span> debug &#123;</span><br><span class="line">    <span class="comment">// 略</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// リリースビルドではこっちの定義が使われて、 debug!(..) が無になる。</span></span><br><span class="line"><span class="meta">#[cfg(not(debug_assertions))]</span></span><br><span class="line"><span class="built_in">macro_rules!</span> debug &#123;</span><br><span class="line">    ($($arg:expr),*) =&gt; &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="debug-定義の省略"><a href="#debug-定義の省略" class="headerlink" title="debug!: 定義の省略"></a>debug!: 定義の省略</h3><p>ジャッジに不要なコードを提出に含めるのは <em>なんとなく</em> 抵抗があります。そこで、定義はローカルのファイルに書いておき、手元でのデバッグ実行時だけ <code>include!</code> で定義を取り込むという方法があります。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// デバッグ時はローカルのファイルから定義を読み込む</span></span><br><span class="line"><span class="meta">#[cfg(debug_assertions)]</span></span><br><span class="line">include!&#123;<span class="string">"./procon/debug.rs"</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// リリース時に debug!(..) を消す</span></span><br><span class="line"><span class="meta">#[cfg(not(debug_assertions))]</span></span><br><span class="line"><span class="built_in">macro_rules!</span> debug &#123;</span><br><span class="line">    ($($arg:expr),*) =&gt; &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="フレームワーク">フレームワーク</h2>
+
+<p><a href="https://github.com/vain0x/procon/blob/f016133b83c42196837e1b2490ecb5e57ce1ff40/rust/src/main.rs">自作フレームワークはこちら</a> 。いつもこれの main 関数の中に解答を書いて提出しています。</p>
+
+<h2 id="入力のパース">入力のパース</h2>
+
+<p>標準機能だけで入力をパースしようとするとだるいです。Qiita にも、すでにこの問題を解決しようという記事がいくつか上がっています。</p>
+
+<p>私は上述のフレームワークに含まれている <a href="https://github.com/vain0x/procon/blob/f016133b83c42196837e1b2490ecb5e57ce1ff40/rust/src/main.rs#L25-L47"><code>read!</code> マクロ</a> を使っています。実装が短い (23行) のと、見た目が関数っぽくて好み。</p>
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="sd">//! グラフのパースの例
+</span><span class="sd"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read</span><span class="o">!</span><span class="p">(</span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">usize</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">weightd_edges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read</span><span class="o">!</span><span class="p">[[</span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="p">];</span><span class="w"> </span><span class="n">M</span><span class="p">];</span><span class="w">
+</span></code></pre></div>
+<p>パフォーマンスは若干悪くて、C++ で std::cin を使うより2倍ぐらい遅いです。それでも 10^6 個の整数を読むのに 100 ms 未満なので問題はないはず。ベンチマーク: <a href="https://github.com/vain0x/scan-bench">scan-bench</a></p>
+
+<h2 id="デバッグ用のマクロ">デバッグ用のマクロ</h2>
+
+<p><a href="https://qiita.com/yamoridon/items/3be3f0515a79567a0588">LLDB を使うとデバッグ実行できるらしい</a> です。私はやってなくて、いつも print デバッグしています。</p>
+
+<h3 id="debug-条件コンパイル">debug!: 条件コンパイル</h3>
+
+<p>デバッグ出力の消し忘れで WA とかは避けたいです。 <a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/conditional-compilation.html">条件コンパイル</a> を使って、ローカルではデバッグ出力が出る、ジャッジ時は出ない、というふうにしています。</p>
+
+<p>Debug/Release での分岐は <a href="https://users.rust-lang.org/t/conditional-compilation-for-debug-release/1098/3">debug_assertions を使えばできる</a> そうです。</p>
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// デバッグビルドではこっちの定義が使われる。
+</span><span class="c1"></span><span class="cp">#[cfg(debug_assertions)]</span><span class="w">
+</span><span class="w"></span><span class="n">macro_rules</span><span class="o">!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// 略
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">// リリースビルドではこっちの定義が使われて、 debug!(..) が無になる。
+</span><span class="c1"></span><span class="cp">#[cfg(not(debug_assertions))]</span><span class="w">
+</span><span class="w"></span><span class="n">macro_rules</span><span class="o">!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="p">(</span><span class="cp">$($arg</span>:<span class="nc">expr</span><span class="p">),</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{};</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="debug-定義の省略">debug!: 定義の省略</h3>
+
+<p>ジャッジに不要なコードを提出に含めるのは <em>なんとなく</em> 抵抗があります。そこで、定義はローカルのファイルに書いておき、手元でのデバッグ実行時だけ <code>include!</code> で定義を取り込むという方法があります。</p>
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// デバッグ時はローカルのファイルから定義を読み込む
+</span><span class="c1"></span><span class="cp">#[cfg(debug_assertions)]</span><span class="w">
+</span><span class="w"></span><span class="n">include</span><span class="o">!</span><span class="p">{</span><span class="s">&#34;./procon/debug.rs&#34;</span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">// リリース時に debug!(..) を消す
+</span><span class="c1"></span><span class="cp">#[cfg(not(debug_assertions))]</span><span class="w">
+</span><span class="w"></span><span class="n">macro_rules</span><span class="o">!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="p">(</span><span class="cp">$($arg</span>:<span class="nc">expr</span><span class="p">),</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{};</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <p>これで debug! マクロを高機能化しても提出コードが膨れ上がることはなくなります。</p>
-<h3 id="余談-dbg"><a href="#余談-dbg" class="headerlink" title="余談: dbg!"></a>余談: dbg!</h3><p>ちなみに、将来のバージョンでは公式に <code>dbg!</code> という print デバッグ用途のマクロが入るそうです。参考：<a href="https://github.com/rust-lang/rfcs/blob/master/text/2361-dbg-macro.md" target="_blank" rel="noopener">rfcs/2361-dbg-macro.md at master · rust-lang/rfcs</a></p>
-<h2 id="数値型"><a href="#数値型" class="headerlink" title="数値型"></a>数値型</h2><p>数値型は <a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/primitive-types.html" target="_blank" rel="noopener">プリミティブ型</a> に載っているとおりたくさんありますが、よく使うのは4つ:</p>
+
+<h3 id="余談-dbg">余談: dbg!</h3>
+
+<p>ちなみに、将来のバージョンでは公式に <code>dbg!</code> という print デバッグ用途のマクロが入るそうです。参考：<a href="https://github.com/rust-lang/rfcs/blob/master/text/2361-dbg-macro.md">rfcs/2361-dbg-macro.md at master · rust-lang/rfcs</a></p>
+
+<h2 id="数値型">数値型</h2>
+
+<p>数値型は <a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/primitive-types.html">プリミティブ型</a> に載っているとおりたくさんありますが、よく使うのは4つ:</p>
+
 <table>
 <thead>
 <tr>
-<th style="text-align:left"></th>
-<th style="text-align:left"></th>
+<th align="left"></th>
+<th align="left"></th>
 </tr>
 </thead>
+
 <tbody>
 <tr>
-<td style="text-align:left">i64</td>
-<td style="text-align:left">10^18 ぐらいまで扱える</td>
+<td align="left">i64</td>
+<td align="left">10^18 ぐらいまで扱える</td>
 </tr>
+
 <tr>
-<td style="text-align:left">usize</td>
-<td style="text-align:left">スライスや Vec の添字に使う</td>
+<td align="left">usize</td>
+<td align="left">スライスや Vec の添字に使う</td>
 </tr>
+
 <tr>
-<td style="text-align:left">f64</td>
-<td style="text-align:left">浮動小数点数</td>
+<td align="left">f64</td>
+<td align="left">浮動小数点数</td>
 </tr>
+
 <tr>
-<td style="text-align:left">char</td>
-<td style="text-align:left">文字 (厳密には Unicode scalar value)</td>
+<td align="left">char</td>
+<td align="left">文字 (厳密には Unicode scalar value)</td>
 </tr>
 </tbody>
 </table>
-<h3 id="数値型-usize"><a href="#数値型-usize" class="headerlink" title="数値型: usize"></a>数値型: usize</h3><p>usize を int の感覚で書いてると微妙にハマります。マイナスにオーバーフローしたとき、Debug モードでは実行時エラーになります。Release モードではエラーになりませんが、符号なし型なのでマイナスにはならないことに注意です。</p>
+
+<h3 id="数値型-usize">数値型: usize</h3>
+
+<p>usize を int の感覚で書いてると微妙にハマります。マイナスにオーバーフローしたとき、Debug モードでは実行時エラーになります。Release モードではエラーになりませんが、符号なし型なのでマイナスにはならないことに注意です。</p>
+
 <p>例えば次のコード (x, y: usize) はおかしくて、<code>x &lt; y</code> のとき Debug モードではエラーになり、Release モードでも <code>max</code> は機能してません。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">max(<span class="number">0</span>, x - y) <span class="comment">// ✘ ダメ</span></span><br></pre></td></tr></table></figure>
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="c1">// ✘ ダメ
+</span></code></pre></div>
 <p>オーバーフローしないようにするか、i64 を経由すれば動きます:</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// monus</span></span><br><span class="line">x - min(x, y)</span><br><span class="line"></span><br><span class="line"><span class="comment">// または、i64 を経由する</span></span><br><span class="line">max(<span class="number">0</span>, x <span class="keyword">as</span> <span class="built_in">i64</span> - y <span class="keyword">as</span> <span class="built_in">i64</span>) <span class="keyword">as</span> <span class="built_in">usize</span></span><br></pre></td></tr></table></figure>
-<h2 id="文字列"><a href="#文字列" class="headerlink" title="文字列"></a>文字列</h2><p>Rust の標準的な文字列型である String (と str) は utf-8 なので、ランダムアクセスできません。そういうときは文字の列 <code>Vec&lt;char&gt;</code> で持つようにします。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s: <span class="built_in">String</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 文字の列に変換</span></span><br><span class="line"><span class="keyword">let</span> s = s.chars().collect::&lt;<span class="built_in">Vec</span>&lt;_&gt;&gt;();</span><br></pre></td></tr></table></figure>
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">// monus
+</span><span class="c1"></span><span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">// または、i64 を経由する
+</span><span class="c1"></span><span class="w">    </span><span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">i64</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">usize</span><span class="w">
+</span></code></pre></div>
+<h2 id="文字列">文字列</h2>
+
+<p>Rust の標準的な文字列型である String (と str) は utf-8 なので、ランダムアクセスできません。そういうときは文字の列 <code>Vec&lt;char&gt;</code> で持つようにします。</p>
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span>: <span class="nb">String</span>
+
+    <span class="c1">// 文字の列に変換
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">chars</span><span class="p">().</span><span class="n">collect</span>::<span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;&gt;</span><span class="p">();</span><span class="w">
+</span></code></pre></div>
 <p>これは若干パフォーマンスが悪いです。一時期は <code>Vec&lt;u8&gt;</code> を使っていたんですが、デバッグ出力時に u8 が数字で出るのが不便だったのでやめました……</p>
-<h2 id="Vec"><a href="#Vec" class="headerlink" title="Vec"></a>Vec</h2><p>イテレータを Vec に変換する <code>.collect::&lt;Vec&lt;_&gt;&gt;</code> は頻出ですが、タイプがつらいので略記を用意してます。</p>
+
+<h2 id="vec">Vec</h2>
+
+<p>イテレータを Vec に変換する <code>.collect::&lt;Vec&lt;_&gt;&gt;</code> は頻出ですが、タイプがつらいので略記を用意してます。</p>
+
 <p>自作トレイトをすべてのイテレータに実装させることで、 C# の拡張メソッドのようなことができます。</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">IteratorExt</span></span>: <span class="built_in">Iterator</span> + <span class="built_in">Sized</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">vec</span></span>(<span class="keyword">self</span>) -&gt; <span class="built_in">Vec</span>&lt;Self::Item&gt; &#123;</span><br><span class="line">        <span class="keyword">self</span>.collect()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span>&lt;T: <span class="built_in">Iterator</span>&gt; IteratorExt <span class="keyword">for</span> T &#123;&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// e.g.</span></span><br><span class="line"><span class="keyword">let</span> xs = (<span class="number">0</span>..N).map(|i| i + <span class="number">1</span>).vec();</span><br></pre></td></tr></table></figure>
-<h2 id="再帰"><a href="#再帰" class="headerlink" title="再帰"></a>再帰</h2><p>ローカル変数を利用する再帰関数について、7月に「 <a href="https://qiita.com/vain0x/items/90c9580aa34926160ac1" target="_blank" rel="noopener">Rustのクロージャで再帰してみた</a> 」という記事を書きました。クロージャは、mut な変数を書き換えないなら簡単に再帰にできるという結論です。</p>
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="k">trait</span><span class="w"> </span><span class="n">IteratorExt</span>: <span class="nb">Iterator</span> <span class="o">+</span><span class="w"> </span><span class="nb">Sized</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">vec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Self</span>::<span class="n">Item</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">collect</span><span class="p">()</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span>: <span class="nb">Iterator</span><span class="o">&gt;</span><span class="w"> </span><span class="n">IteratorExt</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// e.g.
+</span><span class="c1"></span><span class="kd">let</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">..</span><span class="n">N</span><span class="p">).</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">i</span><span class="o">|</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">).</span><span class="n">vec</span><span class="p">();</span><span class="w">
+</span></code></pre></div>
+<h2 id="再帰">再帰</h2>
+
+<p>ローカル変数を利用する再帰関数について、7月に「 <a href="https://qiita.com/vain0x/items/90c9580aa34926160ac1">Rustのクロージャで再帰してみた</a> 」という記事を書きました。クロージャは、mut な変数を書き換えないなら簡単に再帰にできるという結論です。</p>
+
 <p>mut な変数を書き換えたいなら RefCell とかを使う、と記事では書きました。struct を定義したほうがいいこともあります。いずれにせよ手間なので、マクロで簡略化を図りたいと思っています。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/" target="_blank" rel="noopener">公式のドキュメントの和訳</a><ul>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/">公式のドキュメントの和訳</a>
+
+<ul>
 <li>必読</li>
-</ul>
-</li>
-<li><a href="https://qiita.com/hatoo@github/items/fa14ad36a1b568d14f3e" target="_blank" rel="noopener">Rustで競技プログラミング スターターキット - Qiita</a><ul>
+</ul></li>
+<li><a href="https://qiita.com/hatoo@github/items/fa14ad36a1b568d14f3e">Rustで競技プログラミング スターターキット - Qiita</a>
+
+<ul>
 <li>コンパイラバージョンの固定 (rustup override set)</li>
 <li>BinaryHeap を昇順で使う方法 (Reverse)</li>
 <li>浮動小数点で sort などを使う方法 (impl Ord)</li>
 <li>深い再帰でスタックオーバーフローしないようにする方法 (std::thread)</li>
 <li>などについてはこの記事を読んでください</li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/rust/">Rust</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/%E7%AB%B6%E6%8A%80%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/">競技プログラミング</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+      </article>
 
       
+        <ul class="pager blog-pager">
+          
+          
+        </ul>
+      
+
+
+      
+
     </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-10-07/rust-procon/" data-id="cjrghybfj001blqcx5g0ecle7" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Rust/">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/競技プログラミング/">競技プログラミング</a></li></ul>
-
-    </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/blog/2018-10-31/diary/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">新しい記事へ</strong>
-      <div class="article-nav-title">
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2019
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+        </p>
         
-          近況 2018-10-31
-        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.56.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
       </div>
-    </a>
-  
-  
-    <a href="/blog/2018-09-30/diary/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">古い記事へ</strong>
-      <div class="article-nav-title">近況 2018-09-30</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-
-
-<section id="comments">
-  <script src="https://utteranc.es/client.js" repo="vain0x/blog" issue-term="pathname" theme="github-light" crossorigin="anonymous" async>
-  </script>
-</section>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新記事</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/blog/2019-06-30/diary/">近況 2019-06-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-05-31/diary/">近況 2019-05-31</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-04-30/diary/">近況 2019-04-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-03-31/diary/">近況 2019-03-31</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-02-27/diary/">近況 2019-02-27</a>
-          </li>
-        
-      </ul>
     </div>
   </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">タグクラウド</h3>
-    <div class="widget tagcloud">
-      <a href="/blog/tags/NET/" style="font-size: 11.43px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 18.57px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 15.71px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14.29px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 14.29px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 14.29px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 12.86px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 12.86px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 14.29px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 12.86px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.43px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 20px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.43px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 17.14px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 12.86px;">非同期</a>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 vain0x<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="https://vain0x.github.io" class="mobile-nav-link">ホーム</a>
-  
-    <a href="/blog/" class="mobile-nav-link">ブログ</a>
-  
-    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
-  
-    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
-  
-    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
-  
-    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
-  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/blog/js/script.js"></script>
+<script src="https://vain0x.github.io/blog/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://vain0x.github.io/blog/js/load-photoswipe.js"></script>
 
 
 
 
-  </div>
-</body>
+
+
+
+
+
+  </body>
 </html>
+

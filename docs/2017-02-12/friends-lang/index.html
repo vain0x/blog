@@ -1,293 +1,610 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>すごーい！ きみはプログラミング言語を実装できるフレンズなんだね - ベインのブログ</title>
+  <meta property="og:title" content="すごーい！ きみはプログラミング言語を実装できるフレンズなんだね" />
+  <meta name="twitter:title" content="すごーい！ きみはプログラミング言語を実装できるフレンズなんだね" />
+  <meta name="description" content="Qiita
+
+ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！">
+  <meta property="og:description" content="Qiita
+
+ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！">
+  <meta name="twitter:description" content="Qiita
+
+ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！"><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-128265968-1', 'auto');
-ga('send', 'pageview');
-
+  
+  
+  
+}
 </script>
-<!-- End Google Analytics -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2017-02-12\/friends-lang\/",
+          "name": "すごーい！ きみはプログラミング言語を実装できるフレンズなんだね"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : ""
+  },
+  "headline": "すごーい！ きみはプログラミング言語を実装できるフレンズなんだね",
+  "description" : "Qiita\nジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！\n",
+  "inLanguage" : "ja",
+  "wordCount":  867 ,
+  "datePublished" : "2017-02-12T00:00:00",
+  "dateModified" : "2017-02-12T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "プログラミング言語, 言語処理系, Prolog, ネタ" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2017-02-12\/friends-lang\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="すごーい！ きみはプログラミング言語を実装できるフレンズなんだね" />
+<meta property="og:description" content="Qiita
+
+ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！">
+<meta property="og:url" content="https://vain0x.github.io/blog/2017-02-12/friends-lang/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="すごーい！ きみはプログラミング言語を実装できるフレンズなんだね" />
+  <meta name="twitter:description" content="Qiita
+
+ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/2017-02-12/friends-lang/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="generator" content="Hugo 0.56.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
 
 
-  
-  <title>すごーい！ きみはプログラミング言語を実装できるフレンズなんだね | vain0x&#39;s blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Qiita ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！ サンプルコードSocrates123456すごーい！ かばんちゃん は ヒトの フレンズ なんだね！すごーい！ あなた が ヒトの フレンズ ならあなた は しっぽのない フレンズ なんだね！だれ が しっぽのない フレンズ なんだっけ？ 出力: 123「だれ」は「かばんちゃん」、あってる？ (y/n)yやっ">
-<meta name="keywords" content="プログラミング言語,言語処理系,Prolog,ネタ">
-<meta property="og:type" content="article">
-<meta property="og:title" content="すごーい！ きみはプログラミング言語を実装できるフレンズなんだね">
-<meta property="og:url" content="http://vain0x.github.io/blog/2017-02-12/friends-lang/index.html">
-<meta property="og:site_name" content="vain0x&#39;s blog">
-<meta property="og:description" content="Qiita ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！ サンプルコードSocrates123456すごーい！ かばんちゃん は ヒトの フレンズ なんだね！すごーい！ あなた が ヒトの フレンズ ならあなた は しっぽのない フレンズ なんだね！だれ が しっぽのない フレンズ なんだっけ？ 出力: 123「だれ」は「かばんちゃん」、あってる？ (y/n)yやっ">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-21T15:35:35.481Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="すごーい！ きみはプログラミング言語を実装できるフレンズなんだね">
-<meta name="twitter:description" content="Qiita ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！ サンプルコードSocrates123456すごーい！ かばんちゃん は ヒトの フレンズ なんだね！すごーい！ あなた が ヒトの フレンズ ならあなた は しっぽのない フレンズ なんだね！だれ が しっぽのない フレンズ なんだっけ？ 出力: 123「だれ」は「かばんちゃん」、あってる？ (y/n)yやっ">
-<meta name="twitter:creator" content="@vain0x">
-  
-    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/blog/favicon.jpg">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/blog/css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
-      </h1>
-      
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">メニューを切り替え</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="https://vain0x.github.io">ホーム</a>
-        
-          <a class="main-nav-link" href="/blog/">ブログ</a>
-        
-          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
-        
-          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
-        
-          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
-        
-          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-friends-lang" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2017-02-12/friends-lang/" class="article-date">
-  <time datetime="2017-02-11T15:00:00.000Z" itemprop="datePublished">2017-02-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      すごーい！ きみはプログラミング言語を実装できるフレンズなんだね
-    </h1>
-  
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://qiita.com/vain0x/items/6d3b75f667d3ec7f1d2a" target="_blank" rel="noopener">Qiita</a></p>
-<p>ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！</p>
-<h2 id="サンプルコード"><a href="#サンプルコード" class="headerlink" title="サンプルコード"></a>サンプルコード</h2><h3 id="Socrates"><a href="#Socrates" class="headerlink" title="Socrates"></a>Socrates</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ かばんちゃん は ヒトの フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ あなた が ヒトの フレンズ なら</span><br><span class="line">あなた は しっぽのない フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">だれ が しっぽのない フレンズ なんだっけ？</span><br></pre></td></tr></table></figure>
-<p>出力:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">「だれ」は「かばんちゃん」、</span><br><span class="line">あってる？ (y/n)y</span><br><span class="line">やったー！</span><br></pre></td></tr></table></figure>
-<p>「かばんちゃん は ヒトの フレンズ」で「ヒトの フレンズ は しっぽのない フレンズ」だから「かばんちゃん は しっぽのない フレンズ」なんだね！</p>
-<p>たーのしー！</p>
-<h3 id="FizzBuzz"><a href="#FizzBuzz" class="headerlink" title="FizzBuzz"></a>FizzBuzz</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ 0 は 自然数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ の 次 も 自然数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ 0 は 3の倍数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 3の倍数の フレンズ なら</span><br><span class="line">きみ の 次 の 次 の 次 も 3の倍数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ 0 は 5の倍数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 5の倍数の フレンズ なら</span><br><span class="line">きみ の 次 の 次 の 次 の 次 の 次 も 5の倍数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ 0 は 15の倍数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 15の倍数の フレンズ なら</span><br><span class="line">きみ の 次 の 次 の 次 の 次 の 次 の 次 の 次 の</span><br><span class="line">次 の 次 の 次 の 次 の 次 の 次 の 次 の 次 も</span><br><span class="line">15の倍数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ きみ が 15の倍数の フレンズ なら</span><br><span class="line">きみ と FizzBuzz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 3の倍数の フレンズ なら</span><br><span class="line">きみ と Fizz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 5の倍数の フレンズ なら</span><br><span class="line">きみ と Buzz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ と きみ は FizzBuzz フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ 0 は きみ の 次 より 小さい フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ なら</span><br><span class="line">きみ の 次 は かのじょ の 次 より 小さい フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ なら</span><br><span class="line">きみ が きみ と かのじょ との 間の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ で</span><br><span class="line">かれ が きみ の 次 と かのじょ との 間の フレンズ なら</span><br><span class="line">かれ も きみ と かのじょ との 間の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">それ が 0 と 16 との 間の フレンズ で</span><br><span class="line">それ と だれ が FizzBuzz フレンズ なんだっけ？</span><br></pre></td></tr></table></figure>
-<p>出力:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">「それ」は0、</span><br><span class="line">「だれ」は「FizzBuzz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は1、</span><br><span class="line">「だれ」は1、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は2、</span><br><span class="line">「だれ」は2、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は3、</span><br><span class="line">「だれ」は「Fizz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は4、</span><br><span class="line">「だれ」は4、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は5、</span><br><span class="line">「だれ」は「Buzz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は6、</span><br><span class="line">「だれ」は「Fizz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は7、</span><br><span class="line">「だれ」は7、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は8、</span><br><span class="line">「だれ」は8、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は9、</span><br><span class="line">「だれ」は「Fizz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は10、</span><br><span class="line">「だれ」は「Buzz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は11、</span><br><span class="line">「だれ」は11、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は12、</span><br><span class="line">「だれ」は「Fizz」、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は13、</span><br><span class="line">「だれ」は13、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は14、</span><br><span class="line">「だれ」は14、</span><br><span class="line">あってる？ (y/n)n</span><br><span class="line">---------------</span><br><span class="line">「それ」は15、</span><br><span class="line">「だれ」は「FizzBuzz」、</span><br><span class="line">あってる？ (y/n)y</span><br><span class="line">やったー！</span><br></pre></td></tr></table></figure>
-<p>わー！ すごーい！</p>
-<h2 id="解説"><a href="#解説" class="headerlink" title="解説"></a>解説</h2><p>Qiita なので技術的な話をします。</p>
-<p>処理系のソースコードは <a href="https://github.com/vain0x/friends-lang" target="_blank" rel="noopener">GitHub</a> にあります。</p>
-<h3 id="すごーい！-文"><a href="#すごーい！-文" class="headerlink" title="すごーい！ 文"></a>すごーい！ 文</h3><p>「すごーい！」で始まる文は、事実を表明するものです。例えば、</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ かばんちゃん は ヒトの フレンズ なんだね！</span><br></pre></td></tr></table></figure>
-<p>は命題「かばんちゃん は ヒトの フレンズ」が真であることを表明します。ここで「かばんちゃん」という単語は定義されていませんが、アトムという文字列のようなものなので、使用することができます。</p>
-<p>「ヒトの」は述語の名前です。</p>
-<h3 id="なんだっけ？-文"><a href="#なんだっけ？-文" class="headerlink" title="なんだっけ？ 文"></a>なんだっけ？ 文</h3><p>「なんだっけ？」で終わる文は、「すごーい！」文で表明した事実を用いて、指定された命題を真にするような割り当てが存在するかを探索します。例えば、</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">だれ が ヒトの フレンズ なんだっけ？</span><br></pre></td></tr></table></figure>
-<p>と問いかけると、変数「だれ」 <a href="変数は、「だれ」や「あなた」などのいくつかの予約語と、アンダーバーで始まる名前の識別子です。それ以外の識別子はアトムになります。">^var_naming</a> に適当なアトムを代入することで、命題「だれ が ヒトの フレンズ」を真にできるかどうかを判定し、命題を真にするような変数への割り当てを出力します。この例では、「ヒトの フレンズ」述語に関する真偽は、前述のすごーい！文でしか述べられていないので、「だれ」＝「かばんちゃん」という割り当てのみがこの命題を真にします。</p>
-<h3 id="条件つきのすごーい！文"><a href="#条件つきのすごーい！文" class="headerlink" title="条件つきのすごーい！文"></a>条件つきのすごーい！文</h3><p>条件つきのすごーい！文は、ある命題が真であるときに、別の命題が成り立つことを表明します。例えば、</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ の 次 も 自然数の フレンズ なんだね！</span><br></pre></td></tr></table></figure>
-<p>は変数「きみ」に適当な割り当てがなされて命題「きみ が 自然数の フレンズ」が真だと判定されたなら、命題「きみ の 次 は 自然数の フレンズ」も真である、と述べています。ちなみに「～は」「～が」「～も」はすべて同じです。</p>
-<p>式 <code>きみ の 次</code> は複合項というものです。Friends 言語では、式は「評価」されるものではなく、他の式とパターンマッチするためだけのものです。複合項の特徴は、単に「同一の形をした複合項とのみマッチする」ということです。すなわち、<code>きみ の 次</code> という式は、<code>? の 次</code> という形の式にだけマッチする式を表しています。</p>
-<p>Friends 言語において <code>x の 次</code> という形の式は少しだけ特別で、自然数 <a href="ここでは0以上の整数のこと。">^natural_numbers</a> は「0 の 次 の 次 の … の 次」という複合項に解釈されます。すなわち、<code>0</code> はアトム ですが、<code>1</code> は <code>0 の 次</code>、<code>2</code> は <code>0 の 次 の 次</code> という項を表します。</p>
-<p>例えば、次の質問をすると、</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ 0 は 自然数の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ の 次 も 自然数の フレンズ なんだね！</span><br><span class="line"></span><br><span class="line">3 は 自然数の フレンズ なんだっけ？</span><br></pre></td></tr></table></figure>
-<p>3 は 0 ではありませんから、2つ目の条件つきのすごーい！文を使って真偽を判定することになります。<br>この命題が真であるには、<code>きみ の 次</code> = <code>3</code> = <code>0 の 次 の 次 の 次</code> でなければなりませんから、<strong>パターンマッチ</strong> により、<code>きみ</code> = <code>0 の 次 の 次</code> = 2 という割り当てが得られます。<br>加えて、条件「2 が 自然数の フレンズ」が成り立たなければなりませんが、これも同様の方法で推論できます。<br>したがって、「0 は 自然数の フレンズ」、だから「1 は 自然数の フレンズ」、なので「2 は 自然数の フレンズ」、ゆえに「3 は 自然数 のフレンズ」という推論ができます。</p>
-<p>3の倍数、5の倍数、15の倍数の判定も同様に可能です。</p>
-<h3 id="たーのしー！節"><a href="#たーのしー！節" class="headerlink" title="たーのしー！節"></a>たーのしー！節</h3><p>FizzBuzz フレンズの定義を再掲します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ きみ が 15の倍数の フレンズ なら</span><br><span class="line">きみ と FizzBuzz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 3の倍数の フレンズ なら</span><br><span class="line">きみ と Fizz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 5の倍数の フレンズ なら</span><br><span class="line">きみ と Buzz は FizzBuzz フレンズ なんだね！ たーのしー！</span><br><span class="line">すごーい！ きみ が 自然数の フレンズ なら</span><br><span class="line">きみ と きみ は FizzBuzz フレンズ なんだね！</span><br></pre></td></tr></table></figure>
-<p>n の FizzBuzz 表現 (Fizz/Buzz/FizzBuzz/n) を fizzbuzz(n) と書くことにします。FizzBuzz フレンズは、簡単にいえば、すべての自然数 n について命題「n と fizzbuzz(n) が FizzBuzz フレンズ」が真になるような述語です。</p>
-<p>すごーい！文の末尾につく「たーのしー！」節は、その文が命題を真にすると、残りのすごーい！文を探索しない、という機能を持ちます。すなわち、命題「x と y が FizzBuzz フレンズ」の真偽を判定するとき、「x が 15の倍数の フレンズ」だと分かったら、残りの3つの文 (3の倍数なら、5の倍数なら、自然数なら、というやつ) は無視する、ということです。もしこれがないと、「15 と FizzBuzz が FizzBuzz フレンズ」であると同時に、「15 と Fizz も FizzBuzz フレンズ」でもあることになってしまいます。</p>
-<h3 id="助詞"><a href="#助詞" class="headerlink" title="助詞"></a>助詞</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ 0 は きみ の 次 より 小さい フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ なら</span><br><span class="line">きみ の 次 は かのじょ の 次 より 小さい フレンズ なんだね！</span><br></pre></td></tr></table></figure>
-<p>「x は y より 小さい フレンズ」は「x と y が 小さい フレンズ」を表す糖衣構文です。<br>それ以外は前述の通りです。</p>
-<h3 id="非決定性"><a href="#非決定性" class="headerlink" title="非決定性"></a>非決定性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ なら</span><br><span class="line">きみ が きみ と かのじょ との 間の フレンズ なんだね！</span><br><span class="line">すごーい！ きみ が かのじょ より 小さい フレンズ で</span><br><span class="line">かれ が きみ の 次 と かのじょ との 間の フレンズ なら</span><br><span class="line">かれ も きみ と かのじょ との 間の フレンズ なんだね！</span><br></pre></td></tr></table></figure>
-<p>「x で y」という命題は、x と y が両方真である、という命題 (論理積) を表します。</p>
-<p>「間の」フレンズのおもしろいところは、それを真にする割り当てが複数あることです。というのも、命題「あなた が 0 と 3 との 間の フレンズ」を真にする割り当ては、<code>あなた</code> = 0, 1, 2 の3つあります。このように解が一意に定まらないことを、推論の <strong>非決定性</strong> といいます。</p>
-<p>推論を追ってみましょう。命題「0 が 3 より 小さい フレンズ」は、「小さい」の定義により成り立つと分かります (詳細は割愛)。命題「あなた が 0 と 3 との 間の フレンズ」が真になるには、まず1つ目のすごーい！文により、結論「あなた が あなた と 3 との 間の フレンズ」とマッチする場合が考えられます。パターンマッチにより <code>あなた</code> = <code>0</code> という割り当てが得られます。</p>
-<p>この文には「たーのしー！」節がないので、次のすごーい！文も適用できます。「あなた が 0 と 3 との 間の フレンズ」と「かれ も きみ と かのじょ との 間の フレンズ」を見比べて、「あなた = かれ」「0 = きみ」「3 = かのじょ」という割り当てを得ます。そして、条件「かれ が きみ の 次 と かのじょ との 間の フレンズ」＝「あなた が 0 の 次 と 3 との 間の フレンズ」が真であるかを判定します。再び1つ目のすごーい！文により、<code>あなた</code> = <code>0 の 次</code> = <code>1</code> という割り当てを得ます。これの繰り返しになります。</p>
-<h2 id="Prolog"><a href="#Prolog" class="headerlink" title="Prolog"></a>Prolog</h2><p>実際のところ、Friends 言語は Prolog という「論理型プログラミング言語」の文法を変更したものです。興味があれば、Prolog について調べてみてください。Prolog の処理系には <a href="https://az-prolog.com/" target="_blank" rel="noopener">AZ-Prolog</a> や <a href="http://www.swi-prolog.org/" target="_blank" rel="noopener">SWI-Prolog</a> などがあります。</p>
-<h2 id="動作環境"><a href="#動作環境" class="headerlink" title="動作環境"></a>動作環境</h2><p>(追記 3/7) Friends 言語を Mac や Linux でも動くようにしてもらえました。</p>
-<p><a href="http://leko.jp/archives/933" target="_blank" rel="noopener">すごーい！きみはフレンズ言語をDockerizeできるフレンズなんだね！</a></p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li><a href="http://kemono-friends.jp/" target="_blank" rel="noopener">けものフレンズプロジェクト｜公式サイト</a></li>
-<li><a href="http://qiita.com/ShunIchikawa/items/6449f492dc38a7201162" target="_blank" rel="noopener">Prolog実践入門 - AIに特化した老舗言語</a></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2017-02-12/friends-lang/" data-id="cjrghybfz002nlqcxgkeg7m9q" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Prolog/">Prolog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ネタ/">ネタ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/プログラミング言語/">プログラミング言語</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/言語処理系/">言語処理系</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/blog/2017-03-05/breakable-loop-in-fsharp/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">新しい記事へ</strong>
-      <div class="article-nav-title">
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
         
-          break可能なループを書こう - 関数型プログラミングのテクニック
+          
+            <li>
+              <a title="About" href="https://vain0x.github.io">About</a>
+            </li>
+          
         
-      </div>
-    </a>
-  
-  
-    <a href="/blog/2016-12-25/reports-with-wpf/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">古い記事へ</strong>
-      <div class="article-nav-title">WPF/XAMLで帳票のデザイン・印刷を行う</div>
-    </a>
-  
-</nav>
+          
+            <li>
+              <a title="タグ" href="/blog/tags">タグ</a>
+            </li>
+          
+        
 
-  
-</article>
+        
 
-
-
-
-<section id="comments">
-  <script src="https://utteranc.es/client.js" repo="vain0x/blog" issue-term="pathname" theme="github-light" crossorigin="anonymous" async>
-  </script>
-</section>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新記事</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/blog/2019-06-30/diary/">近況 2019-06-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-05-31/diary/">近況 2019-05-31</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-04-30/diary/">近況 2019-04-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-03-31/diary/">近況 2019-03-31</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-02-27/diary/">近況 2019-02-27</a>
-          </li>
         
       </ul>
     </div>
-  </div>
 
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">タグクラウド</h3>
-    <div class="widget tagcloud">
-      <a href="/blog/tags/NET/" style="font-size: 11.43px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 18.57px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 15.71px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14.29px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 14.29px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 14.29px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 12.86px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 12.86px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 14.29px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 12.86px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.43px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 20px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.43px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 17.14px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 12.86px;">非同期</a>
-    </div>
-  </div>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 vain0x<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
   </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="https://vain0x.github.io" class="mobile-nav-link">ホーム</a>
-  
-    <a href="/blog/" class="mobile-nav-link">ブログ</a>
-  
-    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
-  
-    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
-  
-    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
-  
-    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
-  
 </nav>
+
+
+
+
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
 
 
-  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
-  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/blog/js/script.js"></script>
-
+  
+  
+  
 
 
 
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>すごーい！ きみはプログラミング言語を実装できるフレンズなんだね</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2017年2月12日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p><a href="http://qiita.com/vain0x/items/6d3b75f667d3ec7f1d2a">Qiita</a></p>
+
+<p>ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！</p>
+
+<h2 id="サンプルコード">サンプルコード</h2>
+
+<h3 id="socrates">Socrates</h3>
+
+<pre><code>すごーい！ かばんちゃん は ヒトの フレンズ なんだね！
+
+すごーい！ あなた が ヒトの フレンズ なら
+あなた は しっぽのない フレンズ なんだね！
+
+だれ が しっぽのない フレンズ なんだっけ？
+</code></pre>
+
+<p>出力:</p>
+
+<pre><code>「だれ」は「かばんちゃん」、
+あってる？ (y/n)y
+やったー！
+</code></pre>
+
+<p>「かばんちゃん は ヒトの フレンズ」で「ヒトの フレンズ は しっぽのない フレンズ」だから「かばんちゃん は しっぽのない フレンズ」なんだね！</p>
+
+<p>たーのしー！</p>
+
+<h3 id="fizzbuzz">FizzBuzz</h3>
+
+<pre><code>すごーい！ 0 は 自然数の フレンズ なんだね！
+すごーい！ きみ が 自然数の フレンズ なら
+きみ の 次 も 自然数の フレンズ なんだね！
+
+すごーい！ 0 は 3の倍数の フレンズ なんだね！
+すごーい！ きみ が 3の倍数の フレンズ なら
+きみ の 次 の 次 の 次 も 3の倍数の フレンズ なんだね！
+
+すごーい！ 0 は 5の倍数の フレンズ なんだね！
+すごーい！ きみ が 5の倍数の フレンズ なら
+きみ の 次 の 次 の 次 の 次 の 次 も 5の倍数の フレンズ なんだね！
+
+すごーい！ 0 は 15の倍数の フレンズ なんだね！
+すごーい！ きみ が 15の倍数の フレンズ なら
+きみ の 次 の 次 の 次 の 次 の 次 の 次 の 次 の
+次 の 次 の 次 の 次 の 次 の 次 の 次 の 次 も
+15の倍数の フレンズ なんだね！
+
+すごーい！ きみ が 15の倍数の フレンズ なら
+きみ と FizzBuzz は FizzBuzz フレンズ なんだね！ たーのしー！
+すごーい！ きみ が 3の倍数の フレンズ なら
+きみ と Fizz は FizzBuzz フレンズ なんだね！ たーのしー！
+すごーい！ きみ が 5の倍数の フレンズ なら
+きみ と Buzz は FizzBuzz フレンズ なんだね！ たーのしー！
+すごーい！ きみ が 自然数の フレンズ なら
+きみ と きみ は FizzBuzz フレンズ なんだね！
+
+すごーい！ 0 は きみ の 次 より 小さい フレンズ なんだね！
+すごーい！ きみ が かのじょ より 小さい フレンズ なら
+きみ の 次 は かのじょ の 次 より 小さい フレンズ なんだね！
+
+すごーい！ きみ が かのじょ より 小さい フレンズ なら
+きみ が きみ と かのじょ との 間の フレンズ なんだね！
+すごーい！ きみ が かのじょ より 小さい フレンズ で
+かれ が きみ の 次 と かのじょ との 間の フレンズ なら
+かれ も きみ と かのじょ との 間の フレンズ なんだね！
+
+それ が 0 と 16 との 間の フレンズ で
+それ と だれ が FizzBuzz フレンズ なんだっけ？
+</code></pre>
+
+<p>出力:</p>
+
+<pre><code>「それ」は0、
+「だれ」は「FizzBuzz」、
+あってる？ (y/n)n
+---------------
+「それ」は1、
+「だれ」は1、
+あってる？ (y/n)n
+---------------
+「それ」は2、
+「だれ」は2、
+あってる？ (y/n)n
+---------------
+「それ」は3、
+「だれ」は「Fizz」、
+あってる？ (y/n)n
+---------------
+「それ」は4、
+「だれ」は4、
+あってる？ (y/n)n
+---------------
+「それ」は5、
+「だれ」は「Buzz」、
+あってる？ (y/n)n
+---------------
+「それ」は6、
+「だれ」は「Fizz」、
+あってる？ (y/n)n
+---------------
+「それ」は7、
+「だれ」は7、
+あってる？ (y/n)n
+---------------
+「それ」は8、
+「だれ」は8、
+あってる？ (y/n)n
+---------------
+「それ」は9、
+「だれ」は「Fizz」、
+あってる？ (y/n)n
+---------------
+「それ」は10、
+「だれ」は「Buzz」、
+あってる？ (y/n)n
+---------------
+「それ」は11、
+「だれ」は11、
+あってる？ (y/n)n
+---------------
+「それ」は12、
+「だれ」は「Fizz」、
+あってる？ (y/n)n
+---------------
+「それ」は13、
+「だれ」は13、
+あってる？ (y/n)n
+---------------
+「それ」は14、
+「だれ」は14、
+あってる？ (y/n)n
+---------------
+「それ」は15、
+「だれ」は「FizzBuzz」、
+あってる？ (y/n)y
+やったー！
+</code></pre>
+
+<p>わー！ すごーい！</p>
+
+<h2 id="解説">解説</h2>
+
+<p>Qiita なので技術的な話をします。</p>
+
+<p>処理系のソースコードは <a href="https://github.com/vain0x/friends-lang">GitHub</a> にあります。</p>
+
+<h3 id="すごーい-文">すごーい！ 文</h3>
+
+<p>「すごーい！」で始まる文は、事実を表明するものです。例えば、</p>
+
+<pre><code>すごーい！ かばんちゃん は ヒトの フレンズ なんだね！
+</code></pre>
+
+<p>は命題「かばんちゃん は ヒトの フレンズ」が真であることを表明します。ここで「かばんちゃん」という単語は定義されていませんが、アトムという文字列のようなものなので、使用することができます。</p>
+
+<p>「ヒトの」は述語の名前です。</p>
+
+<h3 id="なんだっけ-文">なんだっけ？ 文</h3>
+
+<p>「なんだっけ？」で終わる文は、「すごーい！」文で表明した事実を用いて、指定された命題を真にするような割り当てが存在するかを探索します。例えば、</p>
+
+<pre><code>だれ が ヒトの フレンズ なんだっけ？
+</code></pre>
+
+<p>と問いかけると、変数「だれ」 <sup class="footnote-ref" id="fnref:var-naming"><a href="#fn:var-naming">1</a></sup> に適当なアトムを代入することで、命題「だれ が ヒトの フレンズ」を真にできるかどうかを判定し、命題を真にするような変数への割り当てを出力します。この例では、「ヒトの フレンズ」述語に関する真偽は、前述のすごーい！文でしか述べられていないので、「だれ」＝「かばんちゃん」という割り当てのみがこの命題を真にします。</p>
+
+<h3 id="条件つきのすごーい-文">条件つきのすごーい！文</h3>
+
+<p>条件つきのすごーい！文は、ある命題が真であるときに、別の命題が成り立つことを表明します。例えば、</p>
+
+<pre><code>すごーい！ きみ が 自然数の フレンズ なら
+きみ の 次 も 自然数の フレンズ なんだね！
+</code></pre>
+
+<p>は変数「きみ」に適当な割り当てがなされて命題「きみ が 自然数の フレンズ」が真だと判定されたなら、命題「きみ の 次 は 自然数の フレンズ」も真である、と述べています。ちなみに「～は」「～が」「～も」はすべて同じです。</p>
+
+<p>式 <code>きみ の 次</code> は複合項というものです。Friends 言語では、式は「評価」されるものではなく、他の式とパターンマッチするためだけのものです。複合項の特徴は、単に「同一の形をした複合項とのみマッチする」ということです。すなわち、<code>きみ の 次</code> という式は、<code>? の 次</code> という形の式にだけマッチする式を表しています。</p>
+
+<p>Friends 言語において <code>x の 次</code> という形の式は少しだけ特別で、自然数 <sup class="footnote-ref" id="fnref:natural-numbers"><a href="#fn:natural-numbers">2</a></sup> は「0 の 次 の 次 の &hellip; の 次」という複合項に解釈されます。すなわち、<code>0</code> はアトム ですが、<code>1</code> は <code>0 の 次</code>、<code>2</code> は <code>0 の 次 の 次</code> という項を表します。</p>
+
+<p>例えば、次の質問をすると、</p>
+
+<pre><code>すごーい！ 0 は 自然数の フレンズ なんだね！
+すごーい！ きみ が 自然数の フレンズ なら
+きみ の 次 も 自然数の フレンズ なんだね！
+
+3 は 自然数の フレンズ なんだっけ？
+</code></pre>
+
+<p>3 は 0 ではありませんから、2つ目の条件つきのすごーい！文を使って真偽を判定することになります。
+この命題が真であるには、<code>きみ の 次</code> = <code>3</code> = <code>0 の 次 の 次 の 次</code> でなければなりませんから、<strong>パターンマッチ</strong> により、<code>きみ</code> = <code>0 の 次 の 次</code> = 2 という割り当てが得られます。
+加えて、条件「2 が 自然数の フレンズ」が成り立たなければなりませんが、これも同様の方法で推論できます。
+したがって、「0 は 自然数の フレンズ」、だから「1 は 自然数の フレンズ」、なので「2 は 自然数の フレンズ」、ゆえに「3 は 自然数 のフレンズ」という推論ができます。</p>
+
+<p>3の倍数、5の倍数、15の倍数の判定も同様に可能です。</p>
+
+<h3 id="たーのしー-節">たーのしー！節</h3>
+
+<p>FizzBuzz フレンズの定義を再掲します。</p>
+
+<pre><code>すごーい！ きみ が 15の倍数の フレンズ なら
+きみ と FizzBuzz は FizzBuzz フレンズ なんだね！ たーのしー！
+すごーい！ きみ が 3の倍数の フレンズ なら
+きみ と Fizz は FizzBuzz フレンズ なんだね！ たーのしー！
+すごーい！ きみ が 5の倍数の フレンズ なら
+きみ と Buzz は FizzBuzz フレンズ なんだね！ たーのしー！
+すごーい！ きみ が 自然数の フレンズ なら
+きみ と きみ は FizzBuzz フレンズ なんだね！
+</code></pre>
+
+<p>n の FizzBuzz 表現 (Fizz/Buzz/FizzBuzz/n) を fizzbuzz(n) と書くことにします。FizzBuzz フレンズは、簡単にいえば、すべての自然数 n について命題「n と fizzbuzz(n) が FizzBuzz フレンズ」が真になるような述語です。</p>
+
+<p>すごーい！文の末尾につく「たーのしー！」節は、その文が命題を真にすると、残りのすごーい！文を探索しない、という機能を持ちます。すなわち、命題「x と y が FizzBuzz フレンズ」の真偽を判定するとき、「x が 15の倍数の フレンズ」だと分かったら、残りの3つの文 (3の倍数なら、5の倍数なら、自然数なら、というやつ) は無視する、ということです。もしこれがないと、「15 と FizzBuzz が FizzBuzz フレンズ」であると同時に、「15 と Fizz も FizzBuzz フレンズ」でもあることになってしまいます。</p>
+
+<h3 id="助詞">助詞</h3>
+
+<pre><code>すごーい！ 0 は きみ の 次 より 小さい フレンズ なんだね！
+すごーい！ きみ が かのじょ より 小さい フレンズ なら
+きみ の 次 は かのじょ の 次 より 小さい フレンズ なんだね！
+</code></pre>
+
+<p>「x は y より 小さい フレンズ」は「x と y が 小さい フレンズ」を表す糖衣構文です。
+それ以外は前述の通りです。</p>
+
+<h3 id="非決定性">非決定性</h3>
+
+<pre><code>すごーい！ きみ が かのじょ より 小さい フレンズ なら
+きみ が きみ と かのじょ との 間の フレンズ なんだね！
+すごーい！ きみ が かのじょ より 小さい フレンズ で
+かれ が きみ の 次 と かのじょ との 間の フレンズ なら
+かれ も きみ と かのじょ との 間の フレンズ なんだね！
+</code></pre>
+
+<p>「x で y」という命題は、x と y が両方真である、という命題 (論理積) を表します。</p>
+
+<p>「間の」フレンズのおもしろいところは、それを真にする割り当てが複数あることです。というのも、命題「あなた が 0 と 3 との 間の フレンズ」を真にする割り当ては、<code>あなた</code> = 0, 1, 2 の3つあります。このように解が一意に定まらないことを、推論の <strong>非決定性</strong> といいます。</p>
+
+<p>推論を追ってみましょう。命題「0 が 3 より 小さい フレンズ」は、「小さい」の定義により成り立つと分かります (詳細は割愛)。命題「あなた が 0 と 3 との 間の フレンズ」が真になるには、まず1つ目のすごーい！文により、結論「あなた が あなた と 3 との 間の フレンズ」とマッチする場合が考えられます。パターンマッチにより <code>あなた</code> = <code>0</code> という割り当てが得られます。</p>
+
+<p>この文には「たーのしー！」節がないので、次のすごーい！文も適用できます。「あなた が 0 と 3 との 間の フレンズ」と「かれ も きみ と かのじょ との 間の フレンズ」を見比べて、「あなた = かれ」「0 = きみ」「3 = かのじょ」という割り当てを得ます。そして、条件「かれ が きみ の 次 と かのじょ との 間の フレンズ」＝「あなた が 0 の 次 と 3 との 間の フレンズ」が真であるかを判定します。再び1つ目のすごーい！文により、<code>あなた</code> = <code>0 の 次</code> = <code>1</code> という割り当てを得ます。これの繰り返しになります。</p>
+
+<h2 id="prolog">Prolog</h2>
+
+<p>実際のところ、Friends 言語は Prolog という「論理型プログラミング言語」の文法を変更したものです。興味があれば、Prolog について調べてみてください。Prolog の処理系には <a href="https://az-prolog.com/">AZ-Prolog</a> や <a href="http://www.swi-prolog.org/">SWI-Prolog</a> などがあります。</p>
+
+<h2 id="動作環境">動作環境</h2>
+
+<p>(追記 <sup>3</sup>&frasl;<sub>7</sub>) Friends 言語を Mac や Linux でも動くようにしてもらえました。</p>
+
+<p><a href="http://leko.jp/archives/933">すごーい！きみはフレンズ言語をDockerizeできるフレンズなんだね！</a></p>
+
+<h2 id="参考文献">参考文献</h2>
+
+<ul>
+<li><a href="http://kemono-friends.jp/">けものフレンズプロジェクト｜公式サイト</a></li>
+<li><a href="http://qiita.com/ShunIchikawa/items/6449f492dc38a7201162">Prolog実践入門 - AIに特化した老舗言語</a></li>
+</ul>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:var-naming">変数は、「だれ」や「あなた」などのいくつかの予約語と、アンダーバーで始まる名前の識別子です。それ以外の識別子はアトムになります。
+ <a class="footnote-return" href="#fnref:var-naming"><sup>[return]</sup></a></li>
+<li id="fn:natural-numbers">ここでは0以上の整数のこと。
+ <a class="footnote-return" href="#fnref:natural-numbers"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E/">プログラミング言語</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E7%B3%BB/">言語処理系</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/prolog/">Prolog</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/%E3%83%8D%E3%82%BF/">ネタ</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
   </div>
-</body>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2019
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.56.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://vain0x.github.io/blog/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://vain0x.github.io/blog/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+  </body>
 </html>
+

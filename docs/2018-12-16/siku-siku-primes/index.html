@@ -1,296 +1,488 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>シクシク素数列を F# でやってみた - ベインのブログ</title>
+  <meta property="og:title" content="シクシク素数列を F# でやってみた" />
+  <meta name="twitter:title" content="シクシク素数列を F# でやってみた" />
+  <meta name="description" content="シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。">
+  <meta property="og:description" content="シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。">
+  <meta name="twitter:description" content="シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。"><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-128265968-1', 'auto');
-ga('send', 'pageview');
-
+  
+  
+  
+}
 </script>
-<!-- End Google Analytics -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2018-12-16\/siku-siku-primes\/",
+          "name": "シクシク素数列を f# でやってみた"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : ""
+  },
+  "headline": "シクシク素数列を F# でやってみた",
+  "description" : "シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。\n",
+  "inLanguage" : "ja",
+  "wordCount":  441 ,
+  "datePublished" : "2018-12-16T10:34:43",
+  "dateModified" : "2018-12-16T10:34:43",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "F#" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2018-12-16\/siku-siku-primes\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="シクシク素数列を F# でやってみた" />
+<meta property="og:description" content="シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。">
+<meta property="og:url" content="https://vain0x.github.io/blog/2018-12-16/siku-siku-primes/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="シクシク素数列を F# でやってみた" />
+  <meta name="twitter:description" content="シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/2018-12-16/siku-siku-primes/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="generator" content="Hugo 0.56.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
 
 
-  
-  <title>シクシク素数列を F# でやってみた | vain0x&#39;s blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。 シクシク素数列 Advent Calendar 2018 - Qiita 問題  数値に4か9を含む素数をシクシク素数と呼ぶことにします 19とか41とか149とか。   標準入力として正の整数 N を与えたら N 番目までのシ">
-<meta name="keywords" content="F#">
-<meta property="og:type" content="article">
-<meta property="og:title" content="シクシク素数列を F# でやってみた">
-<meta property="og:url" content="http://vain0x.github.io/blog/2018-12-16/siku-siku-primes/index.html">
-<meta property="og:site_name" content="vain0x&#39;s blog">
-<meta property="og:description" content="シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。 シクシク素数列 Advent Calendar 2018 - Qiita 問題  数値に4か9を含む素数をシクシク素数と呼ぶことにします 19とか41とか149とか。   標準入力として正の整数 N を与えたら N 番目までのシ">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-12T03:09:34.120Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="シクシク素数列を F# でやってみた">
-<meta name="twitter:description" content="シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。 シクシク素数列 Advent Calendar 2018 - Qiita 問題  数値に4か9を含む素数をシクシク素数と呼ぶことにします 19とか41とか149とか。   標準入力として正の整数 N を与えたら N 番目までのシ">
-<meta name="twitter:creator" content="@vain0x">
-  
-    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/blog/favicon.jpg">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/blog/css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
-      </h1>
-      
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">メニューを切り替え</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
         
-          <a class="main-nav-link" href="https://vain0x.github.io">ホーム</a>
+          
+            <li>
+              <a title="About" href="https://vain0x.github.io">About</a>
+            </li>
+          
         
-          <a class="main-nav-link" href="/blog/">ブログ</a>
+          
+            <li>
+              <a title="タグ" href="/blog/tags">タグ</a>
+            </li>
+          
         
-          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+
         
-          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+
         
-          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
-        
-          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-siku-siku-primes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2018-12-16/siku-siku-primes/" class="article-date">
-  <time datetime="2018-12-16T01:34:43.000Z" itemprop="datePublished">2018-12-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
   
-    <h1 class="article-title" itemprop="name">
-      シクシク素数列を F# でやってみた
-    </h1>
+  
   
 
-      </header>
+
+
+
+
+
+  
+
+  <header class="header-section ">
     
-    <div class="article-entry" itemprop="articleBody">
-      
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>シクシク素数列を F# でやってみた</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2018年12月16日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
         <p>シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。</p>
-<p><a href="https://qiita.com/advent-calendar/2018/4949prime-series" target="_blank" rel="noopener">シクシク素数列 Advent Calendar 2018 - Qiita</a></p>
-<h2 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h2><blockquote>
+
+<p><a href="https://qiita.com/advent-calendar/2018/4949prime-series">シクシク素数列 Advent Calendar 2018 - Qiita</a></p>
+
+<h2 id="問題">問題</h2>
+
+<blockquote>
 <ul>
-<li>数値に4か9を含む素数をシクシク素数と呼ぶことにします<ul>
+<li>数値に4か9を含む素数をシクシク素数と呼ぶことにします
+
+<ul>
 <li>19とか41とか149とか。</li>
-</ul>
-</li>
-<li>標準入力として正の整数 N を与えたら N 番目までのシクシク素数を半角カンマ区切りで標準出力してください<ul>
+</ul></li>
+<li>標準入力として正の整数 N を与えたら N 番目までのシクシク素数を半角カンマ区切りで標準出力してください
+
+<ul>
 <li>例 N = 9 の場合、 19,29,41,43,47,59,79,89,97</li>
-</ul>
-</li>
+</ul></li>
 <li>N は最大で 100 とします</li>
 </ul>
 </blockquote>
-<h2 id="考察"><a href="#考察" class="headerlink" title="考察"></a>考察</h2><p>10進数展開に4か9を含む整数を <strong>シクシク数</strong> と呼ぶことにします。こうするとシクシク素数の条件は</p>
+
+<h2 id="考察">考察</h2>
+
+<p>10進数展開に4か9を含む整数を <strong>シクシク数</strong> と呼ぶことにします。こうするとシクシク素数の条件は</p>
+
 <ul>
 <li>シクシク数であること</li>
 <li>素数であること</li>
 </ul>
+
 <p>の2つに分割できて、シンプルに実装できそうです。</p>
-<h2 id="実装"><a href="#実装" class="headerlink" title="実装"></a>実装</h2><p>なるべく読みやすい実装を心がけて書いていきましょう！</p>
+
+<h2 id="実装">実装</h2>
+
+<p>なるべく読みやすい実装を心がけて書いていきましょう！</p>
+
 <p>実装方法はたくさんありますが、今回はやんごとなき理由から seq を中心に使っています。</p>
-<h3 id="実装-素数判定"><a href="#実装-素数判定" class="headerlink" title="実装: 素数判定"></a>実装: 素数判定</h3><p>はじめに素数判定の関数を作ります。よくあるやりかたですが、 2 以上 √n 以下の数で割ってみて、いずれも割り切れなければ素数、と判定します。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isPrime n =</span><br><span class="line">  <span class="comment">// n が2未満のケースは除外</span></span><br><span class="line">  <span class="keyword">if</span> n &lt; <span class="number">2</span> <span class="keyword">then</span> <span class="keyword">false</span> <span class="keyword">else</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// √n の整数部分</span></span><br><span class="line">  <span class="keyword">let</span> r = n |&gt; float |&gt; sqrt |&gt; int</span><br><span class="line"></span><br><span class="line">  seq &#123; <span class="number">2.</span>.r &#125; |&gt; Seq.forall (<span class="keyword">fun</span> m -&gt; n % m &lt;&gt; <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="実装-素数判定">実装: 素数判定</h3>
+
+<p>はじめに素数判定の関数を作ります。よくあるやりかたですが、 2 以上 √n 以下の数で割ってみて、いずれも割り切れなければ素数、と判定します。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">isPrime</span> <span class="n">n</span> <span class="o">=</span>
+  <span class="c1">// n が2未満のケースは除外
+</span><span class="c1"></span>  <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">2</span> <span class="k">then</span> <span class="k">false</span> <span class="k">else</span>
+
+  <span class="c1">// √n の整数部分
+</span><span class="c1"></span>  <span class="k">let</span> <span class="nv">r</span> <span class="o">=</span> <span class="n">n</span> <span class="o">|&gt;</span> <span class="kt">float</span> <span class="o">|&gt;</span> <span class="n">sqrt</span> <span class="o">|&gt;</span> <span class="n">int</span>
+
+  <span class="n">seq</span> <span class="o">{</span> <span class="n">2</span><span class="o">..</span><span class="n">r</span> <span class="o">}</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">forall</span> <span class="o">(</span><span class="k">fun</span> <span class="n">m</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">%</span> <span class="n">m</span> <span class="o">&lt;&gt;</span> <span class="n">0</span><span class="o">)</span></code></pre></div>
 <p><code>seq { 2..r }</code> は 2 から r 以下の数からなる数列を表しています。この中の値をそれぞれ m として、 <code>n % m &lt;&gt; 0</code> がすべてについて成り立てばOK。</p>
+
 <p><code>seq</code> と <code>Seq.</code> ですでにシクシク感が出ていますが、シクシク数の判定は次です。</p>
-<h3 id="実装-シクシク数の判定"><a href="#実装-シクシク数の判定" class="headerlink" title="実装: シクシク数の判定"></a>実装: シクシク数の判定</h3><p>シクシク数かどうかの判定では、 n の10進展開を計算します。割り算を使うことで n を1桁目とそれ以外の部分に分解できるというのがポイント。</p>
+
+<h3 id="実装-シクシク数の判定">実装: シクシク数の判定</h3>
+
+<p>シクシク数かどうかの判定では、 n の10進展開を計算します。割り算を使うことで n を1桁目とそれ以外の部分に分解できるというのがポイント。</p>
+
 <ul>
 <li><code>n / 10</code> は、n から1桁目を取り除いたもの</li>
 <li><code>n % 10</code> は n の1桁目</li>
 </ul>
+
 <p>そのため <code>n / 10</code> を10進展開したものに <code>n % 10</code> を付け足せば、n の各桁の数からなる列を構成できます。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">rec</span> digits n =</span><br><span class="line">  seq &#123;</span><br><span class="line">    <span class="keyword">if</span> n &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">      <span class="keyword">yield!</span> digits (n / <span class="number">10</span>)</span><br><span class="line">      <span class="keyword">yield</span> n % <span class="number">10</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">rec</span> <span class="n">digits</span> <span class="n">n</span> <span class="o">=</span>
+  <span class="n">seq</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="k">then</span>
+      <span class="k">yield</span><span class="o">!</span> <span class="n">digits</span> <span class="o">(</span><span class="n">n</span> <span class="o">/</span> <span class="n">10</span><span class="o">)</span>
+      <span class="k">yield</span> <span class="n">n</span> <span class="o">%</span> <span class="n">10</span>
+  <span class="o">}</span></code></pre></div>
 <p>ここでの <code>seq { .. }</code> はブロック内で <code>yield</code> された値からなる列を表します。他の言語にあるリストの内包表記みたいなもの。<code>yield!</code> は複数の値を一挙に <code>yield</code> することを表しています。</p>
+
 <p>シクシク数の判定は、これで得られた各桁の数のどれかが 4, 9 に等しいかどうかを判定すればOK。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isSikuSiku n =</span><br><span class="line">  digits n |&gt; Seq.exists (<span class="keyword">fun</span> d -&gt; d = <span class="number">4</span> || d = <span class="number">9</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="実装-シクシク素数列挙"><a href="#実装-シクシク素数列挙" class="headerlink" title="実装: シクシク素数列挙"></a>実装: シクシク素数列挙</h3><p>これでシクシク素数判定関数のできあがり！</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isSikuSikuPrime n =</span><br><span class="line">  isSikuSiku n &amp;&amp; isPrime n</span><br></pre></td></tr></table></figure>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">isSikuSiku</span> <span class="n">n</span> <span class="o">=</span>
+  <span class="n">digits</span> <span class="n">n</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">exists</span> <span class="o">(</span><span class="k">fun</span> <span class="n">d</span> <span class="o">-&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">4</span> <span class="o">||</span> <span class="n">d</span> <span class="o">=</span> <span class="n">9</span><span class="o">)</span></code></pre></div>
+<h3 id="実装-シクシク素数列挙">実装: シクシク素数列挙</h3>
+
+<p>これでシクシク素数判定関数のできあがり！</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">isSikuSikuPrime</span> <span class="n">n</span> <span class="o">=</span>
+  <span class="n">isSikuSiku</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">isPrime</span> <span class="n">n</span></code></pre></div>
 <p>非負整数を列挙して、シクシク素数であるものに絞り込むことで、シクシク素数を昇順に列挙します。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sikuSikuPrimes =</span><br><span class="line">  seq &#123;</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="number">0.</span>.Int32.MaxValue <span class="keyword">do</span></span><br><span class="line">      <span class="keyword">if</span> isSikuSikuPrime n <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">sikuSikuPrimes</span> <span class="o">=</span>
+  <span class="n">seq</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="k">in</span> <span class="n">0</span><span class="o">..</span><span class="n">Int32</span><span class="o">.</span><span class="n">MaxValue</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="n">isSikuSikuPrime</span> <span class="n">n</span> <span class="k">then</span>
+        <span class="k">yield</span> <span class="n">n</span>
+  <span class="o">}</span></code></pre></div>
 <p><code>seq { .. }</code> の中身は必要に応じて計算されるので、実際には全整数についてのループが回るわけではないので安心してください。</p>
+
 <p><code>Seq.take N</code> を使うと、列の前から N 個の要素が列挙された時点で計算を打ち切るようにできます。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sikuSikuPrimes |&gt; Seq.take N</span><br></pre></td></tr></table></figure>
-<h3 id="実装-main"><a href="#実装-main" class="headerlink" title="実装: main"></a>実装: main</h3><p>最後に標準入出力を書きます。</p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> System</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> N = Console.ReadLine() |&gt; int</span><br><span class="line"></span><br><span class="line">sikuSikuPrimes</span><br><span class="line">|&gt; Seq.take N</span><br><span class="line">|&gt; Seq.map string</span><br><span class="line">|&gt; String.concat <span class="string">","</span></span><br><span class="line">|&gt; printfn <span class="string">"%s"</span></span><br></pre></td></tr></table></figure>
-<p><a href="https://dotnetfiddle.net/mIJ1qY" target="_blank" rel="noopener">.NET Fiddle で試す</a></p>
-<h2 id="おまけ"><a href="#おまけ" class="headerlink" title="おまけ"></a>おまけ</h2><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> System</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> isPrime n =</span><br><span class="line">  <span class="keyword">if</span> n &lt; <span class="number">2</span> <span class="keyword">then</span> <span class="keyword">false</span> <span class="keyword">else</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> r = n |&gt; float |&gt; sqrt |&gt; int</span><br><span class="line">  seq &#123; <span class="number">2.</span>.r &#125; |&gt; Seq.forall (<span class="keyword">fun</span> m -&gt; n % m &lt;&gt; <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> testPrime () =</span><br><span class="line">  <span class="keyword">assert</span> (isPrime <span class="number">2</span>)</span><br><span class="line">  <span class="keyword">assert</span> (isPrime <span class="number">19</span>)</span><br><span class="line">  <span class="keyword">assert</span> (isPrime <span class="number">4</span> |&gt; not)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">rec</span> digits n =</span><br><span class="line">  seq &#123;</span><br><span class="line">    <span class="keyword">if</span> n &gt; <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">      <span class="keyword">yield!</span> digits (n / <span class="number">10</span>)</span><br><span class="line">      <span class="keyword">yield</span> n % <span class="number">10</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> testDigits () =</span><br><span class="line">  <span class="keyword">assert</span> (digits <span class="number">0</span> |&gt; Seq.isEmpty)</span><br><span class="line">  <span class="keyword">assert</span> (digits <span class="number">2019</span> |&gt; Seq.toList = [<span class="number">2</span>; <span class="number">0</span>; <span class="number">1</span>; <span class="number">9</span>])</span><br><span class="line"></span><br><span class="line">testDigits ()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> isSikuSiku n =</span><br><span class="line">  digits n |&gt; Seq.exists (<span class="keyword">fun</span> d -&gt; d = <span class="number">4</span> || d = <span class="number">9</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> testIsSikuSiku () =</span><br><span class="line">  <span class="keyword">assert</span> (isSikuSiku <span class="number">42</span>)</span><br><span class="line">  <span class="keyword">assert</span> (isSikuSiku <span class="number">2019</span>)</span><br><span class="line">  <span class="keyword">assert</span> (isSikuSiku <span class="number">12356780</span> |&gt; not)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> isSikuSikuPrime n =</span><br><span class="line">  isSikuSiku n &amp;&amp; isPrime n</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> sikuSikuPrimes =</span><br><span class="line">  seq &#123;</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> <span class="number">0.</span>.Int32.MaxValue <span class="keyword">do</span></span><br><span class="line">      <span class="keyword">if</span> isSikuSikuPrime n <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> N = Console.ReadLine() |&gt; int</span><br><span class="line">sikuSikuPrimes</span><br><span class="line">|&gt; Seq.take N</span><br><span class="line">|&gt; Seq.map string</span><br><span class="line">|&gt; String.concat <span class="string">","</span></span><br><span class="line">|&gt; printfn <span class="string">"%s"</span></span><br></pre></td></tr></table></figure>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="n">sikuSikuPrimes</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">take</span> <span class="n">N</span></code></pre></div>
+<h3 id="実装-main">実装: main</h3>
+
+<p>最後に標準入出力を書きます。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">open</span> <span class="nn">System</span>
+
+<span class="k">let</span> <span class="nv">N</span> <span class="o">=</span> <span class="nn">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="bp">()</span> <span class="o">|&gt;</span> <span class="n">int</span>
+
+<span class="n">sikuSikuPrimes</span>
+<span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">take</span> <span class="n">N</span>
+<span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">map</span> <span class="kt">string</span>
+<span class="o">|&gt;</span> <span class="nn">String</span><span class="p">.</span><span class="n">concat</span> <span class="s">&#34;,&#34;</span>
+<span class="o">|&gt;</span> <span class="n">printfn</span> <span class="s">&#34;%s&#34;</span></code></pre></div>
+<p><a href="https://dotnetfiddle.net/mIJ1qY">.NET Fiddle で試す</a></p>
+
+<h2 id="おまけ">おまけ</h2>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">open</span> <span class="nn">System</span>
+
+<span class="k">let</span> <span class="nv">isPrime</span> <span class="n">n</span> <span class="o">=</span>
+  <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">2</span> <span class="k">then</span> <span class="k">false</span> <span class="k">else</span>
+
+  <span class="k">let</span> <span class="nv">r</span> <span class="o">=</span> <span class="n">n</span> <span class="o">|&gt;</span> <span class="kt">float</span> <span class="o">|&gt;</span> <span class="n">sqrt</span> <span class="o">|&gt;</span> <span class="n">int</span>
+  <span class="n">seq</span> <span class="o">{</span> <span class="n">2</span><span class="o">..</span><span class="n">r</span> <span class="o">}</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">forall</span> <span class="o">(</span><span class="k">fun</span> <span class="n">m</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">%</span> <span class="n">m</span> <span class="o">&lt;&gt;</span> <span class="n">0</span><span class="o">)</span>
+
+<span class="k">let</span> <span class="nv">testPrime</span> <span class="bp">()</span> <span class="o">=</span>
+  <span class="k">assert</span> <span class="o">(</span><span class="n">isPrime</span> <span class="n">2</span><span class="o">)</span>
+  <span class="k">assert</span> <span class="o">(</span><span class="n">isPrime</span> <span class="n">19</span><span class="o">)</span>
+  <span class="k">assert</span> <span class="o">(</span><span class="n">isPrime</span> <span class="n">4</span> <span class="o">|&gt;</span> <span class="ow">not</span><span class="o">)</span>
+
+<span class="k">let</span> <span class="nv">rec</span> <span class="n">digits</span> <span class="n">n</span> <span class="o">=</span>
+  <span class="n">seq</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="k">then</span>
+      <span class="k">yield</span><span class="o">!</span> <span class="n">digits</span> <span class="o">(</span><span class="n">n</span> <span class="o">/</span> <span class="n">10</span><span class="o">)</span>
+      <span class="k">yield</span> <span class="n">n</span> <span class="o">%</span> <span class="n">10</span>
+  <span class="o">}</span>
+
+<span class="k">let</span> <span class="nv">testDigits</span> <span class="bp">()</span> <span class="o">=</span>
+  <span class="k">assert</span> <span class="o">(</span><span class="n">digits</span> <span class="n">0</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">isEmpty</span><span class="o">)</span>
+  <span class="k">assert</span> <span class="o">(</span><span class="n">digits</span> <span class="n">2019</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">toList</span> <span class="o">=</span> <span class="o">[</span><span class="n">2</span><span class="o">;</span> <span class="n">0</span><span class="o">;</span> <span class="n">1</span><span class="o">;</span> <span class="n">9</span><span class="o">])</span>
+
+<span class="n">testDigits</span> <span class="bp">()</span>
+
+<span class="k">let</span> <span class="nv">isSikuSiku</span> <span class="n">n</span> <span class="o">=</span>
+  <span class="n">digits</span> <span class="n">n</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">exists</span> <span class="o">(</span><span class="k">fun</span> <span class="n">d</span> <span class="o">-&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">4</span> <span class="o">||</span> <span class="n">d</span> <span class="o">=</span> <span class="n">9</span><span class="o">)</span>
+
+<span class="k">let</span> <span class="nv">testIsSikuSiku</span> <span class="bp">()</span> <span class="o">=</span>
+  <span class="k">assert</span> <span class="o">(</span><span class="n">isSikuSiku</span> <span class="n">42</span><span class="o">)</span>
+  <span class="k">assert</span> <span class="o">(</span><span class="n">isSikuSiku</span> <span class="n">2019</span><span class="o">)</span>
+  <span class="k">assert</span> <span class="o">(</span><span class="n">isSikuSiku</span> <span class="n">12356780</span> <span class="o">|&gt;</span> <span class="ow">not</span><span class="o">)</span>
+
+<span class="k">let</span> <span class="nv">isSikuSikuPrime</span> <span class="n">n</span> <span class="o">=</span>
+  <span class="n">isSikuSiku</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">isPrime</span> <span class="n">n</span>
+
+<span class="k">let</span> <span class="nv">sikuSikuPrimes</span> <span class="o">=</span>
+  <span class="n">seq</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="k">in</span> <span class="n">0</span><span class="o">..</span><span class="n">Int32</span><span class="o">.</span><span class="n">MaxValue</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="n">isSikuSikuPrime</span> <span class="n">n</span> <span class="k">then</span>
+        <span class="k">yield</span> <span class="n">n</span>
+  <span class="o">}</span>
+
+<span class="k">let</span> <span class="nv">N</span> <span class="o">=</span> <span class="nn">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="bp">()</span> <span class="o">|&gt;</span> <span class="n">int</span>
+<span class="n">sikuSikuPrimes</span>
+<span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">take</span> <span class="n">N</span>
+<span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">map</span> <span class="kt">string</span>
+<span class="o">|&gt;</span> <span class="nn">String</span><span class="p">.</span><span class="n">concat</span> <span class="s">&#34;,&#34;</span>
+<span class="o">|&gt;</span> <span class="n">printfn</span> <span class="s">&#34;%s&#34;</span></code></pre></div>
 <p>出力例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ fsharpi ./Program.fsx</span><br><span class="line">100</span><br><span class="line">19,29,41,43,47,59,79,89,97,109,139,149,179,191,193,197,199,229,239,241,269,293,347,349,359,379,389,397,401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,509,541,547,569,593,599,619,641,643,647,659,691,709,719,739,743,769,797,809,829,839,859,907,911,919,929,937,941,947,953,967,971,977,983,991,997,1009,1019,1039,1049,1069,1091,1093,1097,1109,1129,1193,1229,1249,1259,1279,1289,1291,1297,1319</span><br></pre></td></tr></table></figure>
+
+<pre><code>$ fsharpi ./Program.fsx
+100
+19,29,41,43,47,59,79,89,97,109,139,149,179,191,193,197,199,229,239,241,269,293,347,349,359,379,389,397,401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,509,541,547,569,593,599,619,641,643,647,659,691,709,719,739,743,769,797,809,829,839,859,907,911,919,929,937,941,947,953,967,971,977,983,991,997,1009,1019,1039,1049,1069,1091,1093,1097,1109,1129,1193,1229,1249,1259,1279,1289,1291,1297,1319
+</code></pre>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/f/">F#</a>&nbsp;
+            
+          </div>
+        
+
+        
+
+        
+      </article>
 
       
+        <ul class="pager blog-pager">
+          
+          
+        </ul>
+      
+
+
+      
+
     </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2018-12-16/siku-siku-primes/" data-id="cjrghybfi0018lqcx0w7ba88w" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/F/">F#</a></li></ul>
-
-    </footer>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/blog/2018-12-31/diary/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">新しい記事へ</strong>
-      <div class="article-nav-title">
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2019
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+        </p>
         
-          近況 2018-12-31
-        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.56.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
       </div>
-    </a>
-  
-  
-    <a href="/blog/2018-11-30/diary/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">古い記事へ</strong>
-      <div class="article-nav-title">近況 2018-11-30</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-
-
-<section id="comments">
-  <script src="https://utteranc.es/client.js" repo="vain0x/blog" issue-term="pathname" theme="github-light" crossorigin="anonymous" async>
-  </script>
-</section>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新記事</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/blog/2019-06-30/diary/">近況 2019-06-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-05-31/diary/">近況 2019-05-31</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-04-30/diary/">近況 2019-04-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-03-31/diary/">近況 2019-03-31</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-02-27/diary/">近況 2019-02-27</a>
-          </li>
-        
-      </ul>
     </div>
   </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">タグクラウド</h3>
-    <div class="widget tagcloud">
-      <a href="/blog/tags/NET/" style="font-size: 11.43px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 18.57px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 15.71px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14.29px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 14.29px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 14.29px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 12.86px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 12.86px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 14.29px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 12.86px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.43px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 20px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.43px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 17.14px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 12.86px;">非同期</a>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 vain0x<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="https://vain0x.github.io" class="mobile-nav-link">ホーム</a>
-  
-    <a href="/blog/" class="mobile-nav-link">ブログ</a>
-  
-    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
-  
-    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
-  
-    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
-  
-    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
-  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/blog/js/script.js"></script>
+<script src="https://vain0x.github.io/blog/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://vain0x.github.io/blog/js/load-photoswipe.js"></script>
 
 
 
 
-  </div>
-</body>
+
+
+
+
+
+  </body>
 </html>
+

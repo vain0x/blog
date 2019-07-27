@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2018-01-30s on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/2018-01-30/</link>
+    <description>Recent content in 2018-01-30s on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Tue, 30 Jan 2018 22:40:38 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/2018-01-30/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>『コミットメッセージに「プレフィックス」をつける』を検討した</title>
+      <link>https://vain0x.github.io/blog/2018-01-30/commit-message-prefixes/</link>
+      <pubDate>Tue, 30 Jan 2018 22:40:38 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2018-01-30/commit-message-prefixes/</guid>
+      <description>&lt;p&gt;Qiita で &lt;a href=&#34;https://qiita.com/numanomanu/items/45dd285b286a1f7280ed&#34;&gt;コミットメッセージに 「プレフィックス」 をつける&lt;/a&gt; というアイディアが紹介されていて、その効用の一つとして挙げられている:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;プレフィックスを意識しながら順序立てて機能を作成する癖が身につく&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;という点が、試験運用していて実際に魅力的だと感じた。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

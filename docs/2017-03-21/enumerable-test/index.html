@@ -1,305 +1,477 @@
 <!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話 - ベインのブログ</title>
+  <meta property="og:title" content="EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話" />
+  <meta name="twitter:title" content="EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話" />
+  <meta name="description" content="Qiita
+
+EnumerableTest という .NET 向けの単体テストフレームワークを作成しました。
+
+具体的な使い方は チュートリアル を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。">
+  <meta property="og:description" content="Qiita
+
+EnumerableTest という .NET 向けの単体テストフレームワークを作成しました。
+
+具体的な使い方は チュートリアル を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。">
+  <meta name="twitter:description" content="Qiita
+
+EnumerableTest という .NET 向けの単体テストフレームワークを作成しました。
+
+具体的な使い方は チュートリアル を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。"><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-128265968-1', 'auto');
-ga('send', 'pageview');
-
+  
+  
+  
+}
 </script>
-<!-- End Google Analytics -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2017-03-21\/enumerable-test\/",
+          "name": "Enumerable test(. n e tの単体テストフレームワーク)の紹介と苦労話"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : ""
+  },
+  "headline": "EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話",
+  "description" : "Qiita\nEnumerableTest という .NET 向けの単体テストフレームワークを作成しました。\n具体的な使い方は チュートリアル を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。\n",
+  "inLanguage" : "ja",
+  "wordCount":  199 ,
+  "datePublished" : "2017-03-21T13:39:33",
+  "dateModified" : "2017-03-21T13:39:33",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ ".NET, C#, WPF, ユニットテスト, Essay" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2017-03-21\/enumerable-test\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話" />
+<meta property="og:description" content="Qiita
+
+EnumerableTest という .NET 向けの単体テストフレームワークを作成しました。
+
+具体的な使い方は チュートリアル を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。">
+<meta property="og:url" content="https://vain0x.github.io/blog/2017-03-21/enumerable-test/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話" />
+  <meta name="twitter:description" content="Qiita
+
+EnumerableTest という .NET 向けの単体テストフレームワークを作成しました。
+
+具体的な使い方は チュートリアル を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/2017-03-21/enumerable-test/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="generator" content="Hugo 0.56.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
 
 
-  
-  <title>EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話 | vain0x&#39;s blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Qiita EnumerableTest という .NET 向けの単体テストフレームワークを作成しました。 具体的な使い方は チュートリアル を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。 特徴EnumerableTest の最大の特徴は「パラメーター化されたテスト」(テーブル駆動テスト)を書きやすいことです。 12345678910111213//">
-<meta name="keywords" content="C#,Essay,.NET,WPF,ユニットテスト">
-<meta property="og:type" content="article">
-<meta property="og:title" content="EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話">
-<meta property="og:url" content="http://vain0x.github.io/blog/2017-03-21/enumerable-test/index.html">
-<meta property="og:site_name" content="vain0x&#39;s blog">
-<meta property="og:description" content="Qiita EnumerableTest という .NET 向けの単体テストフレームワークを作成しました。 具体的な使い方は チュートリアル を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。 特徴EnumerableTest の最大の特徴は「パラメーター化されたテスト」(テーブル駆動テスト)を書きやすいことです。 12345678910111213//">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="http://vain0x.github.io/blog/2017-03-21/enumerable-test/EnumerableTest-screenshot-groups.png">
-<meta property="og:updated_time" content="2018-12-01T12:04:26.870Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話">
-<meta name="twitter:description" content="Qiita EnumerableTest という .NET 向けの単体テストフレームワークを作成しました。 具体的な使い方は チュートリアル を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。 特徴EnumerableTest の最大の特徴は「パラメーター化されたテスト」(テーブル駆動テスト)を書きやすいことです。 12345678910111213//">
-<meta name="twitter:image" content="http://vain0x.github.io/blog/2017-03-21/enumerable-test/EnumerableTest-screenshot-groups.png">
-<meta name="twitter:creator" content="@vain0x">
-  
-    <link rel="alternate" href="/blog/atom.xml" title="vain0x&#39;s blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/blog/favicon.jpg">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/blog/css/style.css">
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;subset=japanese" rel="stylesheet">
-</head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/blog/" id="logo">vain0x&#39;s blog</a>
-      </h1>
-      
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">メニューを切り替え</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
         
-          <a class="main-nav-link" href="https://vain0x.github.io">ホーム</a>
+          
+            <li>
+              <a title="About" href="https://vain0x.github.io">About</a>
+            </li>
+          
         
-          <a class="main-nav-link" href="/blog/">ブログ</a>
+          
+            <li>
+              <a title="タグ" href="/blog/tags">タグ</a>
+            </li>
+          
         
-          <a class="main-nav-link" href="/blog/archives">記事一覧</a>
+
         
-          <a class="main-nav-link" href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a>
+
         
-          <a class="main-nav-link" href="https://qiita.com/vain0x">Qiita</a>
-        
-          <a class="main-nav-link" href="https://github.com/vain0x">GitHub</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSSフィード"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="検索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://vain0x.github.io/blog"></form>
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-enumerable-test" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2017-03-21/enumerable-test/" class="article-date">
-  <time datetime="2017-03-21T04:39:33.000Z" itemprop="datePublished">2017-03-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
   
-    <h1 class="article-title" itemprop="name">
-      EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話
-    </h1>
+  
   
 
-      </header>
+
+
+
+
+
+  
+
+  <header class="header-section ">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://qiita.com/vain0x/items/142b84e8ca20fbed43ed" target="_blank" rel="noopener">Qiita</a></p>
-<p><a href="http://github.com/vain0x/EnumerableTest" target="_blank" rel="noopener">EnumerableTest</a> という .NET 向けの単体テストフレームワークを作成しました。</p>
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2017年3月21日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p><a href="http://qiita.com/vain0x/items/142b84e8ca20fbed43ed">Qiita</a></p>
+
+<p><a href="http://github.com/vain0x/EnumerableTest">EnumerableTest</a> という .NET 向けの単体テストフレームワークを作成しました。</p>
+
 <p>具体的な使い方は <a href="https://vain0x.github.io/EnumerableTest/articles/tutorials/walk-around.html">チュートリアル</a> を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。</p>
-<h2 id="特徴"><a href="#特徴" class="headerlink" title="特徴"></a>特徴</h2><p><strong>EnumerableTest</strong> の最大の特徴は「パラメーター化されたテスト」(テーブル駆動テスト)を書きやすいことです。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 演算子 &amp;&amp; の挙動をテストする。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> IEnumerable&lt;Test&gt; <span class="title">test_operator_and</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">        ParameterizedTestBuilder</span><br><span class="line">        .Case(<span class="literal">true</span>, <span class="literal">true</span>, <span class="literal">true</span>)</span><br><span class="line">        .Case(<span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">false</span>)</span><br><span class="line">        .Case(<span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>)</span><br><span class="line">        .Case(<span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>)</span><br><span class="line">        .Run((left, right, expected) =&gt;</span><br><span class="line">            (left &amp;&amp; right).Is(expected)</span><br><span class="line">        );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="特徴">特徴</h2>
+
+<p><strong>EnumerableTest</strong> の最大の特徴は「パラメーター化されたテスト」(テーブル駆動テスト)を書きやすいことです。</p>
+<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp">    <span class="c1">// 演算子 &amp;&amp; の挙動をテストする。
+</span><span class="c1"></span>    <span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Test</span><span class="p">&gt;</span> <span class="n">test_operator_and</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span>
+            <span class="n">ParameterizedTestBuilder</span>
+            <span class="p">.</span><span class="n">Case</span><span class="p">(</span><span class="k">true</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">true</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">Case</span><span class="p">(</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">Case</span><span class="p">(</span><span class="k">false</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">Case</span><span class="p">(</span><span class="k">false</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
+            <span class="p">.</span><span class="n">Run</span><span class="p">((</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span> <span class="p">=&gt;</span>
+                <span class="p">(</span><span class="n">left</span> <span class="p">&amp;&amp;</span> <span class="n">right</span><span class="p">).</span><span class="n">Is</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
+            <span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div>
 <p>このコードで重要なのは、次の2点です。</p>
+
 <ul>
 <li>テストデータの型がコンパイル時に検査される。</li>
 <li>4つのテストケースのうち、いずれかが表明に違反したり例外を投げたりしても、すべてのテストが実行される。</li>
 </ul>
+
 <p><code>ParameterizedTestBuilder</code> の実装に用いられている2つの特徴について説明します。</p>
-<h3 id="継続する表明"><a href="#継続する表明" class="headerlink" title="継続する表明"></a>継続する表明</h3><p><strong>EnumerableTest</strong> の表明は、失敗しても実行を停止しません。例えば、次のテストメソッドは2つの表明を含みますが、前者は失敗して、後者は成功します。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> IEnumerable&lt;Test&gt; <span class="title">MyTest</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">return</span> <span class="number">0.</span>Is(<span class="number">1</span>); <span class="comment">// 失敗する。</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">return</span> <span class="number">0.</span>Is(<span class="number">0</span>); <span class="comment">// 成功する。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="継続する表明">継続する表明</h3>
+
+<p><strong>EnumerableTest</strong> の表明は、失敗しても実行を停止しません。例えば、次のテストメソッドは2つの表明を含みますが、前者は失敗して、後者は成功します。</p>
+<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Test</span><span class="p">&gt;</span> <span class="n">MyTest</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">yield</span> <span class="k">return</span> <span class="m">0.</span><span class="n">Is</span><span class="p">(</span><span class="m">1</span><span class="p">);</span> <span class="c1">// 失敗する。
+</span><span class="c1"></span>    <span class="k">yield</span> <span class="k">return</span> <span class="m">0.</span><span class="n">Is</span><span class="p">(</span><span class="m">0</span><span class="p">);</span> <span class="c1">// 成功する。
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div>
 <p>xUnit.NET や NUnit などでは「表明が失敗するとテストの実行が止まる」仕様になっています。この場合、縦にずらずらと表明を並べると、途中で止まったときに後ろのテストの結果が分からなくなり、厄介です。そのため、テストメソッドには表明を1つだけにするべきだといわれています。</p>
+
 <p><strong>EnumerableTest</strong> の継続する表明ではそのような問題はありませんので、縦にずらずらと表明を並べても問題ありません。実際、先ほどの test_operator_add は縦に4つの表明を並べるのと実質的に同じコードになります。</p>
-<h3 id="テストのグループ化と例外の捕捉"><a href="#テストのグループ化と例外の捕捉" class="headerlink" title="テストのグループ化と例外の捕捉"></a>テストのグループ化と例外の捕捉</h3><p><strong>EnumerableTest</strong> ではテストのシーケンスを1つのテストとして扱う機能があります。これは2つの機能を持ちます。</p>
+
+<h3 id="テストのグループ化と例外の捕捉">テストのグループ化と例外の捕捉</h3>
+
+<p><strong>EnumerableTest</strong> ではテストのシーケンスを1つのテストとして扱う機能があります。これは2つの機能を持ちます。</p>
+
 <p>1つ目は、テストのシーケンスを意味的なまとまりごとにグループ化するとことにより、テストの結果を見やすくすることです。というのも、1つのテストメソッドに表明をずらずらと並べていくと、いざ違反した表明を見つけたときに、その表明がどのテストケースに対応するのかが分かりづらいのです。</p>
+
 <p><code>ParameterizeTestBuilder</code> が生成するテストは、テストケースごとにテストをグループ化しています。どの表明がどのテストケースに対応するかは一目瞭然です。</p>
-<img src="/blog/2017-03-21/enumerable-test/EnumerableTest-screenshot-groups.png" title="screenshot">
+
+<p><img src="group-screenshot.png" alt="screenshot" /></p>
+
 <p>また、テストのグループには例外を捕捉する機能もあります。すなわち、グループ内のいずれかのテストが例外を送出した場合、そのグループの実行は中断されますが、例外はテストグループにより捕捉されます。これにより、 <strong>グループ化されたテストは例外を送出しない</strong> ことが保証されます。</p>
+
 <p>※スタックオーバーフローは例外です。</p>
+
 <p>例えば次のコードは、2つのテストメソッド Test1, Test2 をそれぞれグループ化して実行しますが、仮に Test1 が例外を送出しても、それはグループ化を行うメソッド ToTestGroup により捕捉されますので、Test2 が実行されなくなることはありません。</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> IEnumerable&lt;Test&gt; <span class="title">test</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">yield</span> return <span class="title">Test1</span>(<span class="params"></span>).<span class="title">ToTestGroup</span>(<span class="params"></span>)</span>;</span><br><span class="line">    <span class="function"><span class="keyword">yield</span> return <span class="title">Test2</span>(<span class="params"></span>).<span class="title">ToTestGroup</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Test</span><span class="p">&gt;</span> <span class="n">test</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">yield</span> <span class="k">return</span> <span class="n">Test1</span><span class="p">().</span><span class="n">ToTestGroup</span><span class="p">();</span>
+    <span class="k">yield</span> <span class="k">return</span> <span class="n">Test2</span><span class="p">().</span><span class="n">ToTestGroup</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>冒頭の test_operator_add でも、各テストケースはグループ化されており、例外を漏らさないようになっています。</p>
-<h2 id="苦労話"><a href="#苦労話" class="headerlink" title="苦労話"></a>苦労話</h2><p>次に <strong>EnumerableTest</strong> のテストランナー実装時の苦労話をします。</p>
-<h3 id="プロセス内リモート通信"><a href="#プロセス内リモート通信" class="headerlink" title="プロセス内リモート通信"></a>プロセス内リモート通信</h3><p>コンソール版のテストランナー開発は、ただただ書くだけなので簡単でした。.NET は動的リフレクションの機能が豊富で助かります。問題は WPF (GUI) 版です。</p>
+
+<h2 id="苦労話">苦労話</h2>
+
+<p>次に <strong>EnumerableTest</strong> のテストランナー実装時の苦労話をします。</p>
+
+<h3 id="プロセス内リモート通信">プロセス内リモート通信</h3>
+
+<p>コンソール版のテストランナー開発は、ただただ書くだけなので簡単でした。.NET は動的リフレクションの機能が豊富で助かります。問題は WPF (GUI) 版です。</p>
+
 <p>コンソール版の実行時の流れは「テストアセンブリーをロード→テストを実行→結果を表示→終了」という具合ですが、WPF版は次のようになります。</p>
+
 <ul>
 <li>テストアセンブリーをロード</li>
 <li>テストを実行</li>
 <li>結果を表示</li>
-<li>メインループ<ul>
+<li>メインループ
+
+<ul>
 <li>テストアセンブリーを <strong>アンロード</strong></li>
 <li>テストアセンブリーが更新されるまで待機</li>
 <li>テストアセンブリーが更新されたら再ロード</li>
 <li>テストを実行</li>
 <li>結果を <strong>更新</strong></li>
+</ul></li>
 </ul>
-</li>
-</ul>
+
 <p>なお、テストアセンブリーとは、テストメソッドが定義されたファイル (通常は .dll) のことです。それをロードして、実際にテストを実行して結果を表示するアプリのことを、テストランナーと呼んでいます。</p>
+
 <p>テストランナーは、テストアセンブリーに定義されたテストメソッドを読み込んで実行するわけですが、そのためにはテストアセンブリーを「アプリケーションドメイン (AppDomain)」というものにロードする必要があります。アプリケーションドメインはどのアプリケーションも1つは持っているので、そこにアセンブリーを入れればいいかと思ったのですが、そうはいきませんでした。</p>
+
 <p>問題は、テストアセンブリーがロードされているかぎり、その .dll ファイルがロックされてしまうことです。すなわち、ビルドしてもテストアセンブリーを更新できない状態になります。ビルドするたびにいちいちテストランナーを閉じて開き直すのはめんどうですから、テストランナーはテストの実行が終わったときにテストアセンブリーをアンロードするべきです。そのアンロードが問題でした。</p>
+
 <p>アプリケーションドメインからアセンブリーをアンロードする方法はありません。その代わり、アプリケーションドメイン自体をアンロードすることはできます。すなわち、テストランナーはこういう手順を踏む必要があるわけです。</p>
+
 <ul>
 <li>テストを実行するためのアプリケーションドメインを作る。</li>
 <li>テストを実行する。</li>
 <li>テストの実行が完了したとき、結果を元のアプリケーションドメインに渡す。(←めんどくさい)</li>
 <li>作成したアプリケーションドメインを削除する。</li>
 </ul>
+
 <p>問題となるのは、テストを実行した結果をウィンドウなどに表示するには、まずデータをテストランナーのアプリケーションドメインに移す必要があるということです。というのも、アプリケーションドメインの間では基本的に参照を渡すことができないので、一部のデータしかやりとりできません。可能なのは MarshalByRefObject を継承したオブジェクトの参照渡しと、Serializable 属性のついたオブジェクトの値渡しです。前者はただの参照渡しなので、オブジェクトが居住するアプリケーションドメインをアンロードしてしまうと、使用できなくなります 。</p>
+
 <p>テストの実行結果は、テストの実行の終了後にも参照したいわけですから、値渡ししなければなりません。したがって、すべてのデータに Serializable 属性をつける必要があります。しかし、テストの結果のデータにはユーザーが定義したクラスのインスタンスが含まれることもあります。例えば、<code>x.Is(y)</code> (x が y に等しいという表明) の結果には、情報として <code>x</code> と <code>y</code> の値 (どんな型かは分からない) も含まれているべきでしょう。これらの型に Serializable 属性をつけてもらうわけにもいきません。</p>
+
 <p>そういうわけで、 <strong>EnumerableTest</strong> ではデータをシリアライズ可能な形式 (MarshalValue) に変換してから、元のアプリケーションに送り返すようになっています。MarshalValue は、データのプロパティの値と、コレクションの中身 (<code>this[]</code>) からなる辞書のようなものです。</p>
+
 <p>要するに単一プロセスでリモート通信みたいなことをしているわけです。コンソール版だけでよかったんじゃ……</p>
-<h2 id="余談-Persimmon"><a href="#余談-Persimmon" class="headerlink" title="余談: Persimmon"></a>余談: Persimmon</h2><p>.NET 言語 F# には <a href="http://persimmon-projects.github.io/Persimmon/ja/" target="_blank" rel="noopener">Persimmon</a> という単体テストフレームワークがあり、<strong>EnumerableTest</strong> の着想はここから得ました。ぶっちゃけ Persimmon のほうが便利なので、F# を使える状況ならそちらを使いましょう。</p>
+
+<h2 id="余談-persimmon">余談: Persimmon</h2>
+
+<p>.NET 言語 F# には <a href="http://persimmon-projects.github.io/Persimmon/ja/">Persimmon</a> という単体テストフレームワークがあり、<strong>EnumerableTest</strong> の着想はここから得ました。ぶっちゃけ Persimmon のほうが便利なので、F# を使える状況ならそちらを使いましょう。</p>
+
 <p>あまりに便利なので、筆者は C# を書くときですら、テストを F# + Persimmon で書いています。F# の型推論は素晴らしい……</p>
+
 <p>もともと <strong>EmumerableTest</strong> は自分用に作っていたのですが、<code>IEnumerable&lt;Test&gt;</code> やら <code>yield return</code> やらいちいち書くのが思いのほかめんどくさいということに気づいてしまったのでやめました。</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://vain0x.github.io/blog/2017-03-21/enumerable-test/" data-id="cjrghybfy002llqcxcqiwnl97" class="article-share-link">共有</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/NET/">.NET</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C/">C#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Essay/">Essay</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/WPF/">WPF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ユニットテスト/">ユニットテスト</a></li></ul>
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/.net/">.NET</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/c/">C#</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/wpf/">WPF</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/%E3%83%A6%E3%83%8B%E3%83%83%E3%83%88%E3%83%86%E3%82%B9%E3%83%88/">ユニットテスト</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/essay/">Essay</a>&nbsp;
+            
+          </div>
+        
 
-    </footer>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/blog/2017-04-05/switch-on-await/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">新しい記事へ</strong>
-      <div class="article-nav-title">
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2019
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+        </p>
         
-          awaitでスレッドを切り替える
-        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.56.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
       </div>
-    </a>
-  
-  
-    <a href="/blog/2017-03-10/observable-collection-design-notes/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">古い記事へ</strong>
-      <div class="article-nav-title">観測可能なコレクションの設計考察</div>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-
-
-<section id="comments">
-  <script src="https://utteranc.es/client.js" repo="vain0x/blog" issue-term="pathname" theme="github-light" crossorigin="anonymous" async>
-  </script>
-</section>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新記事</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/blog/2019-06-30/diary/">近況 2019-06-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-05-31/diary/">近況 2019-05-31</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-04-30/diary/">近況 2019-04-30</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-03-31/diary/">近況 2019-03-31</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2019-02-27/diary/">近況 2019-02-27</a>
-          </li>
-        
-      </ul>
     </div>
   </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">タグクラウド</h3>
-    <div class="widget tagcloud">
-      <a href="/blog/tags/NET/" style="font-size: 11.43px;">.NET</a> <a href="/blog/tags/C/" style="font-size: 18.57px;">C#</a> <a href="/blog/tags/Essay/" style="font-size: 15.71px;">Essay</a> <a href="/blog/tags/F/" style="font-size: 14.29px;">F#</a> <a href="/blog/tags/Git/" style="font-size: 10px;">Git</a> <a href="/blog/tags/HSP/" style="font-size: 10px;">HSP</a> <a href="/blog/tags/HSP3/" style="font-size: 10px;">HSP3</a> <a href="/blog/tags/LSP学習記/" style="font-size: 14.29px;">LSP学習記</a> <a href="/blog/tags/LanguageServerProtocol/" style="font-size: 14.29px;">LanguageServerProtocol</a> <a href="/blog/tags/Paket/" style="font-size: 10px;">Paket</a> <a href="/blog/tags/Prolog/" style="font-size: 10px;">Prolog</a> <a href="/blog/tags/Rust/" style="font-size: 12.86px;">Rust</a> <a href="/blog/tags/Tips/" style="font-size: 12.86px;">Tips</a> <a href="/blog/tags/TypeScript/" style="font-size: 14.29px;">TypeScript</a> <a href="/blog/tags/WPF/" style="font-size: 12.86px;">WPF</a> <a href="/blog/tags/アルゴリズム/" style="font-size: 10px;">アルゴリズム</a> <a href="/blog/tags/オブジェクト指向/" style="font-size: 10px;">オブジェクト指向</a> <a href="/blog/tags/チュートリアル/" style="font-size: 10px;">チュートリアル</a> <a href="/blog/tags/テキストエディタ/" style="font-size: 10px;">テキストエディタ</a> <a href="/blog/tags/デザインパターン/" style="font-size: 10px;">デザインパターン</a> <a href="/blog/tags/データベース/" style="font-size: 10px;">データベース</a> <a href="/blog/tags/ネタ/" style="font-size: 10px;">ネタ</a> <a href="/blog/tags/バージョン管理/" style="font-size: 10px;">バージョン管理</a> <a href="/blog/tags/パッケージ管理/" style="font-size: 10px;">パッケージ管理</a> <a href="/blog/tags/プログラミング言語/" style="font-size: 11.43px;">プログラミング言語</a> <a href="/blog/tags/ユニットテスト/" style="font-size: 10px;">ユニットテスト</a> <a href="/blog/tags/印刷/" style="font-size: 10px;">印刷</a> <a href="/blog/tags/日記/" style="font-size: 20px;">日記</a> <a href="/blog/tags/競技プログラミング/" style="font-size: 11.43px;">競技プログラミング</a> <a href="/blog/tags/言語処理系/" style="font-size: 17.14px;">言語処理系</a> <a href="/blog/tags/関数型プログラミング/" style="font-size: 10px;">関数型プログラミング</a> <a href="/blog/tags/非同期/" style="font-size: 12.86px;">非同期</a>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 vain0x<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="https://vain0x.github.io" class="mobile-nav-link">ホーム</a>
-  
-    <a href="/blog/" class="mobile-nav-link">ブログ</a>
-  
-    <a href="/blog/archives" class="mobile-nav-link">記事一覧</a>
-  
-    <a href="https://note.mu/vain0x/m/m9aa8513f4e97" class="mobile-nav-link">競プロ参戦記</a>
-  
-    <a href="https://qiita.com/vain0x" class="mobile-nav-link">Qiita</a>
-  
-    <a href="https://github.com/vain0x" class="mobile-nav-link">GitHub</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
-  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/blog/js/script.js"></script>
+<script src="https://vain0x.github.io/blog/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://vain0x.github.io/blog/js/load-photoswipe.js"></script>
 
 
 
 
-  </div>
-</body>
+
+
+
+
+
+  </body>
 </html>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2016-12-25s on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/2016-12-25/</link>
+    <description>Recent content in 2016-12-25s on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 25 Dec 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/2016-12-25/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>WPF/XAMLで帳票のデザイン・印刷を行う</title>
+      <link>https://vain0x.github.io/blog/2016-12-25/reports-with-wpf/</link>
+      <pubDate>Sun, 25 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2016-12-25/reports-with-wpf/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/0ec44dc198433675ea2f&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;※これは &lt;a href=&#34;http://qiita.com/advent-calendar/2016/xaml&#34;&gt;XAML Advent Calendar 2016&lt;/a&gt; の25日目の記事です。&lt;/p&gt;
+
+&lt;p&gt;WPF/XAML を使って帳票のデザインから印刷までやってみたという話です。ソースコードが GitHub にありますので、それと同様にやればできます。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/vain0x/VainZero.WpfReportPrinting&#34;&gt;vain0x/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;XAML というマークアップ言語で帳票のデザインから印刷までできれば、たくさんの利点がある。&lt;/li&gt;
+&lt;li&gt;WPF アプリケーションで帳票のプレビューや印刷を行うサンプルを作った。&lt;/li&gt;
+&lt;li&gt;ページネーションが大変だったけどなんとかなった。&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

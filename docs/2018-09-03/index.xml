@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2018-09-03s on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/2018-09-03/</link>
+    <description>Recent content in 2018-09-03s on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Mon, 03 Sep 2018 23:59:34 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/2018-09-03/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>F#でベンチマークをとる</title>
+      <link>https://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/</link>
+      <pubDate>Mon, 03 Sep 2018 23:59:34 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/</guid>
+      <description>&lt;p&gt;ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして &lt;a href=&#34;https://github.com/dotnet/BenchmarkDotNet&#34;&gt;BenchmarkDotNet&lt;/a&gt; があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。&lt;/p&gt;
+
+&lt;h2 id=&#34;1-要約&#34;&gt;1. 要約&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;書き出し
+
+&lt;ul&gt;
+&lt;li&gt;ベンチマークは意外と大変という話について軽く触れる&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;導入
+
+&lt;ul&gt;
+&lt;li&gt;本稿の構成&lt;/li&gt;
+&lt;li&gt;開発環境の明記&lt;/li&gt;
+&lt;li&gt;BenchmarkDotNet のサンプル&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;例
+
+&lt;ul&gt;
+&lt;li&gt;一例として「素数判定」を実装する&lt;/li&gt;
+&lt;li&gt;素数判定の簡単なベンチマークを書く&lt;/li&gt;
+&lt;li&gt;ベンチマークを実行する&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;おまけ
+
+&lt;ul&gt;
+&lt;li&gt;軽くて速いベンチマークに設定する&lt;/li&gt;
+&lt;li&gt;ベンチマークを watch する&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

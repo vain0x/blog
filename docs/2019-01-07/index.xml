@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2019-01-07s on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/2019-01-07/</link>
+    <description>Recent content in 2019-01-07s on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Mon, 07 Jan 2019 22:13:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://vain0x.github.io/blog/2019-01-07/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LSP学習記 #2 クラゲ言語の構文解析</title>
+      <link>https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/</link>
+      <pubDate>Mon, 07 Jan 2019 22:13:00 +0000</pubDate>
+      
+      <guid>https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/</guid>
+      <description>&lt;p&gt;LSP サーバーを作っていくプロジェクトの第2回です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;前回: &lt;a href=&#34;https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/&#34;&gt;LSP学習記 #1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;前回は警告の表示までできるようになりました。しかしこの調子で自明な機能を足し続けても楽しくないので、新しいプログラミング言語を作ります。自作言語処理系とともに LSP サーバーを育てていく予定です。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;今回のソースコード: &lt;a href=&#34;https://github.com/vain0x/curage-lang/tree/v0.3.0&#34;&gt;curage-lang v0.3.0&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
