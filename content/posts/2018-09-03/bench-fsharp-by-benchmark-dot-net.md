@@ -27,6 +27,8 @@ permalink: bench-fsharp-by-benchmark-dot-net
     - 軽くて速いベンチマークに設定する
     - ベンチマークを watch する
 
+<!--more-->
+
 ## 2. 開発環境
 
 F# の開発環境は Getting Started を参照: [Ionide - Crossplatform F# Editor Tools](http://ionide.io/#getting-started)

@@ -17,6 +17,8 @@ tags:
 
 具体的な使い方は [チュートリアル](https://vain0x.github.io/EnumerableTest/articles/tutorials/walk-around.html) を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。
 
+<!--more-->
+
 ## 特徴
 **EnumerableTest** の最大の特徴は「パラメーター化されたテスト」(テーブル駆動テスト)を書きやすいことです。
 

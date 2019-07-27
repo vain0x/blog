@@ -18,6 +18,8 @@ permalink: why-git-edit
 - 結局、ふさわしいエディターが見つからなかったので自作した。
 - ぜひ[ダウンロード](https://github.com/vain0x/GitEdit/releases/latest)して下さい。
 
+<!--more-->
+
 ## 十の理由
 ### 1. 軽量
 機能を必要最小限に絞っているため、とても起動が速いです。

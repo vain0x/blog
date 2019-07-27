@@ -9,6 +9,8 @@ tags:
 
 今月の活動のまとめ
 
+<!--more-->
+
 - 前月分 <https://vain0x.github.io/blog/2018-12-31/diary/>
 
 ## LSP学習記の連載を書いた

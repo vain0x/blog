@@ -14,6 +14,8 @@ permalink: recurse-rust-closure
 
 本稿では小さなヘルパーを用意して記述を簡略化することを試みました。
 
+<!--more-->
+
 - 環境: Rust 1.15.1 (AtCoder での現在のバージョン)
 - 筆者: AtCoder もうすぐ青といい続けて1年
 

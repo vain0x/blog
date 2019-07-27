@@ -12,6 +12,8 @@ permalink: switch-on-await
 
 awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。
 
+<!--more-->
+
 実装とサンプルはここにあります: [await-for-context-switching.cs](https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2)
 
 ## 前提: Awaitable パターン

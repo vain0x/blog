@@ -12,6 +12,8 @@ permalink: lsp-trial-03
 
 自作言語の LSP サーバーを作るプロジェクトの第3回です。今回はシンボルテーブルを作ってシンボルのハイライト機能を実装します。
 
+<!--more-->
+
 - 初回: [LSP学習記 #1](https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/)
 - 前回: [LSP学習記 #2 クラゲ言語の構文解析](https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/)
 - 今回のソースコード: [curage-lang v0.4.0](https://github.com/vain0x/curage-lang/tree/v0.4.0)

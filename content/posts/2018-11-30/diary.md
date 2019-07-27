@@ -9,6 +9,8 @@ tags:
 
 1ヶ月分のコミットメッセージとツイートを眺めていろいろ書くやつ、3回目
 
+<!--more-->
+
 - 前回: <https://vain0x.github.io/blog/2018-10-31/diary/>
 
 ## hsp3-debug-ginger

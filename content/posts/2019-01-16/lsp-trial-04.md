@@ -12,6 +12,8 @@ permalink: lsp-trial-04
 
 自作言語の LSP サーバーを作るプロジェクトの第4回です。今回はソースコードを変更する機能の例として、シンボルのリネームを実装してみました。
 
+<!--more-->
+
 - 初回: [LSP学習記 #1](https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/)
 - 前回: [LSP学習記 #3 シンボルとハイライト](https://vain0x.github.io/blog/2019-01-10/lsp-trial-03/)
 - 今回のソースコード: [curage-lang v0.5.0](https://github.com/vain0x/curage-lang/tree/v0.5.0)

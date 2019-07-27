@@ -12,6 +12,8 @@ permalink: why-ireadonlylist-should-implement-ilist
 
 理由は2つあります。
 
+<!--more-->
+
 ## 理由1: IEnumerable 拡張メソッド
 1つ目の理由は、``IEnumerable<_>`` に対する拡張メソッドが ``IReadOnlyList<_>`` ではなく ``IList<_>`` 用に最適化されているからです。
 

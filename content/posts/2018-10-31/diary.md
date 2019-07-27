@@ -7,7 +7,11 @@ tags:
   - 日記
 ---
 
+今月の活動まとめ
+
 - [前月](https://vain0x.github.io/blog/2018-09-30/diary/)
+
+<!--more-->
 
 ### milone-lang
 
