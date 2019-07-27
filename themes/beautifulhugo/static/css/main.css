@@ -23,6 +23,8 @@ html {
 body {
   font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
   font-size: 1.6rem;
+  line-height: 1.67;
+
   position: relative;
   display: flex;
   flex-flow: column;
@@ -52,7 +54,6 @@ body > main {
 }
 
 p {
-  line-height: 1.5;
   margin: 6px 0;
 }
 p + p {
