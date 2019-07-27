@@ -20,9 +20,9 @@ weight = 1
 [[menu.main]]
 name = "競プロ参戦記"
 url = "https://qiita.com/search?q=競プロ参戦記+user%3Avain0x"
-weight = 1
+weight = 2
 
 [[menu.main]]
 name = "ABOUT"
 url = "https://vain0x.github.io"
-weight = 1
+weight = 3
