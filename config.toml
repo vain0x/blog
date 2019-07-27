@@ -22,7 +22,6 @@ twitter = "vain0x"
 [Params]
 favicon = "https://vain0x.github.io/favicon.jpg"
 rss = true
-wordCount = true
 showRelatedPosts = true
 since = 2016
 
