@@ -1,7 +1,7 @@
 ---
 title: シクシク素数列を F# でやってみた
 tags:
-- F#
+- FSharp
 type: "post"
 date: 2018-12-16 10:34:43
 permalink: siku-siku-primes

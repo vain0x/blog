@@ -4,7 +4,7 @@ type: "post"
 date: 2016-12-25 00:00:00
 permalink: reports-with-wpf
 tags:
-  - C#
+  - CSharp
   - WPF
   - 印刷
 ---
