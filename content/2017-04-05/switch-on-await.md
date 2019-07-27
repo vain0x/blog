@@ -1,7 +1,7 @@
 ---
 title: awaitでスレッドを切り替える
 tags:
-  - C#
+  - CSharp
   - 非同期
 type: "post"
 date: 2017-04-05 15:00:00

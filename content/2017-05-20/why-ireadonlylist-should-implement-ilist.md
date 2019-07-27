@@ -1,7 +1,7 @@
 ---
 title: IReadOnlyListがIListを実装すべき理由
 tags:
-  - C#
+  - CSharp
   - .NET
 type: "post"
 date: 2017-05-20 20:00:09
