@@ -1,15 +1,39 @@
+:root {
+  --primary-color-light: #6746c3;
+  --primary-color-dark: #000063;
+  --primary-color: #311b92;
+  --primary-color-text: #fafafa;
+  --accent-color: #ffa000;
+  --accent-color-text: #212121;
+  --accent-color-light: #ffd149;
+  --accent-color-dark: #c67100;
+  --base-color: #fafafa;
+  --base-color-text: #212121;
+  --divider-color: #bdbdbd;
+  --app-main-container-background: #ffffffaa;
+}
+
 /* --- General --- */
 
 body {
   font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Lora', 'Times New Roman', sans-serif;
   font-size: 18px;
-  color: #404040;
   position: relative;
-  background: #FFF;
   display: flex;
   flex-flow: column;
   height: 100vh;
+
+  color: var(--base-color-text);
+  background: linear-gradient(0.33turn, var(--primary-color-dark), var(--accent-color-dark));
+
+  /* スクロールしても変化しないようにする。 */
+  background-attachment: fixed;
 }
+
+body > main {
+  background: var(--app-main-container-background);
+}
+
 .container[role=main] {
   margin-bottom:50px;
   flex: 1 0 auto;
@@ -31,18 +55,18 @@ p + p {
 }
 p a {
   /* text-decoration: underline */
-  color: #008AFF;
+  color: var(--primary-color-light);
 }
 h1,h2,h3,h4,h5,h6 {
   font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 800;
 }
 a {
-  color: #008AFF;
+  color: var(--primary-color-light);
 }
 a:hover,
 a:focus {
-  color: #0085a1;
+  color: var(--primary-color-light);
 }
 blockquote {
   color: #808080;
@@ -97,12 +121,12 @@ div.panel-body a.list-group-item.view-all {
 ::-moz-selection {
   color: white;
   text-shadow: none;
-  background: #0085a1;
+  background: var(--primary-color-light);
 }
 ::selection {
   color: white;
   text-shadow: none;
-  background: #0085a1;
+  background: var(--primary-color-light);
 }
 img::selection {
   color: white;
@@ -126,8 +150,9 @@ img {
 /* --- Navbar --- */
 
 .navbar-custom {
-  background: #F5F5F5;
-  border-bottom: 1px solid #EAEAEA;
+  background: linear-gradient(0.33turn, var(--primary-color-dark), var(--accent-color-dark));
+  border-bottom: transparent;
+  /* border-bottom: 1px solid #EAEAEA; */
   font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -140,14 +165,14 @@ img {
 .navbar-custom .navbar-brand,
 .navbar-custom .nav li a {
   font-weight: 800;
-  color: #404040;
+  color: var(--primary-color-text);
 }
 
 .navbar-custom .navbar-brand:hover,
 .navbar-custom .navbar-brand:focus ,
 .navbar-custom .nav li a:hover,
 .navbar-custom .nav li a:focus {
-  color: #0085a1;
+  color: var(--primary-color-light);
 }
 
 .navbar-custom .navbar-brand-logo {
@@ -274,14 +299,14 @@ img {
   display: block;
   padding: 10px;
   padding-left: 30px;
-  background: #f5f5f5;
+  background: #f5f5f5ee;
   text-decoration: none !important;
   border-width: 0 1px 1px 1px;
   font-weight: normal;
 }
 @media only screen and (max-width: 767px) {
   .navbar-custom .nav .navlinks-container.show-children {
-    background: #eee;
+    background: #eeee;
   }
   .navbar-custom .nav .navlinks-container.show-children .navlinks-children {
     display: block;
@@ -292,7 +317,7 @@ img {
     text-align: center;
   }
   .navbar-custom .nav .navlinks-container:hover {
-    background: #eee;
+    background: #eeee;
   }
   .navbar-custom .nav .navlinks-container:hover .navlinks-children {
     display: block;
@@ -311,14 +336,12 @@ img {
 
 footer {
   padding: 30px 0;
-  background: #F5F5F5;
-  border-top: 1px #EAEAEA solid;
   margin-top: auto;
   font-size: 14px;
 }
 
 footer a {
-  color: #404040;
+  color: var(--base-color-text);
 }
 
 footer .list-inline {
@@ -366,13 +389,13 @@ footer .theme-by {
 
 .post-preview a {
   text-decoration: none;
-  color: #404040;
+  color: var(--base-color-text);
 }
 
 .post-preview a:focus,
 .post-preview a:hover {
   text-decoration: none;
-  color: #0085a1;
+  color: var(--primary-color-light);
 }
 
 .post-preview .post-title {
@@ -386,14 +409,14 @@ footer .theme-by {
 }
 .post-preview .post-meta,
 .post-heading .post-meta {
-  color: #808080;
+  /* color: #808080; */
   font-size: 18px;
   font-style: italic;
   margin: 0 0 10px;
 }
 .post-preview .post-meta a,
 .post-heading .post-meta a {
-  color: #404040;
+  color: var(--base-color-text);
   text-decoration: none;
 }
 .post-preview .post-entry {
@@ -437,7 +460,7 @@ footer .theme-by {
 
 .blog-tags {
   font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #999;
+  /* color: #999; */
   font-size: 15px;
   margin-bottom: 30px;
 }
@@ -447,7 +470,7 @@ footer .theme-by {
 }
 
 .blog-tags a {
-  color: #008AFF;
+  color: var(--base-color-text);
   text-decoration: none;
   padding: 0px 5px;
 }
@@ -458,7 +481,7 @@ footer .theme-by {
 
 .blog-tags a:hover {
   border-radius: 2px;
-  color: #008AFF;
+  color: var(--primary-color-light);
   background-color: #CCC;
 }
 
@@ -594,7 +617,7 @@ footer .theme-by {
 
 .header-section.has-img .no-img {
   margin-top: 0;
-  background: #FCFCFC;
+  background: #FCFCFCEE;
   margin: 0 0 40px;
   padding: 20px 0;
   box-shadow: 0 0 5px #AAA;
@@ -645,9 +668,10 @@ footer .theme-by {
   font-weight: 800;
   letter-spacing: 1px;
   padding: 10px 5px;
-  background: #FFF;
+  background: var(--app-main-container-background);
+  border-color: transparent;
   border-radius: 0;
-  color: #404040;
+  color: var(--base-color-text);
 }
 @media only screen and (min-width: 768px) {
   .pager li a {
@@ -656,9 +680,9 @@ footer .theme-by {
 }
 .pager li a:hover,
 .pager li a:focus {
-  color: #FFF;
-  background: #0085a1;
-  border: 1px solid #0085a1;
+  color: var(--primary-color-light);
+  background: var(--app-main-container-background);
+  border-color: transparent;
 }
 
 .pager {
@@ -686,7 +710,7 @@ table {
 }
 table tr {
   border-top: 1px solid #cccccc;
-  background-color: #ffffff;
+  background-color: #ffffffee;
   margin: 0;
   padding: 0;
 }

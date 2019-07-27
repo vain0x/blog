@@ -5,9 +5,11 @@
   </head>
   <body>
     {{ partial "nav.html" . }}
-    {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
-    {{ block "main" . }}{{ end }}
-    {{ partial "footer.html" . }}
+    <main>
+      {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
+      {{ block "main" . }}{{ end }}
+      {{ partial "footer.html" . }}
+    </main>
   </body>
 </html>
 
