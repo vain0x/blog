@@ -67,7 +67,7 @@ xUnit.NET や NUnit などでは「表明が失敗するとテストの実行が
 
 `ParameterizeTestBuilder` が生成するテストは、テストケースごとにテストをグループ化しています。どの表明がどのテストケースに対応するかは一目瞭然です。
 
-{% asset_img EnumerableTest-screenshot-groups.png screenshot %}
+![screenshot](group-screenshot.png)
 
 また、テストのグループには例外を捕捉する機能もあります。すなわち、グループ内のいずれかのテストが例外を送出した場合、そのグループの実行は中断されますが、例外はテストグループにより捕捉されます。これにより、 **グループ化されたテストは例外を送出しない** ことが保証されます。
 
