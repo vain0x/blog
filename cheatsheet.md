@@ -1,28 +1,12 @@
-# Hexo Cheatsheet
-## Set up
+# チートシート
 
-```sh
-$ npm install
 ```
+# サーバの起動
+hugo serve
 
-## New Post
+# ビルド
+hugo
 
-```sh
-# Create new draft.
-$ npx hexo new draft "title"
-# Write contents.
-
-# Publish post.
-$ npx hexo publish "title"
-# Move file into year directory (optional).
-
-# Preview on localhost.
-$ npm run serve
-
-# Build.
-$ npm run build
-
-# Merge into the master branch. Push to GitHub.
-$ git merge ...
-$ git push ...
+# テーマのアップデート
+git subtree pull -P themes/beautifulhugo https://github.com/halogenica/beautifulhugo master --squash
 ```
