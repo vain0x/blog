@@ -428,7 +428,7 @@ footer .theme-by {
 }
 
 .blog-tags:before {
-  content: "Tags: ";
+  content: "タグ: ";
 }
 
 .blog-tags a {
@@ -756,7 +756,7 @@ div.splitbox div.right {
     padding: 15px 25px;
   }
 }
-.disqus-comments button:hover, 
+.disqus-comments button:hover,
 .disqus-comments button:focus {
   color: #FFF;
   background: #0085a1;
