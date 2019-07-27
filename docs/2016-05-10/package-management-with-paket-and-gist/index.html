@@ -81,7 +81,8 @@
 スクリプトが必要になるたびに、ファイルをコピーを作成して使う。(コピペ法)
 
 
-という方法だと、例えばモジュールにバグがあった場合などにモジ …"><script type="application/ld+json">
+という方法だと、例えばモジュールにバグがあった場合などにモジ …">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
@@ -126,7 +127,7 @@
   "@context": "http://schema.org",
   "@type": "Article",
   "author": {
-    "name" : ""
+    "name" : "ベイン"
   },
   "headline": "PaketとGistで始める簡単パッケージ管理",
   "description" : "Qiita\n対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)\n導入 モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。 最初に思いつきそうな:\n スクリプトが必要になるたびに、ファイルをコピーを作成して使う。(コピペ法)  という方法だと、例えばモジュールにバグがあった場合などにモジュールを書き換えた後、それらのコピーを上書きして回ることになります。 めんどうですね。\nそのため:\n ファイルをまとめておいておき、それを直接 #include して使う。 (共有法)  というようにしている人も少なくないでしょう。\nしかし、これにも少し問題があります。 スクリプトを配布するときに、どのファイルが必要なのか分からなくなるのです。 単純に「#include されているファイル」を集めるだけでは、「あるモジュールが他のモジュールを使用している」といった状況には対処できません。\n※不要なものも全部いっしょくたにして同梱してしまう、という富豪的な方法もあります。\n",
@@ -200,7 +201,12 @@
 
 という方法だと、例えばモジュールにバグがあった場合などにモジ …">
   <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
   <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
   <meta property="og:url" content="https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
@@ -211,6 +217,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" /><link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
 
 
 
@@ -344,7 +352,7 @@
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
   
   
 </span>
@@ -503,6 +511,9 @@ Paket のインストール作業はこれで完了です。簡単でしょう�
         
 
         
+          
+          
+        
       </article>
 
       
@@ -536,14 +547,51 @@ Paket のインストール作業はこれで完了です。簡単でしょう�
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <ul class="list-inline text-center footer-links">
           
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
           
         </ul>
         <p class="credits copyright text-muted">
           
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
 
           &nbsp;&bull;&nbsp;&copy;
           
-            2019
+            2016 - 2019
           
 
           

@@ -6,6 +6,8 @@
     <description>Recent content in 2018-10-07s on ベインのブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
+    <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
+    <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
     <lastBuildDate>Sun, 07 Oct 2018 20:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/2018-10-07/index.xml" rel="self" type="application/rss+xml" />
@@ -15,7 +17,7 @@
       <title>Rustで競プロするときのプラクティス [2018秋]</title>
       <link>https://vain0x.github.io/blog/2018-10-07/rust-procon/</link>
       <pubDate>Sun, 07 Oct 2018 20:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-10-07/rust-procon/</guid>
       <description>&lt;p&gt;競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。&lt;/p&gt;</description>
     </item>

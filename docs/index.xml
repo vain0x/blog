@@ -6,6 +6,8 @@
     <description>Recent content on ベインのブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
+    <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
+    <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
     <lastBuildDate>Sun, 30 Jun 2019 23:59:59 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
@@ -15,7 +17,7 @@
       <title>近況 2019-06-30</title>
       <link>https://vain0x.github.io/blog/2019-06-30/diary/</link>
       <pubDate>Sun, 30 Jun 2019 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-06-30/diary/</guid>
       <description>&lt;p&gt;今月の活動について&lt;/p&gt;</description>
     </item>
@@ -24,7 +26,7 @@
       <title>近況 2019-05-31</title>
       <link>https://vain0x.github.io/blog/2019-05-31/diary/</link>
       <pubDate>Fri, 31 May 2019 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-05-31/diary/</guid>
       <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
     </item>
@@ -33,7 +35,7 @@
       <title>近況 2019-04-30</title>
       <link>https://vain0x.github.io/blog/2019-04-30/diary/</link>
       <pubDate>Tue, 30 Apr 2019 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-04-30/diary/</guid>
       <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
     </item>
@@ -42,7 +44,7 @@
       <title>近況 2019-03-31</title>
       <link>https://vain0x.github.io/blog/2019-03-31/diary/</link>
       <pubDate>Sun, 31 Mar 2019 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-03-31/diary/</guid>
       <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
     </item>
@@ -51,7 +53,7 @@
       <title>近況 2019-02-27</title>
       <link>https://vain0x.github.io/blog/2019-02-27/diary/</link>
       <pubDate>Wed, 27 Feb 2019 23:31:49 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-02-27/diary/</guid>
       <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
     </item>
@@ -60,7 +62,7 @@
       <title>HSP3 でスクリプト言語の処理系を書く</title>
       <link>https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/</link>
       <pubDate>Tue, 26 Feb 2019 22:25:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/</guid>
       <description>&lt;p&gt;HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。&lt;/p&gt;
 
@@ -71,7 +73,7 @@
       <title>近況 2019-01-30</title>
       <link>https://vain0x.github.io/blog/2019-01-30/diary/</link>
       <pubDate>Wed, 30 Jan 2019 20:07:49 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-30/diary/</guid>
       <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
     </item>
@@ -80,7 +82,7 @@
       <title>LSP学習記 #4 シンボルのリネーム</title>
       <link>https://vain0x.github.io/blog/2019-01-16/lsp-trial-04/</link>
       <pubDate>Wed, 16 Jan 2019 22:17:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-16/lsp-trial-04/</guid>
       <description>&lt;p&gt;自作言語の LSP サーバーを作るプロジェクトの第4回です。今回はソースコードを変更する機能の例として、シンボルのリネームを実装してみました。&lt;/p&gt;</description>
     </item>
@@ -89,7 +91,7 @@
       <title>LSP学習記 #3 シンボルとハイライト</title>
       <link>https://vain0x.github.io/blog/2019-01-10/lsp-trial-03/</link>
       <pubDate>Thu, 10 Jan 2019 22:12:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-10/lsp-trial-03/</guid>
       <description>&lt;p&gt;自作言語の LSP サーバーを作るプロジェクトの第3回です。今回はシンボルテーブルを作ってシンボルのハイライト機能を実装します。&lt;/p&gt;</description>
     </item>
@@ -98,7 +100,7 @@
       <title>LSP学習記 #2 クラゲ言語の構文解析</title>
       <link>https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/</link>
       <pubDate>Mon, 07 Jan 2019 22:13:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/</guid>
       <description>&lt;p&gt;LSP サーバーを作っていくプロジェクトの第2回です。&lt;/p&gt;
 
@@ -117,7 +119,7 @@
       <title>LSP学習記 #1</title>
       <link>https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/</link>
       <pubDate>Sat, 05 Jan 2019 23:52:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/</guid>
       <description>&lt;p&gt;LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。&lt;/p&gt;
 
@@ -128,7 +130,7 @@
       <title>近況 2018-12-31</title>
       <link>https://vain0x.github.io/blog/2018-12-31/diary/</link>
       <pubDate>Mon, 31 Dec 2018 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-12-31/diary/</guid>
       <description>&lt;p&gt;今月の進捗など&lt;/p&gt;</description>
     </item>
@@ -137,7 +139,7 @@
       <title>シクシク素数列を F# でやってみた</title>
       <link>https://vain0x.github.io/blog/2018-12-16/siku-siku-primes/</link>
       <pubDate>Sun, 16 Dec 2018 10:34:43 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-12-16/siku-siku-primes/</guid>
       <description>&lt;p&gt;シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。&lt;/p&gt;</description>
     </item>
@@ -146,7 +148,7 @@
       <title>近況 2018-11-30</title>
       <link>https://vain0x.github.io/blog/2018-11-30/diary/</link>
       <pubDate>Fri, 30 Nov 2018 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-11-30/diary/</guid>
       <description>&lt;p&gt;1ヶ月分のコミットメッセージとツイートを眺めていろいろ書くやつ、3回目&lt;/p&gt;</description>
     </item>
@@ -155,7 +157,7 @@
       <title>円周率チャレンジにアルゴリズムでチャレンジ</title>
       <link>https://vain0x.github.io/blog/2018-11-08/pi-challenge/</link>
       <pubDate>Thu, 08 Nov 2018 02:01:00 +0900</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-11-08/pi-challenge/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://rirosi.net/plus2/&#34;&gt;円周率チャレンジ&lt;/a&gt; というゲームが流行中です！&lt;/p&gt;
 
@@ -166,7 +168,7 @@
       <title>近況 2018-10-31</title>
       <link>https://vain0x.github.io/blog/2018-10-31/diary/</link>
       <pubDate>Wed, 31 Oct 2018 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-10-31/diary/</guid>
       <description>&lt;p&gt;今月の活動まとめ&lt;/p&gt;
 
@@ -179,7 +181,7 @@
       <title>Rustで競プロするときのプラクティス [2018秋]</title>
       <link>https://vain0x.github.io/blog/2018-10-07/rust-procon/</link>
       <pubDate>Sun, 07 Oct 2018 20:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-10-07/rust-procon/</guid>
       <description>&lt;p&gt;競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。&lt;/p&gt;</description>
     </item>
@@ -188,7 +190,7 @@
       <title>近況 2018-09-30</title>
       <link>https://vain0x.github.io/blog/2018-09-30/diary/</link>
       <pubDate>Sun, 30 Sep 2018 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-09-30/diary/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;校正の手間を省くため、なるべく箇条書きでやっていく
@@ -204,7 +206,7 @@
       <title>F#でベンチマークをとる</title>
       <link>https://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/</link>
       <pubDate>Mon, 03 Sep 2018 23:59:34 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/</guid>
       <description>&lt;p&gt;ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして &lt;a href=&#34;https://github.com/dotnet/BenchmarkDotNet&#34;&gt;BenchmarkDotNet&lt;/a&gt; があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。&lt;/p&gt;
 
@@ -243,7 +245,7 @@
       <title>Rustのクロージャで再帰してみた</title>
       <link>https://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/</link>
       <pubDate>Thu, 28 Jun 2018 23:17:41 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/</guid>
       <description>&lt;p&gt;クロージャを再帰呼び出しする方法を考えました。&lt;/p&gt;
 
@@ -256,7 +258,7 @@
       <title>[F#][小ネタ] レコードリテラルと型注釈</title>
       <link>https://vain0x.github.io/blog/2018-03-11/fsharp-record-literal-and-type-annotation/</link>
       <pubDate>Sun, 11 Mar 2018 13:06:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-03-11/fsharp-record-literal-and-type-annotation/</guid>
       <description>&lt;p&gt;F# のレコードリテラルのちょっとした問題とちょっとした解決策。&lt;/p&gt;</description>
     </item>
@@ -265,7 +267,7 @@
       <title>『コミットメッセージに「プレフィックス」をつける』を検討した</title>
       <link>https://vain0x.github.io/blog/2018-01-30/commit-message-prefixes/</link>
       <pubDate>Tue, 30 Jan 2018 22:40:38 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-30/commit-message-prefixes/</guid>
       <description>&lt;p&gt;Qiita で &lt;a href=&#34;https://qiita.com/numanomanu/items/45dd285b286a1f7280ed&#34;&gt;コミットメッセージに 「プレフィックス」 をつける&lt;/a&gt; というアイディアが紹介されていて、その効用の一つとして挙げられている:&lt;/p&gt;
 
@@ -280,7 +282,7 @@
       <title>Ubuntuデスクトップを使い始めた</title>
       <link>https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/</link>
       <pubDate>Sun, 28 Jan 2018 17:53:43 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/</guid>
       <description>&lt;p&gt;普段づかいする環境をWindowsからUbuntuに移した話。&lt;/p&gt;
 
@@ -298,7 +300,7 @@
       <title>インテリセンス快適な構文とAPI</title>
       <link>https://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/</link>
       <pubDate>Sat, 13 Jan 2018 23:08:23 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/</guid>
       <description>&lt;p&gt;インテリセンスの快適さと言語の構文に関するエッセイ。&lt;/p&gt;</description>
     </item>
@@ -307,7 +309,7 @@
       <title>SQLの検索条件と検索項目の分離</title>
       <link>https://vain0x.github.io/blog/2018-01-05/sql-search-only-keys/</link>
       <pubDate>Fri, 05 Jan 2018 23:30:37 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-05/sql-search-only-keys/</guid>
       <description>&lt;p&gt;複数の検索条件があるときに検索項目をselect句で毎回列挙するのがだるい問題について考えました。&lt;/p&gt;</description>
     </item>
@@ -316,7 +318,7 @@
       <title>async関数が例外を捕捉する挙動について</title>
       <link>https://vain0x.github.io/blog/2017-12-23/async-function-and-exception/</link>
       <pubDate>Sat, 23 Dec 2017 00:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-12-23/async-function-and-exception/</guid>
       <description></description>
     </item>
@@ -325,7 +327,7 @@
       <title>[C#] コンストラクタの自動生成 #1</title>
       <link>https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/</link>
       <pubDate>Mon, 04 Dec 2017 00:31:05 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/</guid>
       <description>&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
 
@@ -336,7 +338,7 @@
       <title>IReadOnlyListがIListを実装すべき理由</title>
       <link>https://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/</link>
       <pubDate>Sat, 20 May 2017 20:00:09 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/</guid>
       <description>&lt;p&gt;主張: &lt;code&gt;IReadOnlyList&amp;lt;_&amp;gt;&lt;/code&gt; を実装するクラスは、 &lt;code&gt;IList&amp;lt;_&amp;gt;&lt;/code&gt; と &lt;code&gt;IList&lt;/code&gt; も実装したほうがいい。&lt;/p&gt;
 
@@ -347,7 +349,7 @@
       <title>awaitでスレッドを切り替える</title>
       <link>https://vain0x.github.io/blog/2017-04-05/switch-on-await/</link>
       <pubDate>Wed, 05 Apr 2017 15:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-04-05/switch-on-await/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/945591e96b7338478cb5&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 
@@ -358,7 +360,7 @@
       <title>EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話</title>
       <link>https://vain0x.github.io/blog/2017-03-21/enumerable-test/</link>
       <pubDate>Tue, 21 Mar 2017 13:39:33 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-21/enumerable-test/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/142b84e8ca20fbed43ed&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 
@@ -371,7 +373,7 @@
       <title>観測可能なコレクションの設計考察</title>
       <link>https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/</link>
       <pubDate>Fri, 10 Mar 2017 14:42:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/772d2a17c7d1cb735dd1&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 
@@ -382,7 +384,7 @@
       <title>break可能なループを書こう - 関数型プログラミングのテクニック</title>
       <link>https://vain0x.github.io/blog/2017-03-05/breakable-loop-in-fsharp/</link>
       <pubDate>Sun, 05 Mar 2017 00:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-05/breakable-loop-in-fsharp/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/ddef84e3959dffe6a88d&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 
@@ -393,7 +395,7 @@
       <title>すごーい！ きみはプログラミング言語を実装できるフレンズなんだね</title>
       <link>https://vain0x.github.io/blog/2017-02-12/friends-lang/</link>
       <pubDate>Sun, 12 Feb 2017 00:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-02-12/friends-lang/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/6d3b75f667d3ec7f1d2a&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 
@@ -404,7 +406,7 @@
       <title>WPF/XAMLで帳票のデザイン・印刷を行う</title>
       <link>https://vain0x.github.io/blog/2016-12-25/reports-with-wpf/</link>
       <pubDate>Sun, 25 Dec 2016 00:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-12-25/reports-with-wpf/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/0ec44dc198433675ea2f&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 
@@ -427,7 +429,7 @@
       <title>IReadOnlyListの列挙時にヒープ領域の使用を避ける</title>
       <link>https://vain0x.github.io/blog/2016-12-21/lists-with-no-alloc-enumerator/</link>
       <pubDate>Wed, 21 Dec 2016 00:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-12-21/lists-with-no-alloc-enumerator/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/8f89843325ab303c6e04&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 
@@ -438,7 +440,7 @@
       <title>GitEditを使うべき十の理由</title>
       <link>https://vain0x.github.io/blog/2016-12-07/why-git-edit/</link>
       <pubDate>Wed, 07 Dec 2016 00:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-12-07/why-git-edit/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/a97df4bd0f5f7de19d64&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 
@@ -458,7 +460,7 @@
       <title>Nullオブジェクトパターンの紹介と正体</title>
       <link>https://vain0x.github.io/blog/2016-08-18/null-object-patterns/</link>
       <pubDate>Thu, 18 Aug 2016 00:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-08-18/null-object-patterns/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://qiita.com/vain0x/items/c8adb679a6c253e5261f&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 
@@ -469,7 +471,7 @@
       <title>PaketとGistで始める簡単パッケージ管理</title>
       <link>https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/</link>
       <pubDate>Tue, 10 May 2016 00:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/41f13fed6f88be7f4e7e&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 

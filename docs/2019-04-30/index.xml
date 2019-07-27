@@ -6,6 +6,8 @@
     <description>Recent content in 2019-04-30s on ベインのブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
+    <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
+    <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
     <lastBuildDate>Tue, 30 Apr 2019 23:59:59 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/2019-04-30/index.xml" rel="self" type="application/rss+xml" />
@@ -15,7 +17,7 @@
       <title>近況 2019-04-30</title>
       <link>https://vain0x.github.io/blog/2019-04-30/diary/</link>
       <pubDate>Tue, 30 Apr 2019 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-04-30/diary/</guid>
       <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
     </item>

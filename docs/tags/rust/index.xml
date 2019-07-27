@@ -6,6 +6,8 @@
     <description>Recent content in Rust on ベインのブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
+    <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
+    <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
     <lastBuildDate>Thu, 08 Nov 2018 02:01:00 +0900</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/tags/rust/index.xml" rel="self" type="application/rss+xml" />
@@ -15,7 +17,7 @@
       <title>円周率チャレンジにアルゴリズムでチャレンジ</title>
       <link>https://vain0x.github.io/blog/2018-11-08/pi-challenge/</link>
       <pubDate>Thu, 08 Nov 2018 02:01:00 +0900</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-11-08/pi-challenge/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://rirosi.net/plus2/&#34;&gt;円周率チャレンジ&lt;/a&gt; というゲームが流行中です！&lt;/p&gt;
 
@@ -26,7 +28,7 @@
       <title>Rustで競プロするときのプラクティス [2018秋]</title>
       <link>https://vain0x.github.io/blog/2018-10-07/rust-procon/</link>
       <pubDate>Sun, 07 Oct 2018 20:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-10-07/rust-procon/</guid>
       <description>&lt;p&gt;競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。&lt;/p&gt;</description>
     </item>
@@ -35,7 +37,7 @@
       <title>Rustのクロージャで再帰してみた</title>
       <link>https://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/</link>
       <pubDate>Thu, 28 Jun 2018 23:17:41 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/</guid>
       <description>&lt;p&gt;クロージャを再帰呼び出しする方法を考えました。&lt;/p&gt;
 

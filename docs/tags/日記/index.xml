@@ -6,6 +6,8 @@
     <description>Recent content in 日記 on ベインのブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
+    <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
+    <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
     <lastBuildDate>Sun, 30 Jun 2019 23:59:59 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/tags/%E6%97%A5%E8%A8%98/index.xml" rel="self" type="application/rss+xml" />
@@ -15,7 +17,7 @@
       <title>近況 2019-06-30</title>
       <link>https://vain0x.github.io/blog/2019-06-30/diary/</link>
       <pubDate>Sun, 30 Jun 2019 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-06-30/diary/</guid>
       <description>&lt;p&gt;今月の活動について&lt;/p&gt;</description>
     </item>
@@ -24,7 +26,7 @@
       <title>近況 2019-05-31</title>
       <link>https://vain0x.github.io/blog/2019-05-31/diary/</link>
       <pubDate>Fri, 31 May 2019 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-05-31/diary/</guid>
       <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
     </item>
@@ -33,7 +35,7 @@
       <title>近況 2019-04-30</title>
       <link>https://vain0x.github.io/blog/2019-04-30/diary/</link>
       <pubDate>Tue, 30 Apr 2019 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-04-30/diary/</guid>
       <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
     </item>
@@ -42,7 +44,7 @@
       <title>近況 2019-03-31</title>
       <link>https://vain0x.github.io/blog/2019-03-31/diary/</link>
       <pubDate>Sun, 31 Mar 2019 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-03-31/diary/</guid>
       <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
     </item>
@@ -51,7 +53,7 @@
       <title>近況 2019-02-27</title>
       <link>https://vain0x.github.io/blog/2019-02-27/diary/</link>
       <pubDate>Wed, 27 Feb 2019 23:31:49 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-02-27/diary/</guid>
       <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
     </item>
@@ -60,7 +62,7 @@
       <title>近況 2019-01-30</title>
       <link>https://vain0x.github.io/blog/2019-01-30/diary/</link>
       <pubDate>Wed, 30 Jan 2019 20:07:49 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-30/diary/</guid>
       <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
     </item>
@@ -69,7 +71,7 @@
       <title>近況 2018-12-31</title>
       <link>https://vain0x.github.io/blog/2018-12-31/diary/</link>
       <pubDate>Mon, 31 Dec 2018 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-12-31/diary/</guid>
       <description>&lt;p&gt;今月の進捗など&lt;/p&gt;</description>
     </item>
@@ -78,7 +80,7 @@
       <title>近況 2018-11-30</title>
       <link>https://vain0x.github.io/blog/2018-11-30/diary/</link>
       <pubDate>Fri, 30 Nov 2018 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-11-30/diary/</guid>
       <description>&lt;p&gt;1ヶ月分のコミットメッセージとツイートを眺めていろいろ書くやつ、3回目&lt;/p&gt;</description>
     </item>
@@ -87,7 +89,7 @@
       <title>近況 2018-10-31</title>
       <link>https://vain0x.github.io/blog/2018-10-31/diary/</link>
       <pubDate>Wed, 31 Oct 2018 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-10-31/diary/</guid>
       <description>&lt;p&gt;今月の活動まとめ&lt;/p&gt;
 
@@ -100,7 +102,7 @@
       <title>近況 2018-09-30</title>
       <link>https://vain0x.github.io/blog/2018-09-30/diary/</link>
       <pubDate>Sun, 30 Sep 2018 23:59:59 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-09-30/diary/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;校正の手間を省くため、なるべく箇条書きでやっていく
@@ -116,7 +118,7 @@
       <title>Ubuntuデスクトップを使い始めた</title>
       <link>https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/</link>
       <pubDate>Sun, 28 Jan 2018 17:53:43 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/</guid>
       <description>&lt;p&gt;普段づかいする環境をWindowsからUbuntuに移した話。&lt;/p&gt;
 

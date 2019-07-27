@@ -6,6 +6,8 @@
     <description>Recent content in プログラミング言語 on ベインのブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
+    <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
+    <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
     <lastBuildDate>Sat, 13 Jan 2018 23:08:23 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/tags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E/index.xml" rel="self" type="application/rss+xml" />
@@ -15,7 +17,7 @@
       <title>インテリセンス快適な構文とAPI</title>
       <link>https://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/</link>
       <pubDate>Sat, 13 Jan 2018 23:08:23 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/</guid>
       <description>&lt;p&gt;インテリセンスの快適さと言語の構文に関するエッセイ。&lt;/p&gt;</description>
     </item>
@@ -24,7 +26,7 @@
       <title>すごーい！ きみはプログラミング言語を実装できるフレンズなんだね</title>
       <link>https://vain0x.github.io/blog/2017-02-12/friends-lang/</link>
       <pubDate>Sun, 12 Feb 2017 00:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-02-12/friends-lang/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/6d3b75f667d3ec7f1d2a&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 

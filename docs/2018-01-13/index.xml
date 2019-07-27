@@ -6,6 +6,8 @@
     <description>Recent content in 2018-01-13s on ベインのブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
+    <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
+    <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
     <lastBuildDate>Sat, 13 Jan 2018 23:08:23 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/2018-01-13/index.xml" rel="self" type="application/rss+xml" />
@@ -15,7 +17,7 @@
       <title>インテリセンス快適な構文とAPI</title>
       <link>https://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/</link>
       <pubDate>Sat, 13 Jan 2018 23:08:23 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/</guid>
       <description>&lt;p&gt;インテリセンスの快適さと言語の構文に関するエッセイ。&lt;/p&gt;</description>
     </item>

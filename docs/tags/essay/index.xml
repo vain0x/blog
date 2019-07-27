@@ -6,6 +6,8 @@
     <description>Recent content in Essay on ベインのブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
+    <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
+    <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
     <lastBuildDate>Tue, 30 Jan 2018 22:40:38 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/tags/essay/index.xml" rel="self" type="application/rss+xml" />
@@ -15,7 +17,7 @@
       <title>『コミットメッセージに「プレフィックス」をつける』を検討した</title>
       <link>https://vain0x.github.io/blog/2018-01-30/commit-message-prefixes/</link>
       <pubDate>Tue, 30 Jan 2018 22:40:38 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-30/commit-message-prefixes/</guid>
       <description>&lt;p&gt;Qiita で &lt;a href=&#34;https://qiita.com/numanomanu/items/45dd285b286a1f7280ed&#34;&gt;コミットメッセージに 「プレフィックス」 をつける&lt;/a&gt; というアイディアが紹介されていて、その効用の一つとして挙げられている:&lt;/p&gt;
 
@@ -30,7 +32,7 @@
       <title>インテリセンス快適な構文とAPI</title>
       <link>https://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/</link>
       <pubDate>Sat, 13 Jan 2018 23:08:23 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/</guid>
       <description>&lt;p&gt;インテリセンスの快適さと言語の構文に関するエッセイ。&lt;/p&gt;</description>
     </item>
@@ -39,7 +41,7 @@
       <title>SQLの検索条件と検索項目の分離</title>
       <link>https://vain0x.github.io/blog/2018-01-05/sql-search-only-keys/</link>
       <pubDate>Fri, 05 Jan 2018 23:30:37 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-05/sql-search-only-keys/</guid>
       <description>&lt;p&gt;複数の検索条件があるときに検索項目をselect句で毎回列挙するのがだるい問題について考えました。&lt;/p&gt;</description>
     </item>
@@ -48,7 +50,7 @@
       <title>[C#] コンストラクタの自動生成 #1</title>
       <link>https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/</link>
       <pubDate>Mon, 04 Dec 2017 00:31:05 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/</guid>
       <description>&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
 
@@ -59,7 +61,7 @@
       <title>EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話</title>
       <link>https://vain0x.github.io/blog/2017-03-21/enumerable-test/</link>
       <pubDate>Tue, 21 Mar 2017 13:39:33 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-21/enumerable-test/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/142b84e8ca20fbed43ed&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 

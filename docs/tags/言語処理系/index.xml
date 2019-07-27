@@ -6,6 +6,8 @@
     <description>Recent content in 言語処理系 on ベインのブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
+    <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
+    <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
     <lastBuildDate>Tue, 26 Feb 2019 22:25:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/tags/%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E7%B3%BB/index.xml" rel="self" type="application/rss+xml" />
@@ -15,7 +17,7 @@
       <title>HSP3 でスクリプト言語の処理系を書く</title>
       <link>https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/</link>
       <pubDate>Tue, 26 Feb 2019 22:25:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/</guid>
       <description>&lt;p&gt;HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。&lt;/p&gt;
 
@@ -26,7 +28,7 @@
       <title>LSP学習記 #4 シンボルのリネーム</title>
       <link>https://vain0x.github.io/blog/2019-01-16/lsp-trial-04/</link>
       <pubDate>Wed, 16 Jan 2019 22:17:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-16/lsp-trial-04/</guid>
       <description>&lt;p&gt;自作言語の LSP サーバーを作るプロジェクトの第4回です。今回はソースコードを変更する機能の例として、シンボルのリネームを実装してみました。&lt;/p&gt;</description>
     </item>
@@ -35,7 +37,7 @@
       <title>LSP学習記 #3 シンボルとハイライト</title>
       <link>https://vain0x.github.io/blog/2019-01-10/lsp-trial-03/</link>
       <pubDate>Thu, 10 Jan 2019 22:12:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-10/lsp-trial-03/</guid>
       <description>&lt;p&gt;自作言語の LSP サーバーを作るプロジェクトの第3回です。今回はシンボルテーブルを作ってシンボルのハイライト機能を実装します。&lt;/p&gt;</description>
     </item>
@@ -44,7 +46,7 @@
       <title>LSP学習記 #2 クラゲ言語の構文解析</title>
       <link>https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/</link>
       <pubDate>Mon, 07 Jan 2019 22:13:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/</guid>
       <description>&lt;p&gt;LSP サーバーを作っていくプロジェクトの第2回です。&lt;/p&gt;
 
@@ -63,7 +65,7 @@
       <title>LSP学習記 #1</title>
       <link>https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/</link>
       <pubDate>Sat, 05 Jan 2019 23:52:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/</guid>
       <description>&lt;p&gt;LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。&lt;/p&gt;
 
@@ -74,7 +76,7 @@
       <title>すごーい！ きみはプログラミング言語を実装できるフレンズなんだね</title>
       <link>https://vain0x.github.io/blog/2017-02-12/friends-lang/</link>
       <pubDate>Sun, 12 Feb 2017 00:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-02-12/friends-lang/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/6d3b75f667d3ec7f1d2a&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 

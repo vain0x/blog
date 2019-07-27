@@ -6,6 +6,8 @@
     <description>Recent content in 2017-04-05s on ベインのブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
+    <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
+    <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
     <lastBuildDate>Wed, 05 Apr 2017 15:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/2017-04-05/index.xml" rel="self" type="application/rss+xml" />
@@ -15,7 +17,7 @@
       <title>awaitでスレッドを切り替える</title>
       <link>https://vain0x.github.io/blog/2017-04-05/switch-on-await/</link>
       <pubDate>Wed, 05 Apr 2017 15:00:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-04-05/switch-on-await/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/945591e96b7338478cb5&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 

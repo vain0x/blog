@@ -6,6 +6,8 @@
     <description>Recent content in 2017-03-10s on ベインのブログ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-jp</language>
+    <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
+    <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
     <lastBuildDate>Fri, 10 Mar 2017 14:42:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/2017-03-10/index.xml" rel="self" type="application/rss+xml" />
@@ -15,7 +17,7 @@
       <title>観測可能なコレクションの設計考察</title>
       <link>https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/</link>
       <pubDate>Fri, 10 Mar 2017 14:42:00 +0000</pubDate>
-      
+      <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/772d2a17c7d1cb735dd1&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
 
