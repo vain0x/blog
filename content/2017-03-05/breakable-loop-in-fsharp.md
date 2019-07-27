@@ -4,8 +4,8 @@ type: "post"
 date: 2017-03-05 00:00:00
 permalink: breakable-loop-in-fsharp
 tags:
-  - F#
-  - C#
+  - FSharp
+  - CSharp
   - 関数型プログラミング
 ---
 

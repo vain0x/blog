@@ -1,7 +1,7 @@
 ---
 title: '[C#] コンストラクタの自動生成 #1'
 tags:
-  - C#
+  - CSharp
   - Essay
 type: "post"
 date: 2017-12-04 00:31:05

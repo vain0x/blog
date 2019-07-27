@@ -1,7 +1,7 @@
 ---
 title: 'ボツネタ: Immutable/Builder パターンの静的コード生成'
 tags:
-    - C#
+    - CSharp
     - アナライザー
     - WIP
 draft: true

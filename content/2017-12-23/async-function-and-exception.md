@@ -4,7 +4,7 @@ type: "post"
 date: 2017-12-23 00:00:00
 permalink: async-function-and-exception
 tags:
-  - C#
+  - CSharp
   - 非同期
   - Tips
 ---

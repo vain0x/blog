@@ -6,7 +6,7 @@ permalink: null-object-patterns
 tags:
   - デザインパターン
   - オブジェクト指向
-  - C#
+  - CSharp
 ---
 
 [Qiita](https://qiita.com/vain0x/items/c8adb679a6c253e5261f)

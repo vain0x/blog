@@ -4,7 +4,7 @@ type: "post"
 date: 2017-03-10 14:42:00
 permalink: observable-collection-design-notes
 tags:
-  - C#
+  - CSharp
   - WPF
   - 非同期
 ---

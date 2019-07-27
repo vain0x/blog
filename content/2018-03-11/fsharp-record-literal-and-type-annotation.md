@@ -1,7 +1,7 @@
 ---
 title: '[F#][小ネタ] レコードリテラルと型注釈'
 tags:
-  - F#
+  - FSharp
   - Tips
 type: "post"
 date: 2018-03-11 13:06:00
