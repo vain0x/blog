@@ -1,0 +1,160 @@
+---
+title: 近況 2019-04-30
+type: "post"
+date: 2019-04-30 23:59:59
+permalink: diary
+tags:
+  - 日記
+---
+
+今月の活動のまとめ
+
+- 前月分 <https://vain0x.github.io/blog/2019-03-31/diary>
+
+## picomet-lang
+
+<https://github.com/vain0x/picomet-lang/commits?since=2019-03-31&until=2019-04-30>
+
+- 自作のプログラミング言語処理系
+- `&&` や `-=` などの細かい機能を実装した
+- 正準化を実装した
+
+正準化 (canonicalize) は「式」から副作用を排除する操作。picomet-lang では代入や関数呼び出しを式として認めているので、式を評価すると副作用が起こりうる。そのため `x + y` を評価するとき `x`, `y` のどちらを先に評価するかで結果が変わる。例えば `y + x` に書き換えたりできない。これでは後々の解析でプログラムを変形するのが困難になる。
+
+そこで、プログラムを次のような条件を満たす中間言語に変形する。
+
+- プログラムは文の列である
+- 文は if や return のような制御文、関数呼び出し、代入である
+- 式はリテラル、変数、演算である
+
+例えば以下は、関数呼び出しが入れ子になっていたり、引数式の評価の途中で代入が発生する厄介な式である。
+
+```rust
+    f(g(if y == 0 {
+        y += 1;
+        x
+    } else {
+        x / y
+    }))
+```
+
+この例では、文を外側に移動したり、中間変数を導入したりして、条件を満たすように変形できる。
+
+```rust
+    if y == 0 {
+        y += 1
+        t = x
+    } else {
+        t = x / y
+    }
+    u = g(t)
+    _ = f(u)
+```
+
+この形式はC言語やアセンブリに近くて、後続のコード生成がやりやすい。
+
+そういえば「[HSP3 でスクリプト言語の処理系を書く](https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/)」の記事に以下のように書いたが、
+
+> はじめ、Rust のように式の中に文を書けるような文法にしていたが、break などのジャンプ命令によってスタックの構造が壊れてしまうということを知った
+> 例えば while (p()) { s += (if (q()) { break } else { 1 }) } みたいな式だと、+= の左辺の s がスタックに乗った状態で break に到達してしまうので、ジャンプする前にそれをポップする必要がある。
+
+正準化を施せば問題なさそうだ。
+
+```rust
+    // 正準化前: 式の中にジャンプ命令があるので問題を起こす
+    while p() {
+        s += if q() {
+            break
+        } else {
+            1
+        }
+    }
+```
+
+```rust
+    // 正準化後: 問題ない
+    while p() {
+        if q() {
+            break
+        } else {
+            t = 1
+        }
+        s += t
+    }
+```
+
+## ネギ言語
+
+<https://github.com/vain0x/negi-lang/commits?since=2019-03-31&until=2019-04-30>
+
+- HSP3 で書いたスクリプト言語処理系
+- GC が高確率でスタックオーバーフローを起こす問題がさすがに好ましくないので、マークをつける処理を再帰からループに書き換えた
+- 簡易的なマップ (連想配列) を実装した
+
+## hsp3-ginger
+
+<https://github.com/vain0x/hsp3-ginger>
+
+- VSCode で HSP3 の開発を行うための拡張機能
+- とりあえずシンタックスの定義を用意した
+    - Atom 用のものを微調整しただけ
+- まったりやっていく
+
+## 競技プログラミング
+
+週末に AtCoder に参加し、気まぐれに Codeforces (コドフォ) に1回参加した。ABC は安定して全完。高難度の問題への取り組みはいまいち。
+
+- [競プロ参戦記 #40 Cake 123 | ABC123](https://qiita.com/vain0x/items/911a7ef1c5834d60503b)
+- [競プロ参戦記 #41 Handstand | ABC124](https://qiita.com/vain0x/items/99a93d17426f88bd26de)
+- [競プロ参戦記 #42 Polynomial Divisors | Tenka1 2019](https://qiita.com/vain0x/items/bfad6cb1fa7bec912e06)
+- [競プロ参戦記 #43 Flipping Signs | ABC 125](https://qiita.com/vain0x/items/c3ab29132c1558f791e9)
+- [競プロ参戦記 #44 Three Religions | コドフォ #556 Div.2](https://qiita.com/vain0x/items/80cc96b3c83dfd5f17a6)
+
+## Underpass (Webアプリ)
+
+<https://github.com/vain0x/underpass>
+
+- 任意のパスフレーズを厳しく制限されたパスワードに変換するアプリ
+- まれに「数字、小文字、大文字」を含む10文字以下のパスワード、などを要求されることがある
+- そういうパスワードは作れないこともないが、**安全性を覚えやすさを両立できない**
+- 安全かつ覚えやすいパスフレーズからそういうパスワードを導出するためのアプリがこれ
+- ほんとに安全なのか自信がない
+
+## Who-to-Follow
+
+<https://github.com/vain0x/who-to-follow-examples>
+
+- Elm で who-to-follow のサンプルを書いてみた
+- ユーザーをランダムに3人表示する、×ボタンを押すと別のユーザーを表示する、というもの
+    - ユーザーのリストは GitHub の API でとってくる
+- 非同期処理や乱数生成が出てくるので Cmd の練習になった
+- 本当は TypeScript + Redux でも同じのを書いて比較という形にしたかった
+    - Redux がめんどくさくなってやめた
+
+## その他
+
+### その他: WPF のビューモデルを自動生成するやつ
+
+<https://github.com/vain0x/playground/blob/1a6012bb8d2d1002c690e7a614c2b7316b16e19b/play/2019-04-24-virtual-view-model-for-wpf/wpf_sands/MainWindow.xaml.cs#L472>
+
+- イミュータブルなオブジェクトのツリーからミュータブルなオブジェクトのツリー (`INotifyPropertyChanged` を実装してる) を作って、それを差分更新していく、というもの
+- TwoWay バインディングをどうにかしないといけないのが辛い
+
+### その他: WPF の FontFamily が異常に重たい
+
+- WPF で作っていたアプリの動作が重かった
+- TextBlock や TextBox に FontFamily でローカルのフォントファイル (Noto Sans CJK JP) を指定するのをやめたらかなり早くなった
+- 小さい再現コードを作ってないから別の原因かもしれない
+
+### その他: PHP のアロー関数の構文が良い
+
+- 「[PHPでアロー関数を使えるようになる](https://qiita.com/rana_kualu/items/7fbdd520a7e355599f7d)」という記事を読んだ
+- PHP 7.4 から `fn($x, $y, ..) => z` という短い構文のラムダ式が入る
+    - いままでは昔の JavaScript と同様の `function($x, $y, ..) { return $z; }` のような形式しかなかった
+- C# や JavaScript の `(x, y, ..) => z` という構文 (先頭に `fn` キーワードがない) は曖昧性やパーサーの実装への影響の大きさから却下されたらしい
+- C# のアロー関数構文は構文解析やエラー耐性の面から好ましくないので、**PHP 流のラムダ式が流行ると嬉しい**
+- 私の自作言語のラムダ式構文は以下:
+    - klac-lang: `(x, y, ..) => z` (C# と同じ、構文解析にめちゃくちゃ苦労した)
+    - milone-lang: `fun x y .. -> z` (F# と同じ)
+    - picomet-lang: `|x, y, ..| z` (Rust と同じ)
+    - negi-lang: `fun(x, y, ..) z` (PHP に似ているが `=>` がない)

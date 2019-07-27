@@ -1,0 +1,91 @@
+---
+title: 近況 2019-01-30
+type: "post"
+date: 2019-01-30 20:07:49
+permalink: diary
+tags:
+  - 日記
+---
+
+今月の活動のまとめ
+
+- 前月分 <https://vain0x.github.io/blog/2018-12-31/diary/>
+
+## LSP学習記の連載を書いた
+
+- 自作言語 [curage-lang](https://github.com/vain0x/curage-lang) の LSP サーバーを実装していくシリーズ
+- LSP (Language Server Protocol) は、いわゆるインテリセンス (ソースコードに警告を出したり入力補完をしたりするやつ) の実装をテキストエディターから分離するのに使える通信プロトコル
+- エディターの実装 (特に GUI) に全く触らなくてもインテリセンスが作れて最高
+    - JSON を送受信するだけだから、ユニットテストも書きやすい
+- curage-lang はとてもミニで、let 文で変数を定義する、以外の機能はない
+- それでも LSP サーバーの実装の雰囲気は十分につかめた
+
+#### LSP学習記: 現時点での記事一覧
+
+- [LSP学習記 #1](https://qiita.com/vain0x/items/d050fe7c8b342ed2004e)
+    - LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作った
+- [LSP学習記 #2 クラゲ言語の構文解析](https://qiita.com/vain0x/items/490ae33ba3db3c829c13)
+    - 構文解析を行い、構文エラーがリアルタイムで出るようにした
+- [LSP学習記 #3 シンボルとハイライト](https://qiita.com/vain0x/items/31252d77066505ce6117)
+    - ローカル変数定義の静的解析を行い、変数をハイライトする機能を実装した
+- [LSP学習記 #4 シンボルのリネーム - Qiita](https://qiita.com/vain0x/items/8414dca7425057f1bbd8)
+    - 名前の変更機能を実装した
+
+## 競技プログラミングの成績がよかった
+
+1年以上前から「そろそろ青」の水色だったが、ついに **青** になった。
+
+- 今月も週末は AtCoder に参加した
+- [競プロ参戦記 #28 「白黒経路とカードゲーム」 | エイシング 2019 \[ABCD\]｜ベイン｜note](https://note.mu/vain0x/n/n995face26f4c)
+    - D完
+- [競プロ参戦記 #29 「最小全域木」 | KEYENCE 2019 \[ABCE\]｜ベイン｜note](https://note.mu/vain0x/n/n3c2c2c425830)
+    - ABC-E完
+- [競プロ参戦記 #30 「花壇とスシ」  | ABC 116｜ベイン｜note](https://note.mu/vain0x/n/n78a0d99f0fb9)
+    - C完
+- [競プロ参戦記 #31 「料理 / 木の復元」 | 全国統一2019｜ベイン｜note](https://note.mu/vain0x/n/nef874855fde5)
+    - D完
+
+## 競プロ用言語を作り始めた
+
+picomet-lang <https://github.com/vain0x/picomet-lang>
+
+- 精選10問こと [AtCoder Beginners Selection](https://atcoder.jp/contests/abs/tasks) を自作言語で解くプロジェクト
+- コンパイラにソースコードを埋め込んで提出、実行中にコンパイル→評価、という流れにする……つもりだった
+    - でもコンパイラをジャッジ側で実行する必要はない
+    - 手元で中間言語を生成してランタイムに埋め込めば十分
+- [9cc](https://github.com/rui314/9cc) や [MinCaml](http://esumii.github.io/min-caml) を参考にアセンブリ風の中間言語へのコンパイルを試みている
+    - C言語をターゲットにしている milone-lang ではやらなかった分野
+    - 関数の呼び出しがなかなか難しい
+
+## ポートフォリオサイトを作った
+
+vain0x's Page <https://vain0x.github.io>
+
+- このドメインのルート、長いこと Hello! しか書かれてなかったページ
+- イチから作り直した
+- CSS は慣れてきたので手書きにした
+- 背景に濃色のグラデーションと透過を使って手軽にそれっぽさを出した
+- HTML はテンプレートエンジンではなく、JSX 記法 + [hyperapp-render](https://github.com/kriasoft/hyperapp-render) で静的生成した
+- いまのところプロジェクト (knowbug や milone-lang) や連載記事の紹介を載せている
+
+## ブログにコメント欄を追加した
+
+- [utterances](https://utteranc.es)
+- コメント欄を表示して、送信されたデータは GitHub issues に追加される、という仕組み
+- サーバーを用意しなくていいという利点
+- GitHub にサインインしないとコメントできないという欠点
+
+## ミローネ言語: 詰まり中
+
+milone-lang <https://github.com/vain0x/milone-lang>
+
+- 多相関数の実装が難しくて困ってる
+
+## ガルパ (リズムゲーム)
+
+- 人差し指2本でプレイしていたが、右手の中指を含めて3本にした
+    - 指の負担の分散、高難度の精度向上、という効果を期待
+    - ノーツに叩く指をアサインする組み合わせが増加し、脳の処理負荷が重くなるので難しい
+    - いまは慣れてきた
+- 左手の中指も使った4本打鍵も練習中
+- 2nd Season 悪くない
