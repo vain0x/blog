@@ -19,6 +19,7 @@ fi
 git checkout master
 git merge --no-ff develop -m "Merge branch 'develop'"
 
+rm -rf docs
 hugo
 git add .
 git commit --allow-empty -m "Build"
