@@ -753,3 +753,8 @@ table tr td :last-child {
 h4.see-also {
   margin-top: 20px;
 }
+
+/* Comments */
+#comments {
+  height: 283px;
+}

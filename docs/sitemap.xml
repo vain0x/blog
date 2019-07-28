@@ -3,12 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://vain0x.github.io/blog/2019-06-30/</loc>
-    <lastmod>2019-06-30T23:59:59+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/tags/</loc>
     <lastmod>2019-06-30T23:59:59+00:00</lastmod>
     <priority>0</priority>
@@ -32,20 +26,8 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2019-05-31/</loc>
-    <lastmod>2019-05-31T23:59:59+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2019-05-31/diary/</loc>
     <lastmod>2019-05-31T23:59:59+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2019-04-30/</loc>
-    <lastmod>2019-04-30T23:59:59+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -54,31 +36,13 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2019-03-31/</loc>
-    <lastmod>2019-03-31T23:59:59+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2019-03-31/diary/</loc>
     <lastmod>2019-03-31T23:59:59+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2019-02-27/</loc>
-    <lastmod>2019-02-27T23:31:49+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2019-02-27/diary/</loc>
     <lastmod>2019-02-27T23:31:49+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2019-02-26/</loc>
-    <lastmod>2019-02-26T22:25:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -99,20 +63,8 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2019-01-30/</loc>
-    <lastmod>2019-01-30T20:07:49+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2019-01-30/diary/</loc>
     <lastmod>2019-01-30T20:07:49+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2019-01-16/</loc>
-    <lastmod>2019-01-16T22:17:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -139,20 +91,8 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2019-01-10/</loc>
-    <lastmod>2019-01-10T22:12:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2019-01-10/lsp-trial-03/</loc>
     <lastmod>2019-01-10T22:12:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2019-01-07/</loc>
-    <lastmod>2019-01-07T22:13:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -161,31 +101,13 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2019-01-05/</loc>
-    <lastmod>2019-01-05T23:52:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/</loc>
     <lastmod>2019-01-05T23:52:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2018-12-31/</loc>
-    <lastmod>2018-12-31T23:59:59+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2018-12-31/diary/</loc>
     <lastmod>2018-12-31T23:59:59+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2018-12-16/</loc>
-    <lastmod>2018-12-16T10:34:43+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -200,20 +122,8 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2018-11-30/</loc>
-    <lastmod>2018-11-30T23:59:59+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2018-11-30/diary/</loc>
     <lastmod>2018-11-30T23:59:59+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2018-11-08/</loc>
-    <lastmod>2018-11-08T02:01:00+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -234,20 +144,8 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2018-10-31/</loc>
-    <lastmod>2018-10-31T23:59:59+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2018-10-31/diary/</loc>
     <lastmod>2018-10-31T23:59:59+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2018-10-07/</loc>
-    <lastmod>2018-10-07T20:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -262,20 +160,8 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2018-09-30/</loc>
-    <lastmod>2018-09-30T23:59:59+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2018-09-30/diary/</loc>
     <lastmod>2018-09-30T23:59:59+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2018-09-03/</loc>
-    <lastmod>2018-09-03T23:59:34+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -290,20 +176,8 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2018-06-28/</loc>
-    <lastmod>2018-06-28T23:17:41+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/</loc>
     <lastmod>2018-06-28T23:17:41+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2018-03-11/</loc>
-    <lastmod>2018-03-11T13:06:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -315,12 +189,6 @@
   <url>
     <loc>https://vain0x.github.io/blog/2018-03-11/fsharp-record-literal-and-type-annotation/</loc>
     <lastmod>2018-03-11T13:06:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2018-01-30/</loc>
-    <lastmod>2018-01-30T22:40:38+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -341,20 +209,8 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2018-01-28/</loc>
-    <lastmod>2018-01-28T17:53:43+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/</loc>
     <lastmod>2018-01-28T17:53:43+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2018-01-13/</loc>
-    <lastmod>2018-01-13T23:08:23+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -369,12 +225,6 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2018-01-05/</loc>
-    <lastmod>2018-01-05T23:30:37+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2018-01-05/sql-search-only-keys/</loc>
     <lastmod>2018-01-05T23:30:37+00:00</lastmod>
   </url>
@@ -382,12 +232,6 @@
   <url>
     <loc>https://vain0x.github.io/blog/tags/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9/</loc>
     <lastmod>2018-01-05T23:30:37+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2017-12-23/</loc>
-    <lastmod>2017-12-23T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -409,12 +253,6 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2017-12-04/</loc>
-    <lastmod>2017-12-04T00:31:05+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/</loc>
     <lastmod>2017-12-04T00:31:05+00:00</lastmod>
   </url>
@@ -426,31 +264,13 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2017-05-20/</loc>
-    <lastmod>2017-05-20T20:00:09+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/</loc>
     <lastmod>2017-05-20T20:00:09+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2017-04-05/</loc>
-    <lastmod>2017-04-05T15:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2017-04-05/switch-on-await/</loc>
     <lastmod>2017-04-05T15:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2017-03-21/</loc>
-    <lastmod>2017-03-21T13:39:33+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -471,20 +291,8 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2017-03-10/</loc>
-    <lastmod>2017-03-10T14:42:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/</loc>
     <lastmod>2017-03-10T14:42:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2017-03-05/</loc>
-    <lastmod>2017-03-05T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -495,12 +303,6 @@
   <url>
     <loc>https://vain0x.github.io/blog/tags/%E9%96%A2%E6%95%B0%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/</loc>
     <lastmod>2017-03-05T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2017-02-12/</loc>
-    <lastmod>2017-02-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -522,12 +324,6 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2016-12-25/</loc>
-    <lastmod>2016-12-25T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2016-12-25/reports-with-wpf/</loc>
     <lastmod>2016-12-25T00:00:00+00:00</lastmod>
   </url>
@@ -539,20 +335,8 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2016-12-21/</loc>
-    <lastmod>2016-12-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2016-12-21/lists-with-no-alloc-enumerator/</loc>
     <lastmod>2016-12-21T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2016-12-07/</loc>
-    <lastmod>2016-12-07T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -573,12 +357,6 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/2016-08-18/</loc>
-    <lastmod>2016-08-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2016-08-18/null-object-patterns/</loc>
     <lastmod>2016-08-18T00:00:00+00:00</lastmod>
   </url>
@@ -592,12 +370,6 @@
   <url>
     <loc>https://vain0x.github.io/blog/tags/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3/</loc>
     <lastmod>2016-08-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/2016-05-10/</loc>
-    <lastmod>2016-05-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
