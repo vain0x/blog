@@ -2,7 +2,7 @@
 title: IReadOnlyListの列挙時にヒープ領域の使用を避ける
 type: "post"
 date: 2016-12-21 00:00:00
-permalink: lists-with-no-alloc-enumerator
+url: 2016-12-21/lists-with-no-alloc-enumerator
 tags:
   - CSharp
 type: post

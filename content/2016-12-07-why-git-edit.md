@@ -5,7 +5,7 @@ tags:
   - テキストエディタ
 type: "post"
 date: 2016-12-07 00:00:00
-permalink: why-git-edit
+url: 2016-12-07/why-git-edit
 ---
 
 [Qiita](http://qiita.com/vain0x/items/a97df4bd0f5f7de19d64)

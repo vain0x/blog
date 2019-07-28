@@ -5,7 +5,7 @@ tags:
   - チュートリアル
 type: "post"
 date: 2018-09-03 23:59:34
-permalink: bench-fsharp-by-benchmark-dot-net
+url: 2018-09-03/bench-fsharp-by-benchmark-dot-net
 ---
 
 

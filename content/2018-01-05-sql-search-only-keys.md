@@ -6,7 +6,7 @@ tags:
   - Essay
 type: "post"
 date: 2018-01-05 23:30:37
-permalink: sql-search-only-keys
+url: 2018-01-05/sql-search-only-keys
 ---
 
 複数の検索条件があるときに検索項目をselect句で毎回列挙するのがだるい問題について考えました。

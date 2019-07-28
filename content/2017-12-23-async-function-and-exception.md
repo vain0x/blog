@@ -2,7 +2,7 @@
 title: async関数が例外を捕捉する挙動について
 type: "post"
 date: 2017-12-23 00:00:00
-permalink: async-function-and-exception
+url: 2017-12-23/async-function-and-exception
 tags:
   - CSharp
   - 非同期

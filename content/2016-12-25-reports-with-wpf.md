@@ -2,7 +2,7 @@
 title: WPF/XAMLで帳票のデザイン・印刷を行う
 type: "post"
 date: 2016-12-25 00:00:00
-permalink: reports-with-wpf
+url: 2016-12-25/reports-with-wpf
 tags:
   - CSharp
   - WPF

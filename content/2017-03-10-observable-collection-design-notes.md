@@ -2,7 +2,7 @@
 title: 観測可能なコレクションの設計考察
 type: "post"
 date: 2017-03-10 14:42:00
-permalink: observable-collection-design-notes
+url: 2017-03-10/observable-collection-design-notes
 tags:
   - CSharp
   - WPF

@@ -5,7 +5,7 @@ tags:
 - HSP3
 type: "post"
 date: 2019-02-26 22:25:00
-permalink: interpreter-written-in-hsp3
+url: 2019-02-26/interpreter-written-in-hsp3
 ---
 
 HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。

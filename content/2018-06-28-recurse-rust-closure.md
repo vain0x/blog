@@ -5,7 +5,7 @@ tags:
   - 競技プログラミング
 type: "post"
 date: 2018-06-28 23:17:41
-permalink: recurse-rust-closure
+url: 2018-06-28/recurse-rust-closure
 ---
 
 クロージャを再帰呼び出しする方法を考えました。

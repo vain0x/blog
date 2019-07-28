@@ -2,7 +2,7 @@
 title: すごーい！ きみはプログラミング言語を実装できるフレンズなんだね
 type: "post"
 date: 2017-02-12 00:00:00
-permalink: friends-lang
+url: 2017-02-12/friends-lang
 tags:
   - プログラミング言語
   - 言語処理系

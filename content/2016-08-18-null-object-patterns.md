@@ -2,7 +2,7 @@
 title: Nullオブジェクトパターンの紹介と正体
 type: "post"
 date: 2016-08-18 00:00:00
-permalink: null-object-patterns
+url: 2016-08-18/null-object-patterns
 tags:
   - デザインパターン
   - オブジェクト指向

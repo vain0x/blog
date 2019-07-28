@@ -2,7 +2,7 @@
 title: PaketとGistで始める簡単パッケージ管理
 type: "post"
 date: 2016-05-10 00:00:00
-permalink: package-management-with-paket-and-gist
+url: 2016-05-10/package-management-with-paket-and-gist
 tags:
   - HSP
   - パッケージ管理

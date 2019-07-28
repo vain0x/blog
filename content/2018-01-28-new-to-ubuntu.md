@@ -4,7 +4,7 @@ tags:
   - 日記
 type: "post"
 date: 2018-01-28 17:53:43
-permalink: new-to-ubuntu
+url: 2018-01-28/new-to-ubuntu
 ---
 
 普段づかいする環境をWindowsからUbuntuに移した話。

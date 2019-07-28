@@ -5,7 +5,7 @@ tags:
   - Essay
 type: "post"
 date: 2018-01-13 23:08:23
-permalink: intellisense-comfortable
+url: 2018-01-13/intellisense-comfortable
 ---
 
 インテリセンスの快適さと言語の構文に関するエッセイ。

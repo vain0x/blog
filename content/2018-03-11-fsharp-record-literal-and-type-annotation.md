@@ -5,7 +5,7 @@ tags:
   - Tips
 type: "post"
 date: 2018-03-11 13:06:00
-permalink: fsharp-record-literal-and-type-annotation
+url: 2018-03-11/fsharp-record-literal-and-type-annotation
 ---
 
 F# のレコードリテラルのちょっとした問題とちょっとした解決策。

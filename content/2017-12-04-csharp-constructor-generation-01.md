@@ -5,7 +5,7 @@ tags:
   - Essay
 type: "post"
 date: 2017-12-04 00:31:05
-permalink: csharp-constructor-generation-01
+url: 2017-12-04/csharp-constructor-generation-01
 ---
 
 ## 要約

@@ -5,7 +5,7 @@ tags:
   - Essay
 type: "post"
 date: 2018-01-30 22:40:38
-permalink: commit-message-prefixes
+url: 2018-01-30/commit-message-prefixes
 ---
 
 Qiita で [コミットメッセージに 「プレフィックス」 をつける](https://qiita.com/numanomanu/items/45dd285b286a1f7280ed) というアイディアが紹介されていて、その効用の一つとして挙げられている:

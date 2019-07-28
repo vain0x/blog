@@ -5,7 +5,7 @@ tags:
   - 非同期
 type: "post"
 date: 2017-04-05 15:00:00
-permalink: switch-on-await
+url: 2017-04-05/switch-on-await
 ---
 
 [Qiita](http://qiita.com/vain0x/items/945591e96b7338478cb5)

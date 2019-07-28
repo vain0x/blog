@@ -5,7 +5,7 @@ tags:
   - アルゴリズム
 type: "post"
 date: 2018-11-08 02:01:00+09:00
-permalink: pi-challenge
+url: 2018-11-08/pi-challenge
 ---
 
 [円周率チャレンジ](https://rirosi.net/plus2/) というゲームが流行中です！

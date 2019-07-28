@@ -4,7 +4,7 @@ tags:
 - FSharp
 type: "post"
 date: 2018-12-16 10:34:43
-permalink: siku-siku-primes
+url: 2018-12-16/siku-siku-primes
 ---
 
 シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。

@@ -2,7 +2,7 @@
 title: Rustで競プロするときのプラクティス [2018秋]
 type: "post"
 date: 2018-10-07 20:00:00
-permalink: rust-procon
+url: 2018-10-07/rust-procon
 tags:
   - Rust
   - 競技プログラミング

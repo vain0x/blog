@@ -5,7 +5,7 @@ tags:
   - .NET
 type: "post"
 date: 2017-05-20 20:00:09
-permalink: why-ireadonlylist-should-implement-ilist
+url: 2017-05-20/why-ireadonlylist-should-implement-ilist
 ---
 
 主張: ``IReadOnlyList<_>`` を実装するクラスは、 ``IList<_>`` と ``IList`` も実装したほうがいい。

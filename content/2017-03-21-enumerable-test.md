@@ -2,7 +2,7 @@
 title: EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話
 type: "post"
 date: 2017-03-21 13:39:33
-permalink: enumerable-test
+url: 2017-03-21/enumerable-test
 tags:
   - .NET
   - CSharp
