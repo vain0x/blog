@@ -8,10 +8,19 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Sat, 31 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 30 Sep 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>近況 2019-09-30</title>
+      <link>https://vain0x.github.io/blog/2019-09-30/diary/</link>
+      <pubDate>Mon, 30 Sep 2019 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2019-09-30/diary/</guid>
+      <description>&lt;p&gt;今月の活動について (ミローネ言語, LR構文解析, 競プロ, HTTPS/TLS)&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>近況 2019-08-31</title>

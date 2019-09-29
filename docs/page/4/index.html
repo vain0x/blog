@@ -48,7 +48,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.57.2" />
+  <meta name="generator" content="Hugo 0.58.3" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -142,6 +142,47 @@
 
         <div class="posts-list">
           
+          
+            <article class="post-preview">
+              <a href="https://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/">
+                <h2 class="post-title">IReadOnlyListがIListを実装すべき理由</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2017年5月20日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  <p>主張: <code>IReadOnlyList&lt;_&gt;</code> を実装するクラスは、 <code>IList&lt;_&gt;</code> と <code>IList</code> も実装したほうがいい。</p>
+
+<p>理由は2つあります。</p>
+                  <a href="https://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/" class="post-read-more">[続きを読む]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="https://vain0x.github.io/blog/tags/csharp/">CSharp</a>&nbsp;
+                  
+                    <a href="https://vain0x.github.io/blog/tags/.net/">.NET</a>&nbsp;
+                  
+                </div>
+              
+            </article>
           
             <article class="post-preview">
               <a href="https://vain0x.github.io/blog/2017-04-05/switch-on-await/">
@@ -551,75 +592,6 @@
               
             </article>
           
-            <article class="post-preview">
-              <a href="https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/">
-                <h2 class="post-title">PaketとGistで始める簡単パッケージ管理</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2016年5月10日に投稿
-  
-  
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  <p><a href="http://qiita.com/vain0x/items/41f13fed6f88be7f4e7e">Qiita</a></p>
-
-<p>対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)</p>
-
-<h2 id="導入">導入</h2>
-
-<p>モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。
-最初に思いつきそうな:</p>
-
-<ul>
-<li>スクリプトが必要になるたびに、ファイルをコピーを作成して使う。(コピペ法)</li>
-</ul>
-
-<p>という方法だと、例えばモジュールにバグがあった場合などにモジュールを書き換えた後、それらのコピーを上書きして回ることになります。
-めんどうですね。</p>
-
-<p>そのため:</p>
-
-<ul>
-<li>ファイルをまとめておいておき、それを直接 #include して使う。 (共有法)</li>
-</ul>
-
-<p>というようにしている人も少なくないでしょう。</p>
-
-<p>しかし、これにも少し問題があります。
-スクリプトを配布するときに、どのファイルが必要なのか分からなくなるのです。
-単純に「#include されているファイル」を集めるだけでは、「あるモジュールが他のモジュールを使用している」といった状況には対処できません。</p>
-
-<p>※不要なものも全部いっしょくたにして同梱してしまう、という富豪的な方法もあります。</p>
-                  <a href="https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/" class="post-read-more">[続きを読む]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://vain0x.github.io/blog/tags/hsp/">HSP</a>&nbsp;
-                  
-                    <a href="https://vain0x.github.io/blog/tags/%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E7%AE%A1%E7%90%86/">パッケージ管理</a>&nbsp;
-                  
-                    <a href="https://vain0x.github.io/blog/tags/paket/">Paket</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
         </div>
 
         
@@ -629,6 +601,10 @@
                 <a href="https://vain0x.github.io/blog/page/3/">&larr; 新しいページ</a>
               </li>
             
+            
+              <li class="next">
+                <a href="https://vain0x.github.io/blog/page/5/">古いページ &rarr;</a>
+              </li>
             
           </ul>
         
@@ -696,7 +672,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.57.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.58.3</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

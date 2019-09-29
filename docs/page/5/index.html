@@ -7,12 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Overview of all pages with the tag #チュートリアル - ベインのブログ</title>
-  <meta property="og:title" content="Overview of all pages with the tag #チュートリアル" />
-  <meta name="twitter:title" content="Overview of all pages with the tag #チュートリアル" />
-  <meta name="description" content="Overview of all pages with the tag #チュートリアル, such as: F#でベンチマークをとる">
-  <meta property="og:description" content="Overview of all pages with the tag #チュートリアル, such as: F#でベンチマークをとる">
-  <meta name="twitter:description" content="Overview of all pages with the tag #チュートリアル, such as: F#でベンチマークをとる">
+    <title>ベインのブログ</title>
+  <meta property="og:title" content="ベインのブログ" />
+  <meta name="twitter:title" content="ベインのブログ" />
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -34,12 +31,12 @@
 }
 </script>
 
-<meta property="og:title" content="チュートリアル" />
-<meta property="og:url" content="https://vain0x.github.io/blog/tags/%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB/" />
+<meta property="og:title" content="ベインのブログ" />
+<meta property="og:url" content="https://vain0x.github.io/blog/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="twitter:title" content="チュートリアル" />
+  <meta name="twitter:title" content="ベインのブログ" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -47,7 +44,7 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
-  <meta property="og:url" content="https://vain0x.github.io/blog/tags/%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB/" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
@@ -120,9 +117,9 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="tags-heading">
+            <div class="page-heading">
               
-                <h1>チュートリアル</h1>
+                <h1>ベインのブログ</h1>
               
               
                 <hr class="small">
@@ -138,24 +135,25 @@
 
 
       
-  <div class="container" role="main">
+  <div role="main" class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         
+
         <div class="posts-list">
           
+          
             <article class="post-preview">
-              <a href="https://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/">
-                <h2 class="post-title">F#でベンチマークをとる</h2>
-
+              <a href="https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/">
+                <h2 class="post-title">PaketとGistで始める簡単パッケージ管理</h2>
+                
                 
               </a>
 
-              <p class="post-meta">
-                <span class="post-meta">
+              <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2018年9月3日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;2016年5月10日に投稿
   
   
   
@@ -166,57 +164,65 @@
 </span>
 
 
-              </p>
               <div class="post-entry">
                 
-                  <p>ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして <a href="https://github.com/dotnet/BenchmarkDotNet">BenchmarkDotNet</a> があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。</p>
+                  <p><a href="http://qiita.com/vain0x/items/41f13fed6f88be7f4e7e">Qiita</a></p>
 
-<h2 id="1-要約">1. 要約</h2>
+<p>対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)</p>
 
-<ul>
-<li>書き出し
+<h2 id="導入">導入</h2>
 
-<ul>
-<li>ベンチマークは意外と大変という話について軽く触れる</li>
-</ul></li>
-<li>導入
+<p>モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。
+最初に思いつきそうな:</p>
 
 <ul>
-<li>本稿の構成</li>
-<li>開発環境の明記</li>
-<li>BenchmarkDotNet のサンプル</li>
-</ul></li>
-<li>例
-
-<ul>
-<li>一例として「素数判定」を実装する</li>
-<li>素数判定の簡単なベンチマークを書く</li>
-<li>ベンチマークを実行する</li>
-</ul></li>
-<li>おまけ
-
-<ul>
-<li>軽くて速いベンチマークに設定する</li>
-<li>ベンチマークを watch する</li>
-</ul></li>
+<li>スクリプトが必要になるたびに、ファイルをコピーを作成して使う。(コピペ法)</li>
 </ul>
-                  <a href="https://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/" class="post-read-more">[続きを読む]</a>
+
+<p>という方法だと、例えばモジュールにバグがあった場合などにモジュールを書き換えた後、それらのコピーを上書きして回ることになります。
+めんどうですね。</p>
+
+<p>そのため:</p>
+
+<ul>
+<li>ファイルをまとめておいておき、それを直接 #include して使う。 (共有法)</li>
+</ul>
+
+<p>というようにしている人も少なくないでしょう。</p>
+
+<p>しかし、これにも少し問題があります。
+スクリプトを配布するときに、どのファイルが必要なのか分からなくなるのです。
+単純に「#include されているファイル」を集めるだけでは、「あるモジュールが他のモジュールを使用している」といった状況には対処できません。</p>
+
+<p>※不要なものも全部いっしょくたにして同梱してしまう、という富豪的な方法もあります。</p>
+                  <a href="https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/" class="post-read-more">[続きを読む]</a>
                 
               </div>
 
               
                 <div class="blog-tags">
                   
-                    <a href="https://vain0x.github.io/blog/tags/fsharp/">FSharp</a>&nbsp;
+                    <a href="https://vain0x.github.io/blog/tags/hsp/">HSP</a>&nbsp;
                   
-                    <a href="https://vain0x.github.io/blog/tags/%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB/">チュートリアル</a>&nbsp;
+                    <a href="https://vain0x.github.io/blog/tags/%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E7%AE%A1%E7%90%86/">パッケージ管理</a>&nbsp;
+                  
+                    <a href="https://vain0x.github.io/blog/tags/paket/">Paket</a>&nbsp;
                   
                 </div>
               
-
             </article>
           
         </div>
+
+        
+          <ul class="pager main-pager">
+            
+              <li class="previous">
+                <a href="https://vain0x.github.io/blog/page/4/">&larr; 新しいページ</a>
+              </li>
+            
+            
+          </ul>
         
       </div>
     </div>
@@ -254,7 +260,7 @@
               </li>
           
           <li>
-            <a href="/blog/tags/%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB/index.xml" title="RSS">
+            <a href="/blog/index.xml" title="RSS">
               <span class="fa-stack fa-lg">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
