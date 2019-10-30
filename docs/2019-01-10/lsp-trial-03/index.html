@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.58.3" />
+  <meta name="generator" content="Hugo 0.59.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -230,7 +230,8 @@ let y be x</code></pre></div>
         <span class="kr">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
         <span class="c1">// ...
 </span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>シャドーイングがあるといろいろ便利なんですが、今回はひとまず、連載の進行をスムーズにするために入れます。</p>
 
 <h2 id="シンボルとハイライト">シンボルとハイライト</h2>
@@ -278,7 +279,8 @@ let y be x</code></pre></div>
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
       <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&#34;NEVER&#34;</span><span class="p">)</span>
     <span class="p">}</span>
-  <span class="p">}</span></code></pre></div>
+  <span class="p">}</span>
+</code></pre></div>
 <p>ある名前が変数を参照している (= 式として出現している) のか、変数を定義している (= <code>be</code> の左辺に出現している) のか、というのを文脈から判別しています。</p>
 
 <ul>
@@ -295,16 +297,19 @@ let y be x</code></pre></div>
   <span class="nx">references</span>: <span class="kt">Token</span><span class="p">[],</span>
   <span class="cm">/** このシンボルの種類。いまは変数だけ */</span>
   <span class="nx">type</span><span class="o">:</span> <span class="s2">&#34;var&#34;</span><span class="p">,</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>もう1つ必要なものがあって、名前からシンボル定義へのマップ <code>environment</code> です。</p>
-<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts">  <span class="kr">const</span> <span class="nx">environment</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="nx">SymbolDefinition</span><span class="o">&gt;</span><span class="p">()</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts">  <span class="kr">const</span> <span class="nx">environment</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="o">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="nx">SymbolDefinition</span><span class="o">&gt;</span><span class="p">()</span>
+</code></pre></div>
 <p>何らかの変数を参照している名前をみつけたときに、それが実際に指しているシンボルを特定するのに使います。例えば次の処理、「式」として名前が出現したときの処理です:</p>
 <div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts">  <span class="kr">const</span> <span class="nx">referName</span> <span class="o">=</span> <span class="p">(</span><span class="nx">nameToken</span>: <span class="kt">Token</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="kr">const</span> <span class="nx">symbolDefinition</span> <span class="o">=</span> <span class="nx">environment</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">nameToken</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">symbolDefinition</span><span class="p">)</span> <span class="k">return</span> <span class="c1">// ここで未定義変数の警告を出してもいい
 </span><span class="c1"></span>
     <span class="nx">symbolDefinition</span><span class="p">.</span><span class="nx">references</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">nameToken</span><span class="p">)</span>
-  <span class="p">}</span></code></pre></div>
+  <span class="p">}</span>
+</code></pre></div>
 <p>一方で、変数として定義される名前をみつけたときは、環境に名前を追加します。ここで、同名の変数がすでに環境にあるときは「上書き」されますが、それがまさに冒頭に書いた「シャドーイング」の挙動なのでOKです。</p>
 <div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts">  <span class="kr">const</span> <span class="nx">defineName</span> <span class="o">=</span> <span class="p">(</span><span class="nx">nameToken</span>: <span class="kt">Token</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="kr">const</span> <span class="nx">definition</span>: <span class="kt">SymbolDefinition</span> <span class="o">=</span> <span class="p">{</span>
@@ -315,9 +320,11 @@ let y be x</code></pre></div>
 
     <span class="nx">symbolDefinitions</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">definition</span><span class="p">)</span> <span class="c1">// 新しいシンボル
 </span><span class="c1"></span>    <span class="nx">environment</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">nameToken</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span> <span class="nx">definition</span><span class="p">)</span> <span class="c1">// 同名の変数は上書き
-</span><span class="c1"></span>  <span class="p">}</span></code></pre></div>
+</span><span class="c1"></span>  <span class="p">}</span>
+</code></pre></div>
 <p>そして解析が完了したあと、最終的に環境は捨てて、シンボル定義のリスト (シンボルテーブル) を解析結果とします。解析結果は繰り返し使うので、 <code>SemanticModel</code> という名前のインターフェイスを定義しました。</p>
-<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts">  <span class="k">return</span> <span class="p">{</span> <span class="nx">statements</span><span class="p">,</span> <span class="nx">symbolDefinitions</span><span class="p">,</span> <span class="nx">diagnostics</span> <span class="p">}</span> <span class="kr">as</span> <span class="nx">SemanticModel</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts">  <span class="k">return</span> <span class="p">{</span> <span class="nx">statements</span><span class="p">,</span> <span class="nx">symbolDefinitions</span><span class="p">,</span> <span class="nx">diagnostics</span> <span class="p">}</span> <span class="kr">as</span> <span class="nx">SemanticModel</span>
+</code></pre></div>
 <ul>
 <li><p><a href="https://github.com/vain0x/curage-lang/commit/8dda6a9798fefd6cb4507615ae6f5fe05ff76068">変更点まとめ</a></p></li>
 
@@ -348,14 +355,16 @@ let y be x</code></pre></div>
   <span class="p">}</span>
 
   <span class="k">return</span> <span class="kc">undefined</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><code>touch</code> 関数で使っている、位置の大小関係 (前後関係) の比較関数は次のとおりです。もし2つの位置の行番号が違えば、行番号の大小関係がそのまま前後関係です。逆に行番号が同じなら、列の大小関係が前後関係になります。要するに辞書式順序。</p>
 <div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">const</span> <span class="nx">comparePositions</span> <span class="o">=</span> <span class="p">(</span><span class="nx">l</span>: <span class="kt">Position</span><span class="p">,</span> <span class="nx">r</span>: <span class="kt">Position</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">l</span><span class="p">.</span><span class="nx">line</span> <span class="o">!==</span> <span class="nx">r</span><span class="p">.</span><span class="nx">line</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="nx">l</span><span class="p">.</span><span class="nx">line</span> <span class="o">-</span> <span class="nx">r</span><span class="p">.</span><span class="nx">line</span><span class="p">)</span>
   <span class="p">}</span>
   <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="nx">l</span><span class="p">.</span><span class="nx">character</span> <span class="o">-</span> <span class="nx">r</span><span class="p">.</span><span class="nx">character</span><span class="p">)</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <ul>
 <li><a href="https://github.com/vain0x/curage-lang/commit/1e7cc2d5e9e0431525fa50d60def089424a7e882">変更点まとめ</a></li>
 </ul>
@@ -379,7 +388,8 @@ let y be x</code></pre></div>
     <span class="nx">range</span>: <span class="kt">Range</span><span class="p">;</span>
     <span class="cm">/** ハイライトの種類 (DocumentHighlightKind) */</span>
     <span class="nx">kind?</span>: <span class="kt">number</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>これはヒットテストで得られたシンボル定義の <code>definition</code> と <code>references</code> を適当に変形すればOK。すでに手札は揃っているという感じですね。</p>
 
 <p>要点だけ抜粋するとこんな感じ:</p>
@@ -400,7 +410,8 @@ let y be x</code></pre></div>
     <span class="p">})</span>
   <span class="p">}</span>
 
-  <span class="k">return</span> <span class="nx">highlights</span></code></pre></div>
+  <span class="k">return</span> <span class="nx">highlights</span>
+</code></pre></div>
 <ul>
 <li><a href="https://github.com/vain0x/curage-lang/commit/ac63c6b0e0f00c55096a48920e9957821b5a1549">変更点まとめ</a></li>
 </ul>
@@ -557,7 +568,7 @@ let y be x</code></pre></div>
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.58.3</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

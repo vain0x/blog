@@ -151,7 +151,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.58.3" />
+  <meta name="generator" content="Hugo 0.59.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -359,7 +359,8 @@ let y be x
 
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;eol&#34;</span><span class="p">)</span>
 <span class="p">}</span>
-<span class="p">}</span></code></pre></div></li>
+<span class="p">}</span>
+</code></pre></div></li>
 </ul>
 
 <p>出力:</p>
@@ -392,7 +393,8 @@ eol
   <span class="nx">type</span>: <span class="kt">TokenType</span><span class="p">,</span>
   <span class="nx">value</span>: <span class="kt">string</span><span class="p">,</span>
   <span class="nx">range</span>: <span class="kt">Range</span><span class="p">,</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><code>Range</code> は LSP で定義されているインターフェイスです。「何行目何列目」から「何行目何列目」まで、というかたちでテキストの範囲を表します。</p>
 <div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="c1">// テキスト上の範囲
 </span><span class="c1"></span><span class="kr">interface</span> <span class="nx">Range</span> <span class="p">{</span>
@@ -404,7 +406,8 @@ eol
 </span><span class="c1"></span><span class="kr">interface</span> <span class="nx">Position</span> <span class="p">{</span>
     <span class="nx">line</span>: <span class="kt">number</span><span class="p">,</span>
     <span class="nx">character</span>: <span class="kt">number</span><span class="p">,</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>上記の解析処理を変更して、トークンを <code>console.log</code> するのではなくリスト <code>Token[]</code> にまとめて返すようにしたのが以下です:</p>
 
 <p><a href="https://github.com/vain0x/curage-lang/blob/v0.3.0/lsp/src/curage-server.ts#L121-L189">tokenize 関数の実装</a></p>
@@ -433,11 +436,13 @@ eol
 </span><span class="c1"></span>  <span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span>
 
   <span class="c1">// 検出した diagnostic のリスト
-</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">diagnostics</span>: <span class="kt">Diagnostic</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[]</span></code></pre></div>
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">diagnostics</span>: <span class="kt">Diagnostic</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div>
 <p>トップダウンに見ていくと、構文解析の全体としてはトークンリスト上のループです。</p>
 <div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts">  <span class="k">while</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">tokens</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">parseLetStatement</span><span class="p">()</span>
-  <span class="p">}</span></code></pre></div>
+  <span class="p">}</span>
+</code></pre></div>
 <p><code>let</code> 文をパースする方法は、トークンが文法で指定された順序で現れるかどうか、地道に調べます。</p>
 <div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts">  <span class="kr">const</span> <span class="nx">parseLetStatement</span> <span class="o">=</span> <span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">tokens</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">type</span> <span class="o">!==</span> <span class="s2">&#34;let&#34;</span><span class="p">)</span> <span class="p">{</span>
@@ -463,7 +468,8 @@ eol
       <span class="k">return</span> <span class="nx">warn</span><span class="p">(</span><span class="s2">&#34;Expected an end of line.&#34;</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="nx">i</span><span class="o">++</span>
-  <span class="p">}</span></code></pre></div>
+  <span class="p">}</span>
+</code></pre></div>
 <p>式の解析は、いまは簡単です。トークンが整数か名前ならOK。</p>
 
 <ul>
@@ -479,7 +485,8 @@ eol
 
 <span class="nx">i</span><span class="o">++</span>
 <span class="k">return</span> <span class="kc">true</span>
-<span class="p">}</span></code></pre></div></li>
+<span class="p">}</span>
+</code></pre></div></li>
 </ul>
 
 <p>誤りを見つけたときは、前述の通り行を読み飛ばします。行を読み飛ばして警告を出す関数 <code>warn</code> を使っています。</p>
@@ -490,7 +497,8 @@ eol
       <span class="nx">message</span><span class="p">,</span>
       <span class="nx">range</span><span class="p">,</span>
     <span class="p">})</span>
-  <span class="p">}</span></code></pre></div>
+  <span class="p">}</span>
+</code></pre></div>
 <p>行の読み飛ばしの処理がややこしいですが、トークンのリストの区間を考えます。区間の末尾が改行になるかトークンのリストの末尾に達するまで、区間を広げていくイメージです。最後に区間の末尾 (改行の次) にジャンプします。</p>
 <div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts">  <span class="kr">const</span> <span class="nx">skipLine</span> <span class="o">=</span> <span class="p">()</span><span class="o">:</span> <span class="p">{</span> <span class="nx">range</span>: <span class="kt">Range</span> <span class="p">}</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="c1">// 区間の開始点
@@ -513,7 +521,8 @@ eol
 
     <span class="nx">i</span> <span class="o">=</span> <span class="nx">r</span>
     <span class="k">return</span> <span class="p">{</span> <span class="nx">range</span> <span class="p">}</span>
-  <span class="p">}</span></code></pre></div>
+  <span class="p">}</span>
+</code></pre></div>
 <p>区間のイメージはこんな感じ (カッコが区間を表す):</p>
 
 <pre><code>    let a [ 2 eol ]
@@ -665,7 +674,7 @@ eol
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.58.3</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
