@@ -8,10 +8,26 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Fri, 05 Jan 2018 23:30:37 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 28 Nov 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/tags/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>データベースをスコープで分けてテストしやすくする</title>
+      <link>https://vain0x.github.io/blog/2019-11-28/scoped-database/</link>
+      <pubDate>Thu, 28 Nov 2019 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2019-11-28/scoped-database/</guid>
+      <description>データベースを使うテストを書きやすくできるかもしれない方法について述べます。
+※これが良い方法かは分かりません。今度やってみたいので、その前に整理する目的で書いています。
+動機 以下のような事情があるとします。
+ アプリの実装上、データベース操作が占める割合が大きい。 データベースやいわゆるリポジトリのテストダブルを作るコストが高い。 純粋関数で書いた部分のテストだけでは、検証できる範囲に限界がある。 データベースを動かして SQL 文が壊れてないことをこまめに検査したい。  例 仮にブックマークサービスを考えます。
+ ユーザーはウェブページをブックマークしてコメントをつけられる。 ブックマークはちょうど1個のカテゴリーに分類される。  カテゴリーはシステム側で用意し、まれに運用中に増減させる。   データベースの雰囲気 (重要でない部分は略しています。)
+ユーザーはスコープに所属するので、ID や名前に加えて scope フィールドを持ちます。
+create table users( user_id char(36) primary key, scope char(36) -- 所属スコープ ); ブックマークは作成したユーザーからスコープが決まるので、scope フィールドは不要です。
+create table bookmarks( bookmark_id char(36) primary key, creator_id char(36), -- 作成ユーザーID  bookmark_uri varchar(1000) ); -- 他人のユーザーのブックマークへのいいね create table likes( bookmark_id char(36), user_id char(36), primary key (bookmark_id, user_id) -- この2つは同じスコープに属す ); ユーザー以外 scope がいらないかというとそうでもなく、例えばカテゴリーはユーザーやブックマークとは独立に存在するのでスコープがいります。</description>
+    </item>
     
     <item>
       <title>SQLの検索条件と検索項目の分離</title>

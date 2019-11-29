@@ -144,6 +144,87 @@
           
           
             <article class="post-preview">
+              <a href="https://vain0x.github.io/blog/2019-11-30/diary/">
+                <h2 class="post-title">近況 2019-11-30</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2019年11月30日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  <p>今月の活動について (knowbug の HSP3 クライアント化、HSP3 の LSP (hsp3-analyzer-mini) 作成、ゾアライド言語の始動、競プロ(サボりがち)、など)</p>
+                  <a href="https://vain0x.github.io/blog/2019-11-30/diary/" class="post-read-more">[続きを読む]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="https://vain0x.github.io/blog/tags/%E6%97%A5%E8%A8%98/">日記</a>&nbsp;
+                  
+                </div>
+              
+            </article>
+          
+            <article class="post-preview">
+              <a href="https://vain0x.github.io/blog/2019-11-28/scoped-database/">
+                <h2 class="post-title">データベースをスコープで分けてテストしやすくする</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2019年11月28日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  データベースを使うテストを書きやすくできるかもしれない方法について述べます。
+※これが良い方法かは分かりません。今度やってみたいので、その前に整理する目的で書いています。
+動機 以下のような事情があるとします。
+ アプリの実装上、データベース操作が占める割合が大きい。 データベースやいわゆるリポジトリのテストダブルを作るコストが高い。 純粋関数で書いた部分のテストだけでは、検証できる範囲に限界がある。 データベースを動かして SQL 文が壊れてないことをこまめに検査したい。  例 仮にブックマークサービスを考えます。
+ ユーザーはウェブページをブックマークしてコメントをつけられる。 ブックマークはちょうど1個のカテゴリーに分類される。  カテゴリーはシステム側で用意し、まれに運用中に増減させる。   データベースの雰囲気 (重要でない部分は略しています。)
+ユーザーはスコープに所属するので、ID や名前に加えて scope フィールドを持ちます。
+create table users( user_id char(36) primary key, scope char(36) -- 所属スコープ ); ブックマークは作成したユーザーからスコープが決まるので、scope フィールドは不要です。
+create table bookmarks( bookmark_id char(36) primary key, creator_id char(36), -- 作成ユーザーID  bookmark_uri varchar(1000) ); -- 他人のユーザーのブックマークへのいいね create table likes( bookmark_id char(36), user_id char(36), primary key (bookmark_id, user_id) -- この2つは同じスコープに属す ); ユーザー以外 scope がいらないかというとそうでもなく、例えばカテゴリーはユーザーやブックマークとは独立に存在するのでスコープがいります。
+                  <a href="https://vain0x.github.io/blog/2019-11-28/scoped-database/" class="post-read-more">[続きを読む]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="https://vain0x.github.io/blog/tags/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9/">データベース</a>&nbsp;
+                  
+                </div>
+              
+            </article>
+          
+            <article class="post-preview">
               <a href="https://vain0x.github.io/blog/2019-10-31/diary/">
                 <h2 class="post-title">近況 2019-10-31</h2>
                 
@@ -166,7 +247,7 @@
 
               <div class="post-entry">
                 
-                  <p>今月の活動について (ミローネ言語, knowbug, 競プロ)</p>
+                  <p>今月の活動について (ミローネ言語, knowbug, 競プロ, AtGraph, checklist)</p>
                   <a href="https://vain0x.github.io/blog/2019-10-31/diary/" class="post-read-more">[続きを読む]</a>
                 
               </div>
@@ -434,84 +515,6 @@
                 <div class="blog-tags">
                   
                     <a href="https://vain0x.github.io/blog/tags/%E6%97%A5%E8%A8%98/">日記</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://vain0x.github.io/blog/2019-02-27/diary/">
-                <h2 class="post-title">近況 2019-02-27</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2019年2月27日に投稿
-  
-  
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  <p>今月の活動のまとめ</p>
-                  <a href="https://vain0x.github.io/blog/2019-02-27/diary/" class="post-read-more">[続きを読む]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://vain0x.github.io/blog/tags/%E6%97%A5%E8%A8%98/">日記</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/">
-                <h2 class="post-title">HSP3 でスクリプト言語の処理系を書く</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2019年2月26日に投稿
-  
-  
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  <p>HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。</p>
-
-<p>10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できているという実感が得られた。</p>
-                  <a href="https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/" class="post-read-more">[続きを読む]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://vain0x.github.io/blog/tags/%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E7%B3%BB/">言語処理系</a>&nbsp;
-                  
-                    <a href="https://vain0x.github.io/blog/tags/hsp3/">HSP3</a>&nbsp;
                   
                 </div>
               
