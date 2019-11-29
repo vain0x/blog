@@ -10,26 +10,9 @@
   <title>データベースをスコープで分けてテストしやすくする - ベインのブログ</title>
   <meta property="og:title" content="データベースをスコープで分けてテストしやすくする" />
   <meta name="twitter:title" content="データベースをスコープで分けてテストしやすくする" />
-  <meta name="description" content="データベースを使うテストを書きやすくできるかもしれない方法について述べます。
-※これが良い方法かは分かりません。今度やってみたいので、その前に整理する目的で書いています。
-動機 以下のような事情があるとします。
- アプリの実装上、データベース操作が占める割合が大きい。 データベースやいわゆるリポジトリのテストダブルを作るコストが高い。 純粋関数で書いた部分のテストだけでは、検証できる範囲に限界がある。 データベースを動かして SQL 文が壊れてないことをこまめに検査したい。  例 仮にブックマークサービスを考えます。
- ユーザーはウェブページをブックマークしてコメントをつけられる。 ブックマークはちょうど1個のカテゴリーに分類される。  カテゴリーはシステム側で用意し、まれに運用中に増減させる。   データベースの雰囲気 (重要でない部分は略しています。)
-ユーザーはスコープに所属するので、ID や名前に加えて scope フィールドを持ちます。
-create table users( user_id char(36) primary key, scope char(36) -- 所属スコープ ); ブックマークは作成したユーザーからスコープが決まるので、scope フィールドは不要です。
-create table bookmarks( bookmark_id char(36) primary key, creator_id char(36), -- 作成ユーザーID  bookmark_uri varchar(1000) ); -- 他人のユーザーのブックマークへのいいね create table likes( bookmark_id char(36), user_id char(36), primary key (bookmark_id, user_id) -- この2つは同じスコープに属す ); ユーザー以外 scope がいらないかというとそうでもなく、例えばカテゴリーはユーザーやブックマークとは独立に存在するのでスコープがいります。">
-  <meta property="og:description" content="データベースを使うテストを書きやすくできるかもしれない方法について述べます。
-※これが良い方法かは分かりません。今度やってみたいので、その前に整理する目的で書いています。
-動機 以下のような事情があるとします。
- アプリの実装上、データベース操作が占める割合が大きい。 データベースやいわゆるリポジトリのテストダブルを作るコストが高い。 純粋関数で書いた部分のテストだけでは、検証できる範囲に限界がある。 データベースを動かして SQL 文が壊れてないことをこまめに検査したい。  例 仮にブックマークサービスを考えます。
- ユーザーはウェブページをブックマークしてコメントをつけられる。 ブックマークはちょうど1個のカテゴリーに分類される。  カテゴリーはシステム側で用意し、まれに運用中に増減させる。   データベースの雰囲気 (重要でない部分は略しています。)
-ユーザーはスコープに所属するので、ID や名前に加えて scope フィールドを持ちます。
-create table users( user_id char(36) primary key, scope char(36) -- 所属スコープ ); ブックマークは作成したユーザーからスコープが決まるので、scope フィールドは不要です。
-create table bookmarks( bookmark_id char(36) primary key, creator_id char(36), -- 作成ユーザーID  bookmark_uri varchar(1000) ); -- 他人のユーザーのブックマークへのいいね create table likes( bookmark_id char(36), user_id char(36), primary key (bookmark_id, user_id) -- この2つは同じスコープに属す ); ユーザー以外 scope がいらないかというとそうでもなく、例えばカテゴリーはユーザーやブックマークとは独立に存在するのでスコープがいります。">
-  <meta name="twitter:description" content="データベースを使うテストを書きやすくできるかもしれない方法について述べます。
-※これが良い方法かは分かりません。今度やってみたいので、その前に整理する目的で書いています。
-動機 以下のような事情があるとします。
- アプリの実装上、データベース操作が占める割合が大きい。 データベースやいわゆるリポジトリのテストダブルを作るコストが高い。 純粋関数で書いた部分のテストだけでは、検証できる範囲に限界があ …">
+  <meta name="description" content="データベースを使うテストを書きやすくできるかもしれない方法について述べます。">
+  <meta property="og:description" content="データベースを使うテストを書きやすくできるかもしれない方法について述べます。">
+  <meta name="twitter:description" content="データベースを使うテストを書きやすくできるかもしれない方法について述べます。">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -78,7 +61,7 @@ create table bookmarks( bookmark_id char(36) primary key, creator_id char(36), -
     "name" : "ベイン"
   },
   "headline": "データベースをスコープで分けてテストしやすくする",
-  "description" : "データベースを使うテストを書きやすくできるかもしれない方法について述べます。\n※これが良い方法かは分かりません。今度やってみたいので、その前に整理する目的で書いています。\n動機 以下のような事情があるとします。\n アプリの実装上、データベース操作が占める割合が大きい。 データベースやいわゆるリポジトリのテストダブルを作るコストが高い。 純粋関数で書いた部分のテストだけでは、検証できる範囲に限界がある。 データベースを動かして SQL 文が壊れてないことをこまめに検査したい。  例 仮にブックマークサービスを考えます。\n ユーザーはウェブページをブックマークしてコメントをつけられる。 ブックマークはちょうど1個のカテゴリーに分類される。  カテゴリーはシステム側で用意し、まれに運用中に増減させる。   データベースの雰囲気 (重要でない部分は略しています。)\nユーザーはスコープに所属するので、ID や名前に加えて scope フィールドを持ちます。\ncreate table users( user_id char(36) primary key, scope char(36) -- 所属スコープ ); ブックマークは作成したユーザーからスコープが決まるので、scope フィールドは不要です。\ncreate table bookmarks( bookmark_id char(36) primary key, creator_id char(36), -- 作成ユーザーID  bookmark_uri varchar(1000) ); -- 他人のユーザーのブックマークへのいいね create table likes( bookmark_id char(36), user_id char(36), primary key (bookmark_id, user_id) -- この2つは同じスコープに属す ); ユーザー以外 scope がいらないかというとそうでもなく、例えばカテゴリーはユーザーやブックマークとは独立に存在するのでスコープがいります。",
+  "description" : "データベースを使うテストを書きやすくできるかもしれない方法について述べます。\n",
   "inLanguage" : "ja",
   "wordCount":  177 ,
   "datePublished" : "2019-11-28T00:00:00",
@@ -100,23 +83,13 @@ create table bookmarks( bookmark_id char(36) primary key, creator_id char(36), -
 </script>
 
 <meta property="og:title" content="データベースをスコープで分けてテストしやすくする" />
-<meta property="og:description" content="データベースを使うテストを書きやすくできるかもしれない方法について述べます。
-※これが良い方法かは分かりません。今度やってみたいので、その前に整理する目的で書いています。
-動機 以下のような事情があるとします。
- アプリの実装上、データベース操作が占める割合が大きい。 データベースやいわゆるリポジトリのテストダブルを作るコストが高い。 純粋関数で書いた部分のテストだけでは、検証できる範囲に限界がある。 データベースを動かして SQL 文が壊れてないことをこまめに検査したい。  例 仮にブックマークサービスを考えます。
- ユーザーはウェブページをブックマークしてコメントをつけられる。 ブックマークはちょうど1個のカテゴリーに分類される。  カテゴリーはシステム側で用意し、まれに運用中に増減させる。   データベースの雰囲気 (重要でない部分は略しています。)
-ユーザーはスコープに所属するので、ID や名前に加えて scope フィールドを持ちます。
-create table users( user_id char(36) primary key, scope char(36) -- 所属スコープ ); ブックマークは作成したユーザーからスコープが決まるので、scope フィールドは不要です。
-create table bookmarks( bookmark_id char(36) primary key, creator_id char(36), -- 作成ユーザーID  bookmark_uri varchar(1000) ); -- 他人のユーザーのブックマークへのいいね create table likes( bookmark_id char(36), user_id char(36), primary key (bookmark_id, user_id) -- この2つは同じスコープに属す ); ユーザー以外 scope がいらないかというとそうでもなく、例えばカテゴリーはユーザーやブックマークとは独立に存在するのでスコープがいります。">
+<meta property="og:description" content="データベースを使うテストを書きやすくできるかもしれない方法について述べます。">
 <meta property="og:url" content="https://vain0x.github.io/blog/2019-11-28/scoped-database/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
   <meta name="twitter:title" content="データベースをスコープで分けてテストしやすくする" />
-  <meta name="twitter:description" content="データベースを使うテストを書きやすくできるかもしれない方法について述べます。
-※これが良い方法かは分かりません。今度やってみたいので、その前に整理する目的で書いています。
-動機 以下のような事情があるとします。
- アプリの実装上、データベース操作が占める割合が大きい。 データベースやいわゆるリポジトリのテストダブルを作るコストが高い。 純粋関数で書いた部分のテストだけでは、検証できる範囲に限界があ …">
+  <meta name="twitter:description" content="データベースを使うテストを書きやすくできるかもしれない方法について述べます。">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -232,11 +205,7 @@ create table bookmarks( bookmark_id char(36) primary key, creator_id char(36), -
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        
-
-<p>データベースを使うテストを書きやすくできるかもしれない方法について述べます。</p>
-
-<!-- more -->
+        <p>データベースを使うテストを書きやすくできるかもしれない方法について述べます。</p>
 
 <p>※これが良い方法かは分かりません。今度やってみたいので、その前に整理する目的で書いています。</p>
 
@@ -359,7 +328,6 @@ create table bookmarks( bookmark_id char(36) primary key, creator_id char(36), -
 <li>(そもそも削除フラグはやめよう)</li>
 </ul></li>
 </ul>
-
 
         
           <div class="blog-tags">

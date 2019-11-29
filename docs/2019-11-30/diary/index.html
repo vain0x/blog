@@ -63,7 +63,7 @@
   "headline": "近況 2019-11-30",
   "description" : "今月の活動について (knowbug の HSP3 クライアント化、HSP3 の LSP (hsp3-analyzer-mini) 作成、ゾアライド言語の始動、競プロ(サボりがち)、など)\n",
   "inLanguage" : "ja",
-  "wordCount":  207 ,
+  "wordCount":  254 ,
   "datePublished" : "2019-11-30T00:00:00",
   "dateModified" : "2019-11-30T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -225,22 +225,24 @@
 
 <p>標準のスクリプトエディタでスクリプトを実行すると、編集中のスクリプトが hsptmp という名前の一時ファイルに入るので、それを knowbug から読むことにしたところ、この問題が解決した。(v2.0.0-beta2 としてリリース)</p>
 
+<p><blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/knwobug?src=hash&amp;ref_src=twsrc%5Etfw">#knwobug</a> v2.0.0-beta2 をリリースしました。hsptmp を利用するようになり、ソースコードを保存せずに実行しても実行中の行の表示がずれなくなったはずです / <a href="https://t.co/h0o5ldh3hM">https://t.co/h0o5ldh3hM</a></p>&mdash; ベイン (@vain0x) <a href="https://twitter.com/vain0x/status/1194596537029935106?ref_src=twsrc%5Etfw">November 13, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
 <h3 id="knowbug-サーバー-クライアント構成への転換">knowbug: サーバー・クライアント構成への転換</h3>
 
 <p>C++ で GUI を実装するのがつらいのでやめて、別の方法を模索することにした。</p>
 
 <p>理想は VSCode のデバッグ機能を使うことだが、HSP ユーザーの多くは処理系に同梱されている「スクリプトエディタ」という IDE を使っているわけで、VSCode 必須というのはユーザーフレンドリーではない。</p>
 
-<p>そこで Electon 方式に注目した。デバッガーがウェブサーバーを起動しつつ小さいブラウザを開き、そのウェブページを UI とすればいい。</p>
+<p>そこで Electron 方式に注目した。デバッガーがウェブサーバーを起動しつつ小さいブラウザを開き、そのウェブページを UI とすればいい。</p>
 
 <p>hsp3-debug-spider という名前でサンプルを作成したところ、技術的な問題はだいたい解決した: <a href="https://github.com/vain0x/hsp3-ginger/tree/7316cc5adb3b662c8baf400ab5bd8ed8d5d0d8f7/hsp3-debug-spider">https://github.com/vain0x/hsp3-ginger/tree/7316cc5adb3b662c8baf400ab5bd8ed8d5d0d8f7/hsp3-debug-spider</a></p>
 
-<p>これも悪くはないが、もっと良い案があった。HTTP 通信ではなくプロセス間通信を使えば、クライアントはブラウザである必要がなく、特に <strong>HSP で書いたプログラムでもいい</strong>。HSP のデバッガーが HSP で書かれているというのは開発面で嬉しい。具体的には以下の通り。</p>
+<p>これも悪くはないが、もっと良い案があった。HTTP 通信ではなくプロセス間通信を使えば、クライアントはブラウザである必要がなく、特に <strong>HSP で書いたプログラムでもいい</strong>。HSP のデバッガーが HSP で書かれているというのは開発面で嬉しい。具体的には以下の通り:</p>
 
 <ul>
 <li>ユーザー (HSP-er) 自身により変更しやすい</li>
-<li>開発者がドッグフーディングできる</li>
-<li>HSP は (C++ より) GUI が書きやすいはず</li>
+<li>開発者がドッグフーディングしやすい</li>
+<li>HSP は (C++ より) GUI が書きやすい</li>
 </ul>
 
 <p>さっそく proof-of-concept を作成して、問題ないことを確かめた: <a href="https://github.com/vain0x/hsp3-ginger/tree/dbea8aac1db55b28e054beb8880ad82e71cf7bf3/projects/hsp3-debug-self">https://github.com/vain0x/hsp3-ginger/tree/dbea8aac1db55b28e054beb8880ad82e71cf7bf3/projects/hsp3-debug-self</a></p>
@@ -253,11 +255,15 @@
 
 <p><a href="https://twitter.com/vain0x/status/1196057770748862464">https://twitter.com/vain0x/status/1196057770748862464</a></p>
 
+<p><blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/knowbug?src=hash&amp;ref_src=twsrc%5Etfw">#knowbug</a> v2.0.0-beta3 をリリースしました。UI を HSP で再実装することで新調しています/ <a href="https://t.co/GpCuLhHaJz">https://t.co/GpCuLhHaJz</a> <a href="https://t.co/2XVYgjMYNZ">pic.twitter.com/2XVYgjMYNZ</a></p>&mdash; ベイン (@vain0x) <a href="https://twitter.com/vain0x/status/1196057770748862464?ref_src=twsrc%5Etfw">November 17, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
 <p>いまのところは順調。足りないライブラリをいろいろ自作しないといけなかったりして楽しい。(JSON とか)</p>
 
 <h2 id="hsp3-analyzer-mini">hsp3-analyzer-mini</h2>
 
 <p><a href="https://github.com/vain0x/hsp3-ginger/tree/1153375d59ae5c29081c03b4cfd21447cd5f71be/hsp3-analyzer-mini">https://github.com/vain0x/hsp3-ginger/tree/1153375d59ae5c29081c03b4cfd21447cd5f71be/hsp3-analyzer-mini</a></p>
+
+<p><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">HSP3 の簡易 LSP を実装しました～ <a href="https://twitter.com/hashtag/hsp3?src=hash&amp;ref_src=twsrc%5Etfw">#hsp3</a> / <a href="https://t.co/HXuswp0WFg">https://t.co/HXuswp0WFg</a> <a href="https://t.co/XwylELZ3dY">pic.twitter.com/XwylELZ3dY</a></p>&mdash; ベイン (@vain0x) <a href="https://twitter.com/vain0x/status/1198220904213311489?ref_src=twsrc%5Etfw">November 23, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
 
 <ul>
 <li>HSP3 の LSP サーバー</li>
@@ -279,6 +285,11 @@
 
 <ul>
 <li>Rust は UTF-8 のマルチバイト文字列の内部へのインデックスにアクセスするとパニック (クラッシュ) するので、クラッシュしないようにエラー処理をしたつもりでもそのあたりで死にがち</li>
+</ul></li>
+<li>スクリプトエディタのカーソル位置などをとる API を使って LSP の機能を乗せようと試した
+
+<ul>
+<li>API の一部が動いていなかったので修正待ち</li>
 </ul></li>
 </ul>
 
