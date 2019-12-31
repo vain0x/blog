@@ -63,7 +63,7 @@
   "headline": "近況 2019-11-30",
   "description" : "今月の活動について (knowbug の HSP3 クライアント化、HSP3 の LSP (hsp3-analyzer-mini) 作成、ゾアライド言語の始動、競プロ(サボりがち)、など)\n",
   "inLanguage" : "ja",
-  "wordCount":  260 ,
+  "wordCount":  220 ,
   "datePublished" : "2019-11-30T00:00:00",
   "dateModified" : "2019-11-30T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -206,167 +206,133 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>今月の活動について (knowbug の HSP3 クライアント化、HSP3 の LSP (hsp3-analyzer-mini) 作成、ゾアライド言語の始動、競プロ(サボりがち)、など)</p>
-
 <ul>
 <li>前月分 <a href="https://vain0x.github.io/blog/2019-10-31/diary/">https://vain0x.github.io/blog/2019-10-31/diary/</a></li>
 </ul>
-
 <h2 id="knowbug">knowbug</h2>
-
 <p><a href="https://github.com/vain0x/knowbug/commits/master?after=41e0c19835ecf39f4be1726caef784fd655e875a+209">https://github.com/vain0x/knowbug/commits/master?after=41e0c19835ecf39f4be1726caef784fd655e875a+209</a></p>
-
 <ul>
 <li>HSP3 用のデバッガー</li>
 </ul>
-
 <h3 id="knowbug-hsptmp">knowbug: hsptmp</h3>
-
 <p>knowbug はスクリプトファイルの中身を表示して実行中の位置をハイライトする機能があるが、未保存のファイルを実行すると表示される内容(ファイルに保存された内容)と実際の(編集中の)内容にギャップがあるという問題があった。</p>
-
 <p>標準のスクリプトエディタでスクリプトを実行すると、編集中のスクリプトが hsptmp という名前の一時ファイルに入るので、それを knowbug から読むことにしたところ、この問題が解決した。(v2.0.0-beta2 としてリリース)</p>
-
-<p><blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/knwobug?src=hash&amp;ref_src=twsrc%5Etfw">#knwobug</a> v2.0.0-beta2 をリリースしました。hsptmp を利用するようになり、ソースコードを保存せずに実行しても実行中の行の表示がずれなくなったはずです / <a href="https://t.co/h0o5ldh3hM">https://t.co/h0o5ldh3hM</a></p>&mdash; ベイン (@vain0x) <a href="https://twitter.com/vain0x/status/1194596537029935106?ref_src=twsrc%5Etfw">November 13, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
-<h3 id="knowbug-サーバー-クライアント構成への転換">knowbug: サーバー・クライアント構成への転換</h3>
-
+<!-- raw HTML omitted -->
+<h3 id="knowbug-">knowbug: サーバー・クライアント構成への転換</h3>
 <p>C++ で GUI を実装するのがつらいのでやめて、別の方法を模索することにした。</p>
-
 <p>理想は VSCode のデバッグ機能を使うことだが、HSP ユーザーの多くは処理系に同梱されている「スクリプトエディタ」という IDE を使っているわけで、VSCode 必須というのはユーザーフレンドリーではない。</p>
-
 <p>そこで Electron 方式に注目した。デバッガーがウェブサーバーを起動しつつ小さいブラウザを開き、そのウェブページを UI とすればいい。</p>
-
 <p>hsp3-debug-spider という名前でサンプルを作成したところ、技術的な問題はだいたい解決した: <a href="https://github.com/vain0x/hsp3-ginger/tree/7316cc5adb3b662c8baf400ab5bd8ed8d5d0d8f7/hsp3-debug-spider">https://github.com/vain0x/hsp3-ginger/tree/7316cc5adb3b662c8baf400ab5bd8ed8d5d0d8f7/hsp3-debug-spider</a></p>
-
 <p>これも悪くはないが、もっと良い案があった。HTTP 通信ではなくプロセス間通信を使えば、クライアントはブラウザである必要がなく、特に <strong>HSP で書いたプログラムでもいい</strong>。HSP のデバッガーが HSP で書かれているというのは開発面で嬉しい。具体的には以下の通り:</p>
-
 <ul>
 <li>ユーザー (HSP-er) 自身により変更しやすい</li>
 <li>開発者がドッグフーディングしやすい</li>
 <li>HSP は (C++ より) GUI が書きやすい</li>
 </ul>
-
 <p>さっそく proof-of-concept を作成して、問題ないことを確かめた: <a href="https://github.com/vain0x/hsp3-ginger/tree/dbea8aac1db55b28e054beb8880ad82e71cf7bf3/projects/hsp3-debug-self">https://github.com/vain0x/hsp3-ginger/tree/dbea8aac1db55b28e054beb8880ad82e71cf7bf3/projects/hsp3-debug-self</a></p>
-
 <p>そういうわけで knowbug v2 はデバッガーをある種のサーバーとして動作させて HSP でクライアントを書く構成で進めることにした。</p>
-
 <p><a href="https://github.com/vain0x/knowbug/issues/70">サーバー(DLL)・クライアント(HSP)構成への移行 (v2) · Issue #70 · vain0x/knowbug</a></p>
-
 <p>&ldquo;done is better than perfect&rdquo; ということで、ベータ版をリリースしたので試してみてほしい。</p>
-
 <p><a href="https://twitter.com/vain0x/status/1196057770748862464">https://twitter.com/vain0x/status/1196057770748862464</a></p>
-
-<p><blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/knowbug?src=hash&amp;ref_src=twsrc%5Etfw">#knowbug</a> v2.0.0-beta3 をリリースしました。UI を HSP で再実装することで新調しています/ <a href="https://t.co/GpCuLhHaJz">https://t.co/GpCuLhHaJz</a> <a href="https://t.co/2XVYgjMYNZ">pic.twitter.com/2XVYgjMYNZ</a></p>&mdash; ベイン (@vain0x) <a href="https://twitter.com/vain0x/status/1196057770748862464?ref_src=twsrc%5Etfw">November 17, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
+<!-- raw HTML omitted -->
 <p>いまのところは順調。足りないライブラリをいろいろ自作しないといけなかったりして楽しい。(JSON とか)</p>
-
 <h2 id="hsp3-analyzer-mini">hsp3-analyzer-mini</h2>
-
 <p><a href="https://github.com/vain0x/hsp3-ginger/tree/1153375d59ae5c29081c03b4cfd21447cd5f71be/hsp3-analyzer-mini">https://github.com/vain0x/hsp3-ginger/tree/1153375d59ae5c29081c03b4cfd21447cd5f71be/hsp3-analyzer-mini</a></p>
-
-<p><blockquote class="twitter-tweet"><p lang="ja" dir="ltr">HSP3 の簡易 LSP を実装しました～ <a href="https://twitter.com/hashtag/hsp3?src=hash&amp;ref_src=twsrc%5Etfw">#hsp3</a> / <a href="https://t.co/HXuswp0WFg">https://t.co/HXuswp0WFg</a> <a href="https://t.co/XwylELZ3dY">pic.twitter.com/XwylELZ3dY</a></p>&mdash; ベイン (@vain0x) <a href="https://twitter.com/vain0x/status/1198220904213311489?ref_src=twsrc%5Etfw">November 23, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
+<!-- raw HTML omitted -->
 <ul>
 <li>HSP3 の LSP サーバー</li>
 <li>前述の通り knowbug のクライアントを実装していて、他の関数の引数の順番や細部の挙動を忘れたときに定義を見に行くのがめんどうだった</li>
 <li>さすがにつらかったので、雑実装でささっと動くものを作ってみた
-
 <ul>
 <li>行ごとに分割して「プリプロセッサ行」「普通の行」「複数行コメント・複数行文字列の内部の行」に分割して、各種類ごとに分ける、みたいなことをしてる</li>
 <li>HSP は構文的な自由度が低いので、構文解析が雑でもそこそこうまくいく、という性質がある</li>
 <li>(あるいは、構文的な自由度が高い言語でも「うまくフォーマットされた状態のソースコードしか解析しない」という制約を付ける場合も、このぐらいの雑さでわりかし動かせるはず)</li>
-</ul></li>
+</ul>
+</li>
 <li>思い立ってから3日でほぼ形になった
-
 <ul>
 <li><a href="https://twitter.com/vain0x/status/1197302371333726209">https://twitter.com/vain0x/status/1197302371333726209</a> (2019-11-21)</li>
 <li><a href="https://twitter.com/vain0x/status/1198220904213311489">https://twitter.com/vain0x/status/1198220904213311489</a> (2019-11-23)</li>
-</ul></li>
+</ul>
+</li>
 <li>たまにクラッシュするけどだいたい動いてて、めっちゃ便利
-
 <ul>
 <li>Rust は UTF-8 のマルチバイト文字列の内部へのインデックスにアクセスするとパニック (クラッシュ) するので、クラッシュしないようにエラー処理をしたつもりでもそのあたりで死にがち</li>
-</ul></li>
+</ul>
+</li>
 <li>スクリプトエディタのカーソル位置などをとる API を使って LSP の機能を乗せようと試した
-
 <ul>
 <li>API の一部が動いていなかったので修正待ち</li>
-</ul></li>
 </ul>
-
-<h2 id="ゾアライド言語">ゾアライド言語</h2>
-
+</li>
+</ul>
+<h2 id="heading">ゾアライド言語</h2>
 <p><a href="https://github.com/vain0x/zoaride-lang">https://github.com/vain0x/zoaride-lang</a></p>
-
 <ul>
 <li>アドベントカレンダーの季節だから何か記事を書きたい</li>
 <li>いまもっとも記事にしたいのは LSP/DAP なので、LSP/DAP を持つ自作言語を作るシリーズを始めることにする</li>
 <li>名前はゾアライド言語
-
 <ul>
 <li>zoa-: LSP学習記シリーズで作ったクラゲ言語の後継だから</li>
 <li>r: ごろあわせ</li>
 <li>-ide: IDE 志向だから</li>
-</ul></li>
+</ul>
+</li>
 <li>まだ何も実装していない</li>
 <li>おそらくアドベントカレンダーの記事は字句解析・構文解析あたりで終わる</li>
-<li><del><sup>12</sup>&frasl;<sub>9</sub> に投稿予定</del>
-
+<li><del>12/9 に投稿予定</del>
 <ul>
 <li><a href="https://qiita.com/advent-calendar/2019/lang_dev">言語実装 Advent Calendar 2019</a></li>
-<li>追記: <sup>12</sup>&frasl;<sub>21</sub> が登録キャンセル (?) により空いたため、12/21 投稿予定に変更</li>
-</ul></li>
+<li>追記: 12/21 が登録キャンセル (?) により空いたため、12/21 投稿予定に変更</li>
 </ul>
-
-<h2 id="その他">その他</h2>
-
+</li>
+</ul>
+<h2 id="heading-1">その他</h2>
 <ul>
 <li><a href="https://keens.github.io/blog/2019/11/02/ngekkanramudano_tonipata_nmatchinitsuitekikoushimashita/">n月刊ラムダノートにパターンマッチについて寄稿しました | κeenのHappy Hacκing Blog</a>
-
 <ul>
 <li>パターンマッチの仕組みとパターンマッチをコンパイルする方法に関する記事らしい</li>
 <li>ミローネ言語ではパターンマッチは雑に if/goto に展開するだけだったので、参考にしたい</li>
-</ul></li>
+</ul>
+</li>
 <li><a href="https://github.com/vain0x/playground/tree/master/play/2019-11-02-ide-by-wasm">playground/play/2019-11-02-ide-by-wasm at master · vain0x/playground</a>
-
 <ul>
 <li>LSP を Rust で書いて WASM にコンパイルすることでクロスプラットフォームに動かせるのではないか、という案を試した</li>
 <li>もちろん動く</li>
 <li>実行時にプラットフォームを検査する方が楽そう</li>
-</ul></li>
+</ul>
+</li>
 <li><a href="https://github.com/vain0x/playground/tree/master/play/2019-11-05-algebraic-effects">playground/play/2019-11-05-algebraic-effects at master · vain0x/playground</a>
-
 <ul>
 <li>代数的エフェクト (algebraic effects) のチュートリアルをやってみた</li>
 <li>自作言語にエフェクトを組み込みたいため</li>
-</ul></li>
+</ul>
+</li>
 <li>CPS 変換の練習をした
-
 <ul>
 <li>自作言語の中間言語を CPS にしたいため</li>
 <li>いま気づいたけど GitHub に置いてない</li>
-</ul></li>
+</ul>
+</li>
 <li><a href="https://github.com/vain0x/hsp3-modules/blob/master/mod_mapss/README.md">https://github.com/vain0x/hsp3-modules/blob/master/mod_mapss/README.md</a>
-
 <ul>
 <li>HSP の連想配列ライブラリを作ってる</li>
 <li>str 型変数の中身をバイナリにすることで配列要素にハッシュテーブルを詰め込む</li>
 <li>「ハッシュテーブルの配列」が自然に扱えて便利、かもしれない</li>
-</ul></li>
+</ul>
+</li>
 <li><a href="https://twitter.com/vain0x/status/1198877703677472769">https://twitter.com/vain0x/status/1198877703677472769</a>
-
 <ul>
 <li>HSP で JSON パーサーを書いてみた</li>
 <li>構文木やオブジェクトを作るのではなく、パースイベントとエラーを出力するだけ</li>
 <li>あまり使い道はない</li>
 <li>knowbug のサーバーとクライアント間のデータ交換に JSON を使いたいので、何らかのライブラリは必要</li>
 <li>普通にミュータブルな木構造を組み立てて操作する感じにするのがよさそう？</li>
-</ul></li>
 </ul>
-
-<h2 id="競プロ">競プロ</h2>
-
+</li>
+</ul>
+<h2 id="heading-2">競プロ</h2>
 <p>週末は AtCoder に……あまり参加していない。来年は頑張る。</p>
-
 <ul>
 <li><a href="https://qiita.com/vain0x/items/e44fc83151dd1411f82f">競プロ参戦記 #67 All-you-can-eat | ABC 145</a></li>
 </ul>
@@ -403,6 +369,10 @@
               <a href="https://vain0x.github.io/blog/2019-11-28/scoped-database/" data-toggle="tooltip" data-placement="top" title="データベースをスコープで分けてテストしやすくする">&larr; 前ページ</a>
             </li>
           
+          
+            <li class="next">
+              <a href="https://vain0x.github.io/blog/2019-12-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2019-12-31">次ページ &rarr;</a>
+            </li>
           
         </ul>
       
@@ -481,7 +451,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

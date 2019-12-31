@@ -11,13 +11,10 @@
   <meta property="og:title" content="[C#] コンストラクタの自動生成 #1" />
   <meta name="twitter:title" content="[C#] コンストラクタの自動生成 #1" />
   <meta name="description" content="要約
-
 C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。">
   <meta property="og:description" content="要約
-
 C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。">
   <meta name="twitter:description" content="要約
-
 C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
@@ -90,7 +87,6 @@ C# のフィールドや自動実装プロパティーの定義から、完全�
 
 <meta property="og:title" content="[C#] コンストラクタの自動生成 #1" />
 <meta property="og:description" content="要約
-
 C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。">
 <meta property="og:url" content="https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/" />
 <meta property="og:type" content="website" />
@@ -98,7 +94,6 @@ C# のフィールドや自動実装プロパティーの定義から、完全�
 
   <meta name="twitter:title" content="[C#] コンストラクタの自動生成 #1" />
   <meta name="twitter:description" content="要約
-
 C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
@@ -111,7 +106,7 @@ C# のフィールドや自動実装プロパティーの定義から、完全�
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -215,28 +210,23 @@ C# のフィールドや自動実装プロパティーの定義から、完全�
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <h2 id="要約">要約</h2>
-
+        <h2 id="heading">要約</h2>
 <p>C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。</p>
-
-<h2 id="例">例</h2>
-
+<h2 id="heading-1">例</h2>
 <ul>
 <li>引数の値をフィールドやプロパティーに代入する処理だけからなるコンストラクターを <strong>完全コンストラクター</strong> と呼ぶ。
-
 <ul>
 <li>現実のコンストラクターは入力検証 (参照型の値が null でないことを検査したり、数値の範囲を検査したりすること) を含むことが多いが、それでも完全コンストラクターと呼ぶかは <strong>調整中</strong> 。</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>次のようなクラスがあるとき、</p>
 <div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">Person</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="kt">int</span> <span class="n">Age</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
     <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>次のように完全コンストラクターを機械的に生成したい。</p>
+</code></pre></div><p>次のように完全コンストラクターを機械的に生成したい。</p>
 <div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">Person</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="kt">int</span> <span class="n">Age</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
@@ -249,52 +239,30 @@ C# のフィールドや自動実装プロパティーの定義から、完全�
         <span class="n">Name</span> <span class="p">=</span> <span class="n">name</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div>
-<h2 id="関連ツールと言語サポート">関連ツールと言語サポート</h2>
-
+</code></pre></div><h2 id="heading-2">関連ツールと言語サポート</h2>
 <p>完全コンストラクターを生成するツールはすでにある。</p>
-
-<h3 id="recordconstructorgenerator-https-github-com-ufcpp-recordconstructorgenerator"><strong><a href="https://github.com/ufcpp/RecordConstructorGenerator">RecordConstructorGenerator</a></strong></h3>
-
+<h3 id="recordconstructorgeneratorhttpsgithubcomufcpprecordconstructorgenerator"><strong><a href="https://github.com/ufcpp/RecordConstructorGenerator">RecordConstructorGenerator</a></strong></h3>
 <p>Visual Studio 2015 でアナライザーが使えるようになり、静的コード生成などの処理を IDE 上で行なうのが簡単になった。この「RecordConstructorGenerator」アナライザーをインストールしておくと、手軽に完全コンストラクターを自動生成できる。</p>
-
 <p>極めて便利だが、しかし、少しだけ不満がある。</p>
-
 <ul>
 <li>自動実装プロパティーへの代入処理は生成されるが、フィールドへの代入処理も生成してほしい。</li>
 <li>null 検査を生成してほしいことがある。</li>
 </ul>
-
 <p>実装が分かりやすくて、後述の自作アナライザーの参考になった。</p>
-
 <h3 id="visual-studio-2017">Visual Studio 2017</h3>
-
 <p>Visual Studio 2017 では、標準で完全コンストラクターを生成する機能が追加された。(Roslyn の機能か？)</p>
-
 <p>どのフィールド・プロパティーについて代入処理を生成するかを選べるので便利。また、同じ方法で、同値性の定義なども生成できる。とはいえ、メンバーが追加・削除されたときの自動修正にまでは対応していない。</p>
-
-<h3 id="自作-recordtypeanalyzer-https-github-com-vain0x-recordtypeanalyzer">自作/<a href="https://github.com/vain0x/RecordTypeAnalyzer">RecordTypeAnalyzer</a></h3>
-
+<h3 id="recordtypeanalyzerhttpsgithubcomvain0xrecordtypeanalyzer">自作/<a href="https://github.com/vain0x/RecordTypeAnalyzer">RecordTypeAnalyzer</a></h3>
 <p>困ったときは自作。</p>
-
 <p>完全コンストラクターやコピーコンストラクタ―のみならず、等価性や比較の自動生成など、 F# のレコード型が備えるような、さまざまな機能を自動生成し、さらに定義の変更に合わせて自動修正する機能を備えたアナライザー、というのを目指した。</p>
-
 <p>ところで、レコード型で等価性などを定義できるのは、型がイミュータブルだからだ。イミュータブルでない型に構造的同値性を定義するわけにはいかないので、型がイミュータブルかどうかを自動で判定する機能を実装した。問題は、完全コンストラクターを実装したい対象の型は、イミュータブルなものに限らないということだ。このあたりを考慮すると、仕様が複雑化してくる。</p>
-
 <p>やや詰め込みすぎて、アナライザー初心者にはつらくなってきた。そこで、いったん仕様を縮小して動くものを作ることにした。いま思うと、この時点で「RecordConstructorGenerator を改造する」方向に進まなかったのは悪い癖だろう。</p>
-
-<h3 id="自作-boilerplateconstructorgenerator-https-github-com-vain0x-boilerplateconstructorgenerator">自作/<a href="https://github.com/vain0x/BoilerplateConstructorGenerator">BoilerplateConstructorGenerator</a></h3>
-
+<h3 id="boilerplateconstructorgeneratorhttpsgithubcomvain0xboilerplateconstructorgenerator">自作/<a href="https://github.com/vain0x/BoilerplateConstructorGenerator">BoilerplateConstructorGenerator</a></h3>
 <p>完全コンストラクターやコピーコンストラクタ―の自動生成と、定義が変わったときの自動修正機能を備えたアナライザー、というのを目指した。</p>
-
 <p>自動修正はコンストラクターの実装を分析して検出しようとしたが、前述のようにバリデーションの扱いのせいで誤検出がひどかったのでやめた。 <code>// analyzer: complete-constructor</code> というマジックコメントを挿入することで検出することにした。</p>
-
 <p>現時点ではこれを使っている。コピーコンストラクターの自動生成機能がないことと、なぜか変更点がないのに変更が検出されている状態になる不具合があるのでリリースに至っていないが、なかなか快適だ。</p>
-
-<h2 id="余談-レコード型">余談: レコード型</h2>
-
+<h2 id="-">余談: レコード型</h2>
 <p>C# にも言語機能としてレコード型を導入する計画がある。 C# 8.0 候補とのことなので期待して待っていよう。</p>
-
 <p><a href="https://github.com/dotnet/csharplang/issues/39">Champion &ldquo;Records&rdquo; · Issue #39 · dotnet/csharplang</a></p>
 
         
@@ -413,7 +381,7 @@ C# のフィールドや自動実装プロパティーの定義から、完全�
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

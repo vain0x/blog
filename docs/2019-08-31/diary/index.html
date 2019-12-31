@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -206,19 +206,13 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>今月の活動について (ミローネ言語, 競プロ)</p>
-
 <ul>
 <li>前月分 <a href="https://vain0x.github.io/blog/2019-07-31/diary/">https://vain0x.github.io/blog/2019-07-31/diary/</a></li>
 </ul>
-
-<h2 id="ミローネ言語">ミローネ言語</h2>
-
+<h2 id="heading">ミローネ言語</h2>
 <p>F# サブセットのコンパイラ</p>
-
 <p><a href="https://github.com/vain0x/milone-lang/commits/master?after=632ec4fcb9afe2e663da1974349d9306fc9783b0+34">vain0x/milone-lang</a></p>
-
-<h3 id="ミローネ-名前解決">ミローネ: 名前解決</h3>
-
+<h3 id="-">ミローネ: 名前解決</h3>
 <ul>
 <li>型推論のステージが複雑なのでなんとかしたい</li>
 <li>型推論の前に名前解決(NameRes)ステージを作った</li>
@@ -227,76 +221,68 @@
 <li>型推論の途中で変数が「みえている」かどうか調べなくてよくなった</li>
 <li>実装にやっつけ感があって、課題が残る</li>
 <li>課題: let深度の計算の重複
-
 <ul>
 <li>型推論でlet深度(「ある型が何重の let の内側で導入されたか」)を使う
-
 <ul>
 <li>前回の近況を参照</li>
-</ul></li>
+</ul>
+</li>
 <li>名前解決で導入された変数に割り当てる型(型変数)のために変数のlet深度が必要</li>
 <li>名前解決時にlet深度を計算して、変数のlet深度を記録してる
-
 <ul>
 <li>型推論中もlet深度を計算してるので、二重化してる</li>
-</ul></li>
+</ul>
+</li>
 <li>もっといい方法がありそう</li>
-</ul></li>
+</ul>
+</li>
 <li>課題: そもそも分離しないほうがいい？
-
 <ul>
 <li>インスタンスメンバの解決は型推論必須</li>
 <li>(インスタンスメンバを実装しなければいいだけ)</li>
-</ul></li>
+</ul>
+</li>
 <li>課題: クロージャ変換との重複
-
 <ul>
 <li>いま気づいたが、クロージャ変換のステージでも変数のスコープを計算している</li>
-</ul></li>
 </ul>
-
-<h3 id="ミローネ-セルフホスト">ミローネ: セルフホスト</h3>
-
+</li>
+</ul>
+<h3 id="--1">ミローネ: セルフホスト</h3>
 <p>ミローネ言語の字句解析器をミローネ言語自身でコンパイルしてみた。</p>
-
 <ul>
 <li>微妙なバグがいくつかあったので直した
-
 <ul>
 <li><a href="https://github.com/vain0x/milone-lang/commit/933d87a52debdf97848a542c71fb1c3aff2d4ec0">match が入れ子になれなかったバグ</a>とか</li>
 <li><a href="https://github.com/vain0x/milone-lang/commit/330fb365a318b276a410d78f0d5e96d068e0e2d6">クロージャ変換が推移的に解決されなかったバグ</a>とか</li>
-</ul></li>
+</ul>
+</li>
 <li>字句解析器のソースコードの字句解析ができた
-
 <ul>
 <li>レコード型を使ってるモジュールはまだ字句解析できない</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>次は構文解析器もコンパイルしようとしてる。</p>
-
 <ul>
 <li>単相化の設計的なバグが見つかったので直した (後述)</li>
 <li>生成されるC言語の型定義(struct)に問題がある
-
 <ul>
 <li>判別共用体がリストやタプルを介して相互再帰してると同じ型定義が複数生成されてしまう</li>
 <li>型定義の生成部分がやっつけすぎるせい</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>テストケースとエラーハンドリングが足りていないことが分かってきた。</p>
-
-<h3 id="ミローネ-単相化">ミローネ: 単相化</h3>
-
+<h3 id="--2">ミローネ: 単相化</h3>
 <p>多相関数の中に関数があると単相化でコードが壊れるバグがあった。例:</p>
 <div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">id</span> <span class="n">x</span> <span class="o">=</span>
     <span class="k">let</span> <span class="nv">aux</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">x</span>
     <span class="n">aux</span> <span class="bp">()</span>
 
 <span class="k">assert</span> <span class="o">(</span><span class="n">id</span> <span class="n">1</span> <span class="o">=</span> <span class="n">1</span><span class="o">)</span>
-<span class="k">assert</span> <span class="o">(</span><span class="n">id</span> <span class="s">&#34;a&#34;</span> <span class="o">=</span> <span class="s">&#34;a&#34;</span><span class="o">)</span></code></pre></div>
-<p>これを単相化すると多相関数 id が2つに複製される。内部にある関数 aux のコピーが2つできてしまう。</p>
+<span class="k">assert</span> <span class="o">(</span><span class="n">id</span> <span class="s">&#34;</span><span class="s">a</span><span class="s">&#34;</span> <span class="o">=</span> <span class="s">&#34;</span><span class="s">a</span><span class="s">&#34;</span><span class="o">)</span>
+</code></pre></div><p>これを単相化すると多相関数 id が2つに複製される。内部にある関数 aux のコピーが2つできてしまう。</p>
 <div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">id_int</span> <span class="n">x</span> <span class="o">=</span>
     <span class="k">let</span> <span class="nv">aux</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">x</span>
     <span class="n">aux</span> <span class="bp">()</span>
@@ -306,27 +292,22 @@
     <span class="n">aux</span> <span class="bp">()</span>
 
 <span class="k">assert</span> <span class="o">(</span><span class="n">id_int</span> <span class="n">1</span> <span class="o">=</span> <span class="n">1</span><span class="o">)</span>
-<span class="k">assert</span> <span class="o">(</span><span class="n">id_str</span> <span class="s">&#34;a&#34;</span> <span class="o">=</span> <span class="s">&#34;a&#34;</span><span class="o">)</span></code></pre></div>
-<p>解決策はいろいろあるが、クロージャ変換後に aux を外に移動する方法がある。</p>
+<span class="k">assert</span> <span class="o">(</span><span class="n">id_str</span> <span class="s">&#34;</span><span class="s">a</span><span class="s">&#34;</span> <span class="o">=</span> <span class="s">&#34;</span><span class="s">a</span><span class="s">&#34;</span><span class="o">)</span>
+</code></pre></div><p>解決策はいろいろあるが、クロージャ変換後に aux を外に移動する方法がある。</p>
 <div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// クロージャ変換後
 </span><span class="c1"></span>
 <span class="k">let</span> <span class="nv">aux</span> <span class="n">x</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">x</span>        <span class="c1">// 引数 x はクロージャ変換で追加された
-</span><span class="c1"></span><span class="k">let</span> <span class="nv">id</span> <span class="n">x</span> <span class="o">=</span> <span class="n">aux</span> <span class="n">x</span> <span class="bp">()</span></code></pre></div>
-<p>前回の近況記事や上に書いたlet深度の関係で、aux は多相関数でない。そのため aux は自由な型変数を含む。そのような型変数は aux によって導入するとみなせる。つまり、aux を generalize していい。それで壊れるようなケースは型推論時にエラーとして弾かれているため。</p>
-
-<h2 id="競プロ参戦記">競プロ参戦記</h2>
-
+</span><span class="c1"></span><span class="k">let</span> <span class="nv">id</span> <span class="n">x</span> <span class="o">=</span> <span class="n">aux</span> <span class="n">x</span> <span class="bp">()</span>
+</code></pre></div><p>前回の近況記事や上に書いたlet深度の関係で、aux は多相関数でない。そのため aux は自由な型変数を含む。そのような型変数は aux によって導入するとみなせる。つまり、aux を generalize していい。それで壊れるようなケースは型推論時にエラーとして弾かれているため。</p>
+<h2 id="heading-1">競プロ参戦記</h2>
 <p><a href="https://note.mu/vain0x/n/ne89049a33233">2018-08-19 に投稿した最初の競プロ参戦記</a>から1年たった。当時のレートは 1547 (水)、いまは 1799 (青, +252)。</p>
-
 <ul>
 <li><a href="https://qiita.com/vain0x/items/732379c101b60c56f3f0">競プロ参戦記 #58 Max GCD | ABC 136</a></li>
 <li><a href="https://qiita.com/vain0x/items/871294ed64e091fd1c28">競プロ参戦記 #59 Coins Respawn | ABC 137</a></li>
 <li><a href="https://qiita.com/vain0x/items/c9166707c81697198998">競プロ参戦記 #61 Cell Inversion | 第一回日本最強プログラマー学生選手権-予選-</a></li>
 <li><a href="https://qiita.com/vain0x/items/d024c1e0b71dcb1de94e">競プロ参戦記 #60 Strings of Impurity | ABC 138</a></li>
 </ul>
-
-<h2 id="ガルパ">ガルパ</h2>
-
+<h2 id="heading-2">ガルパ</h2>
 <ul>
 <li>Opera of the wasteland (難度28) を初めてフルコンボした</li>
 <li>EXトライマスターの称号を取得 (3回目)</li>
@@ -446,7 +427,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

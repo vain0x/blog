@@ -28,8 +28,7 @@
       <pubDate>Mon, 04 Dec 2017 00:31:05 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/</guid>
-      <description>&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
-
+      <description>&lt;h2 id=&#34;heading&#34;&gt;要約&lt;/h2&gt;
 &lt;p&gt;C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。&lt;/p&gt;</description>
     </item>
     
@@ -40,7 +39,6 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/</guid>
       <description>&lt;p&gt;主張: &lt;code&gt;IReadOnlyList&amp;lt;_&amp;gt;&lt;/code&gt; を実装するクラスは、 &lt;code&gt;IList&amp;lt;_&amp;gt;&lt;/code&gt; と &lt;code&gt;IList&lt;/code&gt; も実装したほうがいい。&lt;/p&gt;
-
 &lt;p&gt;理由は2つあります。&lt;/p&gt;</description>
     </item>
     
@@ -51,7 +49,6 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-04-05/switch-on-await/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/945591e96b7338478cb5&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。&lt;/p&gt;</description>
     </item>
     
@@ -62,9 +59,7 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-21/enumerable-test/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/142b84e8ca20fbed43ed&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;&lt;a href=&#34;http://github.com/vain0x/EnumerableTest&#34;&gt;EnumerableTest&lt;/a&gt; という .NET 向けの単体テストフレームワークを作成しました。&lt;/p&gt;
-
 &lt;p&gt;具体的な使い方は &lt;a href=&#34;https://vain0x.github.io/EnumerableTest/articles/tutorials/walk-around.html&#34;&gt;チュートリアル&lt;/a&gt; を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。&lt;/p&gt;</description>
     </item>
     
@@ -75,7 +70,6 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/772d2a17c7d1cb735dd1&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。&lt;a href=&#34;https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock&#34;&gt;うまくいかない設計に基づく実装をけっこう書いてしまった&lt;/a&gt; ので、その供養でもあります。&lt;/p&gt;</description>
     </item>
     
@@ -86,7 +80,6 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-05/breakable-loop-in-fsharp/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/ddef84e3959dffe6a88d&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;手続き型言語を使う人に「F# のループ (for/while) は &lt;code&gt;break&lt;/code&gt; できない」というと驚かれるかもしれません。筆者は驚きました。途中で終了する可能性のあるループを書けなくて困りそうですが、その心配は不要です。F# では &lt;strong&gt;末尾再帰関数&lt;/strong&gt; を使って、&lt;code&gt;break&lt;/code&gt; や &lt;code&gt;continue&lt;/code&gt; のあるループと同じことができるからです。&lt;/p&gt;</description>
     </item>
     
@@ -97,15 +90,10 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-12-25/reports-with-wpf/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/0ec44dc198433675ea2f&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;※これは &lt;a href=&#34;http://qiita.com/advent-calendar/2016/xaml&#34;&gt;XAML Advent Calendar 2016&lt;/a&gt; の25日目の記事です。&lt;/p&gt;
-
 &lt;p&gt;WPF/XAML を使って帳票のデザインから印刷までやってみたという話です。ソースコードが GitHub にありますので、それと同様にやればできます。&lt;/p&gt;
-
 &lt;p&gt;&lt;a href=&#34;https://github.com/vain0x/VainZero.WpfReportPrinting&#34;&gt;vain0x/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
-
+&lt;h2 id=&#34;heading&#34;&gt;要約&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;XAML というマークアップ言語で帳票のデザインから印刷までできれば、たくさんの利点がある。&lt;/li&gt;
 &lt;li&gt;WPF アプリケーションで帳票のプレビューや印刷を行うサンプルを作った。&lt;/li&gt;
@@ -120,7 +108,6 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-12-21/lists-with-no-alloc-enumerator/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/8f89843325ab303c6e04&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介します。&lt;/p&gt;</description>
     </item>
     
@@ -131,7 +118,6 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-08-18/null-object-patterns/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://qiita.com/vain0x/items/c8adb679a6c253e5261f&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。&lt;/p&gt;</description>
     </item>
     

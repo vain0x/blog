@@ -11,13 +11,10 @@
   <meta property="og:title" content="LSP学習記 #1" />
   <meta name="twitter:title" content="LSP学習記 #1" />
   <meta name="description" content="LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。
-
 第1回では LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作ります。">
   <meta property="og:description" content="LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。
-
 第1回では LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作ります。">
   <meta name="twitter:description" content="LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。
-
 第1回では LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作ります。">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
@@ -90,7 +87,6 @@
 
 <meta property="og:title" content="LSP学習記 #1" />
 <meta property="og:description" content="LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。
-
 第1回では LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作ります。">
 <meta property="og:url" content="https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/" />
 <meta property="og:type" content="website" />
@@ -98,7 +94,6 @@
 
   <meta name="twitter:title" content="LSP学習記 #1" />
   <meta name="twitter:description" content="LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。
-
 第1回では LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作ります。">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
@@ -111,7 +106,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -216,143 +211,100 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。</p>
-
 <p>第1回では LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作ります。</p>
-
-<h2 id="おことわり">おことわり</h2>
-
+<h2 id="heading">おことわり</h2>
 <p>読者には Node.js と TypeScript の基本的な知識を前提とします。</p>
-
 <p>若干解説調の文章になってしまっていますが、筆者は詳しいわけではないのでご了承ください。</p>
-
-<h2 id="lsp-とは">LSP とは</h2>
-
+<h2 id="lsp-">LSP とは</h2>
 <p>LSP = Language Server Protocol</p>
-
 <p>すごく雑に利点をいうと、いわゆるインテリセンス (ソースコードに警告を出したり入力補完をしたりするやつ) の実装をテキストエディターから分離するのに使えます。</p>
-
 <p>もう少し詳しくは、以下の記事を参考:</p>
-
 <ul>
 <li><a href="https://microsoft.github.io/language-server-protocol/overview">Overview</a>
-
 <ul>
 <li>公式の概要 (英語)</li>
-</ul></li>
+</ul>
+</li>
 <li><a href="https://qiita.com/atsushieno/items/ce31df9bd88e98eec5c4">language server protocolについて (前編) - Qiita</a>
-
 <ul>
 <li>執筆時点で後編はないみたいです</li>
-</ul></li>
+</ul>
+</li>
 <li><a href="https://qiita.com/himanoa/items/04a105cc9615e85ad420">LanguageServerProtocol(LSP)のススメ - Qiita</a>
-
 <ul>
 <li>動作例の GIF があって分かりやすいです</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>VSCode などのエディターが「LSP クライアント」です。一方で言語固有の機能を提供するほうが「LSP サーバー」になります。</p>
-
-<h2 id="公式のサンプル">公式のサンプル</h2>
-
+<h2 id="heading-1">公式のサンプル</h2>
 <p>Microsoft のリポジトリに VSCode の拡張機能のサンプル集があります。そのなかに LSP がらみのものが3つあります。次の lsp-sample がもっとも単純です。</p>
-
 <p><a href="https://github.com/Microsoft/vscode-extension-samples/tree/515a928615aaab84ae7f66a38e4346db84464fcb/lsp-sample">Microsoft/vscode-extension-samples/lsp-sample</a></p>
-
 <p>このリポジトリに関するチュートリアル (英語) があります:</p>
-
 <ul>
 <li><a href="https://code.visualstudio.com/api/language-extensions/language-server-extension-guide">Language Server Extension Guide | Visual Studio Code Extension API</a></li>
 </ul>
-
 <p>次の3つのファイルに注目して中身をみていきます。</p>
-
 <ul>
 <li><code>package.json</code>
-
 <ul>
 <li>パッケージの依存関係やビルドスクリプトだけでなく、VSCode の拡張機能に対するさまざまな設定を含んでいる</li>
-</ul></li>
+</ul>
+</li>
 <li><code>client/src/extension.ts</code>
-
 <ul>
 <li>VSCode の拡張機能のエントリーポイント</li>
-</ul></li>
+</ul>
+</li>
 <li><code>server/src/server.ts</code>
-
 <ul>
 <li>LSP サーバーの実装</li>
-</ul></li>
 </ul>
-
-<h3 id="サンプル-サンプル言語サーバーの機能">サンプル: サンプル言語サーバーの機能</h3>
-
+</li>
+</ul>
+<h3 id="-">サンプル: サンプル言語サーバーの機能</h3>
 <p>lsp-sample の LSP サーバーは、テキストファイルの編集時に2つの機能を提供するものです。</p>
-
 <ul>
 <li>ドキュメントの検証
-
 <ul>
 <li>大文字で書かれた単語を警告として報告する</li>
-</ul></li>
+</ul>
+</li>
 <li>入力補完
-
 <ul>
 <li>&ldquo;JavaScript&rdquo; &ldquo;TypeScript&rdquo; を入力補完候補に出す</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>これらの機能の実装は <code>server.ts</code> にあって、VSCode (LSP クライアント) から送られてきたメッセージに応答するという流れになっています。</p>
-
-<h3 id="サンプル-サンプル言語サーバーの起動">サンプル: サンプル言語サーバーの起動</h3>
-
+<h3 id="--1">サンプル: サンプル言語サーバーの起動</h3>
 <p>VSCode にこの拡張機能をインストールした状態でプレインテキスト (txt など) を開くと、拡張機能が読み込まれます。</p>
-
 <p>ここでプレインテキストに反応しているのは <code>package.json</code> の <code>activationEvents</code> (拡張機能を開始する基準のイベント) に <code>onLanguage:plaintext</code> と書かれているからのようです。</p>
-
 <ul>
 <li><a href="https://code.visualstudio.com/api/get-started/extension-anatomy">Extension Anatomy | Visual Studio Code Extension API</a></li>
 </ul>
-
 <p>拡張機能が読み込まれると <code>extension.ts</code> の <code>activate</code> 関数が呼ばれます。これは <code>vscode-languageclient</code> パッケージの機能を使って、LSP クライアントを実行しています。ここで LSP サーバー (<code>server.ts</code>) が新しいプロセスとして起動されているようです。</p>
-
 <p>これで無事に通信が確立します。ユーザーの操作に応じて、クライアントがサーバーに必要な処理の要求を発行して、サーバーが応答する、というのが繰り返される。めでたし。</p>
-
-<h2 id="lsp-サーバーをイチから書く">LSP サーバーをイチから書く</h2>
-
+<h2 id="lsp--1">LSP サーバーをイチから書く</h2>
 <p>さて、いま作っている最小限の LSP サーバー (もどき) がこちらです:</p>
-
 <p><strong><a href="https://github.com/vain0x/curage-lang/tree/v0.1.0">curage-lang v0.1.0</a></strong></p>
-
 <p>lsp-sample との違いは主に3点です。</p>
-
 <p>1つ目は、 LSP サーバーの実装に <code>vscode-languageserver</code> パッケージを使っていないこと。</p>
-
 <p>このパッケージを使うと手軽に LSP サーバーが作れて便利そうですが、今回は使いません。後々 Node.js を使わずに言語サーバーを実装したいので、その練習のためです。</p>
-
 <p>2つ目は、 LSP クライアントとサーバーの接続に標準入出力を使っていること。</p>
-
 <p><code>lsp/src/extension.ts</code> の一部が異なります。 lsp-sample では、 LSP サーバーが Node.js で動いてることを前提とする設定で、LSP クライアントを起動しているようです。curage-lang lsp は、標準入出力を使ってサーバーと接続する設定に変えています。これにより、サーバーが Node.js 上で動いてなくてもよくなります。</p>
-
 <p>3つ目は、サーバーとクライアントのパッケージを分けていないこと。分かれているとビルドスクリプト等が複雑化するため。</p>
-
 <ul>
 <li><code>package.json</code> の中身を調査するためにリポジトリ自体もイチから始めてます。いま思うと回り道だった。lsp-sample から始めたほうがいいです。</li>
 </ul>
-
-<h2 id="実装">実装</h2>
-
+<h2 id="heading-2">実装</h2>
 <p>lsp-sample はここまでにして、自作 LSP サーバーに実装する処理をみていきます。参考:</p>
-
 <ul>
 <li>Language Server Protocol の公式の仕様: <a href="https://microsoft.github.io/language-server-protocol/specification">Specification</a></li>
 <li>JSON RPC 2.0 の公式の仕様: <a href="https://www.jsonrpc.org/specification">JSON-RPC 2.0 Specification</a></li>
 </ul>
-
-<h3 id="実装-メッセージの受け取り">実装: メッセージの受け取り</h3>
-
+<h3 id="--2">実装: メッセージの受け取り</h3>
 <p>LSP クライアントからサーバーへのメッセージとして、以下のような文字列が送られます。(改行は <code>\r\n</code>)</p>
-
 <pre><code>Content-Length: 88
 
 {
@@ -361,40 +313,26 @@
     &quot;method&quot;: &quot;shutdown&quot;,
     &quot;params&quot;: null
 }
-</code></pre>
-
-<p>フォーマットは HTTP と似ています。空行までがヘッダーです。 <code>Content-Length</code> ヘッダーは必須で、ボディーの長さ (バイト単位) が指定されます。この例では、後半の JSON がボディーです。</p>
-
+</code></pre><p>フォーマットは HTTP と似ています。空行までがヘッダーです。 <code>Content-Length</code> ヘッダーは必須で、ボディーの長さ (バイト単位) が指定されます。この例では、後半の JSON がボディーです。</p>
 <p>この文字列は、今回はサーバーのプロセスの標準入力に送られてきます。標準入力を受け取るには <code>process.stdin</code> の <code>data</code> イベントを監視して、送られてくるデータをバッファーにためていけばいいです。</p>
-
 <ul>
 <li>公式のサンプルを見ると <code>readable</code> イベントと <code>read</code> メソッドを使ってました: <a href="https://nodejs.org/api/process.html#process_process_stdin">Process | Node.js v11.6.0 Documentation</a></li>
 </ul>
-
 <p>バッファーがたまったらメッセージ単位で切り分けます。これは単純な文字列処理なので詳細は略。</p>
-
 <ul>
 <li>なお LSP のヘッダーは <code>Content-Length</code> 以外にもありますが、ここでは未実装にします。また、エラーが起こったときは JSON RPC の仕様にのっとってエラー情報を返送する必要がありますが、これも後回しにします。
-
 <ul>
 <li>このあたり curage-lang lsp は未熟なので、まだ LSP サーバー &ldquo;もどき&rdquo; を名乗ったほうがいいかも。</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>サーバーからクライアントに送信するメッセージも同様の形式です。</p>
-
-<h3 id="実装-通信の開始時">実装: 通信の開始時</h3>
-
+<h3 id="--3">実装: 通信の開始時</h3>
 <p>通常、クライアントから最初に送られるメッセージは <a href="https://microsoft.github.io/language-server-protocol/specification#initialize">initialize リクエスト</a> です。</p>
-
 <p>リクエストのパラメーター (params) として、さまざまな情報が渡されます。いまは必要なさそうなので略。</p>
-
 <p>JSON RPC ではリクエストに対してレスポンスを返す必要があります。</p>
-
 <p>initialize へのレスポンスに載せるデータ (result) は <code>InitializeResult</code> インターフェイスで定義されています。ここには LSP サーバーがどの機能を実装しているか (capabilities) を指定します。いまは何も実装できてないので <code>{}</code> 。</p>
-
 <p>例えば initialize リクエストがこれなら (実際はかなり長い)、</p>
-
 <pre><code>Content-Length: 92
 
 {
@@ -403,10 +341,7 @@
     &quot;method&quot;: &quot;initialize&quot;,
     &quot;params&quot;: { /* 略 */ }
 }
-</code></pre>
-
-<p>initialize レスポンスはこう:</p>
-
+</code></pre><p>initialize レスポンスはこう:</p>
 <pre><code>Content-Length: 75
 
 {
@@ -414,134 +349,105 @@
     &quot;id&quot;: 1,
     &quot;result&quot;: { &quot;capabilities&quot;: {} }
 }
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>注: レスポンスに method を書かなくていいのは id の値から分かるからだと思います。</li>
 </ul>
-
 <p>この次にクライアントから <code>initialized</code> 通知が来ます。いまは無視してOK。</p>
-
 <p>通知 (notification) はリクエストとは違って、レスポンスを返さなくていいメッセージです。</p>
-
-<h3 id="実装-通信の終了時">実装: 通信の終了時</h3>
-
+<h3 id="--4">実装: 通信の終了時</h3>
 <p>通信を終了するには、クライアントがサーバーに <code>shutdown</code> リクエストを送ります。この時点ではまだサーバーは終了しません。クライアントが <code>exit</code> 通知をサーバーに送ったら正常終了です。</p>
-
-<h3 id="実装-ソースコードの検証">実装: ソースコードの検証</h3>
-
+<h3 id="--5">実装: ソースコードの検証</h3>
 <p>開始して終了するだけのサーバーができました。そろそろ機能を載せます。</p>
-
 <p>ソースコードが次の文字列と一致しなければ、一致しない部分に警告を出す、という検証機能です。ハローワールドしか書けないプログラミング言語！</p>
-
 <pre><code>print &quot;hello, world!&quot;
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li>変更点: <a href="https://github.com/vain0x/curage-lang/commit/2c463d3bc83a8bcff14782d9ae49cf8db4f9acd5">feat: Trivial source code validation</a></li>
 <li><a href="https://github.com/vain0x/curage-lang/tree/v0.2.0">変更後のリポジトリ</a></li>
 </ul>
-
 <p>クライアントで編集されているファイルの情報を得るために、 <a href="https://microsoft.github.io/language-server-protocol/specification#initialize">initialize レスポンス</a> の <code>capabilities</code> に <code>textDocumentSync</code> オプションを追加しました。これがあると、LSP の仕様として、クライアントから以下の通知を送ってもらえることになってます。(ここでめっちゃ詰まりました。)</p>
-
 <ul>
-<li><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_didOpen"><code>textDocument/didOpen</code> 通知</a>: ファイルが開かれた</li>
-<li><code>textDocument/didClose</code> 通知: ファイルが閉じた</li>
-
-<li><p><code>textDocument/didChange</code> 通知: ファイルが変更された</p></li>
-
-<li><p>注: これはすべてのクライアントが実装する機能とされているので、 initialize リクエストの capabilities (クライアントがどの機能に対応しているか) を読まずに使っていいです。</p></li>
-
-<li><p>注: ファイルの URI が送られてきますが、これを使ってファイルにアクセスするというものではなく、ファイルを区別するための識別子です。</p></li>
+<li>
+<p><a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_didOpen"><code>textDocument/didOpen</code> 通知</a>: ファイルが開かれた</p>
+</li>
+<li>
+<p><code>textDocument/didClose</code> 通知: ファイルが閉じた</p>
+</li>
+<li>
+<p><code>textDocument/didChange</code> 通知: ファイルが変更された</p>
+</li>
+<li>
+<p>注: これはすべてのクライアントが実装する機能とされているので、 initialize リクエストの capabilities (クライアントがどの機能に対応しているか) を読まずに使っていいです。</p>
+</li>
+<li>
+<p>注: ファイルの URI が送られてきますが、これを使ってファイルにアクセスするというものではなく、ファイルを区別するための識別子です。</p>
+</li>
 </ul>
-
 <p>こうしてファイルが開かれたり変更されるたびにファイルの中身が送られてくるようになったので、検証ができます。</p>
-
 <p>LSP では警告やエラーをまとめて diagnostic と呼び、その種類を severity と呼んでます。diagnostic の範囲は、行番号と列番号を使って指定します。例えば 0 行目 i 列目の文字に問題があるときの警告はこんな感じです:</p>
-<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts">    <span class="p">({</span>
-        <span class="nx">message</span><span class="o">:</span> <span class="sb">`Expected &#39;</span><span class="si">${</span><span class="nx">expected</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="si">}</span><span class="sb">&#39;.`</span><span class="p">,</span>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts">    <span class="p">(</span><span class="p">{</span>
+        <span class="nx">message</span><span class="o">:</span> <span class="sb">`</span><span class="sb">Expected &#39;</span><span class="si">${</span><span class="nx">expected</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="si">}</span><span class="sb">&#39;.</span><span class="sb">`</span><span class="p">,</span>
         <span class="nx">severity</span>: <span class="kt">DiagnosticSeverity.Warning</span><span class="p">,</span>
         <span class="nx">range</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">start</span><span class="o">:</span> <span class="p">{</span> <span class="nx">line</span>: <span class="kt">0</span><span class="p">,</span> <span class="nx">character</span>: <span class="kt">i</span> <span class="p">},</span>
-            <span class="nx">end</span><span class="o">:</span> <span class="p">{</span> <span class="nx">line</span>: <span class="kt">0</span><span class="p">,</span> <span class="nx">character</span>: <span class="kt">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">},</span>
-        <span class="p">},</span>
-    <span class="p">})</span>
-</code></pre></div>
-<p>diagnostics の配列を作って、 <a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_publishDiagnostics">textDocumet/publishDiagnostics 通知</a> を送ります。</p>
-
+            <span class="nx">start</span><span class="o">:</span> <span class="p">{</span> <span class="nx">line</span>: <span class="kt">0</span><span class="p">,</span> <span class="nx">character</span>: <span class="kt">i</span> <span class="p">}</span><span class="p">,</span>
+            <span class="nx">end</span><span class="o">:</span> <span class="p">{</span> <span class="nx">line</span>: <span class="kt">0</span><span class="p">,</span> <span class="nx">character</span>: <span class="kt">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">}</span><span class="p">,</span>
+        <span class="p">}</span><span class="p">,</span>
+    <span class="p">}</span><span class="p">)</span>
+</code></pre></div><p>diagnostics の配列を作って、 <a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_publishDiagnostics">textDocumet/publishDiagnostics 通知</a> を送ります。</p>
 <ul>
 <li>注: この通知はドキュメント内の diagnostic をすべて置き換えます。</li>
 </ul>
-
 <p>検証処理の実装は、1文字ずつ比較するだけなので略。</p>
-
-<h2 id="動作確認">動作確認</h2>
-
-<h3 id="動作確認-vscode">動作確認: VSCode</h3>
-
+<h2 id="heading-3">動作確認</h2>
+<h3 id="-vscode">動作確認: VSCode</h3>
 <p>VSCode は開発中の拡張機能をデバッグできます。</p>
-
 <ul>
 <li>注: <code>.vscode/launch.json</code> に設定があります。詳細は分かりません。</li>
 </ul>
-
 <p>なんにせよ F5 を押すと VSCode が起動して、ちゃんと LSP サーバーが動きます。めでたし。</p>
-
-<p><img src="https://qiita-image-store.s3.amazonaws.com/0/74340/38f57697-5ace-02c9-a8b4-e7831b7a0c54.png" alt="" /></p>
-
+<p><img src="https://qiita-image-store.s3.amazonaws.com/0/74340/38f57697-5ace-02c9-a8b4-e7831b7a0c54.png" alt=""></p>
 <p>(VSCode で curage-lang lsp v0.2.0 が動いている様子)</p>
-
-<h3 id="動作確認-sublime-text-3">動作確認: Sublime Text 3</h3>
-
+<h3 id="-sublime-text-3">動作確認: Sublime Text 3</h3>
 <p>せっかくなので別の LSP クライアントでも試してみましょう。Sublime Text 3 でやってみます。</p>
-
 <p>駆け足で手順だけ書くと:</p>
-
 <ul>
 <li><a href="https://www.sublimetext.com/">Sublime Text 3 をインストールする</a> (無期限に無償で使えます)</li>
 <li><a href="https://packagecontrol.io/installation">Package Control をインストールする</a></li>
 <li>Package Control で &ldquo;LSP&rdquo; をインストールする</li>
-
-<li><p>LSP Settings で <a href="https://github.com/tomv564/LSP#configuration">LSP クライアントの設定を書く</a></p>
-
+<li>LSP Settings で <a href="https://github.com/tomv564/LSP#configuration">LSP クライアントの設定を書く</a>
 <ul>
-<li><p><code>out/server.js</code> が起動されるようにコマンドを指定しておく。</p>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-<span class="nt">&#34;clients&#34;</span><span class="p">:</span>
-<span class="p">{</span>
-<span class="nt">&#34;curage&#34;</span><span class="p">:</span>
-<span class="p">{</span>
-    <span class="nt">&#34;command&#34;</span><span class="p">:</span>
-    <span class="p">[</span>
-        <span class="s2">&#34;node&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;&lt;略&gt;/curage-lang/lsp/out/server.js&#34;</span>
-    <span class="p">],</span>
-    <span class="nt">&#34;enabled&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="nt">&#34;scopes&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;text.plain&#34;</span><span class="p">],</span>
-    <span class="nt">&#34;syntaxes&#34;</span><span class="p">:</span> <span class="p">[],</span>
-    <span class="nt">&#34;languageId&#34;</span><span class="p">:</span> <span class="s2">&#34;plaintext&#34;</span>
-<span class="p">}</span>
-<span class="p">}</span>
-<span class="p">}</span></code></pre></div></li>
-</ul></li>
-
-<li><p>注: この設定だとあらゆるテキストファイルに関して警告を出してしまうので、何か間違っていそう。</p></li>
+<li><code>out/server.js</code> が起動されるようにコマンドを指定しておく。</li>
 </ul>
-
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;clients&#34;</span><span class="p">:</span>
+    <span class="p">{</span>
+        <span class="nt">&#34;curage&#34;</span><span class="p">:</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;command&#34;</span><span class="p">:</span>
+            <span class="p">[</span>
+                <span class="s2">&#34;node&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;&lt;略&gt;/curage-lang/lsp/out/server.js&#34;</span>
+            <span class="p">]</span><span class="p">,</span>
+            <span class="nt">&#34;enabled&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&#34;scopes&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;text.plain&#34;</span><span class="p">]</span><span class="p">,</span>
+            <span class="nt">&#34;syntaxes&#34;</span><span class="p">:</span> <span class="p">[</span><span class="p">]</span><span class="p">,</span>
+            <span class="nt">&#34;languageId&#34;</span><span class="p">:</span> <span class="s2">&#34;plaintext&#34;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><ul>
+<li>注: この設定だとあらゆるテキストファイルに関して警告を出してしまうので、何か間違っていそう。</li>
+</ul>
 <p>動いている様子はだいたい同じです。</p>
-
-<h2 id="まとめと次回">まとめと次回</h2>
-
+<h2 id="heading-4">まとめと次回</h2>
 <p>今回のポイントは以下の3点でした。</p>
-
 <ul>
 <li>LSP ではクライアントとサーバーがリクエストとレスポンスを投げ合う (ときどき通知)</li>
 <li>クライアントの通知を受け取れた / クライアントに通知を送れた</li>
 <li>自作 LSP サーバーが任意のエディタで動いてて楽しい</li>
 </ul>
-
 <p>次はもっとプログラミング言語らしいものを検証して、構文エラーの警告を出せるようにします。そのあと、変数のリネームやシンボル参照の検索などをやっていきたいです。</p>
-
 <ul>
 <li>次回: <a href="https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/">LSP学習記 #2 クラゲ言語の構文解析</a></li>
 </ul>
@@ -662,7 +568,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

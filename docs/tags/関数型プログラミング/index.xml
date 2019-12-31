@@ -20,7 +20,6 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-05/breakable-loop-in-fsharp/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/ddef84e3959dffe6a88d&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;手続き型言語を使う人に「F# のループ (for/while) は &lt;code&gt;break&lt;/code&gt; できない」というと驚かれるかもしれません。筆者は驚きました。途中で終了する可能性のあるループを書けなくて困りそうですが、その心配は不要です。F# では &lt;strong&gt;末尾再帰関数&lt;/strong&gt; を使って、&lt;code&gt;break&lt;/code&gt; や &lt;code&gt;continue&lt;/code&gt; のあるループと同じことができるからです。&lt;/p&gt;</description>
     </item>
     

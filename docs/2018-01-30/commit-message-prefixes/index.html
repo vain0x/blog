@@ -12,23 +12,17 @@
   <meta name="twitter:title" content="『コミットメッセージに「プレフィックス」をつける』を検討した" />
   <meta name="description" content="Qiita で コミットメッセージに 「プレフィックス」 をつける というアイディアが紹介されていて、その効用の一つとして挙げられている:
 
-
 プレフィックスを意識しながら順序立てて機能を作成する癖が身につく
-
 
 という点が、試験運用していて実際に魅力的だと感じた。">
   <meta property="og:description" content="Qiita で コミットメッセージに 「プレフィックス」 をつける というアイディアが紹介されていて、その効用の一つとして挙げられている:
 
-
 プレフィックスを意識しながら順序立てて機能を作成する癖が身につく
-
 
 という点が、試験運用していて実際に魅力的だと感じた。">
   <meta name="twitter:description" content="Qiita で コミットメッセージに 「プレフィックス」 をつける というアイディアが紹介されていて、その効用の一つとして挙げられている:
 
-
 プレフィックスを意識しながら順序立てて機能を作成する癖が身につく
-
 
 という点が、試験運用していて実際に魅力的だと感じた。">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
@@ -103,9 +97,7 @@
 <meta property="og:title" content="『コミットメッセージに「プレフィックス」をつける』を検討した" />
 <meta property="og:description" content="Qiita で コミットメッセージに 「プレフィックス」 をつける というアイディアが紹介されていて、その効用の一つとして挙げられている:
 
-
 プレフィックスを意識しながら順序立てて機能を作成する癖が身につく
-
 
 という点が、試験運用していて実際に魅力的だと感じた。">
 <meta property="og:url" content="https://vain0x.github.io/blog/2018-01-30/commit-message-prefixes/" />
@@ -115,9 +107,7 @@
   <meta name="twitter:title" content="『コミットメッセージに「プレフィックス」をつける』を検討した" />
   <meta name="twitter:description" content="Qiita で コミットメッセージに 「プレフィックス」 をつける というアイディアが紹介されていて、その効用の一つとして挙げられている:
 
-
 プレフィックスを意識しながら順序立てて機能を作成する癖が身につく
-
 
 という点が、試験運用していて実際に魅力的だと感じた。">
   <meta name="twitter:card" content="summary" />
@@ -131,7 +121,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -236,30 +226,21 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>Qiita で <a href="https://qiita.com/numanomanu/items/45dd285b286a1f7280ed">コミットメッセージに 「プレフィックス」 をつける</a> というアイディアが紹介されていて、その効用の一つとして挙げられている:</p>
-
 <blockquote>
 <p>プレフィックスを意識しながら順序立てて機能を作成する癖が身につく</p>
 </blockquote>
-
 <p>という点が、試験運用していて実際に魅力的だと感じた。</p>
-
 <p>関連して、どうやら <a href="http://pronama.azurewebsites.net/2015/06/20/github-emoji-commit-message/">テキストエディター Atom のリポジトリーではコミットメッセージに絵文字をつけるようにしている</a> らしい。</p>
-
 <p>しかし GitHub のコロン記法 (<code>:sparkles:</code> みたいなの) はターミナル上では絵文字として表示されないし、そもそも特定のサービスに不必要に依存したくない。では utf-8 の絵文字そのものではどうかというと、フォントによっては表示されなかったり、 utf-8 に依存するのが気になる。ターミナル上では色がつかない (※フォントによる) ので視認性もいまいちだ。</p>
-
 <p>入力が面倒だという問題は、コミットフックでコロン記法 (<code>:sparkles:</code> みたいなの) から絵文字に自動で変換するという案もある (※試していない)。</p>
-
 <p>また、単純に ASCII 文字を使うという手もある。 <code>+ Add new feature</code> とか <code>- Remove a file</code> みたいな感じだ。 <code>+</code> と <code>-</code> ぐらいならいいが、それ以外はかなり涙ぐましい状態になる。</p>
-
 <p>以下の観点について比較してみよう。</p>
-
 <ul>
 <li><strong>楽さ</strong>。プレフィックスをつけてコミットメッセージを書くのに手間がかからないほうがよい。</li>
 <li><strong>明確さ</strong>。表記と意味の関係が自然であるほど覚えやすく、曖昧性が低い。初めて見た人にでも意味が分かるとなおよい。</li>
 <li><strong>視認性</strong>。プレフィックスの意味を把握している人にとって、パット見て分かりやすいか。</li>
 <li><strong>依存関係</strong>。寿命のなさそうな技術に依存するのはマイナス。</li>
 </ul>
-
 <table>
 <thead>
 <tr>
@@ -270,7 +251,6 @@
 <th align="left">依存関係</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="left"><strong>英語</strong></td>
@@ -279,7 +259,6 @@
 <td align="left">△</td>
 <td align="left">○</td>
 </tr>
-
 <tr>
 <td align="left"><strong>絵文字</strong></td>
 <td align="left">×</td>
@@ -287,7 +266,6 @@
 <td align="left">○</td>
 <td align="left">△</td>
 </tr>
-
 <tr>
 <td align="left"><strong>コロン記法</strong></td>
 <td align="left">△</td>
@@ -295,7 +273,6 @@
 <td align="left">○</td>
 <td align="left">×</td>
 </tr>
-
 <tr>
 <td align="left"><strong>ASCII</strong></td>
 <td align="left">○</td>
@@ -305,13 +282,9 @@
 </tr>
 </tbody>
 </table>
-
 <p>依存関係の評価に関して念のためにいうと、 GitHub や utf-8 に限界を感じているわけではなくて、10年後ぐらいにひょっこり消えてる可能性がないこともないぐらいの意味。</p>
-
 <p>そういうわけで <code>feat:</code> とかを使っていくことにする。</p>
-
-<h2 id="関連リンク">関連リンク</h2>
-
+<h2 id="heading">関連リンク</h2>
 <ul>
 <li>numanomanu (2018) 「【今日からできる】コミットメッセージに 「プレフィックス」 をつけるだけで、開発効率が上がった話」 <a href="https://qiita.com/numanomanu/items/45dd285b286a1f7280ed">https://qiita.com/numanomanu/items/45dd285b286a1f7280ed</a> (2018/01/28 アクセス.)</li>
 <li>jz5 (2015) 「GitHub で絵文字入りコミットメッセージを活用しているプロジェクトを調べてみた」 <a href="http://pronama.azurewebsites.net/2015/06/20/github-emoji-commit-message/">http://pronama.azurewebsites.net/2015/06/20/github-emoji-commit-message/</a> (2018/01/28 アクセス.)</li>
@@ -434,7 +407,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

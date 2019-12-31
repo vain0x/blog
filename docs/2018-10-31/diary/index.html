@@ -12,16 +12,13 @@
   <meta name="twitter:title" content="近況 2018-10-31" />
   <meta name="description" content="今月の活動まとめ
 
-
 前月
 ">
   <meta property="og:description" content="今月の活動まとめ
 
-
 前月
 ">
   <meta name="twitter:description" content="今月の活動まとめ
-
 
 前月
 ">
@@ -97,7 +94,6 @@
 <meta property="og:title" content="近況 2018-10-31" />
 <meta property="og:description" content="今月の活動まとめ
 
-
 前月
 ">
 <meta property="og:url" content="https://vain0x.github.io/blog/2018-10-31/diary/" />
@@ -106,7 +102,6 @@
 
   <meta name="twitter:title" content="近況 2018-10-31" />
   <meta name="twitter:description" content="今月の活動まとめ
-
 
 前月
 ">
@@ -121,7 +116,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -226,150 +221,135 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>今月の活動まとめ</p>
-
 <ul>
 <li><a href="https://vain0x.github.io/blog/2018-09-30/diary/">前月</a></li>
 </ul>
-
 <h3 id="milone-lang">milone-lang</h3>
-
 <ul>
 <li><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></li>
 <li>F# のサブセットのコンパイラ milone-lang を作ってる</li>
 <li>前月苦しんでいた字下げ依存構文の構文解析問題はほぼ解決した
-
 <ul>
 <li>次のトークンの位置が低すぎたらパースを中止する、みたいな動き</li>
 <li>結果的に再帰下降パーサーとしては自然な実装になった</li>
-</ul></li>
+</ul>
+</li>
 <li>インタプリタを捨てて、C言語のコードを生成するようにした
-
 <ul>
 <li>インタプリタの実装は klac-lang でやったから退屈に感じる</li>
 <li>最終的にはアセンブリや Web Assembly や LLVM をターゲットにしたいが、モチベを維持するために機能追加を優先していく</li>
-</ul></li>
+</ul>
+</li>
 <li>演算や条件分岐や関数などの基本機能が入った</li>
 <li>シンプルな型推論が入った
-
 <ul>
 <li>単一化ベースだが、まだ多相関数は禁止しているのでHMじゃない</li>
-</ul></li>
+</ul>
+</li>
 <li>ジェネリクスを入れようとして、オートボクシングと型推論の兼ね合いで悩んだ
-
 <ul>
 <li>ジェネリクスはやめて、単相化することにした</li>
 <li>例えばタプルは、生成後のCのコードでは型引数ごとに別々の構造体になる</li>
-</ul></li>
+</ul>
+</li>
 <li>近い目標として、字句解析器をコンパイルしたい
-
 <ul>
 <li>リストを入れないと何もできない</li>
 <li>クロージャもほしいけど難しいかも</li>
-</ul></li>
+</ul>
+</li>
 <li>参考
-
 <ul>
 <li>TaPL</li>
 <li><a href="http://esumii.github.io/min-caml/">速攻MinCamlコンパイラ概説</a></li>
-</ul></li>
 </ul>
-
-<h3 id="環境再構築">環境再構築</h3>
-
+</li>
+</ul>
+<h3 id="heading">環境再構築</h3>
 <ul>
 <li>今年頭 (2018年1月) にパソコンを買い替えた
-
 <ul>
-<li><a href="https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/">Ubuntuデスクトップを使い始めた | vain0x&rsquo;s blog</a></li>
-</ul></li>
+<li><a href="https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/">Ubuntuデスクトップを使い始めた | vain0x's blog</a></li>
+</ul>
+</li>
 <li>Ubuntu デスクトップという試みはうまくいっている</li>
 <li>パフォーマンス問題があった
-
 <ul>
 <li>Chrome のタブを大量に開いたり VSCode を複数起動すると重たくなる</li>
-</ul></li>
+</ul>
+</li>
 <li>メモリを 16GB に、ハードディスクを SSD にした</li>
 <li>SSD 換装は初めてだったけど簡単にできた
-
 <ul>
 <li>SATAケーブルとSATA電源ケーブルを買ったけど、HDDと繋ぎかえるだけだからいらなかった</li>
 <li>SSD はメンディングテープで固定した</li>
-</ul></li>
+</ul>
+</li>
 <li>ついでにクリーンインストールした</li>
 </ul>
-
-<h3 id="競プロ参戦記">競プロ参戦記</h3>
-
+<h3 id="heading-1">競プロ参戦記</h3>
 <ul>
 <li>8月中旬から note.mu で <a href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a> を始めた</li>
 <li>AGC で惨敗して、2週間ぐらい競プロから離れていた</li>
 <li>先週の天下一は参加して、そこそこの成績だった</li>
 <li>まったりやっていく</li>
 </ul>
-
 <h3 id="toml-hummer">toml-hummer</h3>
-
 <ul>
 <li><a href="https://github.com/vain0x/toml-hummer">https://github.com/vain0x/toml-hummer</a></li>
 <li>F# 用の TOML パーサー</li>
 <li>あまり進んでない</li>
 <li>日時リテラルを扱えるようになりつつある</li>
 </ul>
-
 <h3 id="react">React</h3>
-
 <ul>
 <li>機能追加はうまくいっている</li>
 <li>データベース処理ごとテストしてる
-
 <ul>
 <li>依存関係を切るの難しい</li>
-</ul></li>
+</ul>
+</li>
 <li>履歴移動でコンポーネントの状態が初期化される問題はまだ放置してる</li>
 <li>サーバーとクライアントで行ったり来たりする処理の見通しが悪い
-
 <ul>
 <li>ステートマシンみたいになってしまう</li>
 <li>再帰下降パーサーみたいに書きたい</li>
-</ul></li>
 </ul>
-
-<h3 id="ガルパ">ガルパ</h3>
-
+</li>
+</ul>
+<h3 id="heading-2">ガルパ</h3>
 <ul>
 <li>ファントムシーフ (Expert 27) はクリアできた</li>
 <li>今後は 26 帯の精度を上げていきたい</li>
 <li>某の影響をで左手プレイを練習している</li>
 </ul>
-
-<h3 id="その他">その他</h3>
-
+<h3 id="heading-3">その他</h3>
 <ul>
 <li>AtCoder の提出を Git リポジトリにまとめるツールを書いた
-
 <ul>
 <li><a href="https://github.com/vain0x/submissions-sync">https://github.com/vain0x/submissions-sync</a></li>
 <li>GitHub に自動でコミットしたいという野望がある</li>
-</ul></li>
+</ul>
+</li>
 <li>投稿専用の Twitter クライアント Solotter を地味に改修した
-
 <ul>
 <li><a href="https://github.com/vain0x/solotter-web">https://github.com/vain0x/solotter-web</a></li>
 <li>Express.js で書いていたのが React になった</li>
 <li>いろいろ足したい機能があるけど、いまは milone-lang が優先</li>
-</ul></li>
+</ul>
+</li>
 <li>記事を投稿した
-
 <ul>
 <li><a href="https://qiita.com/vain0x/items/512784ff60ce599dccae">Rustで競プロするときのプラクティス [2018秋] - Qiita</a></li>
-</ul></li>
+</ul>
+</li>
 <li>このブログをなんとかしたい
-
 <ul>
 <li>更新作業を楽にしたい</li>
 <li>画像を載せやすくしたい</li>
 <li>記事一覧をつけたい</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
         
@@ -484,7 +464,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

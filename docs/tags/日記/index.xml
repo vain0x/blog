@@ -8,10 +8,19 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Sat, 30 Nov 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 31 Dec 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/tags/%E6%97%A5%E8%A8%98/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>近況 2019-12-31</title>
+      <link>https://vain0x.github.io/blog/2019-12-31/diary/</link>
+      <pubDate>Tue, 31 Dec 2019 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2019-12-31/diary/</guid>
+      <description>&lt;p&gt;今月の活動について (knowbug リリース、網羅性検査の記事、HSP3 の記事、X-BNF 言語など)&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>近況 2019-11-30</title>
@@ -137,7 +146,6 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-10-31/diary/</guid>
       <description>&lt;p&gt;今月の活動まとめ&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://vain0x.github.io/blog/2018-09-30/diary/&#34;&gt;前月&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</description>
@@ -151,10 +159,10 @@
       <guid>https://vain0x.github.io/blog/2018-09-30/diary/</guid>
       <description>&lt;ul&gt;
 &lt;li&gt;校正の手間を省くため、なるべく箇条書きでやっていく
-
 &lt;ul&gt;
 &lt;li&gt;通常の文章を書く頭は README と競プロ参戦記に使う&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;Twitter ではなく、まとまったものを書いていきたい&lt;/li&gt;
 &lt;/ul&gt;</description>
     </item>
@@ -166,9 +174,7 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/</guid>
       <description>&lt;p&gt;普段づかいする環境をWindowsからUbuntuに移した話。&lt;/p&gt;
-
-&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
-
+&lt;h2 id=&#34;heading&#34;&gt;要約&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;もともと Windows 10 だった。&lt;/li&gt;
 &lt;li&gt;Linux が便利らしいので、やってみたかった。&lt;/li&gt;

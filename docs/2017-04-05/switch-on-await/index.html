@@ -11,13 +11,10 @@
   <meta property="og:title" content="awaitでスレッドを切り替える" />
   <meta name="twitter:title" content="awaitでスレッドを切り替える" />
   <meta name="description" content="Qiita
-
 awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。">
   <meta property="og:description" content="Qiita
-
 awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。">
   <meta name="twitter:description" content="Qiita
-
 awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
@@ -90,7 +87,6 @@ awaitでスレッドを切り替えるための簡単なヘルパーメソッド
 
 <meta property="og:title" content="awaitでスレッドを切り替える" />
 <meta property="og:description" content="Qiita
-
 awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。">
 <meta property="og:url" content="https://vain0x.github.io/blog/2017-04-05/switch-on-await/" />
 <meta property="og:type" content="website" />
@@ -98,7 +94,6 @@ awaitでスレッドを切り替えるための簡単なヘルパーメソッド
 
   <meta name="twitter:title" content="awaitでスレッドを切り替える" />
   <meta name="twitter:description" content="Qiita
-
 awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
@@ -111,7 +106,7 @@ awaitでスレッドを切り替えるための簡単なヘルパーメソッド
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -216,133 +211,102 @@ awaitでスレッドを切り替えるための簡単なヘルパーメソッド
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p><a href="http://qiita.com/vain0x/items/945591e96b7338478cb5">Qiita</a></p>
-
 <p>awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。</p>
-
 <p>実装とサンプルはここにあります: <a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2">await-for-context-switching.cs</a></p>
-
-<h2 id="前提-awaitable-パターン">前提: Awaitable パターン</h2>
-
+<h2 id="-awaitable-">前提: Awaitable パターン</h2>
 <ul>
 <li>Awaitable パターンについては <a href="http://ufcpp.net/study/csharp/sp5_awaitable.html#awaiter">非同期メソッドの内部実装</a> などを参照。</li>
 </ul>
-
-<h2 id="ok-await-ui-処理">OK: await → UI 処理</h2>
-
+<h2 id="ok-await--ui-">OK: await → UI 処理</h2>
 <p>まず await が1つだけの非同期メソッドでは、Task に対する await が自動的に同期コンテクスト (SynchronizationContext) を捕捉する機能を用いることで、以下のように簡単にかけます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">Do</span><span class="p">()</span>
+<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">Do</span><span class="p">(</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="c1">// Do は UI スレッドで起動されるとする。
 </span><span class="c1"></span>
     <span class="c1">// 重い処理を非同期で実行する。
-</span><span class="c1"></span>    <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">await</span> <span class="n">HeavyTask</span><span class="p">();</span>
+</span><span class="c1"></span>    <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">await</span> <span class="n">HeavyTask</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
 
     <span class="c1">// UI スレッドで結果を使う。
-</span><span class="c1"></span>    <span class="n">UIOperation</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span><span class="c1"></span>    <span class="n">UIOperation</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div>
-<h2 id="問題-await-await-ui-操作">問題: await → await → UI 操作</h2>
-
+</code></pre></div><h2 id="-await--await--ui-">問題: await → await → UI 操作</h2>
 <p>しかし await が2回以上ある場合に同様に書くと、必要以上に早く UI スレッドに戻ってしまいます。以下の例では、2つ目の重たい非同期処理である <code>SecondHeavyTask</code> が完了するまで、UI スレッドがブロックされます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">Do</span><span class="p">()</span>
+<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">Do</span><span class="p">(</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="c1">// Do は UI スレッドで起動されるとする。
 </span><span class="c1"></span>
     <span class="c1">// 重たい非同期処理
-</span><span class="c1"></span>    <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">await</span> <span class="n">HeavyTask</span><span class="p">();</span>
+</span><span class="c1"></span>    <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">await</span> <span class="n">HeavyTask</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
 
     <span class="c1">// もう1つ重たい非同期処理 (!)
-</span><span class="c1"></span>    <span class="kt">var</span> <span class="n">y</span> <span class="p">=</span> <span class="k">await</span> <span class="n">SecondHeavyTask</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span><span class="c1"></span>    <span class="kt">var</span> <span class="n">y</span> <span class="p">=</span> <span class="k">await</span> <span class="n">SecondHeavyTask</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="p">;</span>
 
     <span class="c1">// ここは UI スレッドに戻って処理したい。
-</span><span class="c1"></span>    <span class="n">UIOperation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+</span><span class="c1"></span>    <span class="n">UIOperation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>これを避けるには、 Task.Run や ContinueWith などを使って、await を1つにまとめる必要があります。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">Do</span><span class="p">()</span>
+</code></pre></div><p>これを避けるには、 Task.Run や ContinueWith などを使って、await を1つにまとめる必要があります。</p>
+<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">Do</span><span class="p">(</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="kt">var</span> <span class="n">a</span> <span class="p">=</span>
-        <span class="k">await</span> <span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(</span><span class="k">async</span> <span class="p">()</span> <span class="p">=&gt;</span>
+        <span class="k">await</span> <span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="p">)</span> <span class="p">=</span><span class="p">&gt;</span>
         <span class="p">{</span>
-            <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">await</span> <span class="n">HeavyTask</span><span class="p">();</span>
-            <span class="kt">var</span> <span class="n">y</span> <span class="p">=</span> <span class="k">await</span> <span class="n">SecondHeavyTask</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
-            <span class="k">return</span> <span class="k">new</span> <span class="p">{</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="p">};</span>
-        <span class="p">});</span>
+            <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">await</span> <span class="n">HeavyTask</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+            <span class="kt">var</span> <span class="n">y</span> <span class="p">=</span> <span class="k">await</span> <span class="n">SecondHeavyTask</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="p">;</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="p">{</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="p">}</span><span class="p">;</span>
+        <span class="p">}</span><span class="p">)</span><span class="p">;</span>
 
-    <span class="n">UIOperation</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+    <span class="n">UIOperation</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">y</span><span class="p">)</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>インデントが2段階深くなることと、変数を匿名型経由で渡していることが気になります。</p>
-
+</code></pre></div><p>インデントが2段階深くなることと、変数を匿名型経由で渡していることが気になります。</p>
 <p>冒頭のヘルパーメソッドを使うと次のようにできます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">Do</span><span class="p">()</span>
+<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">async</span> <span class="n">Task</span> <span class="n">Do</span><span class="p">(</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="kt">var</span> <span class="n">context</span> <span class="p">=</span> <span class="k">await</span> <span class="n">TaskModule</span><span class="p">.</span><span class="n">SwitchToTaskPool</span><span class="p">();</span>
-    <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">await</span> <span class="n">HeavyTask</span><span class="p">();</span>
-    <span class="kt">var</span> <span class="n">y</span> <span class="p">=</span> <span class="k">await</span> <span class="n">SecondHeavyTask</span><span class="p">();</span>
+    <span class="kt">var</span> <span class="n">context</span> <span class="p">=</span> <span class="k">await</span> <span class="n">TaskModule</span><span class="p">.</span><span class="n">SwitchToTaskPool</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+    <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">await</span> <span class="n">HeavyTask</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+    <span class="kt">var</span> <span class="n">y</span> <span class="p">=</span> <span class="k">await</span> <span class="n">SecondHeavyTask</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
     <span class="k">await</span> <span class="n">context</span><span class="p">;</span>
-    <span class="n">UIOperation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+    <span class="n">UIOperation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>これには</p>
-
+</code></pre></div><p>これには</p>
 <ul>
 <li>インデントが浅くなった。</li>
 <li>同期コンテクストを使うこと (UI 操作の直前で UI スレッドに戻ること) が明確になった。</li>
 </ul>
-
 <p>という利点があります。</p>
-
-<h2 id="仕組み">仕組み</h2>
-
+<h2 id="heading">仕組み</h2>
 <p>ヘルパーメソッドの仕組みを簡単に説明しておきます。</p>
-
-<h3 id="継続">継続</h3>
-
+<h3 id="heading-1">継続</h3>
 <p><code>await</code> には継続を取り出す機能があります。どういうことかというと、例えば次の「task を await して、その結果を使って何か処理をする」コードは:</p>
 <div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp">    <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">await</span> <span class="n">task</span><span class="p">;</span>
-    <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
-</code></pre></div>
-<p><code>await</code> の時点で <code>task</code> が完了していなかったとすると、次のようなコードと同様の振る舞いになります:</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp">    <span class="kt">var</span> <span class="n">awaiter</span> <span class="p">=</span> <span class="n">task</span><span class="p">.</span><span class="n">GetAwaiter</span><span class="p">();</span>
-    <span class="n">awaiter</span><span class="p">.</span><span class="n">OnCompleted</span><span class="p">(()</span> <span class="p">=&gt;</span>
+    <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="p">;</span>
+</code></pre></div><p><code>await</code> の時点で <code>task</code> が完了していなかったとすると、次のようなコードと同様の振る舞いになります:</p>
+<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp">    <span class="kt">var</span> <span class="n">awaiter</span> <span class="p">=</span> <span class="n">task</span><span class="p">.</span><span class="n">GetAwaiter</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+    <span class="n">awaiter</span><span class="p">.</span><span class="n">OnCompleted</span><span class="p">(</span><span class="p">(</span><span class="p">)</span> <span class="p">=</span><span class="p">&gt;</span>
     <span class="p">{</span>
-        <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="n">awaiter</span><span class="p">.</span><span class="n">GetResult</span><span class="p">();</span>
-        <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
-    <span class="p">});</span>
+        <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="n">awaiter</span><span class="p">.</span><span class="n">GetResult</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+        <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="p">;</span>
+    <span class="p">}</span><span class="p">)</span><span class="p">;</span>
     <span class="k">return</span> <span class="n">nextTask</span><span class="p">;</span>  <span class="c1">// ←コンパイラーが生成するタスク
-</span></code></pre></div>
-<p>※実際にこのように変換されるわけではありません。雰囲気大事。</p>
-
+</span></code></pre></div><p>※実際にこのように変換されるわけではありません。雰囲気大事。</p>
 <p>ここで <code>awaiter.OnCompleted</code> にラムダ式が渡されていますが、これが継続です。</p>
-
 <p><code>GetAwaiter</code> メソッド経由で生成される awaiter を自作することで、この継続を好きなように使えます。</p>
-
 <h3 id="switchtotaskpool">SwitchToTaskPool</h3>
-
 <p><a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2#file-await-for-context-switching-cs-L186">TaskModule.SwitchToTaskPool</a> は awaitable のインスタンスを生成するだけのメソッドです。ついでにここで同期コンテクストを捕まえています。</p>
-
 <p>awaitable/awaiter の実装は <a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2#file-await-for-context-switching-cs-L94">これ</a> です。<code>GetAwaiter</code> が起動されたときにすることが特にないので、awaitable と awaiter を同じインスタンスにしています。先述の通り、この awaitable の <code>OnCompleted</code> メソッドに継続が渡されるわけですが、これは継続をタスクプール上で実行させるために <code>Task.Run</code> に渡します。</p>
 <div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">void</span> <span class="n">OnCompleted</span><span class="p">(</span><span class="n">Action</span> <span class="n">continuation</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(</span><span class="n">continuation</span><span class="p">);</span>
+    <span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(</span><span class="n">continuation</span><span class="p">)</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>そのため、 <code>await TaskModule.SwitchToTaskPool</code> より後ろの部分がタスクプールで実行されることになります。</p>
-
+</code></pre></div><p>そのため、 <code>await TaskModule.SwitchToTaskPool</code> より後ろの部分がタスクプールで実行されることになります。</p>
 <p>また、await 式の結果は <code>awaiter.GetResult</code> から取得されます。 <code>Task&lt;_&gt;</code> の場合はタスクの結果の値がそうです。<code>SwitchToTaskPoolAwaitable</code> の場合は保存しておいた同期コンテクストを返すようになっています。</p>
-
-<h3 id="同期コンテクストを-await-する">同期コンテクストを await する</h3>
-
+<h3 id="-await-">同期コンテクストを await する</h3>
 <p><code>await</code> 式には、<code>Task</code> に限らず <code>GetAwaiter</code> メソッドを提供する任意の値を渡せますが、 <code>GetAwaiter</code> は拡張メソッドでもかまいません。</p>
-
 <p><code>SynchronizationContext</code> はいかにも <code>await</code> 可能な感じなので、次のように <code>GetAwaiter</code> を生やしています。</p>
 <div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">static</span> <span class="n">SynchronizationContextAwaiter</span> <span class="n">GetAwaiter</span><span class="p">(</span><span class="k">this</span> <span class="n">SynchronizationContext</span> <span class="n">@this</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">SynchronizationContextAwaiter</span><span class="p">(</span><span class="n">@this</span><span class="p">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">SynchronizationContextAwaiter</span><span class="p">(</span><span class="n">@this</span><span class="p">)</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>これが生成する <a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2#file-await-for-context-switching-cs-L138">SynchronizationContextAwaiter</a> は、先ほどの SwitchToTaskPoolAwaitable とほぼ同じで、継続をタスクプールではなく同期コンテクストに放り込むものです。</p>
+</code></pre></div><p>これが生成する <a href="https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2#file-await-for-context-switching-cs-L138">SynchronizationContextAwaiter</a> は、先ほどの SwitchToTaskPoolAwaitable とほぼ同じで、継続をタスクプールではなく同期コンテクストに放り込むものです。</p>
 
         
           <div class="blog-tags">
@@ -460,7 +424,7 @@ awaitでスレッドを切り替えるための簡単なヘルパーメソッド
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

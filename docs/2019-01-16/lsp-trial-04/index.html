@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -206,108 +206,76 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>自作言語の LSP サーバーを作るプロジェクトの第4回です。今回はソースコードを変更する機能の例として、シンボルのリネームを実装してみました。</p>
-
 <ul>
 <li>初回: <a href="https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/">LSP学習記 #1</a></li>
 <li>前回: <a href="https://vain0x.github.io/blog/2019-01-10/lsp-trial-03/">LSP学習記 #3 シンボルとハイライト</a></li>
 <li>今回のソースコード: <a href="https://github.com/vain0x/curage-lang/tree/v0.5.0">curage-lang v0.5.0</a></li>
 </ul>
-
-<h2 id="名前の変更">名前の変更</h2>
-
+<h2 id="heading">名前の変更</h2>
 <p>変数などの名前を変更するとき、単純な文字列置換では「同名だが異なる変数」といったものまで巻き添えにしてしまいます。安全に変更するには、前回のようにシンボル情報を解析しておくほうがよいです。そういうわけで、LSP サーバーの機能に「名前の変更」があります。</p>
-
 <p>具体的には、 LSP クライアントは <a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_rename">textDocument/rename リクエスト</a> で、どの位置にあるシンボルをどんな名前に変えるべきかという情報をサーバーに送信してくれます。</p>
-
 <p>このとき、具体的なソースコードの変更点を生成してレスポンスすれば、名前の変更ができるようです。</p>
-
 <ul>
 <li>注: 前回と同様に、LSP クライアントからのリクエストをもらうには、サーバーの <code>capabilities</code> に <code>textDocument.renameProvider: true</code> の指定が必要です。</li>
 </ul>
-
-<h3 id="名前の変更-変更操作の表現">名前の変更: 変更操作の表現</h3>
-
+<h3 id="-">名前の変更: 変更操作の表現</h3>
 <p>ソースコードに対する変更は <code>TextEdit</code> インターフェイスで定義されていて、「ある範囲の文字列を別の文字列で置換する」ような形式です。 <code>Array.splice</code> 方式。</p>
-
 <p>例えば次の文字列の範囲 <code>[0, 4] .. [0, 5]</code> (<code>x</code> の部分) を文字列 &ldquo;new_x&rdquo; で置換する、みたいな感じです。</p>
-
 <pre><code>let x be 1
-</code></pre>
-
-<pre><code>let new_x be 1
-</code></pre>
-
-<p>いまのクラゲ言語は1つのファイルにしかソースコードを書けませんが、一般には名前の変更は複数のファイルを変更することになります。<code>rename</code> レスポンスで返すべきオブジェクトは、 <code>WorkspaceEdit</code> というインターフェイスで定義されていて、ファイルの URI から変更操作へのマップのようなものです。</p>
+</code></pre><pre><code>let new_x be 1
+</code></pre><p>いまのクラゲ言語は1つのファイルにしかソースコードを書けませんが、一般には名前の変更は複数のファイルを変更することになります。<code>rename</code> レスポンスで返すべきオブジェクトは、 <code>WorkspaceEdit</code> というインターフェイスで定義されていて、ファイルの URI から変更操作へのマップのようなものです。</p>
 <div class="highlight"><pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">interface</span> <span class="nx">WorkspaceEdit</span> <span class="p">{</span>
     <span class="c1">// URI から変更操作の配列へのマップ
-</span><span class="c1"></span>    <span class="nx">changes</span><span class="o">?:</span> <span class="p">{</span> <span class="p">[</span><span class="nx">uri</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="nx">TextEdit</span><span class="p">[];</span> <span class="p">};</span>
+</span><span class="c1"></span>    <span class="nx">changes</span><span class="o">?</span><span class="o">:</span> <span class="p">{</span> <span class="p">[</span><span class="nx">uri</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="nx">TextEdit</span><span class="p">[</span><span class="p">]</span><span class="p">;</span> <span class="p">}</span><span class="p">;</span>
 
     <span class="c1">// 以下略
 </span><span class="c1"></span><span class="p">}</span>
-</code></pre></div>
-<h2 id="実装">実装</h2>
-
+</code></pre></div><h2 id="heading-1">実装</h2>
 <p>実装は、前回作ったシンボルテーブルを利用すれば簡単です。</p>
-
 <p>前回は「ドキュメントのハイライトする範囲」を計算しましたが、今回はそれを「名前の変更を適用する範囲」として使えばOK。</p>
 <div class="highlight"><pre class="chroma"><code class="language-typescript" data-lang="typescript">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">definition</span><span class="p">,</span> <span class="nx">references</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">symbolDefinition</span> <span class="c1">// ヒットテストで見つけたシンボル
 </span><span class="c1"></span>
   <span class="c1">// 変更操作の配列
-</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">textEdits</span>: <span class="kt">TextEdit</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">textEdits</span>: <span class="kt">TextEdit</span><span class="p">[</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span>
 
   <span class="c1">// 定義の置換
-</span><span class="c1"></span>  <span class="nx">textEdits</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span><span class="c1"></span>  <span class="nx">textEdits</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="p">{</span>
     <span class="nx">range</span>: <span class="kt">definition.range</span><span class="p">,</span>
     <span class="nx">newText</span>: <span class="kt">newName</span><span class="p">,</span>
-  <span class="p">})</span>
+  <span class="p">}</span><span class="p">)</span>
 
   <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">r</span> <span class="nx">of</span> <span class="nx">references</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// 参照の置換
-</span><span class="c1"></span>    <span class="nx">textEdits</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span><span class="c1"></span>    <span class="nx">textEdits</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="p">{</span>
       <span class="nx">range</span>: <span class="kt">r.range</span><span class="p">,</span>
       <span class="nx">newText</span>: <span class="kt">newName</span><span class="p">,</span>
-    <span class="p">})</span>
+    <span class="p">}</span><span class="p">)</span>
   <span class="p">}</span>
 
   <span class="c1">// WorkspaceEdit インターフェイスに合うオブジェクトを作る
 </span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">changes</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="nx">uri</span><span class="p">]</span><span class="o">:</span> <span class="nx">textEdits</span> <span class="p">}</span>
   <span class="k">return</span> <span class="p">{</span> <span class="nx">changes</span> <span class="p">}</span>
-</code></pre></div>
-<ul>
+</code></pre></div><ul>
 <li>変更点: <a href="https://github.com/vain0x/curage-lang/commit/603b2c52fe19390a667c25710ad1bcf8af78aaba">feat: Support symbol renaming</a></li>
 </ul>
-
 <h2 id="preparerename">prepareRename</h2>
-
 <p><code>textDocument/prepareRename</code> リクエストという、 <code>rename</code> の前に送られてくるリクエストがあります。名前の変更ができない位置 (例えば let キーワードの上) では <code>prepareName</code> の結果として <code>null</code> を返すことで、名前の変更が不可能であることをクライアントに伝えられる……らしいんですが、実装してみても効果が見られなかったので詳細は略。</p>
-
 <ul>
 <li>変更点: <a href="https://github.com/vain0x/curage-lang/commit/e91697aed1edd1cd56be54a2c701112aed71e504">feat: Support &lsquo;prepareRename&rsquo;</a></li>
 </ul>
-
 <h2 id="textdocumentedit">TextDocumentEdit</h2>
-
 <p>LSP の仕様をよく読むと <code>WorkspaceEdit.changes</code> ではなく <code>documentChanges</code> を使ったほうがよいみたいです。</p>
-
 <p>LSP サーバーが処理をしている間にも、ドキュメントはユーザーによって絶え間なく変更されているので、同じドキュメントにも古いバージョンと新しいバージョンがあります。名前の変更がどのバージョンを処理したのかを指定すると、クライアント側が嬉しいらしいです。</p>
-
 <p><code>WorkspaceEdit.documentChanges</code> には <code>TextDocumentEdit</code> (の配列) を指定しますが、これはドキュメントの URI だけでなくバージョンも指定した変更操作を表しています。</p>
-
 <ul>
 <li>変更点: <a href="https://github.com/vain0x/curage-lang/commit/a666135fe04e3345bcaef09bc80b8b269d24415f">feat: Provide document version in response </a></li>
 </ul>
-
-<h2 id="注意-安全でない変更">注意: 安全でない変更</h2>
-
+<h2 id="--1">注意: 安全でない変更</h2>
 <p>今回の実装では、場合によってはコードの意味を変えてしまいます。例えば次のコードの <code>x</code> を <code>y</code> という名前に変えると、2つ目の <code>x</code> が途中に挟まってる <code>y</code> を指すものになってしまいます。これは本来ならユーザーに警告したほうがよいです。</p>
-
 <pre><code>let x be 1
 let y be 2
 let _ be x
-</code></pre>
-
-<h2 id="次回">次回</h2>
-
+</code></pre><h2 id="heading-2">次回</h2>
 <p>次回は未定です。そろそろ簡単な計算のできる言語にしつつ、入力補完やホバーあたりをやっていこうかと考えています。</p>
 
         
@@ -430,7 +398,7 @@ let _ be x
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

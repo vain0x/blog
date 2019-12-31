@@ -63,7 +63,7 @@
   "headline": "近況 2018-11-30",
   "description" : "1ヶ月分のコミットメッセージとツイートを眺めていろいろ書くやつ、3回目\n",
   "inLanguage" : "ja",
-  "wordCount":  433 ,
+  "wordCount":  435 ,
   "datePublished" : "2018-11-30T23:59:59",
   "dateModified" : "2018-11-30T23:59:59",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -206,48 +206,36 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>1ヶ月分のコミットメッセージとツイートを眺めていろいろ書くやつ、3回目</p>
-
 <ul>
 <li>前回: <a href="https://vain0x.github.io/blog/2018-10-31/diary/">https://vain0x.github.io/blog/2018-10-31/diary/</a></li>
 </ul>
-
 <h2 id="hsp3-debug-ginger">hsp3-debug-ginger</h2>
-
 <p><a href="https://github.com/vain0x/hsp3-debug-ginger">https://github.com/vain0x/hsp3-debug-ginger</a></p>
-
-<h3 id="hdg-knowbug-について">HDG: knowbug について</h3>
-
+<h3 id="hdg-knowbug-">HDG: knowbug について</h3>
 <p>以前に HSP3 用のデバッガー knowbug を作った</p>
-
 <ul>
 <li><a href="https://github.com/vain0x/knowbug">knowbug</a></li>
 <li>ほとんど完成しているので、更新していない</li>
 <li>いくつか心残りがある:
-
 <ul>
 <li>配列とかを1本の文字列 (YAMLっぽい形式) で表していて不便だった</li>
 <li>配列の要素やメンバ変数をツリービューのノードにしようとしてたけど、デバッグの途中で放棄してた</li>
 <li>HSP3 の utf-8 版に対応したい</li>
 <li>未対応の改善要望が来ている</li>
-</ul></li>
+</ul>
+</li>
 <li>生の Win32 API で GUI やってるところがきつくて knowbug はあんまりいじりたくない</li>
 </ul>
-
 <p>VSCode 用のデバッガーとして新たに作っているのが  <strong>hsp3-debug-ginger</strong></p>
-
 <h3 id="hdg-debug-adapter-protocol-dap">HDG: Debug Adapter Protocol (DAP)</h3>
-
 <p>hsp3-debug-ginger は <strong>Debug Adapter Protocol</strong> という、開発ツール (IDE) とデバッガーと接続するプロトコルを使っている</p>
-
 <ul>
 <li>例えばエディターのデバッグ UI で停止ボタンを押したら、プロトコルに則った形式でデバッガーに停止イベントが通知されて、プログラムが停止する、みたいな感じ</li>
 <li>開発ツールからすると、何をデバッグしているか知らなくていい</li>
 <li>デバッガーからすると、ユーザーがどの IDE を使っているか知らなくていい</li>
 <li>VSCode はデバッガーと標準入出力で接続するけど、 HSP のデバッガーは DLL なので標準入出力を使えない</li>
 </ul>
-
-<h3 id="hdg-hsp3-debug-ginger-の構成">HDG: hsp3-debug-ginger の構成</h3>
-
+<h3 id="hdg-hsp3-debug-ginger-">HDG: hsp3-debug-ginger の構成</h3>
 <ul>
 <li>VSCode と標準入出力でつながる exe と、HSP からロードされる DLL を別個に作って、 WebSocket で繋げる、という構成にした</li>
 <li>WebSocket をわざわざ使う意味がないので TCP に置き換えた</li>
@@ -260,193 +248,157 @@
 <li>これでメッセージを単一のスレッドにディスパッチしてすべての処理をそこでやれば安全</li>
 <li>と思ったけど HSP のメインスレッド上で行うべき処理が一部あって、どうするか困ってる</li>
 </ul>
-
-<h3 id="hdg-課題">HDG: 課題</h3>
-
+<h3 id="hdg-">HDG: 課題</h3>
 <p>はやくテストを書きたい</p>
-
 <ul>
 <li>どこを分離したらテストできるのか分からない</li>
 </ul>
-
 <h2 id="milone-lang">milone-lang</h2>
-
 <p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
-
-<h3 id="ml-クロージャ変換">ML: クロージャ変換</h3>
-
+<h3 id="ml-">ML: クロージャ変換</h3>
 <p>クロージャ変換が入った</p>
-
 <ul>
 <li>クロージャ変換について <a href="http://esumii.github.io/min-caml/tutorial-mincaml-16.htm">http://esumii.github.io/min-caml/tutorial-mincaml-16.htm</a></li>
 <li>簡単にいうと、関数を定義しているところと使用しているところをうまいこと変換しないといけない</li>
 </ul>
-
 <p>これはいくつかのユースケースに分かれる</p>
-
 <ul>
 <li>1つ目は、 <strong>関数の定義の中で外側のローカル変数を使ってる</strong> ケース <a href="https://github.com/vain0x/milone-lang/commit/250de343ec44b8f5e7aac540520e9c679c4e194e">https://github.com/vain0x/milone-lang/commit/250de343ec44b8f5e7aac540520e9c679c4e194e</a></li>
 <li>そのままC言語に変換したらコンパイルできない</li>
-
-<li><p>ローカル変数を関数の引数経由で渡すように引数を増やす</p>
+<li>ローカル変数を関数の引数経由で渡すように引数を増やす</li>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-fs" data-lang="fs"><span class="nf">//</span> <span class="nf">before</span>
 
 <span class="nf">//</span> <span class="mi">1</span> <span class="nf">から</span> <span class="nf">u</span> <span class="nf">まで</span> <span class="nf">fizz</span> <span class="nf">buzz</span> <span class="nf">を表示する</span>
 <span class="nf">let</span> <span class="nf">fizzBuzz</span> <span class="nf">u</span> <span class="nf">=</span>
-<span class="nf">let</span> <span class="nf">rec</span> <span class="nf">go</span> <span class="k">i </span><span class="nf">=</span>
-    <span class="k">if i </span><span class="nf">&lt;=</span> <span class="nf">u</span> <span class="k">then </span><span class="nf">//</span> <span class="nf">この</span> <span class="nf">u</span> <span class="nf">は関数</span> <span class="nf">go</span> <span class="nf">のローカル変数じゃない</span>
-        <span class="k">if i </span><span class="nf">%</span> <span class="mi">3</span> <span class="nf">=</span> <span class="mi">0</span> <span class="k">then
-</span><span class="k"></span>            <span class="nf">//</span> <span class="nf">略</span>
-        <span class="nf">go</span> <span class="nf">(i</span> <span class="k">+ </span><span class="mi">1</span><span class="nf">)</span>
-<span class="nf">go</span> <span class="mi">0</span>
+    <span class="nf">let</span> <span class="nf">rec</span> <span class="nf">go</span> <span class="k">i </span><span class="nf">=</span>
+        <span class="k">if </span><span class="k">i </span><span class="nf">&lt;=</span> <span class="nf">u</span> <span class="k">then </span><span class="nf">//</span> <span class="nf">この</span> <span class="nf">u</span> <span class="nf">は関数</span> <span class="nf">go</span> <span class="nf">のローカル変数じゃない</span>
+            <span class="k">if </span><span class="k">i </span><span class="nf">%</span> <span class="mi">3</span> <span class="nf">=</span> <span class="mi">0</span> <span class="k">then
+</span><span class="k"></span>                <span class="nf">//</span> <span class="nf">略</span>
+            <span class="nf">go</span> <span class="nf">(i</span> <span class="k">+ </span><span class="mi">1</span><span class="nf">)</span>
+    <span class="nf">go</span> <span class="mi">0</span>
 
-<span class="nf">fizzBuzz</span> <span class="mi">15</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fs" data-lang="fs"><span class="nf">//</span> <span class="nf">after</span>
+<span class="nf">fizzBuzz</span> <span class="mi">15</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fs" data-lang="fs"><span class="nf">//</span> <span class="nf">after</span>
 
 <span class="nf">let</span> <span class="nf">fizzBuzz</span> <span class="nf">u</span> <span class="nf">=</span>
-<span class="nf">let</span> <span class="nf">rec</span> <span class="nf">go</span> <span class="nf">(*追加*)u</span> <span class="k">i </span><span class="nf">=</span>
-    <span class="k">if i </span><span class="nf">&lt;=</span> <span class="nf">u</span> <span class="k">then
-</span><span class="k"></span>        <span class="k">if i </span><span class="nf">%</span> <span class="mi">3</span> <span class="nf">=</span> <span class="mi">0</span> <span class="k">then
-</span><span class="k"></span>            <span class="nf">//</span> <span class="nf">略</span>
-        <span class="nf">go</span> <span class="nf">(*追加*)u</span> <span class="nf">(i</span> <span class="k">+ </span><span class="mi">1</span><span class="nf">)</span>
-<span class="nf">go</span> <span class="nf">(*追加*)u</span> <span class="mi">0</span>
+    <span class="nf">let</span> <span class="nf">rec</span> <span class="nf">go</span> <span class="nf">(*追加*)u</span> <span class="k">i </span><span class="nf">=</span>
+        <span class="k">if </span><span class="k">i </span><span class="nf">&lt;=</span> <span class="nf">u</span> <span class="k">then
+</span><span class="k"></span>            <span class="k">if </span><span class="k">i </span><span class="nf">%</span> <span class="mi">3</span> <span class="nf">=</span> <span class="mi">0</span> <span class="k">then
+</span><span class="k"></span>                <span class="nf">//</span> <span class="nf">略</span>
+            <span class="nf">go</span> <span class="nf">(*追加*)u</span> <span class="nf">(i</span> <span class="k">+ </span><span class="mi">1</span><span class="nf">)</span>
+    <span class="nf">go</span> <span class="nf">(*追加*)u</span> <span class="mi">0</span>
 
-<span class="nf">fizzBuzz</span> <span class="mi">15</span></code></pre></div></li>
-
-<li><p>2つ目は、 <strong>関数呼び出しの引数が足りないケース</strong> <a href="https://github.com/vain0x/milone-lang/commit/e16e9418b09d66399c8e19e33a3b758f0328e43c">https://github.com/vain0x/milone-lang/commit/e16e9418b09d66399c8e19e33a3b758f0328e43c</a></p></li>
-
-<li><p>引数束縛して関数オブジェクトを作る必要がある</p></li>
-
-<li><p>関数オブジェクトはC言語の上では「関数」ではなくただの値なので <code>f(..)</code> という構文では呼べない</p>
-
+<span class="nf">fizzBuzz</span> <span class="mi">15</span>
+</code></pre></div><ul>
+<li>2つ目は、 <strong>関数呼び出しの引数が足りないケース</strong> <a href="https://github.com/vain0x/milone-lang/commit/e16e9418b09d66399c8e19e33a3b758f0328e43c">https://github.com/vain0x/milone-lang/commit/e16e9418b09d66399c8e19e33a3b758f0328e43c</a></li>
+<li>引数束縛して関数オブジェクトを作る必要がある</li>
+<li>関数オブジェクトはC言語の上では「関数」ではなくただの値なので <code>f(..)</code> という構文では呼べない
 <ul>
 <li>だから milone-lang の構文的には同一の式でも、関数オブジェクトを呼んでるのか関数を呼んでるのか区別する必要がある</li>
-</ul></li>
-
-<li><p>関数オブジェクトは内部に持っている状態を隠蔽する必要がある</p>
-
+</ul>
+</li>
+<li>関数オブジェクトは内部に持っている状態を隠蔽する必要がある
 <ul>
 <li>C言語の上で型に現れると互換性がなくなるから</li>
 <li><code>void*</code> を使うしかない</li>
-
-<li><p>最適化の効きが悪くなるので、すべてこれにするというわけにはいかない</p>
+<li>最適化の効きが悪くなるので、すべてこれにするというわけにはいかない</li>
+</ul>
+</li>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-fs" data-lang="fs"><span class="nf">let</span> <span class="nf">add</span> <span class="nf">x</span> <span class="nf">y</span> <span class="nf">=</span> <span class="nf">x</span> <span class="k">+ </span><span class="nf">y</span>
 
 <span class="nf">//</span> <span class="nf">add</span> <span class="nf">は2引数なのに引数が1個</span>
 <span class="nf">let</span> <span class="nf">inc</span> <span class="nf">=</span> <span class="nf">add</span> <span class="mi">1</span>
 
 <span class="nf">//</span> <span class="nf">関数ではなく関数オブジェクトの呼び出しとしてC言語にする必要がある</span>
-<span class="nf">inc</span> <span class="mi">9</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// コンパイル後のイメージ
+<span class="nf">inc</span> <span class="mi">9</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// コンパイル後のイメージ
 </span><span class="c1"></span>
 <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
-<span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="c1">// add を関数オブジェクト int -&gt; int から呼べるシグネチャにしたもの
 </span><span class="c1"></span><span class="kt">int</span> <span class="nf">add1</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
-<span class="k">return</span> <span class="n">add</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">add</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="c1">// 関数 int -&gt; int をコンパイルした結果
 </span><span class="c1"></span><span class="k">struct</span> <span class="n">IntIntFun</span> <span class="p">{</span>
-<span class="kt">int</span><span class="p">(</span><span class="o">*</span><span class="n">fun</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
-<span class="kt">void</span><span class="o">*</span> <span class="n">env</span><span class="p">;</span> <span class="c1">// 関数オブジェクトが持っている状態
+    <span class="kt">int</span><span class="p">(</span><span class="o">*</span><span class="n">fun</span><span class="p">)</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span><span class="p">;</span>
+    <span class="kt">void</span><span class="o">*</span> <span class="n">env</span><span class="p">;</span> <span class="c1">// 関数オブジェクトが持っている状態
 </span><span class="c1"></span><span class="p">}</span>
 
 <span class="c1">// 関数オブジェクトを作る
-</span><span class="c1">// 状態と関数のペア
-</span><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span> <span class="kt">int</span><span class="p">);</span>
+</span><span class="c1"></span><span class="c1">// 状態と関数のペア
+</span><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span> <span class="kt">int</span><span class="p">)</span><span class="p">;</span>
 <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="k">struct</span> <span class="n">IntIntFun</span> <span class="n">inc</span> <span class="o">=</span> <span class="p">{</span>
-<span class="p">.</span><span class="n">fun</span> <span class="o">=</span> <span class="n">add1</span><span class="p">,</span>
-<span class="p">.</span><span class="n">env</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">x</span><span class="p">,</span>
-<span class="p">};</span>
+    <span class="p">.</span><span class="n">fun</span> <span class="o">=</span> <span class="n">add1</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">env</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">x</span><span class="p">,</span>
+<span class="p">}</span><span class="p">;</span>
 
 <span class="c1">// 関数オブジェクトを呼び出す
-</span><span class="c1">// inc は関数ではないので inc() とはできない
-</span><span class="c1"></span><span class="n">inc</span><span class="p">.</span><span class="n">fun</span><span class="p">(</span><span class="n">inc</span><span class="p">.</span><span class="n">env</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span></code></pre></div></li>
-</ul></li>
-
-<li><p><strong>関数の引数がないケース</strong> (<code>let f = add</code> みたいなやつ) もこれと同様に処理できる</p>
-
+</span><span class="c1"></span><span class="c1">// inc は関数ではないので inc() とはできない
+</span><span class="c1"></span><span class="n">inc</span><span class="p">.</span><span class="n">fun</span><span class="p">(</span><span class="n">inc</span><span class="p">.</span><span class="n">env</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span><span class="p">;</span>
+</code></pre></div><ul>
+<li><strong>関数の引数がないケース</strong> (<code>let f = add</code> みたいなやつ) もこれと同様に処理できる
 <ul>
 <li>関数参照は引数ゼロの引数束縛</li>
-</ul></li>
-
-<li><p>あと <strong>関数の引数が多いケース</strong> (複数の呼び出しに分解する必要がある) とかある</p></li>
 </ul>
-
-<h3 id="ml-ユニオン型">ML: ユニオン型</h3>
-
+</li>
+<li>あと <strong>関数の引数が多いケース</strong> (複数の呼び出しに分解する必要がある) とかある</li>
+</ul>
+<h3 id="ml--1">ML: ユニオン型</h3>
 <p>ユニオン型 (判別共用体型) が入った <a href="https://github.com/vain0x/milone-lang/commit/2a994c3aa8bae0b4be38c2e5bbfee0a913e0e6d4">https://github.com/vain0x/milone-lang/commit/2a994c3aa8bae0b4be38c2e5bbfee0a913e0e6d4</a></p>
-
 <p>ただし再帰的定義はできない</p>
-
-<h3 id="ml-ステージ順序">ML: ステージ順序</h3>
-
+<h3 id="ml--2">ML: ステージ順序</h3>
 <p>いままでのソースコードの変換過程は、 パース → 型つけ → MIR化 → クロージャ変換 → C言語化、だった</p>
-
 <ul>
 <li>MIR化: パターンマッチを条件分岐に変換しつつ、入れ子になった式を平坦にする (K正規化する) という手順</li>
 </ul>
-
 <p>クロージャ変換は静的コード生成に近いものがある。これを MIR に対して行っていたせいで、入れ子になった式やパターンマッチを生成できなくて、生成処理が分かりにくかった。だから順番を入れ替えてる (作業中)</p>
-
 <p>パース → 型つけ → クロージャ変換 → MIR化 → C言語化</p>
-
-<h3 id="ml-その他">ML: その他</h3>
-
+<h3 id="ml--3">ML: その他</h3>
 <ul>
 <li><code>y |&gt; f x</code> は構文的には <code>f x</code> という関数オブジェクトに <code>x</code> を適用してるけど、実際には <code>f x y</code> が呼ばれるのでゼロコスト、というのが分かった</li>
 </ul>
-
-<h2 id="競プロ参戦記">競プロ参戦記</h2>
-
+<h2 id="heading">競プロ参戦記</h2>
 <p>AtCoder でのコンテスト開催が少なかったため3回だけ</p>
-
 <ul>
 <li><a href="https://note.mu/vain0x/n/ned281cf01192?magazine_key=m9aa8513f4e97">競プロ参戦記 第21回 「気温とあみだくじ」 ABC 113｜ベイン｜note</a></li>
 <li><a href="https://note.mu/vain0x/n/n22b97a3e44f8?magazine_key=m9aa8513f4e97">競プロ参戦記 第22回 「最大の論理積」 / ドワンゴコン5 [ABC]｜ベイン｜note</a></li>
 <li><a href="https://note.mu/vain0x/n/n85e1dd5a0b3d?magazine_key=m9aa8513f4e97">競プロ参戦記 #23 「チップストーリー」 / DDCC 2019 予選｜ベイン｜note</a></li>
 </ul>
-
 <p>転倒数の記事の閲覧数がなぜか増え続けていることに気づいた。わりと尻切れトンボな記事だったので、 BIT について加筆した</p>
-
 <ul>
 <li><a href="https://note.mu/vain0x/n/n0037d6468812">競プロ参戦記 第10回「転倒数」  Chokudai Speed Run 001 [J]｜ベイン｜note</a></li>
 </ul>
-
-<h2 id="円周率チャレンジ">円周率チャレンジ</h2>
-
+<h2 id="heading-1">円周率チャレンジ</h2>
 <p>2 を足す操作と平方根をとる操作を繰り返して、数値を円周率に近づけるゲーム。半分全列挙を使って手順を探索した</p>
-
 <ul>
 <li><a href="https://vain0x.github.io/blog/2018-11-07/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a></li>
 </ul>
-
-<h2 id="ブログ">ブログ</h2>
-
+<h2 id="heading-2">ブログ</h2>
 <ul>
 <li>ヘッダーに競プロ参戦記等へのリンクを貼った</li>
 <li>ローカライズのあやしい部分を修正した</li>
 </ul>
-
-<h2 id="web-アプリ開発">Web アプリ開発</h2>
-
+<h2 id="web-">Web アプリ開発</h2>
 <ul>
 <li>前月同様、昨日は増えてるが品質は下がってる</li>
 <li>リファクタリングがいるのは分かるけど、どういう方向に持っていけばいいのか……</li>
 </ul>
-
-<h2 id="ガルパ">ガルパ</h2>
-
+<h2 id="heading-3">ガルパ</h2>
 <ul>
 <li>難度 26 楽曲でもフルコンボがたびたび出るようになってきた</li>
 <li>難度 27 楽曲を回復なしでクリアできるように練習してる</li>
 <li>左手プレイは練習してもうまくならないという限界を感じる
-
 <ul>
 <li>片方をホールドして動かしながら他方でタップ、みたいなのができない</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
         
@@ -563,7 +515,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

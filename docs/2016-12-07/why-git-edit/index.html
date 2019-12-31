@@ -11,11 +11,8 @@
   <meta property="og:title" content="GitEditを使うべき十の理由" />
   <meta name="twitter:title" content="GitEditを使うべき十の理由" />
   <meta name="description" content="Qiita
-
 GitEdit とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。
-
 要約
-
 
 vi を覚えるのはめんどくさい。
 Git 用のテキストエディターとして使うための条件が意外と多い。
@@ -23,11 +20,8 @@ Git 用のテキストエディターとして使うための条件が意外と�
 ぜひダウンロードして下さい。
 ">
   <meta property="og:description" content="Qiita
-
 GitEdit とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。
-
 要約
-
 
 vi を覚えるのはめんどくさい。
 Git 用のテキストエディターとして使うための条件が意外と多い。
@@ -35,11 +29,8 @@ Git 用のテキストエディターとして使うための条件が意外と�
 ぜひダウンロードして下さい。
 ">
   <meta name="twitter:description" content="Qiita
-
 GitEdit とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。
-
 要約
-
 
 vi を覚えるのはめんどくさい。
 Git 用のテキストエディターとして使うための条件が意外と多い。
@@ -117,11 +108,8 @@ Git 用のテキストエディターとして使うための条件が意外と�
 
 <meta property="og:title" content="GitEditを使うべき十の理由" />
 <meta property="og:description" content="Qiita
-
 GitEdit とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。
-
 要約
-
 
 vi を覚えるのはめんどくさい。
 Git 用のテキストエディターとして使うための条件が意外と多い。
@@ -134,11 +122,8 @@ Git 用のテキストエディターとして使うための条件が意外と�
 
   <meta name="twitter:title" content="GitEditを使うべき十の理由" />
   <meta name="twitter:description" content="Qiita
-
 GitEdit とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。
-
 要約
-
 
 vi を覚えるのはめんどくさい。
 Git 用のテキストエディターとして使うための条件が意外と多い。
@@ -156,7 +141,7 @@ Git 用のテキストエディターとして使うための条件が意外と�
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -261,60 +246,35 @@ Git 用のテキストエディターとして使うための条件が意外と�
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p><a href="http://qiita.com/vain0x/items/a97df4bd0f5f7de19d64">Qiita</a></p>
-
 <p><a href="https://github.com/vain0x/GitEdit">GitEdit</a> とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。</p>
-
-<h2 id="要約">要約</h2>
-
+<h2 id="heading">要約</h2>
 <ul>
 <li>vi を覚えるのはめんどくさい。</li>
 <li>Git 用のテキストエディターとして使うための条件が意外と多い。</li>
 <li>結局、ふさわしいエディターが見つからなかったので自作した。</li>
 <li>ぜひ<a href="https://github.com/vain0x/GitEdit/releases/latest">ダウンロード</a>して下さい。</li>
 </ul>
-
-<h2 id="十の理由">十の理由</h2>
-
-<h3 id="1-軽量">1. 軽量</h3>
-
+<h2 id="heading-1">十の理由</h2>
+<h3 id="1-">1. 軽量</h3>
 <p>機能を必要最小限に絞っているため、とても起動が速いです。</p>
-
-<h3 id="2-文字コード">2. 文字コード</h3>
-
+<h3 id="2-">2. 文字コード</h3>
 <p>日本語話者として、コミットメッセージに日本語を混ぜたい場面は少なくないでしょう。コミットメッセージに日本語を含めるには、ファイルを utf-8 などの文字コードで保存する必要があります。</p>
-
 <p>ここで問題なのは、コミットメッセージを書き込むファイルを開く段階では、そのファイルに日本語の (すなわち半角文字ではない) 文字が含まれていないことがよくあるため、エディターが文字コードを判断するのが難しいということです。例えば、私が長らく愛用していた TeraPad は、半角文字だけからなるファイルを標準の文字コード (shift_jis) で開いてしまいます。</p>
-
 <p>git_edit はそのようなファイルを utf-8 (BOM なし) で開くようになっています。</p>
-
-<h3 id="3-改行文字">3. 改行文字</h3>
-
+<h3 id="3-">3. 改行文字</h3>
 <p><code>git add --patch</code> の <code>e</code> オプションなどを使って差分を編集するとき、Git から提示されるファイルは改行コードが LF になっていて、保存するときも LF でなければエラーになってしまいます。そのため、編集に使うテキストエディタは改行コードを正しく扱う (あるいはLFだけ扱う) 必要があります。git_edit のエディター部分である AvalonEdit は、そのあたりちゃんとできています。</p>
-
-<h3 id="4-構文強調">4. 構文強調</h3>
-
+<h3 id="4-">4. 構文強調</h3>
 <p><code>git commit</code> に <code>-v</code> オプションをつけると、コミットメッセージを保存するファイルにの後半に差分(diff)をつけてくれます。コミットの内容がコミットメッセージを考える材料として使いやすく提示されるわけです。この機能のサポートとして、git_edit はコミットメッセージの編集時に diff の構文強調を有効化します。</p>
-
-<h3 id="5-保存して終了-コマンド">5. 「保存して終了」コマンド</h3>
-
+<h3 id="5-">5. 「保存して終了」コマンド</h3>
 <p>コミットメッセージや <code>rebase -i</code> の todo リストなどは、テキストを保存してからエディターを閉じる必要があります。git_edit では、1回のキー入力 (<code>Ctrl+W</code>) で保存→閉じるという2アクションを行えるようになっています。</p>
-
-<h3 id="6-クリアして終了-コマンド">6. 「クリアして終了」コマンド</h3>
-
+<h3 id="6-">6. 「クリアして終了」コマンド</h3>
 <p>コミットメッセージや <code>rebase -i</code> の todo リストなどは、ファイルの中身を空っぽにして保存することで処理を「キャンセル」することができます。git_edit にはそのためのコマンド <code>Ctrl+Shift+W</code> があります。</p>
-
-<h3 id="7-入力補完">7. 入力補完</h3>
-
+<h3 id="7-">7. 入力補完</h3>
 <p>Control + Space で入力補完が効きます。</p>
-
-<h3 id="8-テキストエディターエンジン-avalonedit">8. テキストエディターエンジン AvalonEdit</h3>
-
+<h3 id="8--avalonedit">8. テキストエディターエンジン AvalonEdit</h3>
 <p>名前がかっこいい。</p>
-
-<h3 id="9-まとめ">9. まとめ</h3>
-
+<h3 id="9-">9. まとめ</h3>
 <p>Git 用のテキストエディターに要求した条件のまとめ:</p>
-
 <ul>
 <li>起動が速い。</li>
 <li>保存と終了が速い。</li>
@@ -323,9 +283,7 @@ Git 用のテキストエディターとして使うための条件が意外と�
 <li>diff の構文着色ができる。</li>
 <li>入力補完ができる。</li>
 </ul>
-
-<h2 id="10-おわりに">10. おわりに</h2>
-
+<h2 id="10-">10. おわりに</h2>
 <p>この文章は <a href="https://www.sublimetext.com/3">Sublime Text 3</a> で書きました。</p>
 
         
@@ -433,7 +391,7 @@ Git 用のテキストエディターとして使うための条件が意外と�
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

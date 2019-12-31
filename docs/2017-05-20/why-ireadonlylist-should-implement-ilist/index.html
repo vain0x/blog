@@ -11,13 +11,10 @@
   <meta property="og:title" content="IReadOnlyListがIListを実装すべき理由" />
   <meta name="twitter:title" content="IReadOnlyListがIListを実装すべき理由" />
   <meta name="description" content="主張: IReadOnlyList&lt;_&gt; を実装するクラスは、 IList&lt;_&gt; と IList も実装したほうがいい。
-
 理由は2つあります。">
   <meta property="og:description" content="主張: IReadOnlyList&lt;_&gt; を実装するクラスは、 IList&lt;_&gt; と IList も実装したほうがいい。
-
 理由は2つあります。">
   <meta name="twitter:description" content="主張: IReadOnlyList&lt;_&gt; を実装するクラスは、 IList&lt;_&gt; と IList も実装したほうがいい。
-
 理由は2つあります。">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
@@ -90,7 +87,6 @@
 
 <meta property="og:title" content="IReadOnlyListがIListを実装すべき理由" />
 <meta property="og:description" content="主張: IReadOnlyList&lt;_&gt; を実装するクラスは、 IList&lt;_&gt; と IList も実装したほうがいい。
-
 理由は2つあります。">
 <meta property="og:url" content="https://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/" />
 <meta property="og:type" content="website" />
@@ -98,7 +94,6 @@
 
   <meta name="twitter:title" content="IReadOnlyListがIListを実装すべき理由" />
   <meta name="twitter:description" content="主張: IReadOnlyList&lt;_&gt; を実装するクラスは、 IList&lt;_&gt; と IList も実装したほうがいい。
-
 理由は2つあります。">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
@@ -111,7 +106,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -216,35 +211,20 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>主張: <code>IReadOnlyList&lt;_&gt;</code> を実装するクラスは、 <code>IList&lt;_&gt;</code> と <code>IList</code> も実装したほうがいい。</p>
-
 <p>理由は2つあります。</p>
-
-<h2 id="理由1-ienumerable-拡張メソッド">理由1: IEnumerable 拡張メソッド</h2>
-
+<h2 id="1-ienumerable-">理由1: IEnumerable 拡張メソッド</h2>
 <p>1つ目の理由は、<code>IEnumerable&lt;_&gt;</code> に対する拡張メソッドが <code>IReadOnlyList&lt;_&gt;</code> ではなく <code>IList&lt;_&gt;</code> 用に最適化されているからです。</p>
-
 <p><code>IEnumerable&lt;_&gt;</code> に対する拡張メソッドはインターフェイス経由では <code>GetEnumerator</code> メソッドしか起動できないので、例えばシーケンスの最後の要素を取得するメソッド (<code>Last</code>) を素直に実装するには、1度すべての要素を列挙して、最後の値を返すことになります。これではパフォーマンスが損なので、与えられたシーケンスをまず <code>IList&lt;_&gt;</code> に動的キャストできないか試みて、可能ならインデックスを使って最後の要素を取得する、という最適化が入っています。 (<a href="https://referencesource.microsoft.com/#System.Core/System/Linq/Enumerable.cs,3628defc5be1468a">Enumerable.Last の参考実装</a>)</p>
-
 <p>したがって、「<code>IReadOnlyList&lt;_&gt;</code> が <code>IEnumerable&lt;_&gt;</code> にキャストされて <code>Enumerable.Last</code> される」といったシナリオのパフォーマンスを最大化するために、 <code>IList&lt;_&gt;</code> を実装しておいたほうがいいわけです。</p>
-
-<h2 id="理由2-wpf">理由2: WPF</h2>
-
+<h2 id="2-wpf">理由2: WPF</h2>
 <p>2つ目の理由は、WPF アプリケーションから参照されうるクラスライブラリーに限った話になりますが、「WPF の DataGrid はコレクションが非ジェネリックな <code>IList</code> を実装していることを前提としている」ことです。</p>
-
 <p>簡単にいうと、DataGrid (表) に <code>IList</code> を実装していないコレクションを渡すと、セルの編集ができなくなります。詳細については、既に Qiita に記事があるので、こちらを参照してください:</p>
-
 <p><a href="http://qiita.com/gaya_K/items/d1737fc829502c916d18">DataGrid（WPF） の ItemsSource には IList が必要</a></p>
-
 <p>~~また、実際の動きを確認したい場合はこちらからソースコードを入手できます:</p>
-
 <p><a href="https://github.com/vain0x/VainZero.Sandbox.CSharp/tree/2017-05-20-DataGrid">DataGrid.ItemsSource が IList を実装している場合としていない場合の比較</a>~~ (リンク切れ)</p>
-
-<h2 id="例外">例外</h2>
-
+<h2 id="heading">例外</h2>
 <p>もちろん上記で述べたような懸念があたらないことが分かっているケースでは、<code>IList&lt;_&gt;</code> や <code>IList</code> を実装しなくてもよいでしょう。</p>
-
-<h2 id="おまけ-readonlycollection">おまけ: ReadOnlyCollection</h2>
-
+<h2 id="-readonlycollection">おまけ: ReadOnlyCollection</h2>
 <p><code>IList&lt;_&gt;</code> はメンバーの数が多くて、実装するのは非常にめんどうですが、 <code>IList&lt;_&gt;</code> をラップして読み取り専用なリスト (<code>IReadOnlyList&lt;_&gt;</code>) として振る舞わせる <code>ReadOnlyCollection&lt;_&gt;</code> というのが標準にあります。これを継承して実装すると楽です。</p>
 
         
@@ -363,7 +343,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

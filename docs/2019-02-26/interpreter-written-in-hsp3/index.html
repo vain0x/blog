@@ -11,14 +11,11 @@
   <meta property="og:title" content="HSP3 でスクリプト言語の処理系を書く" />
   <meta name="twitter:title" content="HSP3 でスクリプト言語の処理系を書く" />
   <meta name="description" content="HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。
-
 10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できているという実感が得られた。">
   <meta property="og:description" content="HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。
-
 10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できているという実感が得られた。">
   <meta name="twitter:description" content="HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。
-
-10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できていると …">
+10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できているとい …">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -90,7 +87,6 @@
 
 <meta property="og:title" content="HSP3 でスクリプト言語の処理系を書く" />
 <meta property="og:description" content="HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。
-
 10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できているという実感が得られた。">
 <meta property="og:url" content="https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/" />
 <meta property="og:type" content="website" />
@@ -98,8 +94,7 @@
 
   <meta name="twitter:title" content="HSP3 でスクリプト言語の処理系を書く" />
   <meta name="twitter:description" content="HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。
-
-10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できていると …">
+10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できているとい …">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -111,7 +106,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -216,108 +211,82 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。</p>
-
 <p>10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できているという実感が得られた。</p>
-
-<h2 id="klac-lang-の失敗">klac-lang の失敗</h2>
-
+<h2 id="klac-lang-">klac-lang の失敗</h2>
 <p>klac-lang とは、私が2008年9月ごろに書き始めた JavaScript っぽい自作言語のインタプリタ。これについて詳しく書きたくないので簡単にまとめると、以下のような点で失敗した。</p>
-
 <ul>
 <li>バージョン管理していなかった
-
 <ul>
 <li>バグを埋め込んでしまったら、それを直すまで作業が進まなかった</li>
 <li>バックアップ (日付ファイル名の zip ファイル) もまばらすぎた</li>
-</ul></li>
+</ul>
+</li>
 <li>テストコードを書いていなかった
-
 <ul>
 <li>書き換えるたびに至るところからバグが噴出していた</li>
-</ul></li>
+</ul>
+</li>
 <li>演算子優先度順位法っぽいが異なる、筋の悪い方法で構文解析をしていた
-
 <ul>
 <li>ルールの整合性が取るために長時間の試行錯誤が必要だった</li>
-</ul></li>
+</ul>
+</li>
 <li>データ構造としてモジュール変数やプラグインを多用していた
-
 <ul>
 <li>それらを使っても、それほど表現力が上がるわけではない</li>
 <li>コードは読みづらくなり、パフォーマンスや移植性にも悪影響があった</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <p>結果として、標準ライブラリの読み込みに数秒かかるほど遅く、動かすたびにバグが見つかるという、触っていてうんざりする代物になってしまった。</p>
-
-<h2 id="学び">学び</h2>
-
+<h2 id="heading">学び</h2>
 <ul>
 <li>バージョン管理:
-
 <ul>
 <li>Git が使えるようになった</li>
-</ul></li>
+</ul>
+</li>
 <li>テストコード:
-
 <ul>
 <li>テストコードを書いて挙動を安定させる作業にそこそこ慣れてきた</li>
-</ul></li>
+</ul>
+</li>
 <li>構文解析:
-
 <ul>
 <li>再帰下降パーサーを手書きできるようになった</li>
-</ul></li>
 </ul>
-
-<h3 id="学び-データ構造">学び: データ構造</h3>
-
+</li>
+</ul>
+<h3 id="-">学び: データ構造</h3>
 <p>HSP3 で現実的に使えるデータ構造は基本的な型 (label/str/double/int) の配列ぐらいしかない。</p>
-
 <p>COM オブジェクトやプラグインやモジュール変数を使うという手もあるが、HSP3Dish や Linux 版などでは実装されていない。移植性の問題だけでなく、上記4つの基本的な型以外は命令・関数の引数に指定したり関数の結果にできないなど、制限がある。</p>
-
 <p>そのため、配列を工夫して使うほうがよさそうだ。</p>
-
 <p>例えば、複数の配列を組み合わせて、オブジェクトの配列のようなものを作れる。つまり、複数の配列の i 番目の要素がオブジェクト i のフィールドであるということにすれば、これらの配列はオブジェクトの配列であるかのように扱える。また、要素番号 i をオブジェクトへの参照とみなせば、再帰的な構造も作れる。</p>
-
 <p>これだけでインタプリタの実装に必要なデータ構造を十分に実現できる。</p>
-
 <p>この方法では、オブジェクトの解放は自前で実装する必要がある。インタプリタなら GC は実装することになる (むしろ実装したい) のでその点は仕方ない。</p>
-
 <p>そういうわけで上記の問題の解決策が分かった。</p>
-
-<h2 id="negi-lang-の成功">negi-lang の成功(?)</h2>
-
+<h2 id="negi-lang-">negi-lang の成功(?)</h2>
 <p><a href="https://github.com/vain0x/negi-lang">negi-lang</a> は、2019年2月になって再び書き始めた JavaScript っぽい自作言語のインタプリタ。</p>
-
 <p>作業開始から9日目の時点で、整数の四則演算、ローカル変数、if文、while文、配列、クロージャ、外部関数、GC (配列のみ) あたりが実装できている。</p>
-
 <p>外部関数というのは、呼び出したら HSP 側のスクリプトで何らかの処理が行われて、その結果が返ってくる、みたいな仕組みで動く関数。これがあれば HSP でできることがだいたいできるようになる。実際 mes や button などの命令を外部関数として登録してやることによって簡単な GUI アプリができることは確認した。</p>
-
 <p>(オブジェクトがまだないので JavaScript っぽいというと語弊がある。構文は似ているが、アロー関数はない。)</p>
-
 <p>negi-lang のコードはいまのところ十分に手を入れやすく、klac-lang のような泥沼ではない。他の機能を入れるのもおそらく困難ではない。</p>
-
 <p>というわけで klac-lang の供養ができた。</p>
-
-<h2 id="未解決問題">未解決問題</h2>
-
+<h2 id="heading-1">未解決問題</h2>
 <p>このインタプリタに使いみちがないという問題は解決できてない。</p>
-
-<h2 id="その他">その他</h2>
-
+<h2 id="heading-2">その他</h2>
 <ul>
 <li><a href="https://github.com/honobonosun/linter-hsp3">linter-hsp3</a> がとても便利だった
-
 <ul>
 <li>特に HSP でもっともストレスフルな瞬間、「error 26 : パラメーター引数名は使用されています」を事前に教えてくれるので気分的に楽になる</li>
-</ul></li>
+</ul>
+</li>
 <li>はじめ、Rust のように式の中に文を書けるような文法にしていたが、<code>break</code> などのジャンプ命令によってスタックの構造が壊れてしまうということを知った
-
 <ul>
 <li>例えば <code>while (p()) { s += (if (q()) { break } else { 1 }) }</code> みたいな式だと、<code>+=</code> の左辺の <code>s</code> がスタックに乗った状態で <code>break</code> に到達してしまうので、ジャンプする前にそれをポップする必要がある。</li>
 <li>レジスタマシンなら問題ない？</li>
-</ul></li>
+</ul>
+</li>
 <li>enum で定義した定数をうっかり別の系統のと混ぜてしまうバグが、「定数値がいまは偶然同じだから動いてる」ような状態になってないかな？ と思って、定数値がすべて重複しないように変更してみたら、案の定そういうミスが見つかったということがあった <a href="https://github.com/vain0x/negi-lang/commit/8d668b95b8e5884bcac995f57e045d90fab14dee">https://github.com/vain0x/negi-lang/commit/8d668b95b8e5884bcac995f57e045d90fab14dee</a></li>
 </ul>
 
@@ -437,7 +406,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

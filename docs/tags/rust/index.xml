@@ -20,7 +20,6 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-11-08/pi-challenge/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://rirosi.net/plus2/&#34;&gt;円周率チャレンジ&lt;/a&gt; というゲームが流行中です！&lt;/p&gt;
-
 &lt;p&gt;プログラムを使って良い解法を探索してみたので、考えたことを書いていきます。&lt;/p&gt;</description>
     </item>
     
@@ -40,9 +39,7 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/</guid>
       <description>&lt;p&gt;クロージャを再帰呼び出しする方法を考えました。&lt;/p&gt;
-
 &lt;p&gt;競技プログラミングではローカル変数を書き換えながら再帰する処理がよく出てきます。しかし Rust でそれを書こうとするとやや冗長になりがちです。&lt;/p&gt;
-
 &lt;p&gt;本稿では小さなヘルパーを用意して記述を簡略化することを試みました。&lt;/p&gt;</description>
     </item>
     

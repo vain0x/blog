@@ -51,7 +51,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -170,33 +170,23 @@
               <div class="post-entry">
                 
                   <p><a href="http://qiita.com/vain0x/items/41f13fed6f88be7f4e7e">Qiita</a></p>
-
 <p>対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)</p>
-
-<h2 id="導入">導入</h2>
-
+<h2 id="heading">導入</h2>
 <p>モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。
 最初に思いつきそうな:</p>
-
 <ul>
 <li>スクリプトが必要になるたびに、ファイルをコピーを作成して使う。(コピペ法)</li>
 </ul>
-
 <p>という方法だと、例えばモジュールにバグがあった場合などにモジュールを書き換えた後、それらのコピーを上書きして回ることになります。
 めんどうですね。</p>
-
 <p>そのため:</p>
-
 <ul>
 <li>ファイルをまとめておいておき、それを直接 #include して使う。 (共有法)</li>
 </ul>
-
 <p>というようにしている人も少なくないでしょう。</p>
-
 <p>しかし、これにも少し問題があります。
 スクリプトを配布するときに、どのファイルが必要なのか分からなくなるのです。
 単純に「#include されているファイル」を集めるだけでは、「あるモジュールが他のモジュールを使用している」といった状況には対処できません。</p>
-
 <p>※不要なものも全部いっしょくたにして同梱してしまう、という富豪的な方法もあります。</p>
                   <a href="https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/" class="post-read-more">[続きを読む]</a>
                 
@@ -282,7 +272,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

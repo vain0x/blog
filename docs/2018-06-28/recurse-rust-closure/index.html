@@ -11,19 +11,13 @@
   <meta property="og:title" content="Rustのクロージャで再帰してみた" />
   <meta name="twitter:title" content="Rustのクロージャで再帰してみた" />
   <meta name="description" content="クロージャを再帰呼び出しする方法を考えました。
-
 競技プログラミングではローカル変数を書き換えながら再帰する処理がよく出てきます。しかし Rust でそれを書こうとするとやや冗長になりがちです。
-
 本稿では小さなヘルパーを用意して記述を簡略化することを試みました。">
   <meta property="og:description" content="クロージャを再帰呼び出しする方法を考えました。
-
 競技プログラミングではローカル変数を書き換えながら再帰する処理がよく出てきます。しかし Rust でそれを書こうとするとやや冗長になりがちです。
-
 本稿では小さなヘルパーを用意して記述を簡略化することを試みました。">
   <meta name="twitter:description" content="クロージャを再帰呼び出しする方法を考えました。
-
 競技プログラミングではローカル変数を書き換えながら再帰する処理がよく出てきます。しかし Rust でそれを書こうとするとやや冗長になりがちです。
-
 本稿では小さなヘルパーを用意して記述を簡略化することを試みました。">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
@@ -75,7 +69,7 @@
   "headline": "Rustのクロージャで再帰してみた",
   "description" : "クロージャを再帰呼び出しする方法を考えました。\n競技プログラミングではローカル変数を書き換えながら再帰する処理がよく出てきます。しかし Rust でそれを書こうとするとやや冗長になりがちです。\n本稿では小さなヘルパーを用意して記述を簡略化することを試みました。\n",
   "inLanguage" : "ja",
-  "wordCount":  271 ,
+  "wordCount":  260 ,
   "datePublished" : "2018-06-28T23:17:41",
   "dateModified" : "2018-06-28T23:17:41",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -96,9 +90,7 @@
 
 <meta property="og:title" content="Rustのクロージャで再帰してみた" />
 <meta property="og:description" content="クロージャを再帰呼び出しする方法を考えました。
-
 競技プログラミングではローカル変数を書き換えながら再帰する処理がよく出てきます。しかし Rust でそれを書こうとするとやや冗長になりがちです。
-
 本稿では小さなヘルパーを用意して記述を簡略化することを試みました。">
 <meta property="og:url" content="https://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/" />
 <meta property="og:type" content="website" />
@@ -106,9 +98,7 @@
 
   <meta name="twitter:title" content="Rustのクロージャで再帰してみた" />
   <meta name="twitter:description" content="クロージャを再帰呼び出しする方法を考えました。
-
 競技プログラミングではローカル変数を書き換えながら再帰する処理がよく出てきます。しかし Rust でそれを書こうとするとやや冗長になりがちです。
-
 本稿では小さなヘルパーを用意して記述を簡略化することを試みました。">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
@@ -121,7 +111,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -226,67 +216,51 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>クロージャを再帰呼び出しする方法を考えました。</p>
-
 <p>競技プログラミングではローカル変数を書き換えながら再帰する処理がよく出てきます。しかし Rust でそれを書こうとするとやや冗長になりがちです。</p>
-
 <p>本稿では小さなヘルパーを用意して記述を簡略化することを試みました。</p>
-
 <ul>
 <li>環境: Rust 1.15.1 (AtCoder での現在のバージョン)</li>
 <li>筆者: AtCoder もうすぐ青といい続けて1年</li>
 </ul>
-
-<h2 id="要約">要約</h2>
-
+<h2 id="heading">要約</h2>
 <ul>
 <li>競プロではよく再帰する。</li>
 <li>小さなアダプタを書くと再帰呼び出しできる。</li>
 <li>イミュータブルなクロージャはローカル変数を書き換えられない。
-
 <ul>
 <li><code>RefCell</code> で対処する。</li>
-</ul></li>
+</ul>
+</li>
 <li>成果:
-
 <ul>
 <li><a href="https://play.rust-lang.org/?gist=97ad8427affee25a31656d750d2a01d6&amp;version=stable&amp;mode=debug">Fn で再帰するやつ</a></li>
-</ul></li>
 </ul>
-
-<h2 id="用例1-階乗">用例1: 階乗</h2>
-
+</li>
+</ul>
+<h2 id="1-">用例1: 階乗</h2>
 <p>単純な例として、階乗の計算を再帰で書けるようにしましょう。内部で自身を参照するために、クロージャは引数に <code>fact</code> (階乗関数) を受け取るようにする方針でいきます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">fact_5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;|</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">fact</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="mi">1_</span><span class="k">i64</span><span class="w">
-</span><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
-</span><span class="w">        </span><span class="p">}</span><span class="w">
-</span><span class="w">    </span><span class="p">});</span><span class="w">
-</span><span class="w">    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">fact_5</span><span class="p">);</span><span class="w">
-</span></code></pre></div>
-<p>ここで <code>recurse(x, f)</code> が <code>f(x, f)</code> の意味になるように後で定義するヘルパーです。</p>
-
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">fact_5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="o">|</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">fact</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="mi">1_</span><span class="k">i64</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">fact_5</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>ここで <code>recurse(x, f)</code> が <code>f(x, f)</code> の意味になるように後で定義するヘルパーです。</p>
 <p>「なぜ作った関数を即座に起動するのか」という疑問があると思いますが、それは実際にそういう用途が多いからです。再帰関数がほしいときは <code>|x| recurse(x, &amp;|x, f| ..)</code> のようにクロージャ化する運用でも大丈夫でしょう。</p>
-
-<h2 id="実装1-イミュータブル版">実装1: イミュータブル版</h2>
-
+<h2 id="1--1">実装1: イミュータブル版</h2>
 <p><code>recurse</code> の実装は簡単で、<code>fn</code> で定義した関数が再帰可能であることを利用します。</p>
 <div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">fn</span> <span class="nf">recurse</span><span class="o">&lt;</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span>: <span class="nc">X</span><span class="p">,</span><span class="w"> </span><span class="n">f</span>: <span class="kp">&amp;</span><span class="nb">Fn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nb">Fn</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;|</span><span class="n">x</span>: <span class="nc">X</span><span class="o">|</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">f</span><span class="p">))</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>注意点は、クロージャの引数の型がまたそのクロージャの型で……という無限の循環を避けるため、関数を <a href="https://rust-lang-ja.github.io/the-rust-programming-language-ja/1.6/book/trait-objects.html">トレイトオブジェクト</a> への参照という形で扱っていることです。</p>
-
+</span><span class="w"></span><span class="w">        </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="o">|</span><span class="n">x</span>: <span class="nc">X</span><span class="o">|</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">f</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>注意点は、クロージャの引数の型がまたそのクロージャの型で……という無限の循環を避けるため、関数を <a href="https://rust-lang-ja.github.io/the-rust-programming-language-ja/1.6/book/trait-objects.html">トレイトオブジェクト</a> への参照という形で扱っていることです。</p>
 <p><code>Fn(X) -&gt; Y</code> というのは「型 <code>X</code> の値を受け取って型 <code>Y</code> の値を返す関数」の型を表すトレイトで、ある種のクロージャは自動的に <code>Fn</code> を実装した型になります。参照: <a href="https://doc.rust-lang.org/std/ops/trait.Fn.html">std::ops::Fn - Rust</a></p>
-
 <pre><code>&amp;Fn(X, &amp;Fn(X) -&gt; Y) -&gt; Y
         ^^^^^^^^^^           再帰関数の型 (クロージャの引数)
  ^^^^^^^^^^^^^^^^^^^^^^^     定義したクロージャのトレイトオブジェクトの型
 </code></pre>
-
-<h2 id="用例2-dfsで連結成分分解">用例2: DFSで連結成分分解</h2>
-
+<h2 id="2-dfs">用例2: DFSで連結成分分解</h2>
 <p>次に現実的な例として、グラフの連結成分分解を深さ優先探索で書いてみます。</p>
 <div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">//
 </span><span class="c1"></span><span class="w">    </span><span class="c1">//   0 -- 1
@@ -295,288 +269,265 @@
 </span><span class="c1"></span><span class="w">    </span><span class="c1">//   2 -- 3    4--5
 </span><span class="c1"></span><span class="w">    </span><span class="c1">//
 </span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="o">=</span><span class="w">
-</span><span class="w">        </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="w">
-</span><span class="w">        </span><span class="p">];</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="n">len</span><span class="p">();</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">roots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RefCell</span>::<span class="n">new</span><span class="p">(</span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="p">]);</span><span class="w">
-</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="p">..</span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="n">recurse</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;|</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">go</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">roots</span><span class="p">.</span><span class="n">borrow</span><span class="p">()[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                </span><span class="k">return</span><span class="p">;</span><span class="w">
-</span><span class="w">            </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">            </span><span class="n">roots</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">()[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">graph</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">iter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                </span><span class="n">go</span><span class="p">(</span><span class="n">w</span><span class="p">);</span><span class="w">
-</span><span class="w">            </span><span class="p">}</span><span class="w">
-</span><span class="w">        </span><span class="p">})</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="o">&amp;*</span><span class="n">roots</span><span class="p">.</span><span class="n">borrow</span><span class="p">(),</span><span class="w"> </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]);</span><span class="w">
-</span></code></pre></div>
-<p>頂点 <code>v</code> が属す連結成分の代表を <code>roots[v]</code> に入れていきます。</p>
-
+</span><span class="w"></span><span class="w">        </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">]</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="n">len</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">roots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RefCell</span>::<span class="n">new</span><span class="p">(</span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="p">.</span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="n">recurse</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="o">|</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">go</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">roots</span><span class="p">.</span><span class="n">borrow</span><span class="p">(</span><span class="p">)</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="k">return</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">roots</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">(</span><span class="p">)</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">graph</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="p">.</span><span class="n">iter</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="n">go</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="o">&amp;</span><span class="o">*</span><span class="n">roots</span><span class="p">.</span><span class="n">borrow</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>頂点 <code>v</code> が属す連結成分の代表を <code>roots[v]</code> に入れていきます。</p>
 <p>このとき、再帰の途中で配列を更新する必要があります。しかし <code>roots</code> を let <strong>mut</strong> でミュータブル配列として宣言すると、先ほどの <code>recurse</code> は使えません。というもの、外部のミュータブルな変数を借用するクロージャは <code>Fn</code> トレイトを実装しないからです。</p>
-
 <p>ここでは <code>RefCell</code> を使ってこの問題を回避しています。クロージャに渡すのが <code>RefCell</code> へのイミュータブルな参照でも、内部の値をミュータブルとして扱えます。参照: <a href="https://rust-lang-ja.github.io/the-rust-programming-language-ja/1.6/book/choosing-your-guarantees.html#refcellt">保証を選ぶ</a></p>
-
 <p>なんにせよ、それなりに簡潔に再帰処理ができました！</p>
-
 <ul>
 <li><a href="https://play.rust-lang.org/?gist=97ad8427affee25a31656d750d2a01d6&amp;version=stable&amp;mode=debug">Rust Playground で試す</a></li>
 </ul>
-
-<h2 id="実装2-ミュータブル版">実装2. ミュータブル版</h2>
-
+<h2 id="2-">実装2. ミュータブル版</h2>
 <p><strong>追記</strong>: ミュータブルなローカル変数を書き換えながらクロージャを再帰呼び出しする方法について記述していましたが、 <a href="https://qiita.com/vain0x/items/90c9580aa34926160ac1#comment-1988da50c4701cc0add8">安全でないコードが書けてしまう</a> ので取り下げました。</p>
-
-<p><details>
-<summary>変更前の内容はたたんであります。</summary>
-<div>
-記述量を減らすのが目的なので、 <code>RefCell</code> をなくす方法も考えてみます。</p>
-
+<!-- raw HTML omitted -->
 <p>クロージャの型が自動で実装するトレイトは <code>Fn</code> のほかに <code>FnMut</code> もあります。<code>FnMut</code> は、簡単にいうと「ミュータブルな状態を持つ関数」の型が実装すべきトレイトです。参照: <a href="https://doc.rust-lang.org/std/ops/trait.FnMut.html">std::ops::FnMut - Rust</a></p>
-
 <p>外部のミュータブルな状態 (例えば <code>let mut roots = ...</code>) を触りながら再帰できるように、クロージャが <code>FnMut</code> でもいいようにしてみます。すると、借用検査が <strong>通りません</strong> 。</p>
-
 <p>通せるようにしたのが以下です:</p>
 <div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">recurse</span><span class="o">&lt;</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span>: <span class="nc">X</span><span class="p">,</span><span class="w"> </span><span class="n">f</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">fp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="o">*</span><span class="k">mut</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">f1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">*</span><span class="n">fp</span><span class="w"> </span><span class="p">};</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">*</span><span class="n">fp</span><span class="w"> </span><span class="p">};</span><span class="w">
-</span><span class="w">    </span><span class="n">f1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">|</span><span class="n">x</span>: <span class="nc">X</span><span class="o">|</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">f2</span><span class="p">))</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">fp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="o">*</span><span class="k">mut</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">f1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">*</span><span class="n">fp</span><span class="w"> </span><span class="p">}</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">*</span><span class="n">fp</span><span class="w"> </span><span class="p">}</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="n">f1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">|</span><span class="n">x</span>: <span class="nc">X</span><span class="o">|</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">f2</span><span class="p">)</span><span class="p">)</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p>これをみると分かるように、 <code>recurse</code> は受け取ったクロージャへの参照を2つに複製します: 即座に呼び出すための参照と、再帰用に呼び出すための参照です。ミュータブルな参照は複製できないので、<code>unsafe</code> を使って強制的に複製しています。</p>
-
+</span></code></pre></div><p>これをみると分かるように、 <code>recurse</code> は受け取ったクロージャへの参照を2つに複製します: 即座に呼び出すための参照と、再帰用に呼び出すための参照です。ミュータブルな参照は複製できないので、<code>unsafe</code> を使って強制的に複製しています。</p>
 <p>「unsafe だから危険じゃないのか」という疑問がありますが、実行中のクロージャが自分への参照を self, f で2重に受け取っているだけなので、たぶん大丈夫です。</p>
-
 <p>これで深さ優先探索の例を書き直すと、<code>RefCell</code> が消失してすっきり。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">roots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="p">];</span><span class="w">
-</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="p">..</span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="n">recurse</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">|</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">go</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                </span><span class="k">return</span><span class="p">;</span><span class="w">
-</span><span class="w">            </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">            </span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">graph</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">iter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                </span><span class="n">go</span><span class="p">(</span><span class="n">w</span><span class="p">);</span><span class="w">
-</span><span class="w">            </span><span class="p">}</span><span class="w">
-</span><span class="w">        </span><span class="p">})</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p><a href="https://play.rust-lang.org/?gist=bceca5a2af42a5436996b99712cb28ed&amp;version=stable&amp;mode=debug">Rust Playground で試す</a>
-</div>
-</details></p>
-
-<h2 id="参考">参考</h2>
-
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">roots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="p">]</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="p">.</span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="n">recurse</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">|</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">go</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="k">return</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">graph</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="p">.</span><span class="n">iter</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="n">go</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span></code></pre></div><p><a href="https://play.rust-lang.org/?gist=bceca5a2af42a5436996b99712cb28ed&amp;version=stable&amp;mode=debug">Rust Playground で試す</a></p>
+<!-- raw HTML omitted -->
+<h2 id="heading-1">参考</h2>
 <ul>
-<li><p><a href="https://github.com/Hoverbear/rust-rosetta/issues/450#issuecomment-175848086">Stebalien commented on 28 Jan 2016</a></p>
-
-<p>Zコンビネータを使ってクロージャを再帰可能にするコードの例。引数として受け取る再帰関数の型は推論されないっぽい。</p></li>
-
-<li><p><a href="https://www.google.co.jp/search?q=無名再帰&amp;oq=無名再帰">無名再帰 - Google 検索</a></p>
-
-<p>クロージャのような匿名の関数を再帰呼び出しすることを無名再帰というらしい。</p></li>
+<li>
+<p><a href="https://github.com/Hoverbear/rust-rosetta/issues/450#issuecomment-175848086">Stebalien commented on 28 Jan 2016</a></p>
+<p>Zコンビネータを使ってクロージャを再帰可能にするコードの例。引数として受け取る再帰関数の型は推論されないっぽい。</p>
+</li>
+<li>
+<p><a href="https://www.google.co.jp/search?q=%E7%84%A1%E5%90%8D%E5%86%8D%E5%B8%B0&amp;oq=%E7%84%A1%E5%90%8D%E5%86%8D%E5%B8%B0">無名再帰 - Google 検索</a></p>
+<p>クロージャのような匿名の関数を再帰呼び出しすることを無名再帰というらしい。</p>
+</li>
 </ul>
-
-<p><details>
-<summary>Source code</summary></p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#![allow(dead_code)]</span><span class="w">
-</span><span class="w"></span><span class="cp">#![allow(unused_macros)]</span><span class="w">
-</span><span class="w"></span><span class="cp">#![allow(unused_imports)]</span><span class="w">
-</span><span class="w">
+<!-- raw HTML omitted -->
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#![</span><span class="cp">allow(dead_code)</span><span class="cp">]</span><span class="w">
+</span><span class="w"></span><span class="cp">#![</span><span class="cp">allow(unused_macros)</span><span class="cp">]</span><span class="w">
+</span><span class="w"></span><span class="cp">#![</span><span class="cp">allow(unused_imports)</span><span class="cp">]</span><span class="w">
+</span><span class="w"></span><span class="w">
 </span><span class="w"></span><span class="k">fn</span> <span class="nf">recurse</span><span class="o">&lt;</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span>: <span class="nc">X</span><span class="p">,</span><span class="w"> </span><span class="n">f</span>: <span class="kp">&amp;</span><span class="nb">Fn</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nb">Fn</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;|</span><span class="n">x</span>: <span class="nc">X</span><span class="o">|</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">f</span><span class="p">))</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="o">|</span><span class="n">x</span>: <span class="nc">X</span><span class="o">|</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">f</span><span class="p">)</span><span class="p">)</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
+</span><span class="w"></span><span class="w">
 </span><span class="w"></span><span class="n">macro_rules</span><span class="o">!</span><span class="w"> </span><span class="n">memo</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="p">(</span><span class="o">|</span><span class="w"> </span><span class="cp">$f</span>:<span class="nc">ident</span><span class="p">,</span><span class="w"> </span><span class="cp">$($p</span>:<span class="nc">ident</span><span class="w"> </span><span class="cp">$(</span>: <span class="cp">$t</span>:<span class="nc">ty</span><span class="p">)</span><span class="o">*</span><span class="p">),</span><span class="o">*</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="cp">$body</span>:<span class="nc">expr</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{{</span><span class="w">
-</span><span class="w">        </span><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">;</span><span class="w">
-</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">memo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span>::<span class="n">cell</span>::<span class="n">RefCell</span>::<span class="n">new</span><span class="p">(</span><span class="n">std</span>::<span class="n">collections</span>::<span class="n">HashMap</span>::<span class="n">new</span><span class="p">());</span><span class="w">
-</span><span class="w">
-</span><span class="w">        </span><span class="k">move</span><span class="w"> </span><span class="o">|</span><span class="cp">$($p</span><span class="w"> </span><span class="cp">$(</span>: <span class="cp">$t</span><span class="p">)</span><span class="o">*</span><span class="p">),</span><span class="o">*|</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="n">recurse</span><span class="p">(</span><span class="w">
-</span><span class="w">                </span><span class="cp">#[allow(unused_parens)]</span><span class="w">
-</span><span class="w">                </span><span class="p">{</span><span class="w"> </span><span class="p">(</span><span class="cp">$($p</span><span class="p">),</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="p">},</span><span class="w">
-</span><span class="w">                </span><span class="o">&amp;|</span><span class="cp">$($p</span><span class="w"> </span><span class="cp">$(</span>: <span class="cp">$t</span><span class="p">)</span><span class="o">*</span><span class="p">),</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="cp">$f</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                    </span><span class="kd">let</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="cp">$($p</span><span class="p">),</span><span class="o">*</span><span class="p">).</span><span class="n">clone</span><span class="p">();</span><span class="w">
-</span><span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="o">&amp;</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">memo</span><span class="p">.</span><span class="n">borrow</span><span class="p">().</span><span class="n">get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                        </span><span class="k">return</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w">
-</span><span class="w">                    </span><span class="p">}</span><span class="w">
-</span><span class="w">                    </span><span class="kd">let</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="cp">$body</span><span class="p">;</span><span class="w">
-</span><span class="w">                    </span><span class="n">memo</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">().</span><span class="n">insert</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">.</span><span class="n">clone</span><span class="p">());</span><span class="w">
-</span><span class="w">                    </span><span class="n">y</span><span class="w">
-</span><span class="w">                </span><span class="p">}</span><span class="w">
-</span><span class="w">            </span><span class="p">)</span><span class="w">
-</span><span class="w">        </span><span class="p">}</span><span class="w">
-</span><span class="w">    </span><span class="p">}};</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">(</span><span class="o">|</span><span class="w"> </span><span class="cp">$f</span>:<span class="nc">ident</span><span class="p">,</span><span class="w"> </span><span class="cp">$(</span><span class="cp">$p</span>:<span class="nc">ident</span><span class="w"> </span><span class="cp">$(</span>: <span class="cp">$t</span>:<span class="nc">ty</span><span class="p">)</span><span class="o">*</span><span class="p">)</span><span class="p">,</span><span class="o">*</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="cp">$body</span>:<span class="nc">expr</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">memo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span>::<span class="n">cell</span>::<span class="n">RefCell</span>::<span class="n">new</span><span class="p">(</span><span class="n">std</span>::<span class="n">collections</span>::<span class="n">HashMap</span>::<span class="n">new</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="k">move</span><span class="w"> </span><span class="o">|</span><span class="cp">$(</span><span class="cp">$p</span><span class="w"> </span><span class="cp">$(</span>: <span class="cp">$t</span><span class="p">)</span><span class="o">*</span><span class="p">)</span><span class="p">,</span><span class="o">*</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">recurse</span><span class="p">(</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="cp">#[</span><span class="cp">allow(unused_parens)</span><span class="cp">]</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="p">{</span><span class="w"> </span><span class="p">(</span><span class="cp">$(</span><span class="cp">$p</span><span class="p">)</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="o">&amp;</span><span class="o">|</span><span class="cp">$(</span><span class="cp">$p</span><span class="w"> </span><span class="cp">$(</span>: <span class="cp">$t</span><span class="p">)</span><span class="o">*</span><span class="p">)</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="cp">$f</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                    </span><span class="kd">let</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="cp">$(</span><span class="cp">$p</span><span class="p">)</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="p">.</span><span class="n">clone</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="o">&amp;</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">memo</span><span class="p">.</span><span class="n">borrow</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="o">&amp;</span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                        </span><span class="k">return</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">                    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">                    </span><span class="kd">let</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="cp">$body</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">                    </span><span class="n">memo</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">.</span><span class="n">clone</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">                    </span><span class="n">y</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="p">}</span><span class="p">;</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="cp">#[cfg(test)]</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="cp">#[</span><span class="cp">cfg(test)</span><span class="cp">]</span><span class="w">
 </span><span class="w"></span><span class="k">mod</span> <span class="nn">tests</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span>::<span class="o">*</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">cell</span>::<span class="n">RefCell</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="k">fn</span> <span class="nf">graph</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">usize</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="c1">//
+</span><span class="w"></span><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span>::<span class="o">*</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">cell</span>::<span class="n">RefCell</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="k">fn</span> <span class="nf">graph</span><span class="p">(</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">usize</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="c1">//
 </span><span class="c1"></span><span class="w">        </span><span class="c1">//   0 -- 1
 </span><span class="c1"></span><span class="w">        </span><span class="c1">//   | \
 </span><span class="c1"></span><span class="w">        </span><span class="c1">//   |  \
 </span><span class="c1"></span><span class="w">        </span><span class="c1">//   2 -- 3    4--5
 </span><span class="c1"></span><span class="w">        </span><span class="c1">//
 </span><span class="c1"></span><span class="w">        </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="w">
-</span><span class="w">        </span><span class="p">]</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cp">#[test]</span><span class="w">
-</span><span class="w">    </span><span class="k">fn</span> <span class="nf">test_fact</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">fact</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">n</span><span class="o">|</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;|</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">fact</span><span class="o">|</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">1_</span><span class="k">i64</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">});</span><span class="w">
-</span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">fact</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
-</span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">fact</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="w"> </span><span class="mi">120</span><span class="p">);</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cp">#[test]</span><span class="w">
-</span><span class="w">    </span><span class="k">fn</span> <span class="nf">test_dfs</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">();</span><span class="w">
-</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="n">len</span><span class="p">();</span><span class="w">
-</span><span class="w">
-</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">roots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RefCell</span>::<span class="n">new</span><span class="p">(</span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="p">]);</span><span class="w">
-</span><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="p">..</span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="n">recurse</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;|</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">go</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">roots</span><span class="p">.</span><span class="n">borrow</span><span class="p">()[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                    </span><span class="k">return</span><span class="p">;</span><span class="w">
-</span><span class="w">                </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">                </span><span class="n">roots</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">()[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">graph</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">iter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                    </span><span class="n">go</span><span class="p">(</span><span class="n">w</span><span class="p">);</span><span class="w">
-</span><span class="w">                </span><span class="p">}</span><span class="w">
-</span><span class="w">            </span><span class="p">})</span><span class="w">
-</span><span class="w">        </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="o">&amp;*</span><span class="n">roots</span><span class="p">.</span><span class="n">borrow</span><span class="p">(),</span><span class="w"> </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]);</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cp">#[test]</span><span class="w">
-</span><span class="w">    </span><span class="k">fn</span> <span class="nf">test_memoized_fib</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">fib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">memo</span><span class="o">!</span><span class="p">(</span><span class="o">|</span><span class="n">fib</span><span class="p">,</span><span class="w"> </span><span class="n">n</span>: <span class="kt">i32</span><span class="o">|</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="mi">1_</span><span class="k">i64</span><span class="w">
-</span><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">
-</span><span class="w">        </span><span class="p">});</span><span class="w">
-</span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">fib</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span><span class="w">
-</span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">fib</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w"> </span><span class="mi">10946</span><span class="p">);</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">]</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="cp">#[</span><span class="cp">test</span><span class="cp">]</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="k">fn</span> <span class="nf">test_fact</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">fact</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">n</span><span class="o">|</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="o">|</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">fact</span><span class="o">|</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">1_</span><span class="k">i64</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">fact</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">fact</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="cp">#[</span><span class="cp">test</span><span class="cp">]</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="k">fn</span> <span class="nf">test_dfs</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="n">len</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">roots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RefCell</span>::<span class="n">new</span><span class="p">(</span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="p">.</span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">recurse</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="o">|</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">go</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">roots</span><span class="p">.</span><span class="n">borrow</span><span class="p">(</span><span class="p">)</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                    </span><span class="k">return</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="n">roots</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">(</span><span class="p">)</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">graph</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="p">.</span><span class="n">iter</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                    </span><span class="n">go</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="p">}</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="o">&amp;</span><span class="o">*</span><span class="n">roots</span><span class="p">.</span><span class="n">borrow</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="cp">#[</span><span class="cp">test</span><span class="cp">]</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="k">fn</span> <span class="nf">test_memoized_fib</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">fib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">memo</span><span class="o">!</span><span class="p">(</span><span class="o">|</span><span class="n">fib</span><span class="p">,</span><span class="w"> </span><span class="n">n</span>: <span class="kt">i32</span><span class="o">|</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="mi">1_</span><span class="k">i64</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">fib</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">fib</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="mi">10946</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#![allow(dead_code)]</span><span class="w">
-</span><span class="w"></span><span class="cp">#![allow(unused_imports)]</span><span class="w">
-</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#![</span><span class="cp">allow(dead_code)</span><span class="cp">]</span><span class="w">
+</span><span class="w"></span><span class="cp">#![</span><span class="cp">allow(unused_imports)</span><span class="cp">]</span><span class="w">
+</span><span class="w"></span><span class="w">
 </span><span class="w"></span><span class="k">fn</span> <span class="nf">recurse</span><span class="o">&lt;</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span>: <span class="nc">X</span><span class="p">,</span><span class="w"> </span><span class="n">f</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">fp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="o">*</span><span class="k">mut</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">f1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">*</span><span class="n">fp</span><span class="w"> </span><span class="p">};</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">*</span><span class="n">fp</span><span class="w"> </span><span class="p">};</span><span class="w">
-</span><span class="w">    </span><span class="n">f1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">|</span><span class="n">x</span>: <span class="nc">X</span><span class="o">|</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">f2</span><span class="p">))</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">fp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="o">*</span><span class="k">mut</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="nb">FnMut</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Y</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">f1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">*</span><span class="n">fp</span><span class="w"> </span><span class="p">}</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">f2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">unsafe</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">*</span><span class="n">fp</span><span class="w"> </span><span class="p">}</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="n">f1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">|</span><span class="n">x</span>: <span class="nc">X</span><span class="o">|</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">f2</span><span class="p">)</span><span class="p">)</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="cp">#[cfg(test)]</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="cp">#[</span><span class="cp">cfg(test)</span><span class="cp">]</span><span class="w">
 </span><span class="w"></span><span class="k">mod</span> <span class="nn">tests</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span>::<span class="o">*</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="k">fn</span> <span class="nf">graph</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">usize</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="c1">//
+</span><span class="w"></span><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span>::<span class="o">*</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="k">fn</span> <span class="nf">graph</span><span class="p">(</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">usize</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="c1">//
 </span><span class="c1"></span><span class="w">        </span><span class="c1">//   0 -- 1
 </span><span class="c1"></span><span class="w">        </span><span class="c1">//   | \
 </span><span class="c1"></span><span class="w">        </span><span class="c1">//   |  \
 </span><span class="c1"></span><span class="w">        </span><span class="c1">//   2 -- 3    4--5
 </span><span class="c1"></span><span class="w">        </span><span class="c1">//
 </span><span class="c1"></span><span class="w">        </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="w">
-</span><span class="w">        </span><span class="p">]</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cp">#[test]</span><span class="w">
-</span><span class="w">    </span><span class="k">fn</span> <span class="nf">test_fact</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">fact</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">n</span><span class="o">|</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">|</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">fact</span><span class="o">|</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">});</span><span class="w">
-</span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">fact</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
-</span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">fact</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span><span class="w"> </span><span class="mi">120</span><span class="p">);</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cp">#[test]</span><span class="w">
-</span><span class="w">    </span><span class="k">fn</span> <span class="nf">test_dfs</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">();</span><span class="w">
-</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="n">len</span><span class="p">();</span><span class="w">
-</span><span class="w">
-</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">roots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="p">];</span><span class="w">
-</span><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="p">..</span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="n">recurse</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">|</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">go</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                    </span><span class="k">return</span><span class="p">;</span><span class="w">
-</span><span class="w">                </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">                </span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">graph</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">iter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                    </span><span class="n">go</span><span class="p">(</span><span class="n">w</span><span class="p">);</span><span class="w">
-</span><span class="w">                </span><span class="p">}</span><span class="w">
-</span><span class="w">            </span><span class="p">})</span><span class="w">
-</span><span class="w">        </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">roots</span><span class="p">,</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]);</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cp">#[test]</span><span class="w">
-</span><span class="w">    </span><span class="k">fn</span> <span class="nf">test_closure_is_dropped</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">
-</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
-</span><span class="w">        </span><span class="k">struct</span> <span class="nc">D</span><span class="o">&lt;</span><span class="na">&#39;a</span><span class="o">&gt;</span><span class="p">(</span><span class="k">pub</span><span class="w"> </span><span class="o">&amp;</span><span class="na">&#39;a</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="kt">i32</span><span class="p">);</span><span class="w">
-</span><span class="w">        </span><span class="k">impl</span><span class="o">&lt;</span><span class="na">&#39;a</span><span class="o">&gt;</span><span class="w"> </span><span class="nb">Drop</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">D</span><span class="o">&lt;</span><span class="na">&#39;a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="k">fn</span> <span class="nf">drop</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                </span><span class="o">*</span><span class="bp">self</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
-</span><span class="w">            </span><span class="p">}</span><span class="w">
-</span><span class="w">        </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">        </span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="n">recurse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">|</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">go</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                </span><span class="kd">let</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">k</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">                    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="n">d</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">
-</span><span class="w">                    </span><span class="k">return</span><span class="p">;</span><span class="w">
-</span><span class="w">                </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">                </span><span class="n">go</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
-</span><span class="w">            </span><span class="p">});</span><span class="w">
-</span><span class="w">        </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">]</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="cp">#[</span><span class="cp">test</span><span class="cp">]</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="k">fn</span> <span class="nf">test_fact</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">fact</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">n</span><span class="o">|</span><span class="w"> </span><span class="n">recurse</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">|</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">fact</span><span class="o">|</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">fact</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">fact</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="cp">#[</span><span class="cp">test</span><span class="cp">]</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="k">fn</span> <span class="nf">test_dfs</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="n">len</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">roots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="p">]</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="p">.</span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">recurse</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">|</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">go</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                    </span><span class="k">return</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">graph</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="p">.</span><span class="n">iter</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                    </span><span class="n">go</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="p">}</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">roots</span><span class="p">,</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="cp">#[</span><span class="cp">test</span><span class="cp">]</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="k">fn</span> <span class="nf">test_closure_is_dropped</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="k">struct</span> <span class="nc">D</span><span class="o">&lt;</span><span class="na">&#39;a</span><span class="o">&gt;</span><span class="p">(</span><span class="k">pub</span><span class="w"> </span><span class="o">&amp;</span><span class="na">&#39;a</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="k">impl</span><span class="o">&lt;</span><span class="na">&#39;a</span><span class="o">&gt;</span><span class="w"> </span><span class="nb">Drop</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">D</span><span class="o">&lt;</span><span class="na">&#39;a</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="k">fn</span> <span class="nf">drop</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="o">*</span><span class="bp">self</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="n">recurse</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">|</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">go</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="kd">let</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">                    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="n">d</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">                    </span><span class="k">return</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">                </span><span class="n">go</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="p">}</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p></details></p>
+</span></code></pre></div><!-- raw HTML omitted -->
 
         
           <div class="blog-tags">
@@ -683,7 +634,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

@@ -11,13 +11,10 @@
   <meta property="og:title" content="IReadOnlyListの列挙時にヒープ領域の使用を避ける" />
   <meta name="twitter:title" content="IReadOnlyListの列挙時にヒープ領域の使用を避ける" />
   <meta name="description" content="Qiita
-
 IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介します。">
   <meta property="og:description" content="Qiita
-
 IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介します。">
   <meta name="twitter:description" content="Qiita
-
 IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介します。">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
@@ -90,7 +87,6 @@ IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介�
 
 <meta property="og:title" content="IReadOnlyListの列挙時にヒープ領域の使用を避ける" />
 <meta property="og:description" content="Qiita
-
 IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介します。">
 <meta property="og:url" content="https://vain0x.github.io/blog/2016-12-21/lists-with-no-alloc-enumerator/" />
 <meta property="og:type" content="website" />
@@ -98,7 +94,6 @@ IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介�
 
   <meta name="twitter:title" content="IReadOnlyListの列挙時にヒープ領域の使用を避ける" />
   <meta name="twitter:description" content="Qiita
-
 IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介します。">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
@@ -111,7 +106,7 @@ IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介�
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -216,35 +211,23 @@ IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介�
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p><a href="http://qiita.com/vain0x/items/8f89843325ab303c6e04">Qiita</a></p>
-
 <p>IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介します。</p>
-
-<h2 id="前提知識">前提知識</h2>
-
-<h3 id="値型のボックス化">値型のボックス化</h3>
-
+<h2 id="heading">前提知識</h2>
+<h3 id="heading-1">値型のボックス化</h3>
 <p>値型とは何か、ボックス化とは何か、は以下の記事を参照。</p>
-
 <ul>
 <li><a href="http://ufcpp.net/study/csharp/oo_reference.html">値型と参照型 - C# によるプログラミング入門 | ++C++; // 未確認飛行 C</a></li>
 <li><a href="http://ufcpp.net/study/csharp/RmBoxing.html">ボックス化 - C# によるプログラミング入門 | ++C++; // 未確認飛行 C</a></li>
 </ul>
-
 <p>系として次のことがいえます。</p>
-
 <ul>
 <li>値型をインターフェイス型にキャストすると、ボックス化が起こります。</li>
 <li><del>型変数 <code>T</code> に <code>struct</code> 制約がついていないとき、値型の値を型 <code>T</code> にキャストすると、ボックス化が起こります。</del> (追記: 起こりません。)</li>
 </ul>
-
-<h3 id="foreach-文のダックタイピング">foreach 文のダックタイピング</h3>
-
-<p>foreach 文は、渡された列挙対象のコレクションが <code>GetEnumerator</code> という名前のメソッドを public に公開していたら、それを使って列挙を行います <sup class="footnote-ref" id="fnref:foreach-duck-typing"><a href="#fn:foreach-duck-typing">1</a></sup> 。<code>GetEnumerator</code> の返値型が <code>IEnumerator&lt;_&gt;</code> である必要はなく、返値が <code>IEnumerator&lt;_&gt;</code> にキャストされることもありません。</p>
-
-<h2 id="ストーリー">ストーリー</h2>
-
-<h3 id="ヒープ確保を避けたい">ヒープ確保を避けたい</h3>
-
+<h3 id="foreach-">foreach 文のダックタイピング</h3>
+<p>foreach 文は、渡された列挙対象のコレクションが <code>GetEnumerator</code> という名前のメソッドを public に公開していたら、それを使って列挙を行います <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 。<code>GetEnumerator</code> の返値型が <code>IEnumerator&lt;_&gt;</code> である必要はなく、返値が <code>IEnumerator&lt;_&gt;</code> にキャストされることもありません。</p>
+<h2 id="heading-2">ストーリー</h2>
+<h3 id="heading-3">ヒープ確保を避けたい</h3>
 <p><code>IEnumerable&lt;T&gt;.GetEnumerator()</code> の返値型は <code>IEnumerator&lt;T&gt;</code> なので、新しいオブジェクトを生成して返そうと思うと、ヒープ確保を避けられません。(値型を返そうとすると、ボックス化されてしまう。)</p>
 <div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">void</span> <span class="n">F</span><span class="p">(</span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">xs</span><span class="p">)</span>
 <span class="p">{</span>
@@ -254,108 +237,92 @@ IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介�
         <span class="c1">// ...
 </span><span class="c1"></span>    <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>いま、型が <code>IEnumerable&lt;T&gt;</code> ではなく <code>IReadOnlyList&lt;T&gt;</code> だとすると、ヒープ確保を回避しつつ列挙を行えます。配列と同じように、インデックスで順次アクセスしていけばいいわけです。</p>
+</code></pre></div><p>いま、型が <code>IEnumerable&lt;T&gt;</code> ではなく <code>IReadOnlyList&lt;T&gt;</code> だとすると、ヒープ確保を回避しつつ列挙を行えます。配列と同じように、インデックスで順次アクセスしていけばいいわけです。</p>
 <div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">void</span> <span class="n">G</span><span class="p">(</span><span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">xs</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="c1">// ボックス化は起こらない。
 </span><span class="c1"></span>    <span class="kt">var</span> <span class="n">count</span> <span class="p">=</span> <span class="n">xs</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">count</span><span class="p">;</span> <span class="p">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">count</span><span class="p">;</span> <span class="p">+</span><span class="p">+</span><span class="n">i</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="p">;</span>
         <span class="c1">// ...
 </span><span class="c1"></span>    <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div>
-<h3 id="実装の重複を避けたい">実装の重複を避けたい</h3>
-
+</code></pre></div><h3 id="heading-4">実装の重複を避けたい</h3>
 <p>よりよいパフォーマンスを求めるために、シーケンスの走査を行うメソッドに IReadOnlyList 版と IEnumerable 版の2つを用意することにしたとします。問題となるのは、2つのオーバーロードをどのように実装するかです。</p>
-
-<h3 id="ラッパーで解決">ラッパーで解決</h3>
-
+<h3 id="heading-5">ラッパーで解決</h3>
 <p>上記の2つのコードの違いは列挙方法の違いだけなので、列挙子を使って抽象化できます。</p>
-
 <p>列挙子の実装例はここにあります: <a href="https://github.com/DotNetKit/DotNetKit.StructEnumerator/blob/v0.1.1/DotNetKit.StructEnumerator/Collections/StructEnumerator.cs">StructEnumerator.cs</a></p>
-
 <p>実際に使ってみましょう。例として、First メソッドと同じものを作ってみます。</p>
 <div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp">    <span class="k">static</span> <span class="k">class</span> <span class="nc">MyLinq</span>
     <span class="p">{</span>
-        <span class="k">static</span> <span class="n">X</span> <span class="n">MyFirstCore</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">TEnumerator</span><span class="p">&gt;(</span><span class="n">TEnumerator</span> <span class="n">enumerator</span><span class="p">)</span>
+        <span class="k">static</span> <span class="n">X</span> <span class="n">MyFirstCore</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">TEnumerator</span><span class="p">&gt;</span><span class="p">(</span><span class="n">TEnumerator</span> <span class="n">enumerator</span><span class="p">)</span>
             <span class="k">where</span> <span class="n">TEnumerator</span> <span class="p">:</span> <span class="n">struct</span><span class="p">,</span> <span class="n">IEnumerator</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span>
         <span class="p">{</span>
             <span class="k">using</span> <span class="p">(</span><span class="n">enumerator</span><span class="p">)</span>
             <span class="p">{</span>
-                <span class="k">while</span> <span class="p">(</span><span class="n">enumerator</span><span class="p">.</span><span class="n">MoveNext</span><span class="p">())</span>
+                <span class="k">while</span> <span class="p">(</span><span class="n">enumerator</span><span class="p">.</span><span class="n">MoveNext</span><span class="p">(</span><span class="p">)</span><span class="p">)</span>
                 <span class="p">{</span>
                     <span class="k">return</span> <span class="n">enumerator</span><span class="p">.</span><span class="n">Current</span><span class="p">;</span>
                 <span class="p">}</span>
             <span class="p">}</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidOperationException</span><span class="p">();</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidOperationException</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
         <span class="p">}</span>
 
         <span class="c1">// IReadOnlyList を受け取るオーバーロード
 </span><span class="c1"></span>        <span class="c1">// 列挙子がボックス化されない。
-</span><span class="c1"></span>        <span class="k">public</span> <span class="k">static</span> <span class="n">X</span> <span class="n">MyFirst</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">)</span>
+</span><span class="c1"></span>        <span class="k">public</span> <span class="k">static</span> <span class="n">X</span> <span class="n">MyFirst</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span><span class="p">(</span><span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="n">MyFirstCore</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">ReadOnlyListEnumerator</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;&gt;(</span><span class="k">new</span> <span class="n">ReadOnlyListEnumerator</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">list</span><span class="p">));</span>
+            <span class="k">return</span> <span class="n">MyFirstCore</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">ReadOnlyListEnumerator</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span><span class="p">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">ReadOnlyListEnumerator</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span><span class="p">(</span><span class="n">list</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
         <span class="p">}</span>
 
         <span class="c1">// IEnumerable を受け取るオーバーロード
 </span><span class="c1"></span>        <span class="c1">// ヒープを使うけれど、実装の共通化はできている。
-</span><span class="c1"></span>        <span class="k">public</span> <span class="k">static</span> <span class="n">X</span> <span class="n">MyFirst</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">enumerable</span><span class="p">)</span>
+</span><span class="c1"></span>        <span class="k">public</span> <span class="k">static</span> <span class="n">X</span> <span class="n">MyFirst</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span><span class="p">(</span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">enumerable</span><span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="n">MyFirstCore</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">StructEnumerator</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;&gt;(</span><span class="k">new</span> <span class="n">StructEnumerator</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">enumerable</span><span class="p">.</span><span class="n">GetEnumerator</span><span class="p">()));</span>
+            <span class="k">return</span> <span class="n">MyFirstCore</span><span class="p">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">StructEnumerator</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span><span class="p">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">StructEnumerator</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span><span class="p">(</span><span class="n">enumerable</span><span class="p">.</span><span class="n">GetEnumerator</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">}</span>
-</code></pre></div>
-<p>列挙時にヒープ確保が行われないことを確認するには、次のように <code>GC.GetTotalMemory</code> を使います。</p>
+</code></pre></div><p>列挙時にヒープ確保が行われないことを確認するには、次のように <code>GC.GetTotalMemory</code> を使います。</p>
 <div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp">    <span class="k">class</span> <span class="nc">Program</span>
     <span class="p">{</span>
-        <span class="k">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+        <span class="k">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[</span><span class="p">]</span> <span class="n">args</span><span class="p">)</span>
         <span class="p">{</span>
-            <span class="kt">var</span> <span class="n">xs</span> <span class="p">=</span> <span class="n">Enumerable</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">100</span><span class="p">).</span><span class="n">ToArray</span><span class="p">();</span>
+            <span class="kt">var</span> <span class="n">xs</span> <span class="p">=</span> <span class="n">Enumerable</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="m">0</span><span class="m">0</span><span class="p">)</span><span class="p">.</span><span class="n">ToArray</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
             <span class="kt">var</span> <span class="n">sum</span> <span class="p">=</span> <span class="m">0L</span><span class="p">;</span>
-            <span class="n">MyLinq</span><span class="p">.</span><span class="n">MyFirst</span><span class="p">(</span><span class="n">xs</span><span class="p">);</span> <span class="c1">// おまじない
+            <span class="n">MyLinq</span><span class="p">.</span><span class="n">MyFirst</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span><span class="p">;</span> <span class="c1">// おまじない
 </span><span class="c1"></span>
-            <span class="n">GC</span><span class="p">.</span><span class="n">Collect</span><span class="p">();</span>
-            <span class="kt">var</span> <span class="n">before</span> <span class="p">=</span> <span class="n">GC</span><span class="p">.</span><span class="n">GetTotalMemory</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+            <span class="n">GC</span><span class="p">.</span><span class="n">Collect</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+            <span class="kt">var</span> <span class="n">before</span> <span class="p">=</span> <span class="n">GC</span><span class="p">.</span><span class="n">GetTotalMemory</span><span class="p">(</span><span class="k">false</span><span class="p">)</span><span class="p">;</span>
             <span class="p">{</span>
-                <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">10000</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">1</span><span class="m">0</span><span class="m">0</span><span class="m">0</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">+</span><span class="p">+</span><span class="p">)</span>
                 <span class="p">{</span>
-                    <span class="n">sum</span> <span class="p">+=</span> <span class="n">MyLinq</span><span class="p">.</span><span class="n">MyFirst</span><span class="p">(</span><span class="n">xs</span><span class="p">);</span>
+                    <span class="n">sum</span> <span class="p">+</span><span class="p">=</span> <span class="n">MyLinq</span><span class="p">.</span><span class="n">MyFirst</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span><span class="p">;</span>
                 <span class="p">}</span>
             <span class="p">}</span>
-            <span class="kt">var</span> <span class="n">after</span> <span class="p">=</span> <span class="n">GC</span><span class="p">.</span><span class="n">GetTotalMemory</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+            <span class="kt">var</span> <span class="n">after</span> <span class="p">=</span> <span class="n">GC</span><span class="p">.</span><span class="n">GetTotalMemory</span><span class="p">(</span><span class="k">false</span><span class="p">)</span><span class="p">;</span>
             <span class="kt">var</span> <span class="n">difference</span> <span class="p">=</span> <span class="n">after</span> <span class="p">-</span> <span class="n">before</span><span class="p">;</span>
 
             <span class="c1">// difference == 0
 </span><span class="c1"></span>
-            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Memory addition: {0}&#34;</span><span class="p">,</span> <span class="n">difference</span><span class="p">);</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Memory addition: {0}&#34;</span><span class="p">,</span> <span class="n">difference</span><span class="p">)</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">}</span>
-</code></pre></div>
-<h2 id="余談-list-t-は構造体列挙子を提供している">余談: <code>List&lt;T&gt;</code> は構造体列挙子を提供している</h2>
-
+</code></pre></div><h2 id="-listt-">余談: <code>List&lt;T&gt;</code> は構造体列挙子を提供している</h2>
 <p><code>List&lt;T&gt;</code> は <code>IEnumerable&lt;T&gt;</code> を明示的に実装しつつ、<code>List&lt;T&gt;.Enumerator</code> という構造体を返す <code>GetEnumerator</code> メソッドを提供しています。<code>List&lt;T&gt;</code> 型の変数を <code>foreach</code> で回すときには、こちらが使用されるので、列挙子はボックス化されません。</p>
-
-<p>参考: <a href="https://msdn.microsoft.com/ja-jp/library/b0yss765(v=vs.110).aspx">List<T>.GetEnumerator メソッド</a></p>
-
-<h2 id="余談-実行時型をみてリストか否か判断する-追記">余談: 実行時型をみてリストか否か判断する (追記)</h2>
-
+<p>参考: <a href="https://msdn.microsoft.com/ja-jp/library/b0yss765(v=vs.110).aspx">List<!-- raw HTML omitted -->.GetEnumerator メソッド</a></p>
+<h2 id="--">余談: 実行時型をみてリストか否か判断する (追記)</h2>
 <p>標準ライブラリーの <code>IEnumerable&lt;_&gt;.First</code> メソッドに配列などのリストを渡しても、列挙子のボックス化によるヒープ確保は起こりません。というのも、メソッドが受け取る型こそ <code>IEnumerable&lt;_&gt;</code> ですが、その実行時型がリスト (<code>IList&lt;_&gt;</code>) であるかどうかをメソッドの内部で動的に判定していて、もしそうだったらインデックスでアクセスする (<code>list[0]</code> を返す) ようになっているためです。他のメソッドも同様です。</p>
-
 <p>参考: <a href="https://referencesource.microsoft.com/#System.Core/System/Linq/Enumerable.cs,921">First の実装</a></p>
-
 <p>そういう意味で、本稿の <code>MyFirst</code> は若干ながら手抜きになってしまっています。</p>
-<div class="footnotes">
-
-<hr />
-
+<section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li id="fn:foreach-duck-typing">ちなみにコレクションが <code>IEnumerable</code> や <code>IEnumerable&lt;_&gt;</code> を実装している必要はありません。また、 <code>GetEnumerator</code> が返すインスタンスが <code>IEnumerator</code> や <code>IEnumerator&lt;_&gt;</code> を実装している必要もありません。
- <a class="footnote-return" href="#fnref:foreach-duck-typing"><sup>[return]</sup></a></li>
+<li id="fn:1" role="doc-endnote">
+<p>ちなみにコレクションが <code>IEnumerable</code> や <code>IEnumerable&lt;_&gt;</code> を実装している必要はありません。また、 <code>GetEnumerator</code> が返すインスタンスが <code>IEnumerator</code> や <code>IEnumerator&lt;_&gt;</code> を実装している必要もありません。 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div>
+</section>
 
         
           <div class="blog-tags">
@@ -467,7 +434,7 @@ IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介�
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

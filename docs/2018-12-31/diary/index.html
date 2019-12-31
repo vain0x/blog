@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.59.0" />
+  <meta name="generator" content="Hugo 0.62.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -206,48 +206,41 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>今月の進捗など</p>
-
 <ul>
 <li>前月分: <a href="https://vain0x.github.io/blog/2018-11-30/diary/">https://vain0x.github.io/blog/2018-11-30/diary/</a></li>
 </ul>
-
 <h2 id="hsp3-debug-ginger">hsp3-debug-ginger</h2>
-
 <p><a href="https://github.com/vain0x/hsp3-debug-ginger">https://github.com/vain0x/hsp3-debug-ginger</a></p>
-
 <ul>
 <li>前月からやっている、VSCode 対応の HSP デバッガーを作るプロジェクト</li>
 <li>前回の近況では進捗を書き忘れていた</li>
 <li>最小限の機能が揃った
-
 <ul>
 <li>グローバル変数を基本型の1次元配列まで表示できる</li>
 <li>assert とかで止まったときに実行中の行がエディター上で強調表示される</li>
 <li>VSCode の一時停止ボタンやステップインボタンで実行の制御ができる</li>
-</ul></li>
+</ul>
+</li>
 <li>アルファ版のプレリリースを出した</li>
 <li>課題はたくさんある
-
 <ul>
 <li>インストール手順が煩雑すぎる</li>
 <li>挙動がおかしい
-
 <ul>
 <li>実行中の行にスクロールしてくれない</li>
-</ul></li>
+</ul>
+</li>
 <li>基本的な機能の不足
-
 <ul>
 <li>logmes</li>
 <li>2次元以上の配列の表示</li>
-</ul></li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="milone-lang">milone-lang</h2>
-
 <p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
-
 <ul>
 <li>セルフホストを目指している F# サブセットのコンパイラ</li>
 <li>リファクタリング、エラーハンドリングの強化、パーサーの微修正などの細かい作業をした</li>
@@ -256,20 +249,17 @@
 <li>when パターンは、パターンに合致した後に追加の <code>if</code> 文を足せばいい</li>
 <li>as パターンは、パターンに合致するかの判定の前に変数への代入を行えばいい</li>
 <li>or パターンの一部
-
 <ul>
 <li>パターンを選言標準形的なものにするとやりやすい</li>
 <li>例えばパターン <code>Foo (A | B) :: _</code> を <code>Foo A :: _ | Foo B :: _</code> にする</li>
 <li>つまり <code>|</code> が一番外側に来るようにする</li>
 <li><code>|</code> の左右のパターンについてそれぞれ合致するか試して、どっちかに合致したら <code>-&gt;</code> の内側に <code>goto</code> する</li>
 <li>いまのところ or を含むパターンでは変数を束縛できない</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="curage-lang">curage-lang</h2>
-
 <p><a href="https://github.com/vain0x/curage-lang">https://github.com/vain0x/curage-lang</a></p>
-
 <ul>
 <li>Language Server Protocol (LSP) の練習用のプロジェクトを始めた</li>
 <li>LSP は Debugger Adapter Protocol と似てるけど、より複雑で難しい</li>
@@ -280,15 +270,13 @@
 <li>インタプリタ上での実行 (予定)</li>
 <li>いまのところ構文エラーを VSCode 上に警告として表示するやつ (textDocument/publishDiagnostics) だけできている</li>
 <li>Node (TypeScript) 用に LSP の実装の基盤となるフレームワーク的なものがある
-
 <ul>
 <li>vscode-languageserver</li>
 <li>何をやっているのかよく分からないので使っていない</li>
-</ul></li>
 </ul>
-
-<h2 id="競技プログラミング">競技プログラミング</h2>
-
+</li>
+</ul>
+<h2 id="heading">競技プログラミング</h2>
 <ul>
 <li>AtCoder に毎週参加している</li>
 <li>レートは青に漸近中 (1557 → 1580 → 1582)</li>
@@ -297,44 +285,36 @@
 <li><a href="https://note.mu/vain0x/n/n6aa8c41c4b77">競プロ参戦記 #26 「和が2冪」  AGC 29 [AB]｜ベイン｜note</a></li>
 <li><a href="https://note.mu/vain0x/n/nb6b19dd4245a">競プロ参戦記 #27 「ゲーム」 CADDi 2018 [CD]｜ベイン｜note</a></li>
 </ul>
-
-<h2 id="ウェブアプリ開発">ウェブアプリ開発</h2>
-
+<h2 id="heading-1">ウェブアプリ開発</h2>
 <ul>
 <li>UI を作り込んだ</li>
 <li>on-the-fly で描画するには複雑なグラフを SVG 画像として生成するスクリプトを書いた
-
 <ul>
 <li>Fabric.js でラップされた Canvas API を使って図形を描画して、SVG にエクスポートして、ローカルサーバーに送信して、ファイルに保存する、という遠回り。1回動いたら十分なのでよし</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="qiita">Qiita</h2>
-
 <ul>
 <li><a href="https://qiita.com/vain0x/items/8f8b6effb32cd68c22f3">シクシク素数列を F# でやってみた - Qiita</a> を投稿した
-
 <ul>
 <li>F# で素数判定をやるサンプルコード的なもの</li>
-</ul></li>
+</ul>
+</li>
 <li><a href="https://qiita.com/yasuabe2613/items/5ab33e103e4105630e4c">Domain Modeling Made Functional まとめ - Qiita</a> を読んだ
-
 <ul>
 <li>元になった F# で DDD をやる本も読んでいる</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="trickle">Trickle</h2>
-
 <ul>
 <li>Trickle を始めた</li>
 <li>トピックごとに活動記録を書いていけるスマートフォンアプリ</li>
 <li>参考 <a href="http://blog.h13i32maru.jp/entry/2018/11/12/092904">http://blog.h13i32maru.jp/entry/2018/11/12/092904</a></li>
 <li>ガルパメモの垂れ流しになってる</li>
 </ul>
-
-<h2 id="ガルパ-リズムゲーム">ガルパ (リズムゲーム)</h2>
-
+<h2 id="-">ガルパ (リズムゲーム)</h2>
 <ul>
 <li>難度26の精度は確実に上がってきている</li>
 <li>難度27以上については、マジックアワーをフルコンボした以外に進歩がない</li>
@@ -455,7 +435,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.59.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

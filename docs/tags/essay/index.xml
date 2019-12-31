@@ -20,11 +20,9 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-30/commit-message-prefixes/</guid>
       <description>&lt;p&gt;Qiita で &lt;a href=&#34;https://qiita.com/numanomanu/items/45dd285b286a1f7280ed&#34;&gt;コミットメッセージに 「プレフィックス」 をつける&lt;/a&gt; というアイディアが紹介されていて、その効用の一つとして挙げられている:&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;プレフィックスを意識しながら順序立てて機能を作成する癖が身につく&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;という点が、試験運用していて実際に魅力的だと感じた。&lt;/p&gt;</description>
     </item>
     
@@ -52,8 +50,7 @@
       <pubDate>Mon, 04 Dec 2017 00:31:05 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/</guid>
-      <description>&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
-
+      <description>&lt;h2 id=&#34;heading&#34;&gt;要約&lt;/h2&gt;
 &lt;p&gt;C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。&lt;/p&gt;</description>
     </item>
     
@@ -64,9 +61,7 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-21/enumerable-test/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/142b84e8ca20fbed43ed&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;&lt;a href=&#34;http://github.com/vain0x/EnumerableTest&#34;&gt;EnumerableTest&lt;/a&gt; という .NET 向けの単体テストフレームワークを作成しました。&lt;/p&gt;
-
 &lt;p&gt;具体的な使い方は &lt;a href=&#34;https://vain0x.github.io/EnumerableTest/articles/tutorials/walk-around.html&#34;&gt;チュートリアル&lt;/a&gt; を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。&lt;/p&gt;</description>
     </item>
     
