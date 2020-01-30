@@ -8,10 +8,19 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Sat, 11 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 31 Jan 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>近況 2020-01-31</title>
+      <link>https://vain0x.github.io/blog/2020-01-31/diary/</link>
+      <pubDate>Fri, 31 Jan 2020 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2020-01-31/diary/</guid>
+      <description>&lt;p&gt;今月の活動について (CPS 中間表現、静的契約、HSP3 フォージェリ、競プロなど)&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>ミローネ言語コンパイラ・HSP3開発ツール群の振り返りと今後の構想</title>
@@ -138,15 +147,6 @@
       <guid>https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/</guid>
       <description>&lt;p&gt;HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。&lt;/p&gt;
 &lt;p&gt;10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できているという実感が得られた。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>近況 2019-01-31</title>
-      <link>https://vain0x.github.io/blog/2019-01-31/diary/</link>
-      <pubDate>Thu, 31 Jan 2019 00:00:00 +0000</pubDate>
-      <author>vainzerox@gmail.com (ベイン)</author>
-      <guid>https://vain0x.github.io/blog/2019-01-31/diary/</guid>
-      <description>&lt;p&gt;今月の活動について (CPS 中間表現、静的契約、HSP3 フォージェリ、競プロなど)&lt;/p&gt;</description>
     </item>
     
     <item>
