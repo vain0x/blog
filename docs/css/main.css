@@ -3,10 +3,12 @@
   --primary-color-dark: #000063;
   --primary-color: #311b92;
   --primary-color-text: #fafafa;
+  /* unused
   --accent-color: #ffa000;
   --accent-color-text: #212121;
   --accent-color-light: #ffd149;
   --accent-color-dark: #c67100;
+  */
   --base-color: #fafafa;
   --base-color-text: #212121;
   --divider-color: #bdbdbd;
@@ -31,10 +33,7 @@ body {
   height: 100vh;
 
   color: var(--base-color-text);
-  background: linear-gradient(0.33turn, var(--primary-color-dark), var(--accent-color-dark));
-
-  /* スクロールしても変化しないようにする。 */
-  background-attachment: fixed;
+  background: var(--base-color);
 }
 
 body > main {
@@ -59,20 +58,9 @@ p {
 p + p {
     margin: 24px 0 6px 0;
 }
-p a {
-  /* text-decoration: underline */
-  color: var(--primary-color-light);
-}
 h1,h2,h3,h4,h5,h6 {
   font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
   font-weight: 800;
-}
-a {
-  color: var(--primary-color-light);
-}
-a:hover,
-a:focus {
-  color: var(--primary-color-light);
 }
 blockquote {
   color: #808080;
@@ -156,7 +144,7 @@ img {
 /* --- Navbar --- */
 
 .navbar-custom {
-  background: linear-gradient(0.33turn, var(--primary-color-dark), var(--accent-color-dark));
+  background: var(--primary-color-dark);
   border-bottom: transparent;
   /* border-bottom: 1px solid #EAEAEA; */
   font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
