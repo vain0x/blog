@@ -63,7 +63,7 @@
   "headline": "近況 2020-10-31",
   "description" : "今月の活動 (ミローネ言語の高速化、クロージャ変換の手順の話、IDE 風のターミナルエミュレータ、など)\n",
   "inLanguage" : "ja",
-  "wordCount":  410 ,
+  "wordCount":  409 ,
   "datePublished" : "2020-10-31T00:00:00",
   "dateModified" : "2020-10-31T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -334,7 +334,7 @@ Finished
 </ul>
 <p>疑問</p>
 <ul>
-<li>C FFI を使って中から外への参照を作ったら死ぬ
+<li>C FFI を使って外から中への参照を作ったら死ぬ
 <ul>
 <li>FFI でメモリ関連のエラーを起こすのは元から簡単だからヨシ！</li>
 </ul>
@@ -343,8 +343,8 @@ Finished
 <ul>
 <li>inRegion の結果は int などのヒープ確保をしない値で十分なケースが多いはず</li>
 <li>例えばサーバーならレスポンスをストリームに流した後はデータを捨てられる</li>
-<li>仮にデータを持ち出す必要があるとしても、それは mysql や redis などの外部サービスに送ってしまうという手もある
-− 他には inRegion の結果は手動で解放するとか、結果はスコープを抜けたら自動で解放する (これはエスケープしないように保守的に解析する) などの案もある</li>
+<li>仮にデータを持ち出す必要があるとしても、それは mysql や redis などの外部サービスに送ってしまうという手もある</li>
+<li>他には inRegion の結果は手動で解放するとか、結果はスコープを抜けたら自動で解放する (これはエスケープしないように保守的に解析する) などの案もある</li>
 </ul>
 </li>
 <li>とりあえず動的リージョンベースのメモリ管理の先行研究を探る必要がある
@@ -372,25 +372,25 @@ Finished
 <p>rust-analyzer の作者が公式ブログで Ungrammar というツールについて記事を書いていた:</p>
 <p><a href="https://rust-analyzer.github.io/blog/2020/10/24/introducing-ungrammar.html">Introducing Ungrammar</a></p>
 <p>Ungrammar は拡張 BNF 風で、パット見、パーサジェネレータに似ているが、パーサはジェネレートできない。そうではなく、具象構文木を操作するコードを生成するのを目的としている。</p>
-<p>具象構文木を操作するコードは非常に冗長なので、自動で生成したい圧力があった。具象構文木を操作するコードとは、例えば関数宣言の文から関数名の部分を取り出すとか、関数名の部分だけ差し替えた文を作るとか。</p>
+<p>具象構文木を操作するコードは非常に冗長なので、自動で生成したい圧力があった。具象構文木を操作するコードとは、例えば関数宣言の文から関数名の部分を取り出すとか。</p>
 <p>パーサジェネレータのための構文定義は、文字列から構文を読み取る (構文解析する) ため、演算子の結合や左再帰などを考慮する必要があって、かなり冗長になりがち。</p>
 <p>一方 Ungrammar の構文定義は、具象構文木がすでに与えられているという前提だから、演算子の結合や左再帰は関係ない。実際 <a href="https://github.com/rust-analyzer/ungrammar/blob/784f345e5e799e828650da1b1acbb947f1e49a52/rust.ungram">Rust の構文定義</a> が600行ぐらいで書かれている。</p>
 <p>(余談: この手の N 行で書かれていて短い系の言説は、コードから可能なかぎり改行を除去して読みづらいフォーマットにした上で言われがちだが、この構文定義は普通に読みやすい。)</p>
 <h3 id="-f-">その他: F# の判別共用体の定義</h3>
 <p>F# の判別共用体を普通に定義すると、各バリアントが型と同じ名前空間に含まれる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fs" data-lang="fs"><span class="k">type </span><span class="nf">U</span> <span class="nf">=</span> <span class="nf">A</span> <span class="nf">|</span> <span class="nf">B</span>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">U</span> <span class="o">=</span> <span class="n">A</span> <span class="o">|</span> <span class="n">B</span>
 
-<span class="nf">let</span> <span class="nf">a</span> <span class="nf">()</span> <span class="nf">=</span> <span class="nf">A</span> <span class="nf">//</span> <span class="nf">U.A</span> <span class="nf">じゃなくてもいい</span>
-</code></pre></div><p>この挙動は RequireQualifiedAttribute 属性をつけると抑制できる。バリアントはスコープに展開されず、型名を使ってアクセスすることが強制される。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fs" data-lang="fs"><span class="nf">[&lt;RequireQualified&gt;]</span>
-<span class="k">type </span><span class="nf">U</span> <span class="nf">=</span> <span class="nf">A</span> <span class="nf">|</span> <span class="nf">B</span>
+<span class="k">let</span> <span class="nv">a</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">A</span> <span class="c1">// U.A じゃなくてもいい
+</span></code></pre></div><p>この挙動は RequireQualifiedAttribute 属性をつけると抑制できる。バリアントはスコープに展開されず、型名を使ってアクセスすることが強制される。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="o">[&lt;</span><span class="n">RequireQualified</span><span class="o">&gt;]</span>
+<span class="k">type</span> <span class="nc">U</span> <span class="o">=</span> <span class="n">A</span> <span class="o">|</span> <span class="n">B</span>
 
-<span class="nf">let</span> <span class="nf">a</span> <span class="nf">()</span> <span class="nf">=</span> <span class="nf">U.A</span> <span class="nf">//</span> <span class="nf">A</span> <span class="nf">ではダメ</span>
-</code></pre></div><p>この方が「正しい」ような気がして、常に RequireQualified を指定していた。しかし、これだと入力補完の候補を見るために <code>U.</code> を書く必要がある。F# の入力補完のためのツールの応答はいまのところあまり速くない ので、これは問題になる。</p>
+<span class="k">let</span> <span class="nv">a</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">U</span><span class="p">.</span><span class="n">A</span> <span class="c1">// A ではダメ
+</span></code></pre></div><p>この方が「正しい」ような気がして、常に RequireQualified を指定していた。しかし、これだと入力補完の候補を見るために <code>U.</code> を書く必要がある。F# の入力補完のためのツールの応答はいまのところあまり速くない ので、これは問題になる。</p>
 <p>そのため RequireQualified は使わない派に転向した。名前の衝突や、バリアント名だけでは意味が分かりづらいなどの問題がある場合は、バリアント名に型名のようなものを含めてしまってよい気がする。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fs" data-lang="fs"><span class="k">type </span><span class="nf">Expr</span> <span class="nf">=</span>
-    <span class="nf">|</span> <span class="nf">IntExpr</span> <span class="k">of </span><span class="nf">int</span>
-    <span class="nf">|</span> <span class="nf">AddExpr</span> <span class="k">of </span><span class="nf">Expr</span> <span class="k">* </span><span class="nf">Expr</span>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span>
+    <span class="o">|</span> <span class="n">IntExpr</span> <span class="k">of</span> <span class="n">int</span>
+    <span class="o">|</span> <span class="n">AddExpr</span> <span class="k">of</span> <span class="n">Expr</span> <span class="o">*</span> <span class="n">Expr</span>
 </code></pre></div><p>Expr と入力すると (部分一致なので) IntExpr, AddExpr が入力補完候補に出る。これらのシンボルははじめからローカルスコープに入っていて、解析結果のキャッシュがすでにあるので、補完候補のリストがすぐに出る。</p>
 
         
