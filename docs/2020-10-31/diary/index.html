@@ -63,7 +63,7 @@
   "headline": "近況 2020-10-31",
   "description" : "今月の活動 (ミローネ言語の高速化、クロージャ変換の手順の話、IDE 風のターミナルエミュレータ、など)\n",
   "inLanguage" : "ja",
-  "wordCount":  258 ,
+  "wordCount":  410 ,
   "datePublished" : "2020-10-31T00:00:00",
   "dateModified" : "2020-10-31T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -217,8 +217,11 @@
 <li>ミローネ言語のコードをフォーマットしたら、セルフコンパイルでパースが失敗するようになったので、微調整して直した
 <ul>
 <li>原因は <code>type A = | A of int</code> のような形の判別共用体の定義から先頭のパイプを削って <code>type A = A of int</code> に書き換えられたため</li>
-<li>ミローネ言語のパーサは先頭にパイプがないケースをサポートしていなかったが、サポートするようにした
-− せっかくだからセルフコンパイルが遅すぎる問題を調査した</li>
+<li>ミローネ言語のパーサは先頭にパイプがないケースをサポートしていなかったが、サポートするようにした</li>
+</ul>
+</li>
+<li>せっかくだからセルフコンパイルが遅すぎる問題を調査した
+<ul>
 <li>(以前試したときは20秒ぐらいだった記憶があるが、いま試すと) 1分近くかかっていた</li>
 </ul>
 </li>
@@ -243,16 +246,77 @@
 </ul>
 </li>
 </ul>
-<p>現時点での各ステージの時間は <a href="https://twitter.com/vain0x/status/1320193614882877442">CI のログから見れる</a>:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<h3 id="heading">動的なリージョンに基づくメモリ管理</h3>
+<p>現時点での各ステージの時間は <a href="https://twitter.com/vain0x/status/1320193614882877442">CI のログから見れる</a>。</p>
+<p>.NET 上で実行したとき:</p>
+<pre><code>+./milone_netcore --profile MiloneLang
+
+Begin compiling project=MiloneLang  (注: 字句解析・構文解析)
+profile: time=   0.640 mem=  261,955,984
+
+Name resolution
+profile: time=   0.568 mem=  252,938,664
+
+Type inference
+profile: time=   1.637 mem=  686,742,704
+
+Hoist main
+profile: time=   0.002 mem=    0,112,784
+
+Closure conversion
+profile: time=   0.753 mem=  323,201,504
+
+Eta expansion
+profile: time=   0.059 mem=   13,096,760
+
+Hoist
+profile: time=   0.012 mem=    5,242,848
+
+Monomorphization
+profile: time=   0.676 mem=  212,658,536
+
+Mir generation
+profile: time=   0.354 mem=  102,653,056
+
+Cir generation
+profile: time=   1.061 mem=  567,140,848
+
+Finished
+</code></pre><p>セルフコンパイルで作ったコンパイラを実行したとき:</p>
+<pre><code>+./milone --profile MiloneLang
+
+Begin compiling project=MiloneLang  (注: 字句解析・構文解析)
+profile: time=   0.642 mem=  174,376,658
+
+Name resolution
+profile: time=   1.012 mem=  194,460,416
+
+Type inference
+profile: time=   2.608 mem=  507,818,652
+
+Hoist main
+
+profile: time=   0.001 mem=    0,086,400
+Closure conversion
+
+profile: time=   0.972 mem=  151,428,196
+
+Eta expansion
+profile: time=   0.054 mem=    8,023,460
+
+Hoist
+profile: time=   0.012 mem=    2,155,976
+
+Monomorphization
+profile: time=   0.876 mem=  149,950,520
+
+Mir generation
+profile: time=   0.363 mem=   77,342,899
+
+Cir generation
+profile: time=   1.687 mem=  374,045,525
+
+Finished
+</code></pre><h3 id="heading">動的なリージョンに基づくメモリ管理</h3>
 <p><a href="https://github.com/vain0x/milone-lang/blob/develop/notes.md#memory-management">Memory Management | milone-lang/notes.md</a></p>
 <ul>
 <li>ミローネ言語はオブジェクトの書き換えを許してない</li>
