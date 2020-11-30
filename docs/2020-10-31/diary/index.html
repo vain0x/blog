@@ -63,7 +63,7 @@
   "headline": "近況 2020-10-31",
   "description" : "今月の活動 (ミローネ言語の高速化、クロージャ変換の手順の話、IDE 風のターミナルエミュレータ、など)\n",
   "inLanguage" : "ja",
-  "wordCount":  409 ,
+  "wordCount":  408 ,
   "datePublished" : "2020-10-31T00:00:00",
   "dateModified" : "2020-10-31T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -386,7 +386,7 @@ Finished
 <span class="k">type</span> <span class="nc">U</span> <span class="o">=</span> <span class="n">A</span> <span class="o">|</span> <span class="n">B</span>
 
 <span class="k">let</span> <span class="nv">a</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">U</span><span class="p">.</span><span class="n">A</span> <span class="c1">// A ではダメ
-</span></code></pre></div><p>この方が「正しい」ような気がして、常に RequireQualified を指定していた。しかし、これだと入力補完の候補を見るために <code>U.</code> を書く必要がある。F# の入力補完のためのツールの応答はいまのところあまり速くない ので、これは問題になる。</p>
+</span></code></pre></div><p>この方が「正しい」ような気がして、常に RequireQualified を指定していた。しかし、これだと入力補完の候補を見るために <code>U.</code> を書く必要がある。F# の入力補完のためのツールの応答はいまのところあまり速くないので、これは問題になる。</p>
 <p>そのため RequireQualified は使わない派に転向した。名前の衝突や、バリアント名だけでは意味が分かりづらいなどの問題がある場合は、バリアント名に型名のようなものを含めてしまってよい気がする。</p>
 <div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span>
     <span class="o">|</span> <span class="n">IntExpr</span> <span class="k">of</span> <span class="n">int</span>
@@ -425,6 +425,10 @@ Finished
               <a href="https://vain0x.github.io/blog/2020-09-30/diary/" data-toggle="tooltip" data-placement="top" title="近況 2020-09-30">&larr; 前ページ</a>
             </li>
           
+          
+            <li class="next">
+              <a href="https://vain0x.github.io/blog/2020-11-30/diary/" data-toggle="tooltip" data-placement="top" title="近況 2020-11-30">次ページ &rarr;</a>
+            </li>
           
         </ul>
       
