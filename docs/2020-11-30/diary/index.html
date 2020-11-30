@@ -63,7 +63,7 @@
   "headline": "近況 2020-11-30",
   "description" : "今月の活動 (ミローネ言語など)\n",
   "inLanguage" : "ja",
-  "wordCount":  300 ,
+  "wordCount":  303 ,
   "datePublished" : "2020-11-30T00:00:00",
   "dateModified" : "2020-11-30T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -212,11 +212,14 @@
 <h2 id="heading">ミローネ言語</h2>
 <p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
 <ul>
-<li>動的リージョンベースのメモリ管理の先行研究を探しているが、みつからない (lexical なリージョンや purely functional でない言語の話が多い)
-− メモリ確保をいちいち <code>calloc</code> するのではなく、適当に実装したメモリプールから取るようにしたら2倍ぐらい速くなってビビった
+<li>動的リージョンベースのメモリ管理の先行研究を探しているが、みつからない (lexical なリージョンや purely functional でない言語の話が多い)</li>
+<li>メモリ確保をいちいち <code>calloc</code> するのではなく、適当に実装したメモリプールから取るようにしたら2倍ぐらい速くなってビビった
 <ul>
-<li>メモリプールの実装がほしくて GitHub 等を探したけど、よいのがみつからなかった。探すのは苦手
-− (単相な) レコード型を実装した</li>
+<li>メモリプールの実装がほしくて GitHub 等を探したけど、よいのがみつからなかった。探すのは苦手</li>
+</ul>
+</li>
+<li>(単相な) レコード型を実装した
+<ul>
 <li>型推論と相性が悪いが、とりあえずレコードの型が必要になった時点で推論できていなかったらエラーにしている</li>
 <li>さすがにこれだと F# で通るコードが型エラーになってしまうことが少なくないので、もう少し考える必要がある</li>
 <li>はじめはレコードをタプルに変換する実装だったが、レコードは再帰的になれるのでダメだった (<code>R = { A: R list, B: int }</code> とか)</li>
@@ -240,7 +243,7 @@
 
 <span class="c1">// 多相な型シノニムを公開しておく。option は単に型変数を維持するためのもので、実際は常に None.
 </span><span class="c1"></span><span class="k">type</span> <span class="nc">TreeMap</span><span class="o">&lt;</span><span class="k">&#39;</span><span class="n">K</span><span class="o">,</span> <span class="k">&#39;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">TreeMapRawNode</span> <span class="o">*</span> <span class="o">(</span><span class="k">&#39;</span><span class="n">K</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">K</span> <span class="o">-&gt;</span> <span class="n">int</span><span class="o">)</span> <span class="o">*</span> <span class="o">(</span><span class="k">&#39;</span><span class="n">T</span> <span class="n">option</span><span class="o">)</span>
-</code></pre></div><p>ツリーを操作する関数が呼ばれたら、キーと値の型も同時に渡されるので、その情報を元に obj を剥がしたり包んだりする。普通に書くと関数の呼び出しの前後で型が変わってしまうので、強制的に単一化するためのデッドコードを仕込んでおくというハックがいる。</p>
+</code></pre></div><p>ツリーを操作する関数が呼ばれるとき、キーと値の型も同時に渡されるので、それを元に obj を剥がしたり包んだりする。普通に書くと関数の呼び出しの前後で型が変わってしまうので、強制的に単一化するためのデッドコードを仕込んでおくというハックがいる。</p>
 <div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">tryFind</span> <span class="n">key</span> <span class="o">(</span><span class="n">map</span><span class="o">:</span> <span class="n">TreeMap</span><span class="o">&lt;</span><span class="o">_</span><span class="o">,</span> <span class="o">_</span><span class="o">&gt;</span><span class="o">)</span><span class="o">:</span> <span class="o">_</span> <span class="n">option</span> <span class="o">=</span>
   <span class="k">let</span> <span class="nv">node</span><span class="o">,</span> <span class="n">keyCmp</span><span class="o">,</span> <span class="n">none</span> <span class="o">=</span> <span class="n">map</span>
   <span class="c1">//                ^ これは &#39;T option 型で、値の型を知っている
@@ -261,7 +264,7 @@
 <p>パターンマッチのコンパイルを改善しようとしていたが、うまくいっていない。</p>
 <p>WIP: <a href="https://github.com/vain0x/milone-lang/compare/fb7b652...f22d0a2">https://github.com/vain0x/milone-lang/compare/fb7b652...f22d0a2</a></p>
 <p>いまは一番上の節 (<code>| pat -&gt; body</code> の部分) から順番にマッチするか試して、マッチしなかったら次の節のパターンマッチを行う部分に goto で飛ぶ、というコードになっている。当然ながら効率はよくない。また、goto を使う必要があるので、手続き的な中間表現 (MIR) の上で実装されている。</p>
-<p>理想的には、判別共用体のタグの値に関して switch するなどの方法で、節を効率的に絞りこむコードに変換したい。また、関数型の中間表現 (HIR) の上で実装したい。</p>
+<p>理想的には、判別共用体のタグの値に関して switch するなどの方法で、節を効率的に絞りこむコードに変換したい。MIR への変換が複雑化するのを避けたいので、関数型の中間表現 (HIR) の上で実装したい。</p>
 <p>この記事を参考にやっていくことにした。</p>
 <ul>
 <li><a href="https://semantic-domain.blogspot.com/2012/08/pattern-compilation-made-easy.html">Semantic Domain: Pattern compilation made easy</a></li>
@@ -281,7 +284,7 @@
 <p><a href="https://github.com/vain0x/milone-lang/commit/4d8c82da109d35fd98c0f905f9d88f5af27ac54f">milone-lang のほとんどの型に NoEquality; NoComparison 属性をつけた。</a></p>
 <p>判別共用体やレコードにこれらの属性をつけると、(=) などの比較演算のためのコードが生成されなくなる。これでバイナリが 400KB ぐらい縮んで、ビルド時間も少し短くなった。</p>
 <h3 id="char">Char.(+)</h3>
-<p>F# の char 型 (UTF-16 code unit) は <code>(-)</code> 演算子をサポートしていなくて、<code>c - 'A'</code> とか書けない。同様に積や除もないが、なぜか <code>c + 'A'</code> は通って謎</p>
+<p>F# の char 型 (UTF-16 code unit) は <code>(-)</code> 演算子をサポートしていなくて、<code>c - 'A'</code> とか書けない。同様に <code>(*)</code> や <code>(/)</code> もないが、なぜか <code>c + 'A'</code> は通って謎</p>
 
         
           <div class="blog-tags">
