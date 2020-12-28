@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # See <https://gohugo.io/hosting-and-deployment/hosting-on-github/>.
+# About .nojekyll: <https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/>
 
 set -eux
 
@@ -21,6 +22,8 @@ git merge --no-ff develop -m "Merge branch 'develop'"
 
 rm -rf docs
 hugo
+touch .nojekyll
+
 git add .
 git commit --allow-empty -m "Build"
 git push origin master
