@@ -10,9 +10,9 @@
   <title>近況 2021-01-31 - ベインのブログ</title>
   <meta property="og:title" content="近況 2021-01-31" />
   <meta name="twitter:title" content="近況 2021-01-31" />
-  <meta name="description" content="今月の活動 (ミローネ言語、並行リバーシの試作など)">
-  <meta property="og:description" content="今月の活動 (ミローネ言語、並行リバーシの試作など)">
-  <meta name="twitter:description" content="今月の活動 (ミローネ言語、並行リバーシの試作など)">
+  <meta name="description" content="今月の活動 (ミローネ言語、ジェネリクス引数のカッコの話など)">
+  <meta property="og:description" content="今月の活動 (ミローネ言語、ジェネリクス引数のカッコの話など)">
+  <meta name="twitter:description" content="今月の活動 (ミローネ言語、ジェネリクス引数のカッコの話など)">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -61,7 +61,7 @@
     "name" : "ベイン"
   },
   "headline": "近況 2021-01-31",
-  "description" : "今月の活動 (ミローネ言語、並行リバーシの試作など)\n",
+  "description" : "今月の活動 (ミローネ言語、ジェネリクス引数のカッコの話など)\n",
   "inLanguage" : "ja",
   "wordCount":  375 ,
   "datePublished" : "2021-01-31T00:00:00",
@@ -83,13 +83,13 @@
 </script>
 
 <meta property="og:title" content="近況 2021-01-31" />
-<meta property="og:description" content="今月の活動 (ミローネ言語、並行リバーシの試作など)">
+<meta property="og:description" content="今月の活動 (ミローネ言語、ジェネリクス引数のカッコの話など)">
 <meta property="og:url" content="https://vain0x.github.io/blog/2021-01-31/diary/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
   <meta name="twitter:title" content="近況 2021-01-31" />
-  <meta name="twitter:description" content="今月の活動 (ミローネ言語、並行リバーシの試作など)">
+  <meta name="twitter:description" content="今月の活動 (ミローネ言語、ジェネリクス引数のカッコの話など)">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -205,7 +205,7 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>今月の活動 (ミローネ言語、並行リバーシの試作など)</p>
+        <p>今月の活動 (ミローネ言語、ジェネリクス引数のカッコの話など)</p>
 <ul>
 <li>前回 (2020-12-31) <a href="https://vain0x.github.io/blog/2020-12-31/diary/">https://vain0x.github.io/blog/2020-12-31/diary/</a></li>
 </ul>
@@ -244,14 +244,14 @@
         | (A(T1), ..., A(TN)) -&gt; A(U)
         // E の型を T とするとき
         | A(T)
-</code></pre><p>エラーにする代わりに、コピー元の式を匿名関数に変換することでコード生成を続行できるはず。</p>
+</code></pre><p>エラーにする代わりに、コピー元の式を適切なアリティを持つ匿名関数で包むことでコード生成を修復できるはず。</p>
 <h3 id="ml-lsp-">ML: LSP サーバーの改善</h3>
 <p>コミット: <a href="https://github.com/vain0x/milone-lang/commit/153c56b39227a1017f041a867737197e0b83a0cb">Merge: More efficient LSP server</a></p>
 <p>当初は手抜きのため、リクエストの読み取りと処理を同期的に交互に行っていたが、あまりにも遅かった。</p>
 <p>原因:</p>
 <ul>
 <li>ファイルの変更を通知する textDocument/didChange は大量に発行されてきて、そのたびに変更後のソースコードに対して型エラーを報告するために意味解析をしていた</li>
-<li>また (VSCode は) カーソルを動かすたびに hover や documentHightlight の発行とキャンセルを繰り返していた</li>
+<li>また (VSCode は) カーソルを動かすたびに hover や documentHighlight の発行とキャンセルを繰り返していた</li>
 </ul>
 <p>対処:</p>
 <ul>
