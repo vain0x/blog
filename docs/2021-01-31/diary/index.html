@@ -220,7 +220,7 @@
 <p>String は必ず直後に NULL 文字が来るという不変条件を課していたが、これは撤廃した。この条件がなくなることにより、文字列のスライスを取る操作 (<code>s.[l..r]</code>) が高速になる (ポインタと長さを再計算するだけ)。</p>
 <h3 id="ml--1">ML: アリティ検査</h3>
 <p>コミット: <a href="https://github.com/vain0x/milone-lang/commit/4bcf25decaff882557d2c9f0042b1494393bb56f#diff-1855a11c3ca14a00f4ae1b43cfd4e1cf72acaaa9b26da78aaad286b2d55dcdccR173">feat: Check arity more</a></p>
-<p>関数のアリティ (引数の個数) の違いのせいで不正なコードが生成される不具合があったので、ひとまえずそれを検出してコンパイルする機能をつけた。</p>
+<p>関数のアリティ (引数の個数) の違いのせいで不正なコードが生成される不具合があったので、ひとまずそれを検出してコンパイルする機能をつけた。</p>
 <p>関数のアリティを考慮した型のようなもの (ArityEx) を考えて、型検査のようなものを行って、unification が失敗したらエラーにする、という手法。</p>
 <p>値をコピーするときにコピー元の式の ArityEx とコピー先の型の ArityEx が一致しなければエラーにしている。</p>
 <pre><code>    // ArityEx の定義
@@ -251,7 +251,7 @@
 <p>原因:</p>
 <ul>
 <li>ファイルの変更を通知する textDocument/didChange は大量に発行されてきて、そのたびに変更後のソースコードに対して型エラーを報告するために意味解析をしていた</li>
-<li>また (VSCode は) カーソルを動かすたびに hover や documentHighlight の発行とキャンセルを繰り返していた</li>
+<li>また (VSCode は) カーソルを動かすたびに hover や documentHighlight の発行とキャンセルを繰り返していて、サーバー側の処理が同期的なせいで何もキャンセルできていなかった</li>
 </ul>
 <p>対処:</p>
 <ul>
@@ -261,7 +261,7 @@
 <li>例えば同一ファイルへの didChange が2つ連続で並んでいたら前者は捨てる、など</li>
 </ul>
 </li>
-<li>性能は改善した</li>
+<li>性能はそこそこ改善した</li>
 </ul>
 <p>その他:</p>
 <ul>
@@ -270,16 +270,14 @@
 <h3 id="ml--2">ML: サンプルアプリ</h3>
 <p>GTK+ を使って GUI アプリを書こうとしていて、ウィンドウを出すぐらいはできた。しかし GUI アプリは inRegion の手法でメモリを解放できないので、out of memory を回避できないことにいまさら気づいた。(おそらく次のリリースには含まれない。)</p>
 <p>他に、HTTP サーバーを書いてみていて、html/css/js を送信することで静的なウェブサイトを公開するぐらいのものは作れた。データベース (SQLite など) に繋いでデータの永続化ができれば、いわゆる TODO MVC みたいなのは作れそう。</p>
-<p>サーバーアプリはリクエストごとにデータベースからデータを取るのが通例で、メモリ上にデータを持つ必要がないので、レスポンスを返した後にメモリを解放できる。そのためリクエストを読み取ってからレスポンスを返すまでの部分を inRegion で囲んでおけば out of memory にならない。</p>
+<p>サーバーアプリはリクエストごとにデータベースからデータを取るものが多く、メモリ上にデータを持つ必要がないので、レスポンスを返した後にメモリを解放できる。そのためリクエストを読み取ってからレスポンスを返すまでの部分を inRegion で囲んでおけば out of memory にならない。</p>
 <p>GUI アプリでもデータベースを使えばいいかというと、おそらくうまくいかない。GUI アプリの場合は「リクエスト」に相当するのがマウス移動のように高頻度なので、「レスポンスを返す」(= 画面を更新する、音を鳴らす、などを行う) までの応答時間の制限が厳しい。そのためデータベースに頻繁に接続する余裕はない。</p>
 <p>また、いまさらながら自作言語の自作 HTTP サーバーをインターネットに晒すのは危険度が高い気がしてきた。C言語で書かれた HTTP サーバーのライブラリにつなぐ方針の方がよいかもしれない。ミローネ言語から JavaScript にコンパイルするバックエンドも作って、Electron のような方式でアプリを動かすのも試したい。</p>
 <p>参考にしている本: <a href="https://www.sbcr.jp/product/4797386479/">ふつうのLinuxプログラミング 第2版｜SBクリエイティブ</a></p>
 <h2 id="heading-1">その他</h2>
 <h3 id="-">その他: ジェネリック引数のカッコ</h3>
 <p>Go 言語のジェネリクスのドラフトをみたところ、ジェネリック引数のカッコが <code>( )</code> から <code>[ ]</code> になっていた。</p>
-<ul>
-<li><a href="https://blog.golang.org/generics-proposal">A Proposal for Adding Generics to Go - The Go Blog</a></li>
-</ul>
+<p><a href="https://blog.golang.org/generics-proposal">A Proposal for Adding Generics to Go - The Go Blog</a></p>
 <p>ジェネリック引数を <code>&lt; &gt;</code> で囲む構文は C++, F#, TypeScript, Rust など多くの言語で採用されているが、構文的な曖昧性があってパースが難しい。</p>
 <p>例えば <code>f&lt;T, U&gt;(a)</code> は関数呼び出しにみえるが、<code>&lt;</code> を比較演算だと思うと <code>f &lt; T</code>, <code>U &gt; (a)</code> という2つの式をカンマ区切りで並べたものともとれる。</p>
 <div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="n">f</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">U</span><span class="o">&gt;</span><span class="o">(</span><span class="n">a</span><span class="o">)</span>
@@ -293,14 +291,12 @@
 <p>そういうわけで、ジェネリック引数リストを <code>&lt; &gt;</code> 以外にする言語が増えてほしい。</p>
 <p>ジェネリック引数リストの構文として <code>[ ]</code> を採用するのにも一定のデメリットはある。添字式と衝突するので、<code>f[T]</code> がジェネリック引数つきの関数 <code>f[T]</code> なのか、配列 f に添字 T をつけているのか、が曖昧になる。すなわち <code>[</code> の次に来るのが式なのか型なのか分からない。</p>
 <p>Go 言語はすでに式と型のどちらが来るのか判別できない文脈があるので (<code>make(T)</code>)、これは問題にならない。<code>[ ]</code> を採用している Scala は、配列の添字を <code>( )</code> で囲むので問題ない。</p>
-<p>なお自作言語のジャッコ言語では、式の後ろにジェネリック引数リストが来るときだけ turbo-fish 形式を強制して、<code>f::[ ]</code> と書くことにしている。(一貫性がないが、この構文を使う機会は多くないので問題ないと思っている。)</p>
+<p>なお自作言語のジャッコ言語では、ジェネリック引数リストが式の後ろに来るときだけ turbo-fish 形式を強制して、<code>f::[ ]</code> と書くことにしている。(一貫性がないが、この構文を使う機会は多くないので問題ないと思っている。)</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <h3 id="-hsp3-">その他: HSP3 で長い文字列を高速に作る方法を書いた</h3>
 <p>HSP3 で長い文字列を高速に作る方法をコメントに書いた。記事にまとめた方がいいかもしれない。</p>
-<ul>
-<li><a href="https://hsp.tv/play/pforum.php?mode=all&amp;num=92040">テキストの書き込み速度について - HSPTV!掲示板</a></li>
-</ul>
+<p><a href="https://hsp.tv/play/pforum.php?mode=all&amp;num=92040">テキストの書き込み速度について - HSPTV!掲示板</a></p>
 <h3 id="-prepend-">その他: prepend コマンドを作った</h3>
 <p><a href="https://github.com/vain0x/prepend/">vain0x/prepend: Edit a file to insert lines on head</a></p>
 <p>ファイルの前方に行を足す作業をするとき適切なコマンドがないので、作ってみた。</p>
