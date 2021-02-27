@@ -1,17 +1,23 @@
 ---
-title: Mapをオブジェクトの代わりに使う
+title: Mapをレコード代わりにするための型付け
 type: "post"
 date: 2020-09-07
-url: 2020-09-07/map-as-record
+url: 2020-09-07/type-of-map-as-record
 tags:
   - TypeScript
 ---
 
-TypeScript (および JavaScript) ではレコードにも連想配列にも object が使われがち。object ではなく Map を使いつつ、object と同じような入力補完などの恩恵を受ける方法を考える。
+TypeScript ではレコードにも連想配列にも object が使われがち。レコードのために object ではなく Map を使いつつ、object と同じような入力補完などの恩恵を受ける方法を考えた。実用的ではない。
+
+<!--more-->
 
 Map とオブジェクトの比較は MDN に書いてある: [Map - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Map)
 
 version: TypeScript 3.9
+
+## 動機
+
+クエリ (`?` 部分) をパースするとき、キーの集合は静的には限定されないので、結果は連想配列になる。しかし有効なキーの集合は本来限定されているので、レコードになってほしい。このギャップを埋めたかった。
 
 ## レコードみたいな型がついた Map
 
@@ -123,14 +129,14 @@ const map = fromEntries([
 const zero = map.get(fromEntries)
 ```
 
-あるいは `Map<unknown, unknown>` を動的に検査してから `as` で強制的にキャストする。
+あるいは `Map<unknown, unknown>` を動的に検査してから `as` で強制的にキャストする。スマートキャストは効かなさそう。
 
 ```ts
 const unknownMap = new Map<unknown, unknown>(JSON.parse(entriesJsonText))
 
 const valid = typeof unknownMap.get("ok") === "boolean"
     && typeof unknownMap.get("status") === "number"
-if (valid) { // スマートキャストは効かない
+if (valid) {
     const myMap = unknownMap as MyMap
 }
 ```
