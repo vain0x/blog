@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>式指向構文が言語処理系にもたらす複雑性 - ベインのブログ</title>
+  <meta property="og:title" content="式指向構文が言語処理系にもたらす複雑性" />
+  <meta name="twitter:title" content="式指向構文が言語処理系にもたらす複雑性" />
+  <meta name="description" content="式の中に分岐や反復、ジャンプを書ける構文を 式指向の構文 と呼ぶことにする。
+式指向の構文は便利な反面、言語に一定の複雑性を追加する。">
+  <meta property="og:description" content="式の中に分岐や反復、ジャンプを書ける構文を 式指向の構文 と呼ぶことにする。
+式指向の構文は便利な反面、言語に一定の複雑性を追加する。">
+  <meta name="twitter:description" content="式の中に分岐や反復、ジャンプを書ける構文を 式指向の構文 と呼ぶことにする。
+式指向の構文は便利な反面、言語に一定の複雑性を追加する。">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2020-09-19\/complexity-from-expression-oriented-syntax\/",
+          "name": "式指向構文が言語処理系にもたらす複雑性"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "ベイン"
+  },
+  "headline": "式指向構文が言語処理系にもたらす複雑性",
+  "description" : "式の中に分岐や反復、ジャンプを書ける構文を 式指向の構文 と呼ぶことにする。 式指向の構文は便利な反面、言語に一定の複雑性を追加する。\n",
+  "inLanguage" : "ja",
+  "wordCount":  217 ,
+  "datePublished" : "2020-09-19T00:00:00",
+  "dateModified" : "2020-09-19T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "言語設計, Rust" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2020-09-19\/complexity-from-expression-oriented-syntax\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="式指向構文が言語処理系にもたらす複雑性" />
+<meta property="og:description" content="式の中に分岐や反復、ジャンプを書ける構文を 式指向の構文 と呼ぶことにする。
+式指向の構文は便利な反面、言語に一定の複雑性を追加する。">
+<meta property="og:url" content="https://vain0x.github.io/blog/2020-09-19/complexity-from-expression-oriented-syntax/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="式指向構文が言語処理系にもたらす複雑性" />
+  <meta name="twitter:description" content="式の中に分岐や反復、ジャンプを書ける構文を 式指向の構文 と呼ぶことにする。
+式指向の構文は便利な反面、言語に一定の複雑性を追加する。">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/2020-09-19/complexity-from-expression-oriented-syntax/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="generator" content="Hugo 0.62.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" />
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom top-nav-short">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
+    </div>
+
+    <div id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="GitHub" href="https://github.com/vain0x">GitHub</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="競プロ参戦記" href="https://qiita.com/search?q=%E7%AB%B6%E3%83%97%E3%83%AD%E5%8F%82%E6%88%A6%E8%A8%98&#43;user%3Avain0x&amp;sort=created">競プロ参戦記</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT" href="https://vain0x.github.io">ABOUT</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    <main>
+      
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>式指向構文が言語処理系にもたらす複雑性</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2020年9月19日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+      
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>式の中に分岐や反復、ジャンプを書ける構文を <strong>式指向の構文</strong> と呼ぶことにする。
+式指向の構文は便利な反面、言語に一定の複雑性を追加する。</p>
+<h2 id="heading">式指向の構文の例</h2>
+<p>例えば Rust は式指向の構文を持ち、条件分岐を表す if はそれ自体が式になっている。分岐の結果として評価された節の結果が if 式の結果になる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="n">g</span><span class="p">(</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>以降、サンプルコードは Rust 風の構文で書く。ただし型システムや処理系は Rust とは限らない。</p>
+<h2 id="heading-1">ジャンプとスタックマシンの相性の悪さ</h2>
+<p>式指向の構文を持つ場合、式の評価の途中でジャンプすることができる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">f</span><span class="p">(</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>この関数をスタックマシンのコードにナイーブにコンパイルすると、次のような不正な振る舞いをする。</p>
+<ul>
+<li>1 をスタックに積む</li>
+<li>2 をスタックに積む</li>
+<li>return する。スタックから結果値 2 を pop して、関数から抜ける</li>
+<li><del>スタックから2つの値を pop して足し、結果をスタックに積む</del> (← ジャンプしたのでこれは実行されない)</li>
+</ul>
+<p>ここで 1 はスタックに置かれたままであり、関数の実行の前後でスタックの深さが維持されない。</p>
+<h3 id="heading-2">解決策</h3>
+<p>この問題を解決するには、レジスタマシンを使うか、ジャンプする際に不要になった値をスタックから pop するようなコードを生成すればいい。</p>
+<p>(<strong>追記</strong>: 正準化(canonicalize)などの手順により、式の評価の途中でジャンプが起きないように変形しておく方法もある。<a href="/blog/2019-04-30/diary/">近況 2019-04-30</a> に似たような話を書いた。)</p>
+<h2 id="heading-3">ジャンプする式の型</h2>
+<p>静的型システムを持つ式指向言語の場合、break/return などのジャンプ式にも静的な型をつける必要がある。</p>
+<p>例えば次の関数に含まれる match 式は Some のアームが結果を持ち、None のアームは return する。
+mach 式の結果は i32 でなければいけないので、return 式の結果は i32 か、それの部分型でなければいけない。</p>
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">drain_sum</span><span class="p">(</span><span class="n">xs</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="k">loop</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">xs</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="nb">Some</span><span class="p">(</span><span class="n">it</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="n">it</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">            </span><span class="nb">None</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="n">total</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>Rust の return 式には ! (never) 型がつく。! はあらゆる型の部分型なので、i32 の部分型でもある。
+したがって match 式に i32 型をつけられる。</p>
+<p>もう1つの方法として、return などのジャンプする式の出現ごとにフレッシュなメタ型 T を生成して <code>(return expr): T</code> とする方法がある。
+単一化により型 T が他のアームの型になるので、型検査を通せる。
+この方法だと部分型の仕組みを導入しなくて済む。
+(こういった理由から ML の failwith 関数に <code>failwith&lt;'a&gt; : string -&gt; 'a</code> という型がついている。)</p>
+<p>いずれにせよ「never 型と部分型」や「メタ型変数と単一化」のような一定の仕組みの導入が要請される。</p>
+<p>あるいは、妥協して、ジャンプする式には決め打ちで unit (あるいは (), void, null の) 型をつけるという案もある。
+(この手法を採用している言語があるかは知らない。)
+その場合、上記のような match 式は型検査を通らなくなり、式指向らしさの一部が失われる。</p>
+<p>(<strong>追記</strong>: C++ のパターンマッチ機能である inspect 式の提案では、制御を返さないブランチに印をつけておくことで、そのブランチの評価値の型を型検査時に無視するような機能がある。
+参考: <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p1371r3.pdf">Pattern Matching - p1371r3.pdf</a>)</p>
+<h2 id="if-">if 式の後ろのセミコロン</h2>
+<p>C言語風の構文で、セミコロンが必須の言語を考える。</p>
+<p>単純に if 文の構文規則を「式」に移動すると、従来の if 文と同様の用途で if 式を使うとき、末尾に ; が必要になってしまう。</p>
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="w">        </span><span class="n">body</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">//   ^ 式の終わりなのでセミコロンが必要
+</span></code></pre></div><p><code>if (cond) { ... }</code> は1個の式であって文ではないので、文として書きたいなら式文にする必要があり、末尾にセミコロンをつけることになる。この問題を解決するため、一定の考慮が必要になる。</p>
+<h3 id="heading-4">解決策</h3>
+<p>文の先頭に if 式が来るときは、それだけで1個の式文とみなし、後ろにセミコロンがなくてもよいことにすればよい。(部分的なセミコロン省略ルール。)</p>
+<p>ただしこれだけでは <code>if flip() { you } else { opponent }.win();</code> のような if 式から始まる式文を正しくパースできないことになる。これは JavaScript において、即時実行関数を <code>function(){}()</code> と書くと function 宣言とみなされてしまう状況に似ている。回避策として <code>(function(){})()</code> などと書くのは受け入れられているので、そのようにしてもよいだろう。</p>
+<p>また、Rust では <strong>打ち切り規則</strong> と呼ばれる構文上の規則を用意している。打ち切り規則は、おおまかにいうと「文頭に if 式があるなら、それが明らかに他の式の一部でなければ末尾のセミコロンの省略を許す」というもの。例えば次のコードは2つの文にパースされる:</p>
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">cond</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="p">.</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">//&lt; 末尾にセミコロンをつけていないが、
+</span><span class="c1"></span><span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">             </span><span class="c1">//  f から次の文が始まる。
+</span></code></pre></div><p>一方、次のコードでは if 式の直後に <code>.</code> があって、明らかに if 式はその左辺となる。このケースではセミコロンの省略は起きない。
+(特別扱いされているのは <code>.</code> と <code>?</code> だけで、二項演算子は打ち切られる模様: <code>if cond { 42 } / 2</code> など)</p>
+<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">cond</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="p">.</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="p">.</span><span class="n">f</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="w">    </span><span class="c1">//             ^ . は左辺に式が必要なので文のパースを続ける
+</span></code></pre></div><p>参考: <a href="https://qnighy.hatenablog.com/entry/2017/04/22/070000">Rustの文でセミコロンを省略してよい条件 - 簡潔なQ</a></p>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/">言語設計</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/rust/">Rust</a>&nbsp;
+            
+          </div>
+        
+
+        
+          
+          
+          <h4 class="see-also">関連記事</h4>
+          <ul>
+          
+            <li><a href="/blog/2020-09-18/null-pointer-vs-reference/">nullはポインタだがリファレンスではない</a></li>
+          
+            <li><a href="/blog/2018-11-08/pi-challenge/">円周率チャレンジにアルゴリズムでチャレンジ</a></li>
+          
+            <li><a href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a></li>
+          
+          </ul>
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://vain0x.github.io/blog/2020-09-18/null-pointer-vs-reference/" data-toggle="tooltip" data-placement="top" title="nullはポインタだがリファレンスではない">&larr; 前ページ</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://vain0x.github.io/blog/2020-09-30/diary/" data-toggle="tooltip" data-placement="top" title="近況 2020-09-30">次ページ &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+      <section id="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="vain0x/blog"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2016 - 2021
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </main>
+  </body>
+</html>
+

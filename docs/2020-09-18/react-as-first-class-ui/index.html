@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>ReactのよさはUIが第一級なこと - ベインのブログ</title>
+  <meta property="og:title" content="ReactのよさはUIが第一級なこと" />
+  <meta name="twitter:title" content="ReactのよさはUIが第一級なこと" />
+  <meta name="description" content="……という気がする。UI に関して何かやりたいときに必ずしも React の機能に頼らなくても、TypeScript の言語機能で書けて、そのまま型がつく、ということが多い。">
+  <meta property="og:description" content="……という気がする。UI に関して何かやりたいときに必ずしも React の機能に頼らなくても、TypeScript の言語機能で書けて、そのまま型がつく、ということが多い。">
+  <meta name="twitter:description" content="……という気がする。UI に関して何かやりたいときに必ずしも React の機能に頼らなくても、TypeScript の言語機能で書けて、そのまま型がつく、ということが多い。">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2020-09-18\/react-as-first-class-ui\/",
+          "name": "Reactのよさは u iが第一級なこと"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "ベイン"
+  },
+  "headline": "ReactのよさはUIが第一級なこと",
+  "description" : "……という気がする。UI に関して何かやりたいときに必ずしも React の機能に頼らなくても、TypeScript の言語機能で書けて、そのまま型がつく、ということが多い。\n",
+  "inLanguage" : "ja",
+  "wordCount":  107 ,
+  "datePublished" : "2020-09-18T00:00:00",
+  "dateModified" : "2020-09-18T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "TypeScript, React" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2020-09-18\/react-as-first-class-ui\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="ReactのよさはUIが第一級なこと" />
+<meta property="og:description" content="……という気がする。UI に関して何かやりたいときに必ずしも React の機能に頼らなくても、TypeScript の言語機能で書けて、そのまま型がつく、ということが多い。">
+<meta property="og:url" content="https://vain0x.github.io/blog/2020-09-18/react-as-first-class-ui/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="ReactのよさはUIが第一級なこと" />
+  <meta name="twitter:description" content="……という気がする。UI に関して何かやりたいときに必ずしも React の機能に頼らなくても、TypeScript の言語機能で書けて、そのまま型がつく、ということが多い。">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/2020-09-18/react-as-first-class-ui/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="generator" content="Hugo 0.62.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" />
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom top-nav-short">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
+    </div>
+
+    <div id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="GitHub" href="https://github.com/vain0x">GitHub</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="競プロ参戦記" href="https://qiita.com/search?q=%E7%AB%B6%E3%83%97%E3%83%AD%E5%8F%82%E6%88%A6%E8%A8%98&#43;user%3Avain0x&amp;sort=created">競プロ参戦記</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT" href="https://vain0x.github.io">ABOUT</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    <main>
+      
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>ReactのよさはUIが第一級なこと</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2020年9月18日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+      
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>……という気がする。UI に関して何かやりたいときに必ずしも React の機能に頼らなくても、TypeScript の言語機能で書けて、そのまま型がつく、ということが多い。</p>
+<p>(ここでは React.FC を引数に渡したり、関数から返したり、配列やオブジェクトに持たせたりできることをもって、第一級であるといっている。)</p>
+<ul>
+<li>条件によって表示を分けたい: 条件演算子 <code>?:</code> を使えばいい</li>
+<li>リストの要素をデータの数だけ表示したい: <code>Array.map</code> を使えばいい</li>
+<li>コンポーネントを再利用するとき、使う場所によって一部を変えたい: 追加の引数で受け取ればいい</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&#34;react&#34;</span>
+
+<span class="c1">// 分岐: エラーがあるときだけメッセージを表示する
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">Alert</span>: <span class="kt">React.FC</span><span class="o">&lt;</span><span class="p">{</span> <span class="nx">hasError</span>: <span class="kt">boolean</span><span class="p">,</span> <span class="nx">message</span>: <span class="kt">string</span> <span class="p">}</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=</span><span class="o">&gt;</span>
+    <span class="nx">props</span><span class="p">.</span><span class="nx">hasError</span> <span class="o">?</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="err">エ</span><span class="err">ラ</span><span class="err">ー</span><span class="o">:</span> <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">message</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/</span><span class="err">d</span><span class="err">i</span><span class="err">v</span><span class="err">&gt;</span>
+    <span class="p">)</span> <span class="o">:</span> <span class="kc">null</span>
+
+<span class="c1">// 反復: データの個数だけリストの要素を表示する
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">Posts</span>: <span class="kt">React.FC</span><span class="o">&lt;</span><span class="p">{</span> <span class="nx">items</span><span class="o">:</span> <span class="p">{</span> <span class="nx">id</span>: <span class="kt">number</span><span class="p">,</span> <span class="nx">text</span>: <span class="kt">string</span> <span class="p">}</span><span class="p">[</span><span class="p">]</span> <span class="p">}</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=</span><span class="o">&gt;</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="o">=</span><span class="o">&gt;</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/</span><span class="err">l</span><span class="err">i</span><span class="err">&gt;</span>
+        <span class="p">)</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="err">/</span><span class="err">u</span><span class="err">l</span><span class="err">&gt;</span>
+<span class="p">)</span>
+
+<span class="c1">// 抽象化: コンポーネントの一部を引数で受け取る
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">Panel</span>: <span class="kt">React.FC</span><span class="o">&lt;</span><span class="p">{</span> <span class="nx">Header</span>: <span class="kt">React.FC</span> <span class="p">}</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nx">props</span> <span class="o">=</span><span class="o">&gt;</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">props</span><span class="p">.</span><span class="nx">Header</span> <span class="o">/</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="err">/</span><span class="err">h</span><span class="err">2</span><span class="err">&gt;</span>
+
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+            <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="err">/</span><span class="err">d</span><span class="err">i</span><span class="err">v</span><span class="err">&gt;</span>
+    <span class="o">&lt;</span><span class="err">/</span><span class="err">d</span><span class="err">i</span><span class="err">v</span><span class="err">&gt;</span>
+<span class="p">)</span>
+
+<span class="c1">// Panel を使う側
+</span><span class="c1"></span><span class="o">&lt;</span><span class="nx">Panel</span> <span class="nx">Header</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span> <span class="o">=</span><span class="o">&gt;</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;example.com&#34;</span><span class="o">&gt;</span>
+        <span class="err">ヘ</span><span class="err">ッ</span><span class="err">ダ</span><span class="err">ー</span>
+    <span class="o">&lt;</span><span class="err">/</span><span class="err">a</span><span class="err">&gt;</span>
+<span class="p">)</span><span class="p">}</span><span class="o">&gt;</span>
+    <span class="err">ボ</span><span class="err">デ</span><span class="err">ィ</span>
+<span class="o">&lt;</span><span class="err">/</span><span class="err">P</span><span class="err">a</span><span class="err">n</span><span class="err">e</span><span class="err">l</span><span class="err">&gt;</span>
+</code></pre></div>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/typescript/">TypeScript</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/react/">React</a>&nbsp;
+            
+          </div>
+        
+
+        
+          
+          
+          <h4 class="see-also">関連記事</h4>
+          <ul>
+          
+            <li><a href="/blog/2020-09-18/date-as-string/">日時を文字列で持つ案 (Dateのことは忘れる)</a></li>
+          
+            <li><a href="/blog/2020-09-18/passing-function-vs-returning-effect/">関数を渡すvs.エフェクトを返す</a></li>
+          
+            <li><a href="/blog/2020-09-07/type-of-map-as-record/">Mapをレコード代わりにするための型付け</a></li>
+          
+          </ul>
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://vain0x.github.io/blog/2020-09-18/date-as-string/" data-toggle="tooltip" data-placement="top" title="日時を文字列で持つ案 (Dateのことは忘れる)">&larr; 前ページ</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://vain0x.github.io/blog/2020-09-18/null-pointer-vs-reference/" data-toggle="tooltip" data-placement="top" title="nullはポインタだがリファレンスではない">次ページ &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+      <section id="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="vain0x/blog"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2016 - 2021
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </main>
+  </body>
+</html>
+

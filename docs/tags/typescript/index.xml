@@ -8,10 +8,50 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Wed, 16 Jan 2019 22:17:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ReactのよさはUIが第一級なこと</title>
+      <link>https://vain0x.github.io/blog/2020-09-18/react-as-first-class-ui/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2020-09-18/react-as-first-class-ui/</guid>
+      <description>&lt;p&gt;……という気がする。UI に関して何かやりたいときに必ずしも React の機能に頼らなくても、TypeScript の言語機能で書けて、そのまま型がつく、ということが多い。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>日時を文字列で持つ案 (Dateのことは忘れる)</title>
+      <link>https://vain0x.github.io/blog/2020-09-18/date-as-string/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2020-09-18/date-as-string/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;TypeScript の日時を表現する Date 型は貧弱で使いにくい。&lt;/li&gt;
+&lt;li&gt;日時の処理はライブラリを使うことになりがち。&lt;/li&gt;
+&lt;li&gt;個人的には、Date オブジェクトの存在を無視して、日時を文字列で持つのがよいと思っている。&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>関数を渡すvs.エフェクトを返す</title>
+      <link>https://vain0x.github.io/blog/2020-09-18/passing-function-vs-returning-effect/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2020-09-18/passing-function-vs-returning-effect/</guid>
+      <description>&lt;p&gt;どちらも計算の一部を抽象化できる。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Mapをレコード代わりにするための型付け</title>
+      <link>https://vain0x.github.io/blog/2020-09-07/type-of-map-as-record/</link>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2020-09-07/type-of-map-as-record/</guid>
+      <description>&lt;p&gt;TypeScript ではレコードにも連想配列にも object が使われがち。レコードのために object ではなく Map を使いつつ、object と同じような入力補完などの恩恵を受ける方法を考えた。実用的ではない。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>LSP学習記 #4 シンボルのリネーム</title>

@@ -23,6 +23,60 @@
     </item>
     
     <item>
+      <title>Rust</title>
+      <link>https://vain0x.github.io/blog/tags/rust/</link>
+      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>言語設計</title>
+      <link>https://vain0x.github.io/blog/tags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/</link>
+      <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/tags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C言語</title>
+      <link>https://vain0x.github.io/blog/tags/c%E8%A8%80%E8%AA%9E/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/tags/c%E8%A8%80%E8%AA%9E/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>React</title>
+      <link>https://vain0x.github.io/blog/tags/react/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TypeScript</title>
+      <link>https://vain0x.github.io/blog/tags/typescript/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/tags/typescript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>設計</title>
+      <link>https://vain0x.github.io/blog/tags/%E8%A8%AD%E8%A8%88/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/tags/%E8%A8%AD%E8%A8%88/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>エッセイ</title>
       <link>https://vain0x.github.io/blog/tags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/</link>
       <pubDate>Sat, 11 Jan 2020 00:00:00 +0000</pubDate>
@@ -77,29 +131,11 @@
     </item>
     
     <item>
-      <title>TypeScript</title>
-      <link>https://vain0x.github.io/blog/tags/typescript/</link>
-      <pubDate>Wed, 16 Jan 2019 22:17:00 +0000</pubDate>
-      <author>vainzerox@gmail.com (ベイン)</author>
-      <guid>https://vain0x.github.io/blog/tags/typescript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>FSharp</title>
       <link>https://vain0x.github.io/blog/tags/fsharp/</link>
       <pubDate>Sun, 16 Dec 2018 10:34:43 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/tags/fsharp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rust</title>
-      <link>https://vain0x.github.io/blog/tags/rust/</link>
-      <pubDate>Thu, 08 Nov 2018 02:01:00 +0900</pubDate>
-      <author>vainzerox@gmail.com (ベイン)</author>
-      <guid>https://vain0x.github.io/blog/tags/rust/</guid>
       <description></description>
     </item>
     

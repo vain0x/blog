@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>日時を文字列で持つ案 (Dateのことは忘れる) - ベインのブログ</title>
+  <meta property="og:title" content="日時を文字列で持つ案 (Dateのことは忘れる)" />
+  <meta name="twitter:title" content="日時を文字列で持つ案 (Dateのことは忘れる)" />
+  <meta name="description" content="
+TypeScript の日時を表現する Date 型は貧弱で使いにくい。
+日時の処理はライブラリを使うことになりがち。
+個人的には、Date オブジェクトの存在を無視して、日時を文字列で持つのがよいと思っている。
+">
+  <meta property="og:description" content="
+TypeScript の日時を表現する Date 型は貧弱で使いにくい。
+日時の処理はライブラリを使うことになりがち。
+個人的には、Date オブジェクトの存在を無視して、日時を文字列で持つのがよいと思っている。
+">
+  <meta name="twitter:description" content="
+TypeScript の日時を表現する Date 型は貧弱で使いにくい。
+日時の処理はライブラリを使うことになりがち。
+個人的には、Date オブジェクトの存在を無視して、日時を文字列で持つのがよいと思っている。
+">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2020-09-18\/date-as-string\/",
+          "name": "日時を文字列で持つ案 ( dateのことは忘れる)"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "ベイン"
+  },
+  "headline": "日時を文字列で持つ案 (Dateのことは忘れる)",
+  "description" : " TypeScript の日時を表現する Date 型は貧弱で使いにくい。 日時の処理はライブラリを使うことになりがち。 個人的には、Date オブジェクトの存在を無視して、日時を文字列で持つのがよいと思っている。 ",
+  "inLanguage" : "ja",
+  "wordCount":  241 ,
+  "datePublished" : "2020-09-18T00:00:00",
+  "dateModified" : "2020-09-18T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "TypeScript" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2020-09-18\/date-as-string\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="日時を文字列で持つ案 (Dateのことは忘れる)" />
+<meta property="og:description" content="
+TypeScript の日時を表現する Date 型は貧弱で使いにくい。
+日時の処理はライブラリを使うことになりがち。
+個人的には、Date オブジェクトの存在を無視して、日時を文字列で持つのがよいと思っている。
+">
+<meta property="og:url" content="https://vain0x.github.io/blog/2020-09-18/date-as-string/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="日時を文字列で持つ案 (Dateのことは忘れる)" />
+  <meta name="twitter:description" content="
+TypeScript の日時を表現する Date 型は貧弱で使いにくい。
+日時の処理はライブラリを使うことになりがち。
+個人的には、Date オブジェクトの存在を無視して、日時を文字列で持つのがよいと思っている。
+">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/2020-09-18/date-as-string/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="generator" content="Hugo 0.62.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" />
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom top-nav-short">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
+    </div>
+
+    <div id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="GitHub" href="https://github.com/vain0x">GitHub</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="競プロ参戦記" href="https://qiita.com/search?q=%E7%AB%B6%E3%83%97%E3%83%AD%E5%8F%82%E6%88%A6%E8%A8%98&#43;user%3Avain0x&amp;sort=created">競プロ参戦記</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT" href="https://vain0x.github.io">ABOUT</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    <main>
+      
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>日時を文字列で持つ案 (Dateのことは忘れる)</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2020年9月18日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+      
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <ul>
+<li>TypeScript の日時を表現する Date 型は貧弱で使いにくい。</li>
+<li>日時の処理はライブラリを使うことになりがち。</li>
+<li>個人的には、Date オブジェクトの存在を無視して、日時を文字列で持つのがよいと思っている。</li>
+</ul>
+<h2 id="date-">Date は何か</h2>
+<p>MDN の <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Date">Date</a> のページを参照。
+Date オブジェクトは単に「ある1点の時刻」を表している。タイムゾーンやロケールなどの情報は持っていない。</p>
+<h2 id="date--1">Date はなぜダメか</h2>
+<p>例えば次のようなクエリに対する操作が用意されていない。</p>
+<ul>
+<li>特定の形式で文字列に変換する (<code>yyyy-MM-dd</code> や <code>yyyy/MM/dd HH:mm</code> など)</li>
+<li>時刻成分を切り落として、1日の始まりの時点を得る</li>
+<li>同じ月の最後の日付に変換する</li>
+<li>etc.</li>
+</ul>
+<h2 id="heading">日時を文字列で持つ</h2>
+<p>Date のメソッドはどうせ使わないので、インスタンス化する必要はない。</p>
+<p>代わりに luxon の DateTime オブジェクトなどを使ってもいいが、文字列で持っておけば replacer/reviver を用意しなくても JSON でシリアライズできて嬉しい。
+(あるいは <code>{ year: number, month: number, ... }</code> とか、何にせよプレインなデータで。)</p>
+<h2 id="heading-1">日時を表す文字列の型</h2>
+<p>日時を文字列で持つとしても、string 型だと混乱を招くので、いわゆる <a href="https://basarat.gitbook.io/typescript/main-1/nominaltyping">nominal type</a> を使う。</p>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">declare</span> <span class="kr">const</span> <span class="nx">IS_TIMESTAMP</span>: <span class="kt">unique</span> <span class="nx">symbol</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 日時を表す文字列 (ISO 8601 形式)
+</span><span class="cm"> */</span>
+<span class="kr">export</span> <span class="nx">type</span> <span class="nx">Timestamp</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="p">[</span><span class="nx">IS_TIMESTAMP</span><span class="p">]</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+</code></pre></div><p>こうしておくと Timestamp は string の厳密な部分型になる。
+(Timestamp 型の値を string 型の引数に渡す方のアップキャストは許可される。
+逆に string 型の値を Timestamp 型の引数に渡すことはできない。
+本当にやりたければ <code>as Timestamp</code> と明記する必要がある。)</p>
+<p>後は Timestamp を操作するための関数を用意していく。
+実装は日時処理用のライブラリ (<a href="https://moment.github.io/luxon/">luxon</a> や <a href="https://date-fns.org/">date-fns</a> など) の機能を流用する。</p>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">import</span> <span class="p">{</span> <span class="nx">DateTime</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;luxon&#34;</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 日時を表す ISO 8601 形式の文字列をパースする。
+</span><span class="cm"> */</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">timestampFromISO</span> <span class="o">=</span> <span class="p">(</span><span class="nx">s</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">Timestamp</span> <span class="o">|</span> <span class="kc">null</span> <span class="o">=</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">dateTime</span> <span class="o">=</span> <span class="nx">DateTime</span><span class="p">.</span><span class="nx">fromISO</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="p">{</span> <span class="nx">locale</span><span class="o">:</span> <span class="s2">&#34;ja-jp&#34;</span><span class="p">,</span> <span class="nx">zone</span><span class="o">:</span> <span class="s2">&#34;Asia/Tokyo&#34;</span> <span class="p">}</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">dateTime</span><span class="p">.</span><span class="nx">isValid</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">null</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">dateTime</span><span class="p">.</span><span class="nx">toISO</span><span class="p">(</span><span class="p">)</span> <span class="kr">as</span> <span class="nx">Timestamp</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">timestampToDateTime</span> <span class="o">=</span> <span class="p">(</span><span class="nx">timestamp</span>: <span class="kt">Timestamp</span><span class="p">)</span><span class="o">:</span> <span class="nx">DateTime</span> <span class="o">=</span><span class="o">&gt;</span>
+    <span class="nx">DateTime</span><span class="p">.</span><span class="nx">fromISO</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">,</span> <span class="p">{</span> <span class="nx">locale</span><span class="o">:</span> <span class="s2">&#34;ja-jp&#34;</span><span class="p">,</span> <span class="nx">zone</span><span class="o">:</span> <span class="s2">&#34;Asia/Tokyo&#34;</span> <span class="p">}</span><span class="p">)</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 日時を特定のフォーマットの文字列に変換する。
+</span><span class="cm"> */</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">timestampToFormat</span> <span class="o">=</span> <span class="p">(</span><span class="nx">timestamp</span>: <span class="kt">Timestamp</span><span class="p">,</span> <span class="nx">fmt</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="kt">string</span> <span class="o">=</span><span class="o">&gt;</span>
+    <span class="nx">timestampToDateTime</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">)</span><span class="p">.</span><span class="nx">toFormat</span><span class="p">(</span><span class="nx">fmt</span><span class="p">)</span>
+</code></pre></div><p>例:</p>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="c1">//    timestamp: Timestamp
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">timestamp</span> <span class="o">=</span> <span class="nx">timestampFromISO</span><span class="p">(</span><span class="s2">&#34;2020-01-02T03:04:05.666+09:00&#34;</span><span class="p">)</span><span class="o">!</span>
+
+<span class="kr">const</span> <span class="nx">formatted</span> <span class="o">=</span> <span class="nx">timestampToFormat</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">,</span> <span class="s2">&#34;yyyy-MM-dd&#34;</span><span class="p">)</span>
+<span class="nx">assert</span><span class="p">.</span><span class="nx">strictEqual</span><span class="p">(</span><span class="nx">formatted</span><span class="p">,</span> <span class="s2">&#34;2020-01-02&#34;</span><span class="p">)</span>
+</code></pre></div><p>関数名が長くなりがちなのがネック。</p>
+<h2 id="heading-2">日付型と時間型</h2>
+<p>同様に日付 (時刻なし) の型や時間 (日付なし) の型なども用意しておくと便利。</p>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">declare</span> <span class="kr">const</span> <span class="nx">IS_DATE_STRING</span>: <span class="kt">unique</span> <span class="nx">symbol</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 日付を表す yyyy-MM-dd 形式の文字列
+</span><span class="cm"> */</span>
+<span class="kr">export</span> <span class="nx">type</span> <span class="nx">DateString</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="p">[</span><span class="nx">IS_DATE_STRING</span><span class="p">]</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">declare</span> <span class="kr">const</span> <span class="nx">IS_HHMM_TIME_STRING</span>: <span class="kt">unique</span> <span class="nx">symbol</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 時間を表す HH:mm 形式の文字列
+</span><span class="cm"> */</span>
+<span class="kr">export</span> <span class="nx">type</span> <span class="nx">HHMMTimeString</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="p">[</span><span class="nx">IS_HHMM_TIME_STRING</span><span class="p">]</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+</code></pre></div>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/typescript/">TypeScript</a>&nbsp;
+            
+          </div>
+        
+
+        
+          
+          
+          <h4 class="see-also">関連記事</h4>
+          <ul>
+          
+            <li><a href="/blog/2020-09-18/react-as-first-class-ui/">ReactのよさはUIが第一級なこと</a></li>
+          
+            <li><a href="/blog/2020-09-18/passing-function-vs-returning-effect/">関数を渡すvs.エフェクトを返す</a></li>
+          
+            <li><a href="/blog/2020-09-07/type-of-map-as-record/">Mapをレコード代わりにするための型付け</a></li>
+          
+          </ul>
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://vain0x.github.io/blog/2020-09-18/passing-function-vs-returning-effect/" data-toggle="tooltip" data-placement="top" title="関数を渡すvs.エフェクトを返す">&larr; 前ページ</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://vain0x.github.io/blog/2020-09-18/react-as-first-class-ui/" data-toggle="tooltip" data-placement="top" title="ReactのよさはUIが第一級なこと">次ページ &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+      <section id="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="vain0x/blog"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2016 - 2021
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </main>
+  </body>
+</html>
+
