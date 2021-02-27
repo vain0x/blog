@@ -4,18 +4,14 @@ type: "post"
 date: 2020-09-18
 url: 2020-09-18/date-as-string
 tags:
-  - JavaScript
   - TypeScript
 ---
 
-# 日時を文字列で持つ案 (Dateのことは忘れる)
+- TypeScript の日時を表現する Date 型は貧弱で使いにくい。
+- 日時の処理はライブラリを使うことになりがち。
+- 個人的には、Date オブジェクトの存在を無視して、日時を文字列で持つのがよいと思っている。
 
-TypeScript には日時を表現するための組み込みの Date オブジェクトがあるが、かなり貧弱である。
-
-## 要点
-
-- 一般的に、日時処理用には [luxon](https://moment.github.io/luxon/) や [date-fns](https://date-fns.org/) などのライブラリを使うべき。
-- 個人的には、Date オブジェクトの存在は無視して、日時は文字列で持つのがよいと思っている。
+<!--more-->
 
 ## Date は何か
 
@@ -26,7 +22,7 @@ Date オブジェクトは単に「ある1点の時刻」を表している。�
 
 例えば次のようなクエリに対する操作が用意されていない。
 
-- 特定の形式のフォーマットで文字列に変換する (`yyyy-MM-dd` や `yyyy/MM/dd HH:mm` など)
+- 特定の形式で文字列に変換する (`yyyy-MM-dd` や `yyyy/MM/dd HH:mm` など)
 - 時刻成分を切り落として、1日の始まりの時点を得る
 - 同じ月の最後の日付に変換する
 - etc.
@@ -52,11 +48,12 @@ export type Timestamp = string & { [IS_TIMESTAMP]: true }
 ```
 
 こうしておくと Timestamp は string の厳密な部分型になる。
-(Timestamp 型の値を string 型の引数に渡す方の型変換は許可されるが、逆に string 型の値を Timestamp 型の引数に渡すことはできない。
+(Timestamp 型の値を string 型の引数に渡す方のアップキャストは許可される。
+逆に string 型の値を Timestamp 型の引数に渡すことはできない。
 本当にやりたければ `as Timestamp` と明記する必要がある。)
 
 後は Timestamp を操作するための関数を用意していく。
-実装は日時処理用のライブラリ (luxon や date-fns) の機能を流用すればいい。
+実装は日時処理用のライブラリ ([luxon](https://moment.github.io/luxon/) や [date-fns](https://date-fns.org/) など) の機能を流用する。
 
 ```ts
 import { DateTime } from "luxon"
@@ -92,6 +89,8 @@ const timestamp = timestampFromISO("2020-01-02T03:04:05.666+09:00")!
 const formatted = timestampToFormat(timestamp, "yyyy-MM-dd")
 assert.strictEqual(formatted, "2020-01-02")
 ```
+
+関数名が長くなりがちなのがネック。
 
 ## 日付型と時間型
 
