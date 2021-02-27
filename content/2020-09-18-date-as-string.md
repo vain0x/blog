@@ -1,5 +1,5 @@
 ---
-title: 日付を文字列で持つ
+title: 日時を文字列で持つ案 (Dateのことは忘れる)
 type: "post"
 date: 2020-09-18
 url: 2020-09-18/date-as-string
@@ -8,7 +8,7 @@ tags:
   - TypeScript
 ---
 
-# 日時を文字列で持つ
+# 日時を文字列で持つ案 (Dateのことは忘れる)
 
 TypeScript には日時を表現するための組み込みの Date オブジェクトがあるが、かなり貧弱である。
 
