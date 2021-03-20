@@ -8,10 +8,28 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Sun, 28 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 21 Mar 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>プログラミング言語の構文とセミコロン</title>
+      <link>https://vain0x.github.io/blog/2021-03-21/semicolon-syntax/</link>
+      <pubDate>Sun, 21 Mar 2021 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2021-03-21/semicolon-syntax/</guid>
+      <description>&lt;p&gt;C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
+Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;C言語の構文とセミコロンが必須な箇所はどこか&lt;/li&gt;
+&lt;li&gt;JavaScriptのセミコロン省略により生じた問題とは何か&lt;/li&gt;
+&lt;li&gt;Goのセミコロン省略ルールはどう定められているか&lt;/li&gt;
+&lt;li&gt;Haskellのレイアウト依存構文はセミコロンの省略にどう生かされているか&lt;/li&gt;
+&lt;li&gt;Rustの構文からセミコロンを取り除くとしたらどんな問題が生じるか&lt;/li&gt;
+&lt;li&gt;F# のリストがセミコロン区切りである利点と欠点&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
     
     <item>
       <title>近況 2021-02-28</title>

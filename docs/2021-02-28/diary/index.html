@@ -238,10 +238,10 @@
 そのせいでマップの実装が多く複製されていた。
 この最適化を導入したことで、セルフコンパイルで生成されるCのコードが1万行ぐらい減った。</p>
 <p>注意点が一つあって、再帰的に使われている newtype は剥がせない。
-例えば次の Ty 型は newtype だが、再帰なので剥がすことはできない。</p>
+例えば次の Ty 型は newtype だが、再帰的なので剥がすことはできない。</p>
 <div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="c1">// 型は型コンストラクタと型引数のペア
 </span><span class="c1"></span>    <span class="k">type</span> <span class="nc">Ty</span> <span class="o">=</span> <span class="n">Ty</span> <span class="k">of</span> <span class="n">Tk</span> <span class="o">*</span> <span class="n">Ty</span> <span class="kt">list</span>
-</code></pre></div><p>相互再帰的の可能性もある。再帰性の判定は閉路検出 (深さ優先探索) のアルゴリズムを使った。
+</code></pre></div><p>相互再帰の可能性もある。再帰性の判定は閉路検出 (深さ優先探索) のアルゴリズムを使った。
 それぞれの型定義から出発して、再帰的にそれが含んでいる他の型を訪問していく。
 処理中の型定義に到達したら、その型は再帰的に使われている。
 到達しなかったら再帰的に使われていない (剥がせる)。</p>
@@ -285,6 +285,10 @@ LSPのデバッガ版のようなもの。</p>
               <a href="https://vain0x.github.io/blog/2021-01-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2021-01-31">&larr; 前ページ</a>
             </li>
           
+          
+            <li class="next">
+              <a href="https://vain0x.github.io/blog/2021-03-21/semicolon-syntax/" data-toggle="tooltip" data-placement="top" title="プログラミング言語の構文とセミコロン">次ページ &rarr;</a>
+            </li>
           
         </ul>
       
@@ -360,6 +364,8 @@ LSPのデバッガ版のようなもの。</p>
             &nbsp;&bull;&nbsp;
             <a href="https://vain0x.github.io/blog">ベインのブログ</a>
           
+
+          <a href="https://github.com/vain0x/blog">[GitHub repo]</a>
         </p>
         
         <p class="credits theme-by text-muted">
