@@ -8,10 +8,19 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Sat, 11 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 29 Mar 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/tags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ミローネ言語の開発用にビルドツールninjaを使っている感想など</title>
+      <link>https://vain0x.github.io/blog/2021-03-29/ninja-thoughts/</link>
+      <pubDate>Mon, 29 Mar 2021 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2021-03-29/ninja-thoughts/</guid>
+      <description>&lt;p&gt;ミローネ言語の開発にビルドツールninjaを使いはじめて、それなりに時間がたったので、雑感を記事に書いておく。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>ミローネ言語コンパイラ・HSP3開発ツール群の振り返りと今後の構想</title>
@@ -20,6 +29,15 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2020-01-11/after-milone-and-ginger/</guid>
       <description>&lt;p&gt;2019年、ミローネ言語コンパイラや HSP3 GINGER (HSP3 言語の LSP やデバッガなど) を開発した経験に基づく、今後の展開の構想について。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>インテリセンス快適な構文とAPI</title>
+      <link>https://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/</link>
+      <pubDate>Sat, 13 Jan 2018 23:08:23 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/</guid>
+      <description>&lt;p&gt;インテリセンスの快適さと言語の構文に関するエッセイ。&lt;/p&gt;</description>
     </item>
     
   </channel>
