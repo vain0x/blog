@@ -2,7 +2,7 @@
 title: インテリセンス快適な構文とAPI
 tags:
   - プログラミング言語
-  - Essay
+  - エッセイ
 type: "post"
 date: 2018-01-13 23:08:23
 url: 2018-01-13/intellisense-comfortable
