@@ -144,6 +144,50 @@
           
           
             <article class="post-preview">
+              <a href="https://vain0x.github.io/blog/2021-03-29/ninja-thoughts/">
+                <h2 class="post-title">ミローネ言語の開発用にビルドツールninjaを使っている感想など</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2021年3月29日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  ミローネ言語の開発にビルドツールninjaを使いはじめて、それなりに時間がたったので、雑感を記事に書いておく。
+モチベーション ミローネ言語 (自作言語) の開発では複数のプログラミング言語を使うので、ビルドやテストの作業が複雑になっている。 dotnetコマンド1つでは完了しない。 特に100個ぐらいあるテストプロジェクトのそれぞれでCコンパイラを起動するのは時間がかかるので、ビルドツールを使って差分更新したくなった。
+make vs. ninja 代表的なビルドツールは GNU make だが、ミローネ言語では ninja というビルドツールを使った。(※後で別のものに変えるかも)
+ ninja-build/ninja: a small build system with a focus on speed: GitHubリポジトリ、バイナリの配布元  ninjaを選んだ最大の理由は設計思想が興味深かったから。ninjaの最初の作者による振り返り記事とマニュアルを参照:
+ Tech Notes: The Success and Failure of Ninja (2020-05-12, ninja原作者による振り返り) The Ninja build system: マニュアル  マニュアルの Philosophical overview の部分にあるようにninjaはビルドツール界の「アセンブラ」を指向しているらしい。 つまり、機能を最小限にすることで性能を保つこと、ユーザーが直接ninjaを使うのではなく他のツールがninjaをバックエンドとして使うこと。
+例えばninjaでは複数のファイルを *.ext のような形でまとめて指定する機能がない。 複数のファイルを参照するにはファイル名を列挙する必要がある。 当然ながら手動で列挙するのは厳しいので、ninjaに渡すビルドスクリプト (build.ninja) を何らかの方法で生成することになる。 ビルド手順を「build.ninja を生成する → ninjaを実行する」という2段階に分けることで、ninja自身の複雑化・低速化を防ぐ、という感じらしい。
+また、makeよりよい点として、コマンド自体が依存関係に含まれていることがある。(これだけでは弱いかもしれないが。) 例えばmakeでは、ビルドを実行した後、ビルドコマンド自体を書き換えて再ビルドしても「更新済み」といわれてしまう。(make -B すればいいが。) ninjaはビルドの依存関係にコマンドを含めているので、このケースでも再ビルドが起こる。 この挙動はビルドスクリプトを試行錯誤しているときに便利だった。
+ビルドスクリプトの生成 ninjaをバックエンドとして使うツールはいくつかあるが、目的のユースケースに合致するものが見当たらなかった。 ミローネ言語では F# で書いた小さいツールを使って build.
+                  <a href="https://vain0x.github.io/blog/2021-03-29/ninja-thoughts/" class="post-read-more">[続きを読む]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="https://vain0x.github.io/blog/tags/%E9%9B%91%E6%84%9F/">雑感</a>&nbsp;
+                  
+                </div>
+              
+            </article>
+          
+            <article class="post-preview">
               <a href="https://vain0x.github.io/blog/2021-03-21/semicolon-syntax/">
                 <h2 class="post-title">プログラミング言語の構文とセミコロン</h2>
                 
@@ -485,45 +529,6 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
                     <a href="https://vain0x.github.io/blog/tags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/">言語設計</a>&nbsp;
                   
                     <a href="https://vain0x.github.io/blog/tags/c%E8%A8%80%E8%AA%9E/">C言語</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://vain0x.github.io/blog/2020-09-18/react-as-first-class-ui/">
-                <h2 class="post-title">ReactのよさはUIが第一級なこと</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2020年9月18日に投稿
-  
-  
-  
-  
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  <p>……という気がする。UI に関して何かやりたいときに必ずしも React の機能に頼らなくても、TypeScript の言語機能で書けて、そのまま型がつく、ということが多い。</p>
-                  <a href="https://vain0x.github.io/blog/2020-09-18/react-as-first-class-ui/" class="post-read-more">[続きを読む]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://vain0x.github.io/blog/tags/typescript/">TypeScript</a>&nbsp;
-                  
-                    <a href="https://vain0x.github.io/blog/tags/react/">React</a>&nbsp;
                   
                 </div>
               
