@@ -63,7 +63,7 @@
   "headline": "関数型プログラミング言語の構文は「すべてが式」ではない",
   "description" : "関数型プログラミング言語の構文は「すべてが式」であるという標語がしばしばみられるが、これはいいすぎ。\n",
   "inLanguage" : "ja",
-  "wordCount":  181 ,
+  "wordCount":  183 ,
   "datePublished" : "2021-03-30T00:00:00",
   "dateModified" : "2021-03-30T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -213,7 +213,7 @@
 <li>「C系の言語では伝統的に文である構文が、関数型言語ではたいてい式である」ということをいいたいのだろうし、それは事実にあっている</li>
 </ul>
 <h2 id="heading-1">例に使う言語</h2>
-<p>普段なら例として (筆者が慣れている) F# をあげるところだが、F# は出自的に C# の影響を非常に強く受けているので「伝統的な関数型言語」の例としては受け入れらえないかもしれない。
+<p>普段なら例として (筆者が慣れている) F# をあげるところだが、F# は出自的に C# の影響を非常に強く受けているので「伝統的な関数型言語」の例としては受け入れられないかもしれない。
 本稿では「伝統的な関数型言語」と思われるOCamlとHaskellを例にとる。
 (そもそも「関数型言語」が何かも曖昧だけど。)</p>
 <h2 id="heading-2">トップレベル構文は式でない</h2>
@@ -271,8 +271,8 @@
 <div class="highlight"><pre class="chroma"><code class="language-ocaml" data-lang="ocaml">    <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">3</span> <span class="k">in</span>
     <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">4</span> <span class="k">in</span>
     <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="o">;;</span>         <span class="c">(*</span><span class="c"> =&gt; 144 </span><span class="c">*)</span>
-</code></pre></div><p>余談: ある構文要素が式か文かは、カッコで囲めるか考えると分かりやすいかもしれない。
-たいていの言語では式をカッコで囲めるが、式ではないものは囲めないため。</p>
+</code></pre></div><p>余談: ある構文要素が式であるか、文や宣言であるかの判断は、それをカッコで囲めるか考えると分かりやすいかもしれない。
+たいていの言語では式をカッコで囲めるが、文や宣言は囲めないため。</p>
 <div class="highlight"><pre class="chroma"><code class="language-ocaml" data-lang="ocaml">    <span class="o">(</span><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">3</span> <span class="k">in</span> <span class="n">x</span><span class="o">)</span><span class="o">;;</span>   <span class="c">(*</span><span class="c"> OK </span><span class="c">*)</span>
     <span class="o">(</span><span class="k">type</span> <span class="n">a</span> <span class="o">=</span> <span class="nc">A</span><span class="o">)</span><span class="o">;;</span>       <span class="c">(*</span><span class="c"> NG </span><span class="c">*)</span>
 </code></pre></div><h2 id="heading-5">関数の本体は式</h2>
@@ -280,6 +280,8 @@
 構文的に関数の本体は1個の式と定義されている。
 (OCamlではexpr、Haskellではexp。)</p>
 <p>そういうわけで、関数の外側や細かい部分に目を瞑れば「すべてが式」といえた……?</p>
+<h2 id="heading-6">次回予告?</h2>
+<p>(ほんとうは「継続を考えると文がない言語でもジャンプ命令は自然に解釈できる」という話につなげたかったけど、到達しなかったので、別の記事を書きたい。)</p>
 
         
           <div class="blog-tags">
@@ -313,6 +315,10 @@
               <a href="https://vain0x.github.io/blog/2021-03-29/ninja-thoughts/" data-toggle="tooltip" data-placement="top" title="ミローネ言語の開発用にビルドツールninjaを使っている感想など">&larr; 前ページ</a>
             </li>
           
+          
+            <li class="next">
+              <a href="https://vain0x.github.io/blog/2021-03-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2021-03-31">次ページ &rarr;</a>
+            </li>
           
         </ul>
       
