@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>判別共用体が共通フィールドを持てたら嬉しい - ベインのブログ</title>
+  <meta property="og:title" content="判別共用体が共通フィールドを持てたら嬉しい" />
+  <meta name="twitter:title" content="判別共用体が共通フィールドを持てたら嬉しい" />
+  <meta name="description" content="判別共用体のすべてのバリアントに同じデータを持たせたいことがあるが、F# だとめんどい。
+TypeScriptだと楽にできて嬉しい。
+判別共用体はすでに共通フィールドを持っているので、追加で持たせるのは問題ないはず。
+おそらく構文上の課題がある。
+何にせよ実用的なので、もっと実装されてほしい。">
+  <meta property="og:description" content="判別共用体のすべてのバリアントに同じデータを持たせたいことがあるが、F# だとめんどい。
+TypeScriptだと楽にできて嬉しい。
+判別共用体はすでに共通フィールドを持っているので、追加で持たせるのは問題ないはず。
+おそらく構文上の課題がある。
+何にせよ実用的なので、もっと実装されてほしい。">
+  <meta name="twitter:description" content="判別共用体のすべてのバリアントに同じデータを持たせたいことがあるが、F# だとめんどい。
+TypeScriptだと楽にできて嬉しい。
+判別共用体はすでに共通フィールドを持っているので、追加で持たせるのは問題ないはず。
+おそらく構文上の課題がある。
+何にせよ実用的なので、もっと実装されてほしい。">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2021-04-24\/shared-fields-in-discriminated-unions\/",
+          "name": "判別共用体が共通フィールドを持てたら嬉しい"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "ベイン"
+  },
+  "headline": "判別共用体が共通フィールドを持てたら嬉しい",
+  "description" : "判別共用体のすべてのバリアントに同じデータを持たせたいことがあるが、F# だとめんどい。 TypeScriptだと楽にできて嬉しい。 判別共用体はすでに共通フィールドを持っているので、追加で持たせるのは問題ないはず。 おそらく構文上の課題がある。 何にせよ実用的なので、もっと実装されてほしい。\n",
+  "inLanguage" : "ja",
+  "wordCount":  269 ,
+  "datePublished" : "2021-04-24T00:00:00",
+  "dateModified" : "2021-04-24T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "エッセイ, 言語設計, FSharp, TypeScript" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2021-04-24\/shared-fields-in-discriminated-unions\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="判別共用体が共通フィールドを持てたら嬉しい" />
+<meta property="og:description" content="判別共用体のすべてのバリアントに同じデータを持たせたいことがあるが、F# だとめんどい。
+TypeScriptだと楽にできて嬉しい。
+判別共用体はすでに共通フィールドを持っているので、追加で持たせるのは問題ないはず。
+おそらく構文上の課題がある。
+何にせよ実用的なので、もっと実装されてほしい。">
+<meta property="og:url" content="https://vain0x.github.io/blog/2021-04-24/shared-fields-in-discriminated-unions/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="判別共用体が共通フィールドを持てたら嬉しい" />
+  <meta name="twitter:description" content="判別共用体のすべてのバリアントに同じデータを持たせたいことがあるが、F# だとめんどい。
+TypeScriptだと楽にできて嬉しい。
+判別共用体はすでに共通フィールドを持っているので、追加で持たせるのは問題ないはず。
+おそらく構文上の課題がある。
+何にせよ実用的なので、もっと実装されてほしい。">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/2021-04-24/shared-fields-in-discriminated-unions/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="generator" content="Hugo 0.62.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" />
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom top-nav-short">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
+    </div>
+
+    <div id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="GitHub" href="https://github.com/vain0x">GitHub</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="競プロ参戦記" href="https://qiita.com/search?q=%E7%AB%B6%E3%83%97%E3%83%AD%E5%8F%82%E6%88%A6%E8%A8%98&#43;user%3Avain0x&amp;sort=created">競プロ参戦記</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT" href="https://vain0x.github.io">ABOUT</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    <main>
+      
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>判別共用体が共通フィールドを持てたら嬉しい</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2021年4月24日に投稿
+  
+  
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+      
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>判別共用体のすべてのバリアントに同じデータを持たせたいことがあるが、F# だとめんどい。
+TypeScriptだと楽にできて嬉しい。
+判別共用体はすでに共通フィールドを持っているので、追加で持たせるのは問題ないはず。
+おそらく構文上の課題がある。
+何にせよ実用的なので、もっと実装されてほしい。</p>
+<h2 id="heading">共通フィールドの例</h2>
+<p>よくあるのが構文木のフィールドに位置情報をもたせること。
+エラーが起こった場所を報告するときに使う。</p>
+<p>TypeScriptだと簡単にできて、次のように書く。</p>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="cm">/** ソースファイルの位置情報 */</span>
+<span class="nx">type</span> <span class="nx">Location</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">file</span>: <span class="kt">string</span>
+    <span class="nx">row</span>: <span class="kt">number</span>
+    <span class="nx">column</span>: <span class="kt">number</span>
+<span class="p">}</span>
+
+<span class="cm">/** 式を表す構文木のノード */</span>
+<span class="nx">type</span> <span class="nx">Expr</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">location</span>: <span class="kt">Location</span>
+<span class="p">}</span> <span class="o">&amp;</span> <span class="p">(</span><span class="p">{</span>
+    <span class="nx">kind</span><span class="o">:</span> <span class="s2">&#34;number&#34;</span>
+    <span class="nx">value</span>: <span class="kt">number</span>
+<span class="p">}</span> <span class="o">|</span> <span class="p">{</span>
+    <span class="nx">kind</span><span class="o">:</span> <span class="s2">&#34;add&#34;</span>
+    <span class="nx">left</span>: <span class="kt">Expr</span>
+    <span class="nx">right</span>: <span class="kt">Expr</span>
+<span class="p">}</span><span class="p">)</span>
+</code></pre></div><p>F# だと「すべてのバリアントに持たせる」か「タプルで外側に持つ」かのどちらかを選ぶことになる。
+「すべてのバリアントに持たせる」には次のように書く。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Location</span> <span class="o">=</span>
+  <span class="o">{</span> <span class="n">File</span><span class="o">:</span> <span class="kt">string</span>
+    <span class="n">Row</span><span class="o">:</span> <span class="n">int</span>
+    <span class="n">Column</span><span class="o">:</span> <span class="n">int</span> <span class="o">}</span>
+
+<span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="n">NumberExpr</span> <span class="k">of</span> <span class="n">int</span> <span class="o">*</span> <span class="n">Location</span>
+  <span class="o">|</span> <span class="n">AddExpr</span> <span class="k">of</span> <span class="n">Expr</span> <span class="o">*</span> <span class="n">Expr</span> <span class="o">*</span> <span class="n">Location</span>
+</code></pre></div><p><code>Expr</code> 型の値から位置情報を取るには、こういう補助関数を使う。
+(メタプログラミングやコードアクションで自動化できる可能性はある。)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">exprToLocation</span> <span class="o">(</span><span class="n">expr</span><span class="o">:</span> <span class="n">Expr</span><span class="o">)</span><span class="o">:</span> <span class="n">Location</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">expr</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="n">NumberExpr</span> <span class="o">(</span><span class="o">_</span><span class="o">,</span> <span class="n">location</span><span class="o">)</span>
+  <span class="o">|</span> <span class="n">AddExpr</span> <span class="o">(</span><span class="o">_</span><span class="o">,</span> <span class="o">_</span><span class="o">,</span> <span class="n">location</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">location</span>
+</code></pre></div><p>「タプルで外側に持つ」ときは次のように書く。
+位置情報なしの <code>ExprT</code> と位置情報付きの <code>Expr</code> という2つの型がある。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Location</span> <span class="o">=</span> <span class="c">(*</span><span class="c"> 略 </span><span class="c">*)</span>
+
+<span class="k">type</span> <span class="nc">ExprT</span> <span class="o">=</span> <span class="c1">// Exprではない
+</span><span class="c1"></span>  <span class="o">|</span> <span class="n">NumberExpr</span> <span class="k">of</span> <span class="n">int</span>
+  <span class="o">|</span> <span class="n">AddExpr</span> <span class="k">of</span> <span class="n">Expr</span> <span class="o">*</span> <span class="n">Expr</span>  <span class="c1">// 部分式はExpr
+</span><span class="c1"></span>
+<span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span> <span class="n">ExprT</span> <span class="o">*</span> <span class="n">Location</span>
+</code></pre></div><p>位置情報を取るのが簡単にできて嬉しい。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">exprToLocation</span> <span class="o">(</span><span class="o">_</span><span class="o">,</span> <span class="n">location</span><span class="o">)</span> <span class="o">=</span> <span class="n">location</span>
+</code></pre></div><p>こっちのほうがいいようにみえるが、<code>Expr</code> の値を構築するときにごちゃごちゃする。
+感覚的な話だから説明はできないけど。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="n">AddExpr</span> <span class="o">(</span><span class="o">(</span><span class="n">NumberExpr</span> <span class="n">l</span><span class="o">,</span> <span class="n">lLoc</span><span class="o">)</span><span class="o">,</span> <span class="o">(</span><span class="n">NumberExpr</span> <span class="n">r</span><span class="o">,</span> <span class="n">rLoc</span><span class="o">)</span><span class="o">)</span><span class="o">,</span> <span class="n">addLoc</span>
+</code></pre></div><h2 id="discriminant">判別共用体のdiscriminantはすでに共通フィールド</h2>
+<p>判別共用体の値の実行時の表現を考える。
+判別共用体はすでに「共通のフィールド」として、その値が「どのバリアント」かを示す値 (discriminant) を持っている、ということがよくある。
+判別共用体に追加の共通フィールドを持たせる場合、それと同じように実現できると思う。</p>
+<p>例えばメモリレイアウトの一例をC言語で書くとこんな感じ。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">NumberExpr</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">Location</span> <span class="n">location</span><span class="p">;</span>
+<span class="p">}</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">AddExpr</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">Expr</span> <span class="o">*</span><span class="n">left</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">Expr</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">Location</span> <span class="n">location</span><span class="p">;</span>
+<span class="p">}</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">Expr</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">discriminant</span><span class="p">;</span>
+
+    <span class="k">union</span> <span class="p">{</span>
+        <span class="k">struct</span> <span class="n">NumberExpr</span> <span class="n">number</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">AddExpr</span> <span class="n">add</span><span class="p">;</span>
+    <span class="p">}</span><span class="p">;</span>
+<span class="p">}</span><span class="p">;</span>
+</code></pre></div><p><code>struct Expr</code> のフィールドとして共通フィールドを足せばいい。</p>
+<h2 id="heading-1">共通フィールドの具象構文</h2>
+<p>型の宣言時に共通フィールドをどう書くか、という具象構文の問題がある。
+TypeScriptでは交差型 (<code>&amp;</code>) を使っているが、オブジェクトの交差型を備える言語は多くない。</p>
+<p>機能的には判別共用体とレコードの交差なので、レコードの宣言時の構文と類似性を持っていてほしい。
+また、共通フィールドもバリアントの中身の一部なので、そのように感じられる構文であってほしい。
+例えば F# だとこんな感じ？</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span>
+  <span class="o">{</span> <span class="n">Location</span><span class="o">:</span> <span class="n">Location</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="n">NumberExpr</span> <span class="k">of</span> <span class="n">int</span>
+  <span class="o">|</span> <span class="n">AddExpr</span> <span class="k">of</span> <span class="n">Expr</span> <span class="o">*</span> <span class="n">Expr</span>
+</code></pre></div><p>バリアントの構築時は、共通フィールドとバリアント固有のフィールドを混ぜて書けるほうが嬉しい。
+例えば F# だとこんな感じで、オブジェクトをインスタンス化するときのロパティ初期化子の構文を真似るとよさそう。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="n">NumberExpr</span><span class="o">(</span><span class="n">n</span><span class="o">,</span> <span class="n">Location</span> <span class="o">=</span> <span class="n">loc</span><span class="o">)</span>
+</code></pre></div><p>分解時も同様。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">match</span> <span class="n">expr</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="n">NumberExpr</span> <span class="o">(</span><span class="n">n</span><span class="o">,</span> <span class="n">Location</span> <span class="o">=</span> <span class="n">loc</span><span class="o">)</span> <span class="o">-&gt;</span>
+        <span class="n">n</span><span class="o">,</span> <span class="n">loc</span>
+</code></pre></div><p>また、レコードと同様にドット記法でもアクセスできるはず。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">exprToLocation</span> <span class="o">(</span><span class="n">expr</span><span class="o">:</span> <span class="n">Expr</span><span class="o">)</span><span class="o">:</span> <span class="n">Location</span> <span class="o">=</span>
+    <span class="n">expr</span><span class="o">.</span><span class="n">Location</span>
+</code></pre></div><h2 id="heading-2">共通フィールドを持つ判別共用体の型つけ</h2>
+<p>構文をいじった場合、型システムも変更が必要かもしれない。
+F# は判別共用体がnominalで、列多相的なもの (SRTP) も元から自由ではないので、問題なさそう。
+「共有フィールドつきの多相バリアント」とかの型推論は諦めたほうがよさそう。</p>
+<h2 id="heading-3">結論</h2>
+<p>共通フィールドの利用頻度のわりには言語の拡張の量が多い。
+TypeScriptのように、交差型の副産物ぐらいの立ち位置で妥当かもしれない。</p>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">エッセイ</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/">言語設計</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/fsharp/">FSharp</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/typescript/">TypeScript</a>&nbsp;
+            
+          </div>
+        
+
+        
+          
+          
+          <h4 class="see-also">関連記事</h4>
+          <ul>
+          
+            <li><a href="/blog/2021-03-30/nonexpression-syntax-in-functional-programming-language/">関数型プログラミング言語の構文は「すべてが式」ではない</a></li>
+          
+            <li><a href="/blog/2021-03-29/ninja-thoughts/">ミローネ言語の開発用にビルドツールninjaを使っている感想など</a></li>
+          
+            <li><a href="/blog/2021-03-21/semicolon-syntax/">プログラミング言語の構文とセミコロン</a></li>
+          
+          </ul>
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://vain0x.github.io/blog/2021-03-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2021-03-31">&larr; 前ページ</a>
+            </li>
+          
+          
+        </ul>
+      
+
+      <section id="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="vain0x/blog"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2016 - 2021
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+
+          <a href="https://github.com/vain0x/blog">[GitHub repo]</a>
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </main>
+  </body>
+</html>
+

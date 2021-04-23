@@ -8,10 +8,23 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Wed, 31 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 24 Apr 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>判別共用体が共通フィールドを持てたら嬉しい</title>
+      <link>https://vain0x.github.io/blog/2021-04-24/shared-fields-in-discriminated-unions/</link>
+      <pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2021-04-24/shared-fields-in-discriminated-unions/</guid>
+      <description>&lt;p&gt;判別共用体のすべてのバリアントに同じデータを持たせたいことがあるが、F# だとめんどい。
+TypeScriptだと楽にできて嬉しい。
+判別共用体はすでに共通フィールドを持っているので、追加で持たせるのは問題ないはず。
+おそらく構文上の課題がある。
+何にせよ実用的なので、もっと実装されてほしい。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>近況 2021-03-31</title>
