@@ -8,10 +8,37 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Fri, 30 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 31 May 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>React</title>
+      <link>https://vain0x.github.io/blog/tags/react/</link>
+      <pubDate>Mon, 31 May 2021 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TypeScript</title>
+      <link>https://vain0x.github.io/blog/tags/typescript/</link>
+      <pubDate>Mon, 31 May 2021 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/tags/typescript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>エッセイ</title>
+      <link>https://vain0x.github.io/blog/tags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/</link>
+      <pubDate>Mon, 31 May 2021 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/tags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>日記</title>
@@ -28,24 +55,6 @@
       <pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/tags/fsharp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>TypeScript</title>
-      <link>https://vain0x.github.io/blog/tags/typescript/</link>
-      <pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate>
-      <author>vainzerox@gmail.com (ベイン)</author>
-      <guid>https://vain0x.github.io/blog/tags/typescript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>エッセイ</title>
-      <link>https://vain0x.github.io/blog/tags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/</link>
-      <pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate>
-      <author>vainzerox@gmail.com (ベイン)</author>
-      <guid>https://vain0x.github.io/blog/tags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/</guid>
       <description></description>
     </item>
     
@@ -73,15 +82,6 @@
       <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/tags/c%E8%A8%80%E8%AA%9E/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>React</title>
-      <link>https://vain0x.github.io/blog/tags/react/</link>
-      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
-      <author>vainzerox@gmail.com (ベイン)</author>
-      <guid>https://vain0x.github.io/blog/tags/react/</guid>
       <description></description>
     </item>
     
