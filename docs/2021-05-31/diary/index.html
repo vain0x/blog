@@ -7,9 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>近況 2021-04-30 - ベインのブログ</title>
-  <meta property="og:title" content="近況 2021-04-30" />
-  <meta name="twitter:title" content="近況 2021-04-30" />
+  <title>近況 2021-05-31 - ベインのブログ</title>
+  <meta property="og:title" content="近況 2021-05-31" />
+  <meta name="twitter:title" content="近況 2021-05-31" />
   <meta name="description" content="今月の活動 (HSP3アナライザーミニなど)">
   <meta property="og:description" content="今月の活動 (HSP3アナライザーミニなど)">
   <meta name="twitter:description" content="今月の活動 (HSP3アナライザーミニなど)">
@@ -48,8 +48,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/vain0x.github.io\/blog\/2021-04-30\/diary\/",
-          "name": "近況 2021 04 30"
+          "@id": "https:\/\/vain0x.github.io\/blog\/2021-05-31\/diary\/",
+          "name": "近況 2021 05 31"
         }
     }]
 }
@@ -60,15 +60,15 @@
   "author": {
     "name" : "ベイン"
   },
-  "headline": "近況 2021-04-30",
+  "headline": "近況 2021-05-31",
   "description" : "今月の活動 (HSP3アナライザーミニなど)\n",
   "inLanguage" : "ja",
-  "wordCount":  87 ,
-  "datePublished" : "2021-04-30T00:00:00",
-  "dateModified" : "2021-04-30T00:00:00",
+  "wordCount":  54 ,
+  "datePublished" : "2021-05-31T00:00:00",
+  "dateModified" : "2021-05-31T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
   "keywords" : [ "日記" ],
-  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2021-04-30\/diary\/",
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2021-05-31\/diary\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/vain0x.github.io\/blog",
@@ -82,13 +82,13 @@
 }
 </script>
 
-<meta property="og:title" content="近況 2021-04-30" />
+<meta property="og:title" content="近況 2021-05-31" />
 <meta property="og:description" content="今月の活動 (HSP3アナライザーミニなど)">
-<meta property="og:url" content="https://vain0x.github.io/blog/2021-04-30/diary/" />
+<meta property="og:url" content="https://vain0x.github.io/blog/2021-05-31/diary/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="twitter:title" content="近況 2021-04-30" />
+  <meta name="twitter:title" content="近況 2021-05-31" />
   <meta name="twitter:description" content="今月の活動 (HSP3アナライザーミニなど)">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
@@ -97,7 +97,7 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
-  <meta property="og:url" content="https://vain0x.github.io/blog/2021-04-30/diary/" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/2021-05-31/diary/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
@@ -172,7 +172,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>近況 2021-04-30</h1>
+                <h1>近況 2021-05-31</h1>
               
               
               
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年4月30日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;2021年5月31日に投稿
   
   
   
@@ -207,60 +207,56 @@
       <article role="main" class="blog-post">
         <p>今月の活動 (HSP3アナライザーミニなど)</p>
 <ul>
-<li>前回 (2021-03-31) <a href="https://vain0x.github.io/blog/2021-03-31/diary/">https://vain0x.github.io/blog/2021-03-31/diary/</a></li>
+<li>前回 (2021-04-30) <a href="https://vain0x.github.io/blog/2021-04-30/diary/">https://vain0x.github.io/blog/2021-04-30/diary/</a></li>
 </ul>
 <h2 id="heading">ミローネ言語</h2>
 <p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
-<p>コンパイラを複数のプロジェクトに分けた。依存関係は以下の通り:</p>
-<pre><code>syntax -&gt; shared
-translation -&gt; shared
-
-cli -&gt; syntax
-cli -&gt; translation
-</code></pre><ul>
-<li>shared: 共通部分。リスト操作とか</li>
-<li>syntax: 構文解析から型検査まで</li>
-<li>translation: クロージャ変換からCコードの生成まで</li>
-<li>cli: CLIの本体。syntaxの出力をtranslationの入力に変換する役目もある</li>
-</ul>
-<p>syntaxとtranslationが互いに依存しないので、コンパイル時間を減らせる……はず。思ったより効果を感じてない。</p>
-<p>検査と変換における中間表現の型を分ける意図もあった。型検査まではプログラムが壊れていることも考慮しながら処理する必要があるが、変換ではそうでないから。</p>
+<p>気軽にビルドしたり実行したりするためのサブコマンドを用意しようとしている。コマンドラインの解析とかCでファイルシステムを触るのとかがめんどくさくて、あまり進んでない。</p>
 <h2 id="hsp3">HSP3アナライザーミニ</h2>
-<p><a href="https://github.com/vain0x/hsp3-ginger/tree/2fc92cc570/hsp3-analyzer-mini">https://github.com/vain0x/hsp3-ginger/tree/2fc92cc570/hsp3-analyzer-mini</a></p>
+<p><a href="https://github.com/vain0x/hsp3-ginger/tree/0ec7c6c/hsp3-analyzer-mini">https://github.com/vain0x/hsp3-ginger/tree/0ec7c6c/hsp3-analyzer-mini</a></p>
+<p>いくつか機能を足した。</p>
+<h3 id="formatting">formatting</h3>
 <ul>
-<li>最初のバージョンはパースが雑なので、複数行文字列の付近が処理できないなどの課題があった</li>
-<li>その後、再帰下降のパーサを作ったが、それを解析に使うところまでは作ってなくて、放置してしまっていた</li>
-<li>また、(別のプロジェクトだけど) シグネチャヘルプの実装とかも作ったのにリリースできてなかった</li>
-<li>書いたものはリリースしたいので、ちまちま進めてる</li>
-<li>いまのところスコープの解析 (定義・使用箇所の検出) がおおよそ動くようになってきた</li>
-<li>あと、静的解析を作って遊びたい</li>
-<li>試しに <code>repeat</code>-<code>loop</code> の間に <code>return</code> があったら警告するリント (<a href="https://github.com/vain0x/hsp3-ginger/blob/2fc92cc5702afca45632f057399c146b0900e598/hsp3-analyzer-mini/ham-core/src/analysis/syntax_linter.rs">syntax_linter.rs</a>) を書いた</li>
+<li><a href="https://github.com/vain0x/hsp3-ginger/blob/0ec7c6c3aac5d5345fe896c1941ac92002d44b8c/hsp3-analyzer-mini/ham-core/src/assists/formatting.rs">formatting.rs</a></li>
 </ul>
-<h2 id="heading-1">双方向テンプレートエンジンの試作</h2>
-<p><a href="https://github.com/vain0x/bitemp">vain0x/bitemp: Experiment of bidirectional template engine for fearless duplication</a></p>
+<p>空白や字下げのフォーマッティングを実装した。</p>
+<p>HSPは文の途中で改行できないので、逆にフォーマッティングの実装で悩まなくて済んだ。</p>
+<h3 id="code-action">code action</h3>
 <ul>
-<li>コードが同じことの繰り返しで、ひどく冗長になることがある</li>
-<li>関数や型などの抽象を導入して解決できることもあるが、できないこともある</li>
-<li>(コードの「見た目の同じ」だからといって「意味的に同じ」とは限らないので、表層的なDRY原則の適用はうまくいかないことがある、という話をしばしば目にする)</li>
-<li>見た目の同じようなコードの繰り返しを一括で変更することはしばしばあり、その変更作業はめんどくさい</li>
-<li>そういうときのために、複製されたコードを一括で変更できるようなツールがあると便利かもしれない、と思った</li>
-<li>以前、テンプレートエンジンを使って「共通部分」(テンプレート)と「違う部分」(パラメータ)から必要なコードを生成するような仕組みを試したことがある</li>
-<li>結局、テンプレートが複雑になって、いまいちだった</li>
-<li>コードが自動生成物になると、それを直接編集できず、代わりにテンプレートやパラメータをいじって目的のコードが出るようにする、という間接作業が発生するのがよくない</li>
-<li>コードを編集した結果から逆算してテンプレートを更新してほしい、という感じがあった</li>
-<li>そういうわけで試しに作ってみたが、逆算の仕組みが単純すぎて、いまのところ使える代物ではなさそう</li>
+<li><a href="https://github.com/vain0x/hsp3-ginger/blob/0ec7c6c3aac5d5345fe896c1941ac92002d44b8c/hsp3-analyzer-mini/ham-core/src/assists/rewrites/flip_comma.rs">flip_comma.rs</a></li>
 </ul>
-<p>余談:</p>
+<p>コードアクション (コードを自動で変更する機能) の例として、rust-analyzerにあって地味に便利な、カンマの両側を交換するアクションを書いた。</p>
+<p>構文木が異型な (ノードごとに異なる型になっている) ので、代わりにビジターを使ったりトークン列を触ったりしていて、実装がぎこちない。(<a href="https://github.com/rust-analyzer/rust-analyzer/blob/1f1a1ce4f57076be38d18f0a6defddb9c690bb1c/crates/ide_assists/src/handlers/flip_comma.rs#L21-L45">rust-analyzerでのflip_commaの実装は24行。</a>)</p>
+<h3 id="diagnostics">diagnostics</h3>
+<p>エラー報告の機能の例として、変数を受け取るパラメータに明らかに変数ではないものを渡している部分をエラーにする機能を実装した。</p>
 <ul>
-<li>SASS/SCSSなどの「alt-CSS」も、ブラウザ上で実際の表示を見ながら調整した結果をファイルに書き戻す手間があった。(CSSはできる。ブラウザ拡張で対処可能なものかもしれないけど。)</li>
+<li><a href="https://github.com/vain0x/hsp3-ginger/blob/0ec7c6c3aac5d5345fe896c1941ac92002d44b8c/hsp3-analyzer-mini/ham-core/src/analysis/sema.rs">sema.rs</a></li>
 </ul>
-<h2 id="simple-sub-fs-">simple-sub-fs の作りかけ</h2>
-<p><a href="https://github.com/vain0x/simple-sub-fs">vain0x/simple-sub-fs: simple-sub re-written in F#</a></p>
+<p>エラーを報告する機能は、解析に誤りがあると偽陽性 (ほんとうは正しいのにエラーになってしまう) が発生してめんどくさい。
+そしてhamは仕組み上、必ずしも正しくスクリプトを解析できない。</p>
 <ul>
-<li>部分型つけ (subtyping) を含む型推論の手法の1つとして ML sub というのがある</li>
-<li>それを簡潔にしたという <code>simple-sub</code> のペーパーがあって、それを読んだり実装をポートしながら理解を深めようとしていたが、途中で止まっている</li>
-<li>この手法で破綻しない理由を追いきれてない</li>
+<li>誤った解析になる原因の1つは、コンパイルの起点 (エントリーポイント) が分からないこと。<code>#include</code> 経由で読み込まれる前提のスクリプトファイルは単独では正常に動作しない。どこでincludeされたかによって意味が変わる。</li>
+<li>2つ目の理由はdefineによるマクロ。マクロの挙動の再実装は難しいので、いまのところマクロの展開は全く行われない。</li>
+<li>3つ目の理由はコンパイル時の条件分岐 (<code>#if</code>)。ファイルがどこでincludeされたかに依存するので処理できてない。</li>
 </ul>
+<p>そういうわけで、エラーを報告する機能はエントリーポイントを指定したときだけ有効にする。いまは <code>ginger.txt</code> という名前のファイルにエントリーポイントとなるファイル名を書くと有効化される。プロジェクトファイルのようなものだけど、スクリプトファイル単体で動作するのがHSPのよさの1つなので、この仕様はよくないと思ってる。</p>
+<h3 id="heading-1">ウォッチ</h3>
+<ul>
+<li><a href="https://github.com/vain0x/hsp3-ginger/blob/0ec7c6c3aac5d5345fe896c1941ac92002d44b8c/hsp3-analyzer-mini/vscode-ext/src/extension.ts">extension.ts</a></li>
+</ul>
+<p>デバッグ中にLSPサーバーを自動で再起動するようになった。デバッグ用のVSCodeを開閉しなくてもよくなった。LSPサーバーの実行ファイルへの変更を監視して、変更があったらLSPクライアントを停止→再起動するという仕組み。</p>
+<p>起動中の実行ファイルに書き込むことはできないから、別の位置にコピーしてから起動するようにしている。(なぜか分からないけどWindowsだと元の実行ファイルがロックされていて、このあたりがうまくいってなさそう。)</p>
+<h2 id="ginger">ginger</h2>
+<ul>
+<li><a href="https://github.com/vain0x/hsp3-ginger/blob/599c0e8e61568fe7a92525dceded659077a8da43/hsp3-ginger/bin/ginger.exe">ginger.exe</a></li>
+</ul>
+<p>出力が文字化けする問題があったので直した。</p>
+<p>標準出力のコードページが932になっていたのを、アプリ側で65001に変更することで直ったっぽい。たぶん以前のバージョンを作ったときはWindowsのUTF-8にする機能を有効にしていたから、文字化けしなかったのかもしれない。</p>
+<h2 id="knowbug">knowbug</h2>
+<p>変更があった行を強調表示する機能を足そうと思ったけど、ListViewの項目の色を行ごとに変えるにはオーナードローが必要と聞いてやめた……</p>
+<h2 id="cutil">cutil</h2>
+<p><a href="https://github.com/vain0x/cutil">https://github.com/vain0x/cutil</a></p>
+<p>Rustの標準ライブラリみたいな、spanベースの文字列とか、allocator-awareなコレクションとかがC言語にもほしいと一瞬思ったやつ。</p>
 
         
           <div class="blog-tags">
@@ -276,11 +272,11 @@ cli -&gt; translation
           <h4 class="see-also">関連記事</h4>
           <ul>
           
+            <li><a href="/blog/2021-04-30/diary/">近況 2021-04-30</a></li>
+          
             <li><a href="/blog/2021-03-31/diary/">近況 2021-03-31</a></li>
           
             <li><a href="/blog/2021-02-28/diary/">近況 2021-02-28</a></li>
-          
-            <li><a href="/blog/2021-01-31/diary/">近況 2021-01-31</a></li>
           
           </ul>
           
@@ -291,12 +287,12 @@ cli -&gt; translation
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://vain0x.github.io/blog/2021-04-24/shared-fields-in-discriminated-unions/" data-toggle="tooltip" data-placement="top" title="判別共用体が共通フィールドを持てたら嬉しい">&larr; 前ページ</a>
+              <a href="https://vain0x.github.io/blog/2021-04-30/diary/" data-toggle="tooltip" data-placement="top" title="近況 2021-04-30">&larr; 前ページ</a>
             </li>
           
           
             <li class="next">
-              <a href="https://vain0x.github.io/blog/2021-05-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2021-05-31">次ページ &rarr;</a>
+              <a href="https://vain0x.github.io/blog/2021-05-31/gui-navigation/" data-toggle="tooltip" data-placement="top" title="GUIアプリのルーティング・ページ遷移">次ページ &rarr;</a>
             </li>
           
         </ul>
