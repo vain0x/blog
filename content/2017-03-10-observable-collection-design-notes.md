@@ -9,8 +9,6 @@ tags:
   - 非同期
 ---
 
-[Qiita](http://qiita.com/vain0x/items/772d2a17c7d1cb735dd1)
-
 WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。[うまくいかない設計に基づく実装をけっこう書いてしまった](https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock) ので、その供養でもあります。
 
 <!--more-->

@@ -8,8 +8,6 @@ date: 2016-12-07 00:00:00
 url: 2016-12-07/why-git-edit
 ---
 
-[Qiita](http://qiita.com/vain0x/items/a97df4bd0f5f7de19d64)
-
 [GitEdit](https://github.com/vain0x/GitEdit) とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。
 
 ## 要約
