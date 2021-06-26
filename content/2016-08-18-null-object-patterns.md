@@ -9,8 +9,6 @@ tags:
   - CSharp
 ---
 
-[Qiita](https://qiita.com/vain0x/items/c8adb679a6c253e5261f)
-
 デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。
 
 <!--more-->

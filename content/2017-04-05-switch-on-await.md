@@ -8,8 +8,6 @@ date: 2017-04-05 15:00:00
 url: 2017-04-05/switch-on-await
 ---
 
-[Qiita](http://qiita.com/vain0x/items/945591e96b7338478cb5)
-
 awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。
 
 <!--more-->

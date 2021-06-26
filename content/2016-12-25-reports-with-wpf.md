@@ -8,7 +8,6 @@ tags:
   - WPF
   - 印刷
 ---
-[Qiita](http://qiita.com/vain0x/items/0ec44dc198433675ea2f)
 
 ※これは [XAML Advent Calendar 2016](http://qiita.com/advent-calendar/2016/xaml) の25日目の記事です。
 

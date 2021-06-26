@@ -8,8 +8,6 @@ tags:
 type: post
 ---
 
-[Qiita](http://qiita.com/vain0x/items/8f89843325ab303c6e04)
-
 IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介します。
 
 <!--more-->

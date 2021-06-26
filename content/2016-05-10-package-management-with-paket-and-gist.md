@@ -9,8 +9,6 @@ tags:
   - Paket
 ---
 
-[Qiita](http://qiita.com/vain0x/items/41f13fed6f88be7f4e7e)
-
 対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)
 
 ## 導入

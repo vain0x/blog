@@ -746,3 +746,52 @@ h4.see-also {
 #comments {
   height: 283px;
 }
+
+
+
+/*
+    カスタマイズ
+*/
+
+code, kbd, pre, samp {
+    font-family: 'JetBrains Mono', 'Source Han Code JP', monospace, monospace;
+}
+
+.blog-post blockquote {
+    color: #4d4d4d; /* 色を濃くする */
+    font-style: normal; /* イタリックにしない */
+}
+
+.blog-post h2 {
+    margin-top: 32px;
+}
+
+.highlight pre {
+    background-color: #fafaff;
+    overflow: auto !important; /* 隠れないようにする */
+}
+
+/* テキストの右端の折り返しを分かりやすくするためにボーダーをつける。 (uglyだけど) */
+@media only screen and (min-width: 767px) {
+    .blog-post::before,
+    .blog-post::after {
+        content: " ";
+
+        width: 4px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+
+        background-image: linear-gradient(to bottom, #e5e5ff, #e5e5ff 8px, transparent 2px, transparent 2px);
+        background-size: 4px 24px;
+    }
+
+    .blog-post::before {
+        left: -32px;
+    }
+
+    .blog-post::after {
+        right: -32px;
+    }
+}
