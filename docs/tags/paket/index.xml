@@ -19,8 +19,7 @@
       <pubDate>Tue, 10 May 2016 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/41f13fed6f88be7f4e7e&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)&lt;/p&gt;
+      <description>&lt;p&gt;対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)&lt;/p&gt;
 &lt;h2 id=&#34;heading&#34;&gt;導入&lt;/h2&gt;
 &lt;p&gt;モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。
 最初に思いつきそうな:&lt;/p&gt;

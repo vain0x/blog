@@ -8,10 +8,19 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Mon, 31 May 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 26 Jun 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>値とストレージの区別</title>
+      <link>https://vain0x.github.io/blog/2021-06-26/value-vs-storage/</link>
+      <pubDate>Sat, 26 Jun 2021 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2021-06-26/value-vs-storage/</guid>
+      <description>&lt;p&gt;値と値を配置する場所(ストレージ)を区別することで有名な問題を簡単に説明できることを述べる。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>GUIアプリのルーティング・ページ遷移</title>
@@ -656,8 +665,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Wed, 05 Apr 2017 15:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-04-05/switch-on-await/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/945591e96b7338478cb5&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。&lt;/p&gt;</description>
+      <description>&lt;p&gt;awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -666,8 +674,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Tue, 21 Mar 2017 13:39:33 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-21/enumerable-test/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/142b84e8ca20fbed43ed&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;http://github.com/vain0x/EnumerableTest&#34;&gt;EnumerableTest&lt;/a&gt; という .NET 向けの単体テストフレームワークを作成しました。&lt;/p&gt;
+      <description>&lt;p&gt;&lt;a href=&#34;http://github.com/vain0x/EnumerableTest&#34;&gt;EnumerableTest&lt;/a&gt; という .NET 向けの単体テストフレームワークを作成しました。&lt;/p&gt;
 &lt;p&gt;具体的な使い方は &lt;a href=&#34;https://vain0x.github.io/EnumerableTest/articles/tutorials/walk-around.html&#34;&gt;チュートリアル&lt;/a&gt; を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。&lt;/p&gt;</description>
     </item>
     
@@ -677,8 +684,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Fri, 10 Mar 2017 14:42:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/772d2a17c7d1cb735dd1&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。&lt;a href=&#34;https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock&#34;&gt;うまくいかない設計に基づく実装をけっこう書いてしまった&lt;/a&gt; ので、その供養でもあります。&lt;/p&gt;</description>
+      <description>&lt;p&gt;WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。&lt;a href=&#34;https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock&#34;&gt;うまくいかない設計に基づく実装をけっこう書いてしまった&lt;/a&gt; ので、その供養でもあります。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -707,8 +713,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Sun, 25 Dec 2016 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-12-25/reports-with-wpf/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/0ec44dc198433675ea2f&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;※これは &lt;a href=&#34;http://qiita.com/advent-calendar/2016/xaml&#34;&gt;XAML Advent Calendar 2016&lt;/a&gt; の25日目の記事です。&lt;/p&gt;
+      <description>&lt;p&gt;※これは &lt;a href=&#34;http://qiita.com/advent-calendar/2016/xaml&#34;&gt;XAML Advent Calendar 2016&lt;/a&gt; の25日目の記事です。&lt;/p&gt;
 &lt;p&gt;WPF/XAML を使って帳票のデザインから印刷までやってみたという話です。ソースコードが GitHub にありますので、それと同様にやればできます。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/vain0x/VainZero.WpfReportPrinting&#34;&gt;vain0x/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;heading&#34;&gt;要約&lt;/h2&gt;
@@ -725,8 +730,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Wed, 21 Dec 2016 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-12-21/lists-with-no-alloc-enumerator/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/8f89843325ab303c6e04&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介します。&lt;/p&gt;</description>
+      <description>&lt;p&gt;IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介します。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -735,8 +739,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Wed, 07 Dec 2016 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-12-07/why-git-edit/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/a97df4bd0f5f7de19d64&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/vain0x/GitEdit&#34;&gt;GitEdit&lt;/a&gt; とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。&lt;/p&gt;
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/vain0x/GitEdit&#34;&gt;GitEdit&lt;/a&gt; とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。&lt;/p&gt;
 &lt;h2 id=&#34;heading&#34;&gt;要約&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;vi を覚えるのはめんどくさい。&lt;/li&gt;
@@ -752,8 +755,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Thu, 18 Aug 2016 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-08-18/null-object-patterns/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://qiita.com/vain0x/items/c8adb679a6c253e5261f&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。&lt;/p&gt;</description>
+      <description>&lt;p&gt;デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -762,8 +764,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Tue, 10 May 2016 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/41f13fed6f88be7f4e7e&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)&lt;/p&gt;
+      <description>&lt;p&gt;対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)&lt;/p&gt;
 &lt;h2 id=&#34;heading&#34;&gt;導入&lt;/h2&gt;
 &lt;p&gt;モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。
 最初に思いつきそうな:&lt;/p&gt;

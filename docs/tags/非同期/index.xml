@@ -28,8 +28,7 @@
       <pubDate>Wed, 05 Apr 2017 15:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-04-05/switch-on-await/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/945591e96b7338478cb5&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。&lt;/p&gt;</description>
+      <description>&lt;p&gt;awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -38,8 +37,7 @@
       <pubDate>Fri, 10 Mar 2017 14:42:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/772d2a17c7d1cb735dd1&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。&lt;a href=&#34;https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock&#34;&gt;うまくいかない設計に基づく実装をけっこう書いてしまった&lt;/a&gt; ので、その供養でもあります。&lt;/p&gt;</description>
+      <description>&lt;p&gt;WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。&lt;a href=&#34;https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock&#34;&gt;うまくいかない設計に基づく実装をけっこう書いてしまった&lt;/a&gt; ので、その供養でもあります。&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -29,8 +29,7 @@
       <pubDate>Tue, 21 Mar 2017 13:39:33 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-21/enumerable-test/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://qiita.com/vain0x/items/142b84e8ca20fbed43ed&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;http://github.com/vain0x/EnumerableTest&#34;&gt;EnumerableTest&lt;/a&gt; という .NET 向けの単体テストフレームワークを作成しました。&lt;/p&gt;
+      <description>&lt;p&gt;&lt;a href=&#34;http://github.com/vain0x/EnumerableTest&#34;&gt;EnumerableTest&lt;/a&gt; という .NET 向けの単体テストフレームワークを作成しました。&lt;/p&gt;
 &lt;p&gt;具体的な使い方は &lt;a href=&#34;https://vain0x.github.io/EnumerableTest/articles/tutorials/walk-around.html&#34;&gt;チュートリアル&lt;/a&gt; を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。&lt;/p&gt;</description>
     </item>
     

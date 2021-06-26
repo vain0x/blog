@@ -10,12 +10,9 @@
   <title>Nullオブジェクトパターンの紹介と正体 - ベインのブログ</title>
   <meta property="og:title" content="Nullオブジェクトパターンの紹介と正体" />
   <meta name="twitter:title" content="Nullオブジェクトパターンの紹介と正体" />
-  <meta name="description" content="Qiita
-デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。">
-  <meta property="og:description" content="Qiita
-デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。">
-  <meta name="twitter:description" content="Qiita
-デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。">
+  <meta name="description" content="デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。">
+  <meta property="og:description" content="デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。">
+  <meta name="twitter:description" content="デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -64,9 +61,9 @@
     "name" : "ベイン"
   },
   "headline": "Nullオブジェクトパターンの紹介と正体",
-  "description" : "Qiita\nデザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。\n",
+  "description" : "デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。\n",
   "inLanguage" : "ja",
-  "wordCount":  294 ,
+  "wordCount":  293 ,
   "datePublished" : "2016-08-18T00:00:00",
   "dateModified" : "2016-08-18T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -86,15 +83,13 @@
 </script>
 
 <meta property="og:title" content="Nullオブジェクトパターンの紹介と正体" />
-<meta property="og:description" content="Qiita
-デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。">
+<meta property="og:description" content="デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。">
 <meta property="og:url" content="https://vain0x.github.io/blog/2016-08-18/null-object-patterns/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
   <meta name="twitter:title" content="Nullオブジェクトパターンの紹介と正体" />
-  <meta name="twitter:description" content="Qiita
-デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。">
+  <meta name="twitter:description" content="デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -190,9 +185,6 @@
   
   
   
-    &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;ベイン
-  
-  
 </span>
 
 
@@ -210,8 +202,7 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p><a href="https://qiita.com/vain0x/items/c8adb679a6c253e5261f">Qiita</a></p>
-<p>デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。</p>
+        <p>デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。</p>
 <h2 id="null">なぜ「Nullオブジェクト」が必要か</h2>
 <p>C や C# などのいくつかの言語に null という概念があります。<code>null</code> はしばしば「何もない」や「失敗」といった <strong>特殊な状態</strong> を表す値として、null でない値と混ぜて使われますが、<code>null</code> と非 null の差異は次のようなやっかいな状況の引き金となります。</p>
 <p><code>null</code> と非 null の違いの一つに、備えるメソッドの種類があります <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 。例えばプログラミング言語 C# では、<code>null</code> のメソッドを呼ぼうとすると、例外が投げられます。</p>

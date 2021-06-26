@@ -3,6 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://vain0x.github.io/blog/tags/csharp/</loc>
+    <lastmod>2021-06-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vain0x.github.io/blog/tags/fsharp/</loc>
+    <lastmod>2021-06-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vain0x.github.io/blog/tags/sql/</loc>
+    <lastmod>2021-06-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vain0x.github.io/blog/tags/</loc>
+    <lastmod>2021-06-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vain0x.github.io/blog/</loc>
+    <lastmod>2021-06-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vain0x.github.io/blog/2021-06-26/value-vs-storage/</loc>
+    <lastmod>2021-06-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://vain0x.github.io/blog/tags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/</loc>
+    <lastmod>2021-06-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://vain0x.github.io/blog/2021-05-31/gui-navigation/</loc>
     <lastmod>2021-05-31T00:00:00+00:00</lastmod>
   </url>
@@ -13,22 +48,12 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/tags/</loc>
-    <lastmod>2021-05-31T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/tags/typescript/</loc>
     <lastmod>2021-05-31T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://vain0x.github.io/blog/tags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/</loc>
-    <lastmod>2021-05-31T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/</loc>
     <lastmod>2021-05-31T00:00:00+00:00</lastmod>
   </url>
   
@@ -48,17 +73,7 @@
   </url>
   
   <url>
-    <loc>https://vain0x.github.io/blog/tags/fsharp/</loc>
-    <lastmod>2021-04-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://vain0x.github.io/blog/2021-04-24/shared-fields-in-discriminated-unions/</loc>
-    <lastmod>2021-04-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/tags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/</loc>
     <lastmod>2021-04-24T00:00:00+00:00</lastmod>
   </url>
   
@@ -414,11 +429,6 @@
   
   <url>
     <loc>https://vain0x.github.io/blog/2017-12-23/async-function-and-exception/</loc>
-    <lastmod>2017-12-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://vain0x.github.io/blog/tags/csharp/</loc>
     <lastmod>2017-12-23T00:00:00+00:00</lastmod>
   </url>
   
