@@ -2,15 +2,15 @@
   --primary-color-light: #2e2eb6;
   --primary-color-dark: #000063;
   --primary-color: #311b92;
-  --primary-color-text: #fafafa;
+  --primary-color-text: white;
   /* unused
   --accent-color: #ffa000;
-  --accent-color-text: #212121;
+  --accent-color-text: #1d1d1d;
   --accent-color-light: #ffd149;
   --accent-color-dark: #c67100;
   */
-  --base-color: #fafafa;
-  --base-color-text: #212121;
+  --base-color: white;
+  --base-color-text: #1d1d1d;
   --divider-color: #bdbdbd;
   --app-main-container-background: #ffffffd4;
 }
@@ -25,7 +25,7 @@ html {
 body {
   font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
   font-size: 1.6rem;
-  line-height: 1.67;
+  line-height: 1.8;
 
   position: relative;
   display: flex;
@@ -762,36 +762,28 @@ code, kbd, pre, samp {
     font-style: normal; /* イタリックにしない */
 }
 
+.blog-post {
+    text-align: justify;
+    text-justify: inter-character;
+}
+
 .blog-post h2 {
-    margin-top: 32px;
+    margin-top: 64px;
 }
 
 .highlight pre {
-    background-color: #fafaff;
     overflow: auto !important; /* 隠れないようにする */
+
+    /* コントラストを高める: */
+    background-color: #f9f9f9; /* 薄く */
+    color: #1d1d1d; /* 濃く */
+
+    font-size: 1.4rem;
 }
 
-/* テキストの右端の折り返しを分かりやすくするためにボーダーをつける。 (uglyだけど) */
-@media only screen and (min-width: 863px) { /* 767 + 64 + 32 */
-    .blog-post::before,
-    .blog-post::after {
-        content: " ";
-
-        width: 4px;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-
-        background-image: linear-gradient(to bottom, #e5e5ff, #e5e5ff 8px, transparent 2px, transparent 2px);
-        background-size: 4px 24px;
-    }
-
-    .blog-post::before {
-        left: -32px;
-    }
-
-    .blog-post::after {
-        right: -32px;
-    }
+pre:not(.chroma),
+pre:not(.chroma) code {
+    /* コードブロックに文章を書いたとき見づらいのでフォントを直す。(そもそもコードブロックに文章を書くべきでない。) */
+    font-family: inherit;
+    font-size: inherit;
 }
