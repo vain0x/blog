@@ -4,10 +4,10 @@ type: "post"
 date: 2021-06-26
 url: 2021-06-26/value-vs-storage
 tags:
-  - 言語設計
-  - csharp
-  - fsharp
-  - sql
+  - エッセイ
+  - CSharp
+  - FSharp
+  - Sql
 ---
 
 値と値を配置する場所(ストレージ)を区別することで有名な問題を簡単に説明できることを述べる。
