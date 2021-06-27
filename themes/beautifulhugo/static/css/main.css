@@ -772,7 +772,7 @@ code, kbd, pre, samp {
 }
 
 /* テキストの右端の折り返しを分かりやすくするためにボーダーをつける。 (uglyだけど) */
-@media only screen and (min-width: 767px) {
+@media only screen and (min-width: 863px) { /* 767 + 64 + 32 */
     .blog-post::before,
     .blog-post::after {
         content: " ";
