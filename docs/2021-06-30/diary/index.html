@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>近況 2021-06-30 - ベインのブログ</title>
+  <meta property="og:title" content="近況 2021-06-30" />
+  <meta name="twitter:title" content="近況 2021-06-30" />
+  <meta name="description" content="今月の活動 (ミローネ言語、LALRとreturn式、HSP3アナライザミニ、hsp3-debug-window-adapter、行分割DPと禁則処理、ブログテーマの改修など)">
+  <meta property="og:description" content="今月の活動 (ミローネ言語、LALRとreturn式、HSP3アナライザミニ、hsp3-debug-window-adapter、行分割DPと禁則処理、ブログテーマの改修など)">
+  <meta name="twitter:description" content="今月の活動 (ミローネ言語、LALRとreturn式、HSP3アナライザミニ、hsp3-debug-window-adapter、行分割DPと禁則処理、ブログテーマの改修など)">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2021-06-30\/diary\/",
+          "name": "近況 2021 06 30"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "ベイン"
+  },
+  "headline": "近況 2021-06-30",
+  "description" : "今月の活動 (ミローネ言語、LALRとreturn式、HSP3アナライザミニ、hsp3-debug-window-adapter、行分割DPと禁則処理、ブログテーマの改修など)\n",
+  "inLanguage" : "ja",
+  "wordCount":  137 ,
+  "datePublished" : "2021-06-30T00:00:00",
+  "dateModified" : "2021-06-30T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "日記" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2021-06-30\/diary\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="近況 2021-06-30" />
+<meta property="og:description" content="今月の活動 (ミローネ言語、LALRとreturn式、HSP3アナライザミニ、hsp3-debug-window-adapter、行分割DPと禁則処理、ブログテーマの改修など)">
+<meta property="og:url" content="https://vain0x.github.io/blog/2021-06-30/diary/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="近況 2021-06-30" />
+  <meta name="twitter:description" content="今月の活動 (ミローネ言語、LALRとreturn式、HSP3アナライザミニ、hsp3-debug-window-adapter、行分割DPと禁則処理、ブログテーマの改修など)">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/2021-06-30/diary/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="generator" content="Hugo 0.62.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" />
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom top-nav-short">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
+    </div>
+
+    <div id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="GitHub" href="https://github.com/vain0x">GitHub</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="競プロ参戦記" href="https://qiita.com/search?q=%E7%AB%B6%E3%83%97%E3%83%AD%E5%8F%82%E6%88%A6%E8%A8%98&#43;user%3Avain0x&amp;sort=created">競プロ参戦記</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT" href="https://vain0x.github.io">ABOUT</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    <main>
+      
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>近況 2021-06-30</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2021年6月30日に投稿
+  
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+      
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>今月の活動 (ミローネ言語、LALRとreturn式、HSP3アナライザミニ、hsp3-debug-window-adapter、行分割DPと禁則処理、ブログテーマの改修など)</p>
+<ul>
+<li>前回 (2021-05-31) <a href="https://vain0x.github.io/blog/2021-05-31/diary/">https://vain0x.github.io/blog/2021-05-31/diary/</a></li>
+</ul>
+<h2 id="heading">ミローネ言語</h2>
+<p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
+<h3 id="milone-run">milone run</h3>
+<p><code>run</code> サブコマンドを追加した。
+ミローネ言語で書かれたコードを手軽に動かせるようにするため。
+(<code>dotnet</code> や <code>cargo</code> にもあるやつ。)</p>
+<p>仕組みは単純で、コンパイルと実行をまとめただけ。コンパイル結果であるCのコードと、ビルドスクリプトを一時ディレクトリに書き込んでから <code>ninja &amp;&amp; ./&lt;生成したexe&gt;</code> を実行する。</p>
+<p>実装の一部はCの標準ライブラリの範囲ではできなさそうだった。
+具体的には「一時ディレクトリがなかったら作る」という挙動と、サブプロセスを起動する挙動。
+そのため、Linuxのmkdir関数とexecv関数を使った。
+Windowsでは動かない。できれば動くようにしたい……</p>
+<h3 id="heading-1">脆弱なビルドチェイン</h3>
+<p>ビルドスクリプトが壊れているのがつらい。更新されるべきファイルが更新されないとか、何度実行してもdirtyのままになるとか。</p>
+<h2 id="lalr">LALRの衝突</h2>
+<p><a href="https://twitter.com/vain0x/status/1408061981970468868">https://twitter.com/vain0x/status/1408061981970468868</a></p>
+<ul>
+<li>パーサジェネレータを使ったことがなかったので、Rustのlalrpopを試していた</li>
+<li>いつもどおりRust風の構文のパーサを書いていたら、return式の定義が衝突してしまった</li>
+</ul>
+<p>文法はこんな感じ:</p>
+<pre><code>atom =
+    ident
+    | &quot;(&quot; expr &quot;)&quot;
+    | &quot;return&quot; expr?
+
+mul =
+    atom
+    | mul &quot;*&quot; atom
+    | mul &quot;/&quot; atom
+
+add =
+    mul
+    | add &quot;+&quot; mul
+    | add &quot;-&quot; mul
+
+expr = add
+</code></pre><p>(LALRだから左再帰でもOK)</p>
+<p><code>return a + b</code> が <code>(return a) + b</code> なのか <code>return (a + b)</code> なのか曖昧だと指摘されてしまう。</p>
+<h2 id="hsp3">HSP3アナライザーミニ</h2>
+<p><a href="https://github.com/vain0x/hsp3-ginger/tree/0e6734b1798971ab35e928100a64c87413eec01c/hsp3-analyzer-mini">https://github.com/vain0x/hsp3-ginger/tree/0e6734b1798971ab35e928100a64c87413eec01c/hsp3-analyzer-mini</a></p>
+<ul>
+<li>プレリリースとしてvsixの公開をしてみた (v0.3.1)</li>
+<li>挙動はそれなりに安定している</li>
+<li>ホバーとシグネチャヘルプがうるさい気がする</li>
+</ul>
+<h2 id="hsp3-debug-window-adapter">hsp3-debug-window-adapter</h2>
+<p><a href="https://github.com/vain0x/hsp3-ginger/tree/0e6734b1798971ab35e928100a64c87413eec01c/hsp3-debug-window-adapter">https://github.com/vain0x/hsp3-ginger/tree/0e6734b1798971ab35e928100a64c87413eec01c/hsp3-debug-window-adapter</a></p>
+<ul>
+<li>F5を押してもデバッグできない (launch.jsonを作る必要がある) 現象が報告されたので調査した
+<ul>
+<li>忘れてたけど以前からそうだった</li>
+</ul>
+</li>
+<li>設定ファイルにミスがあったせい</li>
+<li><code>contributes.debuggers[].languages</code> にデバッグの対象となる言語を書いておく必要があった</li>
+</ul>
+<h2 id="heading-2">行分割アルゴリズムをかじった</h2>
+<ul>
+<li>状況: PDFに文字列を描画する機能を作っていた</li>
+<li>単語を矩形内に適度に配置したり、長い文章を矩形に収めたりする必要があった</li>
+<li>行分割アルゴリズムや禁則処理について調べた
+<ul>
+<li>行分割は、単語数に対して線形時間でできるらしいけど、2乗のオーダーでよければ典型的なDPでできた</li>
+<li>禁則処理は、間に改行が入らないような文字を1単語として分割するだけだった</li>
+</ul>
+</li>
+</ul>
+<p>参考: <a href="https://xxyxyz.org/line-breaking/">Line breaking — Xxyxyz</a></p>
+<h2 id="heading-3">ブログのテーマ</h2>
+<ul>
+<li>このブログのテーマ (デザイン) を更新した</li>
+<li>コードのシンタックスハイライトがみづらかった
+<ul>
+<li>hugoの機能でGitHub風のテーマに変更できるようだったので、そっちに切り替えた</li>
+<li><a href="https://gohugo.io/content-management/syntax-highlighting/#generate-syntax-highlighter-css">https://gohugo.io/content-management/syntax-highlighting/#generate-syntax-highlighter-css</a></li>
+</ul>
+</li>
+<li>フォントが小さいとか、引用ブロックがイタリックにならないようにするとか、コントラストを上げる (灰色を白や黒に近づける) とか、細かいところを調整した</li>
+<li>h2 (見出し) の上に空白をつけて文章構造を分かりやすくした</li>
+<li>本文の右端の折り返しが分かりづらかったので、両端にボーダーをつけようとしたけど、不格好なのでやめた
+<ul>
+<li>この記事のように箇条書きの途中に改行があると、文が途中で切れているようにみえる</li>
+<li>本文の外側の背景を灰色にするのは、構造的に厳しそうだった</li>
+<li>代わりというわけではないけど、テキストの割りつけ(text-justify)を使って右端が縦に揃うようにしてみた</li>
+<li>マシになった(?)</li>
+</ul>
+</li>
+</ul>
+<h2 id="heading-4">その他</h2>
+<ul>
+<li>記事を書いた:
+<ul>
+<li><a href="/blog/2021-05-31/gui-navigation/">GUIアプリのルーティング・ページ遷移 - ベインのブログ</a> (厳密には先月書いたけど、前回の近況記事に書き忘れた)</li>
+<li><a href="/blog/2021-06-26/value-vs-storage/">値とストレージの区別 - ベインのブログ</a></li>
+</ul>
+</li>
+</ul>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/%E6%97%A5%E8%A8%98/">日記</a>&nbsp;
+            
+          </div>
+        
+
+        
+          
+          
+          <h4 class="see-also">関連記事</h4>
+          <ul>
+          
+            <li><a href="/blog/2021-05-31/diary/">近況 2021-05-31</a></li>
+          
+            <li><a href="/blog/2021-04-30/diary/">近況 2021-04-30</a></li>
+          
+            <li><a href="/blog/2021-03-31/diary/">近況 2021-03-31</a></li>
+          
+          </ul>
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://vain0x.github.io/blog/2021-06-26/value-vs-storage/" data-toggle="tooltip" data-placement="top" title="値とストレージの区別">&larr; 前ページ</a>
+            </li>
+          
+          
+        </ul>
+      
+
+      <section id="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="vain0x/blog"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2016 - 2021
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+
+          <a href="https://github.com/vain0x/blog">[GitHub repo]</a>
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </main>
+  </body>
+</html>
+
