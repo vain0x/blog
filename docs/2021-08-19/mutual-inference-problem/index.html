@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>相互再帰関数の型推論で問題になったケース - ベインのブログ</title>
+  <meta property="og:title" content="相互再帰関数の型推論で問題になったケース" />
+  <meta name="twitter:title" content="相互再帰関数の型推論で問題になったケース" />
+  <meta name="description" content="ミローネ言語 (F# のサブセットである自作言語) の型推論が壊れている。
+どういうケースで壊れているかを書いておく。">
+  <meta property="og:description" content="ミローネ言語 (F# のサブセットである自作言語) の型推論が壊れている。
+どういうケースで壊れているかを書いておく。">
+  <meta name="twitter:description" content="ミローネ言語 (F# のサブセットである自作言語) の型推論が壊れている。
+どういうケースで壊れているかを書いておく。">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2021-08-19\/mutual-inference-problem\/",
+          "name": "相互再帰関数の型推論で問題になったケース"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "ベイン"
+  },
+  "headline": "相互再帰関数の型推論で問題になったケース",
+  "description" : "ミローネ言語 (F# のサブセットである自作言語) の型推論が壊れている。 どういうケースで壊れているかを書いておく。\n",
+  "inLanguage" : "ja",
+  "wordCount":  279 ,
+  "datePublished" : "2021-08-19T00:00:00",
+  "dateModified" : "2021-08-19T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "F#, MiloneLang" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2021-08-19\/mutual-inference-problem\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="相互再帰関数の型推論で問題になったケース" />
+<meta property="og:description" content="ミローネ言語 (F# のサブセットである自作言語) の型推論が壊れている。
+どういうケースで壊れているかを書いておく。">
+<meta property="og:url" content="https://vain0x.github.io/blog/2021-08-19/mutual-inference-problem/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="相互再帰関数の型推論で問題になったケース" />
+  <meta name="twitter:description" content="ミローネ言語 (F# のサブセットである自作言語) の型推論が壊れている。
+どういうケースで壊れているかを書いておく。">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/2021-08-19/mutual-inference-problem/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="generator" content="Hugo 0.62.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" />
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom top-nav-short">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
+    </div>
+
+    <div id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="GitHub" href="https://github.com/vain0x">GitHub</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="競プロ参戦記" href="https://qiita.com/search?q=%E7%AB%B6%E3%83%97%E3%83%AD%E5%8F%82%E6%88%A6%E8%A8%98&#43;user%3Avain0x&amp;sort=created">競プロ参戦記</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT" href="https://vain0x.github.io">ABOUT</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    <main>
+      
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>相互再帰関数の型推論で問題になったケース</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2021年8月19日に投稿
+  
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+      
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>ミローネ言語 (F# のサブセットである自作言語) の型推論が壊れている。
+どういうケースで壊れているかを書いておく。</p>
+<h2 id="heading">相互再帰</h2>
+<p><code>module rec</code> 直下の関数は相互再帰的に定義される。つまり上にある関数の本体から、下にある関数を呼べる。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">module</span> <span class="nn">rec</span> <span class="nn">MyProject</span><span class="p">.</span><span class="n">Example</span>
+
+<span class="k">let</span> <span class="nv">even</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">=</span> <span class="n">0</span> <span class="o">|</span><span class="o">|</span> <span class="n">odd</span> <span class="o">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="c1">// 定義前にoddを使う
+</span><span class="c1"></span><span class="k">let</span> <span class="nv">odd</span> <span class="n">x</span> <span class="o">=</span> <span class="n">even</span> <span class="o">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span>
+</code></pre></div><p>型推論により <code>even: int -&gt; int</code>, <code>odd: int -&gt; int</code> と型がつく。
+以下 <code>module rec</code> は省く。</p>
+<h2 id="heading-1">汎化</h2>
+<p>汎化 (generalization) がからむとややこしい。</p>
+<h3 id="heading-2">ジェネリック関数をインスタンス化して使うケース</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">module</span> <span class="nn">rec</span> <span class="nn">MyProject</span><span class="p">.</span><span class="n">Utils</span>
+
+<span class="k">let</span> <span class="nv">fail</span> <span class="n">context</span> <span class="o">=</span> <span class="c1">// context: 失敗した原因とか、何らかのデータ
+</span><span class="c1"></span>  <span class="n">eprintfn</span> <span class="s">&#34;</span><span class="s">error: %s</span><span class="s">&#34;</span> <span class="o">(</span><span class="kt">string</span> <span class="o">(</span><span class="n">box</span> <span class="n">context</span><span class="o">)</span><span class="o">)</span>
+  <span class="n">exit</span> <span class="n">1</span>
+
+<span class="k">let</span> <span class="nv">div</span> <span class="n">x</span> <span class="n">y</span> <span class="o">=</span>
+  <span class="k">if</span> <span class="n">y</span> <span class="o">=</span> <span class="n">0</span>
+  <span class="k">then</span> <span class="n">fail</span> <span class="o">(</span><span class="s">&#34;</span><span class="s">div by zero; x=</span><span class="s">&#34;</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
+  <span class="k">else</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
+</code></pre></div><p><code>fail</code> 関数は何らかのデータを受け取ってエラーに書き出し、異常終了する。
+引数の型も結果の型も何でもいい。
+つまり、理想的には <code>fail&lt;'T, 'U&gt; : 'T -&gt; 'U</code> という型がつく。</p>
+<p>その下にdiv関数の定義があって、本体で <code>fail</code> を呼んでいる。
+divは事前条件をみたさないときに <code>fail</code> を呼んで、理由らしきものを書き込んで終了する。
+この呼び出しにおける <code>fail</code> の型は <code>fail: string -&gt; int</code> になっている。</p>
+<p>divにおけるfailの使用箇所のせいで、failの定義の型が <code>string -&gt; int</code> に単一化されてしまうと困る。
+実際、 F# はこの状況でもfailを適切に汎化する。</p>
+<h3 id="heading-3">関数の型が後から決まるケース</h3>
+<p>一方、関数の定義時に汎化を行うと問題が起こるケースがある。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Pat</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="n">WildcardPat</span>
+
+<span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="n">IntExpr</span>
+  <span class="o">|</span> <span class="n">FunExpr</span> <span class="k">of</span> <span class="n">Pat</span> <span class="n">List</span> <span class="o">*</span> <span class="n">Expr</span>
+
+<span class="k">let</span> <span class="nv">checkExprList</span> <span class="n">ctx</span> <span class="n">exprs</span> <span class="o">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">fold</span> <span class="n">ctx</span> <span class="n">checkExpr</span>
+
+<span class="k">let</span> <span class="nv">checkFunExpr</span> <span class="n">ctx</span> <span class="o">(</span><span class="n">args</span><span class="o">:</span> <span class="n">Pat</span> <span class="kt">list</span><span class="o">)</span> <span class="n">body</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="nv">ctx</span> <span class="o">=</span> <span class="n">checkExprList</span> <span class="n">ctx</span> <span class="n">args</span> <span class="c1">// バグ
+</span><span class="c1"></span>  <span class="n">checkExpr</span> <span class="n">ctx</span> <span class="n">body</span>
+
+<span class="k">let</span> <span class="nv">checkExpr</span> <span class="n">ctx</span> <span class="n">expr</span> <span class="o">:</span> <span class="n">Ctx</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">expr</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="n">IntExpr</span> <span class="o">-&gt;</span> <span class="n">ctx</span>
+  <span class="o">|</span> <span class="n">FunExpr</span> <span class="o">(</span><span class="n">args</span><span class="o">,</span> <span class="n">body</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">checkFunExpr</span> <span class="n">ctx</span> <span class="n">args</span> <span class="n">body</span>
+</code></pre></div><p>checkExprList関数は、式のリストを受け取って順番に型検査を行う。
+個別の式の型検査は後方に定義されているcheckExprが行う。</p>
+<p>checkExprListの定義の時点では、checkExprの型はまだ推論されていないので分からない。
+引数exprsの型は何らかのリストであることだけ分かる。
+その後、checkExprの型検査の結果として <code>checkExpr: Ctx -&gt; Expr -&gt; Ctx</code> という具体的な型が推論される。
+このことから、checkExprListが受け取るのは式のリストに限られることが決まる。</p>
+<p>問題は、checkExprListとcheckExprの間にcheckExprListが使用されていること。
+checkExprListの型はまだ分からないが、実際にはジェネリック関数ではないので、リストの要素の型をインスタンス化してはいけない。
+上の例ではcheckExprListに、式のリストではなくパターンのリストを誤って渡している。
+これは型エラーにしなければいけない。</p>
+<h3 id="heading-4">問題</h3>
+<p><code>fail</code> の例では、<code>fail</code> の後にある関数の使用箇所において <code>fail</code> をジェネリック関数とみなしてインスタンス化する必要があった。
+一方 <code>checkExprList</code> の例では、<code>checkExprList</code> の使用箇所において <code>checkExprList</code> はジェネリック関数でないとみなして、インスタンス化しない必要があった。</p>
+<h3 id="heading-5">検索</h3>
+<p>&ldquo;hindley milner mutually recursive&rdquo; とかで検索するとこの記事 (回答) が出てきた。</p>
+<p><a href="https://stackoverflow.com/questions/900585/why-are-functions-in-ocaml-f-not-recursive-by-default/904715#904715">recursion - Why are functions in OCaml/F# not recursive by default? - Stack Overflow</a> (リンク先の回答の投稿日は2009-05-24)</p>
+<blockquote>
+<p>(snip) One possibility is to simply do a dependency analysis on all the definitions in a scope, and reorder them into the smallest possible groups. (snip)</p>
+</blockquote>
+<p>(スコープ内にある定義の間の依存関係を解析して最小のグループに並び替えるという方法が考えられる。)</p>
+<p>上の例に関していえば:</p>
+<ul>
+<li>failは下にある関数を呼び出していないので、定義をみた時点で汎化できる。</li>
+<li>checkExprListは、下にあるcheckExprの型に依存しているので、それの型推論が終わるまで汎化しない。</li>
+</ul>
+<p>と考えればよいかもしれない。</p>
+<p>ルールとしては「関数の本体で参照しているすべての関数の定義をみた後に汎化する」といえる。</p>
+<p>(F# のコンパイラが実際にどうやっているかみたほうがいいかもしれない。)</p>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/f/">F#</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/milonelang/">MiloneLang</a>&nbsp;
+            
+          </div>
+        
+
+        
+          
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://vain0x.github.io/blog/2021-07-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2021-07-31">&larr; 前ページ</a>
+            </li>
+          
+          
+        </ul>
+      
+
+      <section id="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="vain0x/blog"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2016 - 2021
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+
+          <a href="https://github.com/vain0x/blog">[GitHub repo]</a>
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </main>
+  </body>
+</html>
+

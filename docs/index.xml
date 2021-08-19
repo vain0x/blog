@@ -8,10 +8,20 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Sat, 31 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 19 Aug 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>相互再帰関数の型推論で問題になったケース</title>
+      <link>https://vain0x.github.io/blog/2021-08-19/mutual-inference-problem/</link>
+      <pubDate>Thu, 19 Aug 2021 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2021-08-19/mutual-inference-problem/</guid>
+      <description>&lt;p&gt;ミローネ言語 (F# のサブセットである自作言語) の型推論が壊れている。
+どういうケースで壊れているかを書いておく。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>近況 2021-07-31</title>
