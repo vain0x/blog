@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>コンパイラでのエラーの扱い - ベインのブログ</title>
+  <meta property="og:title" content="コンパイラでのエラーの扱い" />
+  <meta name="twitter:title" content="コンパイラでのエラーの扱い" />
+  <meta name="description" content="コンパイラを作っているうちに、コンパイラの各ステージにおけるエラーの扱いについて考えが変わった。">
+  <meta property="og:description" content="コンパイラを作っているうちに、コンパイラの各ステージにおけるエラーの扱いについて考えが変わった。">
+  <meta name="twitter:description" content="コンパイラを作っているうちに、コンパイラの各ステージにおけるエラーの扱いについて考えが変わった。">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/compiler-errors\/",
+          "name": "コンパイラでのエラーの扱い"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "ベイン"
+  },
+  "headline": "コンパイラでのエラーの扱い",
+  "description" : "コンパイラを作っているうちに、コンパイラの各ステージにおけるエラーの扱いについて考えが変わった。\n",
+  "inLanguage" : "ja",
+  "wordCount":  156 ,
+  "datePublished" : "2021-09-02T00:00:00",
+  "dateModified" : "2021-09-02T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "言語設計" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/compiler-errors\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="コンパイラでのエラーの扱い" />
+<meta property="og:description" content="コンパイラを作っているうちに、コンパイラの各ステージにおけるエラーの扱いについて考えが変わった。">
+<meta property="og:url" content="https://vain0x.github.io/blog/compiler-errors/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="コンパイラでのエラーの扱い" />
+  <meta name="twitter:description" content="コンパイラを作っているうちに、コンパイラの各ステージにおけるエラーの扱いについて考えが変わった。">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <meta property="og:url" content="https://vain0x.github.io/blog/compiler-errors/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="generator" content="Hugo 0.62.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" />
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom top-nav-short">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
+    </div>
+
+    <div id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="GitHub" href="https://github.com/vain0x">GitHub</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="競プロ参戦記" href="https://qiita.com/search?q=%E7%AB%B6%E3%83%97%E3%83%AD%E5%8F%82%E6%88%A6%E8%A8%98&#43;user%3Avain0x&amp;sort=created">競プロ参戦記</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT" href="https://vain0x.github.io">ABOUT</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    <main>
+      
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>コンパイラでのエラーの扱い</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2021年9月2日に投稿
+  
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+      
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>コンパイラを作っているうちに、コンパイラの各ステージにおけるエラーの扱いについて考えが変わった。</p>
+<h2 id="heading">当初の考え</h2>
+<p>はじめは次のように、各ステージが失敗しうるという考えを持っていた。
+つまり各ステージを <code>S -&gt; Result&lt;T, E&gt;</code> のかたちの関数とみなして、これを合成する (<code>&gt;&gt;=</code>) ものとして定義していた。</p>
+<ul>
+<li>字句解析
+<ul>
+<li>成功: トークン列</li>
+<li>失敗: 字句エラー</li>
+</ul>
+</li>
+<li>構文解析
+<ul>
+<li>成功: 構文木</li>
+<li>失敗: 構文エラー</li>
+</ul>
+</li>
+<li>型検査
+<ul>
+<li>成功: 型情報</li>
+<li>失敗: 型エラー</li>
+</ul>
+</li>
+<li>(同様に) 他のステージ
+<ul>
+<li>成功: 変形後のデータ</li>
+<li>失敗: 変換中のエラー</li>
+</ul>
+</li>
+</ul>
+<h2 id="heading-1">考えが変わったところ</h2>
+<p>次のような考えの変化があった。</p>
+<ul>
+<li>意味解析までのステージは、エラーがあっても結果を返せる</li>
+<li>型検査が成功した後はエラーが発生しない</li>
+<li>型エラーがあるコードをコード生成以降のパスに持っていくとややこしい</li>
+<li>エラーの表現は出どころとなるステージによって異なる (かもしれない)</li>
+</ul>
+<p>以下に具体的にみていく。</p>
+<h2 id="heading-2">字句解析</h2>
+<p>字句解析と構文解析はどちらも、エラーがあっても処理を止めず、結果を生成できる。</p>
+<ul>
+<li>字句解析: ソースコード → トークン列 * エラーリスト
+<ul>
+<li>エラーがあってもトークン列を返す。</li>
+</ul>
+</li>
+</ul>
+<p>字句解析におけるエラーは次のようなものがある。</p>
+<ul>
+<li>数値の構造がおかしい (<code>0x</code> とか <code>42Q</code> とか)</li>
+<li>エスケープシーケンスがおかしい (<code>\a</code> とか)</li>
+<li>引用符が閉じていない (<code>&quot;</code> を閉じずに改行が出てきたとか)</li>
+<li>不正な文字が出現した (文字列やコメントの外に使えない記号が出てきたとか)</li>
+<li>ソースコードが文字列でない (<code>\0</code> が出てきたとか)</li>
+</ul>
+<p>いずれもエラー回復はできる。
+前の3つはエラーがあっても数値トークンや文字列トークンを作れるし、後の2つは余計な部分を無視すればいい。</p>
+<h3 id="heading-3">字句解析のエラーの表現</h3>
+<p>字句解析のエラー位置は、元になったソースファイルと、エラーの発生位置を文字単位で指定することになる。
+つまり範囲の開始・終了位置の行番号・列番号を記録しておけばいい。</p>
+<h3 id="-">余談: 行番号と列番号の計算</h3>
+<p>トークンの行番号・列番号は字句解析と分離できる。
+(複数行文字列リテラルとかを処理するときに行番号・列番号を逐一更新する必要はない。)
+行番号は「改行の個数」、列番号は「最後の改行の後にある文字列の長さ」といいかえられる。
+トークンの開始位置と終了位置を調べた後に、その間にある改行の個数と最後の改行の後の長さを調べて、開始位置における行番号・列番号に加算することで、終了位置の行番号・列番号を求められる。
+(参考: <a href="https://github.com/vain0x/text-position-rs#appendix-theory-behind-design">text-position-rs</a>)</p>
+<h2 id="heading-4">構文解析まで</h2>
+<p>構文解析も、エラーがあっても常に完了するようにできる。</p>
+<ul>
+<li>構文解析: トークン列 → 構文木 * エラーリスト
+<ul>
+<li>エラーがあっても構文木を作る。エラーがあった部分は空欄にしておく。</li>
+</ul>
+</li>
+</ul>
+<p>構文木が完全でなくてもよいことにすれば、トークンの一部が足りなくても構文木を作れる。
+不要なトークンは捨てればいい。</p>
+<p>構文解析のエラー位置は、元になったソースファイルと、エラーの発生箇所付近のトークン (あるいはトークンの直前・直後) を指定することになる。
+もちろん文字単位の範囲で持ってもいいが、構文エラーがトークンの一部や、コメント・空白の部分を指すことはないはず。</p>
+<h3 id="--1">余談: エラー回復の利点</h3>
+<p>エラー発生時に処理を中断しないことのメリットは少なくない。
+構文解析のエラーから復帰できると、部分的に構文が壊れた状態でも定義の参照やホバーなどの入力支援を受けることができる。
+コードがどういう状態になっているのかのフィードバックを受けられるので、エラーを直すときのヒントになる。
+記述中に一時的に構文が壊れたときに、入力支援に影響が出にくい。</p>
+<h3 id="--2">余談: 構文木からの構文エラーの復元</h3>
+<p>構文解析が完了した後に、構文木を走査してトークンが足りていない部分を探し、構文エラーを生成するという方法もある。
+構文解析の処理とエラー報告を分離できるという利点がある。
+前にやってみたが、めんどくさいので、あまりおすすめではない。</p>
+<h2 id="heading-5">意味解析まで</h2>
+<p>名前解決や型検査などのいわゆる意味解析ステージも、エラーがあっても処理を止めず、結果を生成できる。</p>
+<p>意味解析は通常、複数のソースファイルにまたがる。
+意味解析でのエラーの発生位置は構文木のノードを1つ指定することになる。</p>
+<h2 id="heading-6">コード生成以降</h2>
+<p>意味解析まででエラーが出なかったら、入力されたプログラムは妥当だとみなせる。
+コード生成はプログラムの意味を変えずに変換する工程なので、ここで新たにエラーが出ることはないはず。</p>
+<h2 id="--3">余談: 壊れたプログラムのコード生成</h2>
+<p>しばしば静的言語で型エラーがあるプログラムでも適当に <code>abort</code> を埋めることでコード生成できるはずで、できたほうが便利だという意見をみる。
+前に実際にやってみたが、開発上の問題があってやめた。</p>
+<p>未報告のコンパイルエラーをかかえた状態で意図しない状態に陥って <code>assert</code> 違反を踏むケースがよくあった。
+その際にコンパイルエラーがあることに気づかずに処理系の不具合だと思ってしまうと無駄にデバッグするはめになった。</p>
+<p>逆にコンパイラの不変条件が破れているのに、コンパイラがクラッシュせずに単に <code>abort</code> を生成してしまうということもしばしばあった。</p>
+<h2 id="heading-7">終わりに</h2>
+<p>全体としての構造を振り返ると次のようになる。</p>
+<ul>
+<li>意味解析まで: <code>_ -&gt; 解析結果 * エラーリスト</code>
+<ul>
+<li>字句解析: <code>_ -&gt; _ * エラーリスト</code></li>
+<li>構文解析: <code>_ -&gt; _ * エラーリスト</code></li>
+<li>意味解析: <code>_ -&gt; _ * エラーリスト</code></li>
+</ul>
+</li>
+<li>コード生成: <code>解析結果 -&gt; 生成コード</code></li>
+</ul>
+<p>意味解析が終わった時点でエラーがあったら、コード生成に入らずにコンパイルを終わる。</p>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/">言語設計</a>&nbsp;
+            
+          </div>
+        
+
+        
+          
+          
+          <h4 class="see-also">関連記事</h4>
+          <ul>
+          
+            <li><a href="/blog/2021-04-24/shared-fields-in-discriminated-unions/">判別共用体が共通フィールドを持てたら嬉しい</a></li>
+          
+            <li><a href="/blog/2021-03-21/semicolon-syntax/">プログラミング言語の構文とセミコロン</a></li>
+          
+            <li><a href="/blog/2020-09-19/complexity-from-expression-oriented-syntax/">式指向構文が言語処理系にもたらす複雑性</a></li>
+          
+          </ul>
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://vain0x.github.io/blog/2021-08-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2021-08-31">&larr; 前ページ</a>
+            </li>
+          
+          
+        </ul>
+      
+
+      <section id="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="vain0x/blog"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  </div>
+</div>
+
+      <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2016 - 2021
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+
+          <a href="https://github.com/vain0x/blog">[GitHub repo]</a>
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </main>
+  </body>
+</html>
+

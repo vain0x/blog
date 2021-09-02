@@ -8,10 +8,19 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Tue, 31 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 02 Sep 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>コンパイラでのエラーの扱い</title>
+      <link>https://vain0x.github.io/blog/compiler-errors/</link>
+      <pubDate>Thu, 02 Sep 2021 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/compiler-errors/</guid>
+      <description>&lt;p&gt;コンパイラを作っているうちに、コンパイラの各ステージにおけるエラーの扱いについて考えが変わった。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>近況 2021-08-31</title>
