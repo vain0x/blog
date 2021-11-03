@@ -63,7 +63,7 @@
   "headline": "近況 2021-10-31",
   "description" : "今月の活動 (ミローネ言語)\n",
   "inLanguage" : "ja",
-  "wordCount":  175 ,
+  "wordCount":  177 ,
   "datePublished" : "2021-10-31T00:00:00",
   "dateModified" : "2021-10-31T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -213,7 +213,8 @@
 <ul>
 <li>前回書いたとおり、Windowsでも動くようになったのでmainブランチにマージできた</li>
 <li>インストールスクリプトを整理した</li>
-<li>インストールスクリプトを F# で書く (自前のミニビルドツールであるMyBuildToolのサブコマンドに位置づける) ことでインストールが楽になった</li>
+<li><del>インストールスクリプトを F# で書くことでインストールが楽になった</del>
+(<strong>訂正</strong>: 記憶違い。配布パッケージを作る部分を F# で書いたのと混同していた。インストールにはパッケージに同梱しているシェルスクリプトを使う。)</li>
 </ul>
 </li>
 </ul>
@@ -266,8 +267,8 @@
 <h3 id="ml-api">ML: ファイルシステムAPIの設計</h3>
 <ul>
 <li>ファイルシステムのAPIを設計するときファイルパスをどうするか</li>
-<li>Linuxではファイルパスは単純に <code>/</code> から始まってディレクトリ名を連ねたものになっている (<code>/foo/bar/baz</code>)</li>
-<li>Windowsではパスにプリフィックスという部分があり、ドライブレターやネットワークなどを指定できる
+<li>Linuxのファイルパスは、単にファイル名を連ねたものになっている (<code>/foo/bar/baz</code> や <code>./foo/bar</code>)</li>
+<li>Windowsではパスにプリフィックスという部分があり、ドライブレターなどを指定できる
 <ul>
 <li>参考: <a href="https://doc.rust-lang.org/std/path/enum.Prefix.html">Prefix in std::path - Rust</a></li>
 </ul>
@@ -302,7 +303,7 @@
 </ul>
 </li>
 <li>ポインタを <code>&amp;buf.Len</code> でとることにすれば、<code>&amp;but.Len |&gt; increment</code> などと書ける</li>
-<li>いままで値の式しかなかったところに、位置を表す式が出てくる
+<li>いままで値を表す式しかなかったところに、ストレージを表す式が出てくる
 <ul>
 <li>低レイヤの世界観になっている</li>
 </ul>
@@ -310,15 +311,11 @@
 <li>型検査を複雑にしたくないのでためらうのもある</li>
 <li>低レイヤ専用の言語を作って相互運用というのも1つの方法かもしれない</li>
 </ul>
-<h3 id="ml--3">ML: 余談</h3>
-<ul>
-<li>基本ブロック内のヒープをまとめる案
+<h3 id="ml--">ML: 余談: 基本ブロック内のヒープをまとめる案</h3>
 <ul>
 <li>同一基本ブロックに出現するヒープ確保は1回にまとめられる</li>
 <li>GCによるメモリ管理だと不用意にまとめるとメモリリークを引き起こすが、動的リージョンベースなら問題ない (そういう意味でははじめからリークしているともいえる)</li>
 <li>ざっと見積もった感じ、セルフコンパイルではヒープ確保が7%ぐらい減少しそう</li>
-</ul>
-</li>
 </ul>
 <h2 id="heading-1">その他</h2>
 <ul>
@@ -387,6 +384,10 @@
               <a href="https://vain0x.github.io/blog/2021-09-30/diary/" data-toggle="tooltip" data-placement="top" title="近況 2021-09-30">&larr; 前ページ</a>
             </li>
           
+          
+            <li class="next">
+              <a href="https://vain0x.github.io/blog/2021-11-03/poor-mans-never-type/" data-toggle="tooltip" data-placement="top" title="可視性を使ってnever型もどきを作る">次ページ &rarr;</a>
+            </li>
           
         </ul>
       

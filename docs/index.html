@@ -144,6 +144,48 @@
           
           
             <article class="post-preview">
+              <a href="https://vain0x.github.io/blog/2021-11-03/poor-mans-never-type/">
+                <h2 class="post-title">可視性を使ってnever型もどきを作る</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2021年11月3日に投稿
+  
+  
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。
+前提 F# において制御を返さない関数は、結果の型が任意であるような多相関数として表現される。
+/// 常に例外を投げる関数 val failwith&lt;&#39;A&gt; : string -&gt; &#39;A F# の型システムにおいて多相になれるのはnominalな型や関数だけなので、制御を返さない関数を持つフィールドというのは作れない。
+type R = { FailWith: string -&gt; (*never型? *) } 型抽象(Λ)があったらできた。
+// F# ではない。 type R = { FailWith: Λ&#39;A. string -&gt; &#39;A } なお、型変数をレコード型のほうに持たせると意味が変わってくる。
+type R&lt;&#39;A&gt; = { FailWith: string -&gt; &#39;A } これだと FailWith を複数回、異なる結果型で呼ぶことができない。(Rの型引数が矛盾する。)
+方法 はじめに適当にNever型を定義する。型は公開するが、型のインスタンスを作る方法は公開しないでおく。
+type Never = private | Never この型の値を受け取るnever関数を公開する。
+let never&lt;&#39;A&gt; (_: Never) : &#39;A = assert false // この関数が呼ばれないことをコンパイラに教える  failwith &#34;never&#34; // 制御を返さない何らかの式 使いみち 例えば別のプログラムを実行する exec 関数を抽象的に受け取りたいとする。
+                  <a href="https://vain0x.github.io/blog/2021-11-03/poor-mans-never-type/" class="post-read-more">[続きを読む]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="https://vain0x.github.io/blog/tags/f/">F#</a>&nbsp;
+                  
+                </div>
+              
+            </article>
+          
+            <article class="post-preview">
               <a href="https://vain0x.github.io/blog/2021-10-31/diary/">
                 <h2 class="post-title">近況 2021-10-31</h2>
                 
@@ -453,44 +495,6 @@
                     <a href="https://vain0x.github.io/blog/tags/fsharp/">FSharp</a>&nbsp;
                   
                     <a href="https://vain0x.github.io/blog/tags/sql/">Sql</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://vain0x.github.io/blog/2021-05-31/gui-navigation/">
-                <h2 class="post-title">GUIアプリのルーティング・ページ遷移</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2021年5月31日に投稿
-  
-  
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  <p>GUIアプリは複数のページ (画面) を持つことがある。これに関してぼんやり考えて採用した実装方針を書く。</p>
-                  <a href="https://vain0x.github.io/blog/2021-05-31/gui-navigation/" class="post-read-more">[続きを読む]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://vain0x.github.io/blog/tags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">エッセイ</a>&nbsp;
-                  
-                    <a href="https://vain0x.github.io/blog/tags/typescript/">TypeScript</a>&nbsp;
-                  
-                    <a href="https://vain0x.github.io/blog/tags/react/">React</a>&nbsp;
                   
                 </div>
               
