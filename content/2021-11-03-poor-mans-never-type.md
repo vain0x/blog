@@ -90,3 +90,19 @@ let run (api: PlatformApi) command : unit =
 ## 抜けみち
 
 リフレクションでインスタンスを作れたらダメ。それを考慮するなら、Never型はコンパイラ側で提供して、リフレクションによるインスタンス生成を禁止する。
+
+----
+
+## 余談: バリアントのない判別共用体
+
+Rustではバリアントのないenum型 (F# でいうところの判別共用体) を作れる。
+これは値を持たないので、never型と同等に振る舞う。
+
+- [Infallible in std::convert - Rust](https://doc.rust-lang.org/std/convert/enum.Infallible.html) (never型の代わりに使えるエラー専用の型。バリアントのない判別共用体で定義されている。)
+- [never - Rust](https://doc.rust-lang.org/std/primitive.never.html) (`!` と書いてnever型。まだ正式リリースされていない。)
+
+## 余談: 多相でない言語におけるnever
+
+上述の `Never` 型と `never` 関数を言語側に組み込めば、多相関数の概念を持たない言語でもnever型と同様のことができる。
+[式指向構文が言語処理系にもたらす複雑性](/blog/2020-09-19/complexity-from-expression-oriented-syntax)に書いた課題をいくらか軽減できるかもしれない。
+多相関数のない言語を設計する予定はないので深堀りはしない。
