@@ -4,10 +4,12 @@ type: "post"
 date: 2021-11-03
 url: 2021-11-03/poor-mans-never-type
 tags:
-  - F#
+  - FSharp
 ---
 
 never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。
+
+<!--more-->
 
 ## 前提
 
