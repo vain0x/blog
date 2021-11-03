@@ -4,7 +4,7 @@ type: "post"
 date: 2021-08-19
 url: 2021-08-19/mutual-inference-problem
 tags:
-  - F#
+  - FSharp
   - MiloneLang
 ---
 
