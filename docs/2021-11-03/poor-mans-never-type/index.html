@@ -10,27 +10,9 @@
   <title>可視性を使ってnever型もどきを作る - ベインのブログ</title>
   <meta property="og:title" content="可視性を使ってnever型もどきを作る" />
   <meta name="twitter:title" content="可視性を使ってnever型もどきを作る" />
-  <meta name="description" content="never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。
-前提 F# において制御を返さない関数は、結果の型が任意であるような多相関数として表現される。
-/// 常に例外を投げる関数 val failwith&lt;&#39;A&gt; : string -&gt; &#39;A F# の型システムにおいて多相になれるのはnominalな型や関数だけなので、制御を返さない関数を持つフィールドというのは作れない。
-type R = { FailWith: string -&gt; (*never型? *) } 型抽象(Λ)があったらできた。
-// F# ではない。 type R = { FailWith: Λ&#39;A. string -&gt; &#39;A } なお、型変数をレコード型のほうに持たせると意味が変わってくる。
-type R&lt;&#39;A&gt; = { FailWith: string -&gt; &#39;A } これだと FailWith を複数回、異なる結果型で呼ぶことができない。(Rの型引数が矛盾する。)
-方法 はじめに適当にNever型を定義する。型は公開するが、型のインスタンスを作る方法は公開しないでおく。
-type Never = private | Never この型の値を受け取るnever関数を公開する。
-let never&lt;&#39;A&gt; (_: Never) : &#39;A = assert false // この関数が呼ばれないことをコンパイラに教える  failwith &#34;never&#34; // 制御を返さない何らかの式 使いみち 例えば別のプログラムを実行する exec 関数を抽象的に受け取りたいとする。">
-  <meta property="og:description" content="never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。
-前提 F# において制御を返さない関数は、結果の型が任意であるような多相関数として表現される。
-/// 常に例外を投げる関数 val failwith&lt;&#39;A&gt; : string -&gt; &#39;A F# の型システムにおいて多相になれるのはnominalな型や関数だけなので、制御を返さない関数を持つフィールドというのは作れない。
-type R = { FailWith: string -&gt; (*never型? *) } 型抽象(Λ)があったらできた。
-// F# ではない。 type R = { FailWith: Λ&#39;A. string -&gt; &#39;A } なお、型変数をレコード型のほうに持たせると意味が変わってくる。
-type R&lt;&#39;A&gt; = { FailWith: string -&gt; &#39;A } これだと FailWith を複数回、異なる結果型で呼ぶことができない。(Rの型引数が矛盾する。)
-方法 はじめに適当にNever型を定義する。型は公開するが、型のインスタンスを作る方法は公開しないでおく。
-type Never = private | Never この型の値を受け取るnever関数を公開する。
-let never&lt;&#39;A&gt; (_: Never) : &#39;A = assert false // この関数が呼ばれないことをコンパイラに教える  failwith &#34;never&#34; // 制御を返さない何らかの式 使いみち 例えば別のプログラムを実行する exec 関数を抽象的に受け取りたいとする。">
-  <meta name="twitter:description" content="never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。
-前提 F# において制御を返さない関数は、結果の型が任意であるような多相関数として表現される。
-/// 常に例外を投げる関数 val failwith&lt;&#39;A&gt; : string -&gt; &#39;A F# の型システムにおいて多相になれるのはnominalな型や関数だけなので、制御を返さない関数を …">
+  <meta name="description" content="never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。">
+  <meta property="og:description" content="never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。">
+  <meta name="twitter:description" content="never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -79,13 +61,13 @@ let never&lt;&#39;A&gt; (_: Never) : &#39;A = assert false // この関数が呼
     "name" : "ベイン"
   },
   "headline": "可視性を使ってnever型もどきを作る",
-  "description" : "never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。\n前提 F# において制御を返さない関数は、結果の型が任意であるような多相関数として表現される。\n\/\/\/ 常に例外を投げる関数 val failwith\x26lt;\x26#39;A\x26gt; : string -\x26gt; \x26#39;A F# の型システムにおいて多相になれるのはnominalな型や関数だけなので、制御を返さない関数を持つフィールドというのは作れない。\ntype R = { FailWith: string -\x26gt; (*never型? *) } 型抽象(Λ)があったらできた。\n\/\/ F# ではない。 type R = { FailWith: Λ\x26#39;A. string -\x26gt; \x26#39;A } なお、型変数をレコード型のほうに持たせると意味が変わってくる。\ntype R\x26lt;\x26#39;A\x26gt; = { FailWith: string -\x26gt; \x26#39;A } これだと FailWith を複数回、異なる結果型で呼ぶことができない。(Rの型引数が矛盾する。)\n方法 はじめに適当にNever型を定義する。型は公開するが、型のインスタンスを作る方法は公開しないでおく。\ntype Never = private | Never この型の値を受け取るnever関数を公開する。\nlet never\x26lt;\x26#39;A\x26gt; (_: Never) : \x26#39;A = assert false \/\/ この関数が呼ばれないことをコンパイラに教える  failwith \x26#34;never\x26#34; \/\/ 制御を返さない何らかの式 使いみち 例えば別のプログラムを実行する exec 関数を抽象的に受け取りたいとする。",
+  "description" : "never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。\n",
   "inLanguage" : "ja",
   "wordCount":  194 ,
   "datePublished" : "2021-11-03T00:00:00",
   "dateModified" : "2021-11-03T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
-  "keywords" : [ "F#" ],
+  "keywords" : [ "FSharp" ],
   "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2021-11-03\/poor-mans-never-type\/",
   "publisher" : {
     "@type": "Organization",
@@ -101,23 +83,13 @@ let never&lt;&#39;A&gt; (_: Never) : &#39;A = assert false // この関数が呼
 </script>
 
 <meta property="og:title" content="可視性を使ってnever型もどきを作る" />
-<meta property="og:description" content="never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。
-前提 F# において制御を返さない関数は、結果の型が任意であるような多相関数として表現される。
-/// 常に例外を投げる関数 val failwith&lt;&#39;A&gt; : string -&gt; &#39;A F# の型システムにおいて多相になれるのはnominalな型や関数だけなので、制御を返さない関数を持つフィールドというのは作れない。
-type R = { FailWith: string -&gt; (*never型? *) } 型抽象(Λ)があったらできた。
-// F# ではない。 type R = { FailWith: Λ&#39;A. string -&gt; &#39;A } なお、型変数をレコード型のほうに持たせると意味が変わってくる。
-type R&lt;&#39;A&gt; = { FailWith: string -&gt; &#39;A } これだと FailWith を複数回、異なる結果型で呼ぶことができない。(Rの型引数が矛盾する。)
-方法 はじめに適当にNever型を定義する。型は公開するが、型のインスタンスを作る方法は公開しないでおく。
-type Never = private | Never この型の値を受け取るnever関数を公開する。
-let never&lt;&#39;A&gt; (_: Never) : &#39;A = assert false // この関数が呼ばれないことをコンパイラに教える  failwith &#34;never&#34; // 制御を返さない何らかの式 使いみち 例えば別のプログラムを実行する exec 関数を抽象的に受け取りたいとする。">
+<meta property="og:description" content="never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。">
 <meta property="og:url" content="https://vain0x.github.io/blog/2021-11-03/poor-mans-never-type/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
   <meta name="twitter:title" content="可視性を使ってnever型もどきを作る" />
-  <meta name="twitter:description" content="never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。
-前提 F# において制御を返さない関数は、結果の型が任意であるような多相関数として表現される。
-/// 常に例外を投げる関数 val failwith&lt;&#39;A&gt; : string -&gt; &#39;A F# の型システムにおいて多相になれるのはnominalな型や関数だけなので、制御を返さない関数を …">
+  <meta name="twitter:description" content="never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -288,11 +260,10 @@ let never&lt;&#39;A&gt; (_: Never) : &#39;A = assert false // この関数が呼
 <a href="/blog/2020-09-19/complexity-from-expression-oriented-syntax">式指向構文が言語処理系にもたらす複雑性</a>に書いた課題をいくらか軽減できるかもしれない。
 多相関数のない言語を設計する予定はないので深堀りはしない。</p>
 
-
         
           <div class="blog-tags">
             
-              <a href="https://vain0x.github.io/blog/tags/f/">F#</a>&nbsp;
+              <a href="https://vain0x.github.io/blog/tags/fsharp/">FSharp</a>&nbsp;
             
           </div>
         
@@ -304,6 +275,10 @@ let never&lt;&#39;A&gt; (_: Never) : &#39;A = assert false // この関数が呼
           <ul>
           
             <li><a href="/blog/2021-08-19/mutual-inference-problem/">相互再帰関数の型推論で問題になったケース</a></li>
+          
+            <li><a href="/blog/2021-06-26/value-vs-storage/">値とストレージの区別</a></li>
+          
+            <li><a href="/blog/2021-04-24/shared-fields-in-discriminated-unions/">判別共用体が共通フィールドを持てたら嬉しい</a></li>
           
           </ul>
           
