@@ -63,7 +63,7 @@
   "headline": "リンクのための型エイリアス",
   "description" : "ソースコード上にリンクを張るために型エイリアスを使うことがある\n",
   "inLanguage" : "ja",
-  "wordCount":  37 ,
+  "wordCount":  41 ,
   "datePublished" : "2021-11-20T00:00:00",
   "dateModified" : "2021-11-20T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -205,7 +205,7 @@
         <p>ソースコード上にリンクを張るために型エイリアスを使うことがある</p>
 <p>例えば行番号は、型としてはただの整数。しかし値が0以上なのか1以上なのかが混乱しやすい。</p>
 <p>課題: 行番号を使う場所にいちいち「行番号は0以上」とコメントを書いて回るのはめんどくさい。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="sd">/// 指定した行のテキストを取り出す。行番号、列番号は0以上。末尾の改行は除く。
+<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="sd">/// 指定した行のテキストを取り出す。行番号は0以上。末尾の改行は除く。
 </span><span class="sd"></span><span class="k">let</span> <span class="nv">getLineText</span> <span class="o">(</span><span class="n">row</span><span class="o">:</span> <span class="n">int</span><span class="o">)</span> <span class="o">:</span> <span class="kt">string</span> <span class="o">=</span> <span class="o">..</span><span class="o">.</span>
 </code></pre></div><p>対策: 行番号を表す型エイリアスを作って、それにコメントを書いておくことで一元化できる。</p>
 <div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="sd">//// 行番号 (0以上)
@@ -215,8 +215,11 @@
 </span><span class="c1"></span>
 <span class="sd">/// 指定した行のテキストを取り出す。末尾の改行は除く。
 </span><span class="sd"></span><span class="k">let</span> <span class="nv">getLineText</span> <span class="o">(</span><span class="n">row</span><span class="o">:</span> <span class="n">RowIndex</span><span class="o">)</span> <span class="o">:</span> <span class="kt">string</span> <span class="o">=</span> <span class="o">..</span><span class="o">.</span>
-</code></pre></div><p>RowIndexの定義箇所にジャンプできるし、逆にRowIndexの使用箇所を列挙することもできる。</p>
-<p>型エイリアスに限らず、定義にコメントをつけたり、シンボル参照の検索対象とするために型や関数を作ることがたまにある。</p>
+</code></pre></div><ul>
+<li><code>RowIndex</code> の部分をホバーすると「行番号 (0以上)」と表示される</li>
+<li><code>RowIndex</code> の定義箇所にジャンプできるし、逆にRowIndexの使用箇所を列挙することもできる。</li>
+</ul>
+<p>型エイリアスに限らず、定義にコメントをつけたり、シンボル参照の検索対象とするために型や関数を作ることもたまにある。</p>
 
         
           <div class="blog-tags">
