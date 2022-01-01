@@ -49,7 +49,7 @@
         "position": 3,
         "item": {
           "@id": "https:\/\/vain0x.github.io\/blog\/2020-01-11\/after-milone-and-ginger\/",
-          "name": "ミローネ言語コンパイラ・ h s p3開発ツール群の振り返りと今後の構想"
+          "name": "ミローネ言語コンパイラ・ hsp3開発ツール群の振り返りと今後の構想"
         }
     }]
 }
@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年1月11日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -203,7 +203,7 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>2019年、ミローネ言語コンパイラや HSP3 GINGER (HSP3 言語の LSP やデバッガなど) を開発した経験に基づく、今後の展開の構想について。</p>
-<h2 id="heading">振り返り</h2>
+<h2 id="振り返り">振り返り</h2>
 <p>昨年 (2019年)、「ミローネ言語」と「HSP3 GINGER」という2つのプロジェクトにある種の区切りをつけました。ミローネ言語は当初の目標であったセルフホスティングを達成し、HSP3 GINGER は一定のクオリティのものをリリースしました。</p>
 <p>簡単に紹介すると、<strong>ミローネ言語</strong> はプログラミング言語 F# のサブセットである言語です。そして、<strong>ミローネ言語をC言語に変換するコンパイラ</strong> を実装するプロジェクトです。以下の記事を参照。</p>
 <ul>
@@ -213,65 +213,65 @@
 <ul>
 <li><a href="https://qiita.com/vain0x/items/1c0be49b3b22142dbfd1">VSCode で HSP3 の開発環境を作る [2019年末]</a></li>
 </ul>
-<h3 id="heading-1">ミローネ言語の成功</h3>
+<h3 id="ミローネ言語の成功">ミローネ言語の成功</h3>
 <p>ミローネ言語の成功点はコンパイラ実装に詳しくなれたこと……と言いたかったんですが、F# の言語仕様を再現するために苦心した面が多く、汎用性のある知識がとても増えたとはいえないかもしれません。</p>
 <p>また、成果物自体はエラー処理やメモリ管理 (後述) の面で問題が多く、実用レベルではありません。</p>
 <p>そのため、どちらかというと「セルフコンパイルできるぐらい複雑なコンパイラを自力で作れる」という成功体験や、数々の反省点を掘り起こしたことなどを挙げたいです。今後の挑戦の燃料にします。</p>
-<h3 id="heading-2">ミローネ言語の反省</h3>
+<h3 id="ミローネ言語の反省">ミローネ言語の反省</h3>
 <p>反省点を4つあげます。</p>
 <p>1つ目は <strong>性能</strong> です。セルフコンパイル、すなわちミローネ言語コンパイラをミローネ言語コンパイラでコンパイルするのに、私の開発マシンで20秒ほどかかります。1万行のソースコードのコンパイルにかかる時間としては長すぎです。原因の目星はついている (おそらくマップのデータ構造が悪い) のですが、解消は容易ではないので今後の課題としています。</p>
 <p>2つ目は <strong>中間表現の設計</strong> です。コンパイルの途中でプログラムはツリーの中間表現になりますが、その構造の設計がそこはかとなくいまいちなせいで、アルゴリズムの実装に支障をきたしています。また、中間表現を再設計してはアルゴリズムを手直しする、という工程の反復に無駄に時間をかけてしまったのも課題です。</p>
 <p>3つ目は <strong>FFI</strong> です。Issue で指摘を受けていますが、ミローネ言語には FFI (外部関数インターフェイス) がないため、例えばC言語で書いたコードをリンクできません。<a href="https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/functions/external-functions">F# の extern の構文</a> がなんかアレというのもあります。また、ミローネ言語は必ず main 関数を必要とする部分があるのも問題で、C言語で書いたプロジェクトにミローネ言語で書いたコードをライブラリとして埋め込む、といったこともできません。</p>
 <p>4つ目は <strong>メモリ管理</strong> です。ミローネ言語が生成するC言語のコードは <strong>ヒープに確保したメモリを解放しない</strong> うえに GC がありません。セルフコンパイルには数百MBしか消費しないのでいまのところ問題ありませんが、実用的ではないでしょう。Boehm GC とか、構造体の型定義に工夫するだけでコピーGCがつくとか、いろいろあるようですが、移植性とかも含めて考えます。</p>
 <p>あとで読む: <a href="https://qiita.com/wasabiz/items/bc80581ba24eaaf0ece1">C言語でインクルードするだけで使えるNon-movingで正確なコピーGCを作った</a></p>
-<h3 id="hsp3-ginger-">HSP3 GINGER の成功</h3>
+<h3 id="hsp3-ginger-の成功">HSP3 GINGER の成功</h3>
 <p>HSP3 GINGER のもっとも良い点は、LSP を短時間で作ったことです。LSP は、挙動の正確性をやや妥協したとはいえ十分に便利で、1週間ばかりで作ったとは思えないぐらいに役に立っています。</p>
 <p>もう1つは LSP や DAP の理解が深まったことです。自作言語にインテリセンスやデバッガはなくてはならない存在なため。DAP 準拠のデバッガはまだ完成していませんが、試作版はあります。また、knowbug のクライアントとサーバーの通信方式は DAP をベースにしています。</p>
-<h2 id="heading-3">関連トピック</h2>
+<h2 id="関連トピック">関連トピック</h2>
 <p>上記の振り返りを踏まえて、いま関連トピックについて思っていることや調べたことを書きます。</p>
-<h3 id="cps-">CPS 中間表現</h3>
+<h3 id="cps-中間表現">CPS 中間表現</h3>
 <p>ミローネ言語の中間表現の問題に関して、最近は CPS 中間表現に目をつけています。Standard ML of New Jersey という処理系で採用されていて、静的単一代入 (SSA) 中間表現のような良い性質を持つらしいです。</p>
 <p>よく知らないので詳述を避けますが、とりあえず以下の本を読んでいく予定です。</p>
 <p><a href="https://www.amazon.co.jp/Compiling-Continuations-English-Andrew-Appel-ebook/dp/B00E3UR010/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=">Amazon.co.jp: Compiling with Continuations (English Edition) 電子書籍: Andrew W. Appel: Kindleストア</a></p>
-<h3 id="heading-4">イミュータブル性の性能へのペナルティ</h3>
+<h3 id="イミュータブル性の性能へのペナルティ">イミュータブル性の性能へのペナルティ</h3>
 <p>ミローネ言語は F# のサブセットですが、実装している機能はほとんど「副作用がない」ものに限定しています。printf などの副作用を起こす関数があるので言語としては純粋でありませんが、<strong>データ構造はイミュータブル</strong> になっています。</p>
 <p>イミュータブルにしておくと、コードが読みやすいとか、デバッグしやすいとか、種々の利点があります。一方で、性能面にペナルティがあります。<strong>遅くなるか、最適化頼りになる</strong> ことです。</p>
 <p>例えばツリーの一部を「書き換える」とき、破壊的に変更を許せば一瞬なのに、<a href="https://en.wikipedia.org/wiki/Persistent_data_structure#Path_copying">経路複製 (path copying)</a> により無駄にヒープメモリを消費したりメモリアロケータに負荷をかけます。</p>
 <p>あるいは、そのような挙動を処理系が検出して最適化できたとしても、それは「 <strong>ソースコードから実行時の効率が見えない</strong> 」ことになります。いわゆる「処理系の気持ちを考える」という状況です。</p>
-<h3 id="rust-">Rust のオブジェクトの可変性</h3>
+<h3 id="rust-のオブジェクトの可変性">Rust のオブジェクトの可変性</h3>
 <p>イミュータブルのメリットと性能を両立させる方法は何かないでしょうか。「最速レベル」のプログラミング言語である Rust では、うまくバランスが取れているようにみえます。</p>
 <p>雑にいうと、Rust においてデータ構造上のあるフィールドが可変か否かは、そのフィールドや属する型の定義ではなく、おおよそその <strong>フィールドの所有者が可変か否か</strong> で決まるイメージです。(厳密にいうと全く異なりますが、雰囲気的にはそう。)</p>
 <p>例えば以下のトークン型があるとき、これの種類 (kind) や文字列 (text) が可変かどうか、というのは決まっていません。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">Token</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="c1">// (整数)
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">Token</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// (整数)
 </span><span class="c1"></span><span class="w">    </span><span class="n">kind</span>: <span class="kt">usize</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="n">text</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="n">text</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
 </span></code></pre></div><p>この型がついたオブジェクトを扱う時点では可変か否かは決まっています。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// トークンの種類を取得する関数
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// トークンの種類を取得する関数
 </span><span class="c1"></span><span class="k">fn</span> <span class="nf">token_to_kind</span><span class="p">(</span><span class="n">token</span>: <span class="kp">&amp;</span><span class="nc">Token</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">usize</span> <span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="c1">// ここで token は不変(参照)なので token.kind や token.text は不変
+</span><span class="w">    </span><span class="c1">// ここで token は不変(参照)なので token.kind や token.text は不変
 </span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="c1">// 変更操作はコンパイルエラーになる！
+</span><span class="w">    </span><span class="c1">// 変更操作はコンパイルエラーになる！
 </span><span class="c1"></span><span class="w">    </span><span class="c1">// token.kind = 1;
 </span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="n">token</span><span class="p">.</span><span class="n">kind</span><span class="w">
+</span><span class="w">    </span><span class="n">token</span><span class="p">.</span><span class="n">kind</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="w">
+</span><span class="w">
 </span><span class="w"></span><span class="c1">// トークンを null にする関数
 </span><span class="c1"></span><span class="k">fn</span> <span class="nf">token_set_null</span><span class="p">(</span><span class="n">token</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Token</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="c1">//                    ^ mut = mutable (可変) の意
+</span><span class="w">    </span><span class="c1">//                    ^ mut = mutable (可変) の意
 </span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="c1">// ここで token は可変(参照) なので、
+</span><span class="w">    </span><span class="c1">// ここで token は可変(参照) なので、
 </span><span class="c1"></span><span class="w">    </span><span class="c1">// 変更操作はコンパイルエラーにならない。
 </span><span class="c1"></span><span class="w">    </span><span class="n">token</span><span class="p">.</span><span class="n">kind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="n">token</span><span class="p">.</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;null&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="n">token</span><span class="p">.</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;null&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">();</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
 </span></code></pre></div><p>このように Rust では同じ型でもイミュータブルな方が都合がいいときはイミュータブルとみなし、ミュータブルな方が都合がいいときはミュータブルとみなす、といったことができます。</p>
 <p>(補足: 実際にはそこまで単純な話ではなく、例えば Rc などでデータを共有したりしようとすると悩みは増えます。)</p>
 <p>(補足: C++ の const もおおむね同様ですが、const は再帰的に伝播しないため、<code>T const&amp;</code> がイミュータブルなデータ構造であるとはいいがたいです。また、Rust の場合も interior mutability を使うと伝播しなくなります。)</p>
-<h3 id="heading-5">諸言語のメモリ管理戦略</h3>
+<h3 id="諸言語のメモリ管理戦略">諸言語のメモリ管理戦略</h3>
 <p>古来より2020年まで、メモリ管理は常に重要なトピックでありつづけています。</p>
 <p>ガベージコレクション (GC) があればオールオッケーかというと、そうでもなく、例えばヒープアロケーションを避けて GC の負荷を軽減することにより高速化をはかる話はよく耳にします。</p>
 <p>プログラミング言語の視点でのメモリ管理戦略については以下の記事が参考になります。(これはC言語の代替になることを狙っているらしいプログラミング言語 Zen のドキュメントの一部です。筆者が Zen を使ったことはありません。)</p>
@@ -303,7 +303,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="heading-6">次の言語の構想</h2>
+<h2 id="次の言語の構想">次の言語の構想</h2>
 <p>そういうわけで、ミローネ言語とは別に自作言語を1つ作ろうとしています。要点は以下の通り。</p>
 <ul>
 <li>構文: (長くなったので別の記事に書く)</li>
@@ -336,7 +336,7 @@
 </li>
 </ul>
 <p>LSP で入力補完とか DAP でデバッグとかできるようにできたらいいな、と思います。</p>
-<h3 id="heading-7">漸進的な開発</h3>
+<h3 id="漸進的な開発">漸進的な開発</h3>
 <p>ミローネ言語での小さな反省点をさらに1つ挙げると、C言語への変換にこだわったことです。</p>
 <p>最終的には (あるいは、ネイティブコンパイルを目指す過程の一点では) C言語への変換 (に相当するもの) は実装することになりますが、途中の段階として <strong>C++ への変換</strong> を挟むのも一つの手だったと思います。すなわち、単相化の実装を省略してテンプレートを使うことです。</p>
 <p>それにより、セルフホスティングまでの時間を短縮できたはずです。筆者はミローネ言語の開発後期にずっと「ほんとうにセルフホスティングがうまくいくのか」という不安でいっぱいになっていました。セルフホスティングに支障をきたす何らかの問題が実はあって、完全に頓挫するのではないか、と。特にメモリを解放しない点にかなり不安がありました……が、実際にはメモリ使用量は余裕でした。そして、実際に問題になっているのは実行時間です。</p>
@@ -461,7 +461,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

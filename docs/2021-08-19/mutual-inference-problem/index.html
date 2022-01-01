@@ -106,7 +106,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -185,7 +185,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年8月19日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -209,26 +209,26 @@
       <article role="main" class="blog-post">
         <p>ミローネ言語 (F# のサブセットである自作言語) の型推論が壊れている。
 どういうケースで壊れているかを書いておく。</p>
-<h2 id="heading">相互再帰</h2>
+<h2 id="相互再帰">相互再帰</h2>
 <p><code>module rec</code> 直下の関数は相互再帰的に定義される。つまり上にある関数の本体から、下にある関数を呼べる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">module</span> <span class="nn">rec</span> <span class="nn">MyProject</span><span class="p">.</span><span class="n">Example</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">module</span> <span class="nn">rec</span> <span class="nn">MyProject</span><span class="p">.</span><span class="n">Example</span>
 
-<span class="k">let</span> <span class="nv">even</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">=</span> <span class="n">0</span> <span class="o">|</span><span class="o">|</span> <span class="n">odd</span> <span class="o">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="c1">// 定義前にoddを使う
+<span class="k">let</span> <span class="nv">even</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">=</span> <span class="n">0</span> <span class="o">||</span> <span class="n">odd</span> <span class="o">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="c1">// 定義前にoddを使う
 </span><span class="c1"></span><span class="k">let</span> <span class="nv">odd</span> <span class="n">x</span> <span class="o">=</span> <span class="n">even</span> <span class="o">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span>
 </code></pre></div><p>型推論により <code>even: int -&gt; int</code>, <code>odd: int -&gt; int</code> と型がつく。
 以下 <code>module rec</code> は省く。</p>
-<h2 id="heading-1">汎化</h2>
+<h2 id="汎化">汎化</h2>
 <p>汎化 (generalization) がからむとややこしい。</p>
-<h3 id="heading-2">ジェネリック関数をインスタンス化して使うケース</h3>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">module</span> <span class="nn">rec</span> <span class="nn">MyProject</span><span class="p">.</span><span class="n">Utils</span>
+<h3 id="ジェネリック関数をインスタンス化して使うケース">ジェネリック関数をインスタンス化して使うケース</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">module</span> <span class="nn">rec</span> <span class="nn">MyProject</span><span class="p">.</span><span class="n">Utils</span>
 
 <span class="k">let</span> <span class="nv">fail</span> <span class="n">context</span> <span class="o">=</span> <span class="c1">// context: 失敗した原因とか、何らかのデータ
-</span><span class="c1"></span>  <span class="n">eprintfn</span> <span class="s">&#34;</span><span class="s">error: %s</span><span class="s">&#34;</span> <span class="o">(</span><span class="kt">string</span> <span class="o">(</span><span class="n">box</span> <span class="n">context</span><span class="o">)</span><span class="o">)</span>
+</span><span class="c1"></span>  <span class="n">eprintfn</span> <span class="s">&#34;error: %s&#34;</span> <span class="o">(</span><span class="kt">string</span> <span class="o">(</span><span class="n">box</span> <span class="n">context</span><span class="o">))</span>
   <span class="n">exit</span> <span class="n">1</span>
 
 <span class="k">let</span> <span class="nv">div</span> <span class="n">x</span> <span class="n">y</span> <span class="o">=</span>
   <span class="k">if</span> <span class="n">y</span> <span class="o">=</span> <span class="n">0</span>
-  <span class="k">then</span> <span class="n">fail</span> <span class="o">(</span><span class="s">&#34;</span><span class="s">div by zero; x=</span><span class="s">&#34;</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
+  <span class="k">then</span> <span class="n">fail</span> <span class="o">(</span><span class="s">&#34;div by zero; x=&#34;</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
   <span class="k">else</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
 </code></pre></div><p><code>fail</code> 関数は何らかのデータを受け取ってエラーに書き出し、異常終了する。
 引数の型も結果の型も何でもいい。
@@ -238,9 +238,9 @@ divは事前条件をみたさないときに <code>fail</code> を呼んで、�
 この呼び出しにおける <code>fail</code> の型は <code>fail: string -&gt; int</code> になっている。</p>
 <p>divにおけるfailの使用箇所のせいで、failの定義の型が <code>string -&gt; int</code> に単一化されてしまうと困る。
 実際、 F# はこの状況でもfailを適切に汎化する。</p>
-<h3 id="heading-3">関数の型が後から決まるケース</h3>
+<h3 id="関数の型が後から決まるケース">関数の型が後から決まるケース</h3>
 <p>一方、関数の定義時に汎化を行うと問題が起こるケースがある。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Pat</span> <span class="o">=</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Pat</span> <span class="o">=</span>
   <span class="o">|</span> <span class="n">WildcardPat</span>
 
 <span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span>
@@ -267,10 +267,10 @@ divは事前条件をみたさないときに <code>fail</code> を呼んで、�
 checkExprListの型はまだ分からないが、実際にはジェネリック関数ではないので、リストの要素の型をインスタンス化してはいけない。
 上の例ではcheckExprListに、式のリストではなくパターンのリストを誤って渡している。
 これは型エラーにしなければいけない。</p>
-<h3 id="heading-4">問題</h3>
+<h3 id="問題">問題</h3>
 <p><code>fail</code> の例では、<code>fail</code> の後にある関数の使用箇所において <code>fail</code> をジェネリック関数とみなしてインスタンス化する必要があった。
 一方 <code>checkExprList</code> の例では、<code>checkExprList</code> の使用箇所において <code>checkExprList</code> はジェネリック関数でないとみなして、インスタンス化しない必要があった。</p>
-<h3 id="heading-5">検索</h3>
+<h3 id="検索">検索</h3>
 <p>&ldquo;hindley milner mutually recursive&rdquo; とかで検索するとこの記事 (回答) が出てきた。</p>
 <p><a href="https://stackoverflow.com/questions/900585/why-are-functions-in-ocaml-f-not-recursive-by-default/904715#904715">recursion - Why are functions in OCaml/F# not recursive by default? - Stack Overflow</a> (リンク先の回答の投稿日は2009-05-24)</p>
 <blockquote>
@@ -404,7 +404,7 @@ checkExprListの型はまだ分からないが、実際にはジェネリック�
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

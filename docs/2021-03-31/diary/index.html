@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年3月31日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -206,7 +206,7 @@
 <ul>
 <li>前回 (2021-02-28) <a href="https://vain0x.github.io/blog/2021-02-28/diary/">https://vain0x.github.io/blog/2021-02-28/diary/</a></li>
 </ul>
-<h2 id="heading">ミローネ言語</h2>
+<h2 id="ミローネ言語">ミローネ言語</h2>
 <p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
 <ul>
 <li>C言語の標準規格(C11)に準拠していないコードが生成される不具合を修正した
@@ -232,9 +232,9 @@
 </ul>
 </li>
 </ul>
-<h3 id="heading-1">規格違反の例</h3>
+<h3 id="規格違反の例">規格違反の例</h3>
 <p>コンパイラが出力していた規格違反なCコードの例をあげる。</p>
-<h5 id="heading-2"><strong>空の初期化リスト</strong></h5>
+<h5 id="空の初期化リスト"><strong>空の初期化リスト</strong></h5>
 <ul>
 <li>配列を空の初期化リストで初期化する文: <code>char buf[42] = {};</code></li>
 <li>複合リテラルを空の初期化リストで作る式: <code>(struct K){}</code></li>
@@ -242,18 +242,18 @@
 <p>C11では、初期化リストは構文的に空にできない。</p>
 <p>2つ目以降の要素やフィールドは省略可能なので、すべて省略できてもよさそうなものだけど。
 (C++ではOK.)</p>
-<h5 id="heading-3"><strong>不完全型の変数宣言</strong></h5>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="k">struct</span> <span class="n">K</span> <span class="n">k</span><span class="p">;</span> <span class="c1">// 不正
+<h5 id="不完全型の変数宣言"><strong>不完全型の変数宣言</strong></h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="k">struct</span> <span class="n">K</span> <span class="n">k</span><span class="p">;</span> <span class="c1">// 不正
 </span><span class="c1"></span>
-<span class="k">struct</span> <span class="n">K</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="p">}</span><span class="p">;</span>
+<span class="k">struct</span> <span class="n">K</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="p">};</span>
 </code></pre></div><p>変数の型は完全型でなければいけないので、構造体の型定義を先に書き、その後で変数の宣言を書かないといけない。</p>
 <p>C言語は型定義の順番に厳しいが、型定義の前方参照を禁じる理由はあまりない気がする。
 前方参照を許可するとワンパスコンパイラを書けなくなるが、Cコンパイラをワンパスで書くのは厳しい。
 <code>#include</code> や <code>#define</code> との相互作用が気になるのと、前方参照を認めるのはいまさらすぎる、というところか。</p>
-<h5 id="enum"><strong>enumの前方宣言</strong></h5>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">enum</span> <span class="n">E</span><span class="p">;</span> <span class="c1">// 不正
+<h5 id="enumの前方宣言"><strong>enumの前方宣言</strong></h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">enum</span> <span class="n">E</span><span class="p">;</span> <span class="c1">// 不正
 </span><span class="c1"></span>
-<span class="k">enum</span> <span class="n">E</span> <span class="p">{</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="p">}</span><span class="p">;</span>
+<span class="k">enum</span> <span class="n">E</span> <span class="p">{</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="p">};</span>
 </code></pre></div><p>構造体がポインタ越しに相互再帰的に参照されることがあるので、ミローネ言語のコンパイラはすべての型の前方宣言を出力してから、型の定義を出力している。
 structの前方宣言を出すのと同じノリでenumも前方宣言を出していたが、実際のところenumの前方宣言は意味がなく、規格でも許可されていない。</p>
 <h3 id="ffi">FFI</h3>
@@ -263,7 +263,7 @@ structの前方宣言を出すのと同じノリでenumも前方宣言を出し�
 <p>ミローネ言語からC言語で書かれたライブラリを使って何かアプリを作る実験をしていた。
 jsonをパースして特定のフィールドの値を取得するコマンドと、データベースに保存するメモアプリを作った。
 FFI (というか他言語との相互運用) が安定していないと意味のあるプログラムを書くのは厳しいので、このあたりを優先的に安定させていく必要がある。</p>
-<h2 id="heading-4">書いた記事</h2>
+<h2 id="書いた記事">書いた記事</h2>
 <p>ぼんやりと思っていることを記事に起こした。
 記事にするようなことでもない気もするが、なんであれ書いていけば無意識に自己が啓発されて案が生まれるかもしれない。</p>
 <ul>
@@ -271,8 +271,8 @@ FFI (というか他言語との相互運用) が安定していないと意味�
 <li><a href="https://vain0x.github.io/blog/2021-03-30/nonexpression-syntax-in-functional-programming-language/">関数型プログラミング言語の構文は「すべてが式」ではない - ベインのブログ</a></li>
 <li><a href="https://vain0x.github.io/blog/2021-03-29/ninja-thoughts/">ミローネ言語の開発用にビルドツールninjaを使っている感想など - ベインのブログ</a></li>
 </ul>
-<h2 id="heading-5">気になった記事など</h2>
-<h5 id="chttpreal-cinfoindexhtml-2016"><strong><a href="http://real-c.info/index.html">本物のC</a></strong> (最終更新は2016年)</h5>
+<h2 id="気になった記事など">気になった記事など</h2>
+<h5 id="本物のchttpreal-cinfoindexhtml-最終更新は2016年"><strong><a href="http://real-c.info/index.html">本物のC</a></strong> (最終更新は2016年)</h5>
 <blockquote>
 <p>「本物の」とはつまり、</p>
 <ul>
@@ -284,7 +284,7 @@ FFI (というか他言語との相互運用) が安定していないと意味�
 <p>Cの解説は玉石混交で、信頼性のある記事は貴重。
 日本語で書かれているのも嬉しい。
 ちなみに私は <a href="https://en.cppreference.com/w/c">C reference</a> を参考にすることが多い。</p>
-<h5 id="semantic-versioninghttpsknqyf263hatenablogcomentry20201110224424--2020-11-10"><strong><a href="https://knqyf263.hatenablog.com/entry/2020/11/10/224424">Semantic Versioningの闇</a></strong> (投稿日は 2020-11-10)</h5>
+<h5 id="semantic-versioningの闇httpsknqyf263hatenablogcomentry20201110224424-投稿日は-2020-11-10"><strong><a href="https://knqyf263.hatenablog.com/entry/2020/11/10/224424">Semantic Versioningの闇</a></strong> (投稿日は 2020-11-10)</h5>
 <p>semverは「バージョン制約」を定めていないため、「バージョン <code>1.2.3</code> は制約 <code>=1</code> を満たすか？」といった命題の解釈が実装によって異なるらしい。
 自作言語のパッケージマネージャを作るとき、このあたり考慮したほうがよさそう。</p>
 
@@ -404,7 +404,7 @@ FFI (というか他言語との相互運用) が安定していないと意味�
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

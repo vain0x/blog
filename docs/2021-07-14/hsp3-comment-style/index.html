@@ -49,7 +49,7 @@
         "position": 3,
         "item": {
           "@id": "https:\/\/vain0x.github.io\/blog\/2021-07-14\/hsp3-comment-style\/",
-          "name": "コメントを\/\/で書くか;で書くか"
+          "name": "コメントを で書くか;で書くか"
         }
     }]
 }
@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年7月14日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -203,7 +203,7 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>HSP3は <code>;</code> と <code>//</code> の2種類のコメントがあって、長いこと <code>//</code> を使ってきたけど、<code>;</code> に変えるかも……という話。(わりとどうでもいい話。)</p>
-<h2 id="hsp3">HSP3のコメントの構文</h2>
+<h2 id="hsp3のコメントの構文">HSP3のコメントの構文</h2>
 <p>HSP3には改行までのコメントアウトのために2種類の構文がある。</p>
 <ul>
 <li><code>;</code> (BASIC風)</li>
@@ -216,23 +216,23 @@
 <code>;</code> をコメントとするのも、アセンブリ風の言語や設定ファイル系の言語でよくみる。</p>
 <p>そのため <code>//</code> を使うべき積極的な理由はない。
 むしろ多数派の <code>;</code> を使うべき、ということに最近気づいた。</p>
-<h2 id="vscode">VSCodeの拡張機能</h2>
+<h2 id="vscodeの拡張機能">VSCodeの拡張機能</h2>
 <p>これに気づいたきっかけはVSCodeの拡張機能だ。</p>
 <p>VSCodeでは Ctrl+/ を使うと行のコメントアウトを切り替える機能がある。
 この機能のため、拡張機能側でコメントの記号を選ぶ必要がある。</p>
 <p>HSP3の拡張機能としてはおそらく language-hsp3 がもっとも使われていて、これは <code>;</code> をコメントにしている。
 つまり Ctrl+/ を押すと行頭に <code>;</code> が挿入または除去される。</p>
 <p>自作の拡張機能である <code>hsp3-vscode-syntax</code> では <code>//</code> を使うように設定してある。</p>
-<h2 id="heading">影響</h2>
+<h2 id="影響">影響</h2>
 <p>そういうわけで knowbug、hsp3-ginger、hsp3-modules などのコードベースで <code>//</code> から <code>;</code> への変更を行うかもしれない。
 <code>hsp3-vscode-syntax</code> の次のメジャーバージョンではコメントの記号が <code>;</code> になるかもしれない。</p>
 <p>(<strong>追記</strong> 2021-08-18 行いました。)</p>
 <hr>
-<h2 id="-if">余談: ifのカッコ</h2>
+<h2 id="余談-ifのカッコ">余談: ifのカッコ</h2>
 <p>関連した話題として、ifの条件式をカッコで囲むかどうかというのがある。</p>
 <p>C言語のif文の構文では、条件式全体をカッコで囲む必要がある。
 一方HSP3では、条件全体をカッコで囲む必要はない。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js">    <span class="c1">// 条件式をカッコで囲むとき
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js">    <span class="c1">// 条件式をカッコで囲むとき
 </span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">条件</span><span class="p">)</span> <span class="p">{</span> <span class="nx">本体</span> <span class="p">}</span>
 
     <span class="c1">// 囲まないとき
@@ -349,7 +349,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

@@ -207,7 +207,7 @@ BenchmarkDotNet のサンプル
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -286,7 +286,7 @@ BenchmarkDotNet のサンプル
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2018年9月3日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -309,7 +309,7 @@ BenchmarkDotNet のサンプル
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして <a href="https://github.com/dotnet/BenchmarkDotNet">BenchmarkDotNet</a> があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。</p>
-<h2 id="1-">1. 要約</h2>
+<h2 id="1-要約">1. 要約</h2>
 <ul>
 <li>書き出し
 <ul>
@@ -337,7 +337,7 @@ BenchmarkDotNet のサンプル
 </ul>
 </li>
 </ul>
-<h2 id="2-">2. 開発環境</h2>
+<h2 id="2-開発環境">2. 開発環境</h2>
 <p>F# の開発環境は Getting Started を参照: <a href="http://ionide.io/#getting-started">Ionide - Crossplatform F# Editor Tools</a></p>
 <p>今回は次を使ってやっていきます。 (執筆日: 2018年8月9日)</p>
 <ul>
@@ -350,41 +350,41 @@ BenchmarkDotNet のサンプル
 </ul>
 </li>
 </ul>
-<h2 id="3-benchmarkdotnet-">3. BenchmarkDotNet にあるサンプルコード</h2>
+<h2 id="3-benchmarkdotnet-にあるサンプルコード">3. BenchmarkDotNet にあるサンプルコード</h2>
 <p>F# 用のサンプルをみるとだいたいのイメージはつかめます。</p>
 <p><a href="https://github.com/dotnet/BenchmarkDotNet/tree/v0.11.0/samples/BenchmarkDotNet.Samples.FSharp">BenchmarkDotNet/samples/BenchmarkDotNet.Samples.FSharp at v0.11.0 · dotnet/BenchmarkDotNet</a></p>
-<h2 id="4-">4. サンプルプロジェクトでやってみる</h2>
+<h2 id="4-サンプルプロジェクトでやってみる">4. サンプルプロジェクトでやってみる</h2>
 <p>例として「素数判定」のベンチマークをやってみましょう。</p>
 <p>まずサンプルプロジェクトを普通のクラスライブラリーとして作ります。</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dotnet new classlib -lang F# --name PrimeNum
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">dotnet new classlib -lang F# --name PrimeNum
 </code></pre></div><p>そしてがんばって実装を書く:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// PrieNum/Library.fs
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// PrieNum/Library.fs
 </span><span class="c1"></span><span class="k">module</span> <span class="nn">PrimeNum</span>
 
 <span class="c1">// 2 以上 p 未満の整数で割り切れなければ素数、と判定する。
-</span><span class="c1"></span><span class="c1">// 最大 p - 2 回のループ
-</span><span class="c1"></span><span class="k">let</span> <span class="nv">isPrimeBruteForce</span> <span class="o">(</span><span class="n">p</span><span class="o">:</span> <span class="n">int</span><span class="o">)</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span>
+</span><span class="c1">// 最大 p - 2 回のループ
+</span><span class="c1"></span><span class="k">let</span> <span class="nv">isPrimeBruteForce</span> <span class="o">(</span><span class="n">p</span><span class="o">:</span> <span class="n">int</span><span class="o">):</span> <span class="kt">bool</span> <span class="o">=</span>
     <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="n">2</span> <span class="k">then</span>
         <span class="k">false</span>
     <span class="k">else</span>
         <span class="c1">// go m ⇔ p が m 以上 p 未満の整数で割り切れない
-</span><span class="c1"></span>        <span class="k">let</span> <span class="nv">rec</span> <span class="n">go</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">&gt;</span><span class="o">=</span> <span class="n">p</span> <span class="o">|</span><span class="o">|</span> <span class="n">p</span> <span class="o">%</span> <span class="n">m</span> <span class="o">&lt;</span><span class="o">&gt;</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">go</span> <span class="o">(</span><span class="n">m</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span>
+</span><span class="c1"></span>        <span class="k">let</span> <span class="nv">rec</span> <span class="n">go</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">&gt;=</span> <span class="n">p</span> <span class="o">||</span> <span class="n">p</span> <span class="o">%</span> <span class="n">m</span> <span class="o">&lt;&gt;</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">go</span> <span class="o">(</span><span class="n">m</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span>
         <span class="n">go</span> <span class="n">2</span>
 
 <span class="c1">// 2 以上 √p 以下の整数で割り切れなければ素数、と判定する。(証明略)
-</span><span class="c1"></span><span class="c1">// 最大 √p - 1 回のループなので速いはず
-</span><span class="c1"></span><span class="k">let</span> <span class="nv">isPrime</span> <span class="o">(</span><span class="n">p</span><span class="o">:</span> <span class="n">int</span><span class="o">)</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span>
+</span><span class="c1">// 最大 √p - 1 回のループなので速いはず
+</span><span class="c1"></span><span class="k">let</span> <span class="nv">isPrime</span> <span class="o">(</span><span class="n">p</span><span class="o">:</span> <span class="n">int</span><span class="o">):</span> <span class="kt">bool</span> <span class="o">=</span>
     <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="n">2</span> <span class="k">then</span>
         <span class="k">false</span>
     <span class="k">else</span>
         <span class="c1">// √p
-</span><span class="c1"></span>        <span class="k">let</span> <span class="nv">r</span> <span class="o">=</span> <span class="n">p</span> <span class="o">|</span><span class="o">&gt;</span> <span class="kt">float</span> <span class="o">|</span><span class="o">&gt;</span> <span class="n">sqrt</span> <span class="o">|</span><span class="o">&gt;</span> <span class="n">int</span>
+</span><span class="c1"></span>        <span class="k">let</span> <span class="nv">r</span> <span class="o">=</span> <span class="n">p</span> <span class="o">|&gt;</span> <span class="kt">float</span> <span class="o">|&gt;</span> <span class="n">sqrt</span> <span class="o">|&gt;</span> <span class="n">int</span>
         <span class="c1">// go m ⇔ p が m 以上 r 以下の整数で割り切れない
-</span><span class="c1"></span>        <span class="k">let</span> <span class="nv">rec</span> <span class="n">go</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="n">r</span> <span class="o">|</span><span class="o">|</span> <span class="n">p</span> <span class="o">%</span> <span class="n">m</span> <span class="o">&lt;</span><span class="o">&gt;</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">go</span> <span class="o">(</span><span class="n">m</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span>
+</span><span class="c1"></span>        <span class="k">let</span> <span class="nv">rec</span> <span class="n">go</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="n">r</span> <span class="o">||</span> <span class="n">p</span> <span class="o">%</span> <span class="n">m</span> <span class="o">&lt;&gt;</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">go</span> <span class="o">(</span><span class="n">m</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span>
         <span class="n">go</span> <span class="n">2</span>
 </code></pre></div><p>で、ベンチマークです。「実行するとベンチマーク処理を行うようなコンソールアプリ」を F# で作るという形になります。(ユニットテストでいうと expecto 方式)</p>
 <p>コンソールアプリのプロジェクトを作って、そこに BenchmarkDotNet をインストールします。(最新バージョンは <a href="https://www.nuget.org/packages/BenchmarkDotNet/">NuGet</a> で確認しよう。)</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># ベンチマークするためのプロジェクトはコンソールアプリとして作る。</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># ベンチマークするためのプロジェクトはコンソールアプリとして作る。</span>
 dotnet new console -lang F# --name PrimeNumBench
 
 <span class="c1"># PrimeNumBench が PrimeNum を参照するようにする。</span>
@@ -405,7 +405,7 @@ dotnet build PrimeNumBench
 <li>メソッドがベンチマーク対象であると分かるように <code>BenchmarkAttribute</code> をつける。</li>
 <li><code>main</code> でベンチマークを実行する関数を呼ぶ。</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// PrimeNumBench/Program.fs
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// PrimeNumBench/Program.fs
 </span><span class="c1"></span><span class="k">module</span> <span class="nn">Program</span>
 
 <span class="k">open</span> <span class="nn">BenchmarkDotNet</span>
@@ -425,20 +425,20 @@ dotnet build PrimeNumBench
     <span class="k">let</span> <span class="nv">_summary</span> <span class="o">=</span> <span class="nn">Running</span><span class="p">.</span><span class="nn">BenchmarkRunner</span><span class="p">.</span><span class="n">Run</span><span class="o">&lt;</span><span class="n">Benchmarks</span><span class="o">&gt;</span><span class="bp">()</span>
     <span class="n">0</span>
 </code></pre></div><p>ベンチマークアプリを <strong>Release モードでビルドして</strong> 実行します。</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dotnet run -p PrimeNumBench -c Release
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">dotnet run -p PrimeNumBench -c Release
 </code></pre></div><p>1分ぐらいかかるので待つと、結果が <em>(ログの海に溺れて)</em> 出てきます。</p>
-<pre><code>                 Method |         Mean |         Error |        StdDev |
+<pre tabindex="0"><code>                 Method |         Mean |         Error |        StdDev |
 ----------------------- |-------------:|--------------:|--------------:|
  IsPrimeBruteForceBench | 69,125.13 us | 1,118.0498 us | 1,045.8244 us |
            IsPrimeBench |     21.40 us |     0.1367 us |     0.1279 us |
 </code></pre><p>平方根を取るだけでかなり良い最適化になってるっぽい。なお 1秒 = 1000 ms (ミリ秒) = 10万 us (マイクロ秒) です。</p>
-<h2 id="5-">5. ベンチマークを軽量にする</h2>
+<h2 id="5-ベンチマークを軽量にする">5. ベンチマークを軽量にする</h2>
 <p>試行錯誤している段階ではもうちょっと早く結果がほしいので、ベンチマークの設定を変えて計測精度を下げる代わりに、ベンチマークにかかる時間を短くしてみます。</p>
 <p>ベンチマークをどのように実行するかの設定は Jobs にあるようです。参照: <a href="https://benchmarkdotnet.org/articles/configs/jobs.html">Jobs | BenchmarkDotNet</a></p>
 <p>ウォームアップや反復の回数を固定するより、パラメーターをいじってアルゴリズムに任せたほうがいいらしいです。具体的にどうするか分からないので、デフォルトの設定でそういうのないかなと思ったんですが、よさげなプルリクが出ているので参考にします:</p>
 <p><a href="https://github.com/dotnet/BenchmarkDotNet/pull/825/files">Accuracy based job attributes by Zhentar · Pull Request #825 · dotnet/BenchmarkDotNet</a></p>
 <p>相対誤差の上限を増やせばよさそう。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// PrimeNumBench/Program.fs
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// PrimeNumBench/Program.fs
 </span><span class="c1"></span><span class="k">module</span> <span class="nn">Program</span>
 
 <span class="k">open</span> <span class="nn">BenchmarkDotNet</span>
@@ -459,7 +459,7 @@ dotnet build PrimeNumBench
 <span class="k">let</span> <span class="nv">main</span> <span class="o">_</span> <span class="o">=</span>
     <span class="k">let</span> <span class="nv">config</span> <span class="o">=</span>
         <span class="k">let</span> <span class="nv">rough</span> <span class="o">=</span> <span class="n">AccuracyMode</span><span class="o">(</span><span class="n">MaxRelativeError</span> <span class="o">=</span> <span class="n">0</span><span class="o">.</span><span class="n">1</span><span class="o">)</span>
-        <span class="k">let</span> <span class="nv">quickRoughJob</span> <span class="o">=</span> <span class="n">Job</span><span class="o">(</span><span class="s">&#34;</span><span class="s">QuickRough</span><span class="s">&#34;</span><span class="o">,</span> <span class="n">rough</span><span class="o">,</span> <span class="nn">RunMode</span><span class="p">.</span><span class="n">Short</span><span class="o">)</span>
+        <span class="k">let</span> <span class="nv">quickRoughJob</span> <span class="o">=</span> <span class="n">Job</span><span class="o">(</span><span class="s">&#34;QuickRough&#34;</span><span class="o">,</span> <span class="n">rough</span><span class="o">,</span> <span class="nn">RunMode</span><span class="p">.</span><span class="n">Short</span><span class="o">)</span>
 
         <span class="k">let</span> <span class="nv">c</span> <span class="o">=</span> <span class="n">ManualConfig</span><span class="bp">()</span>
         <span class="n">c</span><span class="o">.</span><span class="n">Add</span><span class="o">(</span><span class="n">quickRoughJob</span><span class="o">)</span>
@@ -467,15 +467,15 @@ dotnet build PrimeNumBench
         <span class="c1">// その他の設定をデフォルトから継承する。
 </span><span class="c1"></span>        <span class="nn">ManualConfig</span><span class="p">.</span><span class="n">Union</span><span class="o">(</span><span class="nn">DefaultConfig</span><span class="p">.</span><span class="n">Instance</span><span class="o">,</span> <span class="n">c</span><span class="o">)</span>
 
-    <span class="k">let</span> <span class="nv">_summary</span> <span class="o">=</span> <span class="nn">Running</span><span class="p">.</span><span class="nn">BenchmarkRunner</span><span class="p">.</span><span class="n">Run</span><span class="o">&lt;</span><span class="n">Benchmarks</span><span class="o">&gt;</span><span class="o">(</span><span class="n">config</span><span class="o">)</span>
+    <span class="k">let</span> <span class="nv">_summary</span> <span class="o">=</span> <span class="nn">Running</span><span class="p">.</span><span class="nn">BenchmarkRunner</span><span class="p">.</span><span class="n">Run</span><span class="o">&lt;</span><span class="n">Benchmarks</span><span class="o">&gt;(</span><span class="n">config</span><span class="o">)</span>
     <span class="n">0</span>
 </code></pre></div><p>ビルドしてからベンチマークの完了まで20秒ぐらいになりました。</p>
-<h2 id="6-">6. ベンチマークを自動実行する</h2>
+<h2 id="6-ベンチマークを自動実行する">6. ベンチマークを自動実行する</h2>
 <p>.NET Core 2.1 から標準入りした <code>dotnet-watch</code> ツールを使うと、ソースコードを更新するたびにベンチマークを自動実行できます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dotnet watch -p ./PrimeNumBench -- run -c Release
-</code></pre></div><h2 id="7-">7. レポートを公開する</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">dotnet watch -p ./PrimeNumBench -- run -c Release
+</code></pre></div><h2 id="7-レポートを公開する">7. レポートを公開する</h2>
 <p>結果を公開するには、 <code>BenchmarkDotNetArtifacts/results/*.md</code> にマークダウン(GFM)形式で出力されているのを貼っつける。環境の情報が自動で載るので楽です。(Qiita だと微妙に手直しが必要)</p>
-<pre><code>BenchmarkDotNet=v0.11.0, OS=Windows 10.0.16299.371 (1709/FallCreatorsUpdate/Redstone3)
+<pre tabindex="0"><code>BenchmarkDotNet=v0.11.0, OS=Windows 10.0.16299.371 (1709/FallCreatorsUpdate/Redstone3)
 Intel Core i3-2310M CPU 2.10GHz (Sandy Bridge), 1 CPU, 4 logical and 2 physical cores
 Frequency=2046136 Hz, Resolution=488.7261 ns, Timer=TSC
 .NET Core SDK=2.1.302
@@ -485,29 +485,29 @@ Frequency=2046136 Hz, Resolution=488.7261 ns, Timer=TSC
 <thead>
 <tr>
 <th>Method</th>
-<th align="right">Mean</th>
-<th align="right">Error</th>
-<th align="right">StdDev</th>
+<th style="text-align:right">Mean</th>
+<th style="text-align:right">Error</th>
+<th style="text-align:right">StdDev</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>IsPrimeBruteForceBench</td>
-<td align="right">69,125.13 us</td>
-<td align="right">1,118.0498 us</td>
-<td align="right">1,045.8244 us</td>
+<td style="text-align:right">69,125.13 us</td>
+<td style="text-align:right">1,118.0498 us</td>
+<td style="text-align:right">1,045.8244 us</td>
 </tr>
 <tr>
 <td>IsPrimeBench</td>
-<td align="right">21.40 us</td>
-<td align="right">0.1367 us</td>
-<td align="right">0.1279 us</td>
+<td style="text-align:right">21.40 us</td>
+<td style="text-align:right">0.1367 us</td>
+<td style="text-align:right">0.1279 us</td>
 </tr>
 </tbody>
 </table>
-<h2 id="8-">8. おわりに</h2>
+<h2 id="8-おわりに">8. おわりに</h2>
 <p>よい計測ライフを！</p>
-<h2 id="a-">A. その他</h2>
+<h2 id="a-その他">A. その他</h2>
 <ul>
 <li>
 <p>Params 属性に言及したほうがよかったかも</p>
@@ -522,7 +522,7 @@ Frequency=2046136 Hz, Resolution=488.7261 ns, Timer=TSC
 <p>option vs voption とか</p>
 </li>
 </ul>
-<h2 id="b-">B. 関連リンク</h2>
+<h2 id="b-関連リンク">B. 関連リンク</h2>
 <ul>
 <li>
 <p><a href="https://benchmarkdotnet.org/">Showtime | BenchmarkDotNet</a></p>
@@ -650,7 +650,7 @@ Frequency=2046136 Hz, Resolution=488.7261 ns, Timer=TSC
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

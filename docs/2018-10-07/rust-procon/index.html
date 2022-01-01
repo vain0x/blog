@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2018年10月7日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -203,111 +203,111 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。</p>
-<h2 id="heading">筆者</h2>
+<h2 id="筆者">筆者</h2>
 <ul>
 <li>AtCoder 水色</li>
 <li><a href="https://note.mu/vain0x/n/ndcec1623a167">競プロ参戦記</a> やってます</li>
 </ul>
-<h2 id="heading-1">フレームワーク</h2>
+<h2 id="フレームワーク">フレームワーク</h2>
 <p><a href="https://github.com/vain0x/procon/blob/f016133b83c42196837e1b2490ecb5e57ce1ff40/rust/src/main.rs">自作フレームワークはこちら</a> 。いつもこれの main 関数の中に解答を書いて提出しています。</p>
-<h2 id="heading-2">入力のパース</h2>
+<h2 id="入力のパース">入力のパース</h2>
 <p>標準機能だけで入力をパースしようとするとだるいです。Qiita にも、すでにこの問題を解決しようという記事がいくつか上がっています。</p>
 <p>私は上述のフレームワークに含まれている <a href="https://github.com/vain0x/procon/blob/f016133b83c42196837e1b2490ecb5e57ce1ff40/rust/src/main.rs#L25-L47"><code>read!</code> マクロ</a> を使っています。実装が短い (23行) のと、見た目が関数っぽくて好み。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="sd">//! グラフのパースの例
-</span><span class="sd"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read</span><span class="o">!</span><span class="p">(</span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">usize</span><span class="p">)</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">weightd_edges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read</span><span class="o">!</span><span class="p">[</span><span class="p">[</span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="p">]</span><span class="p">;</span><span class="w"> </span><span class="n">M</span><span class="p">]</span><span class="p">;</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="sd">//! グラフのパースの例
+</span><span class="sd"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read</span><span class="o">!</span><span class="p">(</span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">usize</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">weightd_edges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read</span><span class="o">!</span><span class="p">[[</span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="p">];</span><span class="w"> </span><span class="n">M</span><span class="p">];</span><span class="w">
 </span></code></pre></div><p>パフォーマンスは若干悪くて、C++ で std::cin を使うより2倍ぐらい遅いです。それでも 10^6 個の整数を読むのに 100 ms 未満なので問題はないはず。ベンチマーク: <a href="https://github.com/vain0x/scan-bench">scan-bench</a></p>
-<h2 id="heading-3">デバッグ用のマクロ</h2>
+<h2 id="デバッグ用のマクロ">デバッグ用のマクロ</h2>
 <p><a href="https://qiita.com/yamoridon/items/3be3f0515a79567a0588">LLDB を使うとデバッグ実行できるらしい</a> です。私はやってなくて、いつも print デバッグしています。</p>
-<h3 id="debug-">debug!: 条件コンパイル</h3>
+<h3 id="debug-条件コンパイル">debug!: 条件コンパイル</h3>
 <p>デバッグ出力の消し忘れで WA とかは避けたいです。 <a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/conditional-compilation.html">条件コンパイル</a> を使って、ローカルではデバッグ出力が出る、ジャッジ時は出ない、というふうにしています。</p>
 <p>Debug/Release での分岐は <a href="https://users.rust-lang.org/t/conditional-compilation-for-debug-release/1098/3">debug_assertions を使えばできる</a> そうです。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// デバッグビルドではこっちの定義が使われる。
-</span><span class="c1"></span><span class="cp">#[</span><span class="cp">cfg(debug_assertions)</span><span class="cp">]</span><span class="w">
-</span><span class="w"></span><span class="n">macro_rules</span><span class="o">!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="c1">// 略
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// デバッグビルドではこっちの定義が使われる。
+</span><span class="c1"></span><span class="cp">#[cfg(debug_assertions)]</span><span class="w">
+</span><span class="w"></span><span class="fm">macro_rules!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// 略
 </span><span class="c1"></span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="w">
+</span><span class="w">
 </span><span class="w"></span><span class="c1">// リリースビルドではこっちの定義が使われて、 debug!(..) が無になる。
-</span><span class="c1"></span><span class="cp">#[</span><span class="cp">cfg(not(debug_assertions))</span><span class="cp">]</span><span class="w">
-</span><span class="w"></span><span class="n">macro_rules</span><span class="o">!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">(</span><span class="cp">$(</span><span class="cp">$arg</span>:<span class="nc">expr</span><span class="p">)</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="p">}</span><span class="p">;</span><span class="w">
+</span><span class="c1"></span><span class="cp">#[cfg(not(debug_assertions))]</span><span class="w">
+</span><span class="w"></span><span class="fm">macro_rules!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="p">(</span><span class="cp">$($arg</span>:<span class="nc">expr</span><span class="p">),</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{};</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id="debug--1">debug!: 定義の省略</h3>
+</span></code></pre></div><h3 id="debug-定義の省略">debug!: 定義の省略</h3>
 <p>ジャッジに不要なコードを提出に含めるのは <em>なんとなく</em> 抵抗があります。そこで、定義はローカルのファイルに書いておき、手元でのデバッグ実行時だけ <code>include!</code> で定義を取り込むという方法があります。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// デバッグ時はローカルのファイルから定義を読み込む
-</span><span class="c1"></span><span class="cp">#[</span><span class="cp">cfg(debug_assertions)</span><span class="cp">]</span><span class="w">
-</span><span class="w"></span><span class="n">include</span><span class="o">!</span><span class="p">{</span><span class="s">&#34;./procon/debug.rs&#34;</span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// デバッグ時はローカルのファイルから定義を読み込む
+</span><span class="c1"></span><span class="cp">#[cfg(debug_assertions)]</span><span class="w">
+</span><span class="w"></span><span class="fm">include!</span><span class="p">{</span><span class="s">&#34;./procon/debug.rs&#34;</span><span class="p">}</span><span class="w">
+</span><span class="w">
 </span><span class="w"></span><span class="c1">// リリース時に debug!(..) を消す
-</span><span class="c1"></span><span class="cp">#[</span><span class="cp">cfg(not(debug_assertions))</span><span class="cp">]</span><span class="w">
-</span><span class="w"></span><span class="n">macro_rules</span><span class="o">!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">(</span><span class="cp">$(</span><span class="cp">$arg</span>:<span class="nc">expr</span><span class="p">)</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="p">}</span><span class="p">;</span><span class="w">
+</span><span class="c1"></span><span class="cp">#[cfg(not(debug_assertions))]</span><span class="w">
+</span><span class="w"></span><span class="fm">macro_rules!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="p">(</span><span class="cp">$($arg</span>:<span class="nc">expr</span><span class="p">),</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{};</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
 </span></code></pre></div><p>これで debug! マクロを高機能化しても提出コードが膨れ上がることはなくなります。</p>
-<h3 id="-dbg">余談: dbg!</h3>
+<h3 id="余談-dbg">余談: dbg!</h3>
 <p>ちなみに、将来のバージョンでは公式に <code>dbg!</code> という print デバッグ用途のマクロが入るそうです。参考：<a href="https://github.com/rust-lang/rfcs/blob/master/text/2361-dbg-macro.md">rfcs/2361-dbg-macro.md at master · rust-lang/rfcs</a></p>
-<h2 id="heading-4">数値型</h2>
+<h2 id="数値型">数値型</h2>
 <p>数値型は <a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/primitive-types.html">プリミティブ型</a> に載っているとおりたくさんありますが、よく使うのは4つ:</p>
 <table>
 <thead>
 <tr>
-<th align="left"></th>
+<th style="text-align:left"></th>
 <th></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">i64</td>
-<td align="left">10^18 ぐらいまで扱える</td>
+<td style="text-align:left">i64</td>
+<td style="text-align:left">10^18 ぐらいまで扱える</td>
 </tr>
 <tr>
-<td align="left">usize</td>
-<td align="left">スライスや Vec の添字に使う</td>
+<td style="text-align:left">usize</td>
+<td style="text-align:left">スライスや Vec の添字に使う</td>
 </tr>
 <tr>
-<td align="left">f64</td>
-<td align="left">浮動小数点数</td>
+<td style="text-align:left">f64</td>
+<td style="text-align:left">浮動小数点数</td>
 </tr>
 <tr>
-<td align="left">char</td>
-<td align="left">文字 (厳密には Unicode scalar value)</td>
+<td style="text-align:left">char</td>
+<td style="text-align:left">文字 (厳密には Unicode scalar value)</td>
 </tr>
 </tbody>
 </table>
-<h3 id="-usize">数値型: usize</h3>
+<h3 id="数値型-usize">数値型: usize</h3>
 <p>usize を int の感覚で書いてると微妙にハマります。マイナスにオーバーフローしたとき、Debug モードでは実行時エラーになります。Release モードではエラーになりませんが、符号なし型なのでマイナスにはならないことに注意です。</p>
 <p>例えば次のコード (x, y: usize) はおかしくて、<code>x &lt; y</code> のとき Debug モードではエラーになり、Release モードでも <code>max</code> は機能してません。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="c1">// ✘ ダメ
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="c1">// ✘ ダメ
 </span></code></pre></div><p>オーバーフローしないようにするか、i64 を経由すれば動きます:</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">// monus
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">// monus
 </span><span class="c1"></span><span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w">
-</span><span class="w"></span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="c1">// または、i64 を経由する
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">// または、i64 を経由する
 </span><span class="c1"></span><span class="w">    </span><span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">i64</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">i64</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">usize</span><span class="w">
-</span></code></pre></div><h2 id="heading-5">文字列</h2>
+</span></code></pre></div><h2 id="文字列">文字列</h2>
 <p>Rust の標準的な文字列型である String (と str) は utf-8 なので、ランダムアクセスできません。そういうときは文字の列 <code>Vec&lt;char&gt;</code> で持つようにします。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span>: <span class="nb">String</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span>: <span class="nb">String</span>
 
     <span class="c1">// 文字の列に変換
-</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">chars</span><span class="p">(</span><span class="p">)</span><span class="p">.</span><span class="n">collect</span>::<span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">chars</span><span class="p">().</span><span class="n">collect</span>::<span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;&gt;</span><span class="p">();</span><span class="w">
 </span></code></pre></div><p>これは若干パフォーマンスが悪いです。一時期は <code>Vec&lt;u8&gt;</code> を使っていたんですが、デバッグ出力時に u8 が数字で出るのが不便だったのでやめました……</p>
 <h2 id="vec">Vec</h2>
 <p>イテレータを Vec に変換する <code>.collect::&lt;Vec&lt;_&gt;&gt;</code> は頻出ですが、タイプがつらいので略記を用意してます。</p>
 <p>自作トレイトをすべてのイテレータに実装させることで、 C# の拡張メソッドのようなことができます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="k">trait</span><span class="w"> </span><span class="n">IteratorExt</span>: <span class="nb">Iterator</span> <span class="o">+</span><span class="w"> </span><span class="nb">Sized</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="k">fn</span> <span class="nf">vec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Self</span>::<span class="n">Item</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">collect</span><span class="p">(</span><span class="p">)</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">trait</span><span class="w"> </span><span class="n">IteratorExt</span>: <span class="nb">Iterator</span> <span class="o">+</span><span class="w"> </span><span class="nb">Sized</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">vec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Vec</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Item</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">collect</span><span class="p">()</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="w">
-</span><span class="w"></span><span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span>: <span class="nb">Iterator</span><span class="o">&gt;</span><span class="w"> </span><span class="n">IteratorExt</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{</span><span class="p">}</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// e.g.
-</span><span class="c1"></span><span class="kd">let</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="p">.</span><span class="n">N</span><span class="p">)</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">i</span><span class="o">|</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">.</span><span class="n">vec</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">
-</span></code></pre></div><h2 id="heading-6">再帰</h2>
+</span><span class="w">
+</span><span class="w"></span><span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span>: <span class="nb">Iterator</span><span class="o">&gt;</span><span class="w"> </span><span class="n">IteratorExt</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// e.g.
+</span><span class="c1"></span><span class="kd">let</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="n">N</span><span class="p">).</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">i</span><span class="o">|</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">).</span><span class="n">vec</span><span class="p">();</span><span class="w">
+</span></code></pre></div><h2 id="再帰">再帰</h2>
 <p>ローカル変数を利用する再帰関数について、7月に「 <a href="https://qiita.com/vain0x/items/90c9580aa34926160ac1">Rustのクロージャで再帰してみた</a> 」という記事を書きました。クロージャは、mut な変数を書き換えないなら簡単に再帰にできるという結論です。</p>
 <p>mut な変数を書き換えたいなら RefCell とかを使う、と記事では書きました。struct を定義したほうがいいこともあります。いずれにせよ手間なので、マクロで簡略化を図りたいと思っています。</p>
-<h2 id="heading-7">参考</h2>
+<h2 id="参考">参考</h2>
 <ul>
 <li><a href="https://doc.rust-jp.rs/the-rust-programming-language-ja/1.9/book/">公式のドキュメントの和訳</a>
 <ul>
@@ -439,7 +439,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

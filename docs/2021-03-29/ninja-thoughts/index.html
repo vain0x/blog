@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年3月29日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -203,7 +203,7 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>ミローネ言語の開発にビルドツールninjaを使いはじめて、それなりに時間がたったので、雑感を記事に書いておく。</p>
-<h2 id="heading">モチベーション</h2>
+<h2 id="モチベーション">モチベーション</h2>
 <p><a href="https://github.com/vain0x/milone-lang">ミローネ言語</a> (自作言語) の開発では複数のプログラミング言語を使うので、ビルドやテストの作業が複雑になっている。
 dotnetコマンド1つでは完了しない。
 特に100個ぐらいあるテストプロジェクトのそれぞれでCコンパイラを起動するのは時間がかかるので、ビルドツールを使って差分更新したくなった。</p>
@@ -228,20 +228,20 @@ ninjaの最初の作者による振り返り記事やマニュアルを参照:</
 例えばmakeでは、ビルドを実行した後、ビルドコマンド自体を書き換えて再ビルドしても「更新済み」といわれてしまう。
 ninjaはビルドの依存関係にコマンドを含めているので、このケースでも再ビルドが起こる。
 この挙動はビルドスクリプトを試行錯誤しているときに便利だった。</p>
-<h2 id="heading-1">ビルドスクリプトの生成</h2>
+<h2 id="ビルドスクリプトの生成">ビルドスクリプトの生成</h2>
 <p>ninjaをバックエンドとして使うツールはいくつかあるが、目的のユースケースに合致するものが見当たらなかった。
 ミローネ言語では F# で書いた小さいツールを使って <code>build.ninja</code> を生成している。
 ビルドコマンドなどはテンプレートファイルに書いておき、そこにあるプレイスホルダーに探索したファイル名のリストを埋めたり、依存関係を増やしたり、という処理をしている。</p>
 <p><code>build.ninja</code> の生成 → <code>ninja</code> と2つのコマンドを打つのはめんどくさいので、そこはmakeを使って省略している。
 こんな感じ:</p>
-<div class="highlight"><pre class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nf">default</span><span class="o">:</span> <span class="n">build</span>.<span class="n">ninja</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nf">default</span><span class="o">:</span> <span class="n">build</span>.<span class="n">ninja</span>
     ninja
 </code></pre></div><p>また、ninjaのような、それほど一般的ではないツールは事前にインストールしないといけない。
 インストール手順が煩雑化するのが気になる。</p>
 <p>そこで <code>make</code> の際に自動でninjaが入るようにしてみた。
 ninjaはバイナリを1個ダウンロードしてくるだけなのでやりやすい。
 こういう感じ:</p>
-<div class="highlight"><pre class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nf">default</span><span class="o">:</span> <span class="n">bin</span>/<span class="n">ninja</span> <span class="n">build</span>.<span class="n">ninja</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nf">default</span><span class="o">:</span> <span class="n">bin</span>/<span class="n">ninja</span> <span class="n">build</span>.<span class="n">ninja</span>
     bin/ninja
 
 <span class="nf">bin/ninja</span><span class="o">:</span>
@@ -249,8 +249,8 @@ ninjaはバイナリを1個ダウンロードしてくるだけなのでやり�
 </code></pre></div><p>ただし、make経由ではninja側で定義したビルドターゲットを指定できないので、ninjaコマンドを直接使ってしまいがち。
 その場合に <code>build.ninja</code> の生成を忘れやすい。
 これもおそらく、ninjaを直接使うよりninjaをバックエンドとするツールを使ったほうがよい理由の1つかもしれない。</p>
-<h2 id="heading-2">その他のトピック</h2>
-<h3 id="ninja">ninjaは速い?</h3>
+<h2 id="その他のトピック">その他のトピック</h2>
+<h3 id="ninjaは速い">ninjaは速い?</h3>
 <p>ninjaのウリの1つとして速さがあるが、このリポジトリの規模だとビルドツール自体の消費する時間は一瞬なので関係ない。
 デフォルトで並列なのは便利かもしれない。</p>
 <h3 id="ninja-in-ninja">ninja in ninja</h3>
@@ -262,31 +262,31 @@ ninjaはバイナリを1個ダウンロードしてくるだけなのでやり�
 計測したわけではないが、ここにninjaの速さ(オーバーヘッドの少なさ)が生きている……かもしれない。</p>
 <p>注意点としては、同一のビルドディレクトリで複数のninjaプロセスを起動すると壊れること。
 内部的に使っているログファイル(<code>.ninja_log</code>)を複数のプロセスから読み書きするとうまく動かないので、それらが異なるディレクトリに配置されるように、<code>builddir</code> 変数に異なる値を指定しておく必要がある。</p>
-<h3 id="heading-3">出力のないビルド依存関係</h3>
+<h3 id="出力のないビルド依存関係">出力のないビルド依存関係</h3>
 <p>F# のプロジェクトをビルドするとき、それが依存しているパッケージは自動でrestore(復元)されるが、その処理に少し時間がかかる。
 そのため自動でrestoreする機能はキャンセルして (<code>--no-restore</code>)、依存パッケージが増減したタイミングでrestoreコマンドを実行する (<code>dotnet restore</code>) ほうが速い。
 これもninjaのビルドスクリプトに書いておけば、必要なときだけrestoreされるので時間の節約になる。</p>
 <p>restore操作の「出力」は、dotnetコマンドがパッケージをどこに置くかによるので、明示的に書きたくない。
 しかしninjaでは出力のないビルド文は書けない。(できたとしてもタイムスタンプを比較できないため、ビルドをスキップするタイミングがない。)</p>
 <p>これはタイムスタンプを記録しておくだけのダミーのファイルを出力に指定しておくことで回避できる。</p>
-<pre><code class="language-ninja" data-lang="ninja">rule dotnet_restore
+<pre tabindex="0"><code class="language-ninja" data-lang="ninja">rule dotnet_restore
   command = dotnet restore &amp;&amp; touch $out
   restat = 1
 
 build dotnet_restore.timestamp: dotnet_restore MyProject.fsproj
 </code></pre><p>ついでにphonyビルド文を用意しておくとコマンドから直接使うとき便利。
 <code>ninja dotnet_restore</code> と書ける。</p>
-<pre><code class="language-ninja" data-lang="ninja">build dotnet_restore: phony dotnet_restore.timestamp
-</code></pre><h3 id="heading-4">複数の出力を持つビルド依存関係</h3>
+<pre tabindex="0"><code class="language-ninja" data-lang="ninja">build dotnet_restore: phony dotnet_restore.timestamp
+</code></pre><h3 id="複数の出力を持つビルド依存関係">複数の出力を持つビルド依存関係</h3>
 <p>makeとninjaの大きな違いの1つに、1つのコマンドが複数のファイルを出力するケースをビルド依存関係に記述できる点がある。
 これはいまのところ利用していない。
 (ミローネ言語のコンパイラが複数のファイルを出力するようになったときに、一時的に利用したが、前述の通り <code>.ninja</code> を生成する方針に変わったので消えた。)</p>
-<h3 id="heading-5">シェルスクリプトがつらい</h3>
+<h3 id="シェルスクリプトがつらい">シェルスクリプトがつらい</h3>
 <p>make vs. ninja はさておき、シェルスクリプトでコマンドを書くのが厳しい。
 何らかのスクリプト言語を使ったほうがいいとは思うが、それを事前にインストールせよというのもまたつらい。
 (それから言語やランタイムのバージョン、依存しているライブラリのバージョン……)</p>
 <p>電波: シングルバイナリをダウンロードしただけで動くスクリプト言語があったらいいのかもしれない?</p>
-<h2 id="heading-6">おわりに</h2>
+<h2 id="おわりに">おわりに</h2>
 <p>全体的にふわふわしているが、ここで終わりにする。
 ミローネ言語側でdotnetのようなビルドツールを用意したほうがいいんだけど、しばらくはninjaを使っていくことになりそう。</p>
 
@@ -404,7 +404,7 @@ build dotnet_restore.timestamp: dotnet_restore MyProject.fsproj
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

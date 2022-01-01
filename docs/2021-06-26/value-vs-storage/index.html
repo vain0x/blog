@@ -63,7 +63,7 @@
   "headline": "値とストレージの区別",
   "description" : "値と値を配置する場所(ストレージ)を区別することで有名な問題を簡単に説明できることを述べる。\n",
   "inLanguage" : "ja",
-  "wordCount":  392 ,
+  "wordCount":  356 ,
   "datePublished" : "2021-06-26T00:00:00",
   "dateModified" : "2021-06-26T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年6月26日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -203,7 +203,7 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>値と値を配置する場所(ストレージ)を区別することで有名な問題を簡単に説明できることを述べる。</p>
-<h2 id="-">用語: 値とストレージ</h2>
+<h2 id="用語-値とストレージ">用語: 値とストレージ</h2>
 <p>はじめに用語を決めておく。</p>
 <p>数値や日付などの情報を総称して「値」と呼ぶ。
 値の一部を書き換えることはできないとする。
@@ -214,20 +214,20 @@
 変数を初期化したり代入したりすると、ストレージに配置された値を書き換えることができる。
 同様にオブジェクトのフィールドもストレージとみなす。</p>
 <p>(なおストレージという単語はC言語から借用した: <a href="https://en.cppreference.com/w/c/language/value_category">Value categories - cppreference.com</a>)</p>
-<h2 id="heading">変数がストレージを表してたり値を表してたりするやつ</h2>
+<h2 id="変数がストレージを表してたり値を表してたりするやつ">変数がストレージを表してたり値を表してたりするやつ</h2>
 <p>変数は値として振る舞う場面と、ストレージとして振る舞う場面がある。
 この代入文では左辺の <code>x</code> は変数に割り当てられたストレージを表している (とみなせる)。
 右辺の <code>x</code> はそこに配置された値を表している (とみなせる)。</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">//      v これは値
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="c1">//      v これは値
 </span><span class="c1"></span>    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 <span class="c1">//  ^ これはストレージ
-</span></code></pre></div><h2 id="heading-1">値と「変更可能なストレージ」を区別してみる</h2>
+</span></code></pre></div><h2 id="値と変更可能なストレージを区別してみる">値と「変更可能なストレージ」を区別してみる</h2>
 <p>値と「変更可能なストレージ」を区別することで以下の問題を説明できる。</p>
-<h3 id="heading-2">「長方形クラスから継承して正方形クラスを作るとおかしくなる」問題</h3>
+<h3 id="長方形クラスから継承して正方形クラスを作るとおかしくなる問題">「長方形クラスから継承して正方形クラスを作るとおかしくなる」問題</h3>
 <p>これはクラスの継承関係の設計に関連して知られている、有名な問題である。</p>
 <p>はじめに長方形クラスを作る。長方形は幅と高さがある。
 (長方形の幅と高さは変更可能にしておく。この問題が提案された当時、おそらく、イミュータブルなオブジェクトの価値は浸透していなかったと思う。)</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">/// 長方形
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">/// 長方形
 </span><span class="c1"></span><span class="k">class</span> <span class="nc">Rectangle</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="kt">int</span> <span class="n">Width</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
@@ -236,7 +236,7 @@
 </code></pre></div><p>次に正方形クラスを作る。
 ここで、数学的には「すべての正方形は長方形でもある」ことを思い出す。
 そのため正方形クラスは、長方形クラスから継承するべき……だと思うかもしれない。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">/// 正方形
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">/// 正方形
 </span><span class="c1"></span><span class="k">class</span> <span class="nc">Square</span>
     <span class="p">:</span> <span class="n">Rectangle</span>
 <span class="p">{</span>
@@ -246,19 +246,19 @@
     <span class="c1">// 高さはオーバーライドして値が常に幅と等しくなるようにする。
 </span><span class="c1"></span>    <span class="k">public</span> <span class="k">override</span> <span class="kt">int</span> <span class="n">Height</span>
     <span class="p">{</span>
-        <span class="k">get</span> <span class="p">=</span><span class="p">&gt;</span> <span class="k">this</span><span class="p">.</span><span class="n">Width</span><span class="p">;</span>
-        <span class="k">set</span> <span class="p">=</span><span class="p">&gt;</span> <span class="k">this</span><span class="p">.</span><span class="n">Width</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+        <span class="k">get</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="n">Width</span><span class="p">;</span>
+        <span class="k">set</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="n">Width</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div><p>実際に正方形のオブジェクトを作って、長方形にアップキャストし、その幅を変更してみよう。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp">    <span class="c1">// 5x5 の正方形を作って、長方形にアップキャストする。
-</span><span class="c1"></span>    <span class="kt">var</span> <span class="n">rect</span> <span class="p">=</span> <span class="p">(</span><span class="n">Rectangle</span><span class="p">)</span><span class="p">(</span><span class="k">new</span> <span class="n">Square</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span> <span class="n">Width</span> <span class="p">=</span> <span class="m">5</span> <span class="p">}</span><span class="p">)</span><span class="p">;</span>
-    <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;rect: {0}x{1}&#34;</span><span class="p">,</span> <span class="n">rect</span><span class="p">.</span><span class="n">Width</span><span class="p">,</span> <span class="n">rect</span><span class="p">.</span><span class="n">Height</span><span class="p">)</span><span class="p">;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp">    <span class="c1">// 5x5 の正方形を作って、長方形にアップキャストする。
+</span><span class="c1"></span>    <span class="kt">var</span> <span class="n">rect</span> <span class="p">=</span> <span class="p">(</span><span class="n">Rectangle</span><span class="p">)(</span><span class="k">new</span> <span class="n">Square</span><span class="p">()</span> <span class="p">{</span> <span class="n">Width</span> <span class="p">=</span> <span class="m">5</span> <span class="p">});</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;rect: {0}x{1}&#34;</span><span class="p">,</span> <span class="n">rect</span><span class="p">.</span><span class="n">Width</span><span class="p">,</span> <span class="n">rect</span><span class="p">.</span><span class="n">Height</span><span class="p">);</span>
     <span class="c1">//=&gt; rect: 5x5
 </span><span class="c1"></span>
     <span class="c1">// 幅を変えてみる。
 </span><span class="c1"></span>    <span class="n">rect</span><span class="p">.</span><span class="n">Width</span> <span class="p">=</span> <span class="m">6</span><span class="p">;</span>
-    <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;rect: {0}x{1}&#34;</span><span class="p">,</span> <span class="n">rect</span><span class="p">.</span><span class="n">Width</span><span class="p">,</span> <span class="n">rect</span><span class="p">.</span><span class="n">Height</span><span class="p">)</span><span class="p">;</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="s">&#34;rect: {0}x{1}&#34;</span><span class="p">,</span> <span class="n">rect</span><span class="p">.</span><span class="n">Width</span><span class="p">,</span> <span class="n">rect</span><span class="p">.</span><span class="n">Height</span><span class="p">);</span>
     <span class="c1">//=&gt; rect: 6x6
 </span></code></pre></div><p>「長方形の幅を変更したら、同時に高さも変わる」という怪現象が発生している。
 この挙動はリスコフの置換原則に抵触している可能性が高い。</p>
@@ -266,14 +266,14 @@
 <p>ここで長方形の幅と高さは変更可能なストレージになっている。
 前述の長方形クラスは、長方形そのものというより、長方形を値に持つストレージである。</p>
 <p>数学的には「正方形は長方形でもある」といえるが、「正方形を値に持つストレージは、長方形を値に持つストレージでもある」とはいえない。</p>
-<pre><code>    仮に、正方形を値に持つストレージは、すべて長方形を値に持つストレージでもあるとする。
+<pre tabindex="0"><code>    仮に、正方形を値に持つストレージは、すべて長方形を値に持つストレージでもあるとする。
     sqを正方形を値に持つストレージとする。
     sqをアップキャストして、長方形を値に持つストレージとみなす。それをrectと呼ぶ。
     rectに5x6の長方形を代入する。
     sqの値を取り出すと、5x6の長方形が出てくる。(矛盾)
 </code></pre><p>そういうわけで上述の長方形と正方形の継承問題は、幅や高さを変更可能にしたことが問題だったといえる。
 幅と高さをイミュータブルにすると解決する。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">class</span> <span class="nc">Rectangle</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">class</span> <span class="nc">Rectangle</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="n">Rectangle</span><span class="p">(</span><span class="kt">int</span> <span class="n">width</span><span class="p">,</span> <span class="kt">int</span> <span class="n">height</span><span class="p">)</span>
     <span class="p">{</span>
@@ -295,26 +295,26 @@
 <span class="p">}</span>
 </code></pre></div><p>なお実際には、「長方形は正方形でもある」ことを忘れて、この2つのクラスに継承関係を持たせないという選択肢もある。
 例えば長方形と正方形が共通して持つ性質をインターフェイスとして定めておけば十分かもしれない。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">/// 図形
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">/// 図形
 </span><span class="c1"></span><span class="k">interface</span> <span class="n">IShape</span>
 <span class="p">{</span>
-    <span class="kt">double</span> <span class="n">Area</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">Area</span><span class="p">();</span>
 <span class="p">}</span>
 
 <span class="k">class</span> <span class="nc">Rectangle</span>
     <span class="p">:</span> <span class="n">IShape</span> <span class="c1">// IShapeを実装する
 </span><span class="c1"></span><span class="p">{</span>
-    <span class="kt">double</span> <span class="n">Area</span><span class="p">(</span><span class="p">)</span> <span class="p">=</span><span class="p">&gt;</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="k">this</span><span class="p">.</span><span class="n">Width</span> <span class="p">*</span> <span class="k">this</span><span class="p">.</span><span class="n">Height</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">Area</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="k">this</span><span class="p">.</span><span class="n">Width</span> <span class="p">*</span> <span class="k">this</span><span class="p">.</span><span class="n">Height</span><span class="p">;</span>
     <span class="c1">// ...
 </span><span class="c1"></span><span class="p">}</span>
 
 <span class="k">class</span> <span class="nc">Square</span>
     <span class="p">:</span> <span class="n">IShape</span> <span class="c1">// Rectangleは継承しない
 </span><span class="c1"></span><span class="p">{</span>
-    <span class="kt">double</span> <span class="n">Area</span><span class="p">(</span><span class="p">)</span> <span class="p">=</span><span class="p">&gt;</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="k">this</span><span class="p">.</span><span class="n">Width</span> <span class="p">*</span> <span class="k">this</span><span class="p">.</span><span class="n">Width</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">Area</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="k">this</span><span class="p">.</span><span class="n">Width</span> <span class="p">*</span> <span class="k">this</span><span class="p">.</span><span class="n">Width</span><span class="p">;</span>
     <span class="c1">// ...
 </span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><h3 id="id">「購入記録に商品のIDを持たせるとおかしくなる」問題</h3>
+</code></pre></div><h3 id="購入記録に商品のidを持たせるとおかしくなる問題">「購入記録に商品のIDを持たせるとおかしくなる」問題</h3>
 <p>この問題はデータベース(RDB)の設計に関連して知られている。</p>
 <p>通販サイトのデータベースを考える。</p>
 <ul>
@@ -322,12 +322,12 @@
 <li>誰が何を購入したかを記録するための購入テーブルがある。</li>
 </ul>
 <p>購入テーブルの「何を購入したか」は、商品IDを持たせることで表す。(←これがダメ)</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">purchases</span><span class="p">(</span>
-    <span class="o">`</span><span class="err">購</span><span class="err">入</span><span class="n">ID</span><span class="o">`</span> <span class="nb">bigint</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
-    <span class="o">`</span><span class="err">購</span><span class="err">入</span><span class="err">者</span><span class="n">ID</span><span class="o">`</span> <span class="nb">bigint</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
-    <span class="o">`</span><span class="err">商</span><span class="err">品</span><span class="n">ID</span><span class="o">`</span> <span class="nb">bigint</span> <span class="k">not</span> <span class="k">null</span>
-<span class="p">)</span><span class="p">;</span>
-</code></pre></div><p>次のような流れで問題が生じる。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">purchases</span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="o">`</span><span class="err">購入</span><span class="n">ID</span><span class="o">`</span><span class="w"> </span><span class="nb">bigint</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="o">`</span><span class="err">購入者</span><span class="n">ID</span><span class="o">`</span><span class="w"> </span><span class="nb">bigint</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="o">`</span><span class="err">商品</span><span class="n">ID</span><span class="o">`</span><span class="w"> </span><span class="nb">bigint</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>次のような流れで問題が生じる。</p>
 <ul>
 <li>100円の商品Xを登録した。</li>
 <li>Aさんが商品Xを購入した。</li>
@@ -344,20 +344,20 @@
 <p>商品IDは商品テーブル内のレコードを指しているが、レコードは「変更可能なストレージ」である。
 購入テーブルの「何を購入したか」にはストレージではなく値を持たせる必要があった。</p>
 <p>解決策はいろいろ考えられるが、一例として購入時の価格を複製する方法がある。(直交性が下がる。)</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">purchases</span><span class="p">(</span>
-    <span class="o">`</span><span class="err">購</span><span class="err">入</span><span class="n">ID</span><span class="o">`</span> <span class="nb">bigint</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
-    <span class="o">`</span><span class="err">購</span><span class="err">入</span><span class="err">者</span><span class="n">ID</span><span class="o">`</span> <span class="nb">bigint</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
-    <span class="o">`</span><span class="err">商</span><span class="err">品</span><span class="n">ID</span><span class="o">`</span> <span class="nb">bigint</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
-
-    <span class="c1">-- 購入時の価格
-</span><span class="c1"></span>    <span class="o">`</span><span class="err">価</span><span class="err">格</span><span class="o">`</span> <span class="nb">int</span> <span class="k">not</span> <span class="k">null</span>
-<span class="p">)</span><span class="p">;</span>
-</code></pre></div><p>商品名は変更されないから複製しなくていいや、などの判断はありうる。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">purchases</span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="o">`</span><span class="err">購入</span><span class="n">ID</span><span class="o">`</span><span class="w"> </span><span class="nb">bigint</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="o">`</span><span class="err">購入者</span><span class="n">ID</span><span class="o">`</span><span class="w"> </span><span class="nb">bigint</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="o">`</span><span class="err">商品</span><span class="n">ID</span><span class="o">`</span><span class="w"> </span><span class="nb">bigint</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">-- 購入時の価格
+</span><span class="c1"></span><span class="w">    </span><span class="o">`</span><span class="err">価格</span><span class="o">`</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>商品名は変更されないから複製しなくていいや、などの判断はありうる。
 (商品がテーブルから削除された (deleteされた) ときどうするかという話になってくる。廃止された商品を削除するのではなく履歴で持てばいい。)</p>
-<h2 id="--1">余談: 参照セル</h2>
+<h2 id="余談-参照セル">余談: 参照セル</h2>
 <p>F# には「参照セル」(<code>ref</code>)というオブジェクトがある。(なお F# で参照セルの使用は推奨されてない。)</p>
 <p>参照セルは本稿の「変更可能なストレージ」そのものといえる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="c1">// ref関数で新しい参照セルを作る。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="c1">// ref関数で新しい参照セルを作る。
 </span><span class="c1"></span>    <span class="c1">// ↓はint型の値を持つ参照セルを作って、初期値0を入れている。
 </span><span class="c1"></span>    <span class="k">let</span> <span class="nv">counter</span> <span class="o">=</span> <span class="n">ref</span> <span class="n">0</span>
 
@@ -369,12 +369,12 @@
     <span class="c1">// := 演算子で値を設定する。
 </span><span class="c1"></span>    <span class="n">counter</span> <span class="o">:=</span> <span class="n">1</span>
 
-    <span class="k">assert</span> <span class="o">(</span><span class="o">!</span><span class="n">counter</span> <span class="o">=</span> <span class="n">1</span><span class="o">)</span>
+    <span class="k">assert</span> <span class="o">(!</span><span class="n">counter</span> <span class="o">=</span> <span class="n">1</span><span class="o">)</span>
 </code></pre></div><p>参照セルの型は <code>'T ref</code> (<code>'T</code> は型パラメータ) で、値の型がintの場合は <code>int ref</code> である。
 値であるintと、ストレージである <code>int ref</code> を型で区別しているといえる。</p>
 <p>冒頭で変数が値だったりストレージだったりする話を書いたが、参照セルを導入すると「変数は常に値を表す」ような構文も実現できる。
 例えばインクリメントする式はこう書くことになる:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="n">x</span> <span class="o">:=</span> <span class="o">!</span><span class="n">x</span> <span class="o">+</span> <span class="n">1</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="n">x</span> <span class="o">:=</span> <span class="o">!</span><span class="n">x</span> <span class="o">+</span> <span class="n">1</span>
 </code></pre></div><p><code>x = x + 1</code> は等式としておかしいといわれることもない。</p>
 <p>また、参照セルの型 (型構築子 <code>ref</code>) は共変でないことが知られている。
 型Aの値を型Bにアップキャストできるとき、型Aは型Bの部分型であるといって <code>A &lt;: B</code> と表す。
@@ -505,7 +505,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

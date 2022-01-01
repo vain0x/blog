@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年7月31日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -206,11 +206,11 @@
 <ul>
 <li>前回 (2021-06-30) <a href="https://vain0x.github.io/blog/2021-06-30/diary/">https://vain0x.github.io/blog/2021-06-30/diary/</a></li>
 </ul>
-<h2 id="heading">ミローネ言語</h2>
+<h2 id="ミローネ言語">ミローネ言語</h2>
 <p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
 <p>LSPサーバーを動かしながらライブラリコードを書いたりした。
 LSPサーバーやパーサ、型検査器などの不具合がたくさんみつかった。</p>
-<h2 id="-vs-oom">無限ループバグ vs. OOMキラー</h2>
+<h2 id="無限ループバグ-vs-oomキラー">無限ループバグ vs. OOMキラー</h2>
 <p>パーサが無限ループするバグがあった。
 発生するとループの中でメモリを確保するせいでメモリがなくなり、システムごと固まってしまう。
 マウスもキーボードもすべて反応しないから、電源を長押しして強制終了するしかない。</p>
@@ -218,9 +218,9 @@ LSPサーバーやパーサ、型検査器などの不具合がたくさんみ�
 <p>参考: <a href="https://askubuntu.com/questions/398236/oom-killer-not-working/402940#402940">kernel - OOM killer not working? - Ask Ubuntu</a></p>
 <p>earlyoomというやつを入れたら解決した。少し固まった後にプロセスを強制終了させてくれた。</p>
 <p><a href="https://github.com/rfjakob/earlyoom">rfjakob/earlyoom: earlyoom - Early OOM Daemon for Linux</a></p>
-<h2 id="heading-1">不完全なコードをコンパイルすること</h2>
+<h2 id="不完全なコードをコンパイルすること">不完全なコードをコンパイルすること</h2>
 <p>パーサのループは、次のようなコードで発生していた。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">match</span> <span class="n">cond</span> <span class="k">with</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">match</span> <span class="n">cond</span> <span class="k">with</span>
     <span class="o">|</span> <span class="n">A</span> <span class="o">-</span>
 <span class="c1">//      ^
 </span><span class="c1"></span>    <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="bp">()</span>
@@ -237,13 +237,13 @@ LSPサーバーやパーサ、型検査器などの不具合がたくさんみ�
 <p>例えばmatch式のアームの本体が空のときは構文エラーになる。
 それに巻き込まれて後続のコードも構文エラーになることが多い。
 アームの本体を書く段階で、後方で定義された関数が (定義部分が構文エラーに巻き込まれてるから？) 入力補完に出てこなかったりする。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">match</span> <span class="n">cond</span> <span class="k">with</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">match</span> <span class="n">cond</span> <span class="k">with</span>
     <span class="o">|</span> <span class="o">_</span> <span class="o">-&gt;</span>
         <span class="c1">// 入力補完にfが出てこない
 </span><span class="c1"></span>
 <span class="k">let</span> <span class="nv">f</span> <span class="bp">()</span> <span class="o">=</span> <span class="c1">// 構文エラーのせいでこのlet式はパースされてない
-</span><span class="c1"></span>    <span class="o">..</span><span class="o">.</span>
-</code></pre></div><h2 id="heading-2">その他</h2>
+</span><span class="c1"></span>    <span class="o">...</span>
+</code></pre></div><h2 id="その他">その他</h2>
 <ul>
 <li>記事を書いた: <a href="https://vain0x.github.io/blog/2021-07-14/hsp3-comment-style/">コメントを//で書くか;で書くか - ベインのブログ</a></li>
 <li>「ライティングソフトウェア」(翔泳社)という本を途中まで読んだ。機能別に分割するのではなく変動性に関して分割するという考えが興味深い</li>
@@ -365,7 +365,7 @@ LSPサーバーやパーサ、型検査器などの不具合がたくさんみ�
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

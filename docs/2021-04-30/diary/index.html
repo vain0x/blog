@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年4月30日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -206,10 +206,10 @@
 <ul>
 <li>前回 (2021-03-31) <a href="https://vain0x.github.io/blog/2021-03-31/diary/">https://vain0x.github.io/blog/2021-03-31/diary/</a></li>
 </ul>
-<h2 id="heading">ミローネ言語</h2>
+<h2 id="ミローネ言語">ミローネ言語</h2>
 <p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
 <p>コンパイラを複数のプロジェクトに分けた。依存関係は以下の通り:</p>
-<pre><code>syntax -&gt; shared
+<pre tabindex="0"><code>syntax -&gt; shared
 translation -&gt; shared
 
 cli -&gt; syntax
@@ -222,7 +222,7 @@ cli -&gt; translation
 </ul>
 <p>syntaxとtranslationが互いに依存しないので、コンパイル時間を減らせる……はず。思ったより効果を感じてない。</p>
 <p>検査と変換における中間表現の型を分ける意図もあった。型検査まではプログラムが壊れていることも考慮しながら処理する必要があるが、変換ではそうでないから。</p>
-<h2 id="hsp3">HSP3アナライザーミニ</h2>
+<h2 id="hsp3アナライザーミニ">HSP3アナライザーミニ</h2>
 <p><a href="https://github.com/vain0x/hsp3-ginger/tree/2fc92cc570/hsp3-analyzer-mini">https://github.com/vain0x/hsp3-ginger/tree/2fc92cc570/hsp3-analyzer-mini</a></p>
 <ul>
 <li>最初のバージョンはパースが雑なので、複数行文字列の付近が処理できないなどの課題があった</li>
@@ -233,7 +233,7 @@ cli -&gt; translation
 <li>あと、静的解析を作って遊びたい</li>
 <li>試しに <code>repeat</code>-<code>loop</code> の間に <code>return</code> があったら警告するリント (<a href="https://github.com/vain0x/hsp3-ginger/blob/2fc92cc5702afca45632f057399c146b0900e598/hsp3-analyzer-mini/ham-core/src/analysis/syntax_linter.rs">syntax_linter.rs</a>) を書いた</li>
 </ul>
-<h2 id="heading-1">双方向テンプレートエンジンの試作</h2>
+<h2 id="双方向テンプレートエンジンの試作">双方向テンプレートエンジンの試作</h2>
 <p><a href="https://github.com/vain0x/bitemp">vain0x/bitemp: Experiment of bidirectional template engine for fearless duplication</a></p>
 <ul>
 <li>コードが同じことの繰り返しで、ひどく冗長になることがある</li>
@@ -251,7 +251,7 @@ cli -&gt; translation
 <ul>
 <li>SASS/SCSSなどの「alt-CSS」も、ブラウザ上で実際の表示を見ながら調整した結果をファイルに書き戻す手間があった。(CSSはできる。ブラウザ拡張で対処可能なものかもしれないけど。)</li>
 </ul>
-<h2 id="simple-sub-fs-">simple-sub-fs の作りかけ</h2>
+<h2 id="simple-sub-fs-の作りかけ">simple-sub-fs の作りかけ</h2>
 <p><a href="https://github.com/vain0x/simple-sub-fs">vain0x/simple-sub-fs: simple-sub re-written in F#</a></p>
 <ul>
 <li>部分型つけ (subtyping) を含む型推論の手法の1つとして ML sub というのがある</li>
@@ -375,7 +375,7 @@ cli -&gt; translation
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

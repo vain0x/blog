@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年10月31日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -206,7 +206,7 @@
 <ul>
 <li>前回 (2021-09-30) <a href="https://vain0x.github.io/blog/2021-09-30/diary/">https://vain0x.github.io/blog/2021-09-30/diary/</a></li>
 </ul>
-<h2 id="heading">ミローネ言語</h2>
+<h2 id="ミローネ言語">ミローネ言語</h2>
 <p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
 <ul>
 <li>リリース: <a href="https://github.com/vain0x/milone-lang/releases/tag/v0.4.0">Release v0.4.0 · vain0x/milone-lang</a>
@@ -218,7 +218,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="ml-">ML: 単相化の再設計</h3>
+<h3 id="ml-単相化の再設計">ML: 単相化の再設計</h3>
 <blockquote>
 <p><a href="https://twitter.com/vain0x/status/1449016164835753988">単相化の処理が重いから並列化しやすいように書き直したら、並列化する必要がないぐらい速くなった - Twitter @vain0x</a></p>
 </blockquote>
@@ -248,7 +248,7 @@
 <li>変換作業も1回だけでよくなった</li>
 <li>セルフコンパイルで単相化のパスが300ms→70msまで縮んだ</li>
 </ul>
-<h3 id="ml--1">ML: 自動生成する関数名のつけかたを改善したらコンパイル時間が減った</h3>
+<h3 id="ml-自動生成する関数名のつけかたを改善したらコンパイル時間が減った">ML: 自動生成する関数名のつけかたを改善したらコンパイル時間が減った</h3>
 <ul>
 <li>いままで自動で生成する関数のほとんどに <code>fun</code> という名前をつけていた
 <ul>
@@ -264,7 +264,7 @@
 </li>
 <li>結果として、変更したモジュールに対応するファイルだけ再コンパイルされることが多くなった</li>
 </ul>
-<h3 id="ml-api">ML: ファイルシステムAPIの設計</h3>
+<h3 id="ml-ファイルシステムapiの設計">ML: ファイルシステムAPIの設計</h3>
 <ul>
 <li>ファイルシステムのAPIを設計するときファイルパスをどうするか</li>
 <li>Linuxのファイルパスは、単にファイル名を連ねたものになっている (<code>/foo/bar/baz</code> や <code>./foo/bar</code>)</li>
@@ -279,11 +279,11 @@
 </ul>
 </li>
 </ul>
-<h3 id="ml--2">ML: オブジェクトのポインタからフィールドのポインタを取る構文</h3>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Buf</span> <span class="o">=</span> <span class="o">{</span> <span class="n">Len</span><span class="o">:</span> <span class="n">int</span><span class="o">;</span> <span class="o">..</span><span class="o">.</span> <span class="o">}</span>
+<h3 id="ml-オブジェクトのポインタからフィールドのポインタを取る構文">ML: オブジェクトのポインタからフィールドのポインタを取る構文</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Buf</span> <span class="o">=</span> <span class="o">{</span> <span class="n">Len</span><span class="o">:</span> <span class="n">int</span><span class="o">;</span> <span class="o">...</span> <span class="o">}</span>
 <span class="k">val</span> <span class="n">buf</span><span class="o">:</span> <span class="n">nativeptr</span><span class="o">&lt;</span><span class="n">Buf</span><span class="o">&gt;</span>
 </code></pre></div><p>現状の構文で <code>buf.Len</code> を1増やすにはこう書く:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="n">buf</span> <span class="o">|</span><span class="o">&gt;</span> <span class="n">write</span> <span class="o">{</span> <span class="n">read</span> <span class="n">buf</span> <span class="k">with</span> <span class="n">Len</span> <span class="o">=</span> <span class="o">(</span><span class="n">read</span> <span class="n">buf</span><span class="o">)</span><span class="o">.</span><span class="n">Len</span> <span class="o">+</span> <span class="n">1</span> <span class="o">}</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="n">buf</span> <span class="o">|&gt;</span> <span class="n">write</span> <span class="o">{</span> <span class="n">read</span> <span class="n">buf</span> <span class="k">with</span> <span class="n">Len</span> <span class="o">=</span> <span class="o">(</span><span class="n">read</span> <span class="n">buf</span><span class="o">).</span><span class="n">Len</span> <span class="o">+</span> <span class="n">1</span> <span class="o">}</span>
 </code></pre></div><ul>
 <li>冗長すぎる
 <ul>
@@ -311,13 +311,13 @@
 <li>型検査を複雑にしたくないのでためらうのもある</li>
 <li>低レイヤ専用の言語を作って相互運用というのも1つの方法かもしれない</li>
 </ul>
-<h3 id="ml--">ML: 余談: 基本ブロック内のヒープをまとめる案</h3>
+<h3 id="ml-余談-基本ブロック内のヒープをまとめる案">ML: 余談: 基本ブロック内のヒープをまとめる案</h3>
 <ul>
 <li>同一基本ブロックに出現するヒープ確保は1回にまとめられる</li>
 <li>GCによるメモリ管理だと不用意にまとめるとメモリリークを引き起こすが、動的リージョンベースなら問題ない (そういう意味でははじめからリークしているともいえる)</li>
 <li>ざっと見積もった感じ、セルフコンパイルではヒープ確保が7%ぐらい減少しそう</li>
 </ul>
-<h2 id="heading-1">その他</h2>
+<h2 id="その他">その他</h2>
 <ul>
 <li>開発中のLSPサーバーを自動でリロードする機能をサンプルにした:
 <ul>
@@ -468,7 +468,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

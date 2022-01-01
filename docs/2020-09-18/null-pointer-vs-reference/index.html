@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年9月18日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -203,13 +203,13 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>null ポインタの存在は正当化できるかもしれないが、null 参照の存在は正当化できないのでは、という考え。</p>
-<h2 id="null-">null はポインタであってもよかったかもしれない</h2>
+<h2 id="null-はポインタであってもよかったかもしれない">null はポインタであってもよかったかもしれない</h2>
 <p>C言語はポインタ型の値として、脱参照できないポインタ (<code>*p</code> の読み書きが UB になるような p) を認めている。
 これは「長さゼロの動的配列を指すポインタ」や「配列の終端を指すポインタ (<code>&amp;array[len(array)]</code>)」が脱参照できないことを考えれば、そのようなポインタの存在自体を認めないわけにはいかないことに納得がいく。</p>
 <p>つまりポインタ型は、どこかを指しているが、そこに要素があるとまでは保証していない型とみなせる。
 そう考えると null ポインタがポインタ型の一種として認められていても全体として破綻はない。</p>
 <p>(リテラルの 0 が null ポインタになるという謎の変換はともかく。後知恵でいえば、整数とポインタ型の間の暗黙のキャストはなしにして、null ポインタがほしいときは <code>(void*)0</code> というように明示的なキャストを要求するか、いまの C++ のように nullptr キーワードを入れておくべきだった。)</p>
-<h2 id="null--1">null はリファレンスであるべきではなかった</h2>
+<h2 id="null-はリファレンスであるべきではなかった">null はリファレンスであるべきではなかった</h2>
 <p>一方、Java や C# などの言語には参照 (リファレンス) というポインタ的なものがあって、null を代入でき、null だけ「ポインタの脱参照に相当する操作」(フィールドアクセスやメソッドの呼び出しなど)ができない。
 脱参照できないリファレンスは null だけであって、そのようなリファレンスが存在しなければ絶対いけないという事情はないはず。</p>
 <p>Java 界隈の事情はよく知らないが C# に関していえば、<code>default(T)</code> (型 <code>T</code> の既定値) はビットパターンが 0 な値になってほしいという事情がある。配列を確保するとき領域をゼロ埋めするだけで済むため。
@@ -324,7 +324,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

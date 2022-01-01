@@ -63,7 +63,7 @@
   "headline": "データベースをスコープで分けてテストしやすくする",
   "description" : "データベースを使うテストを書きやすくできるかもしれない方法について述べます。\n",
   "inLanguage" : "ja",
-  "wordCount":  177 ,
+  "wordCount":  133 ,
   "datePublished" : "2019-11-28T00:00:00",
   "dateModified" : "2019-11-28T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2019年11月28日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -204,7 +204,7 @@
       <article role="main" class="blog-post">
         <p>データベースを使うテストを書きやすくできるかもしれない方法について述べます。</p>
 <p>※これが良い方法かは分かりません。今度やってみたいので、その前に整理する目的で書いています。</p>
-<h2 id="heading">動機</h2>
+<h2 id="動機">動機</h2>
 <p>以下のような事情があるとします。</p>
 <ul>
 <li>アプリの実装上、データベース操作が占める割合が大きい。</li>
@@ -212,7 +212,7 @@
 <li>純粋関数で書いた部分のテストだけでは、検証できる範囲に限界がある。</li>
 <li>データベースを動かして SQL 文が壊れてないことをこまめに検査したい。</li>
 </ul>
-<h2 id="heading-1">例</h2>
+<h2 id="例">例</h2>
 <p>仮にブックマークサービスを考えます。</p>
 <ul>
 <li>ユーザーはウェブページをブックマークしてコメントをつけられる。</li>
@@ -222,58 +222,58 @@
 </ul>
 </li>
 </ul>
-<h2 id="heading-2">データベースの雰囲気</h2>
+<h2 id="データベースの雰囲気">データベースの雰囲気</h2>
 <p>(重要でない部分は略しています。)</p>
 <p>ユーザーはスコープに所属するので、ID や名前に加えて scope フィールドを持ちます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">users</span><span class="p">(</span>
-    <span class="n">user_id</span> <span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
-    <span class="k">scope</span> <span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="c1">-- 所属スコープ
-</span><span class="c1"></span><span class="p">)</span><span class="p">;</span>
-</code></pre></div><p>ブックマークは作成したユーザーからスコープが決まるので、scope フィールドは不要です。</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">bookmarks</span><span class="p">(</span>
-    <span class="n">bookmark_id</span> <span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
-    <span class="n">creator_id</span> <span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span><span class="p">,</span> <span class="c1">-- 作成ユーザーID
-</span><span class="c1"></span>    <span class="n">bookmark_uri</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-<span class="p">)</span><span class="p">;</span>
-
-<span class="c1">-- 他人のユーザーのブックマークへのいいね
-</span><span class="c1"></span><span class="k">create</span> <span class="k">table</span> <span class="n">likes</span><span class="p">(</span>
-    <span class="n">bookmark_id</span> <span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span><span class="p">,</span>
-    <span class="n">user_id</span> <span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span><span class="p">,</span>
-    <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">bookmark_id</span><span class="p">,</span> <span class="n">user_id</span><span class="p">)</span> <span class="c1">-- この2つは同じスコープに属す
-</span><span class="c1"></span><span class="p">)</span><span class="p">;</span>
-</code></pre></div><p>ユーザー以外 scope がいらないかというとそうでもなく、例えばカテゴリーはユーザーやブックマークとは独立に存在するのでスコープがいります。</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">categories</span><span class="p">(</span>
-    <span class="n">category_id</span> <span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
-    <span class="k">scope</span> <span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span>
-<span class="p">)</span><span class="p">;</span>
-</code></pre></div><p>このように各レコードにスコープが定まるようにします。</p>
-<h2 id="heading-3">テストコードの雰囲気</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="n">user_id</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="k">scope</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span><span class="w"> </span><span class="c1">-- 所属スコープ
+</span><span class="c1"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>ブックマークは作成したユーザーからスコープが決まるので、scope フィールドは不要です。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bookmarks</span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="n">bookmark_id</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">creator_id</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">),</span><span class="w"> </span><span class="c1">-- 作成ユーザーID
+</span><span class="c1"></span><span class="w">    </span><span class="n">bookmark_uri</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 他人のユーザーのブックマークへのいいね
+</span><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">likes</span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="n">bookmark_id</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="n">user_id</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">bookmark_id</span><span class="p">,</span><span class="w"> </span><span class="n">user_id</span><span class="p">)</span><span class="w"> </span><span class="c1">-- この2つは同じスコープに属す
+</span><span class="c1"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>ユーザー以外 scope がいらないかというとそうでもなく、例えばカテゴリーはユーザーやブックマークとは独立に存在するのでスコープがいります。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">categories</span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="n">category_id</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="k">scope</span><span class="w"> </span><span class="nb">char</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>このように各レコードにスコープが定まるようにします。</p>
+<h2 id="テストコードの雰囲気">テストコードの雰囲気</h2>
 <p>このデータベースを使うアプリに対して、以下のようなテストコードを書いていきます。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//　ヘルパー
-</span><span class="c1"></span><span class="kr">const</span> <span class="nx">freshScope</span> <span class="o">=</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">createNewUuidV4</span><span class="p">(</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">freshId</span> <span class="o">=</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">createNewUuidV4</span><span class="p">(</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="c1">//　ヘルパー
+</span><span class="c1"></span><span class="kr">const</span> <span class="nx">freshScope</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">createNewUuidV4</span><span class="p">()</span>
+<span class="kr">const</span> <span class="nx">freshId</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">createNewUuidV4</span><span class="p">()</span>
 
-<span class="kr">const</span> <span class="nx">test_ユーザーがブックマークをつけられる</span> <span class="o">=</span> <span class="nx">async</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<span class="kr">const</span> <span class="nx">test_ユーザーがブックマークをつけられる</span> <span class="o">=</span> <span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="c1">// このテストのためのスコープを作る。
-</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">scope</span> <span class="o">=</span> <span class="nx">freshScope</span><span class="p">(</span><span class="p">)</span>
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">scope</span> <span class="o">=</span> <span class="nx">freshScope</span><span class="p">()</span>
 
     <span class="c1">// スコープ内にユーザーを作る。
-</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">u1</span> <span class="o">=</span> <span class="nx">freshId</span><span class="p">(</span><span class="p">)</span>
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">u1</span> <span class="o">=</span> <span class="nx">freshId</span><span class="p">()</span>
     <span class="kr">const</span> <span class="nx">userName</span> <span class="o">=</span> <span class="s2">&#34;John Doe&#34;</span>
-    <span class="nx">await</span> <span class="nx">createUser</span><span class="p">(</span><span class="nx">u1</span><span class="p">,</span> <span class="nx">userName</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span>
+    <span class="kr">await</span> <span class="nx">createUser</span><span class="p">(</span><span class="nx">u1</span><span class="p">,</span> <span class="nx">userName</span><span class="p">,</span> <span class="nx">scope</span><span class="p">)</span>
 
     <span class="c1">// ブックマークを作る。
-</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">bookmarkId</span> <span class="o">=</span> <span class="nx">freshId</span><span class="p">(</span><span class="p">)</span>
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">bookmarkId</span> <span class="o">=</span> <span class="nx">freshId</span><span class="p">()</span>
     <span class="kr">const</span> <span class="nx">uri</span> <span class="o">=</span> <span class="s2">&#34;https://example.com&#34;</span>
-    <span class="nx">await</span> <span class="nx">createBookmark</span><span class="p">(</span><span class="nx">bookmarkId</span><span class="p">,</span> <span class="nx">u1</span><span class="p">,</span> <span class="nx">uri</span><span class="p">)</span>
+    <span class="kr">await</span> <span class="nx">createBookmark</span><span class="p">(</span><span class="nx">bookmarkId</span><span class="p">,</span> <span class="nx">u1</span><span class="p">,</span> <span class="nx">uri</span><span class="p">)</span>
 
     <span class="c1">// ユーザー自身のブックマーク一覧に、
 </span><span class="c1"></span>    <span class="c1">// いま作ったブックマークがあることを表明する。
-</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">bookmarks</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">getMyBookmarkList</span><span class="p">(</span><span class="nx">u1</span><span class="p">)</span>
-    <span class="nx">assert</span><span class="p">.</span><span class="nx">ok</span><span class="p">(</span><span class="nx">bookmarks</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">bookmark</span> <span class="p">=&gt;</span> <span class="nx">bookmark</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">bookmarkId</span><span class="p">)</span><span class="p">)</span>
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">bookmarks</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">getMyBookmarkList</span><span class="p">(</span><span class="nx">u1</span><span class="p">)</span>
+    <span class="nx">assert</span><span class="p">.</span><span class="nx">ok</span><span class="p">(</span><span class="nx">bookmarks</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">bookmark</span> <span class="p">=&gt;</span> <span class="nx">bookmark</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">bookmarkId</span><span class="p">))</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="heading-4">メリット</h2>
+</code></pre></div><h2 id="メリット">メリット</h2>
 <ul>
 <li>使うデータはテストケース自身が作るので、準備したデータを投入するフェイズがなくなる。</li>
 <li>不要なデータを適切に消さなくてよくなる。
@@ -287,13 +287,13 @@
 </ul>
 </li>
 </ul>
-<h2 id="heading-5">デメリット</h2>
+<h2 id="デメリット">デメリット</h2>
 <ul>
 <li>本番環境においてほぼ意味のない条件式 (<code>where scope = :scope</code>) をすべてのクエリーに書くことになる。</li>
 <li>本番環境においてほぼ意味のないフィールド (scope) を一部のレコードが持つことになる。</li>
 <li>機能性ではなく保守性の都合でデータベースの設計を「普通でなく」している。</li>
 </ul>
-<h2 id="heading-6">その他</h2>
+<h2 id="その他">その他</h2>
 <ul>
 <li>テストが互いに干渉しないから、という複数のテストをマルチスレッドで平行実行できる、というのはメリットではない。
 <ul>
@@ -420,7 +420,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

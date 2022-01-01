@@ -8,11 +8,7 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Thu, 08 Nov 2018 02:01:00 +0900</lastBuildDate>
-    
-	<atom:link href="https://vain0x.github.io/blog/tags/%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 08 Nov 2018 02:01:00 +0900</lastBuildDate><atom:link href="https://vain0x.github.io/blog/tags/%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>円周率チャレンジにアルゴリズムでチャレンジ</title>
       <link>https://vain0x.github.io/blog/2018-11-08/pi-challenge/</link>

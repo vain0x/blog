@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2019年6月30日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -206,7 +206,7 @@
 <ul>
 <li>前月分 <a href="https://vain0x.github.io/blog/2019-05-31/diary/">https://vain0x.github.io/blog/2019-05-31/diary/</a></li>
 </ul>
-<h2 id="heading">ミローネ言語</h2>
+<h2 id="ミローネ言語">ミローネ言語</h2>
 <p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
 <ul>
 <li>F# のサブセットで書かれた、セルフホスティングを目指しているコンパイラ</li>
@@ -306,7 +306,7 @@
 <li>動作確認がいまいち</li>
 <li>上述の通りテストも書きたい</li>
 </ul>
-<h2 id="heading-1">競技プログラミング</h2>
+<h2 id="競技プログラミング">競技プログラミング</h2>
 <p>週末は AtCoder に参加した。新体制 ABC では安定して E 完を取れていてよい。</p>
 <ul>
 <li><a href="https://qiita.com/vain0x/items/9d503673bfe678929c5c">競プロ参戦記 #49 Maximum Sum of Minimum | M-SOLUTIONS</a></li>
@@ -315,17 +315,17 @@
 <li><a href="https://qiita.com/vain0x/items/43ba0051dcdb673b054f">競プロ参戦記 #52 Common Subsequence | ABC 130</a></li>
 <li><a href="https://qiita.com/vain0x/items/44e9f4987fee472463b7">競プロ参戦記 #53 Friendships | ABC 131</a></li>
 </ul>
-<h2 id="-web-">その他: Web アプリの開発環境整備</h2>
+<h2 id="その他-web-アプリの開発環境整備">その他: Web アプリの開発環境整備</h2>
 <p>Docker-Compose を使って Web アプリの開発環境を構築できるようにした</p>
 <ul>
 <li>開発環境とステージング環境・本番環境で設定が違う (例えばデータベースの名前を分けたい) が、どうすればいいのか迷った</li>
 <li>とりあえず docker-compose の設定ファイルを分割して <code>docker-compose -f docker-base.yml -f docker-dev.yml</code> のようなコマンド (のエイリアス) を使う方針にした</li>
 <li>Docker 環境内で jest がなぜか動作しなかったので ava に変更した</li>
 </ul>
-<h2 id="-de-bruijn-">その他: de Bruijn インデックス</h2>
+<h2 id="その他-de-bruijn-インデックス">その他: de Bruijn インデックス</h2>
 <p>TaPL の実装を読むと、変数の表現に de Bruijn インデックスが使われていてよく分からないので、de Bruijn インデックスの説明の部分を改めて読んだ。分かった気がするので、その内容をここでまとめる。</p>
 <p>抽象構文木の上にカーソルを置くと考えると分かりやすい気がする。いま見ているノードより上で束縛される (あるいはどこにも束縛されない) 変数を自由変数である。例えば以下の項を考える。</p>
-<pre><code>    \x. \y. (\f. f x) x
+<pre tabindex="0"><code>    \x. \y. (\f. f x) x
 </code></pre><p>どこでもいいが一例として <code>\f. f x</code> の部分に注目しているとする。このとき上で束縛されている x, y は (いま注目している項の視点では) 自由変数である。</p>
 <p>自由変数には順番がある。抽象構文木を下から上に向かって辿るときに、束縛に遭遇する順番で並んでいるとみなす。上の例では <code>[y, x]</code> という配列。これを <strong>名前付け文脈</strong> という。</p>
 <p><strong>ある変数の出現の de Bruijn インデックスは、その項の名前付け文脈において、その変数が何番目であるかを表している。</strong></p>
@@ -333,29 +333,29 @@
 <p>上の例の <code>\f. f x</code> の内側にある <code>f</code> の de Bruijn インデックスを考える。この項から上に辿ると束縛 <code>f, y, x</code> がこの順で見つかるので、これが名前付け文脈である。<code>f</code> は 0 番目に出現するので、de Bruijn インデックスは 0 である。</p>
 <p><code>x</code> についても同様で、名前付け文脈は同じく <code>f, y, x</code> なので、de Bruijn インデックスは 2 である。</p>
 <p>最後にもう1つの例として、1段階外側に出現する <code>x</code> を考える。</p>
-<pre><code>    \x. \y. (\f. f x) x
+<pre tabindex="0"><code>    \x. \y. (\f. f x) x
                       ^
 </code></pre><p>これを上に辿ると <code>y, x</code> なので、de Bruijn インデックスは 1 になる。</p>
 <p>名前付け文脈の計算は、木を下方向に巡回するとき (DFS でも BFS でも可)、束縛の内側に入るたびに名前付け文脈を伸ばし、出るたびに削る、という操作をすればいい。リストと相性がいい。</p>
-<h2 id="-">その他: クロージャと存在型</h2>
+<h2 id="その他-クロージャと存在型">その他: クロージャと存在型</h2>
 <p>TaPL を読んでいたら存在型を使ってクロージャをデコードできるような気がしてきた。</p>
 <p>クロージャのある言語で以下のように書いたとする。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">let</span> <span class="nv">n</span> <span class="o">=</span> <span class="n">2</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">let</span> <span class="nv">n</span> <span class="o">=</span> <span class="n">2</span>
     <span class="k">let</span> <span class="nv">inc</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">n</span>
     <span class="k">let</span> <span class="nv">f</span> <span class="o">=</span> <span class="n">inc</span>
     <span class="n">f</span> <span class="n">3</span> <span class="c1">//=&gt; 5
 </span></code></pre></div><p>これをクロージャのない言語に変換したいとする。</p>
 <p>クロージャのインターフェイスは「環境」(キャプチャされた値の集合)と「関数」の2つ。環境の型を存在型で隠蔽すればいい。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js">    <span class="kd">let</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">2</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js">    <span class="kd">let</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="kd">let</span> <span class="nx">inc</span> <span class="nx">env</span> <span class="nx">x</span> <span class="o">=</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">env</span><span class="p">.</span><span class="nx">n</span>
 
     <span class="kd">let</span> <span class="nx">f</span> <span class="o">=</span>
         <span class="c1">// 型 X = {n: Nat} を隠蔽する存在型のインスタンス
-</span><span class="c1"></span>        <span class="p">{</span><span class="o">*</span><span class="p">{</span><span class="nx">n</span><span class="o">:</span> <span class="nx">Nat</span><span class="p">}</span><span class="p">,</span> <span class="p">{</span><span class="nx">env</span> <span class="o">=</span> <span class="p">{</span><span class="nx">n</span> <span class="o">=</span> <span class="nx">n</span><span class="p">}</span><span class="p">,</span> <span class="nx">fun</span> <span class="o">=</span> <span class="nx">inc</span><span class="p">}</span><span class="p">}</span>
-        <span class="nx">as</span> <span class="err">∃</span><span class="nx">X</span><span class="p">,</span> <span class="p">{</span><span class="nx">env</span><span class="o">:</span> <span class="nx">X</span><span class="p">,</span> <span class="nx">fun</span><span class="o">:</span> <span class="nx">X</span> <span class="o">-</span><span class="o">&gt;</span> <span class="nx">Nat</span> <span class="o">-</span><span class="o">&gt;</span> <span class="nx">Nat</span><span class="p">}</span><span class="p">}</span>
+</span><span class="c1"></span>        <span class="p">{</span><span class="o">*</span><span class="p">{</span><span class="nx">n</span><span class="o">:</span> <span class="nx">Nat</span><span class="p">},</span> <span class="p">{</span><span class="nx">env</span> <span class="o">=</span> <span class="p">{</span><span class="nx">n</span> <span class="o">=</span> <span class="nx">n</span><span class="p">},</span> <span class="nx">fun</span> <span class="o">=</span> <span class="nx">inc</span><span class="p">}}</span>
+        <span class="nx">as</span> <span class="err">∃</span><span class="nx">X</span><span class="p">,</span> <span class="p">{</span><span class="nx">env</span><span class="o">:</span> <span class="nx">X</span><span class="p">,</span> <span class="nx">fun</span><span class="o">:</span> <span class="nx">X</span> <span class="o">-&gt;</span> <span class="nx">Nat</span> <span class="o">-&gt;</span> <span class="nx">Nat</span><span class="p">}}</span>
 
     <span class="c1">// クロージャを呼ぶ
-</span><span class="c1"></span>    <span class="kd">let</span> <span class="p">{</span><span class="nx">X</span><span class="p">,</span> <span class="p">{</span><span class="nx">env</span><span class="p">,</span> <span class="nx">fun</span><span class="p">}</span><span class="p">}</span> <span class="o">=</span> <span class="nx">f</span>
+</span><span class="c1"></span>    <span class="kd">let</span> <span class="p">{</span><span class="nx">X</span><span class="p">,</span> <span class="p">{</span><span class="nx">env</span><span class="p">,</span> <span class="nx">fun</span><span class="p">}}</span> <span class="o">=</span> <span class="nx">f</span>
     <span class="nx">fun</span> <span class="nx">env</span> <span class="mi">3</span> <span class="c1">//=&gt; 5
 </span></code></pre></div>
 
@@ -475,7 +475,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

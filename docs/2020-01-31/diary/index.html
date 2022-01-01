@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年1月31日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -206,14 +206,14 @@
 <ul>
 <li>前月分 <a href="https://vain0x.github.io/blog/2019-12-31/diary/">https://vain0x.github.io/blog/2019-12-31/diary/</a></li>
 </ul>
-<h2 id="cps-">CPS 中間表現</h2>
+<h2 id="cps-中間表現">CPS 中間表現</h2>
 <p><a href="https://github.com/vain0x/languages/tree/fc3998a/phancie-lang">https://github.com/vain0x/languages/tree/fc3998a/phancie-lang</a></p>
 <p>&ldquo;Compiling with Continuations&rdquo; を読みつつ CPS を中間表現とする処理系を書いている。雰囲気は分かってきた。</p>
 <p>上の実装に使った F# だけでなく、Rust でも CPS 変換をやろうと試みて、その結果のコードが以下にある。</p>
 <p><a href="https://github.com/vain0x/hsp3-ginger/blob/7a0e4a5ed311320ca76fb6bae261901e57a6956b/hsp3-forgery/hf_core/src/kir/gen.rs">https://github.com/vain0x/hsp3-ginger/blob/7a0e4a5ed311320ca76fb6bae261901e57a6956b/hsp3-forgery/hf_core/src/kir/gen.rs</a></p>
 <p>所有権の関係で Rust はクロージャの取り回しが難しく、よくあるクロージャを使う CPS 変換は煩雑になりそうだった。そこで、スタックマシン向けのコードを生成して逆向きに解釈することで組み立てようとした。</p>
 <p>結局、このプロジェクトにはまだ CPS 中間表現は不要と気づいたので、小さいケースしか試せていない。実はうまくいかないケースがあるかもしれない。</p>
-<h2 id="heading">ファントムシステム</h2>
+<h2 id="ファントムシステム">ファントムシステム</h2>
 <p>昨年の振り返りと次の自作言語に関して、以下の記事を投稿した。</p>
 <p><a href="https://vain0x.github.io/blog/2020-01-11/after-milone-and-ginger/">ミローネ言語コンパイラ・HSP3開発ツール群の振り返りと今後の構想</a></p>
 <p>自作言語に持たせたい機能の1つとして <strong>静的契約システム</strong> がある。</p>
@@ -233,42 +233,42 @@
 <p>オブジェクトのメモリレイアウトに影響していない型検査のためだけの型を、ここでは仮に <strong>ファントム</strong> と呼ぶ。</p>
 <p>例えばポインタ型 <code>T*</code> は、型 T に関係なく、実行時には特定のビット長の数値 size_t に等しい。ポインタであるという型情報は型検査等にのみ使われていて、メモリレイアウトに影響していない。そのためポインタはファントムとみなせる。</p>
 <p>上の例でいえば、メソッド execute を持つ型を Execute という名前のファントムとして定めておく。(構文は適当。)</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="n">phantom</span><span class="w"> </span><span class="n">Execute</span>: <span class="nc">Foo</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="n">phantom</span><span class="w"> </span><span class="n">Execute</span>: <span class="nc">Foo</span><span class="p">;</span><span class="w">
+</span><span class="w">
 </span><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">Execute</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="k">fn</span> <span class="nf">execute</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">execute</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
 </span></code></pre></div><p>is_valid の事後条件として、結果が true なら Execute ファントムを得る、と書いておく。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="k">impl</span><span class="w"> </span><span class="n">Foo</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="k">fn</span> <span class="nf">is_valid</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">impl</span><span class="w"> </span><span class="n">Foo</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">is_valid</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span>
         <span class="nc">ensures</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">            </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="bp">self</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Execute</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="kc">false</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">            </span><span class="n">result</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="bp">self</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Execute</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="kc">false</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
 </span></code></pre></div><p>後は <code>foo.is_valid()</code> の結果 (result) が true のときスマートキャスト <code>self as Execute</code> が走って <code>foo: Execute</code> という型がつき、execute が呼べる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">// foo.execute() はここでは呼べない。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">// foo.execute() はここでは呼べない。
 </span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">is_valid</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">foo</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="c1">// ここでは呼べる。(is_valid の事後条件のため)
+</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">foo</span><span class="p">.</span><span class="n">execute</span><span class="p">();</span><span class="w"> </span><span class="c1">// ここでは呼べる。(is_valid の事後条件のため)
 </span><span class="c1"></span><span class="w">    </span><span class="p">}</span><span class="w">
 </span></code></pre></div><p>ふるい型 (refinement type) に似ているが、型自体が条件を持つのではなく、ファントムでは条件を満たした結果として型を得る。(もしかしたらこれもふるい型の一種に含まれるかもしれないが……) 加えて、ファントムはオブジェクトの可変性を前提としている。</p>
 <p>問題はまさにその可変性との兼ね合いで、例えば is_valid の結果を確かめた後にオブジェクトの状態を変更すると、is_valid = false になる可能性がありるため、ファントム Execute を持ったままにするべきではない。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">is_valid</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">modify</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">foo</span><span class="p">)</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">foo</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="c1">// foo.is_valid() == true とはいえない
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">modify</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">foo</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="n">foo</span><span class="p">.</span><span class="n">execute</span><span class="p">();</span><span class="w"> </span><span class="c1">// foo.is_valid() == true とはいえない
 </span><span class="c1"></span><span class="w">    </span><span class="p">}</span><span class="w">
 </span></code></pre></div><p>「可変操作の後では is_valid の事後条件が崩れた可能性があるから Execute を失う」と保守的に判断してしまうと、事後条件を使える場面が大幅に制限される。可変操作が is_valid を false にするかどうかを指定する、煩雑ではない手法が必要になる。</p>
 <p>難しそうなので、一旦ここまで。いちおうメモにまとめてある。</p>
 <p><a href="https://github.com/vain0x/languages/blob/061a4d5/phancie-lang/memo.md">https://github.com/vain0x/languages/blob/061a4d5/phancie-lang/memo.md</a></p>
-<h2 id="hsp3-">HSP3 フォージェリ</h2>
+<h2 id="hsp3-フォージェリ">HSP3 フォージェリ</h2>
 <p><a href="https://github.com/vain0x/hsp3-ginger/tree/5929d789824f8293f7940f07515997fb0fda6126/hsp3-forgery">https://github.com/vain0x/hsp3-ginger/tree/5929d789824f8293f7940f07515997fb0fda6126/hsp3-forgery</a></p>
 <p>静的型検査されないコードを書くのはつらみがあり、HSP3 で書いている knowbug クライアントの実装もややつらみがある。書くのは楽しいけど、読み返す、追う、直すのが難しい。</p>
 <p>そういうわけで HSP3 の型検査ツールを作ろうとしている。せっかくなので、以前作った雑な LSP を置き換えるために、LSP として動くようにしたい。</p>
 <p>そのためにいまは構文解析器を作っている。進捗はまだまだ。</p>
-<h2 id="heading-1">競プロ</h2>
+<h2 id="競プロ">競プロ</h2>
 <p>週末は AtCoder に参加。</p>
 <ul>
 <li><a href="https://qiita.com/vain0x/items/834f40bbb8320b89e6a8">競プロ参戦記 #68 Max-Min Sums | ABC 151</a>
@@ -287,13 +287,13 @@
 </ul>
 </li>
 </ul>
-<h2 id="f--lsp-">F# の LSP 型定義の作成</h2>
+<h2 id="f-の-lsp-型定義の作成">F# の LSP 型定義の作成</h2>
 <p><a href="https://github.com/vain0x/fsharp-language-toolkit">https://github.com/vain0x/fsharp-language-toolkit</a></p>
 <p>F# の LSP/DAP の型定義の作成を進めている。主にゲームの待ち時間にやっているので進捗は芳しくないが、いつかは終わるはず。</p>
-<h2 id="heading-2">自作言語の一覧</h2>
+<h2 id="自作言語の一覧">自作言語の一覧</h2>
 <p><a href="https://github.com/vain0x/languages">https://github.com/vain0x/languages</a></p>
 <p>自作言語の一覧用のリポジトリを作った。中途半端に打ち捨てられてるコードも放り込んでおいた。</p>
-<h2 id="heading-3">その他</h2>
+<h2 id="その他">その他</h2>
 <p>自分の発信で気になった部分。</p>
 <ul>
 <li>言語を「データのコピーが自由/不自由」「データ構造が均一/不均一」で分類すると不自由/均一が足りないという気づき <a href="https://twitter.com/vain0x/status/1221458188882497536">https://twitter.com/vain0x/status/1221458188882497536</a></li>
@@ -433,7 +433,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

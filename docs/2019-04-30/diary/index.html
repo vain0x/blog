@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2019年4月30日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -221,21 +221,21 @@
 <li>式はリテラル、変数、演算である</li>
 </ul>
 <p>例えば以下は、関数呼び出しが入れ子になっていたり、引数式の評価の途中で代入が発生する厄介な式である。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">x</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">x</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">y</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="p">)</span><span class="p">)</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="n">g</span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w">        </span><span class="n">x</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">x</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">y</span><span class="w">
+</span><span class="w">    </span><span class="p">}))</span><span class="w">
 </span></code></pre></div><p>この例では、文を外側に移動したり、中間変数を導入したりして、条件を満たすように変形できる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">y</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="n">_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">y</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">g</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w">
+</span><span class="w">    </span><span class="n">_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="w">
 </span></code></pre></div><p>この形式はC言語やアセンブリに近くて、後続のコード生成がやりやすい。</p>
 <p>そういえば「<a href="https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/">HSP3 でスクリプト言語の処理系を書く</a>」の記事に以下のように書いたが、</p>
 <blockquote>
@@ -243,24 +243,24 @@
 例えば while (p()) { s += (if (q()) { break } else { 1 }) } みたいな式だと、+= の左辺の s がスタックに乗った状態で break に到達してしまうので、ジャンプする前にそれをポップする必要がある。</p>
 </blockquote>
 <p>正準化を施せば問題なさそうだ。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">// 正準化前: 式の中にジャンプ命令があるので問題を起こす
-</span><span class="c1"></span><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">q</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">            </span><span class="k">break</span><span class="w">
-</span><span class="w">        </span><span class="nl"></span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">            </span><span class="mi">1</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">// 正準化後: 問題ない
-</span><span class="c1"></span><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">q</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">            </span><span class="k">break</span><span class="w">
-</span><span class="w">        </span><span class="nl"></span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">            </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h2 id="heading">ネギ言語</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">// 正準化前: 式の中にジャンプ命令があるので問題を起こす
+</span><span class="c1"></span><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">p</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">q</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="k">break</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="mi">1</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">// 正準化後: 問題ない
+</span><span class="c1"></span><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">p</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">q</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="k">break</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">        </span><span class="n">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">t</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id="ネギ言語">ネギ言語</h2>
 <p><a href="https://github.com/vain0x/negi-lang/commits?since=2019-03-31&amp;until=2019-04-30">https://github.com/vain0x/negi-lang/commits?since=2019-03-31&amp;until=2019-04-30</a></p>
 <ul>
 <li>HSP3 で書いたスクリプト言語処理系</li>
@@ -278,7 +278,7 @@
 </li>
 <li>まったりやっていく</li>
 </ul>
-<h2 id="heading-1">競技プログラミング</h2>
+<h2 id="競技プログラミング">競技プログラミング</h2>
 <p>週末に AtCoder に参加し、気まぐれに Codeforces (コドフォ) に1回参加した。ABC は安定して全完。高難度の問題への取り組みはいまいち。</p>
 <ul>
 <li><a href="https://qiita.com/vain0x/items/911a7ef1c5834d60503b">競プロ参戦記 #40 Cake 123 | ABC123</a></li>
@@ -287,7 +287,7 @@
 <li><a href="https://qiita.com/vain0x/items/c3ab29132c1558f791e9">競プロ参戦記 #43 Flipping Signs | ABC 125</a></li>
 <li><a href="https://qiita.com/vain0x/items/80cc96b3c83dfd5f17a6">競プロ参戦記 #44 Three Religions | コドフォ #556 Div.2</a></li>
 </ul>
-<h2 id="underpass-web">Underpass (Webアプリ)</h2>
+<h2 id="underpass-webアプリ">Underpass (Webアプリ)</h2>
 <p><a href="https://github.com/vain0x/underpass">https://github.com/vain0x/underpass</a></p>
 <ul>
 <li>任意のパスフレーズを厳しく制限されたパスワードに変換するアプリ</li>
@@ -312,20 +312,20 @@
 </ul>
 </li>
 </ul>
-<h2 id="heading-2">その他</h2>
-<h3 id="-wpf-">その他: WPF のビューモデルを自動生成するやつ</h3>
+<h2 id="その他">その他</h2>
+<h3 id="その他-wpf-のビューモデルを自動生成するやつ">その他: WPF のビューモデルを自動生成するやつ</h3>
 <p><a href="https://github.com/vain0x/playground/blob/1a6012bb8d2d1002c690e7a614c2b7316b16e19b/play/2019-04-24-virtual-view-model-for-wpf/wpf_sands/MainWindow.xaml.cs#L472">https://github.com/vain0x/playground/blob/1a6012bb8d2d1002c690e7a614c2b7316b16e19b/play/2019-04-24-virtual-view-model-for-wpf/wpf_sands/MainWindow.xaml.cs#L472</a></p>
 <ul>
 <li>イミュータブルなオブジェクトのツリーからミュータブルなオブジェクトのツリー (<code>INotifyPropertyChanged</code> を実装してる) を作って、それを差分更新していく、というもの</li>
 <li>TwoWay バインディングをどうにかしないといけないのが辛い</li>
 </ul>
-<h3 id="-wpf--fontfamily-">その他: WPF の FontFamily が異常に重たい</h3>
+<h3 id="その他-wpf-の-fontfamily-が異常に重たい">その他: WPF の FontFamily が異常に重たい</h3>
 <ul>
 <li>WPF で作っていたアプリの動作が重かった</li>
 <li>TextBlock や TextBox に FontFamily でローカルのフォントファイル (Noto Sans CJK JP) を指定するのをやめたらかなり早くなった</li>
 <li>小さい再現コードを作ってないから別の原因かもしれない</li>
 </ul>
-<h3 id="-php-">その他: PHP のアロー関数の構文が良い</h3>
+<h3 id="その他-php-のアロー関数の構文が良い">その他: PHP のアロー関数の構文が良い</h3>
 <ul>
 <li>「<a href="https://qiita.com/rana_kualu/items/7fbdd520a7e355599f7d">PHPでアロー関数を使えるようになる</a>」という記事を読んだ</li>
 <li>PHP 7.4 から <code>fn($x, $y, ..) =&gt; z</code> という短い構文のラムダ式が入る
@@ -461,7 +461,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

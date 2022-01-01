@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2019年5月31日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -206,12 +206,12 @@
 <ul>
 <li>前月分 <a href="https://vain0x.github.io/blog/2019-04-30/diary">https://vain0x.github.io/blog/2019-04-30/diary</a></li>
 </ul>
-<h2 id="heading">ミローネ言語</h2>
+<h2 id="ミローネ言語">ミローネ言語</h2>
 <p><a href="https://github.com/vain0x/milone-lang/commits?author=vain0x&amp;since=2019-04-30&amp;until=2019-05-31">https://github.com/vain0x/milone-lang/commits?author=vain0x&amp;since=2019-04-30&amp;until=2019-05-31</a></p>
 <ul>
 <li>セルフホスティングを目指している F# サブセットのコンパイラ</li>
 </ul>
-<h3 id="-">ミローネ: 多相関数の単相化</h3>
+<h3 id="ミローネ-多相関数の単相化">ミローネ: 多相関数の単相化</h3>
 <p><a href="https://github.com/vain0x/milone-lang/blob/628adf3b38c27a79d3c58936e2b9ca1d01d99693/boot/MiloneLang/Monomorphizing.fs">Monomorphizing.fs</a></p>
 <ul>
 <li>多相関数の単相化を実装した</li>
@@ -219,27 +219,27 @@
 <li>コードのコメントにおおよそ解説を書いた</li>
 <li>例えば以下の flip は任意のペアに作用するジェネリック関数であり、そのままではC言語にコンパイルできない</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">let</span> <span class="nv">flip</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">=</span> <span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">let</span> <span class="nv">flip</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">=</span> <span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
 </code></pre></div><ul>
 <li>以下のような呼び出しがあるとする</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;</span><span class="s">one</span><span class="s">&#34;</span><span class="o">)</span> <span class="o">|</span><span class="o">&gt;</span> <span class="n">flip</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;one&#34;</span><span class="o">)</span> <span class="o">|&gt;</span> <span class="n">flip</span>
 </code></pre></div><ul>
 <li>この式における flip には <code>(int, string) -&gt; (string, int)</code> という単相型がついている</li>
 <li>この型を使用箇所の型 (use-site type) と呼ぶ</li>
 <li>flip を複製して、この単相型を持たせたものを用意する (単相化インスタンスと呼ぶ)</li>
 <li>flip の呼び出しを単相化インスタンスの呼び出しに変換する</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">let</span> <span class="nv">flipForIntStringPair</span> <span class="o">(</span><span class="n">x</span><span class="o">:</span> <span class="n">int</span><span class="o">,</span> <span class="n">y</span><span class="o">:</span> <span class="kt">string</span><span class="o">)</span> <span class="o">=</span> <span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">let</span> <span class="nv">flipForIntStringPair</span> <span class="o">(</span><span class="n">x</span><span class="o">:</span> <span class="n">int</span><span class="o">,</span> <span class="n">y</span><span class="o">:</span> <span class="kt">string</span><span class="o">)</span> <span class="o">=</span> <span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
 
-    <span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;</span><span class="s">one</span><span class="s">&#34;</span><span class="o">)</span> <span class="o">|</span><span class="o">&gt;</span> <span class="n">flipForIntStringPair</span>
+    <span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;one&#34;</span><span class="o">)</span> <span class="o">|&gt;</span> <span class="n">flipForIntStringPair</span>
 </code></pre></div><ul>
 <li>この変換をひたすら繰り返す</li>
 <li>このアルゴリズムは基本的なケースではたぶん動く</li>
 <li>効率が悪いし、そもそも停止性を証明できてない</li>
 <li>ひとまず開発当初からの懸念だった多相関数のコード生成ができて安心した</li>
 </ul>
-<h3 id="--1">ミローネ: モジュール内の相互再帰</h3>
+<h3 id="ミローネ-モジュール内の相互再帰">ミローネ: モジュール内の相互再帰</h3>
 <p><a href="https://github.com/vain0x/milone-lang/commit/8eb8b30b1b90b842a2062bdfe2b14125ac9f4d42">https://github.com/vain0x/milone-lang/commit/8eb8b30b1b90b842a2062bdfe2b14125ac9f4d42</a></p>
 <ul>
 <li>F# には module rec という機能があって、rec キーワードつきで定義したモジュールに配置された関数は相互参照できる</li>
@@ -255,7 +255,7 @@
 <li>これを再帰的に繰り返すとトポロジカルオーダーでモジュールが並ぶ</li>
 <li>あとは各モジュールの抽象構文木を接合する</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Bar
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Bar
 </span><span class="c1"></span><span class="k">let</span> <span class="nv">bar</span> <span class="bp">()</span> <span class="o">=</span> <span class="o">..</span> <span class="k">in</span> <span class="bp">()</span>
 
 <span class="c1">// Foo
@@ -269,21 +269,21 @@
 <li>これだと open していないモジュールに含まれる関数が見えてしまったりするが、そのへんは厳密にしてない</li>
 <li>セルフホスティングという目的の障害にならない問題は積極的に無視していく</li>
 </ul>
-<h3 id="--2">ミローネ: 再帰的な判別共用体</h3>
+<h3 id="ミローネ-再帰的な判別共用体">ミローネ: 再帰的な判別共用体</h3>
 <p><a href="https://github.com/vain0x/milone-lang/commit/d9dbc8e5e8fc71318d2d4a10c7c302c64c32e2a1">https://github.com/vain0x/milone-lang/commit/d9dbc8e5e8fc71318d2d4a10c7c302c64c32e2a1</a></p>
 <ul>
 <li>F# の判別共用体は Struct 属性をつけなければヒープに確保されて参照として取り扱われる</li>
 <li>そのため判別共用体がその型自身への参照を持つようなことも可能</li>
 <li>ミローネ言語コンパイラでも抽象構文木の型などにこの機能を利用している</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// よくある抽象構文木
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// よくある抽象構文木
 </span><span class="c1"></span><span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span>
     <span class="o">|</span> <span class="n">Int</span> <span class="k">of</span> <span class="n">int</span>
     <span class="o">|</span> <span class="n">Add</span> <span class="k">of</span> <span class="n">Expr</span> <span class="o">*</span> <span class="n">Expr</span> <span class="c1">// Expr 自身を再帰的に参照している
 </span></code></pre></div><ul>
 <li>判別共用体はトークンの種類にも使われている</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">TokenKind</span> <span class="o">=</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">TokenKind</span> <span class="o">=</span>
     <span class="o">|</span> <span class="n">Int</span> <span class="k">of</span> <span class="n">int</span>
     <span class="o">|</span> <span class="n">Plus</span>
     <span class="o">|</span> <span class="n">ParenL</span> <span class="c1">// (
@@ -295,16 +295,16 @@
 <li>ペイロードをポインタ経由で持つ、というルールにした</li>
 <li>例えば TokenKind はC言語で以下の型に表現する</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">enum</span> <span class="n">TokenKindTag</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">enum</span> <span class="n">TokenKindTag</span> <span class="p">{</span>
     <span class="n">Int</span><span class="p">,</span> <span class="n">Plus</span><span class="p">,</span> <span class="n">ParenL</span><span class="p">,</span> <span class="n">ParenR</span><span class="p">,</span>
-<span class="p">}</span><span class="p">;</span>
+<span class="p">};</span>
 
 <span class="k">struct</span> <span class="n">TokenKind</span> <span class="p">{</span>
     <span class="k">enum</span> <span class="n">TokenKindTag</span> <span class="n">tag</span><span class="p">;</span>
     <span class="k">union</span> <span class="p">{</span>
         <span class="kt">int</span> <span class="o">*</span><span class="n">int_</span><span class="p">;</span> <span class="c1">// Int of int のペイロード
-</span><span class="c1"></span>    <span class="p">}</span><span class="p">;</span>
-<span class="p">}</span><span class="p">;</span>
+</span><span class="c1"></span>    <span class="p">};</span>
+<span class="p">};</span>
 </code></pre></div><ul>
 <li>ペイロードのないバリアントは <code>(struct TokenKind){.tag = Plus}</code> のように値で生成される</li>
 <li>理想的には再帰型のみポインタ経由で参照するという方針にしたい</li>
@@ -312,12 +312,12 @@
 <li>再帰型のペイロードならタグ (enum) のサイズがついて 4 + 4 + .. &gt; 16 になる</li>
 <li>そもそも抽象構文木の表現に再帰的な判別共用体を使わないという実装方針もありうる</li>
 </ul>
-<h3 id="--3">ミローネ: ラムダ式</h3>
+<h3 id="ミローネ-ラムダ式">ミローネ: ラムダ式</h3>
 <ul>
 <li>抽象構文木を組み替える雑実装</li>
 <li><code>fun x -&gt; y</code> を <code>let f x = y in f</code> にする</li>
 </ul>
-<h2 id="heading-1">競技プログラミング</h2>
+<h2 id="競技プログラミング">競技プログラミング</h2>
 <p>週末は AtCoder に参加。ABC が6問構成になって、かなりエキサイティング</p>
 <ul>
 <li><a href="https://qiita.com/vain0x/items/fd9854b5863f1634dd04">競プロ参戦記 #45 DivRem Number | diverta 2019</a></li>
@@ -334,12 +334,12 @@
 </ul>
 </li>
 </ul>
-<h2 id="heading-2">その他</h2>
+<h2 id="その他">その他</h2>
 <p>ゴールデンウィークにやろうとしたことができなかったので、終わってからいろいろやった</p>
 <blockquote>
 <p>イベントを利用してパーサーと構文木を分離するやつ、具象構文木をラップして抽象構文木を作るやつ、ロスレスな具象構文木を作ってラウンドトリップさせるやつ、とかの理解を深めるつもりだったのに (2019/05/03)</p>
 </blockquote>
-<h2 id="--4">その他: イベント型のパーサー</h2>
+<h2 id="その他-イベント型のパーサー">その他: イベント型のパーサー</h2>
 <p><a href="https://github.com/vain0x/playground/tree/master/play/2019-05-04-event-based-parser">https://github.com/vain0x/playground/tree/master/play/2019-05-04-event-based-parser</a></p>
 <ul>
 <li><a href="https://github.com/rust-analyzer/rust-analyzer">rust-analyzer</a> の ra_parser (Rust の構文解析の実装) で採用されている方式の小さい版</li>
@@ -357,7 +357,7 @@
 <blockquote>
 <p>字句解析はソースコードを区間分割して各区間に種類を割り当てるもの、構文解析はトークンのリストを (順番を変えずに) ツリーにするもの、みたいな直観を得つつある (2019/05/05)</p>
 </blockquote>
-<h2 id="-rowan--typescript-">その他: rowan の TypeScript 移植</h2>
+<h2 id="その他-rowan-の-typescript-移植">その他: rowan の TypeScript 移植</h2>
 <p><a href="https://github.com/vain0x/playground/tree/master/play/2019-05-06-picolyn">https://github.com/vain0x/playground/tree/master/play/2019-05-06-picolyn</a></p>
 <ul>
 <li><a href="https://github.com/rust-analyzer/rowan">rowan</a> というライブラリがある
@@ -370,14 +370,14 @@
 <li>実装を参考にしながら TypeScript で小さく作り直してる</li>
 <li>これをラップして抽象構文木として操作するあたりの直観がまだ得られていない</li>
 </ul>
-<h2 id="-prettier-printer--rust-">その他: prettier printer の Rust 移植</h2>
+<h2 id="その他-prettier-printer-の-rust-移植">その他: prettier printer の Rust 移植</h2>
 <p><a href="https://github.com/vain0x/playground/tree/master/play/2019-05-11-prettier-printer-rust-from-scratch">https://github.com/vain0x/playground/tree/master/play/2019-05-11-prettier-printer-rust-from-scratch</a></p>
 <ul>
 <li>空白と改行を自動的に使い分けて最適な文字列描画のレイアウトを構成するアルゴリズム</li>
 <li>中身を読んで、Haskell で書かれた参考実装を Rust に移植してみた</li>
 <li>(自作言語の) コードフォーマッターを作るときに使えるかもしれない</li>
 </ul>
-<h2 id="-c--for-vscode">その他: C# のコンストラクタ自動生成ツール (for VSCode)</h2>
+<h2 id="その他-c-のコンストラクタ自動生成ツール-for-vscode">その他: C# のコンストラクタ自動生成ツール (for VSCode)</h2>
 <p><a href="https://github.com/vain0x/csharpextensions">https://github.com/vain0x/csharpextensions</a></p>
 <ul>
 <li>VSCode 上で動く C# 拡張</li>
@@ -398,13 +398,13 @@
 </ul>
 </li>
 </ul>
-<h2 id="--5">その他: クラゲ言語</h2>
+<h2 id="その他-クラゲ言語">その他: クラゲ言語</h2>
 <p><a href="https://github.com/vain0x/curage-lang">https://github.com/vain0x/curage-lang</a></p>
 <ul>
 <li>LSP の動作確認のスクリーンショットをつけた</li>
 <li><a href="https://github.com/vain0x/curage-lang/compare/v0.1.0...v0.2.0">バージョン間の差分</a> へのリンクをつけた</li>
 </ul>
-<h2 id="-wpf-">その他: WPF ナビゲーションサンプル</h2>
+<h2 id="その他-wpf-ナビゲーションサンプル">その他: WPF ナビゲーションサンプル</h2>
 <p><a href="https://github.com/vain0x/wpf-nav-sample">https://github.com/vain0x/wpf-nav-sample</a></p>
 <ul>
 <li>ページ遷移を含むアプリの構成のサンプル</li>
@@ -417,7 +417,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="-rx">その他: Rx</h2>
+<h2 id="その他-rx">その他: Rx</h2>
 <p>Rx.NET (<a href="https://github.com/dotnet/reactive">dotnet/reactive</a>) と <a href="https://github.com/runceel/ReactiveProperty">ReactiveProperty</a> を使った WPF アプリを改修して思ったことのメモ書き</p>
 <p>要点:</p>
 <ul>
@@ -425,7 +425,7 @@
 <li>Flux は冗長性と引き換えにすべてを解決する</li>
 <li>Rx ストリームの自動停止を有効活用すべし</li>
 </ul>
-<h3 id="rx-propertychanged--rx-">Rx: PropertyChanged から Rx への道筋</h3>
+<h3 id="rx-propertychanged-から-rx-への道筋">Rx: PropertyChanged から Rx への道筋</h3>
 <ul>
 <li>WPF のバインディング機能には <code>INotifyPropertyChanged.PropertyChanged</code> (プロパティの値が変化したときに起こすイベント) を適切に発火する必要がある</li>
 <li><code>string NameSan =&gt; Name + &quot;さん&quot;</code> みたいな get プロパティについても発火する必要がある</li>
@@ -486,7 +486,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="rx-">Rx: 可変コレクションの集計</h3>
+<h3 id="rx-可変コレクションの集計">Rx: 可変コレクションの集計</h3>
 <ul>
 <li>可変コレクション (ObservableCollection) の要素から飛んでくる通知 (IObservable が出力するイベントを通知と呼ぶことにする) を集計する方法で苦労していた</li>
 <li>コレクションに Add/Remove が起こるたびに Merge をやり直すという力技だった
@@ -639,7 +639,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

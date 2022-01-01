@@ -136,7 +136,7 @@ Linux が便利らしいので、やってみたかった。
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -215,7 +215,7 @@ Linux が便利らしいので、やってみたかった。
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2018年1月28日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -238,26 +238,26 @@ Linux が便利らしいので、やってみたかった。
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>普段づかいする環境をWindowsからUbuntuに移した話。</p>
-<h2 id="heading">要約</h2>
+<h2 id="要約">要約</h2>
 <ul>
 <li>もともと Windows 10 だった。</li>
 <li>Linux が便利らしいので、やってみたかった。</li>
 <li>調べてみたらかなり試す価値がありそうだった。</li>
 <li>安めのパソコンを買って試しているが、あまり問題がない。</li>
 </ul>
-<h2 id="heading-1">調査</h2>
+<h2 id="調査">調査</h2>
 <p>2017年11月ぐらいのこと。使っていたノートパソコン(dynabook)が2011年ぐらいからの古株なので、買い替えることにした。</p>
 <p>Linux 環境は Windows よりプログラミングに向いている [要出典] 的な話をわりと聞くので一度試してみようと思い、仮想環境を使ったり、普段の作業がどのぐらい Ubuntu でもできるのか調査したりした。</p>
 <p>同じ用途のアプリが Ubuntu 環境でも提供されているというのもあるし、いまはウェブアプリやクロスプラットフォーム対応のアプリが多いので、替えが効かないのは Visual Studio (C# や F# での開発に使う) ぐらいだった。それに関しても、 .NET Core 2.0 のリリース以後、じわじわ VSCode に移行している。WPF で GUI アプリが作れなくなるが、他の GUI ツールキットを覚えるいい機会だろう。</p>
 <p>予想外だったのは Sublime Text 3 の Ubuntu 版が日本語 IME と相性が悪くて使いづらいことで、いまは VSCode で代用している。メモ帳 (Markdown エディター) 代わりとしてはオーバースペックなので何か用意したい。</p>
-<h2 id="heading-2">構築</h2>
+<h2 id="構築">構築</h2>
 <p>次に Ubuntu をインストールすべきパソコンを探した。メーカーによっては起動できないのもあるらしい (※よく知らない) ので、実際にインストールして動かした人のいるものを選ぶのがよさそうだ。次の記事を参考にして、 Inspiron のデスクトップを買った:</p>
 <p>参考: <a href="http://www.dell.com/support/article/jp/ja/jpbsd1/sln151664/%E3%83%87%E3%83%ABpc%E3%81%ABubuntu-linux%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95?lang=ja">デルPCにUbuntu Linuxをインストールする方法</a></p>
 <p>インストール手順まで詳しく書いてあって、ぽちぽちしたらできた。マウスやキーボードもそのまま動いて安心した。</p>
-<h2 id="heading-3">移行</h2>
+<h2 id="移行">移行</h2>
 <p>データの移行時は文字コードの問題があった。テキストファイルの一部が shift_jis だったが、これは nkf コマンドを使ってすべて utf-8 にした。シェルスクリプトの簡単な練習になった。</p>
 <p>音楽ファイルのメタタグも一部が shift_jis なために文字化けしていたが、これは Windows のアプリで一括変換した。どうも <strong>一部壊れている</strong> ような気がする。気のせいだと思いたい。</p>
-<h2 id="heading-4">現状</h2>
+<h2 id="現状">現状</h2>
 <p>何か問題が起こったときに対処できるか、というのが一番の不安要素だが、いまのところ問題はない。やったことといえば、まだ外付けハードディスクが自動的にマウントされるように fstab の設定を書いたぐらいだが。</p>
 <p>それに、このごろは Web 系の勉強 (HTML/CSS/ES2016/TypeScript/Node.js/Vue.js) で忙しくて、OS 非依存なレイヤーしか触っていいない。</p>
 <p>Clang (C++) で競プロをやったり、 OCaml で TaPL のサンプルを動かしたりしたい。</p>
@@ -367,7 +367,7 @@ Linux が便利らしいので、やってみたかった。
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

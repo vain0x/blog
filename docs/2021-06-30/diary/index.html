@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年6月30日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -206,7 +206,7 @@
 <ul>
 <li>前回 (2021-05-31) <a href="https://vain0x.github.io/blog/2021-05-31/diary/">https://vain0x.github.io/blog/2021-05-31/diary/</a></li>
 </ul>
-<h2 id="heading">ミローネ言語</h2>
+<h2 id="ミローネ言語">ミローネ言語</h2>
 <p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
 <h3 id="milone-run">milone run</h3>
 <p><code>run</code> サブコマンドを追加した。
@@ -217,16 +217,16 @@
 具体的には「一時ディレクトリがなかったら作る」という挙動と、サブプロセスを起動する挙動。
 そのため、Linuxのmkdir関数とexecv関数を使った。
 Windowsでは動かない。できれば動くようにしたい……</p>
-<h3 id="heading-1">脆弱なビルドチェイン</h3>
+<h3 id="脆弱なビルドチェイン">脆弱なビルドチェイン</h3>
 <p>ビルドスクリプトが壊れているのがつらい。更新されるべきファイルが更新されないとか、何度実行してもdirtyのままになるとか。</p>
-<h2 id="lalr">LALRの衝突</h2>
+<h2 id="lalrの衝突">LALRの衝突</h2>
 <p><a href="https://twitter.com/vain0x/status/1408061981970468868">https://twitter.com/vain0x/status/1408061981970468868</a></p>
 <ul>
 <li>パーサジェネレータを使ったことがなかったので、Rustのlalrpopを試していた</li>
 <li>いつもどおりRust風の構文のパーサを書いていたら、return式の定義が衝突してしまった</li>
 </ul>
 <p>文法はこんな感じ:</p>
-<pre><code>atom =
+<pre tabindex="0"><code>atom =
     ident
     | &quot;(&quot; expr &quot;)&quot;
     | &quot;return&quot; expr?
@@ -244,7 +244,7 @@ add =
 expr = add
 </code></pre><p>(LALRだから左再帰でもOK)</p>
 <p><code>return a + b</code> が <code>(return a) + b</code> なのか <code>return (a + b)</code> なのか曖昧だと指摘されてしまう。</p>
-<h2 id="hsp3">HSP3アナライザーミニ</h2>
+<h2 id="hsp3アナライザーミニ">HSP3アナライザーミニ</h2>
 <p><a href="https://github.com/vain0x/hsp3-ginger/tree/0e6734b1798971ab35e928100a64c87413eec01c/hsp3-analyzer-mini">https://github.com/vain0x/hsp3-ginger/tree/0e6734b1798971ab35e928100a64c87413eec01c/hsp3-analyzer-mini</a></p>
 <ul>
 <li>プレリリースとしてvsixの公開をしてみた (v0.3.1)</li>
@@ -262,7 +262,7 @@ expr = add
 <li>設定ファイルにミスがあったせい</li>
 <li><code>contributes.debuggers[].languages</code> にデバッグの対象となる言語を書いておく必要があった</li>
 </ul>
-<h2 id="heading-2">行分割アルゴリズムをかじった</h2>
+<h2 id="行分割アルゴリズムをかじった">行分割アルゴリズムをかじった</h2>
 <ul>
 <li>状況: PDFに文字列を描画する機能を作っていた</li>
 <li>単語を矩形内に適度に配置したり、長い文章を矩形に収めたりする必要があった</li>
@@ -274,7 +274,7 @@ expr = add
 </li>
 </ul>
 <p>参考: <a href="https://xxyxyz.org/line-breaking/">Line breaking — Xxyxyz</a></p>
-<h2 id="heading-3">ブログのテーマ</h2>
+<h2 id="ブログのテーマ">ブログのテーマ</h2>
 <ul>
 <li>このブログのテーマ (デザイン) を更新した</li>
 <li>コードのシンタックスハイライトがみづらかった
@@ -294,7 +294,7 @@ expr = add
 </ul>
 </li>
 </ul>
-<h2 id="heading-4">その他</h2>
+<h2 id="その他">その他</h2>
 <ul>
 <li>記事を書いた:
 <ul>
@@ -420,7 +420,7 @@ expr = add
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

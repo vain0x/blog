@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年11月20日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -205,16 +205,16 @@
         <p>ソースコード上にリンクを張るために型エイリアスを使うことがある</p>
 <p>例えば行番号は、型としてはただの整数。しかし値が0以上なのか1以上なのかが混乱しやすい。</p>
 <p>課題: 行番号を使う場所にいちいち「行番号は0以上」とコメントを書いて回るのはめんどくさい。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="sd">/// 指定した行のテキストを取り出す。行番号は0以上。末尾の改行は除く。
-</span><span class="sd"></span><span class="k">let</span> <span class="nv">getLineText</span> <span class="o">(</span><span class="n">row</span><span class="o">:</span> <span class="n">int</span><span class="o">)</span> <span class="o">:</span> <span class="kt">string</span> <span class="o">=</span> <span class="o">..</span><span class="o">.</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="sd">/// 指定した行のテキストを取り出す。行番号は0以上。末尾の改行は除く。
+</span><span class="sd"></span><span class="k">let</span> <span class="nv">getLineText</span> <span class="o">(</span><span class="n">row</span><span class="o">:</span> <span class="n">int</span><span class="o">)</span> <span class="o">:</span> <span class="kt">string</span> <span class="o">=</span> <span class="o">...</span>
 </code></pre></div><p>対策: 行番号を表す型エイリアスを作って、それにコメントを書いておくことで一元化できる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="sd">//// 行番号 (0以上)
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="sd">//// 行番号 (0以上)
 </span><span class="sd"></span><span class="k">type</span> <span class="nc">RowIndex</span> <span class="o">=</span> <span class="n">int</span>
 
 <span class="c1">// ...
 </span><span class="c1"></span>
 <span class="sd">/// 指定した行のテキストを取り出す。末尾の改行は除く。
-</span><span class="sd"></span><span class="k">let</span> <span class="nv">getLineText</span> <span class="o">(</span><span class="n">row</span><span class="o">:</span> <span class="n">RowIndex</span><span class="o">)</span> <span class="o">:</span> <span class="kt">string</span> <span class="o">=</span> <span class="o">..</span><span class="o">.</span>
+</span><span class="sd"></span><span class="k">let</span> <span class="nv">getLineText</span> <span class="o">(</span><span class="n">row</span><span class="o">:</span> <span class="n">RowIndex</span><span class="o">)</span> <span class="o">:</span> <span class="kt">string</span> <span class="o">=</span> <span class="o">...</span>
 </code></pre></div><ul>
 <li><code>RowIndex</code> の部分をホバーすると「行番号 (0以上)」と表示される</li>
 <li><code>RowIndex</code> の定義箇所にジャンプできるし、逆にRowIndexの使用箇所を列挙することもできる。</li>
@@ -337,7 +337,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

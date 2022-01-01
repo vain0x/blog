@@ -66,7 +66,7 @@
   "headline": "すごーい！ きみはプログラミング言語を実装できるフレンズなんだね",
   "description" : "Qiita\nジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！\n",
   "inLanguage" : "ja",
-  "wordCount":  867 ,
+  "wordCount":  865 ,
   "datePublished" : "2017-02-12T00:00:00",
   "dateModified" : "2017-02-12T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -106,7 +106,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -185,7 +185,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2017年2月12日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -209,22 +209,22 @@
       <article role="main" class="blog-post">
         <p><a href="http://qiita.com/vain0x/items/6d3b75f667d3ec7f1d2a">Qiita</a></p>
 <p>ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！</p>
-<h2 id="heading">サンプルコード</h2>
+<h2 id="サンプルコード">サンプルコード</h2>
 <h3 id="socrates">Socrates</h3>
-<pre><code>すごーい！ かばんちゃん は ヒトの フレンズ なんだね！
+<pre tabindex="0"><code>すごーい！ かばんちゃん は ヒトの フレンズ なんだね！
 
 すごーい！ あなた が ヒトの フレンズ なら
 あなた は しっぽのない フレンズ なんだね！
 
 だれ が しっぽのない フレンズ なんだっけ？
 </code></pre><p>出力:</p>
-<pre><code>「だれ」は「かばんちゃん」、
+<pre tabindex="0"><code>「だれ」は「かばんちゃん」、
 あってる？ (y/n)y
 やったー！
 </code></pre><p>「かばんちゃん は ヒトの フレンズ」で「ヒトの フレンズ は しっぽのない フレンズ」だから「かばんちゃん は しっぽのない フレンズ」なんだね！</p>
 <p>たーのしー！</p>
 <h3 id="fizzbuzz">FizzBuzz</h3>
-<pre><code>すごーい！ 0 は 自然数の フレンズ なんだね！
+<pre tabindex="0"><code>すごーい！ 0 は 自然数の フレンズ なんだね！
 すごーい！ きみ が 自然数の フレンズ なら
 きみ の 次 も 自然数の フレンズ なんだね！
 
@@ -264,7 +264,7 @@
 それ が 0 と 16 との 間の フレンズ で
 それ と だれ が FizzBuzz フレンズ なんだっけ？
 </code></pre><p>出力:</p>
-<pre><code>「それ」は0、
+<pre tabindex="0"><code>「それ」は0、
 「だれ」は「FizzBuzz」、
 あってる？ (y/n)n
 ---------------
@@ -329,27 +329,27 @@
 あってる？ (y/n)y
 やったー！
 </code></pre><p>わー！ すごーい！</p>
-<h2 id="heading-1">解説</h2>
+<h2 id="解説">解説</h2>
 <p>Qiita なので技術的な話をします。</p>
 <p>処理系のソースコードは <a href="https://github.com/vain0x/friends-lang">GitHub</a> にあります。</p>
-<h3 id="-">すごーい！ 文</h3>
+<h3 id="すごーい-文">すごーい！ 文</h3>
 <p>「すごーい！」で始まる文は、事実を表明するものです。例えば、</p>
-<pre><code>すごーい！ かばんちゃん は ヒトの フレンズ なんだね！
+<pre tabindex="0"><code>すごーい！ かばんちゃん は ヒトの フレンズ なんだね！
 </code></pre><p>は命題「かばんちゃん は ヒトの フレンズ」が真であることを表明します。ここで「かばんちゃん」という単語は定義されていませんが、アトムという文字列のようなものなので、使用することができます。</p>
 <p>「ヒトの」は述語の名前です。</p>
-<h3 id="--1">なんだっけ？ 文</h3>
+<h3 id="なんだっけ-文">なんだっけ？ 文</h3>
 <p>「なんだっけ？」で終わる文は、「すごーい！」文で表明した事実を用いて、指定された命題を真にするような割り当てが存在するかを探索します。例えば、</p>
-<pre><code>だれ が ヒトの フレンズ なんだっけ？
+<pre tabindex="0"><code>だれ が ヒトの フレンズ なんだっけ？
 </code></pre><p>と問いかけると、変数「だれ」 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> に適当なアトムを代入することで、命題「だれ が ヒトの フレンズ」を真にできるかどうかを判定し、命題を真にするような変数への割り当てを出力します。この例では、「ヒトの フレンズ」述語に関する真偽は、前述のすごーい！文でしか述べられていないので、「だれ」＝「かばんちゃん」という割り当てのみがこの命題を真にします。</p>
-<h3 id="heading-2">条件つきのすごーい！文</h3>
+<h3 id="条件つきのすごーい文">条件つきのすごーい！文</h3>
 <p>条件つきのすごーい！文は、ある命題が真であるときに、別の命題が成り立つことを表明します。例えば、</p>
-<pre><code>すごーい！ きみ が 自然数の フレンズ なら
+<pre tabindex="0"><code>すごーい！ きみ が 自然数の フレンズ なら
 きみ の 次 も 自然数の フレンズ なんだね！
 </code></pre><p>は変数「きみ」に適当な割り当てがなされて命題「きみ が 自然数の フレンズ」が真だと判定されたなら、命題「きみ の 次 は 自然数の フレンズ」も真である、と述べています。ちなみに「～は」「～が」「～も」はすべて同じです。</p>
 <p>式 <code>きみ の 次</code> は複合項というものです。Friends 言語では、式は「評価」されるものではなく、他の式とパターンマッチするためだけのものです。複合項の特徴は、単に「同一の形をした複合項とのみマッチする」ということです。すなわち、<code>きみ の 次</code> という式は、<code>? の 次</code> という形の式にだけマッチする式を表しています。</p>
 <p>Friends 言語において <code>x の 次</code> という形の式は少しだけ特別で、自然数 <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> は「0 の 次 の 次 の &hellip; の 次」という複合項に解釈されます。すなわち、<code>0</code> はアトム ですが、<code>1</code> は <code>0 の 次</code>、<code>2</code> は <code>0 の 次 の 次</code> という項を表します。</p>
 <p>例えば、次の質問をすると、</p>
-<pre><code>すごーい！ 0 は 自然数の フレンズ なんだね！
+<pre tabindex="0"><code>すごーい！ 0 は 自然数の フレンズ なんだね！
 すごーい！ きみ が 自然数の フレンズ なら
 きみ の 次 も 自然数の フレンズ なんだね！
 
@@ -359,9 +359,9 @@
 加えて、条件「2 が 自然数の フレンズ」が成り立たなければなりませんが、これも同様の方法で推論できます。
 したがって、「0 は 自然数の フレンズ」、だから「1 は 自然数の フレンズ」、なので「2 は 自然数の フレンズ」、ゆえに「3 は 自然数 のフレンズ」という推論ができます。</p>
 <p>3の倍数、5の倍数、15の倍数の判定も同様に可能です。</p>
-<h3 id="heading-3">たーのしー！節</h3>
+<h3 id="たーのしー節">たーのしー！節</h3>
 <p>FizzBuzz フレンズの定義を再掲します。</p>
-<pre><code>すごーい！ きみ が 15の倍数の フレンズ なら
+<pre tabindex="0"><code>すごーい！ きみ が 15の倍数の フレンズ なら
 きみ と FizzBuzz は FizzBuzz フレンズ なんだね！ たーのしー！
 すごーい！ きみ が 3の倍数の フレンズ なら
 きみ と Fizz は FizzBuzz フレンズ なんだね！ たーのしー！
@@ -371,14 +371,14 @@
 きみ と きみ は FizzBuzz フレンズ なんだね！
 </code></pre><p>n の FizzBuzz 表現 (Fizz/Buzz/FizzBuzz/n) を fizzbuzz(n) と書くことにします。FizzBuzz フレンズは、簡単にいえば、すべての自然数 n について命題「n と fizzbuzz(n) が FizzBuzz フレンズ」が真になるような述語です。</p>
 <p>すごーい！文の末尾につく「たーのしー！」節は、その文が命題を真にすると、残りのすごーい！文を探索しない、という機能を持ちます。すなわち、命題「x と y が FizzBuzz フレンズ」の真偽を判定するとき、「x が 15の倍数の フレンズ」だと分かったら、残りの3つの文 (3の倍数なら、5の倍数なら、自然数なら、というやつ) は無視する、ということです。もしこれがないと、「15 と FizzBuzz が FizzBuzz フレンズ」であると同時に、「15 と Fizz も FizzBuzz フレンズ」でもあることになってしまいます。</p>
-<h3 id="heading-4">助詞</h3>
-<pre><code>すごーい！ 0 は きみ の 次 より 小さい フレンズ なんだね！
+<h3 id="助詞">助詞</h3>
+<pre tabindex="0"><code>すごーい！ 0 は きみ の 次 より 小さい フレンズ なんだね！
 すごーい！ きみ が かのじょ より 小さい フレンズ なら
 きみ の 次 は かのじょ の 次 より 小さい フレンズ なんだね！
 </code></pre><p>「x は y より 小さい フレンズ」は「x と y が 小さい フレンズ」を表す糖衣構文です。
 それ以外は前述の通りです。</p>
-<h3 id="heading-5">非決定性</h3>
-<pre><code>すごーい！ きみ が かのじょ より 小さい フレンズ なら
+<h3 id="非決定性">非決定性</h3>
+<pre tabindex="0"><code>すごーい！ きみ が かのじょ より 小さい フレンズ なら
 きみ が きみ と かのじょ との 間の フレンズ なんだね！
 すごーい！ きみ が かのじょ より 小さい フレンズ で
 かれ が きみ の 次 と かのじょ との 間の フレンズ なら
@@ -389,10 +389,10 @@
 <p>この文には「たーのしー！」節がないので、次のすごーい！文も適用できます。「あなた が 0 と 3 との 間の フレンズ」と「かれ も きみ と かのじょ との 間の フレンズ」を見比べて、「あなた = かれ」「0 = きみ」「3 = かのじょ」という割り当てを得ます。そして、条件「かれ が きみ の 次 と かのじょ との 間の フレンズ」＝「あなた が 0 の 次 と 3 との 間の フレンズ」が真であるかを判定します。再び1つ目のすごーい！文により、<code>あなた</code> = <code>0 の 次</code> = <code>1</code> という割り当てを得ます。これの繰り返しになります。</p>
 <h2 id="prolog">Prolog</h2>
 <p>実際のところ、Friends 言語は Prolog という「論理型プログラミング言語」の文法を変更したものです。興味があれば、Prolog について調べてみてください。Prolog の処理系には <a href="https://az-prolog.com/">AZ-Prolog</a> や <a href="http://www.swi-prolog.org/">SWI-Prolog</a> などがあります。</p>
-<h2 id="heading-6">動作環境</h2>
+<h2 id="動作環境">動作環境</h2>
 <p>(追記 3/7) Friends 言語を Mac や Linux でも動くようにしてもらえました。</p>
 <p><a href="http://leko.jp/archives/933">すごーい！きみはフレンズ言語をDockerizeできるフレンズなんだね！</a></p>
-<h2 id="heading-7">参考文献</h2>
+<h2 id="参考文献">参考文献</h2>
 <ul>
 <li><a href="http://kemono-friends.jp/">けものフレンズプロジェクト｜公式サイト</a></li>
 <li><a href="http://qiita.com/ShunIchikawa/items/6449f492dc38a7201162">Prolog実践入門 - AIに特化した老舗言語</a></li>
@@ -401,10 +401,10 @@
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>変数は、「だれ」や「あなた」などのいくつかの予約語と、アンダーバーで始まる名前の識別子です。それ以外の識別子はアトムになります。 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>変数は、「だれ」や「あなた」などのいくつかの予約語と、アンダーバーで始まる名前の識別子です。それ以外の識別子はアトムになります。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p>ここでは0以上の整数のこと。 <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>ここでは0以上の整数のこと。&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -520,7 +520,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

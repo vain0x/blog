@@ -48,7 +48,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -144,6 +144,49 @@
           
           
             <article class="post-preview">
+              <a href="https://vain0x.github.io/blog/2021-03-21/semicolon-syntax/">
+                <h2 class="post-title">プログラミング言語の構文とセミコロン</h2>
+                
+                
+              </a>
+
+              <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;
+  
+  
+  
+  
+</span>
+
+
+              <div class="post-entry">
+                
+                  <p>C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
+Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。</p>
+<ul>
+<li>C言語の構文とセミコロンが必須な箇所はどこか</li>
+<li>JavaScriptのセミコロン省略により生じた問題とは何か</li>
+<li>Goのセミコロン省略ルールはどう定められているか</li>
+<li>Haskellのレイアウト依存構文はセミコロンの省略にどう生かされているか</li>
+<li>Rustの構文からセミコロンを取り除くとしたらどんな問題が生じるか</li>
+<li>F# のリストがセミコロン区切りである利点と欠点</li>
+</ul>
+                  <a href="https://vain0x.github.io/blog/2021-03-21/semicolon-syntax/" class="post-read-more">[続きを読む]</a>
+                
+              </div>
+
+              
+                <div class="blog-tags">
+                  
+                    <a href="https://vain0x.github.io/blog/tags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/">言語設計</a>&nbsp;
+                  
+                </div>
+              
+            </article>
+          
+            <article class="post-preview">
               <a href="https://vain0x.github.io/blog/2021-02-28/diary/">
                 <h2 class="post-title">近況 2021-02-28</h2>
                 
@@ -153,7 +196,7 @@
               <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年2月28日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -187,7 +230,7 @@
               <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年1月31日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -221,7 +264,7 @@
               <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年12月31日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -255,7 +298,7 @@
               <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年11月30日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -289,7 +332,7 @@
               <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年10月31日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -323,7 +366,7 @@
               <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年9月30日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -357,7 +400,7 @@
               <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年9月19日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -394,7 +437,7 @@
               <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年9月18日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -430,7 +473,7 @@
               <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年9月18日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -451,44 +494,6 @@
                     <a href="https://vain0x.github.io/blog/tags/typescript/">TypeScript</a>&nbsp;
                   
                     <a href="https://vain0x.github.io/blog/tags/react/">React</a>&nbsp;
-                  
-                </div>
-              
-            </article>
-          
-            <article class="post-preview">
-              <a href="https://vain0x.github.io/blog/2020-09-18/date-as-string/">
-                <h2 class="post-title">日時を文字列で持つ案 (Dateのことは忘れる)</h2>
-                
-                
-              </a>
-
-              <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2020年9月18日に投稿
-  
-  
-  
-  
-</span>
-
-
-              <div class="post-entry">
-                
-                  <ul>
-<li>TypeScript の日時を表現する Date 型は貧弱で使いにくい。</li>
-<li>日時の処理はライブラリを使うことになりがち。</li>
-<li>個人的には、Date オブジェクトの存在を無視して、日時を文字列で持つのがよいと思っている。</li>
-</ul>
-                  <a href="https://vain0x.github.io/blog/2020-09-18/date-as-string/" class="post-read-more">[続きを読む]</a>
-                
-              </div>
-
-              
-                <div class="blog-tags">
-                  
-                    <a href="https://vain0x.github.io/blog/tags/typescript/">TypeScript</a>&nbsp;
                   
                 </div>
               
@@ -576,7 +581,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年11月30日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -206,7 +206,7 @@
 <ul>
 <li>前回 (2020-10-31) <a href="https://vain0x.github.io/blog/2020-10-31/diary/">https://vain0x.github.io/blog/2020-10-31/diary/</a></li>
 </ul>
-<h2 id="heading">ミローネ言語</h2>
+<h2 id="ミローネ言語">ミローネ言語</h2>
 <p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
 <ul>
 <li>動的リージョンベースのメモリ管理の先行研究を探しているが、みつからない (lexical なリージョンや purely functional でない言語の話が多い)</li>
@@ -228,10 +228,10 @@
 </ul>
 </li>
 </ul>
-<h3 id="heading-1">型シノニムと組み込みの多相型だけを使って多相な再帰型を模倣するトリック</h3>
+<h3 id="型シノニムと組み込みの多相型だけを使って多相な再帰型を模倣するトリック">型シノニムと組み込みの多相型だけを使って多相な再帰型を模倣するトリック</h3>
 <p>多相な型シノニムを実装して、現実的な手間で多相な木構造を作れるようになった。多相な名前付き型がないので再帰的な構造はジェネリックにできないが、多相な部分を obj 型に押し込むことで、少なくとも API は safe な木構造を作れるようになった。</p>
 <p>(任意の値を obj 型に変換する <code>box: 'T -&gt; obj</code> という関数と、それを復元する <code>unbox: obj -&gt; 'T</code> という関数がある。.NET では unbox の際に動的検査されるので安全だが、ミローネ言語の現在の実装では undefined behavior になってしまう。)</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// TreeMap.fs
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// TreeMap.fs
 </span><span class="c1"></span>
 <span class="c1">// 単相な判別共用体なので定義できる。キーと値は obj に詰める
 </span><span class="c1"></span><span class="k">type</span> <span class="nc">TreeMapRawNode</span> <span class="o">=</span>
@@ -241,14 +241,14 @@
 <span class="c1">// 多相な型シノニムを公開しておく。option は単に型変数を維持するためのもので、実際は常に None.
 </span><span class="c1"></span><span class="k">type</span> <span class="nc">TreeMap</span><span class="o">&lt;</span><span class="k">&#39;</span><span class="n">K</span><span class="o">,</span> <span class="k">&#39;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">TreeMapRawNode</span> <span class="o">*</span> <span class="o">(</span><span class="k">&#39;</span><span class="n">K</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">K</span> <span class="o">-&gt;</span> <span class="n">int</span><span class="o">)</span> <span class="o">*</span> <span class="o">(</span><span class="k">&#39;</span><span class="n">T</span> <span class="n">option</span><span class="o">)</span>
 </code></pre></div><p>ツリーを操作する関数が呼ばれるとき、キーと値の型も同時に渡されるので、それを元に obj を剥がしたり包んだりする。普通に書くと関数の呼び出しの前後で型が変わってしまうので、強制的に単一化するためのデッドコードを仕込んでおくというハックがいる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">tryFind</span> <span class="n">key</span> <span class="o">(</span><span class="n">map</span><span class="o">:</span> <span class="n">TreeMap</span><span class="o">&lt;</span><span class="o">_</span><span class="o">,</span> <span class="o">_</span><span class="o">&gt;</span><span class="o">)</span><span class="o">:</span> <span class="o">_</span> <span class="n">option</span> <span class="o">=</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">tryFind</span> <span class="n">key</span> <span class="o">(</span><span class="n">map</span><span class="o">:</span> <span class="n">TreeMap</span><span class="o">&lt;_,</span> <span class="o">_&gt;):</span> <span class="o">_</span> <span class="n">option</span> <span class="o">=</span>
   <span class="k">let</span> <span class="nv">node</span><span class="o">,</span> <span class="n">keyCmp</span><span class="o">,</span> <span class="n">none</span> <span class="o">=</span> <span class="n">map</span>
   <span class="c1">//                ^ これは &#39;T option 型で、値の型を知っている
 </span><span class="c1"></span>
-  <span class="k">let</span> <span class="nv">valueOpt</span> <span class="o">=</span> <span class="n">node</span> <span class="o">|</span><span class="o">&gt;</span> <span class="n">doTryFind</span> <span class="n">keyCmp</span> <span class="n">key</span>
+  <span class="k">let</span> <span class="nv">valueOpt</span> <span class="o">=</span> <span class="n">node</span> <span class="o">|&gt;</span> <span class="n">doTryFind</span> <span class="n">keyCmp</span> <span class="n">key</span>
   <span class="c1">//  ^ この値は unbox で得るので、任意の型をつけられてしまう
 </span><span class="c1"></span>
-  <span class="k">let</span> <span class="nv">_typeUnifier</span> <span class="bp">()</span> <span class="o">=</span> <span class="o">[</span> <span class="n">valueOpt</span><span class="o">;</span> <span class="n">none</span> <span class="o">]</span> <span class="o">|</span><span class="o">&gt;</span> <span class="n">ignore</span>
+  <span class="k">let</span> <span class="nv">_typeUnifier</span> <span class="bp">()</span> <span class="o">=</span> <span class="o">[</span> <span class="n">valueOpt</span><span class="o">;</span> <span class="n">none</span> <span class="o">]</span> <span class="o">|&gt;</span> <span class="n">ignore</span>
   <span class="c1">//                      ^         ^
 </span><span class="c1"></span>  <span class="c1">//                ここで適切な値の型に固定している
 </span><span class="c1"></span>
@@ -257,7 +257,7 @@
 <ul>
 <li><a href="https://github.com/vain0x/milone-lang/blob/4d8c82d/MiloneLang/TreeMap.fs">現時点の TreeMap の実装</a></li>
 </ul>
-<h3 id="-">パターンマッチのコンパイルの改善 (一時中断)</h3>
+<h3 id="パターンマッチのコンパイルの改善-一時中断">パターンマッチのコンパイルの改善 (一時中断)</h3>
 <p>パターンマッチのコンパイルを改善しようとしていたが、うまくいっていない。</p>
 <p>WIP: <a href="https://github.com/vain0x/milone-lang/compare/fb7b652...f22d0a2">https://github.com/vain0x/milone-lang/compare/fb7b652...f22d0a2</a></p>
 <p>いまは一番上の節 (<code>| pat -&gt; body</code> の部分) から順番にマッチするか試して、マッチしなかったら次の節のパターンマッチを行う部分に goto で飛ぶ、というコードになっている。当然ながら効率はよくない。また、goto を使う必要があるので、手続き的な中間表現 (MIR) の上で実装されている。</p>
@@ -399,7 +399,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

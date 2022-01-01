@@ -69,7 +69,7 @@ TypeScriptだと楽にできて嬉しい。
   "headline": "判別共用体が共通フィールドを持てたら嬉しい",
   "description" : "判別共用体のすべてのバリアントに同じデータを持たせたいことがあるが、F# だとめんどい。 TypeScriptだと楽にできて嬉しい。 処理系の実装方針を考えてみたが、利用頻度のわりに量が多い気がしてきた、という話。\n",
   "inLanguage" : "ja",
-  "wordCount":  267 ,
+  "wordCount":  268 ,
   "datePublished" : "2021-04-24T00:00:00",
   "dateModified" : "2021-04-24T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -111,7 +111,7 @@ TypeScriptだと楽にできて嬉しい。
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -190,7 +190,7 @@ TypeScriptだと楽にできて嬉しい。
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年4月24日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -215,31 +215,31 @@ TypeScriptだと楽にできて嬉しい。
         <p>判別共用体のすべてのバリアントに同じデータを持たせたいことがあるが、F# だとめんどい。
 TypeScriptだと楽にできて嬉しい。
 処理系の実装方針を考えてみたが、利用頻度のわりに量が多い気がしてきた、という話。</p>
-<h2 id="heading">共通フィールドの例</h2>
+<h2 id="共通フィールドの例">共通フィールドの例</h2>
 <p>よくあるのが構文木のフィールドに位置情報をもたせること。
 エラーが起こった場所を報告するときに使う。</p>
 <p>TypeScriptだと簡単にできて、次のように書く。</p>
-<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="cm">/** ソースファイルの位置情報 */</span>
-<span class="nx">type</span> <span class="nx">Location</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="cm">/** ソースファイルの位置情報 */</span>
+<span class="kr">type</span> <span class="nx">Location</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">file</span>: <span class="kt">string</span>
     <span class="nx">row</span>: <span class="kt">number</span>
     <span class="nx">column</span>: <span class="kt">number</span>
 <span class="p">}</span>
 
 <span class="cm">/** 式を表す構文木のノード */</span>
-<span class="nx">type</span> <span class="nx">Expr</span> <span class="o">=</span> <span class="p">{</span>
+<span class="kr">type</span> <span class="nx">Expr</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">location</span>: <span class="kt">Location</span>
-<span class="p">}</span> <span class="o">&amp;</span> <span class="p">(</span><span class="p">{</span>
+<span class="p">}</span> <span class="o">&amp;</span> <span class="p">({</span>
     <span class="nx">kind</span><span class="o">:</span> <span class="s2">&#34;number&#34;</span>
     <span class="nx">value</span>: <span class="kt">number</span>
 <span class="p">}</span> <span class="o">|</span> <span class="p">{</span>
     <span class="nx">kind</span><span class="o">:</span> <span class="s2">&#34;add&#34;</span>
     <span class="nx">left</span>: <span class="kt">Expr</span>
     <span class="nx">right</span>: <span class="kt">Expr</span>
-<span class="p">}</span><span class="p">)</span>
+<span class="p">})</span>
 </code></pre></div><p>F# だと「すべてのバリアントに持たせる」か「タプルで外側に持つ」かのどちらかを選ぶことになる。
 「すべてのバリアントに持たせる」には次のように書く。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Location</span> <span class="o">=</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Location</span> <span class="o">=</span>
   <span class="o">{</span> <span class="n">File</span><span class="o">:</span> <span class="kt">string</span>
     <span class="n">Row</span><span class="o">:</span> <span class="n">int</span>
     <span class="n">Column</span><span class="o">:</span> <span class="n">int</span> <span class="o">}</span>
@@ -249,13 +249,13 @@ TypeScriptだと楽にできて嬉しい。
   <span class="o">|</span> <span class="n">AddExpr</span> <span class="k">of</span> <span class="n">Expr</span> <span class="o">*</span> <span class="n">Expr</span> <span class="o">*</span> <span class="n">Location</span>
 </code></pre></div><p><code>Expr</code> 型の値から位置情報を取るには、こういう補助関数を使う。
 (メタプログラミングやコードアクションで自動化できる可能性はある。)</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">exprToLocation</span> <span class="o">(</span><span class="n">expr</span><span class="o">:</span> <span class="n">Expr</span><span class="o">)</span><span class="o">:</span> <span class="n">Location</span> <span class="o">=</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">exprToLocation</span> <span class="o">(</span><span class="n">expr</span><span class="o">:</span> <span class="n">Expr</span><span class="o">):</span> <span class="n">Location</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">expr</span> <span class="k">with</span>
-  <span class="o">|</span> <span class="n">NumberExpr</span> <span class="o">(</span><span class="o">_</span><span class="o">,</span> <span class="n">location</span><span class="o">)</span>
-  <span class="o">|</span> <span class="n">AddExpr</span> <span class="o">(</span><span class="o">_</span><span class="o">,</span> <span class="o">_</span><span class="o">,</span> <span class="n">location</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">location</span>
+  <span class="o">|</span> <span class="n">NumberExpr</span> <span class="o">(_,</span> <span class="n">location</span><span class="o">)</span>
+  <span class="o">|</span> <span class="n">AddExpr</span> <span class="o">(_,</span> <span class="o">_,</span> <span class="n">location</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">location</span>
 </code></pre></div><p>「タプルで外側に持つ」ときは次のように書く。
 位置情報なしの <code>ExprT</code> と位置情報付きの <code>Expr</code> という2つの型がある。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Location</span> <span class="o">=</span> <span class="c">(*</span><span class="c"> 略 </span><span class="c">*)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Location</span> <span class="o">=</span> <span class="c">(* 略 *)</span>
 
 <span class="k">type</span> <span class="nc">ExprT</span> <span class="o">=</span> <span class="c1">// Exprではない
 </span><span class="c1"></span>  <span class="o">|</span> <span class="n">NumberExpr</span> <span class="k">of</span> <span class="n">int</span>
@@ -263,25 +263,25 @@ TypeScriptだと楽にできて嬉しい。
 </span><span class="c1"></span>
 <span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span> <span class="n">ExprT</span> <span class="o">*</span> <span class="n">Location</span>
 </code></pre></div><p>位置情報を取るのが簡単にできて嬉しい。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">exprToLocation</span> <span class="o">(</span><span class="o">_</span><span class="o">,</span> <span class="n">location</span><span class="o">)</span> <span class="o">=</span> <span class="n">location</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">exprToLocation</span> <span class="o">(_,</span> <span class="n">location</span><span class="o">)</span> <span class="o">=</span> <span class="n">location</span>
 </code></pre></div><p>こっちのほうがいいようにみえるが、<code>Expr</code> の値を構築するときにごちゃごちゃする。
 感覚的な話だから説明はできないけど。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="n">AddExpr</span> <span class="o">(</span><span class="o">(</span><span class="n">NumberExpr</span> <span class="n">l</span><span class="o">,</span> <span class="n">lLoc</span><span class="o">)</span><span class="o">,</span> <span class="o">(</span><span class="n">NumberExpr</span> <span class="n">r</span><span class="o">,</span> <span class="n">rLoc</span><span class="o">)</span><span class="o">)</span><span class="o">,</span> <span class="n">addLoc</span>
-</code></pre></div><h2 id="discriminant">判別共用体のdiscriminantはすでに共通フィールド</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="n">AddExpr</span> <span class="o">((</span><span class="n">NumberExpr</span> <span class="n">l</span><span class="o">,</span> <span class="n">lLoc</span><span class="o">),</span> <span class="o">(</span><span class="n">NumberExpr</span> <span class="n">r</span><span class="o">,</span> <span class="n">rLoc</span><span class="o">)),</span> <span class="n">addLoc</span>
+</code></pre></div><h2 id="判別共用体のdiscriminantはすでに共通フィールド">判別共用体のdiscriminantはすでに共通フィールド</h2>
 <p>判別共用体の値の実行時の表現を考える。
 判別共用体はすでに「共通のフィールド」として、その値が「どのバリアント」かを示す値 (discriminant) を持っている、ということがよくある。
 判別共用体に追加の共通フィールドを持たせる場合、それと同じように実現できると思う。</p>
 <p>例えばメモリレイアウトの一例をC言語で書くとこんな感じ。</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">NumberExpr</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">NumberExpr</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
     <span class="k">struct</span> <span class="n">Location</span> <span class="n">location</span><span class="p">;</span>
-<span class="p">}</span><span class="p">;</span>
+<span class="p">};</span>
 
 <span class="k">struct</span> <span class="n">AddExpr</span> <span class="p">{</span>
     <span class="k">struct</span> <span class="n">Expr</span> <span class="o">*</span><span class="n">left</span><span class="p">;</span>
     <span class="k">struct</span> <span class="n">Expr</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span>
     <span class="k">struct</span> <span class="n">Location</span> <span class="n">location</span><span class="p">;</span>
-<span class="p">}</span><span class="p">;</span>
+<span class="p">};</span>
 
 <span class="k">struct</span> <span class="n">Expr</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">discriminant</span><span class="p">;</span>
@@ -289,34 +289,34 @@ TypeScriptだと楽にできて嬉しい。
     <span class="k">union</span> <span class="p">{</span>
         <span class="k">struct</span> <span class="n">NumberExpr</span> <span class="n">number</span><span class="p">;</span>
         <span class="k">struct</span> <span class="n">AddExpr</span> <span class="n">add</span><span class="p">;</span>
-    <span class="p">}</span><span class="p">;</span>
-<span class="p">}</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">};</span>
 </code></pre></div><p><code>struct Expr</code> のフィールドとして共通フィールドを足せばいい。</p>
-<h2 id="heading-1">共通フィールドの具象構文</h2>
+<h2 id="共通フィールドの具象構文">共通フィールドの具象構文</h2>
 <p>型の宣言時に共通フィールドをどう書くか、という具象構文の問題がある。
 TypeScriptでは交差型 (<code>&amp;</code>) を使っているが、オブジェクトの交差型を備える言語は多くない。</p>
 <p>機能的には判別共用体とレコードの交差なので、レコードの宣言時の構文と類似性を持っていてほしい。
 また、共通フィールドもバリアントの中身の一部なので、そのように感じられる構文であってほしい。
 例えば F# だとこんな感じ？</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span>
   <span class="o">{</span> <span class="n">Location</span><span class="o">:</span> <span class="n">Location</span> <span class="o">}</span>
   <span class="o">|</span> <span class="n">NumberExpr</span> <span class="k">of</span> <span class="n">int</span>
   <span class="o">|</span> <span class="n">AddExpr</span> <span class="k">of</span> <span class="n">Expr</span> <span class="o">*</span> <span class="n">Expr</span>
 </code></pre></div><p>バリアントの構築時は、共通フィールドとバリアント固有のフィールドを混ぜて書けるほうが嬉しい。
 例えば F# だとこんな感じで、オブジェクトをインスタンス化するときのプロパティ初期化子の構文を真似るとよさそう。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="n">NumberExpr</span><span class="o">(</span><span class="n">n</span><span class="o">,</span> <span class="n">Location</span> <span class="o">=</span> <span class="n">loc</span><span class="o">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="n">NumberExpr</span><span class="o">(</span><span class="n">n</span><span class="o">,</span> <span class="n">Location</span> <span class="o">=</span> <span class="n">loc</span><span class="o">)</span>
 </code></pre></div><p>分解時も同様。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">match</span> <span class="n">expr</span> <span class="k">with</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">match</span> <span class="n">expr</span> <span class="k">with</span>
     <span class="o">|</span> <span class="n">NumberExpr</span> <span class="o">(</span><span class="n">n</span><span class="o">,</span> <span class="n">Location</span> <span class="o">=</span> <span class="n">loc</span><span class="o">)</span> <span class="o">-&gt;</span>
         <span class="n">n</span><span class="o">,</span> <span class="n">loc</span>
 </code></pre></div><p>また、レコードと同様にドット記法でもアクセスできるはず。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">exprToLocation</span> <span class="o">(</span><span class="n">expr</span><span class="o">:</span> <span class="n">Expr</span><span class="o">)</span><span class="o">:</span> <span class="n">Location</span> <span class="o">=</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">exprToLocation</span> <span class="o">(</span><span class="n">expr</span><span class="o">:</span> <span class="n">Expr</span><span class="o">):</span> <span class="n">Location</span> <span class="o">=</span>
     <span class="n">expr</span><span class="o">.</span><span class="n">Location</span>
-</code></pre></div><h2 id="heading-2">共通フィールドを持つ判別共用体の型つけ</h2>
+</code></pre></div><h2 id="共通フィールドを持つ判別共用体の型つけ">共通フィールドを持つ判別共用体の型つけ</h2>
 <p>構文をいじった場合、型システムも変更が必要かもしれない。
 F# は判別共用体がnominalで、列多相的なもの (SRTP) も元から自由ではないので、問題なさそう。
 「共有フィールドつきの多相バリアント」とかの型推論は諦めたほうがよさそう。</p>
-<h2 id="heading-3">結論</h2>
+<h2 id="結論">結論</h2>
 <p>共通フィールドの利用頻度のわりには言語の拡張の量が多い。
 TypeScriptのように、交差型の副産物ぐらいの立ち位置で妥当かもしれない。</p>
 
@@ -442,7 +442,7 @@ TypeScriptのように、交差型の副産物ぐらいの立ち位置で妥当�
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

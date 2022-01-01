@@ -63,7 +63,7 @@
   "headline": "可視性を使ってnever型もどきを作る",
   "description" : "never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。\n",
   "inLanguage" : "ja",
-  "wordCount":  194 ,
+  "wordCount":  196 ,
   "datePublished" : "2021-11-03T00:00:00",
   "dateModified" : "2021-11-03T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年11月3日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -203,59 +203,59 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。</p>
-<h2 id="heading">前提</h2>
+<h2 id="前提">前提</h2>
 <p>F# において制御を返さない関数は、結果の型が任意であるような多相関数として表現される。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="sd">/// 常に例外を投げる関数
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="sd">/// 常に例外を投げる関数
 </span><span class="sd"></span><span class="k">val</span> <span class="n">failwith</span><span class="o">&lt;</span><span class="k">&#39;</span><span class="n">A</span><span class="o">&gt;</span> <span class="o">:</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">A</span>
 </code></pre></div><p>F# の型システムにおいて多相になれるのはnominalな型や関数だけなので、制御を返さない関数を持つフィールドというのは作れない。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">R</span> <span class="o">=</span> <span class="o">{</span> <span class="n">FailWith</span><span class="o">:</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="c">(*</span><span class="c"> never型? </span><span class="c">*)</span> <span class="o">}</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">R</span> <span class="o">=</span> <span class="o">{</span> <span class="n">FailWith</span><span class="o">:</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="c">(* never型? *)</span> <span class="o">}</span>
 </code></pre></div><p>型抽象(Λ)があったらできた。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// F# ではない。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// F# ではない。
 </span><span class="c1"></span><span class="k">type</span> <span class="nc">R</span> <span class="o">=</span> <span class="o">{</span> <span class="n">FailWith</span><span class="o">:</span> <span class="n">Λ&#39;A</span><span class="o">.</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">A</span> <span class="o">}</span>
 </code></pre></div><p>なお、型変数をレコード型のほうに持たせると意味が変わってくる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">R</span><span class="o">&lt;</span><span class="k">&#39;</span><span class="n">A</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">{</span> <span class="n">FailWith</span><span class="o">:</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">A</span> <span class="o">}</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">R</span><span class="o">&lt;</span><span class="k">&#39;</span><span class="n">A</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">{</span> <span class="n">FailWith</span><span class="o">:</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">A</span> <span class="o">}</span>
 </code></pre></div><p>これだと <code>FailWith</code> を複数回、異なる結果型で呼ぶことができない。(Rの型引数が矛盾する。)</p>
-<h2 id="heading-1">方法</h2>
+<h2 id="方法">方法</h2>
 <p>はじめに適当にNever型を定義する。型は公開するが、型のインスタンスを作る方法は公開しないでおく。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Never</span> <span class="o">=</span> <span class="k">private</span> <span class="o">|</span> <span class="n">Never</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Never</span> <span class="o">=</span> <span class="k">private</span> <span class="o">|</span> <span class="n">Never</span>
 </code></pre></div><p>この型の値を受け取るnever関数を公開する。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">never</span><span class="o">&lt;</span><span class="k">&#39;</span><span class="n">A</span><span class="o">&gt;</span> <span class="o">(</span><span class="o">_</span><span class="o">:</span> <span class="n">Never</span><span class="o">)</span> <span class="o">:</span> <span class="k">&#39;</span><span class="n">A</span> <span class="o">=</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">never</span><span class="o">&lt;</span><span class="k">&#39;</span><span class="n">A</span><span class="o">&gt;</span> <span class="o">(_:</span> <span class="n">Never</span><span class="o">)</span> <span class="o">:</span> <span class="k">&#39;</span><span class="n">A</span> <span class="o">=</span>
   <span class="k">assert</span> <span class="k">false</span>      <span class="c1">// この関数が呼ばれないことをコンパイラに教える
-</span><span class="c1"></span>  <span class="n">failwith</span> <span class="s">&#34;</span><span class="s">never</span><span class="s">&#34;</span>  <span class="c1">// 制御を返さない何らかの式
-</span></code></pre></div><h2 id="heading-2">使いみち</h2>
+</span><span class="c1"></span>  <span class="n">failwith</span> <span class="s">&#34;never&#34;</span>  <span class="c1">// 制御を返さない何らかの式
+</span></code></pre></div><h2 id="使いみち">使いみち</h2>
 <p>例えば別のプログラムを実行する <code>exec</code> 関数を抽象的に受け取りたいとする。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">PlatformApi</span> <span class="o">=</span> <span class="o">{</span> <span class="n">Exec</span><span class="o">:</span> <span class="kt">string</span> <span class="kt">list</span> <span class="o">-&gt;</span> <span class="n">Never</span> <span class="o">}</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">PlatformApi</span> <span class="o">=</span> <span class="o">{</span> <span class="n">Exec</span><span class="o">:</span> <span class="kt">string</span> <span class="kt">list</span> <span class="o">-&gt;</span> <span class="n">Never</span> <span class="o">}</span>
 
 <span class="k">let</span> <span class="nv">run</span> <span class="o">(</span><span class="n">api</span><span class="o">:</span> <span class="n">PlatformApi</span><span class="o">)</span> <span class="n">command</span> <span class="o">:</span> <span class="kt">unit</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">command</span> <span class="k">with</span>
-  <span class="o">|</span> <span class="n">Echo</span> <span class="n">msg</span> <span class="o">-&gt;</span> <span class="n">printfn</span> <span class="s">&#34;</span><span class="s">%s</span><span class="s">&#34;</span> <span class="n">msg</span>
+  <span class="o">|</span> <span class="n">Echo</span> <span class="n">msg</span> <span class="o">-&gt;</span> <span class="n">printfn</span> <span class="s">&#34;%s&#34;</span> <span class="n">msg</span>
 
   <span class="o">|</span> <span class="n">Exec</span> <span class="n">c</span> <span class="o">-&gt;</span>
-    <span class="n">api</span><span class="o">.</span><span class="n">Exec</span> <span class="o">[</span> <span class="s">&#34;</span><span class="s">/bin/sh</span><span class="s">&#34;</span><span class="o">;</span> <span class="s">&#34;</span><span class="s">-c</span><span class="s">&#34;</span><span class="o">;</span> <span class="n">c</span> <span class="o">]</span>
-    <span class="o">|</span><span class="o">&gt;</span> <span class="n">never</span>
+    <span class="n">api</span><span class="o">.</span><span class="n">Exec</span> <span class="o">[</span> <span class="s">&#34;/bin/sh&#34;</span><span class="o">;</span> <span class="s">&#34;-c&#34;</span><span class="o">;</span> <span class="n">c</span> <span class="o">]</span>
+    <span class="o">|&gt;</span> <span class="n">never</span>
 <span class="c1">//     ^ これ
 </span></code></pre></div><p>定義する側はいつもどおり。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">let</span> <span class="nv">doExec</span> <span class="n">args</span> <span class="o">:</span> <span class="n">int</span> <span class="o">=</span> <span class="c">(*</span><span class="c"> exec関数を呼ぶ </span><span class="c">*)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">let</span> <span class="nv">doExec</span> <span class="n">args</span> <span class="o">:</span> <span class="n">int</span> <span class="o">=</span> <span class="c">(* exec関数を呼ぶ *)</span>
 
     <span class="k">let</span> <span class="nv">myExec</span><span class="o">&lt;</span><span class="k">&#39;</span><span class="n">A</span><span class="o">&gt;</span> <span class="o">(</span><span class="n">args</span><span class="o">:</span> <span class="kt">string</span> <span class="kt">list</span><span class="o">)</span> <span class="o">:</span> <span class="k">&#39;</span><span class="n">A</span> <span class="o">=</span>
         <span class="k">let</span> <span class="nv">code</span> <span class="o">=</span> <span class="n">doExec</span> <span class="n">args</span>
-        <span class="k">assert</span> <span class="o">(</span><span class="n">code</span> <span class="o">&lt;</span><span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span>
+        <span class="k">assert</span> <span class="o">(</span><span class="n">code</span> <span class="o">&lt;&gt;</span> <span class="n">0</span><span class="o">)</span>
 
         <span class="c1">// execが失敗したので例外を投げる。
-</span><span class="c1"></span>        <span class="n">failwithf</span> <span class="s">&#34;</span><span class="s">exec failed: %d</span><span class="s">&#34;</span> <span class="n">code</span>
+</span><span class="c1"></span>        <span class="n">failwithf</span> <span class="s">&#34;exec failed: %d&#34;</span> <span class="n">code</span>
 
     <span class="k">let</span> <span class="nv">api</span> <span class="o">:</span> <span class="n">PlatformApi</span> <span class="o">=</span> <span class="o">{</span> <span class="n">Exec</span> <span class="o">=</span> <span class="n">myExec</span> <span class="o">}</span>
-</code></pre></div><h2 id="heading-3">抜けみち</h2>
+</code></pre></div><h2 id="抜けみち">抜けみち</h2>
 <p>リフレクションでインスタンスを作れたらダメ。それを考慮するなら、Never型はコンパイラ側で提供して、リフレクションによるインスタンス生成を禁止する。</p>
 <hr>
-<h2 id="-">余談: バリアントのない判別共用体</h2>
+<h2 id="余談-バリアントのない判別共用体">余談: バリアントのない判別共用体</h2>
 <p>Rustではバリアントのないenum型 (F# でいうところの判別共用体) を作れる。
 これは値を持たないので、never型と同等に振る舞う。</p>
 <ul>
 <li><a href="https://doc.rust-lang.org/std/convert/enum.Infallible.html">Infallible in std::convert - Rust</a> (never型の代わりに使えるエラー専用の型。バリアントのない判別共用体で定義されている。)</li>
 <li><a href="https://doc.rust-lang.org/std/primitive.never.html">never - Rust</a> (<code>!</code> と書いてnever型。まだ正式リリースされていない。)</li>
 </ul>
-<h2 id="-never">余談: 多相でない言語におけるnever</h2>
+<h2 id="余談-多相でない言語におけるnever">余談: 多相でない言語におけるnever</h2>
 <p>上述の <code>Never</code> 型と <code>never</code> 関数を言語側に組み込めば、多相関数の概念を持たない言語でもnever型と同様のことができる。
 <a href="/blog/2020-09-19/complexity-from-expression-oriented-syntax">式指向構文が言語処理系にもたらす複雑性</a>に書いた課題をいくらか軽減できるかもしれない。
 多相関数のない言語を設計する予定はないので深堀りはしない。</p>
@@ -376,7 +376,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

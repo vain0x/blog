@@ -8,11 +8,7 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Wed, 07 Dec 2016 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://vain0x.github.io/blog/tags/%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 07 Dec 2016 00:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/tags/%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GitEditを使うべき十の理由</title>
       <link>https://vain0x.github.io/blog/2016-12-07/why-git-edit/</link>
@@ -20,7 +16,7 @@
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-12-07/why-git-edit/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://github.com/vain0x/GitEdit&#34;&gt;GitEdit&lt;/a&gt; とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。&lt;/p&gt;
-&lt;h2 id=&#34;heading&#34;&gt;要約&lt;/h2&gt;
+&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;vi を覚えるのはめんどくさい。&lt;/li&gt;
 &lt;li&gt;Git 用のテキストエディターとして使うための条件が意外と多い。&lt;/li&gt;

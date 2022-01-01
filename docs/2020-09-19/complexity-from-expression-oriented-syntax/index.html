@@ -106,7 +106,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -185,7 +185,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年9月19日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -209,18 +209,18 @@
       <article role="main" class="blog-post">
         <p>式の中に分岐や反復、ジャンプを書ける構文を <strong>式指向の構文</strong> と呼ぶことにする。
 式指向の構文は便利な反面、言語に一定の複雑性を追加する。</p>
-<h2 id="heading">式指向の構文の例</h2>
+<h2 id="式指向の構文の例">式指向の構文の例</h2>
 <p>例えば Rust は式指向の構文を持ち、条件分岐を表す if はそれ自体が式になっている。分岐の結果として評価された節の結果が if 式の結果になる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">p</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="p">)</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">p</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">f</span><span class="p">()</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="n">g</span><span class="p">(</span><span class="p">)</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="n">g</span><span class="p">()</span><span class="w">
+</span><span class="w"></span><span class="p">};</span><span class="w">
 </span></code></pre></div><p>以降、サンプルコードは Rust 風の構文で書く。ただし型システムや処理系は Rust とは限らない。</p>
-<h2 id="heading-1">ジャンプとスタックマシンの相性の悪さ</h2>
+<h2 id="ジャンプとスタックマシンの相性の悪さ">ジャンプとスタックマシンの相性の悪さ</h2>
 <p>式指向の構文を持つ場合、式の評価の途中でジャンプすることができる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">f</span><span class="p">(</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">f</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
 </span></code></pre></div><p>この関数をスタックマシンのコードにナイーブにコンパイルすると、次のような不正な振る舞いをする。</p>
 <ul>
@@ -230,23 +230,23 @@
 <li><del>スタックから2つの値を pop して足し、結果をスタックに積む</del> (← ジャンプしたのでこれは実行されない)</li>
 </ul>
 <p>ここで 1 はスタックに置かれたままであり、関数の実行の前後でスタックの深さが維持されない。</p>
-<h3 id="heading-2">解決策</h3>
+<h3 id="解決策">解決策</h3>
 <p>この問題を解決するには、レジスタマシンを使うか、ジャンプする際に不要になった値をスタックから pop するようなコードを生成すればいい。</p>
 <p>(<strong>追記</strong>: 正準化(canonicalize)などの手順により、式の評価の途中でジャンプが起きないように変形しておく方法もある。<a href="/blog/2019-04-30/diary/">近況 2019-04-30</a> に似たような話を書いた。)</p>
-<h2 id="heading-3">ジャンプする式の型</h2>
+<h2 id="ジャンプする式の型">ジャンプする式の型</h2>
 <p>静的型システムを持つ式指向言語の場合、break/return などのジャンプ式にも静的な型をつける必要がある。</p>
 <p>例えば次の関数に含まれる match 式は Some のアームが結果を持ち、None のアームは return する。
 mach 式の結果は i32 でなければいけないので、return 式の結果は i32 か、それの部分型でなければいけない。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">drain_sum</span><span class="p">(</span><span class="n">xs</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="k">loop</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">xs</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">            </span><span class="nb">Some</span><span class="p">(</span><span class="n">it</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="n">it</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="w">            </span><span class="nb">None</span><span class="w"> </span><span class="o">=</span><span class="o">&gt;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="p">}</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">total</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">drain_sum</span><span class="p">(</span><span class="n">xs</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="k">loop</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">xs</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="nb">Some</span><span class="p">(</span><span class="n">it</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">it</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="nb">None</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="n">total</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
 </span></code></pre></div><p>Rust の return 式には ! (never) 型がつく。! はあらゆる型の部分型なので、i32 の部分型でもある。
 したがって match 式に i32 型をつけられる。</p>
@@ -260,24 +260,24 @@ mach 式の結果は i32 でなければいけないので、return 式の結果
 その場合、上記のような match 式は型検査を通らなくなり、式指向らしさの一部が失われる。</p>
 <p>(<strong>追記</strong>: C++ のパターンマッチ機能である inspect 式の提案では、制御を返さないブランチに印をつけておくことで、そのブランチの評価値の型を型検査時に無視するような機能がある。
 参考: <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p1371r3.pdf">Pattern Matching - p1371r3.pdf</a>)</p>
-<h2 id="if-">if 式の後ろのセミコロン</h2>
+<h2 id="if-式の後ろのセミコロン">if 式の後ろのセミコロン</h2>
 <p>C言語風の構文で、セミコロンが必須の言語を考える。</p>
 <p>単純に if 文の構文規則を「式」に移動すると、従来の if 文と同様の用途で if 式を使うとき、末尾に ; が必要になってしまう。</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">body</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">}</span><span class="p">;</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">body</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
 </span><span class="w"></span><span class="c1">//   ^ 式の終わりなのでセミコロンが必要
 </span></code></pre></div><p><code>if (cond) { ... }</code> は1個の式であって文ではないので、文として書きたいなら式文にする必要があり、末尾にセミコロンをつけることになる。この問題を解決するため、一定の考慮が必要になる。</p>
-<h3 id="heading-4">解決策</h3>
+<h3 id="解決策-1">解決策</h3>
 <p>文の先頭に if 式が来るときは、それだけで1個の式文とみなし、後ろにセミコロンがなくてもよいことにすればよい。(部分的なセミコロン省略ルール。)</p>
 <p>ただしこれだけでは <code>if flip() { you } else { opponent }.win();</code> のような if 式から始まる式文を正しくパースできないことになる。これは JavaScript において、即時実行関数を <code>function(){}()</code> と書くと function 宣言とみなされてしまう状況に似ている。回避策として <code>(function(){})()</code> などと書くのは受け入れられているので、そのようにしてもよいだろう。</p>
 <p>また、Rust では <strong>打ち切り規則</strong> と呼ばれる構文上の規則を用意している。打ち切り規則は、おおまかにいうと「文頭に if 式があるなら、それが明らかに他の式の一部でなければ末尾のセミコロンの省略を許す」というもの。例えば次のコードは2つの文にパースされる:</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">cond</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="p">.</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">//&lt; 末尾にセミコロンをつけていないが、
-</span><span class="c1"></span><span class="w">    </span><span class="n">f</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">             </span><span class="c1">//  f から次の文が始まる。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">cond</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">..</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">//&lt; 末尾にセミコロンをつけていないが、
+</span><span class="c1"></span><span class="w">    </span><span class="n">f</span><span class="p">();</span><span class="w">             </span><span class="c1">//  f から次の文が始まる。
 </span></code></pre></div><p>一方、次のコードでは if 式の直後に <code>.</code> があって、明らかに if 式はその左辺となる。このケースではセミコロンの省略は起きない。
 (特別扱いされているのは <code>.</code> と <code>?</code> だけで、二項演算子は打ち切られる模様: <code>if cond { 42 } / 2</code> など)</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">cond</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="p">.</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="p">.</span><span class="n">f</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="c1">//             ^ . は左辺に式が必要なので文のパースを続ける
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">cond</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">..</span><span class="p">.</span><span class="w"> </span><span class="p">}.</span><span class="n">f</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="c1">//             ^ . は左辺に式が必要なので文のパースを続ける
 </span></code></pre></div><p>参考: <a href="https://qnighy.hatenablog.com/entry/2017/04/22/070000">Rustの文でセミコロンを省略してよい条件 - 簡潔なQ</a></p>
 
         
@@ -398,7 +398,7 @@ mach 式の結果は i32 でなければいけないので、return 式の結果
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

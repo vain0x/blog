@@ -8,11 +8,7 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Sat, 26 Jun 2021 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://vain0x.github.io/blog/tags/csharp/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 26 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/tags/csharp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>値とストレージの区別</title>
       <link>https://vain0x.github.io/blog/2021-06-26/value-vs-storage/</link>
@@ -37,7 +33,7 @@
       <pubDate>Mon, 04 Dec 2017 00:31:05 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/</guid>
-      <description>&lt;h2 id=&#34;heading&#34;&gt;要約&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
 &lt;p&gt;C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。&lt;/p&gt;</description>
     </item>
     
@@ -98,7 +94,7 @@
       <description>&lt;p&gt;※これは &lt;a href=&#34;http://qiita.com/advent-calendar/2016/xaml&#34;&gt;XAML Advent Calendar 2016&lt;/a&gt; の25日目の記事です。&lt;/p&gt;
 &lt;p&gt;WPF/XAML を使って帳票のデザインから印刷までやってみたという話です。ソースコードが GitHub にありますので、それと同様にやればできます。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/vain0x/VainZero.WpfReportPrinting&#34;&gt;vain0x/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;heading&#34;&gt;要約&lt;/h2&gt;
+&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;XAML というマークアップ言語で帳票のデザインから印刷までできれば、たくさんの利点がある。&lt;/li&gt;
 &lt;li&gt;WPF アプリケーションで帳票のプレビューや印刷を行うサンプルを作った。&lt;/li&gt;

@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年10月31日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -245,7 +245,7 @@
 </ul>
 <p>現時点での各ステージの時間は <a href="https://twitter.com/vain0x/status/1320193614882877442">CI のログから見れる</a>。</p>
 <p>.NET 上で実行したとき:</p>
-<pre><code>+./milone_netcore --profile MiloneLang
+<pre tabindex="0"><code>+./milone_netcore --profile MiloneLang
 
 Begin compiling project=MiloneLang  (注: 字句解析・構文解析)
 profile: time=   0.640 mem=  261,955,984
@@ -279,7 +279,7 @@ profile: time=   1.061 mem=  567,140,848
 
 Finished
 </code></pre><p>セルフコンパイルで作ったコンパイラを実行したとき:</p>
-<pre><code>+./milone --profile MiloneLang
+<pre tabindex="0"><code>+./milone --profile MiloneLang
 
 Begin compiling project=MiloneLang  (注: 字句解析・構文解析)
 profile: time=   0.642 mem=  174,376,658
@@ -313,7 +313,7 @@ Cir generation
 profile: time=   1.687 mem=  374,045,525
 
 Finished
-</code></pre><h3 id="heading">動的なリージョンに基づくメモリ管理</h3>
+</code></pre><h3 id="動的なリージョンに基づくメモリ管理">動的なリージョンに基づくメモリ管理</h3>
 <p><a href="https://github.com/vain0x/milone-lang/blob/develop/notes.md#memory-management">Memory Management | milone-lang/notes.md</a></p>
 <ul>
 <li>ミローネ言語はオブジェクトの書き換えを許してない</li>
@@ -350,7 +350,7 @@ Finished
 </ul>
 </li>
 </ul>
-<h2 id="reterm-ide-">reterm: IDE 風のターミナルエミュレータ</h2>
+<h2 id="reterm-ide-風のターミナルエミュレータ">reterm: IDE 風のターミナルエミュレータ</h2>
 <p><a href="https://github.com/vain0x/reterm">vain0x/reterm: (would be) terminal emulator with IDE-like UI</a></p>
 <p>IDE みたいな外観のターミナルエミュレータを作ろうとしている。やることが多くてすでに停滞気味……</p>
 <p>普通のターミナルエミュレータは他のアプリと操作感が異なる。</p>
@@ -365,7 +365,7 @@ Finished
 <ul>
 <li>例えば作業ディレクトリの移動に cd コマンドを使う必要がある。ファイルツリー上の項目をクリックするだけでもできるようにしたい。</li>
 </ul>
-<h3 id="-ungrammar-">その他: Ungrammar について</h3>
+<h3 id="その他-ungrammar-について">その他: Ungrammar について</h3>
 <p>rust-analyzer の作者が公式ブログで Ungrammar というツールについて記事を書いていた:</p>
 <p><a href="https://rust-analyzer.github.io/blog/2020/10/24/introducing-ungrammar.html">Introducing Ungrammar</a></p>
 <p>Ungrammar は拡張 BNF 風で、パット見、パーサジェネレータに似ているが、パーサはジェネレートできない。そうではなく、具象構文木を操作するコードを生成するのを目的としている。</p>
@@ -373,19 +373,19 @@ Finished
 <p>パーサジェネレータのための構文定義は、文字列から構文を読み取る (構文解析する) ため、演算子の結合や左再帰などを考慮する必要があって、かなり冗長になりがち。</p>
 <p>一方 Ungrammar の構文定義は、具象構文木がすでに与えられているという前提だから、演算子の結合や左再帰は関係ない。実際 <a href="https://github.com/rust-analyzer/ungrammar/blob/784f345e5e799e828650da1b1acbb947f1e49a52/rust.ungram">Rust の構文定義</a> が600行ぐらいで書かれている。</p>
 <p>(余談: この手の N 行で書かれていて短い系の言説は、コードから可能なかぎり改行を除去して読みづらいフォーマットにした上で言われがちだが、この構文定義は普通に読みやすい。)</p>
-<h3 id="-f-">その他: F# の判別共用体の定義</h3>
+<h3 id="その他-f-の判別共用体の定義">その他: F# の判別共用体の定義</h3>
 <p>F# の判別共用体を普通に定義すると、各バリアントが型と同じ名前空間に含まれる。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">U</span> <span class="o">=</span> <span class="n">A</span> <span class="o">|</span> <span class="n">B</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">U</span> <span class="o">=</span> <span class="n">A</span> <span class="o">|</span> <span class="n">B</span>
 
 <span class="k">let</span> <span class="nv">a</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">A</span> <span class="c1">// U.A じゃなくてもいい
 </span></code></pre></div><p>この挙動は RequireQualifiedAttribute 属性をつけると抑制できる。バリアントはスコープに展開されず、型名を使ってアクセスすることが強制される。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="o">[&lt;</span><span class="n">RequireQualified</span><span class="o">&gt;]</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="o">[&lt;</span><span class="n">RequireQualified</span><span class="o">&gt;]</span>
 <span class="k">type</span> <span class="nc">U</span> <span class="o">=</span> <span class="n">A</span> <span class="o">|</span> <span class="n">B</span>
 
 <span class="k">let</span> <span class="nv">a</span> <span class="bp">()</span> <span class="o">=</span> <span class="nn">U</span><span class="p">.</span><span class="n">A</span> <span class="c1">// A ではダメ
 </span></code></pre></div><p>この方が「正しい」ような気がして、常に RequireQualified を指定していた。しかし、これだと入力補完の候補を見るために <code>U.</code> を書く必要がある。F# の入力補完のためのツールの応答はいまのところあまり速くないので、これは問題になる。</p>
 <p>そのため RequireQualified は使わない派に転向した。名前の衝突や、バリアント名だけでは意味が分かりづらいなどの問題がある場合は、バリアント名に型名のようなものを含めてしまってよい気がする。</p>
-<div class="highlight"><pre class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span>
     <span class="o">|</span> <span class="n">IntExpr</span> <span class="k">of</span> <span class="n">int</span>
     <span class="o">|</span> <span class="n">AddExpr</span> <span class="k">of</span> <span class="n">Expr</span> <span class="o">*</span> <span class="n">Expr</span>
 </code></pre></div><p>Expr と入力すると (部分一致なので) IntExpr, AddExpr が入力補完候補に出る。これらのシンボルははじめからローカルスコープに入っていて、解析結果のキャッシュがすでにあるので、補完候補のリストがすぐに出る。</p>
@@ -506,7 +506,7 @@ Finished
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

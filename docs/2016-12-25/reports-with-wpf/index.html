@@ -70,7 +70,7 @@ XAML というマークアップ言語で帳票のデザインから …">
         "position": 3,
         "item": {
           "@id": "https:\/\/vain0x.github.io\/blog\/2016-12-25\/reports-with-wpf\/",
-          "name": "W p f\/ x a m lで帳票のデザイン・印刷を行う"
+          "name": "Wpf xamlで帳票のデザイン・印刷を行う"
         }
     }]
 }
@@ -84,7 +84,7 @@ XAML というマークアップ言語で帳票のデザインから …">
   "headline": "WPF\/XAMLで帳票のデザイン・印刷を行う",
   "description" : "※これは XAML Advent Calendar 2016 の25日目の記事です。\nWPF\/XAML を使って帳票のデザインから印刷までやってみたという話です。ソースコードが GitHub にありますので、それと同様にやればできます。\nvain0x\/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル\n要約  XAML というマークアップ言語で帳票のデザインから印刷までできれば、たくさんの利点がある。 WPF アプリケーションで帳票のプレビューや印刷を行うサンプルを作った。 ページネーションが大変だったけどなんとかなった。 ",
   "inLanguage" : "ja",
-  "wordCount":  628 ,
+  "wordCount":  627 ,
   "datePublished" : "2016-12-25T00:00:00",
   "dateModified" : "2016-12-25T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -135,7 +135,7 @@ XAML というマークアップ言語で帳票のデザインから …">
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -214,7 +214,7 @@ XAML というマークアップ言語で帳票のデザインから …">
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2016年12月25日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -239,17 +239,17 @@ XAML というマークアップ言語で帳票のデザインから …">
         <p>※これは <a href="http://qiita.com/advent-calendar/2016/xaml">XAML Advent Calendar 2016</a> の25日目の記事です。</p>
 <p>WPF/XAML を使って帳票のデザインから印刷までやってみたという話です。ソースコードが GitHub にありますので、それと同様にやればできます。</p>
 <p><a href="https://github.com/vain0x/VainZero.WpfReportPrinting">vain0x/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル</a></p>
-<h2 id="heading">要約</h2>
+<h2 id="要約">要約</h2>
 <ul>
 <li>XAML というマークアップ言語で帳票のデザインから印刷までできれば、たくさんの利点がある。</li>
 <li>WPF アプリケーションで帳票のプレビューや印刷を行うサンプルを作った。</li>
 <li>ページネーションが大変だったけどなんとかなった。</li>
 </ul>
-<h2 id="heading-1">前提知識</h2>
+<h2 id="前提知識">前提知識</h2>
 <p>XAML、WPF について簡単に説明します。</p>
 <p>XAML とは、GUIアプリケーションの外観を記述するマークアップ言語です。WEB 系の人には「HTML+CSS みたいなもの」といえばイメージしやすいのではないでしょうか。</p>
 <p>WPF とは、XAML と .NET 言語 (C# など) を用いて、Windows PC 用のネイティヴ アプリケーションを作るためのフレームワークです。XAML は WPF 以外でも使いますが、筆者は WPF しかやったことがないので、ひとまず本稿のターゲットは WPF のみとします。</p>
-<h2 id="heading-2">利点</h2>
+<h2 id="利点">利点</h2>
 <p>WPF/XAML で帳票を作ることにはいくつかの利点があります。</p>
 <ul>
 <li><strong>無料</strong>
@@ -280,29 +280,29 @@ XAML というマークアップ言語で帳票のデザインから …">
 </ul>
 </li>
 </ul>
-<h2 id="heading-3">簡単な帳票</h2>
+<h2 id="簡単な帳票">簡単な帳票</h2>
 <p>まずは簡単な帳票を例に挙げて、印刷する方法まで一通り解説します。簡単な帳票とは、タイトルがどーんとあって、日付が右寄せで、あとは本文という感じです。まずはプレビュー画面のスクリーンショットをご覧ください。</p>
 <p><img src="hello-world-report.png" alt="簡単な帳票のプレビュー画面"></p>
 <p>ビューモデルと XAML は次のようになっています。UI要素はプレビュー用と印刷用の2つ (以上) をインスタンス化する必要があるので、 DataTemplate の形で定義しています。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// 印刷するページに対応するビューモデル。
-</span><span class="c1"></span><span class="c1">// データをXAML側に埋め込んでしまったので中身がない。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// 印刷するページに対応するビューモデル。
+</span><span class="c1">// データをXAML側に埋め込んでしまったので中身がない。
 </span><span class="c1"></span><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">HelloWorldPageViewModel</span>
 <span class="p">{</span>
 <span class="p">}</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--</span><span class="c">
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
 </span><span class="c">    上記のビューモデルの表示方法を定義するテンプレート。
 </span><span class="c">    Window.Resources プロパティの下に配置する。
-</span><span class="c"></span><span class="c">--&gt;</span>
+</span><span class="c">--&gt;</span>
 <span class="nt">&lt;DataTemplate</span> <span class="na">DataType=</span><span class="s">&#34;{x:Type local:HelloWorldPageViewModel}&#34;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;Grid</span> <span class="na">Margin=</span><span class="s">&#34;30&#34;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;StackPanel</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;StackPanel&gt;</span>
             <span class="nt">&lt;TextBlock</span> <span class="na">HorizontalAlignment=</span><span class="s">&#34;Center&#34;</span> <span class="na">FontSize=</span><span class="s">&#34;30&#34;</span> <span class="na">Text=</span><span class="s">&#34;ハローワールド&#34;</span> <span class="nt">/&gt;</span>
             <span class="nt">&lt;TextBlock</span> <span class="na">HorizontalAlignment=</span><span class="s">&#34;Right&#34;</span> <span class="na">Text=</span><span class="s">&#34;2007/08/31&#34;</span> <span class="nt">/&gt;</span>
             <span class="nt">&lt;TextBlock</span> <span class="na">Text=</span><span class="s">&#34;Hello, world!&#34;</span> <span class="nt">/&gt;</span>
         <span class="nt">&lt;/StackPanel&gt;</span>
     <span class="nt">&lt;/Grid&gt;</span>
 <span class="nt">&lt;/DataTemplate&gt;</span>
-</code></pre></div><h3 id="heading-4">プレビュー</h3>
+</code></pre></div><h3 id="プレビュー">プレビュー</h3>
 <p>帳票のデザインが終わったので、次はプレビューです。</p>
 <p>プレビューは、簡単にいえば、上に書いた XAML を「紙っぽいパネル」に載せるだけです。紙っぽさの演出についてはソースコードを参照してください。</p>
 <p>ここで重要なのは紙のサイズ (A4 とか) です。というのも、ページネーションや文章の折り返しなどが用紙サイズに依存してしまうため、プレビュー時点で用紙サイズを決定しておくのが無難です。(もちろんプレビューをしないというのも1つの手です。)</p>
@@ -310,16 +310,16 @@ XAML というマークアップ言語で帳票のデザインから …">
 <p>要するに、印刷するデータは 96dpi で作ればよいわけです。</p>
 <p>例えば A4 (縦) は、ISO 規格で 210mm×297mm と決まっており、1 inch = 25.40 mm 、1 inch = 96 pixel で換算すれば 793.70×1122.52 となります。このサイズで作った紙っぽいパネルにページの中身を配置すれば、実際に印刷されるのと同じ見栄えのプレビューを表示できます。</p>
 <p>次は印刷です。</p>
-<h3 id="heading-5">プリンターの選択</h3>
+<h3 id="プリンターの選択">プリンターの選択</h3>
 <p>どのプリンターで印刷するかは、ユーザーに選択させる方法と、プログラム側で指定する方法の2通りがあります。</p>
 <p>ユーザーに選択させる場合は、 <code>System.Windows.Controls</code> 名前空間の <code>PrintDialog</code> クラスを使います。(参考: <a href="https://msdn.microsoft.com/ja-jp/library/system.windows.controls.printdialog%28v=vs.110%29.aspx?f=255&amp;MSPPError=-2147217396">PrintDialog クラス (System.Windows.Controls)</a>)</p>
 <p>なお、プレビュー画面で選択された用紙サイズを印刷ダイアログの初期設定値にする方法は <del>時間が足りず調べられていません</del> 読者の演習課題とします。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">using</span> <span class="nn">System.Windows.Controls</span><span class="p">;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">using</span> <span class="nn">System.Windows.Controls</span><span class="p">;</span>
 
 <span class="p">{</span>
-    <span class="kt">var</span> <span class="n">printDialog</span> <span class="p">=</span> <span class="k">new</span> <span class="n">PrintDialog</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
-    <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">printDialog</span><span class="p">.</span><span class="n">ShowDialog</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="p">!</span><span class="n">result</span><span class="p">.</span><span class="n">HasValue</span> <span class="p">|</span><span class="p">|</span> <span class="p">!</span><span class="n">result</span><span class="p">.</span><span class="n">Value</span><span class="p">)</span>
+    <span class="kt">var</span> <span class="n">printDialog</span> <span class="p">=</span> <span class="k">new</span> <span class="n">PrintDialog</span><span class="p">();</span>
+    <span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">printDialog</span><span class="p">.</span><span class="n">ShowDialog</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(!</span><span class="n">result</span><span class="p">.</span><span class="n">HasValue</span> <span class="p">||</span> <span class="p">!</span><span class="n">result</span><span class="p">.</span><span class="n">Value</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="c1">// 印刷ダイアログがキャンセルされた。
 </span><span class="c1"></span>        <span class="k">return</span><span class="p">;</span>
@@ -330,24 +330,24 @@ XAML というマークアップ言語で帳票のデザインから …">
 <span class="p">}</span>
 </code></pre></div><p>プログラム側で指定する場合は、プリントサーバーというのを使用するようです。詳しくは読者の演習課題とします。</p>
 <p>ここでは、コンピューター自身を表すサーバー (localhost みたいなもの) である <code>LocalPrintServer</code> から、デフォルトのプリンターを指定する方法をとります。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// System.Printing を参照に追加する必要があります。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// System.Printing を参照に追加する必要があります。
 </span><span class="c1"></span><span class="k">using</span> <span class="nn">System.Printing</span><span class="p">;</span>
 
 <span class="k">public</span> <span class="k">void</span> <span class="n">Print</span><span class="p">(</span><span class="n">Size</span> <span class="n">pageSize</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="kt">var</span> <span class="n">printServer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">LocalPrintServer</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+    <span class="kt">var</span> <span class="n">printServer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">LocalPrintServer</span><span class="p">();</span>
 
     <span class="c1">// 既定のプリンターを表す PrintQueue を取得する。
 </span><span class="c1"></span>    <span class="kt">var</span> <span class="n">queue</span> <span class="p">=</span> <span class="n">printServer</span><span class="p">.</span><span class="n">DefaultPrintQueue</span><span class="p">;</span>
 
     <span class="c1">// プレビュー画面で用紙サイズを選択させる場合は、用紙サイズを設定しておく。
 </span><span class="c1"></span>    <span class="kt">var</span> <span class="n">ticket</span> <span class="p">=</span> <span class="n">queue</span><span class="p">.</span><span class="n">PrintTicket</span><span class="p">;</span>
-    <span class="n">ticket</span><span class="p">.</span><span class="n">PageMediaSize</span> <span class="p">=</span> <span class="k">new</span> <span class="n">PageMediaSize</span><span class="p">(</span><span class="n">pageSize</span><span class="p">.</span><span class="n">Width</span><span class="p">,</span> <span class="n">pageSize</span><span class="p">.</span><span class="n">Height</span><span class="p">)</span><span class="p">;</span><span class="p">;</span>
+    <span class="n">ticket</span><span class="p">.</span><span class="n">PageMediaSize</span> <span class="p">=</span> <span class="k">new</span> <span class="n">PageMediaSize</span><span class="p">(</span><span class="n">pageSize</span><span class="p">.</span><span class="n">Width</span><span class="p">,</span> <span class="n">pageSize</span><span class="p">.</span><span class="n">Height</span><span class="p">);;</span>
 <span class="p">}</span>
-</code></pre></div><h3 id="fixeddocument-">FixedDocument の生成</h3>
+</code></pre></div><h3 id="fixeddocument-の生成">FixedDocument の生成</h3>
 <p>先述の通り、印刷するデータを持つ FixedDocument のインスタンスを用意します。この作業は再利用可能な形式にしてあります。</p>
 <p>まず「印刷するデータを複数のページに分割する」機能 (ページネーション) を提供するインターフェイスを定義しておきます。<code>IPaginatable</code> と呼びましょう。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">using</span> <span class="nn">System.Windows</span><span class="p">;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">using</span> <span class="nn">System.Windows</span><span class="p">;</span>
 
 <span class="k">public</span> <span class="k">interface</span> <span class="n">IPaginatable</span>
 <span class="p">{</span>
@@ -355,17 +355,17 @@ XAML というマークアップ言語で帳票のデザインから …">
 </span><span class="c1"></span>    <span class="c1">/// ページのサイズを受け取って、オブジェクトのリストを返す。
 </span><span class="c1"></span>    <span class="c1">/// リストに含まれる各オブジェクトは、それぞれ1つのページの中身を表す。
 </span><span class="c1"></span>    <span class="c1">/// &lt;/summary&gt;
-</span><span class="c1"></span>    <span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="kt">object</span><span class="p">&gt;</span> <span class="n">Paginate</span><span class="p">(</span><span class="n">Size</span> <span class="n">pageSize</span><span class="p">)</span><span class="p">;</span>
+</span><span class="c1"></span>    <span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="kt">object</span><span class="p">&gt;</span> <span class="n">Paginate</span><span class="p">(</span><span class="n">Size</span> <span class="n">pageSize</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div><p>いま例にとっているハローワールド帳票では、常に1つのページになりますので、Paginate メソッドは1つのオブジェクトを返せばよいわけです。次のようになります。 <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">HelloWorldReport</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">sealed</span> <span class="k">class</span> <span class="nc">HelloWorldReport</span>
     <span class="p">:</span> <span class="n">IPaginatable</span>
 <span class="p">{</span>
     <span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="kt">object</span><span class="p">&gt;</span> <span class="n">Pages</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span> <span class="p">=</span>
-        <span class="k">new</span> <span class="kt">object</span><span class="p">[</span><span class="p">]</span>
+        <span class="k">new</span> <span class="kt">object</span><span class="p">[]</span>
         <span class="p">{</span>
-            <span class="k">new</span> <span class="n">HelloWorldPageViewModel</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
-        <span class="p">}</span><span class="p">;</span>
+            <span class="k">new</span> <span class="n">HelloWorldPageViewModel</span><span class="p">(),</span>
+        <span class="p">};</span>
 
     <span class="k">public</span> <span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="kt">object</span><span class="p">&gt;</span> <span class="n">Paginate</span><span class="p">(</span><span class="n">Size</span> <span class="n">size</span><span class="p">)</span>
     <span class="p">{</span>
@@ -373,37 +373,37 @@ XAML というマークアップ言語で帳票のデザインから …">
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div><p>あとは次の拡張メソッドを呼ぶだけです。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">PaginatableExtension</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">PaginatableExtension</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">static</span> <span class="n">FixedDocument</span>
         <span class="n">ToFixedDocument</span><span class="p">(</span><span class="k">this</span> <span class="n">IPaginatable</span> <span class="n">paginatable</span><span class="p">,</span> <span class="n">Size</span> <span class="n">pageSize</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="kt">var</span> <span class="n">document</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FixedDocument</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+        <span class="kt">var</span> <span class="n">document</span> <span class="p">=</span> <span class="k">new</span> <span class="n">FixedDocument</span><span class="p">();</span>
 
-        <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">content</span> <span class="k">in</span> <span class="n">paginatable</span><span class="p">.</span><span class="n">Paginate</span><span class="p">(</span><span class="n">pageSize</span><span class="p">)</span><span class="p">)</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">content</span> <span class="k">in</span> <span class="n">paginatable</span><span class="p">.</span><span class="n">Paginate</span><span class="p">(</span><span class="n">pageSize</span><span class="p">))</span>
         <span class="p">{</span>
             <span class="kt">var</span> <span class="n">presenter</span> <span class="p">=</span>
-                <span class="k">new</span> <span class="n">ContentPresenter</span><span class="p">(</span><span class="p">)</span>
+                <span class="k">new</span> <span class="n">ContentPresenter</span><span class="p">()</span>
                 <span class="p">{</span>
                     <span class="n">Content</span> <span class="p">=</span> <span class="n">content</span><span class="p">,</span>
                     <span class="n">Width</span> <span class="p">=</span> <span class="n">pageSize</span><span class="p">.</span><span class="n">Width</span><span class="p">,</span>
                     <span class="n">Height</span> <span class="p">=</span> <span class="n">pageSize</span><span class="p">.</span><span class="n">Height</span><span class="p">,</span>
-                <span class="p">}</span><span class="p">;</span>
+                <span class="p">};</span>
 
             <span class="kt">var</span> <span class="n">page</span> <span class="p">=</span>
-                <span class="k">new</span> <span class="n">FixedPage</span><span class="p">(</span><span class="p">)</span>
+                <span class="k">new</span> <span class="n">FixedPage</span><span class="p">()</span>
                 <span class="p">{</span>
                     <span class="n">Width</span> <span class="p">=</span> <span class="n">pageSize</span><span class="p">.</span><span class="n">Width</span><span class="p">,</span>
                     <span class="n">Height</span> <span class="p">=</span> <span class="n">pageSize</span><span class="p">.</span><span class="n">Height</span><span class="p">,</span>
-                <span class="p">}</span><span class="p">;</span>
-            <span class="n">page</span><span class="p">.</span><span class="n">Children</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">presenter</span><span class="p">)</span><span class="p">;</span>
+                <span class="p">};</span>
+            <span class="n">page</span><span class="p">.</span><span class="n">Children</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">presenter</span><span class="p">);</span>
 
-            <span class="n">page</span><span class="p">.</span><span class="n">Measure</span><span class="p">(</span><span class="n">pageSize</span><span class="p">)</span><span class="p">;</span>
-            <span class="n">page</span><span class="p">.</span><span class="n">Arrange</span><span class="p">(</span><span class="k">new</span> <span class="n">Rect</span><span class="p">(</span><span class="k">new</span> <span class="n">Point</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span><span class="p">,</span> <span class="n">pageSize</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
-            <span class="n">page</span><span class="p">.</span><span class="n">UpdateLayout</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+            <span class="n">page</span><span class="p">.</span><span class="n">Measure</span><span class="p">(</span><span class="n">pageSize</span><span class="p">);</span>
+            <span class="n">page</span><span class="p">.</span><span class="n">Arrange</span><span class="p">(</span><span class="k">new</span> <span class="n">Rect</span><span class="p">(</span><span class="k">new</span> <span class="n">Point</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">pageSize</span><span class="p">));</span>
+            <span class="n">page</span><span class="p">.</span><span class="n">UpdateLayout</span><span class="p">();</span>
 
-            <span class="kt">var</span> <span class="n">pageContent</span> <span class="p">=</span> <span class="k">new</span> <span class="n">PageContent</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span> <span class="n">Child</span> <span class="p">=</span> <span class="n">page</span> <span class="p">}</span><span class="p">;</span>
-            <span class="n">document</span><span class="p">.</span><span class="n">Pages</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">pageContent</span><span class="p">)</span><span class="p">;</span>
+            <span class="kt">var</span> <span class="n">pageContent</span> <span class="p">=</span> <span class="k">new</span> <span class="n">PageContent</span><span class="p">()</span> <span class="p">{</span> <span class="n">Child</span> <span class="p">=</span> <span class="n">page</span> <span class="p">};</span>
+            <span class="n">document</span><span class="p">.</span><span class="n">Pages</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">pageContent</span><span class="p">);</span>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="n">document</span><span class="p">;</span>
@@ -411,17 +411,17 @@ XAML というマークアップ言語で帳票のデザインから …">
 <span class="p">}</span>
 </code></pre></div><p>このメソッドは、Paginate メソッドが返したリストの各要素につき、それを固定サイズの ContentPresenter に入れて、それを FixedPage に入れて、それを PageContent に入れて、それを FixedDocument に入れる、という感じです。</p>
 <p>こうして FixedDocument を手に入れました。</p>
-<h3 id="heading-6">プリンターへの送信</h3>
+<h3 id="プリンターへの送信">プリンターへの送信</h3>
 <p>最後に、この FixedDocument を、選択されたプリンターに送信すれば完了です。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// System.Printing の参照を追加する必要があります。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// System.Printing の参照を追加する必要があります。
 </span><span class="c1"></span><span class="k">using</span> <span class="nn">System.Printing</span><span class="p">;</span>
 
 <span class="p">{</span>
-    <span class="kt">var</span> <span class="n">writer</span> <span class="p">=</span> <span class="n">PrintQueue</span><span class="p">.</span><span class="n">CreateXpsDocumentWriter</span><span class="p">(</span><span class="n">queue</span><span class="p">)</span><span class="p">;</span>
-    <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">document</span><span class="p">)</span><span class="p">;</span>
+    <span class="kt">var</span> <span class="n">writer</span> <span class="p">=</span> <span class="n">PrintQueue</span><span class="p">.</span><span class="n">CreateXpsDocumentWriter</span><span class="p">(</span><span class="n">queue</span><span class="p">);</span>
+    <span class="n">writer</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="n">document</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div><p>できました。</p>
-<h2 id="heading-7">複雑な帳票</h2>
+<h2 id="複雑な帳票">複雑な帳票</h2>
 <p>次に複数ページの帳票、すなわちページネーションの方法を解説します。</p>
 <p>まずはプレビュー画面のスクリーンショットをごらんください。</p>
 <p><img src="paginated-report.png" alt="ページネーションを含む帳票のスクリーンショット"></p>
@@ -447,37 +447,37 @@ XAML というマークアップ言語で帳票のデザインから …">
 <li>次のページに表示すべき行だけが表示された状態になるので、繰り返し。</li>
 </ol>
 <p>実際のソースコードはやや長いので、最初に張ったリンクから見てもらえればと思います。帳票の定義は Demo プロジェクトの <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/blob/v1.3.0/VainZero.WpfReportPrinting.Demo/Reports/OrderForm.cs">Reports/OrderForm.cs</a> の中にあります。ページネーションは、 Core プロジェクトの <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/blob/v1.3.0/VainZero.WpfReportPrinting.Core/Windows/Documents/ISingleHeaderedGridPage.cs">Windows/Documents/ISingleHeaderedGridPage.cs</a> にあります。</p>
-<h2 id="heading-8">サンプルプログラムの概略</h2>
+<h2 id="サンプルプログラムの概略">サンプルプログラムの概略</h2>
 <p>必殺「ソースコードをごらんください」を思ったより使ってしまったので、サンプルプログラムの概略について説明します。</p>
 <p>念のためリンクを再掲します:
 <a href="https://github.com/vain0x/VainZero.WpfReportPrinting">vain0x/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル</a></p>
-<h3 id="heading-9">ソリューション構成</h3>
+<h3 id="ソリューション構成">ソリューション構成</h3>
 <p>ソリューションは <code>VainZero.WpfReportPrinting.Core</code> と <code>VainZero.WpfReportPrinting.Demo</code> の2つのプロジェクトからなります。</p>
 <p>前者 (<code>.Core</code>) は再利用可能な部品で、そのまま流用できるようになっています。中身は、先述の <code>IPaginatable</code> とその拡張メソッド、および VisualTree がらみの小さな拡張メソッドです。</p>
 <p>後者 (<code>.Demo</code>) は、帳票のプレビューと印刷の機能を持つアプリケーションです。印刷時のオプションは多数ありますので、これをベースにして、必要によりカスタマイズしながら作るのがよいと思います。</p>
-<h3 id="heading-10">使い方</h3>
+<h3 id="使い方">使い方</h3>
 <p>まず使い方から説明します。</p>
 <p><code>.Demo</code> アプリを実行すると、ウィンドウが1つ表示されます。まずは左側のペインにあるリストボックスで、プレビューする帳票の種類を選びます。種類というのは、本稿で挙げた「簡単な帳票」(ハローワールド)と「複雑な帳票」(注文書)の2つです。</p>
 <p>右側ペインの上部には、コンボボックスと印刷ボタンがあります。左端のコンボボックスでは、紙のサイズを指定します。紙のサイズが変わるたびにページネーションが再計算されるのがミソです。</p>
 <p>右側ペインの残りの部分はプレビューです。</p>
 <p>印刷ボタンを押すと、デフォルトのプリンターで印刷されます。(印刷ダイアログは表示されません。)</p>
-<h3 id="heading-11">実装</h3>
+<h3 id="実装">実装</h3>
 <p>メインウィンドウ (MainWindow.xaml) の中身は、1つの <code>SampleReportPreviewer</code> クラス (を DataTemplate で表示したもの) であり、これは先述の通り「左側ペイン」(帳票セレクター/<code>Reports.ReportSelector</code>)と「右側ペイン」(プレビューアー/<code>Previewing.Previewer</code>)からなります。</p>
 <p><code>ReportSelector</code> は本当にただの <code>ListBox</code> ですが、2つ注意するところがあります。</p>
 <p>1点は、<a href="https://github.com/runceel/ReactiveProperty">ReactiveProperty</a> というクラスです。これは平たくいえば次のようなクラスです (※実際の定義ではありません)。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">ReactiveProperty</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">ReactiveProperty</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
     <span class="p">:</span> <span class="n">INotifyPropertyChanged</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">event</span> <span class="n">PropertyChangedEventHandler</span> <span class="n">PropertyChanged</span><span class="p">;</span>
 
-    <span class="k">private</span> <span class="n">T</span> <span class="n">_value</span><span class="p">;</span>
+    <span class="k">private</span> <span class="n">T</span> <span class="m">_</span><span class="k">value</span><span class="p">;</span>
     <span class="k">public</span> <span class="n">T</span> <span class="n">Value</span>
     <span class="p">{</span>
-        <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_value</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="m">_</span><span class="k">value</span><span class="p">;</span> <span class="p">}</span>
         <span class="k">set</span>
         <span class="p">{</span>
-            <span class="n">_value</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
-            <span class="n">PropertyChanged</span><span class="p">?</span><span class="p">.</span><span class="n">Invoke</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="k">new</span> <span class="n">PropertyChangedEventArgs</span><span class="p">(</span><span class="n">nameof</span><span class="p">(</span><span class="n">Value</span><span class="p">)</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
+            <span class="m">_</span><span class="k">value</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+            <span class="n">PropertyChanged</span><span class="p">?.</span><span class="n">Invoke</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="k">new</span> <span class="n">PropertyChangedEventArgs</span><span class="p">(</span><span class="n">nameof</span><span class="p">(</span><span class="n">Value</span><span class="p">)));</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -485,22 +485,22 @@ XAML というマークアップ言語で帳票のデザインから …">
 <p>もう1点は、リストボックスの各要素の型である <code>IReport</code> です。注釈にも書きましたが、これは <code>IPaginatable</code> に1つのプロパティを加えただけのインターフェイスです。そのプロパティ (<code>ReportName</code>) というのは、単にリストボックスの各項目に表示するための名前(文字列)です。そのため、<code>IPaginatable</code> と同じだと思ってかまいません。</p>
 <p>さて、プレビューアーにあるコンボボックスも同様のことに気をつければ問題ないはずです。</p>
 <p><code>Previewer</code> のコンストラクターにある <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/blob/v1.1.0/VainZero.WpfReportPrinting.Demo/Previewing/Previewer.cs#L42">この式</a> は、Rx を知らないと読み解けないかもしれません。</p>
-<div class="highlight"><pre class="chroma"><code class="language-csharp" data-lang="csharp">            <span class="n">Pages</span> <span class="p">=</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp">            <span class="n">Pages</span> <span class="p">=</span>
                 <span class="n">Report</span><span class="p">.</span><span class="n">CombineLatest</span><span class="p">(</span>
                     <span class="n">MediaSizeSelector</span><span class="p">.</span><span class="n">SelectedSize</span><span class="p">,</span>
-                    <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">pageSize</span><span class="p">)</span> <span class="p">=</span><span class="p">&gt;</span> <span class="n">r</span><span class="p">.</span><span class="n">Paginate</span><span class="p">(</span><span class="n">pageSize</span><span class="p">)</span>
+                    <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">pageSize</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">r</span><span class="p">.</span><span class="n">Paginate</span><span class="p">(</span><span class="n">pageSize</span><span class="p">)</span>
                 <span class="p">)</span>
-                <span class="p">.</span><span class="n">ToReadOnlyReactiveProperty</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+                <span class="p">.</span><span class="n">ToReadOnlyReactiveProperty</span><span class="p">();</span>
 </code></pre></div><p>これは平たくいえば「<code>Report</code>, <code>MediaSizeSelector.SelectedSize</code> の最新の値を <code>r</code>, <code>pageSize</code> とするとき、 <code>r.Paginate(pageSize)</code> の結果を <code>Pages</code> の値とする」という意味です。もう少し手続き的にいえば、まず <code>Report</code> と ``MediaSizeSelector.SelectedSize<code>の値をとってきて、</code>Paginate` します。加えて、そのどちらかのプロパティが変更されるたび (リストボックスやコンボボックスの選択要素が変わるたび)、ページネーションを再試行します。</p>
 <p>最後に印刷ボタンですが、これは押されたとき、<code>Previewer.PrintCommand</code>→<code>Previewer.Print</code> を経由して <code>Printer.Print</code> まで行き、そこからは前半で述べた感じです。FixedDocument を作って、デフォルトのプリンターを取得して、ページサイズを指定して、印刷。</p>
-<h2 id="heading-12">おわりに</h2>
+<h2 id="おわりに">おわりに</h2>
 <p>いかがでしたでしょうか。不明点などあればコメントないし <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/issues">イシュー</a> をお願いします。</p>
-<h2 id="heading-13">参考リンク</h2>
-<h3 id="heading-14">帳票関連</h3>
+<h2 id="参考リンク">参考リンク</h2>
+<h3 id="帳票関連">帳票関連</h3>
 <ul>
 <li><a href="http://koty.hatenablog.com/entry/2013/12/15/122352">WPFを帳票フレームワークとして使う - @kotyのブログ</a></li>
 </ul>
-<h3 id="wpf">WPF関連</h3>
+<h3 id="wpf関連">WPF関連</h3>
 <ul>
 <li><a href="http://stackoverflow.com/a/7601504/6419575">c# - Check visible rows in a WPF DataGrid - Stack Overflow</a></li>
 <li><a href="http://blog.xin9le.net/entry/2013/10/29/222336">VisualTreeの子孫要素を取得する - xin9le.net</a></li>
@@ -509,10 +509,10 @@ XAML というマークアップ言語で帳票のデザインから …">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>GitHub においてあるソースコードでは、HelloWorldReport は IPaginatable だけでなく、IPaginatable を拡張する IReport というインターフェイスを実装していますが、それはサンプルの都合です。あまり気にしなくてかまいません。 <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>GitHub においてあるソースコードでは、HelloWorldReport は IPaginatable だけでなく、IPaginatable を拡張する IReport というインターフェイスを実装していますが、それはサンプルの都合です。あまり気にしなくてかまいません。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p>一部のプリンターでは、DataGrid や ListView のレイアウトが乱れてしまう、という問題があるようです。これについては調査中です。DataGrid を使用していたころのバージョンは、タグ <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/tree/v1.2.0">v1.2.0</a> にあります。 <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>一部のプリンターでは、DataGrid や ListView のレイアウトが乱れてしまう、という問題があるようです。これについては調査中です。DataGrid を使用していたころのバージョンは、タグ <a href="https://github.com/vain0x/VainZero.WpfReportPrinting/tree/v1.2.0">v1.2.0</a> にあります。&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -635,7 +635,7 @@ XAML というマークアップ言語で帳票のデザインから …">
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

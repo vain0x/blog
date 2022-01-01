@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2020年6月30日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -206,7 +206,7 @@
 <ul>
 <li>前回 (2020-05-31) <a href="https://vain0x.github.io/blog/2020-05-31/diary/">https://vain0x.github.io/blog/2020-05-31/diary/</a></li>
 </ul>
-<h2 id="heading">ジャッコ言語</h2>
+<h2 id="ジャッコ言語">ジャッコ言語</h2>
 <p><a href="https://github.com/vain0x/languages/tree/b0f4ff3e85e2bc5b6e39ba9956b9d51ddbef4374">vain0x/languages at b0f4ff3e85e</a></p>
 <ul>
 <li>自作言語の萌芽</li>
@@ -262,7 +262,7 @@
 <li><a href="https://github.com/Microsoft/monaco-editor">microsoft/monaco-editor: A browser based code editor</a></li>
 <li>参考: <a href="https://blog.goo.ne.jp/hiro239415/e/bb807ec822ffb8ba7c073a92b2b693a9?fm=rss">WebView2</a></li>
 </ul>
-<h2 id="heading-1">競技プログラミング</h2>
+<h2 id="競技プログラミング">競技プログラミング</h2>
 <p>AtCoder:</p>
 <ul>
 <li><a href="https://twitter.com/vain0x/status/1271804945633665026">東京海上日動プログラミングコンテスト2020 (ARC) お疲れさまでした。C完</a></li>
@@ -278,7 +278,7 @@
 <blockquote>
 <p><a href="https://twitter.com/vain0x/status/1269235032591200257">PAST 3、M完 88点で上級だった</a> (Twitter @vain0x)</p>
 </blockquote>
-<h3 id="heading-2">競プロのライブラリ整備</h3>
+<h3 id="競プロのライブラリ整備">競プロのライブラリ整備</h3>
 <p>PAST に出た将棋盤を使う問題の実装に手間取ったのでライブラリを整備した</p>
 <ul>
 <li>2次元配列のための GridVec 型の追加: <a href="https://github.com/vain0x/procon/commit/880809dc13804c46e3f8828fa8954c41bf91248a">feat: Add GridVec · vain0x/procon@880809d</a></li>
@@ -298,8 +298,8 @@
 <p>このごろ Rust しか使っていないのにライブラリの言語がいつまで経っても C# なのは少し気がかりだった</p>
 </li>
 </ul>
-<h2 id="heading-3">気になった他人の記事など</h2>
-<h3 id="spa-">SPA のルーティング</h3>
+<h2 id="気になった他人の記事など">気になった他人の記事など</h2>
+<h3 id="spa-のルーティング">SPA のルーティング</h3>
 <p>この記事を読んだ: <a href="https://qiita.com/knjname/items/4a4bd74959a80de9d43c">SPAのルータについて自分なりのまとめ</a> (2019年後半の記事)</p>
 <ul>
 <li>以前にウェブアプリを作ったときクライアントサイドでのルーティングの実装がめんどうだった印象がある</li>
@@ -324,7 +324,7 @@
 <li>つまりログイン不要のページは従来通り Express.js で実装して、ログイン後だけ SPA として実装する</li>
 <li>パスの相互変換とかは上記の記事を参照。クライアントサイドのリダイレクトが減ってやりやすくなるはず</li>
 </ul>
-<h3 id="heading-4">四分木のモートン順序</h3>
+<h3 id="四分木のモートン順序">四分木のモートン順序</h3>
 <p>この記事を読んだ: <a href="https://qiita.com/funsuke/items/7d04b71712e778b3cdca">【四分木】HSPで大量の当たり判定を検出する【モートン順序】</a></p>
 <p>元の課題:</p>
 <ul>
@@ -348,48 +348,48 @@
 </ul>
 </li>
 </ul>
-<h3 id="heading-5">整数のパース</h3>
+<h3 id="整数のパース">整数のパース</h3>
 <p>この記事を読んだ: <a href="https://yohhoy.hatenadiary.jp/entry/20200604/p1">atoi関数のかしこい実装</a></p>
 <ul>
 <li>絶対値をパースした後に、最初に - がついていたら -1 倍する、という実装だと最小値をうまくパースできない</li>
 <li>例えば符号付き32ビット整数では、負の最小値 -2^31 の絶対値である 2^31 を表現できない</li>
 <li>逆に、「絶対値の負」をパースしてから、最初に - がついていなかったら -1 倍する、という実装なら通る</li>
 </ul>
-<h3 id="heading-6">自動生成されたコードや他人のコードをコミットするときの設定</h3>
+<h3 id="自動生成されたコードや他人のコードをコミットするときの設定">自動生成されたコードや他人のコードをコミットするときの設定</h3>
 <p><code>.gitattributes</code> に <code>linguist-generated</code> や <code>linguist-vendored</code> を指定すると、そういう意図をツールに理解してもらえる</p>
 <ul>
 <li>発端: <a href="https://twitter.com/__gfx__/status/1271986623459110912">https://twitter.com/__gfx__/status/1271986623459110912</a></li>
 <li>参考: <a href="https://github.com/github/linguist#using-gitattributes">github/linguist: Language Savant</a></li>
 </ul>
-<h2 id="heading-7">気になったことなど</h2>
-<h3 id="heading-8">コードフォーマッターはフォーマットする前のソースコードになるべく依存しないでほしい話</h3>
+<h2 id="気になったことなど">気になったことなど</h2>
+<h3 id="コードフォーマッターはフォーマットする前のソースコードになるべく依存しないでほしい話">コードフォーマッターはフォーマットする前のソースコードになるべく依存しないでほしい話</h3>
 <blockquote>
 <p><a href="https://twitter.com/vain0x/status/1272045836105469952">コードフォーマットは (AST, コメント, 空行) から決定的に定まってほしい。フォーマットする前のレイアウトによって結果が変わると、書き方によって一貫性がなくなったり、ある程度は手動でフォーマットしないといけない。rustfmt の挙動は理想に近くて快適</a> (Twitter @vain0x)</p>
 </blockquote>
 <p>例えば、次のような関数呼び出しの式を1行で書くのか複数行に分割して書くのか、みたいなのはフォーマッターが独断で決めて書き手の気分や感覚に依存しない方が全体として一貫性が高くなる</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">// 一行で書く
-</span><span class="c1"></span><span class="w">    </span><span class="n">call_some_function</span><span class="p">(</span><span class="n">another_function</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">yet_another_function</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="c1">// 分けて書く
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">// 一行で書く
+</span><span class="c1"></span><span class="w">    </span><span class="n">call_some_function</span><span class="p">(</span><span class="n">another_function</span><span class="p">(),</span><span class="w"> </span><span class="n">yet_another_function</span><span class="p">());</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">// 分けて書く
 </span><span class="c1"></span><span class="w">    </span><span class="n">call_some_function</span><span class="p">(</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">another_function</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="w">        </span><span class="n">yet_another_function</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="p">)</span><span class="p">;</span><span class="w">
+</span><span class="w">        </span><span class="n">another_function</span><span class="p">(),</span><span class="w">
+</span><span class="w">        </span><span class="n">yet_another_function</span><span class="p">(),</span><span class="w">
+</span><span class="w">    </span><span class="p">);</span><span class="w">
 </span></code></pre></div><p>ただしコメントを勝手に消すのはまずい。それから、空行をつかってグループ分けするのは一般的なので、そこも残すことになる。例えば次のコードは文の羅列だが、最初のブロックは「入力を読む」、次のブロックは「計算する」、最後のブロックは「出力する」という意味上のまとまりがあるので、空行を消されると困る。(しかし関数に分けるほどではない。)</p>
-<div class="highlight"><pre class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="w"> </span><span class="n">output_path</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">csv_text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_from_file</span><span class="p">(</span><span class="n">input_path</span><span class="p">)</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_csv</span><span class="p">(</span><span class="n">csv_text</span><span class="p">)</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">statistics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">analyze_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">json_text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">serialize_to_json</span><span class="p">(</span><span class="n">statistics</span><span class="p">)</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="w">
-</span><span class="w"></span><span class="w">    </span><span class="n">print_to_file</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="w"> </span><span class="n">json_text</span><span class="p">)</span><span class="p">;</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="w"> </span><span class="n">output_path</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">csv_text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_from_file</span><span class="p">(</span><span class="n">input_path</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_csv</span><span class="p">(</span><span class="n">csv_text</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">statistics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">analyze_data</span><span class="p">(</span><span class="n">data</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">json_text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">serialize_to_json</span><span class="p">(</span><span class="n">statistics</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="n">print_to_file</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="w"> </span><span class="n">json_text</span><span class="p">);</span><span class="w">
 </span></code></pre></div><ul>
 <li>もしかしたら気づいていないだけで、他にも維持しなければいけない要素があるかもしれない</li>
 <li>何にせよ、ここでいいたいのは書き手によるフォーマットへの裁量を可能なかぎり少なくした方がよいということ</li>
 <li>注意: rustfmt は「(AST, コメント, 空行) から決定的に定まる」わけではないし、そういう設計方針で作られているわけではない</li>
 </ul>
-<h3 id="heading-9">競プロ界隈でのビッグオー記法の誤用の原因の推測</h3>
+<h3 id="競プロ界隈でのビッグオー記法の誤用の原因の推測">競プロ界隈でのビッグオー記法の誤用の原因の推測</h3>
 <blockquote>
 <p><a href="https://twitter.com/vain0x/status/1268511921138851845">ビッグオー記法が誤用されがちなのは正しい定義が理解されていないからというより用途に適してないからな気がするし、「O(10^5)」とかの背景にある気持ちを記述できるノテーションが発明されてほしい</a> (Twitter @vain0x)</p>
 </blockquote>
@@ -425,7 +425,7 @@
 </li>
 <li>X(N) = X(10^5) になるような使いやすいノテーションがあればなあ、という話</li>
 </ul>
-<h3 id="-refcell-">メタ型変数の束縛に RefCell を除去できなかった話</h3>
+<h3 id="メタ型変数の束縛に-refcell-を除去できなかった話">メタ型変数の束縛に RefCell を除去できなかった話</h3>
 <blockquote>
 <p><a href="https://twitter.com/vain0x/status/1268907587480633345">型推論の単一化中に、メタ変数が指す型への参照を受け渡しながら (型環境の共有参照をとる)、メタ変数に型を束縛する (型環境の排他参照を取る) ところで詰まってる</a> (Twitter @vain0x)</p>
 </blockquote>
@@ -438,7 +438,7 @@
 <li>このように排他参照を取る必要のないデータと、型推論中に書き込む必要があるデータに分けておき、前者を共有参照 (<code>&amp;T</code>) で持つようにすればだいたいの RefCell を消せた</li>
 <li>ただメタ型変数だけは消せなかった、残念、という話</li>
 </ul>
-<h3 id="hsp3-">HSP3 のコードの一部をユニットテストした話</h3>
+<h3 id="hsp3-のコードの一部をユニットテストした話">HSP3 のコードの一部をユニットテストした話</h3>
 <blockquote>
 <p><a href="https://twitter.com/vain0x/status/1272464793971027973">HSP でユニットテストを書く方法が分かりつつある</a> (Twitter @vain0x)</p>
 <p><a href="https://github.com/vain0x/hsp3-ginger/blob/2dea33322250e63e2b59680b370695a2a53b5bab/hsp3-analyzer-mini/hsed3-ext/mod_hsed_docs_test.hsp">hsp3-ginger/mod_hsed_docs_test.hsp at 2dea333</a></p>
@@ -457,8 +457,8 @@
 <li>スクリプトエディタから情報を取得する部分や、計算結果を実際に使用する部分はテストできないが、中間の計算処理はテスト可能になる</li>
 <li>ちなみに「必要なデータを自発的に探させるのではなく、すべて外部から手渡しする」手法をデータポンプというらしい (参考: <a href="http://aligach.net/diary/20160728.html">マイクロサービス、WebAPI、設計の初歩的なメモ</a>)</li>
 </ul>
-<h2 id="heading-10">その他</h2>
-<h3 id="heading-11">構文解析の結果をどう持つか</h3>
+<h2 id="その他">その他</h2>
+<h3 id="構文解析の結果をどう持つか">構文解析の結果をどう持つか</h3>
 <blockquote>
 <p><a href="https://twitter.com/vain0x/status/1277606159264829442">構文解析の結果をデータ構造で持たず、構文解析中に起こすアクションを渡せるようにして必要なだけパーサを実行する案 (LL(1) だからバックトラックとかは起こらないし速いのでは？)</a> (Twitter @vain0x)</p>
 </blockquote>
@@ -490,7 +490,7 @@
 </li>
 <li>悩み中</li>
 </ul>
-<h3 id="hsp3--1">HSP3 の拡張プラグイン</h3>
+<h3 id="hsp3-の拡張プラグイン">HSP3 の拡張プラグイン</h3>
 <p><a href="https://github.com/vain0x/hsp3-ginger/tree/ecb9a19eb1e60acb53d3d986b65c8e60b05373ae/hsp3-vartype-int64">hsp3-ginger/hsp3-vartype-int64 at ecb9a19eb1e60a</a></p>
 <ul>
 <li>HSP に int64 型を追加する拡張プラグインを作った</li>
@@ -620,7 +620,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

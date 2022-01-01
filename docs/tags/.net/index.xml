@@ -8,11 +8,7 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Sat, 20 May 2017 20:00:09 +0000</lastBuildDate>
-    
-	<atom:link href="https://vain0x.github.io/blog/tags/.net/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 20 May 2017 20:00:09 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/tags/.net/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>IReadOnlyListがIListを実装すべき理由</title>
       <link>https://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/</link>

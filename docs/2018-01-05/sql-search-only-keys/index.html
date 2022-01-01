@@ -49,7 +49,7 @@
         "position": 3,
         "item": {
           "@id": "https:\/\/vain0x.github.io\/blog\/2018-01-05\/sql-search-only-keys\/",
-          "name": "S q lの検索条件と検索項目の分離"
+          "name": "Sqlの検索条件と検索項目の分離"
         }
     }]
 }
@@ -63,7 +63,7 @@
   "headline": "SQLの検索条件と検索項目の分離",
   "description" : "複数の検索条件があるときに検索項目をselect句で毎回列挙するのがだるい問題について考えました。\n",
   "inLanguage" : "ja",
-  "wordCount":  325 ,
+  "wordCount":  89 ,
   "datePublished" : "2018-01-05T23:30:37",
   "dateModified" : "2018-01-05T23:30:37",
   "image" : "https:\/\/vain0x.github.io\/blog",
@@ -101,7 +101,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -180,7 +180,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2018年1月5日に投稿
+  <i class="fas fa-calendar"></i>&nbsp;
   
   
   
@@ -203,144 +203,144 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>複数の検索条件があるときに検索項目をselect句で毎回列挙するのがだるい問題について考えました。</p>
-<h2 id="heading">問題</h2>
+<h2 id="問題">問題</h2>
 <p>例えばブログシステムで、「最近の記事を列挙する」クエリーと「特定のカテゴリーの記事を列挙する」ものがあるとします。SQL文は次のようになるでしょう：</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 最近の記事を列挙するクエリー
-</span><span class="c1"></span>
-<span class="k">select</span>
-    <span class="c1">-- 実際にはカラムがいっぱい並ぶ。
-</span><span class="c1"></span>    <span class="n">a</span><span class="p">.</span><span class="n">title</span>
-    <span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">created_at</span>
-    <span class="p">,</span> <span class="n">comments</span><span class="p">.</span><span class="n">content</span>
-    <span class="p">,</span> <span class="n">comments</span><span class="p">.</span><span class="n">created_at</span>
-    <span class="p">,</span> <span class="n">categories</span><span class="p">.</span><span class="n">category_name</span>
-<span class="k">from</span> <span class="n">articles</span> <span class="k">as</span> <span class="n">a</span>
-<span class="k">join</span> <span class="n">comments</span>
-    <span class="k">using</span> <span class="p">(</span><span class="n">article_id</span><span class="p">)</span>
-<span class="k">left</span> <span class="k">join</span> <span class="n">categories</span>
-    <span class="k">using</span> <span class="p">(</span><span class="n">category_id</span><span class="p">)</span>
-<span class="k">where</span>
-    <span class="n">a</span><span class="p">.</span><span class="n">created_at</span> <span class="o">&gt;</span><span class="o">=</span> <span class="p">:</span><span class="n">first_date</span>
-<span class="k">order</span> <span class="k">by</span> <span class="n">a</span><span class="p">.</span><span class="n">created_by</span> <span class="k">desc</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 特定のカテゴリーの記事を列挙するクエリー
-</span><span class="c1"></span>
-<span class="k">select</span>
-    <span class="c1">-- 上のクエリーと似たような内容になる。
-</span><span class="c1"></span>    <span class="n">a</span><span class="p">.</span><span class="n">title</span>
-    <span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">created_at</span>
-    <span class="p">,</span> <span class="n">comments</span><span class="p">.</span><span class="n">content</span>
-    <span class="p">,</span> <span class="n">comments</span><span class="p">.</span><span class="n">created_at</span>
-    <span class="p">,</span> <span class="n">categories</span><span class="p">.</span><span class="n">category_name</span>
-<span class="k">from</span> <span class="n">articles</span> <span class="k">as</span> <span class="n">a</span>
-<span class="k">join</span> <span class="n">comments</span>
-    <span class="k">using</span> <span class="p">(</span><span class="n">article_id</span><span class="p">)</span>
-<span class="k">left</span> <span class="k">join</span> <span class="n">categories</span>
-    <span class="k">using</span> <span class="p">(</span><span class="n">category_id</span><span class="p">)</span>
-<span class="k">where</span>
-    <span class="c1">-- ここは全く違う。
-</span><span class="c1"></span>    <span class="n">categories</span><span class="p">.</span><span class="n">category_id</span> <span class="k">is</span> <span class="k">not</span> <span class="k">null</span> <span class="k">and</span> <span class="n">categories</span><span class="p">.</span><span class="n">category_id</span> <span class="o">=</span> <span class="p">:</span><span class="n">category_id</span>
-<span class="k">order</span> <span class="k">by</span> <span class="n">a</span><span class="p">.</span><span class="n">created_by</span> <span class="k">desc</span>
-</code></pre></div><p>2つのクエリーは結合するテーブルの個数や検索条件こそ異なりますが、結果として得られるリストは同じです。SQLに重複が多くて、あとで困りそうです。</p>
-<h2 id="heading-1">解決策</h2>
-<h3 id="1-">1. アスタリスクとビュー</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 最近の記事を列挙するクエリー
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w">
+</span><span class="w">    </span><span class="c1">-- 実際にはカラムがいっぱい並ぶ。
+</span><span class="c1"></span><span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">title</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">created_at</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span><span class="n">content</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span><span class="n">created_at</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">categories</span><span class="p">.</span><span class="n">category_name</span><span class="w">
+</span><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">articles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span><span class="w"></span><span class="k">join</span><span class="w"> </span><span class="n">comments</span><span class="w">
+</span><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">article_id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">categories</span><span class="w">
+</span><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">category_id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">where</span><span class="w">
+</span><span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">created_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="p">:</span><span class="n">first_date</span><span class="w">
+</span><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">created_by</span><span class="w"> </span><span class="k">desc</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 特定のカテゴリーの記事を列挙するクエリー
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w">
+</span><span class="w">    </span><span class="c1">-- 上のクエリーと似たような内容になる。
+</span><span class="c1"></span><span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">title</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">created_at</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span><span class="n">content</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span><span class="n">created_at</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">categories</span><span class="p">.</span><span class="n">category_name</span><span class="w">
+</span><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">articles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span><span class="w"></span><span class="k">join</span><span class="w"> </span><span class="n">comments</span><span class="w">
+</span><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">article_id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">categories</span><span class="w">
+</span><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">category_id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">where</span><span class="w">
+</span><span class="w">    </span><span class="c1">-- ここは全く違う。
+</span><span class="c1"></span><span class="w">    </span><span class="n">categories</span><span class="p">.</span><span class="n">category_id</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">categories</span><span class="p">.</span><span class="n">category_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">:</span><span class="n">category_id</span><span class="w">
+</span><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">created_by</span><span class="w"> </span><span class="k">desc</span><span class="w">
+</span></code></pre></div><p>2つのクエリーは結合するテーブルの個数や検索条件こそ異なりますが、結果として得られるリストは同じです。SQLに重複が多くて、あとで困りそうです。</p>
+<h2 id="解決策">解決策</h2>
+<h3 id="1-アスタリスクとビュー">1. アスタリスクとビュー</h3>
 <p><code>select</code> 句に <code>*</code> を書くと、すべてのカラム名を列挙したことになります。</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="o">*</span>
-<span class="k">from</span> <span class="n">articles</span> <span class="k">as</span> <span class="n">a</span>
-<span class="k">join</span> <span class="n">comments</span>
-    <span class="k">using</span> <span class="p">(</span><span class="n">article_id</span><span class="p">)</span>
-<span class="k">left</span> <span class="k">join</span> <span class="n">categories</span>
-    <span class="k">using</span> <span class="p">(</span><span class="n">category_id</span><span class="p">)</span>
-<span class="k">where</span>
-    <span class="n">a</span><span class="p">.</span><span class="n">created_at</span> <span class="o">&gt;</span><span class="o">=</span> <span class="p">:</span><span class="n">first_date</span>
-<span class="k">order</span> <span class="k">by</span> <span class="n">a</span><span class="p">.</span><span class="n">created_by</span> <span class="k">desc</span>
-</code></pre></div><p>重複が大幅に減りました。基本的にはこれで十分でしょう。なお、 <code>*</code> を使うと「カラムが追加されるたびにデータ量が増え、しかもそのことに気づきづらい」などの問題があるので使うべきでないという意見もあります。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w">
+</span><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">articles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span><span class="w"></span><span class="k">join</span><span class="w"> </span><span class="n">comments</span><span class="w">
+</span><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">article_id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">categories</span><span class="w">
+</span><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">category_id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">where</span><span class="w">
+</span><span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">created_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="p">:</span><span class="n">first_date</span><span class="w">
+</span><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">created_by</span><span class="w"> </span><span class="k">desc</span><span class="w">
+</span></code></pre></div><p>重複が大幅に減りました。基本的にはこれで十分でしょう。なお、 <code>*</code> を使うと「カラムが追加されるたびにデータ量が増え、しかもそのことに気づきづらい」などの問題があるので使うべきでないという意見もあります。</p>
 <p>テーブルを結合する部分が重複したままですが、これはビューを使うという手があります。</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- ビューを定義しておく。
-</span><span class="c1"></span>
-<span class="k">create</span> <span class="k">view</span> <span class="n">article_aggregates</span> <span class="k">as</span>
-    <span class="k">select</span> <span class="o">*</span>
-    <span class="k">from</span> <span class="n">articles</span> <span class="k">as</span> <span class="n">a</span>
-    <span class="k">join</span> <span class="n">comments</span> <span class="k">using</span> <span class="p">(</span><span class="n">article_id</span><span class="p">)</span>
-    <span class="k">left</span> <span class="k">join</span> <span class="n">categories</span> <span class="k">using</span> <span class="p">(</span><span class="n">category_id</span><span class="p">)</span><span class="p">;</span>
-
-<span class="c1">-- 検索クエリー
-</span><span class="c1"></span>
-<span class="k">select</span> <span class="n">a</span><span class="p">.</span><span class="o">*</span>
-<span class="k">from</span> <span class="n">article_aggregates</span> <span class="k">as</span> <span class="n">a</span>
-<span class="k">where</span>
-    <span class="n">a</span><span class="p">.</span><span class="n">created_at</span> <span class="o">&gt;</span><span class="o">=</span> <span class="p">:</span><span class="n">first_date</span>
-<span class="k">order</span> <span class="k">by</span> <span class="n">a</span><span class="p">.</span><span class="n">created_by</span> <span class="k">desc</span><span class="p">;</span>
-</code></pre></div><p>あらかじめテーブルを結合して検索するビュー  <code>article_aggregates</code> を用意しておき、それを <code>from</code> 句に指定することにより、テーブルが始めから結合されているのと同じ状況でクエリーを書くことができます。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- ビューを定義しておく。
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="n">article_aggregates</span><span class="w"> </span><span class="k">as</span><span class="w">
+</span><span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w">
+</span><span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">articles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span><span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">comments</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">article_id</span><span class="p">)</span><span class="w">
+</span><span class="w">    </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">categories</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">category_id</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c1">-- 検索クエリー
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="o">*</span><span class="w">
+</span><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">article_aggregates</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span><span class="w"></span><span class="k">where</span><span class="w">
+</span><span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">created_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="p">:</span><span class="n">first_date</span><span class="w">
+</span><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">created_by</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>あらかじめテーブルを結合して検索するビュー  <code>article_aggregates</code> を用意しておき、それを <code>from</code> 句に指定することにより、テーブルが始めから結合されているのと同じ状況でクエリーを書くことができます。</p>
 <p>依然として <code>order by</code> は重複したままです。</p>
-<h3 id="2-">2. クエリービルダー</h3>
+<h3 id="2-クエリービルダー">2. クエリービルダー</h3>
 <p>文字列連結やORM(EntityFrameworkなど)を用いて、カラムのリストを共通化する方法があります。(大げさにいうと)SQLを対象とするDSLを用意するのです。</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 文字列連結を用いる方法。
-</span><span class="c1"></span>
-<span class="k">select</span>
-    <span class="o">@</span><span class="p">(</span><span class="n">articleColumns</span><span class="p">.</span><span class="k">map</span><span class="p">(</span><span class="k">c</span> <span class="o">=</span><span class="o">&gt;</span> <span class="s2">&#34;</span><span class="s2">a.</span><span class="s2">&#34;</span> <span class="o">+</span> <span class="k">c</span><span class="p">)</span>
-    <span class="p">.</span><span class="n">concat</span><span class="p">(</span><span class="n">commentColumns</span><span class="p">.</span><span class="k">map</span><span class="p">(</span><span class="k">c</span> <span class="o">=</span><span class="o">&gt;</span> <span class="s2">&#34;</span><span class="s2">comments.</span><span class="s2">&#34;</span> <span class="o">+</span> <span class="k">c</span><span class="p">)</span><span class="p">)</span>
-    <span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="s2">&#34;</span><span class="s2">,</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">)</span>
-<span class="k">from</span> <span class="n">article_aggregates</span> <span class="k">as</span> <span class="n">a</span>
-<span class="k">where</span>
-    <span class="n">a</span><span class="p">.</span><span class="n">created_at</span> <span class="o">&gt;</span><span class="o">=</span> <span class="p">:</span><span class="n">first_date</span>
-<span class="k">order</span> <span class="k">by</span> <span class="o">@</span><span class="n">orders</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="s2">&#34;</span><span class="s2">,</span><span class="s2">&#34;</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-typescript" data-lang="typescript"><span class="c1">// クエリービルダーを用いる方法 (擬似コード)
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 文字列連結を用いる方法。
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w">
+</span><span class="w">    </span><span class="o">@</span><span class="p">(</span><span class="n">articleColumns</span><span class="p">.</span><span class="k">map</span><span class="p">(</span><span class="k">c</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&#34;a.&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">c</span><span class="p">)</span><span class="w">
+</span><span class="w">    </span><span class="p">.</span><span class="n">concat</span><span class="p">(</span><span class="n">commentColumns</span><span class="p">.</span><span class="k">map</span><span class="p">(</span><span class="k">c</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&#34;comments.&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">c</span><span class="p">))</span><span class="w">
+</span><span class="w">    </span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="s2">&#34;,&#34;</span><span class="p">))</span><span class="w">
+</span><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">article_aggregates</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span><span class="w"></span><span class="k">where</span><span class="w">
+</span><span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">created_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="p">:</span><span class="n">first_date</span><span class="w">
+</span><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="o">@</span><span class="n">orders</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="s2">&#34;,&#34;</span><span class="p">)</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="c1">// クエリービルダーを用いる方法 (擬似コード)
 </span><span class="c1"></span>
     <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">articles_aggregate_view</span> <span class="k">in</span>
-    <span class="nx">db</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">query</span><span class="p">()</span>
+    <span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
     <span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">created_at</span> <span class="o">&gt;=</span> <span class="nx">first_date</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">order_by</span><span class="p">(</span><span class="p">[</span> <span class="p">{</span> <span class="nx">desc</span>: <span class="kt">a.created_at</span> <span class="p">}</span> <span class="p">]</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">order_by</span><span class="p">([</span> <span class="p">{</span> <span class="nx">desc</span>: <span class="kt">a.created_at</span> <span class="p">}</span> <span class="p">])</span>
 </code></pre></div><p>前述のビューを使う方法と合わせて、重複は完全になくなりました。</p>
 <p>この方法の問題は、SQL文を静的に取り出す(検索したりexplainにかけたりする)のが難しくなることです。また、SQLインジェクション攻撃に対策しておく必要があります。</p>
-<h3 id="3-">3. 検索とフェッチの分離</h3>
+<h3 id="3-検索とフェッチの分離">3. 検索とフェッチの分離</h3>
 <ol>
 <li>あらかじめ、主キーのリストから必要なデータを列挙する方法を用意しておき、</li>
 <li>主キーだけを取得するクエリーを検索条件ごとに書く、</li>
 </ol>
 <p>という方法です。例えば次のようになります：</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 主キーの値に基づいてレコードを検索するクエリー
-</span><span class="c1"></span><span class="c1">-- (前述のテンプレートエンジンを使っている。)
-</span><span class="c1"></span>
-<span class="k">select</span>
-    <span class="n">a</span><span class="p">.</span><span class="n">title</span>
-    <span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">created_at</span>
-    <span class="p">,</span> <span class="n">comments</span><span class="p">.</span><span class="n">content</span>
-    <span class="p">,</span> <span class="n">comments</span><span class="p">.</span><span class="n">created_at</span>
-    <span class="p">,</span> <span class="n">categories</span><span class="p">.</span><span class="n">category_name</span>
-<span class="k">from</span> <span class="n">articles</span> <span class="k">as</span> <span class="n">a</span>
-<span class="k">join</span> <span class="n">comments</span>
-    <span class="k">using</span> <span class="p">(</span><span class="n">article_id</span><span class="p">)</span>
-<span class="k">left</span> <span class="k">join</span> <span class="n">categories</span>
-    <span class="k">using</span> <span class="p">(</span><span class="n">category_id</span><span class="p">)</span>
-<span class="k">where</span>
-    <span class="n">a</span><span class="p">.</span><span class="n">article_id</span> <span class="k">in</span> <span class="p">(</span> <span class="o">@</span><span class="n">articleIds</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="s2">&#34;</span><span class="s2">,</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">)</span>
-    <span class="k">and</span> <span class="n">comments</span><span class="p">.</span><span class="n">comment_id</span> <span class="k">in</span> <span class="p">(</span> <span class="o">@</span><span class="n">commentIds</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="s2">&#34;</span><span class="s2">,</span><span class="s2">&#34;</span><span class="p">)</span> <span class="p">)</span>
-    <span class="k">and</span> <span class="p">(</span><span class="n">categories</span><span class="p">.</span><span class="n">category_id</span> <span class="k">is</span> <span class="k">not</span> <span class="k">null</span> <span class="k">and</span> <span class="n">category_id</span> <span class="o">=</span> <span class="o">@</span><span class="n">categoryId</span><span class="p">)</span>
-<span class="k">order</span> <span class="k">by</span> <span class="n">a</span><span class="p">.</span><span class="n">created_by</span> <span class="k">desc</span>
-</code></pre></div><p>検索のためのクエリーは次のとおりです：</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 最近の記事(のID)を列挙するクエリー
-</span><span class="c1"></span>
-<span class="k">select</span>
-    <span class="n">a</span><span class="p">.</span><span class="n">article_id</span><span class="p">,</span> <span class="n">comments</span><span class="p">.</span><span class="n">comment_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">category_id</span>
-<span class="k">from</span> <span class="n">articles</span> <span class="k">as</span> <span class="n">a</span>
-<span class="k">join</span> <span class="n">comments</span>
-    <span class="k">using</span> <span class="p">(</span><span class="n">article_id</span><span class="p">)</span>
-<span class="k">where</span>
-    <span class="n">a</span><span class="p">.</span><span class="n">created_at</span> <span class="o">&gt;</span><span class="o">=</span> <span class="p">:</span><span class="n">first_date</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 特定のタグがついた記事を列挙するクエリー
-</span><span class="c1"></span>
-<span class="k">select</span>
-    <span class="n">a</span><span class="p">.</span><span class="n">article_id</span><span class="p">,</span> <span class="n">comments</span><span class="p">.</span><span class="n">comment_id</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">category_id</span>
-<span class="k">from</span> <span class="n">articles</span> <span class="k">as</span> <span class="n">a</span>
-<span class="k">join</span> <span class="n">comments</span>
-    <span class="k">using</span> <span class="p">(</span><span class="n">article_id</span><span class="p">)</span>
-<span class="k">left</span> <span class="k">join</span> <span class="n">categories</span>
-    <span class="k">using</span> <span class="p">(</span><span class="n">category_id</span><span class="p">)</span>
-<span class="k">where</span>
-    <span class="n">category_id</span> <span class="k">is</span> <span class="k">not</span> <span class="k">null</span> <span class="k">and</span> <span class="n">category_id</span> <span class="o">=</span> <span class="p">:</span><span class="n">category_id</span>
-</code></pre></div><p>クエリーの数が増えますが、 (テーブルの個数 + 1) 個ぐらいなら問題ないでしょう。</p>
-<h2 id="heading-2">結論</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 主キーの値に基づいてレコードを検索するクエリー
+</span><span class="c1">-- (前述のテンプレートエンジンを使っている。)
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w">
+</span><span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">title</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">created_at</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span><span class="n">content</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span><span class="n">created_at</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">categories</span><span class="p">.</span><span class="n">category_name</span><span class="w">
+</span><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">articles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span><span class="w"></span><span class="k">join</span><span class="w"> </span><span class="n">comments</span><span class="w">
+</span><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">article_id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">categories</span><span class="w">
+</span><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">category_id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">where</span><span class="w">
+</span><span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">article_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">@</span><span class="n">articleIds</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="s2">&#34;,&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span><span class="w">    </span><span class="k">and</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span><span class="n">comment_id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">@</span><span class="n">commentIds</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="s2">&#34;,&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span><span class="w">    </span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="n">categories</span><span class="p">.</span><span class="n">category_id</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">category_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">@</span><span class="n">categoryId</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">created_by</span><span class="w"> </span><span class="k">desc</span><span class="w">
+</span></code></pre></div><p>検索のためのクエリーは次のとおりです：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 最近の記事(のID)を列挙するクエリー
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w">
+</span><span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">article_id</span><span class="p">,</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span><span class="n">comment_id</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">category_id</span><span class="w">
+</span><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">articles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span><span class="w"></span><span class="k">join</span><span class="w"> </span><span class="n">comments</span><span class="w">
+</span><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">article_id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">where</span><span class="w">
+</span><span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">created_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="p">:</span><span class="n">first_date</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- 特定のタグがついた記事を列挙するクエリー
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w">
+</span><span class="w">    </span><span class="n">a</span><span class="p">.</span><span class="n">article_id</span><span class="p">,</span><span class="w"> </span><span class="n">comments</span><span class="p">.</span><span class="n">comment_id</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">category_id</span><span class="w">
+</span><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">articles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w">
+</span><span class="w"></span><span class="k">join</span><span class="w"> </span><span class="n">comments</span><span class="w">
+</span><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">article_id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">categories</span><span class="w">
+</span><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="p">(</span><span class="n">category_id</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">where</span><span class="w">
+</span><span class="w">    </span><span class="n">category_id</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">category_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">:</span><span class="n">category_id</span><span class="w">
+</span></code></pre></div><p>クエリーの数が増えますが、 (テーブルの個数 + 1) 個ぐらいなら問題ないでしょう。</p>
+<h2 id="結論">結論</h2>
 <ul>
 <li>すべてのカラムをフェッチしたい場合は <code>*</code> を使い、</li>
 <li>フェッチしたくないカラムがある場合はクエリーを2段階に分ける、</li>
@@ -467,7 +467,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.62.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
