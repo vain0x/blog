@@ -8,8 +8,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <title>F#でベンチマークをとる - ベインのブログ</title>
-  <meta property="og:title" content="F#でベンチマークをとる" />
-  <meta name="twitter:title" content="F#でベンチマークをとる" />
   <meta name="description" content="ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして BenchmarkDotNet があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。
 1. 要約
 
@@ -39,47 +37,6 @@ BenchmarkDotNet のサンプル
 
 
 ">
-  <meta property="og:description" content="ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして BenchmarkDotNet があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。
-1. 要約
-
-書き出し
-
-ベンチマークは意外と大変という話について軽く触れる
-
-
-導入
-
-本稿の構成
-開発環境の明記
-BenchmarkDotNet のサンプル
-
-
-例
-
-一例として「素数判定」を実装する
-素数判定の簡単なベンチマークを書く
-ベンチマークを実行する
-
-
-おまけ
-
-軽くて速いベンチマークに設定する
-ベンチマークを watch する
-
-
-">
-  <meta name="twitter:description" content="ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして BenchmarkDotNet があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。
-1. 要約
-
-書き出し
-
-ベンチマークは意外と大変という話について軽く触れる
-
-
-導入
-
-本稿の構成
-開発環境の …">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -200,13 +157,6 @@ BenchmarkDotNet のサンプル
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@vain0x" />
-  <meta name="twitter:creator" content="@vain0x" />
-  <meta property="og:url" content="https://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="ベインのブログ" />
-
   <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
@@ -257,8 +207,7 @@ BenchmarkDotNet のサンプル
   </div>
 </nav>
 
-    <main>
-      
+    
   
   
   
@@ -286,7 +235,7 @@ BenchmarkDotNet のサンプル
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;
+  <i class="fas fa-calendar"></i>&nbsp;2018年9月3日に投稿
   
   
   
@@ -303,7 +252,7 @@ BenchmarkDotNet のサンプル
   </header>
 
 
-      
+    
 <div class="container" role="main">
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -546,15 +495,26 @@ Frequency=2046136 Hz, Resolution=488.7261 ns, Timer=TSC
 
         
           
+            
           
-          <h4 class="see-also">関連記事</h4>
-          <ul>
+
           
-            <li><a href="/blog/2018-03-11/fsharp-record-literal-and-type-annotation/">[F#][小ネタ] レコードリテラルと型注釈</a></li>
-          
-            <li><a href="/blog/2017-03-05/breakable-loop-in-fsharp/">break可能なループを書こう - 関数型プログラミングのテクニック</a></li>
-          
-          </ul>
+                  <h4 class="see-also">関連記事</h4>
+                  <ul>
+                
+                
+                    <li><a href="/blog/2021-11-20/type-alias-as-link/">リンクのための型エイリアス</a></li>
+                
+                    <li><a href="/blog/2021-11-03/poor-mans-never-type/">可視性を使ってnever型もどきを作る</a></li>
+                
+                    <li><a href="/blog/2021-08-19/mutual-inference-problem/">相互再帰関数の型推論で問題になったケース</a></li>
+                
+                    <li><a href="/blog/2021-06-26/value-vs-storage/">値とストレージの区別</a></li>
+                
+                    <li><a href="/blog/2021-04-24/shared-fields-in-discriminated-unions/">判別共用体が共通フィールドを持てたら嬉しい</a></li>
+                
+              </ul>
+
           
         
       </article>
@@ -588,7 +548,8 @@ Frequency=2046136 Hz, Resolution=488.7261 ns, Timer=TSC
   </div>
 </div>
 
-      <footer>
+      
+<footer>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -659,7 +620,7 @@ Frequency=2046136 Hz, Resolution=488.7261 ns, Timer=TSC
 </footer>
 
 
-    </main>
+    
   </body>
 </html>
 

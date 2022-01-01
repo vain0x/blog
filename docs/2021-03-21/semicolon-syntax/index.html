@@ -8,8 +8,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <title>プログラミング言語の構文とセミコロン - ベインのブログ</title>
-  <meta property="og:title" content="プログラミング言語の構文とセミコロン" />
-  <meta name="twitter:title" content="プログラミング言語の構文とセミコロン" />
   <meta name="description" content="C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
 Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。
 
@@ -20,23 +18,6 @@ Haskellのレイアウト依存構文はセミコロンの省略にどう生か�
 Rustの構文からセミコロンを取り除くとしたらどんな問題が生じるか
 F# のリストがセミコロン区切りである利点と欠点
 ">
-  <meta property="og:description" content="C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
-Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。
-
-C言語の構文とセミコロンが必須な箇所はどこか
-JavaScriptのセミコロン省略により生じた問題とは何か
-Goのセミコロン省略ルールはどう定められているか
-Haskellのレイアウト依存構文はセミコロンの省略にどう生かされているか
-Rustの構文からセミコロンを取り除くとしたらどんな問題が生じるか
-F# のリストがセミコロン区切りである利点と欠点
-">
-  <meta name="twitter:description" content="C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
-Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。
-
-C言語の構文とセミコロンが必須な箇所はどこか
-JavaScriptのセミコロン省略により生じた問題とは何か
-Goのセミコロン省略ルールはどう定められているか
-Haskellのレイアウト依存構文はセミコロンの省略にどう生 …">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -133,13 +114,6 @@ Haskellのレイアウト依存構文はセミコロンの省略にどう生 …
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@vain0x" />
-  <meta name="twitter:creator" content="@vain0x" />
-  <meta property="og:url" content="https://vain0x.github.io/blog/2021-03-21/semicolon-syntax/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="ベインのブログ" />
-
   <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
@@ -190,8 +164,7 @@ Haskellのレイアウト依存構文はセミコロンの省略にどう生 …
   </div>
 </nav>
 
-    <main>
-      
+    
   
   
   
@@ -219,7 +192,7 @@ Haskellのレイアウト依存構文はセミコロンの省略にどう生 …
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;
+  <i class="fas fa-calendar"></i>&nbsp;2021年3月21日に投稿
   
   
   
@@ -236,7 +209,7 @@ Haskellのレイアウト依存構文はセミコロンの省略にどう生 …
   </header>
 
 
-      
+    
 <div class="container" role="main">
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -450,15 +423,24 @@ Rustの「ブロック式」はCの複文と同様に文の並びを <code>{}</c
 
         
           
+            
           
-          <h4 class="see-also">関連記事</h4>
-          <ul>
+
           
-            <li><a href="/blog/2020-09-19/complexity-from-expression-oriented-syntax/">式指向構文が言語処理系にもたらす複雑性</a></li>
-          
-            <li><a href="/blog/2020-09-18/null-pointer-vs-reference/">nullはポインタだがリファレンスではない</a></li>
-          
-          </ul>
+                  <h4 class="see-also">関連記事</h4>
+                  <ul>
+                
+                
+                    <li><a href="/blog/compiler-errors/">コンパイラでのエラーの扱い</a></li>
+                
+                    <li><a href="/blog/2021-04-24/shared-fields-in-discriminated-unions/">判別共用体が共通フィールドを持てたら嬉しい</a></li>
+                
+                    <li><a href="/blog/2020-09-19/complexity-from-expression-oriented-syntax/">式指向構文が言語処理系にもたらす複雑性</a></li>
+                
+                    <li><a href="/blog/2020-09-18/null-pointer-vs-reference/">nullはポインタだがリファレンスではない</a></li>
+                
+              </ul>
+
           
         
       </article>
@@ -492,7 +474,8 @@ Rustの「ブロック式」はCの複文と同様に文の並びを <code>{}</c
   </div>
 </div>
 
-      <footer>
+      
+<footer>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -563,7 +546,7 @@ Rustの「ブロック式」はCの複文と同様に文の並びを <code>{}</c
 </footer>
 
 
-    </main>
+    
   </body>
 </html>
 

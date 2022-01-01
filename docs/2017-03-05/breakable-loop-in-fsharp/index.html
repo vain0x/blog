@@ -8,13 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <title>break可能なループを書こう - 関数型プログラミングのテクニック - ベインのブログ</title>
-  <meta property="og:title" content="break可能なループを書こう - 関数型プログラミングのテクニック" />
-  <meta name="twitter:title" content="break可能なループを書こう - 関数型プログラミングのテクニック" />
   <meta name="description" content="Qiita
-手続き型言語を使う人に「F# のループ (for/while) は break できない」というと驚かれるかもしれません。筆者は驚きました。途中で終了する可能性のあるループを書けなくて困りそうですが、その心配は不要です。F# では 末尾再帰関数 を使って、break や continue のあるループと同じことができるからです。">
-  <meta property="og:description" content="Qiita
-手続き型言語を使う人に「F# のループ (for/while) は break できない」というと驚かれるかもしれません。筆者は驚きました。途中で終了する可能性のあるループを書けなくて困りそうですが、その心配は不要です。F# では 末尾再帰関数 を使って、break や continue のあるループと同じことができるからです。">
-  <meta name="twitter:description" content="Qiita
 手続き型言語を使う人に「F# のループ (for/while) は break できない」というと驚かれるかもしれません。筆者は驚きました。途中で終了する可能性のあるループを書けなくて困りそうですが、その心配は不要です。F# では 末尾再帰関数 を使って、break や continue のあるループと同じことができるからです。">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
@@ -99,13 +93,6 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@vain0x" />
-  <meta name="twitter:creator" content="@vain0x" />
-  <meta property="og:url" content="https://vain0x.github.io/blog/2017-03-05/breakable-loop-in-fsharp/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="ベインのブログ" />
-
   <meta name="generator" content="Hugo 0.91.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
@@ -156,8 +143,7 @@
   </div>
 </nav>
 
-    <main>
-      
+    
   
   
   
@@ -185,7 +171,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;
+  <i class="fas fa-calendar"></i>&nbsp;2017年3月5日に投稿
   
   
   
@@ -202,7 +188,7 @@
   </header>
 
 
-      
+    
 <div class="container" role="main">
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -409,17 +395,26 @@
 
         
           
+            
           
-          <h4 class="see-also">関連記事</h4>
-          <ul>
+
           
-            <li><a href="/blog/2016-12-25/reports-with-wpf/">WPF/XAMLで帳票のデザイン・印刷を行う</a></li>
-          
-            <li><a href="/blog/2016-12-21/lists-with-no-alloc-enumerator/">IReadOnlyListの列挙時にヒープ領域の使用を避ける</a></li>
-          
-            <li><a href="/blog/2016-08-18/null-object-patterns/">Nullオブジェクトパターンの紹介と正体</a></li>
-          
-          </ul>
+                  <h4 class="see-also">関連記事</h4>
+                  <ul>
+                
+                
+                    <li><a href="/blog/2021-11-20/type-alias-as-link/">リンクのための型エイリアス</a></li>
+                
+                    <li><a href="/blog/2021-11-03/poor-mans-never-type/">可視性を使ってnever型もどきを作る</a></li>
+                
+                    <li><a href="/blog/2021-08-19/mutual-inference-problem/">相互再帰関数の型推論で問題になったケース</a></li>
+                
+                    <li><a href="/blog/2021-06-26/value-vs-storage/">値とストレージの区別</a></li>
+                
+                    <li><a href="/blog/2021-04-24/shared-fields-in-discriminated-unions/">判別共用体が共通フィールドを持てたら嬉しい</a></li>
+                
+              </ul>
+
           
         
       </article>
@@ -453,7 +448,8 @@
   </div>
 </div>
 
-      <footer>
+      
+<footer>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -524,7 +520,7 @@
 </footer>
 
 
-    </main>
+    
   </body>
 </html>
 
