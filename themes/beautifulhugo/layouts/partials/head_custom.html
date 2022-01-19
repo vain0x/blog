@@ -4,3 +4,7 @@ Do not put anything in this file - it's only here so that hugo won't throw an er
 -->
 
 <link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+{{ if .Params.canonicalUrl }}
+<link rel="canonical" href="{{ .Params.canonicalUrl }}">
+{{ end }}

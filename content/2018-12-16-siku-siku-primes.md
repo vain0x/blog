@@ -5,6 +5,7 @@ tags:
 type: "post"
 date: 2018-12-16 10:34:43
 url: 2018-12-16/siku-siku-primes
+canonicalUrl: https://qiita.com/vain0x/items/8f8b6effb32cd68c22f3
 ---
 
 [Qiita](https://qiita.com/vain0x/items/8f8b6effb32cd68c22f3)

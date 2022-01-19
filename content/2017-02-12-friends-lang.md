@@ -8,7 +8,9 @@ tags:
   - 言語処理系
   - Prolog
   - ネタ
+canonicalUrl: http://qiita.com/vain0x/items/6d3b75f667d3ec7f1d2a
 ---
+
 [Qiita](http://qiita.com/vain0x/items/6d3b75f667d3ec7f1d2a)
 
 ジャパリパークのみんなー！ フレンズのためのプログラミング言語ができたよー！

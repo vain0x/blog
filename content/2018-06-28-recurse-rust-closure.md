@@ -6,6 +6,7 @@ tags:
 type: "post"
 date: 2018-06-28 23:17:41
 url: 2018-06-28/recurse-rust-closure
+canonicalUrl: https://qiita.com/vain0x/items/90c9580aa34926160ac1
 ---
 
 [Qiita](https://qiita.com/vain0x/items/90c9580aa34926160ac1)
