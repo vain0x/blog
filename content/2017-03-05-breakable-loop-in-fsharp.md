@@ -7,6 +7,7 @@ tags:
   - FSharp
   - CSharp
   - 関数型プログラミング
+canonicalUrl: http://qiita.com/vain0x/items/ddef84e3959dffe6a88d
 ---
 
 [Qiita](http://qiita.com/vain0x/items/ddef84e3959dffe6a88d)
