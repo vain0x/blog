@@ -8,35 +8,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <title>F#でベンチマークをとる - ベインのブログ</title>
-  <meta name="description" content="ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして BenchmarkDotNet があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。
-1. 要約
-
-書き出し
-
-ベンチマークは意外と大変という話について軽く触れる
-
-
-導入
-
-本稿の構成
-開発環境の明記
-BenchmarkDotNet のサンプル
-
-
-例
-
-一例として「素数判定」を実装する
-素数判定の簡単なベンチマークを書く
-ベンチマークを実行する
-
-
-おまけ
-
-軽くて速いベンチマークに設定する
-ベンチマークを watch する
-
-
-">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -85,7 +56,7 @@ BenchmarkDotNet のサンプル
     "name" : "ベイン"
   },
   "headline": "F#でベンチマークをとる",
-  "description" : "ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして BenchmarkDotNet があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。\n1. 要約  書き出し  ベンチマークは意外と大変という話について軽く触れる   導入  本稿の構成 開発環境の明記 BenchmarkDotNet のサンプル   例  一例として「素数判定」を実装する 素数判定の簡単なベンチマークを書く ベンチマークを実行する   おまけ  軽くて速いベンチマークに設定する ベンチマークを watch する   ",
+  "description" : "",
   "inLanguage" : "ja",
   "wordCount":  560 ,
   "datePublished" : "2018-09-03T23:59:34",
@@ -107,57 +78,16 @@ BenchmarkDotNet のサンプル
 </script>
 
 <meta property="og:title" content="F#でベンチマークをとる" />
-<meta property="og:description" content="ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして BenchmarkDotNet があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。
-1. 要約
-
-書き出し
-
-ベンチマークは意外と大変という話について軽く触れる
-
-
-導入
-
-本稿の構成
-開発環境の明記
-BenchmarkDotNet のサンプル
-
-
-例
-
-一例として「素数判定」を実装する
-素数判定の簡単なベンチマークを書く
-ベンチマークを実行する
-
-
-おまけ
-
-軽くて速いベンチマークに設定する
-ベンチマークを watch する
-
-
-">
 <meta property="og:url" content="https://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
   <meta name="twitter:title" content="F#でベンチマークをとる" />
-  <meta name="twitter:description" content="ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして BenchmarkDotNet があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。
-1. 要約
-
-書き出し
-
-ベンチマークは意外と大変という話について軽く触れる
-
-
-導入
-
-本稿の構成
-開発環境の …">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.91.2" />
+  <meta name="generator" content="Hugo 0.92.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -523,7 +453,7 @@ Frequency=2046136 Hz, Resolution=488.7261 ns, Timer=TSC
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/" data-toggle="tooltip" data-placement="top" title="Rustのクロージャで再帰してみた">&larr; 前ページ</a>
+              <a href="https://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/" data-toggle="tooltip" data-placement="top" title="Rustのクロージャで再帰してみた (ダメだった)">&larr; 前ページ</a>
             </li>
           
           
@@ -611,7 +541,7 @@ Frequency=2046136 Hz, Resolution=488.7261 ns, Timer=TSC
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.92.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

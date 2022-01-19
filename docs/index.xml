@@ -160,9 +160,7 @@
       <pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2021-04-24/shared-fields-in-discriminated-unions/</guid>
-      <description>&lt;p&gt;判別共用体のすべてのバリアントに同じデータを持たせたいことがあるが、F# だとめんどい。
-TypeScriptだと楽にできて嬉しい。
-処理系の実装方針を考えてみたが、利用頻度のわりに量が多い気がしてきた、という話。&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -199,15 +197,7 @@ TypeScriptだと楽にできて嬉しい。
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2021-03-21/semicolon-syntax/</guid>
       <description>&lt;p&gt;C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
-Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;C言語の構文とセミコロンが必須な箇所はどこか&lt;/li&gt;
-&lt;li&gt;JavaScriptのセミコロン省略により生じた問題とは何か&lt;/li&gt;
-&lt;li&gt;Goのセミコロン省略ルールはどう定められているか&lt;/li&gt;
-&lt;li&gt;Haskellのレイアウト依存構文はセミコロンの省略にどう生かされているか&lt;/li&gt;
-&lt;li&gt;Rustの構文からセミコロンを取り除くとしたらどんな問題が生じるか&lt;/li&gt;
-&lt;li&gt;F# のリストがセミコロン区切りである利点と欠点&lt;/li&gt;
-&lt;/ul&gt;</description>
+Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -455,7 +445,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Sun, 30 Jun 2019 23:59:59 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-06-30/diary/</guid>
-      <description>&lt;p&gt;今月の活動について&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -473,7 +463,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Tue, 30 Apr 2019 23:59:59 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-04-30/diary/</guid>
-      <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -482,7 +472,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Sun, 31 Mar 2019 23:59:59 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-03-31/diary/</guid>
-      <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -491,7 +481,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Wed, 27 Feb 2019 23:31:49 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-02-27/diary/</guid>
-      <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -500,8 +490,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Tue, 26 Feb 2019 22:25:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/</guid>
-      <description>&lt;p&gt;HSP3 は BASIC 風の構文を持つスクリプト言語で、GUI プログラミングがやりやすいことに人気がある。私は10年ぐらい前に、どういうわけかその HSP3 でインタプリタを書いて失敗した。&lt;/p&gt;
-&lt;p&gt;10年ほど経って問題の解決策が分かってきた感じがしたので、改めて似たようなものを作ってみた。まだ10日ほどしか作業しておらずプロトタイプ段階といえるが、頭の中にあった解決策が実際に問題を解決できているという実感が得られた。&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -510,7 +499,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Wed, 30 Jan 2019 20:07:49 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-30/diary/</guid>
-      <description>&lt;p&gt;今月の活動のまとめ&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -519,7 +508,8 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Wed, 16 Jan 2019 22:17:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-16/lsp-trial-04/</guid>
-      <description>&lt;p&gt;自作言語の LSP サーバーを作るプロジェクトの第4回です。今回はソースコードを変更する機能の例として、シンボルのリネームを実装してみました。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://qiita.com/vain0x/items/8414dca7425057f1bbd8&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;自作言語の LSP サーバーを作るプロジェクトの第4回です。今回はソースコードを変更する機能の例として、シンボルのリネームを実装してみました。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -528,7 +518,8 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Thu, 10 Jan 2019 22:12:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-10/lsp-trial-03/</guid>
-      <description>&lt;p&gt;自作言語の LSP サーバーを作るプロジェクトの第3回です。今回はシンボルテーブルを作ってシンボルのハイライト機能を実装します。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://qiita.com/vain0x/items/31252d77066505ce6117&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;自作言語の LSP サーバーを作るプロジェクトの第3回です。今回はシンボルテーブルを作ってシンボルのハイライト機能を実装します。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -537,14 +528,8 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Mon, 07 Jan 2019 22:13:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/</guid>
-      <description>&lt;p&gt;LSP サーバーを作っていくプロジェクトの第2回です。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;前回: &lt;a href=&#34;https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/&#34;&gt;LSP学習記 #1&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;前回は警告の表示までできるようになりました。しかしこの調子で自明な機能を足し続けても楽しくないので、新しいプログラミング言語を作ります。自作言語処理系とともに LSP サーバーを育てていく予定です。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;今回のソースコード: &lt;a href=&#34;https://github.com/vain0x/curage-lang/tree/v0.3.0&#34;&gt;curage-lang v0.3.0&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://qiita.com/vain0x/items/490ae33ba3db3c829c13&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;LSP サーバーを作っていくプロジェクトの第2回です。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -553,8 +538,8 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Sat, 05 Jan 2019 23:52:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/</guid>
-      <description>&lt;p&gt;LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。&lt;/p&gt;
-&lt;p&gt;第1回では LSP の基礎部分に触れ、極小の LSP サーバーを準備し、「エディター上にリアルタイムで警告を表示する」機能を作ります。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://qiita.com/vain0x/items/d050fe7c8b342ed2004e&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;LSP サーバーの実装の練習をしています。この記事は勉強ノートとして、調査事項をまとめつつ、成果物を作成した手順を解説します。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -563,7 +548,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Mon, 31 Dec 2018 23:59:59 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-12-31/diary/</guid>
-      <description>&lt;p&gt;今月の進捗など&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -572,7 +557,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Sun, 16 Dec 2018 10:34:43 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-12-16/siku-siku-primes/</guid>
-      <description>&lt;p&gt;シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://qiita.com/vain0x/items/8f8b6effb32cd68c22f3&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -581,7 +566,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Fri, 30 Nov 2018 23:59:59 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-11-30/diary/</guid>
-      <description>&lt;p&gt;1ヶ月分のコミットメッセージとツイートを眺めていろいろ書くやつ、3回目&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -590,8 +575,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Thu, 08 Nov 2018 02:01:00 +0900</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-11-08/pi-challenge/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://rirosi.net/plus2/&#34;&gt;円周率チャレンジ&lt;/a&gt; というゲームが流行中です！&lt;/p&gt;
-&lt;p&gt;プログラムを使って良い解法を探索してみたので、考えたことを書いていきます。&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -600,10 +584,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Wed, 31 Oct 2018 23:59:59 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-10-31/diary/</guid>
-      <description>&lt;p&gt;今月の活動まとめ&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://vain0x.github.io/blog/2018-09-30/diary/&#34;&gt;前月&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;p&gt;今月の活動まとめ&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -612,7 +593,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Sun, 07 Oct 2018 20:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-10-07/rust-procon/</guid>
-      <description>&lt;p&gt;競プロで Rust を使い始めて半年が過ぎました。いまの私のプラクティスを羅列的に書いていきます。&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -621,14 +602,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Sun, 30 Sep 2018 23:59:59 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-09-30/diary/</guid>
-      <description>&lt;ul&gt;
-&lt;li&gt;校正の手間を省くため、なるべく箇条書きでやっていく
-&lt;ul&gt;
-&lt;li&gt;通常の文章を書く頭は README と競プロ参戦記に使う&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Twitter ではなく、まとまったものを書いていきたい&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -637,46 +611,16 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Mon, 03 Sep 2018 23:59:34 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/</guid>
-      <description>&lt;p&gt;ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして &lt;a href=&#34;https://github.com/dotnet/BenchmarkDotNet&#34;&gt;BenchmarkDotNet&lt;/a&gt; があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。&lt;/p&gt;
-&lt;h2 id=&#34;1-要約&#34;&gt;1. 要約&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;書き出し
-&lt;ul&gt;
-&lt;li&gt;ベンチマークは意外と大変という話について軽く触れる&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;導入
-&lt;ul&gt;
-&lt;li&gt;本稿の構成&lt;/li&gt;
-&lt;li&gt;開発環境の明記&lt;/li&gt;
-&lt;li&gt;BenchmarkDotNet のサンプル&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;例
-&lt;ul&gt;
-&lt;li&gt;一例として「素数判定」を実装する&lt;/li&gt;
-&lt;li&gt;素数判定の簡単なベンチマークを書く&lt;/li&gt;
-&lt;li&gt;ベンチマークを実行する&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;おまけ
-&lt;ul&gt;
-&lt;li&gt;軽くて速いベンチマークに設定する&lt;/li&gt;
-&lt;li&gt;ベンチマークを watch する&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description></description>
     </item>
     
     <item>
-      <title>Rustのクロージャで再帰してみた</title>
+      <title>Rustのクロージャで再帰してみた (ダメだった)</title>
       <link>https://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/</link>
       <pubDate>Thu, 28 Jun 2018 23:17:41 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/</guid>
-      <description>&lt;p&gt;クロージャを再帰呼び出しする方法を考えました。&lt;/p&gt;
-&lt;p&gt;競技プログラミングではローカル変数を書き換えながら再帰する処理がよく出てきます。しかし Rust でそれを書こうとするとやや冗長になりがちです。&lt;/p&gt;
-&lt;p&gt;本稿では小さなヘルパーを用意して記述を簡略化することを試みました。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://qiita.com/vain0x/items/90c9580aa34926160ac1&#34;&gt;Qiita&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -694,11 +638,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Tue, 30 Jan 2018 22:40:38 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-30/commit-message-prefixes/</guid>
-      <description>&lt;p&gt;Qiita で &lt;a href=&#34;https://qiita.com/numanomanu/items/45dd285b286a1f7280ed&#34;&gt;コミットメッセージに 「プレフィックス」 をつける&lt;/a&gt; というアイディアが紹介されていて、その効用の一つとして挙げられている:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;プレフィックスを意識しながら順序立てて機能を作成する癖が身につく&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;という点が、試験運用していて実際に魅力的だと感じた。&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -707,14 +647,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Sun, 28 Jan 2018 17:53:43 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/</guid>
-      <description>&lt;p&gt;普段づかいする環境をWindowsからUbuntuに移した話。&lt;/p&gt;
-&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;もともと Windows 10 だった。&lt;/li&gt;
-&lt;li&gt;Linux が便利らしいので、やってみたかった。&lt;/li&gt;
-&lt;li&gt;調べてみたらかなり試す価値がありそうだった。&lt;/li&gt;
-&lt;li&gt;安めのパソコンを買って試しているが、あまり問題がない。&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;p&gt;普段づかいする環境をWindowsからUbuntuに移した話。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -750,8 +683,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Mon, 04 Dec 2017 00:31:05 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/</guid>
-      <description>&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
-&lt;p&gt;C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -760,8 +692,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Sat, 20 May 2017 20:00:09 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/</guid>
-      <description>&lt;p&gt;主張: &lt;code&gt;IReadOnlyList&amp;lt;_&amp;gt;&lt;/code&gt; を実装するクラスは、 &lt;code&gt;IList&amp;lt;_&amp;gt;&lt;/code&gt; と &lt;code&gt;IList&lt;/code&gt; も実装したほうがいい。&lt;/p&gt;
-&lt;p&gt;理由は2つあります。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -770,7 +701,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Wed, 05 Apr 2017 15:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-04-05/switch-on-await/</guid>
-      <description>&lt;p&gt;awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -779,8 +710,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Tue, 21 Mar 2017 13:39:33 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-21/enumerable-test/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://github.com/vain0x/EnumerableTest&#34;&gt;EnumerableTest&lt;/a&gt; という .NET 向けの単体テストフレームワークを作成しました。&lt;/p&gt;
-&lt;p&gt;具体的な使い方は &lt;a href=&#34;https://vain0x.github.io/EnumerableTest/articles/tutorials/walk-around.html&#34;&gt;チュートリアル&lt;/a&gt; を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -789,7 +719,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Fri, 10 Mar 2017 14:42:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/</guid>
-      <description>&lt;p&gt;WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。&lt;a href=&#34;https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock&#34;&gt;うまくいかない設計に基づく実装をけっこう書いてしまった&lt;/a&gt; ので、その供養でもあります。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -819,14 +749,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-12-25/reports-with-wpf/</guid>
       <description>&lt;p&gt;※これは &lt;a href=&#34;http://qiita.com/advent-calendar/2016/xaml&#34;&gt;XAML Advent Calendar 2016&lt;/a&gt; の25日目の記事です。&lt;/p&gt;
-&lt;p&gt;WPF/XAML を使って帳票のデザインから印刷までやってみたという話です。ソースコードが GitHub にありますので、それと同様にやればできます。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/vain0x/VainZero.WpfReportPrinting&#34;&gt;vain0x/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;XAML というマークアップ言語で帳票のデザインから印刷までできれば、たくさんの利点がある。&lt;/li&gt;
-&lt;li&gt;WPF アプリケーションで帳票のプレビューや印刷を行うサンプルを作った。&lt;/li&gt;
-&lt;li&gt;ページネーションが大変だったけどなんとかなった。&lt;/li&gt;
-&lt;/ul&gt;</description>
+&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -835,7 +758,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Wed, 21 Dec 2016 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-12-21/lists-with-no-alloc-enumerator/</guid>
-      <description>&lt;p&gt;IReadOnlyListの列挙時にヒープ領域の使用を避ける方法を紹介します。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -844,14 +767,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Wed, 07 Dec 2016 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-12-07/why-git-edit/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/vain0x/GitEdit&#34;&gt;GitEdit&lt;/a&gt; とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。&lt;/p&gt;
-&lt;h2 id=&#34;要約&#34;&gt;要約&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;vi を覚えるのはめんどくさい。&lt;/li&gt;
-&lt;li&gt;Git 用のテキストエディターとして使うための条件が意外と多い。&lt;/li&gt;
-&lt;li&gt;結局、ふさわしいエディターが見つからなかったので自作した。&lt;/li&gt;
-&lt;li&gt;ぜひ&lt;a href=&#34;https://github.com/vain0x/GitEdit/releases/latest&#34;&gt;ダウンロード&lt;/a&gt;して下さい。&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -860,7 +776,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Thu, 18 Aug 2016 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-08-18/null-object-patterns/</guid>
-      <description>&lt;p&gt;デザインパターン「Nullオブジェクト」について解説します。加えて、後半でNullオブジェクトパターンに関する私見を述べます。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -869,24 +785,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Tue, 10 May 2016 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/</guid>
-      <description>&lt;p&gt;対象読者: パッケージマネージャのないスクリプト言語のユーザー全般 (HSP3とか)&lt;/p&gt;
-&lt;h2 id=&#34;導入&#34;&gt;導入&lt;/h2&gt;
-&lt;p&gt;モジュールと呼ばれるスクリプトは汎用的なため、使い回しが可能なわけですが、いかにして使い回すかはちょっとした問題です。
-最初に思いつきそうな:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;スクリプトが必要になるたびに、ファイルをコピーを作成して使う。(コピペ法)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;という方法だと、例えばモジュールにバグがあった場合などにモジュールを書き換えた後、それらのコピーを上書きして回ることになります。
-めんどうですね。&lt;/p&gt;
-&lt;p&gt;そのため:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;ファイルをまとめておいておき、それを直接 #include して使う。 (共有法)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;というようにしている人も少なくないでしょう。&lt;/p&gt;
-&lt;p&gt;しかし、これにも少し問題があります。
-スクリプトを配布するときに、どのファイルが必要なのか分からなくなるのです。
-単純に「#include されているファイル」を集めるだけでは、「あるモジュールが他のモジュールを使用している」といった状況には対処できません。&lt;/p&gt;
-&lt;p&gt;※不要なものも全部いっしょくたにして同梱してしまう、という富豪的な方法もあります。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
     </item>
     
   </channel>

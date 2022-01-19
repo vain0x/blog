@@ -33,9 +33,7 @@
       <pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2021-04-24/shared-fields-in-discriminated-unions/</guid>
-      <description>&lt;p&gt;判別共用体のすべてのバリアントに同じデータを持たせたいことがあるが、F# だとめんどい。
-TypeScriptだと楽にできて嬉しい。
-処理系の実装方針を考えてみたが、利用頻度のわりに量が多い気がしてきた、という話。&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>

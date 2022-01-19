@@ -9,15 +9,7 @@
 
   <title>プログラミング言語の構文とセミコロン - ベインのブログ</title>
   <meta name="description" content="C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
-Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。
-
-C言語の構文とセミコロンが必須な箇所はどこか
-JavaScriptのセミコロン省略により生じた問題とは何か
-Goのセミコロン省略ルールはどう定められているか
-Haskellのレイアウト依存構文はセミコロンの省略にどう生かされているか
-Rustの構文からセミコロンを取り除くとしたらどんな問題が生じるか
-F# のリストがセミコロン区切りである利点と欠点
-">
+Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -66,7 +58,7 @@ F# のリストがセミコロン区切りである利点と欠点
     "name" : "ベイン"
   },
   "headline": "プログラミング言語の構文とセミコロン",
-  "description" : "C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。 Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。\n C言語の構文とセミコロンが必須な箇所はどこか JavaScriptのセミコロン省略により生じた問題とは何か Goのセミコロン省略ルールはどう定められているか Haskellのレイアウト依存構文はセミコロンの省略にどう生かされているか Rustの構文からセミコロンを取り除くとしたらどんな問題が生じるか F# のリストがセミコロン区切りである利点と欠点 ",
+  "description" : "C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。 Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。\n",
   "inLanguage" : "ja",
   "wordCount":  444 ,
   "datePublished" : "2021-03-21T00:00:00",
@@ -89,32 +81,19 @@ F# のリストがセミコロン区切りである利点と欠点
 
 <meta property="og:title" content="プログラミング言語の構文とセミコロン" />
 <meta property="og:description" content="C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
-Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。
-
-C言語の構文とセミコロンが必須な箇所はどこか
-JavaScriptのセミコロン省略により生じた問題とは何か
-Goのセミコロン省略ルールはどう定められているか
-Haskellのレイアウト依存構文はセミコロンの省略にどう生かされているか
-Rustの構文からセミコロンを取り除くとしたらどんな問題が生じるか
-F# のリストがセミコロン区切りである利点と欠点
-">
+Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。">
 <meta property="og:url" content="https://vain0x.github.io/blog/2021-03-21/semicolon-syntax/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
   <meta name="twitter:title" content="プログラミング言語の構文とセミコロン" />
   <meta name="twitter:description" content="C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
-Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。
-
-C言語の構文とセミコロンが必須な箇所はどこか
-JavaScriptのセミコロン省略により生じた問題とは何か
-Goのセミコロン省略ルールはどう定められているか
-Haskellのレイアウト依存構文はセミコロンの省略にどう生 …">
+Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.91.2" />
+  <meta name="generator" content="Hugo 0.92.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -537,7 +516,7 @@ Rustの「ブロック式」はCの複文と同様に文の並びを <code>{}</c
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.92.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

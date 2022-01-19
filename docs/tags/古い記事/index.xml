@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>古い記事 on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/tags/%E5%8F%A4%E3%81%84%E8%A8%98%E4%BA%8B/</link>
+    <description>Recent content in 古い記事 on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
+    <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
+    <lastBuildDate>Sun, 07 Oct 2018 20:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/tags/%E5%8F%A4%E3%81%84%E8%A8%98%E4%BA%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rustで競プロするときのプラクティス [2018秋]</title>
+      <link>https://vain0x.github.io/blog/2018-10-07/rust-procon/</link>
+      <pubDate>Sun, 07 Oct 2018 20:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2018-10-07/rust-procon/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[C#] コンストラクタの自動生成 #1</title>
+      <link>https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/</link>
+      <pubDate>Mon, 04 Dec 2017 00:31:05 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>IReadOnlyListがIListを実装すべき理由</title>
+      <link>https://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/</link>
+      <pubDate>Sat, 20 May 2017 20:00:09 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>awaitでスレッドを切り替える</title>
+      <link>https://vain0x.github.io/blog/2017-04-05/switch-on-await/</link>
+      <pubDate>Wed, 05 Apr 2017 15:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2017-04-05/switch-on-await/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話</title>
+      <link>https://vain0x.github.io/blog/2017-03-21/enumerable-test/</link>
+      <pubDate>Tue, 21 Mar 2017 13:39:33 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2017-03-21/enumerable-test/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>観測可能なコレクションの設計考察</title>
+      <link>https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/</link>
+      <pubDate>Fri, 10 Mar 2017 14:42:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>WPF/XAMLで帳票のデザイン・印刷を行う</title>
+      <link>https://vain0x.github.io/blog/2016-12-25/reports-with-wpf/</link>
+      <pubDate>Sun, 25 Dec 2016 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2016-12-25/reports-with-wpf/</guid>
+      <description>&lt;p&gt;※これは &lt;a href=&#34;http://qiita.com/advent-calendar/2016/xaml&#34;&gt;XAML Advent Calendar 2016&lt;/a&gt; の25日目の記事です。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>GitEditを使うべき十の理由</title>
+      <link>https://vain0x.github.io/blog/2016-12-07/why-git-edit/</link>
+      <pubDate>Wed, 07 Dec 2016 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2016-12-07/why-git-edit/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>PaketとGistで始める簡単パッケージ管理</title>
+      <link>https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/</link>
+      <pubDate>Tue, 10 May 2016 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;追記&lt;/strong&gt;: 現在は推奨していません。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

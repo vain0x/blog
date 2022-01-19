@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <title>観測可能なコレクションの設計考察 - ベインのブログ</title>
-  <meta name="description" content="WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。うまくいかない設計に基づく実装をけっこう書いてしまった ので、その供養でもあります。">
+  <meta name="description" content="追記: 現在は推奨していません。">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -57,13 +57,13 @@
     "name" : "ベイン"
   },
   "headline": "観測可能なコレクションの設計考察",
-  "description" : "WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。うまくいかない設計に基づく実装をけっこう書いてしまった ので、その供養でもあります。\n",
+  "description" : "追記: 現在は推奨していません。\n",
   "inLanguage" : "ja",
-  "wordCount":  408 ,
+  "wordCount":  410 ,
   "datePublished" : "2017-03-10T14:42:00",
   "dateModified" : "2017-03-10T14:42:00",
   "image" : "https:\/\/vain0x.github.io\/blog",
-  "keywords" : [ "CSharp, WPF, 非同期" ],
+  "keywords" : [ "古い記事" ],
   "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2017-03-10\/observable-collection-design-notes\/",
   "publisher" : {
     "@type": "Organization",
@@ -79,18 +79,18 @@
 </script>
 
 <meta property="og:title" content="観測可能なコレクションの設計考察" />
-<meta property="og:description" content="WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。うまくいかない設計に基づく実装をけっこう書いてしまった ので、その供養でもあります。">
+<meta property="og:description" content="追記: 現在は推奨していません。">
 <meta property="og:url" content="https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
   <meta name="twitter:title" content="観測可能なコレクションの設計考察" />
-  <meta name="twitter:description" content="WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。うまくいかない設計に基づく実装をけっこう書いてしまった ので、その供養でもあります。">
+  <meta name="twitter:description" content="追記: 現在は推奨していません。">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.91.2" />
+  <meta name="generator" content="Hugo 0.92.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -190,7 +190,8 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。<a href="https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock">うまくいかない設計に基づく実装をけっこう書いてしまった</a> ので、その供養でもあります。</p>
+        <p><strong>追記</strong>: 現在は推奨していません。</p>
+<p>WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。<a href="https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock">うまくいかない設計に基づく実装をけっこう書いてしまった</a> ので、その供養でもあります。</p>
 <h2 id="背景-wpf-のリストボックス">背景: WPF のリストボックス</h2>
 <p><strong>WPF</strong> とは、Windows で動くネイティブ GUI アプリケーションを作成するためのフレームワークの1つです。</p>
 <p>WPF ではリストボックスのように複数の項目を含むコントロールを表示する際、バインディングという機能を用いて、次のように実装します。まず ObservableCollection のインスタンスを用意します。これはある機能を持つ、動的なリストです。要素は普通の文字列やオブジェクトでOK。このコレクションを (Binding オブジェクトでラップして) リストボックスの ItemsSource プロパティに設定すると、リストボックスに a, b, c という3つの項目が表示されます。興味深いのはここからで、ObservableCollection に要素を追加・削除すると、リストボックスの対応する項目も連動して追加・削除されるのです。</p>
@@ -344,11 +345,7 @@
         
           <div class="blog-tags">
             
-              <a href="https://vain0x.github.io/blog/tags/csharp/">CSharp</a>&nbsp;
-            
-              <a href="https://vain0x.github.io/blog/tags/wpf/">WPF</a>&nbsp;
-            
-              <a href="https://vain0x.github.io/blog/tags/%E9%9D%9E%E5%90%8C%E6%9C%9F/">非同期</a>&nbsp;
+              <a href="https://vain0x.github.io/blog/tags/%E5%8F%A4%E3%81%84%E8%A8%98%E4%BA%8B/">古い記事</a>&nbsp;
             
           </div>
         
@@ -363,15 +360,15 @@
                   <ul>
                 
                 
-                    <li><a href="/blog/2021-06-26/value-vs-storage/">値とストレージの区別</a></li>
-                
-                    <li><a href="/blog/2017-12-23/async-function-and-exception/">async関数が例外を捕捉する挙動について</a></li>
+                    <li><a href="/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a></li>
                 
                     <li><a href="/blog/2017-12-04/csharp-constructor-generation-01/">[C#] コンストラクタの自動生成 #1</a></li>
                 
                     <li><a href="/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/">IReadOnlyListがIListを実装すべき理由</a></li>
                 
                     <li><a href="/blog/2017-04-05/switch-on-await/">awaitでスレッドを切り替える</a></li>
+                
+                    <li><a href="/blog/2017-03-21/enumerable-test/">EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話</a></li>
                 
               </ul>
 
@@ -471,7 +468,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.91.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.92.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

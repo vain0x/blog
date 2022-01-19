@@ -24,9 +24,7 @@
       <pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2021-04-24/shared-fields-in-discriminated-unions/</guid>
-      <description>&lt;p&gt;判別共用体のすべてのバリアントに同じデータを持たせたいことがあるが、F# だとめんどい。
-TypeScriptだと楽にできて嬉しい。
-処理系の実装方針を考えてみたが、利用頻度のわりに量が多い気がしてきた、という話。&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -36,15 +34,7 @@ TypeScriptだと楽にできて嬉しい。
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2021-03-21/semicolon-syntax/</guid>
       <description>&lt;p&gt;C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
-Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;C言語の構文とセミコロンが必須な箇所はどこか&lt;/li&gt;
-&lt;li&gt;JavaScriptのセミコロン省略により生じた問題とは何か&lt;/li&gt;
-&lt;li&gt;Goのセミコロン省略ルールはどう定められているか&lt;/li&gt;
-&lt;li&gt;Haskellのレイアウト依存構文はセミコロンの省略にどう生かされているか&lt;/li&gt;
-&lt;li&gt;Rustの構文からセミコロンを取り除くとしたらどんな問題が生じるか&lt;/li&gt;
-&lt;li&gt;F# のリストがセミコロン区切りである利点と欠点&lt;/li&gt;
-&lt;/ul&gt;</description>
+Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。&lt;/p&gt;</description>
     </item>
     
     <item>
