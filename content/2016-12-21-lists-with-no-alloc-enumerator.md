@@ -65,7 +65,7 @@ void G(IReadOnlyList<int> xs)
 ### ラッパーで解決
 上記の2つのコードの違いは列挙方法の違いだけなので、列挙子を使って抽象化できます。
 
-列挙子の実装例はここにあります: [StructEnumerator.cs](https://github.com/DotNetKit/DotNetKit.StructEnumerator/blob/v0.1.1/DotNetKit.StructEnumerator/Collections/StructEnumerator.cs)
+列挙子の実装例はここにあります: [StructEnumerator.cs](https://github.com/vain0x/playground/blob/4cafe15dd57d0df68c8bc9c8864b6f6fcf7dbba5/2016-12-12-struct-enumerable/DotNetKit.StructEnumerator/Collections/StructEnumerator.cs)
 
 実際に使ってみましょう。例として、First メソッドと同じものを作ってみます。
 
