@@ -1,12 +1,17 @@
 ---
 title: GitEditを使うべき十の理由
 tags:
-  - Git
-  - テキストエディタ
+    - 古い記事
+#   - Git
+#   - テキストエディタ
 type: "post"
 date: 2016-12-07 00:00:00
 url: 2016-12-07/why-git-edit
 ---
+
+**追記**: 現在は推奨していません。
+
+<!--more-->
 
 [GitEdit](https://github.com/vain0x/GitEdit) とは、Git for Windows 用のエディターとして最適化されたテキストエディターです。
 
@@ -15,8 +20,6 @@ url: 2016-12-07/why-git-edit
 - Git 用のテキストエディターとして使うための条件が意外と多い。
 - 結局、ふさわしいエディターが見つからなかったので自作した。
 - ぜひ[ダウンロード](https://github.com/vain0x/GitEdit/releases/latest)して下さい。
-
-<!--more-->
 
 ## 十の理由
 ### 1. 軽量

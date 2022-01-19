@@ -1,18 +1,21 @@
 ---
 title: IReadOnlyListがIListを実装すべき理由
 tags:
-  - CSharp
-  - .NET
+    - 古い記事
+#   - CSharp
+#   - .NET
 type: "post"
 date: 2017-05-20 20:00:09
 url: 2017-05-20/why-ireadonlylist-should-implement-ilist
 ---
 
+**追記**: 現在は推奨していません。
+
+<!--more-->
+
 主張: ``IReadOnlyList<_>`` を実装するクラスは、 ``IList<_>`` と ``IList`` も実装したほうがいい。
 
 理由は2つあります。
-
-<!--more-->
 
 ## 理由1: IEnumerable 拡張メソッド
 1つ目の理由は、``IEnumerable<_>`` に対する拡張メソッドが ``IReadOnlyList<_>`` ではなく ``IList<_>`` 用に最適化されているからです。

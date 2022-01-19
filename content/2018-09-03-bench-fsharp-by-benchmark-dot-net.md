@@ -8,6 +8,7 @@ date: 2018-09-03 23:59:34
 url: 2018-09-03/bench-fsharp-by-benchmark-dot-net
 ---
 
+<!--more-->
 
 ベンチマークをとるのは難しい作業です。それらの作業を担う便利なライブラリーとして [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) があります。本稿では、これを使ってベンチマークをとる例をやっていき、 minimum viable introduction (実用最低限の導入) となることを目指します。
 
@@ -26,8 +27,6 @@ url: 2018-09-03/bench-fsharp-by-benchmark-dot-net
 - おまけ
     - 軽くて速いベンチマークに設定する
     - ベンチマークを watch する
-
-<!--more-->
 
 ## 2. 開発環境
 

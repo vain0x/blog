@@ -7,9 +7,11 @@ date: 2018-12-16 10:34:43
 url: 2018-12-16/siku-siku-primes
 ---
 
-シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。
+[Qiita](https://qiita.com/vain0x/items/8f8b6effb32cd68c22f3)
 
 <!--more-->
+
+シクシク素数列アドベントカレンダーという、単一の問題を毎日異なる言語で解く催しがあるみたいです。F# での参加者はいないみたいなので、カレンダー不参加ですがやってみます。
 
 [シクシク素数列 Advent Calendar 2018 - Qiita](https://qiita.com/advent-calendar/2018/4949prime-series)
 
