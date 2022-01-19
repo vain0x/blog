@@ -4,14 +4,17 @@ type: "post"
 date: 2017-03-10 14:42:00
 url: 2017-03-10/observable-collection-design-notes
 tags:
-  - CSharp
-  - WPF
-  - 非同期
+    - 古い記事
+#   - CSharp
+#   - WPF
+#   - 非同期
 ---
 
-WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。[うまくいかない設計に基づく実装をけっこう書いてしまった](https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock) ので、その供養でもあります。
+**追記**: 現在は推奨していません。
 
 <!--more-->
+
+WPF 用のコレクションを設計しようとしてぐだぐだ考えた話をします。[うまくいかない設計に基づく実装をけっこう書いてしまった](https://github.com/DotNetKit/DotNetKit.Reactive/tree/z_observable_list_rwlock) ので、その供養でもあります。
 
 ## 背景: WPF のリストボックス
 **WPF** とは、Windows で動くネイティブ GUI アプリケーションを作成するためのフレームワークの1つです。

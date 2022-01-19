@@ -1,16 +1,19 @@
 ---
 title: awaitでスレッドを切り替える
 tags:
-  - CSharp
-  - 非同期
+    - 古い記事
+#   - CSharp
+#   - 非同期
 type: "post"
 date: 2017-04-05 15:00:00
 url: 2017-04-05/switch-on-await
 ---
 
-awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。
+**追記**: 現在は推奨していません。
 
 <!--more-->
+
+awaitでスレッドを切り替えるための簡単なヘルパーメソッドを作ったので紹介します。
 
 実装とサンプルはここにあります: [await-for-context-switching.cs](https://gist.github.com/vain0x/fd5880b77d019cdb91d4a58dd52813a2)
 

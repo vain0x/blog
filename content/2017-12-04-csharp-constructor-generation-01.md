@@ -1,17 +1,20 @@
 ---
 title: '[C#] コンストラクタの自動生成 #1'
 tags:
-  - CSharp
-  - Essay
+    - 古い記事
+#   - CSharp
+#   - Essay
 type: "post"
 date: 2017-12-04 00:31:05
 url: 2017-12-04/csharp-constructor-generation-01
 ---
 
-## 要約
-C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。
+**追記**: 現在は推奨していません。
 
 <!--more-->
+
+## 要約
+C# のフィールドや自動実装プロパティーの定義から、完全コンストラクターを自動生成したい。
 
 ## 例
 - 引数の値をフィールドやプロパティーに代入する処理だけからなるコンストラクターを **完全コンストラクター** と呼ぶ。
@@ -62,7 +65,7 @@ Visual Studio 2017 では、標準で完全コンストラクターを生成す�
 
 どのフィールド・プロパティーについて代入処理を生成するかを選べるので便利。また、同じ方法で、同値性の定義なども生成できる。とはいえ、メンバーが追加・削除されたときの自動修正にまでは対応していない。
 
-### 自作/[RecordTypeAnalyzer](https://github.com/vain0x/RecordTypeAnalyzer)
+### 自作/[RecordTypeAnalyzer](httpshttps://github.com/vain0x/playground/tree/4cafe15dd57d0df68c8bc9c8864b6f6fcf7dbba5/2017-07-26-record-type-analyzer)
 困ったときは自作。
 
 完全コンストラクターやコピーコンストラクタ―のみならず、等価性や比較の自動生成など、 F# のレコード型が備えるような、さまざまな機能を自動生成し、さらに定義の変更に合わせて自動修正する機能を備えたアナライザー、というのを目指した。
@@ -71,7 +74,7 @@ Visual Studio 2017 では、標準で完全コンストラクターを生成す�
 
 やや詰め込みすぎて、アナライザー初心者にはつらくなってきた。そこで、いったん仕様を縮小して動くものを作ることにした。いま思うと、この時点で「RecordConstructorGenerator を改造する」方向に進まなかったのは悪い癖だろう。
 
-### 自作/[BoilerplateConstructorGenerator](https://github.com/vain0x/BoilerplateConstructorGenerator)
+### 自作/[BoilerplateConstructorGenerator](https://github.com/vain0x/playground/tree/4cafe15dd57d0df68c8bc9c8864b6f6fcf7dbba5/2017-08-16-boilerplate-ctor-gen)
 
 完全コンストラクターやコピーコンストラクタ―の自動生成と、定義が変わったときの自動修正機能を備えたアナライザー、というのを目指した。
 

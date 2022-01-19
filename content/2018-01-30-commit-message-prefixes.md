@@ -8,13 +8,13 @@ date: 2018-01-30 22:40:38
 url: 2018-01-30/commit-message-prefixes
 ---
 
+<!--more-->
+
 Qiita で [コミットメッセージに 「プレフィックス」 をつける](https://qiita.com/numanomanu/items/45dd285b286a1f7280ed) というアイディアが紹介されていて、その効用の一つとして挙げられている:
 
 > プレフィックスを意識しながら順序立てて機能を作成する癖が身につく
 
 という点が、試験運用していて実際に魅力的だと感じた。
-
-<!--more-->
 
 関連して、どうやら [テキストエディター Atom のリポジトリーではコミットメッセージに絵文字をつけるようにしている](http://pronama.azurewebsites.net/2015/06/20/github-emoji-commit-message/) らしい。
 

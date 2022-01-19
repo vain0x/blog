@@ -4,23 +4,26 @@ type: "post"
 date: 2016-12-25 00:00:00
 url: 2016-12-25/reports-with-wpf
 tags:
-  - CSharp
-  - WPF
-  - 印刷
+    - 古い記事
+#   - CSharp
+#   - WPF
+#   - 印刷
 ---
 
 ※これは [XAML Advent Calendar 2016](http://qiita.com/advent-calendar/2016/xaml) の25日目の記事です。
 
+**追記**: 現在は推奨していません。
+
+<!--more-->
+
 WPF/XAML を使って帳票のデザインから印刷までやってみたという話です。ソースコードが GitHub にありますので、それと同様にやればできます。
 
-[vain0x/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル](https://github.com/vain0x/VainZero.WpfReportPrinting)
+[vain0x/wpf-printing](https://github.com/vain0x/wpf-printing)
 
 ## 要約
 - XAML というマークアップ言語で帳票のデザインから印刷までできれば、たくさんの利点がある。
 - WPF アプリケーションで帳票のプレビューや印刷を行うサンプルを作った。
 - ページネーションが大変だったけどなんとかなった。
-
-<!--more-->
 
 ## 前提知識
 XAML、WPF について簡単に説明します。
@@ -244,7 +247,7 @@ using System.Printing;
 
 XAML は結構な分量なので省略します。表の部分には、 ~~スタイルをガチガチに決めた DataGrid~~ **HeaderedGrid という DataGrid のようなもの** [^DataGrid_issue]を使用しています。
 
-[^DataGrid_issue]: 一部のプリンターでは、DataGrid や ListView のレイアウトが乱れてしまう、という問題があるようです。これについては調査中です。DataGrid を使用していたころのバージョンは、タグ [v1.2.0](https://github.com/vain0x/VainZero.WpfReportPrinting/tree/v1.2.0) にあります。
+[^DataGrid_issue]: 一部のプリンターでは、DataGrid や ListView のレイアウトが乱れてしまう、という問題があるようです。
 
 簡単な帳票との差は、Paginate メソッドの実装だけです。
 
@@ -262,13 +265,12 @@ XAML は結構な分量なので省略します。表の部分には、 ~~スタ
 0. 前のページに含まれる行を非表示にする。
 0. 次のページに表示すべき行だけが表示された状態になるので、繰り返し。
 
-実際のソースコードはやや長いので、最初に張ったリンクから見てもらえればと思います。帳票の定義は Demo プロジェクトの [Reports/OrderForm.cs](https://github.com/vain0x/VainZero.WpfReportPrinting/blob/v1.3.0/VainZero.WpfReportPrinting.Demo/Reports/OrderForm.cs) の中にあります。ページネーションは、 Core プロジェクトの [Windows/Documents/ISingleHeaderedGridPage.cs](https://github.com/vain0x/VainZero.WpfReportPrinting/blob/v1.3.0/VainZero.WpfReportPrinting.Core/Windows/Documents/ISingleHeaderedGridPage.cs) にあります。
+実際のソースコードはやや長いので、最初に張ったリンクから見てもらえればと思います。帳票の定義は Demo プロジェクトの [OrderForm.cs](https://github.com/vain0x/wpf-printing/blob/v1.0.0/DotNetKit.Wpf.Printing.Demo/Samples/MultipageReportSample/OrderFormPage.cs) の中にあります。ページネーションは、 Core プロジェクトの [DataGridPrintablePaginator.cs](https://github.com/vain0x/wpf-printing/blob/v1.0.0/DotNetKit.Wpf.Printing/Windows/Documents/DataGridPrintablePaginators/DataGridPrintablePaginator.cs) にあります。
 
 ## サンプルプログラムの概略
 必殺「ソースコードをごらんください」を思ったより使ってしまったので、サンプルプログラムの概略について説明します。
 
-念のためリンクを再掲します:
-[vain0x/VainZero.WpfReportPrinting: WPFで帳票を作成するサンプル](https://github.com/vain0x/VainZero.WpfReportPrinting)
+念のためリンクを再掲します: [vain0x/wpf-printing](https://github.com/vain0x/wpf-printing)
 
 ### ソリューション構成
 ソリューションは `VainZero.WpfReportPrinting.Core` と `VainZero.WpfReportPrinting.Demo` の2つのプロジェクトからなります。
@@ -320,7 +322,7 @@ public class ReactiveProperty<T>
 
 さて、プレビューアーにあるコンボボックスも同様のことに気をつければ問題ないはずです。
 
-`Previewer` のコンストラクターにある [この式](https://github.com/vain0x/VainZero.WpfReportPrinting/blob/v1.1.0/VainZero.WpfReportPrinting.Demo/Previewing/Previewer.cs#L42) は、Rx を知らないと読み解けないかもしれません。
+`Previewer` のコンストラクターにある [この式](https://github.com/vain0x/wpf-printing/blob/v1.0.0/DotNetKit.Wpf.Printing.Demo/PrintPreviewers/PrintPreviewer.cs#L70) は、Rx を知らないと読み解けないかもしれません。
 
 ```csharp
             Pages =
@@ -336,7 +338,7 @@ public class ReactiveProperty<T>
 最後に印刷ボタンですが、これは押されたとき、``Previewer.PrintCommand``→``Previewer.Print`` を経由して ``Printer.Print`` まで行き、そこからは前半で述べた感じです。FixedDocument を作って、デフォルトのプリンターを取得して、ページサイズを指定して、印刷。
 
 ## おわりに
-いかがでしたでしょうか。不明点などあればコメントないし [イシュー](https://github.com/vain0x/VainZero.WpfReportPrinting/issues) をお願いします。
+いかがでしたでしょうか。不明点などあればIssuesなどをお願いします。
 
 ## 参考リンク
 ### 帳票関連
