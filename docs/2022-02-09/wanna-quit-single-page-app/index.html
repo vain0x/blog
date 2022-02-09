@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>☁ SPAをやめたい (やめられない) - ベインのブログ</title>
+  <meta name="description" content="React &#43; TypeScript でウェブアプリを作っているけど、シングルページアプリ(SPA)をやめたい。いまはやめられない。SPAのメリットとデメリット、他の方法を軽くみてみる">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2022-02-09\/wanna-quit-single-page-app\/",
+          "name": "Spaをやめたい (やめられない)"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "ベイン"
+  },
+  "headline": "☁ SPAをやめたい (やめられない)",
+  "description" : "React \u002b TypeScript でウェブアプリを作っているけど、シングルページアプリ(SPA)をやめたい。いまはやめられない。SPAのメリットとデメリット、他の方法を軽くみてみる\n",
+  "inLanguage" : "ja",
+  "wordCount":  113 ,
+  "datePublished" : "2022-02-09T00:00:00",
+  "dateModified" : "2022-02-09T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "☁" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2022-02-09\/wanna-quit-single-page-app\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="☁ SPAをやめたい (やめられない)" />
+<meta property="og:description" content="React &#43; TypeScript でウェブアプリを作っているけど、シングルページアプリ(SPA)をやめたい。いまはやめられない。SPAのメリットとデメリット、他の方法を軽くみてみる">
+<meta property="og:url" content="https://vain0x.github.io/blog/2022-02-09/wanna-quit-single-page-app/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="☁ SPAをやめたい (やめられない)" />
+  <meta name="twitter:description" content="React &#43; TypeScript でウェブアプリを作っているけど、シングルページアプリ(SPA)をやめたい。いまはやめられない。SPAのメリットとデメリット、他の方法を軽くみてみる">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.92.1" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" />
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom top-nav-short">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
+    </div>
+
+    <div id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="GitHub" href="https://github.com/vain0x">GitHub</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="競プロ参戦記" href="https://qiita.com/search?q=%E7%AB%B6%E3%83%97%E3%83%AD%E5%8F%82%E6%88%A6%E8%A8%98&#43;user%3Avain0x&amp;sort=created">競プロ参戦記</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT" href="https://vain0x.github.io">ABOUT</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>☁ SPAをやめたい (やめられない)</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2022年2月9日に投稿
+  
+  
+  
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>React + TypeScript でウェブアプリを作っているけど、シングルページアプリ(SPA)をやめたい。いまはやめられない。SPAのメリットとデメリット、他の方法を軽くみてみる</p>
+<h2 id="spaのメリット">SPAのメリット</h2>
+<ul>
+<li>性能:
+<ul>
+<li>小さい更新が速い</li>
+<li>ページ遷移も (通常のページ移動に比べたら) 速い</li>
+</ul>
+</li>
+<li>開発効率:
+<ul>
+<li>作りやすい。普通のデスクトップアプリの感覚で作れる</li>
+<li>Next.jsを使うとライブリロードとかが自動でついてくるし、Webpackの設定などもほとんどやらなくてよい。嬉しい</li>
+</ul>
+</li>
+</ul>
+<p>なおReactでもVueでもそこまで大きな違いはなさそうだと思っている</p>
+<h2 id="spaのデメリット">SPAのデメリット</h2>
+<ul>
+<li>スタートアップ性能:
+<ul>
+<li>ページ訪問時、ライブラリのロードが重い</li>
+</ul>
+</li>
+<li>開発環境の複雑性:
+<ul>
+<li>非常に複雑</li>
+<li>普段は気にしなくていいが、問題が起こったときは内部を覗くこともある</li>
+<li>モジュールシステム (CommonJS/ESModule) はしばしばひっかかる</li>
+</ul>
+</li>
+<li>ブラウザ機能の再実装:
+<ul>
+<li>ブラウザが標準で備えてる機能を再実装している部分があり、無駄
+<ul>
+<li>履歴管理・クライアントサイドルーティング
+<ul>
+<li>(作りが甘いと / 以外に訪問できなくてブックマークが機能しなかったりリロードすると壊れたりする)</li>
+</ul>
+</li>
+<li>リンククリック時の遷移
+<ul>
+<li>(作りが甘いとミドルクリックで新しいタブが開かなかったりする)</li>
+</ul>
+</li>
+<li>スクロールのリセット・復元
+<ul>
+<li>(作りが甘いとページ遷移したのにスクロールが下のほうのままだったりする)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ブラウザ間の差異:
+<ul>
+<li>ブラウザの種類・バージョンによって挙動が異なることがある</li>
+<li>IE対応をしない場合、問題は大幅に軽減されるが、Firefox vs. Chrome だけでも問題になることがある</li>
+</ul>
+</li>
+</ul>
+<h2 id="解消しつつある問題">解消しつつある問題</h2>
+<ul>
+<li>環境構築がつらい:
+<ul>
+<li>Next.jsで満足しつつある</li>
+</ul>
+</li>
+<li>CSSがつらい:
+<ul>
+<li>TailwindCSSで満足しつつある</li>
+</ul>
+</li>
+<li>状態管理がつらい:
+<ul>
+<li>React Hooksで満足しつつある</li>
+<li>初期データの入力が難しかったが、Next.jsが勝手にやってくれることに気づいた</li>
+<li>思えばデスクトップアプリでもつらかったし従来のウェブアプリでもつらかった</li>
+</ul>
+</li>
+</ul>
+<h2 id="別案-非spaなウェブアプリ">別案: 非SPAなウェブアプリ</h2>
+<ul>
+<li>従来のHTMLを動的生成するやつ。(典型的にいえばjQueryを使うやつ)</li>
+<li>ページ遷移が遅い
+<ul>
+<li>ブラウザからするとHTML/CSS/JSをいちから読み直させられているので仕方ない</li>
+</ul>
+</li>
+<li>状態管理がめんどくさい
+<ul>
+<li>ページを移動するときの状態の持ち運び</li>
+<li>ページ内の状態の管理と反映</li>
+</ul>
+</li>
+<li>一部のページだけReactで動かすのは両方のデメリットを被るのでよくなさそう (試してはいない)</li>
+</ul>
+<p>余談: サーバーからクライアントにデータを送りこむときは <code>&lt;script data-json=&quot;{データ}&quot;&gt;&lt;/script&gt;</code> で埋め込んでおくとうまくいく。JavaScriptの動的生成はすべきでない</p>
+<h2 id="別案-ネイティブアプリ">別案: ネイティブアプリ</h2>
+<ul>
+<li>作るのも配布するのも大変そう。あまり検討していない</li>
+</ul>
+<h2 id="その他">その他</h2>
+<p>ここがよくないという意見をよくみるが、私はそんなに悪くないと思っていること:</p>
+<ul>
+<li>JavaScript
+<ul>
+<li>TypeScriptを使うといい</li>
+</ul>
+</li>
+<li>TypeScript
+<ul>
+<li>静的型がついて網羅性検査があるのでうれしい</li>
+<li>コンパイルが遅い:
+<ul>
+<li>実際遅い</li>
+<li>ビルドするとき型検査しないようにするといい</li>
+<li>バックグラウンドでtscを動かしておく
+<ul>
+<li>(バンドルと型検査を並列で行う)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>nullとundefinedを区別するのが難しい:
+<ul>
+<li>実際難しい</li>
+<li>常に片方だけ使い、可能なかぎり区別しないコードを書くといい</li>
+<li>比較は <code>x != null</code> で行う (<code>!==</code> ではなく)</li>
+<li>Next.jsにundefinedはダメといわれることがある
+<ul>
+<li>JSONに変換したときラウンドトリップしないため</li>
+<li>オブジェクトをトラバースしてundefinedをnullに書き換えるヘルパーでカバーできる</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>演算子の挙動がおかしい:
+<ul>
+<li>実際おかしい</li>
+<li><code>数値 + 文字列</code> とか</li>
+<li>文字列連結はテンプレートリテラルで書くといい</li>
+<li><code>==</code>/<code>!=</code> は使わないといい (ESLintのeqeqeqを使う)</li>
+<li>それ以外はいまのところ気をつけるしかない……
+<ul>
+<li>演算子は危険という認識</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ライブラリの型定義がたまにおかしい:
+<ul>
+<li>実際おかしい</li>
+<li>型定義を自分で書くか、型安全なファサード (safe wrapper) を挟む</li>
+</ul>
+</li>
+<li>型システムが健全でない:
+<ul>
+<li>実際健全でない</li>
+<li>インターフェイスにanyが出現しないように書くといい</li>
+<li>Rustのunsafeみたいなものだと思っておく</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags//">☁</a>&nbsp;
+            
+          </div>
+        
+
+        
+          
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://vain0x.github.io/blog/2022-01-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2022-01-31">&larr; 前ページ</a>
+            </li>
+          
+          
+        </ul>
+      
+
+      <section id="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="vain0x/blog"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2016 - 2022
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+
+          <a href="https://github.com/vain0x/blog">[GitHub repo]</a>
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.92.1</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    
+  </body>
+</html>
+

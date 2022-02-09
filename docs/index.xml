@@ -10,6 +10,15 @@
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
     <lastBuildDate>Mon, 31 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>☁ SPAをやめたい (やめられない)</title>
+      <link>https://vain0x.github.io/blog/2022-02-09/wanna-quit-single-page-app/</link>
+      <pubDate>Wed, 09 Feb 2022 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2022-02-09/wanna-quit-single-page-app/</guid>
+      <description>&lt;p&gt;React + TypeScript でウェブアプリを作っているけど、シングルページアプリ(SPA)をやめたい。いまはやめられない。SPAのメリットとデメリット、他の方法を軽くみてみる&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>近況 2022-01-31</title>
       <link>https://vain0x.github.io/blog/2022-01-31/diary/</link>
       <pubDate>Mon, 31 Jan 2022 00:00:00 +0000</pubDate>
