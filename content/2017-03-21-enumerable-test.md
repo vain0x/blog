@@ -9,7 +9,8 @@ tags:
 #   - CSharp
 #   - WPF
 #   - ユニットテスト
-#   - Essay
+#   - エッセイ
+deprecated: true
 ---
 
 **追記**: 現在は推奨していません。

@@ -7,6 +7,7 @@ tags:
 type: "post"
 date: 2017-05-20 20:00:09
 url: 2017-05-20/why-ireadonlylist-should-implement-ilist
+deprecated: true
 ---
 
 **追記**: 現在は推奨していません。

@@ -5,6 +5,7 @@ date: 2021-03-30
 url: 2021-03-30/nonexpression-syntax-in-functional-programming-language
 tags:
   - エッセイ
+  - 重箱の隅
 ---
 
 関数型プログラミング言語の構文は「すべてが式」であるという標語がしばしばみられるが、これはいいすぎ。

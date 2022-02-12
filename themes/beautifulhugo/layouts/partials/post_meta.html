@@ -11,6 +11,13 @@
   {{ if .Site.Params.wordCount }}
     &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;{{ .WordCount }}&nbsp;{{ i18n "words" }}
   {{ end }}
+  {{ with .Params.tags -}}
+  <span class="post-meta-tags">
+  {{ range . -}}
+    <a class="post-meta-tag" href="{{ $.Site.LanguagePrefix | absURL }}/tags/{{ . | urlize }}/">{{ . }}</a>
+  {{- end }}
+  </span>
+  {{- end }}
   {{- if .Site.Params.staticman -}}
     &nbsp;|&nbsp;<i class="fas fa-comment"></i>&nbsp;
     {{ $slug := replace .RelPermalink "/" "" }}

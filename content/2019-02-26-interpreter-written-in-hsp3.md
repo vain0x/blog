@@ -2,7 +2,7 @@
 title: "HSP3 でスクリプト言語の処理系を書く"
 tags:
 - 言語処理系
-- HSP3
+- Hsp3
 type: "post"
 date: 2019-02-26 22:25:00
 url: 2019-02-26/interpreter-written-in-hsp3

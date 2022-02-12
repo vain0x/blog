@@ -29,6 +29,12 @@ title = "Bitbucket"
 icon = "fab fa-bitbucket"
 
 [[social_icons]]
+id = "qiita"
+url = "https://qiita.com/%s"
+title = "Qiita"
+icon = "fab fa-qiita"
+
+[[social_icons]]
 id = "twitter"
 url = "https://twitter.com/%s"
 title = "Twitter"

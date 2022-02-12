@@ -1,7 +1,6 @@
 ---
 title: Gitで作業中の変更を安全に破棄する
 tags:
-    - バージョン管理
     - Git
     - Tips
     - WIP

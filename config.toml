@@ -20,6 +20,7 @@ email = "vainzerox@gmail.com"
 website = "https://vain0x.github.io"
 github = "vain0x"
 twitter = "vain0x"
+qiita = "vain0x"
 
 [Params]
 favicon = "https://vain0x.github.io/favicon.jpg"
@@ -28,8 +29,8 @@ showRelatedPosts = true
 since = 2016
 
 [[menu.main]]
-name = "GitHub"
-url = "https://github.com/vain0x"
+name = "記事一覧"
+url = "pages"
 weight = 1
 
 [[menu.main]]

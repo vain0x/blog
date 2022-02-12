@@ -8,6 +8,7 @@ tags:
 #   - HSP
 #   - パッケージ管理
 #   - Paket
+deprecated: true
 ---
 
 **追記**: 現在は推奨していません。

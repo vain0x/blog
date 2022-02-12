@@ -7,6 +7,7 @@ tags:
     - 古い記事
 #   - Rust
 #   - 競技プログラミング
+deprecated: true
 ---
 
 <!--more-->

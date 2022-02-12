@@ -1,4 +1,5 @@
 :root {
+  --primary-color-bright: hsl(240, 60%, 93%);
   --primary-color-light: #2e2eb6;
   --primary-color-dark: #000063;
   --primary-color: #311b92;
@@ -167,7 +168,8 @@ img {
 .navbar-custom .navbar-brand:focus ,
 .navbar-custom .nav li a:hover,
 .navbar-custom .nav li a:focus {
-  color: var(--primary-color-light);
+  color: var(--primary-color-dark);
+  background: var(--primary-color-bright);
 }
 
 .navbar-custom .navbar-brand-logo {
@@ -771,6 +773,15 @@ code, kbd, pre, samp {
     font-family: 'JetBrains Mono', 'Source Han Code JP', monospace, monospace;
 }
 
+.post-preview .post-meta-tags {
+    margin-left: 1rem;
+    display: inline-flex;
+    gap: 1rem;
+}
+.post-preview .post-meta-tag::before {
+    content: "#";
+}
+
 .blog-post blockquote {
     color: #4d4d4d; /* 色を濃くする */
     font-style: normal; /* イタリックにしない */
@@ -800,4 +811,17 @@ pre:not(.chroma) code {
     /* コードブロックに文章を書いたとき見づらいのでフォントを直す。(そもそもコードブロックに文章を書くべきでない。) */
     font-family: inherit;
     font-size: inherit;
+}
+
+.fa-qiita {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fa-qiita::after {
+    content: "Q";
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
 }
