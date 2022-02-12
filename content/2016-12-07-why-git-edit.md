@@ -7,6 +7,7 @@ tags:
 type: "post"
 date: 2016-12-07 00:00:00
 url: 2016-12-07/why-git-edit
+deprecated: true
 ---
 
 **追記**: 現在は推奨していません。

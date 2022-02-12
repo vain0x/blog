@@ -8,6 +8,7 @@ tags:
 #   - CSharp
 #   - WPF
 #   - 非同期
+deprecated: true
 ---
 
 **追記**: 現在は推奨していません。

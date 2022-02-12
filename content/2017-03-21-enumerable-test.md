@@ -10,6 +10,7 @@ tags:
 #   - WPF
 #   - ユニットテスト
 #   - Essay
+deprecated: true
 ---
 
 **追記**: 現在は推奨していません。

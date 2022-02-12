@@ -8,6 +8,7 @@ tags:
 #   - CSharp
 #   - WPF
 #   - 印刷
+deprecated: true
 ---
 
 ※これは [XAML Advent Calendar 2016](http://qiita.com/advent-calendar/2016/xaml) の25日目の記事です。

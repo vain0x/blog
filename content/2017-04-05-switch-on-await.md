@@ -7,6 +7,7 @@ tags:
 type: "post"
 date: 2017-04-05 15:00:00
 url: 2017-04-05/switch-on-await
+deprecated: true
 ---
 
 **追記**: 現在は推奨していません。

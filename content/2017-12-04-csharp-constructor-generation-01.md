@@ -7,6 +7,7 @@ tags:
 type: "post"
 date: 2017-12-04 00:31:05
 url: 2017-12-04/csharp-constructor-generation-01
+deprecated: true
 ---
 
 **追記**: 現在は推奨していません。
