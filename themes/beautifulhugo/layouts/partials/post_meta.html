@@ -14,7 +14,7 @@
   {{ with .Params.tags -}}
   <span class="post-meta-tags">
   {{ range . -}}
-    <a class="post-meta-tag" href="{{ $.Site.LanguagePrefix | absURL }}/tags/{{ . | urlize }}/">{{ . }}</a>
+    <a class="post-meta-tag" href="{{ $.Site.LanguagePrefix | absURL }}tags/{{ . | urlize }}/">{{ . }}</a>
   {{- end }}
   </span>
   {{- end }}
