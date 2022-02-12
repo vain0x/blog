@@ -1,0 +1,60 @@
+{{ define "main" }}
+<div role="main" class="container">
+  <style>
+    #posts-page .posts-list {
+      display: flex;
+      flex-flow: column nowrap;
+      line-height: 1;
+    }
+    #posts-page .entry {
+      list-style: none;
+    }
+    #posts-page .entry-date {
+      color: #666;
+    }
+    #posts-page .entry-link {
+      display: inline-block;
+      padding: 0.5rem 0;
+      font-size: 1.8rem;
+      color: #333;
+      word-break: keep-all;
+      white-space: nowrap;
+    }
+    #posts-page .entry-tag {
+      display: inline-block;
+      margin-left: 0.4rem;
+      padding-bottom: 0.4rem;
+      font-size: 1.4rem;
+      color: var(--primary-color-light);
+      word-break: keep-all;
+      white-space: nowrap;
+    }
+  </style>
+
+  <div id="posts-page" class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      {{ with .Content }}
+      <div class="well">
+        {{.}}
+      </div>
+      {{ end }}
+
+      <div class="posts-list">
+        {{ range (where .Site.Pages "Type" "post") }}
+        {{ if (not .Params.deprecated) }}
+        <li class="entry">
+          <a class="entry-link" href="{{.Permalink}}">
+            <span class="entry-date">{{.Date.Format "2006-01-02"}}&nbsp;-&nbsp;</span>{{.Title}}
+          </a>
+
+          {{ range .Params.tags }}
+          <a class="entry-tag" href="{{ $.Site.LanguagePrefix | absURL }}tags/{{ . | urlize }}/">#{{ . }}</a>
+          {{ end }}
+        </li>
+        {{ end }}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

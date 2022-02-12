@@ -28,8 +28,8 @@ showRelatedPosts = true
 since = 2016
 
 [[menu.main]]
-name = "GitHub"
-url = "https://github.com/vain0x"
+name = "記事一覧"
+url = "pages"
 weight = 1
 
 [[menu.main]]
