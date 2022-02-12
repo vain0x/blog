@@ -8,7 +8,16 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Mon, 31 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>「動的型付け」ではなく動的言語と呼びたい</title>
+      <link>https://vain0x.github.io/blog/2022-02-12/why-no-dynamically-typed/</link>
+      <pubDate>Sat, 12 Feb 2022 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2022-02-12/why-no-dynamically-typed/</guid>
+      <description>&lt;p&gt;「動的型付け言語」という表現に抵抗があるので動的言語と呼んでいる話&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>☁ SPAをやめたい (やめられない)</title>
       <link>https://vain0x.github.io/blog/2022-02-09/wanna-quit-single-page-app/</link>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>もやもや on ベインのブログ</title>
+    <link>https://vain0x.github.io/blog/tags/%E3%82%82%E3%82%84%E3%82%82%E3%82%84/</link>
+    <description>Recent content in もやもや on ベインのブログ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
+    <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
+    <lastBuildDate>Wed, 09 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/tags/%E3%82%82%E3%82%84%E3%82%82%E3%82%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>☁ SPAをやめたい (やめられない)</title>
+      <link>https://vain0x.github.io/blog/2022-02-09/wanna-quit-single-page-app/</link>
+      <pubDate>Wed, 09 Feb 2022 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2022-02-09/wanna-quit-single-page-app/</guid>
+      <description>&lt;p&gt;React + TypeScript でウェブアプリを作っているけど、シングルページアプリ(SPA)をやめたい。いまはやめられない。SPAのメリットとデメリット、他の方法を軽くみてみる&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

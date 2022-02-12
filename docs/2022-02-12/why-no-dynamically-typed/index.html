@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>「動的型付け」ではなく動的言語と呼びたい - ベインのブログ</title>
+  <meta name="description" content="「動的型付け言語」という表現に抵抗があるので動的言語と呼んでいる話">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2022-02-12\/why-no-dynamically-typed\/",
+          "name": "「動的型付け」ではなく動的言語と呼びたい"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "ベイン"
+  },
+  "headline": "「動的型付け」ではなく動的言語と呼びたい",
+  "description" : "「動的型付け言語」という表現に抵抗があるので動的言語と呼んでいる話\n",
+  "inLanguage" : "ja",
+  "wordCount":  84 ,
+  "datePublished" : "2022-02-12T00:00:00",
+  "dateModified" : "2022-02-12T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog",
+  "keywords" : [ "エッセイ, 重箱の隅" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2022-02-12\/why-no-dynamically-typed\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="「動的型付け」ではなく動的言語と呼びたい" />
+<meta property="og:description" content="「動的型付け言語」という表現に抵抗があるので動的言語と呼んでいる話">
+<meta property="og:url" content="https://vain0x.github.io/blog/2022-02-12/why-no-dynamically-typed/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="「動的型付け」ではなく動的言語と呼びたい" />
+  <meta name="twitter:description" content="「動的型付け言語」という表現に抵抗があるので動的言語と呼んでいる話">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.92.2" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" />
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom top-nav-short">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://vain0x.github.io/blog">ベインのブログ</a>
+    </div>
+
+    <div id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="記事一覧" href="/blog/pages">記事一覧</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="競プロ参戦記" href="https://qiita.com/search?q=%E7%AB%B6%E3%83%97%E3%83%AD%E5%8F%82%E6%88%A6%E8%A8%98&#43;user%3Avain0x&amp;sort=created">競プロ参戦記</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT" href="https://vain0x.github.io">ABOUT</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>「動的型付け」ではなく動的言語と呼びたい</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2022年2月12日 投稿
+  
+  
+  
+  <span class="post-meta-tags">
+  <a class="post-meta-tag" href="https://vain0x.github.io/blog/tags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">エッセイ</a><a class="post-meta-tag" href="https://vain0x.github.io/blog/tags/%E9%87%8D%E7%AE%B1%E3%81%AE%E9%9A%85/">重箱の隅</a>
+  </span>
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>「動的型付け言語」という表現に抵抗があるので動的言語と呼んでいる話</p>
+<h2 id="結論">結論</h2>
+<p>重箱の隅つつきなので結論から書く</p>
+<ul>
+<li>「動的型付け」はナンセンス</li>
+<li>「型なし言語」は通じにくい</li>
+<li>「動的言語」のほうが短いし無用なミスマッチもなくて良い</li>
+<li>おそらく「型」が指すものが人によって異なる</li>
+</ul>
+<h2 id="静的型付けの話">静的型付けの話</h2>
+<p>動的言語の話をする前に、「静的型付け」について書く。ここでは「いわゆる典型的な静的型付け言語」の話をする</p>
+<h2 id="静的型付けの背景にあると思われる考え">静的型付けの背景にあると思われる考え</h2>
+<p>静的型付けの背景には、こういう考えがあると思う:</p>
+<p>プログラム中の「変な」式はたいていプログラムの記述ミスである。例えば文字列を整数に代入する操作は何らかの誤りであることが多い。そのような「変な」記述は、実行するまでもなく、コンパイル時にエラーとして報告してくれたほうが「便利」である</p>
+<p>もちろん、文字列を整数に代入するのは「変な」式ではないという主張もありうる。例えば文字列から整数への変換を間に挟めば実行はうまくいく可能性がある。そのような式がエラーになるのは「便利」ではない、ともいえる</p>
+<p>しかし、少なくとも静的型付け言語の設計において、「変な」式はエラーになってくれたほうが「便利」であるという考えがある、はずだ</p>
+<h2 id="静的型付けの仕組みの軽い説明">静的型付けの仕組みの軽い説明</h2>
+<p>静的型付けについて軽く説明する</p>
+<p>静的型付けは、プログラムの部分式に型を対応させる工程である。そのことによって、プログラムの妥当性の検証と、振る舞いの解析を行う</p>
+<p>言語側に型付け規則というルールがあらかじめ定まっている。例えば</p>
+<ul>
+<li><code>42</code> のような整数リテラルの型はint型である</li>
+<li>x, y の型が等しいなら、式 <code>x == y</code> の型はbool型である</li>
+<li><code>if cond {} else {}</code> の中で、condの型はbool型である</li>
+</ul>
+<p>といった規則がある</p>
+<p>このような規則を順に適用していき、規則に違反している式を見つけたらエラーにする</p>
+<p>ポイントは静的型付けがあくまで構文に対する操作であり、プログラムの実行ではないこと</p>
+<h3 id="型は式につく">型は式につく</h3>
+<p>(たまに誤解されている気がするので書いておくと、) 静的型付けとは「変数」だけに型をつけるだけのことではない。すべての変数、関数、および「式」に型がつく</p>
+<p>例えば <code>int x = a + b;</code> という変数宣言があるとき、xの型がintであることだけでなく、式 <code>a + b</code> の型がintであることも重要になる</p>
+<p>もし <code>a + b</code> の型がintではなく文字列だったとする。文字列をintに代入するというのは「変な」操作であるため、型エラーにする必要がある。そのために式 <code>a + b</code> の型が何であるかを計算する必要がある</p>
+<h2 id="動的言語の話">動的言語の話</h2>
+<p>一方、動的言語では事情が異なる。ここでも「いわゆる典型的な動的言語」の話をする</p>
+<p>動的言語では、コンパイル時に型付けは行わない</p>
+<h3 id="値に実行時型情報がにつく">値に実行時型情報がにつく</h3>
+<p>動的言語のランタイムは通常、値と一緒に実行時型情報を持ち運ぶ。実行時型情報は値の種類を表す追加の情報である。JavaScriptでいう <code>typeof</code> の値のようなもの</p>
+<p><code>a + b</code> を計算するとき、ランタイムは a, b の値と実行時型情報を参照できる。それに基づいて <code>+</code> の挙動を変える。演算子のこのような振る舞いはオーバーロードに似ているが、通常の実行の一環である</p>
+<p>そういうわけで、動的言語は型付けをしないので、「動的型付け」という表現はナンセンスである</p>
+<h2 id="型なし">「型なし」</h2>
+<p>型付けをしないので、型なし (untyped) と表現することも可能である。しかしここまでに書いたような文脈を共有した上でかろうじて通じる表現、という気がする</p>
+<h2 id="何を型と呼ぶか">何を型と呼ぶか</h2>
+<p>コミュニティによって「型」が指すものが異なる気がする。静的型付けげ言語のコミュニティでは、静的型付けの工程に出現する「型」のことを型と呼んでいる。一方、動的言語のコミュニティでは「実行時型情報」のことを型と呼ぶ</p>
+<p>伝統的に「型」とは静的型付けの文脈での型を指すことと、静的型付け言語で実行時型情報を参照する機会はとても少ないので、前者だけを「型」と呼ぶのは自然に思える。一方、動的言語では静的型付けの型を指したいことはないし、実行時型情報を参照する機会が多いので、それを単に型と呼ぶと便利である</p>
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://vain0x.github.io/blog/tags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">エッセイ</a>&nbsp;
+            
+              <a href="https://vain0x.github.io/blog/tags/%E9%87%8D%E7%AE%B1%E3%81%AE%E9%9A%85/">重箱の隅</a>&nbsp;
+            
+          </div>
+        
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">関連記事</h4>
+                  <ul>
+                
+                
+                    <li><a href="/blog/2021-06-26/value-vs-storage/">値とストレージの区別</a></li>
+                
+                    <li><a href="/blog/2021-05-31/gui-navigation/">GUIアプリのルーティング・ページ遷移</a></li>
+                
+                    <li><a href="/blog/2021-04-24/shared-fields-in-discriminated-unions/">判別共用体が共通フィールドを持てたら嬉しい</a></li>
+                
+                    <li><a href="/blog/2021-03-30/nonexpression-syntax-in-functional-programming-language/">関数型プログラミング言語の構文は「すべてが式」ではない</a></li>
+                
+                    <li><a href="/blog/2021-03-29/ninja-thoughts/">ミローネ言語の開発用にビルドツールninjaを使っている感想など</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://vain0x.github.io/blog/2022-02-09/wanna-quit-single-page-app/" data-toggle="tooltip" data-placement="top" title="☁ SPAをやめたい (やめられない)">&larr; 前ページ</a>
+            </li>
+          
+          
+        </ul>
+      
+
+      <section id="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="vain0x/blog"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://qiita.com/vain0x" title="Qiita">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-qiita fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2016 - 2022
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog">ベインのブログ</a>
+          
+
+          <a href="https://github.com/vain0x/blog">[GitHub repo]</a>
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    
+  </body>
+</html>
+

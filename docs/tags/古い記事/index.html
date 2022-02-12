@@ -39,7 +39,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.1" />
+  <meta name="generator" content="Hugo 0.92.2" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -67,7 +67,7 @@
         
           
             <li>
-              <a title="GitHub" href="https://github.com/vain0x">GitHub</a>
+              <a title="記事一覧" href="/blog/pages">記事一覧</a>
             </li>
           
         
@@ -127,360 +127,1104 @@
 
 
     
-  <div class="container" role="main">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div role="main" class="container">
+  <style>
+    #posts-page .posts-list {
+      display: flex;
+      flex-flow: column nowrap;
+      line-height: 1;
+    }
+    #posts-page .entry {
+      list-style: none;
+    }
+    #posts-page .entry-date {
+      color: #666;
+    }
+    #posts-page .entry-link {
+      display: inline-block;
+      padding: 0.5rem 0;
+      font-size: 1.8rem;
+      color: #333;
+      word-break: keep-all;
+      white-space: nowrap;
+    }
+    #posts-page .entry-tag {
+      display: inline-block;
+      margin-left: 0.4rem;
+      padding-bottom: 0.4rem;
+      font-size: 1.4rem;
+      color: var(--primary-color-light);
+      word-break: keep-all;
+      white-space: nowrap;
+    }
+  </style>
+
+  <div id="posts-page" class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      
+
+      <div class="posts-list">
         
-        <div class="posts-list">
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2022-02-12/why-no-dynamically-typed/">
+            <span class="entry-date">2022-02-12&nbsp;-&nbsp;</span>「動的型付け」ではなく動的言語と呼びたい
+          </a>
+
           
-            <article class="post-preview">
-    <a href="https://vain0x.github.io/blog/2018-10-07/rust-procon/">
-        <h2 class="post-title">Rustで競プロするときのプラクティス [2018秋]</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2018年10月7日に投稿
-  
-  
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        
-        <a href="https://vain0x.github.io/blog/2018-10-07/rust-procon/" class="post-read-more">[続きを読む]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://vain0x.github.io/blog/tags/%E5%8F%A4%E3%81%84%E8%A8%98%E4%BA%8B/">古い記事</a>&nbsp;
-        
-    </div>
-    
-
-</article>
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">#エッセイ</a>
           
-            <article class="post-preview">
-    <a href="https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/">
-        <h2 class="post-title">[C#] コンストラクタの自動生成 #1</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2017年12月4日に投稿
-  
-  
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        <p><strong>追記</strong>: 現在は推奨していません。</p>
-        <a href="https://vain0x.github.io/blog/2017-12-04/csharp-constructor-generation-01/" class="post-read-more">[続きを読む]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://vain0x.github.io/blog/tags/%E5%8F%A4%E3%81%84%E8%A8%98%E4%BA%8B/">古い記事</a>&nbsp;
-        
-    </div>
-    
-
-</article>
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E9%87%8D%E7%AE%B1%E3%81%AE%E9%9A%85/">#重箱の隅</a>
           
-            <article class="post-preview">
-    <a href="https://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/">
-        <h2 class="post-title">IReadOnlyListがIListを実装すべき理由</h2>
+        </li>
         
         
         
-    </a>
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2022-02-09/wanna-quit-single-page-app/">
+            <span class="entry-date">2022-02-09&nbsp;-&nbsp;</span>☁ SPAをやめたい (やめられない)
+          </a>
 
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2017年5月20日に投稿
-  
-  
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        <p><strong>追記</strong>: 現在は推奨していません。</p>
-        <a href="https://vain0x.github.io/blog/2017-05-20/why-ireadonlylist-should-implement-ilist/" class="post-read-more">[続きを読む]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://vain0x.github.io/blog/tags/%E5%8F%A4%E3%81%84%E8%A8%98%E4%BA%8B/">古い記事</a>&nbsp;
-        
-    </div>
-    
-
-</article>
           
-            <article class="post-preview">
-    <a href="https://vain0x.github.io/blog/2017-04-05/switch-on-await/">
-        <h2 class="post-title">awaitでスレッドを切り替える</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2017年4月5日に投稿
-  
-  
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        <p><strong>追記</strong>: 現在は推奨していません。</p>
-        <a href="https://vain0x.github.io/blog/2017-04-05/switch-on-await/" class="post-read-more">[続きを読む]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://vain0x.github.io/blog/tags/%E5%8F%A4%E3%81%84%E8%A8%98%E4%BA%8B/">古い記事</a>&nbsp;
-        
-    </div>
-    
-
-</article>
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%82%82%E3%82%84%E3%82%82%E3%82%84/">#もやもや</a>
           
-            <article class="post-preview">
-    <a href="https://vain0x.github.io/blog/2017-03-21/enumerable-test/">
-        <h2 class="post-title">EnumerableTest(.NETの単体テストフレームワーク)の紹介と苦労話</h2>
+        </li>
         
         
         
-    </a>
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2022-01-31/diary/">
+            <span class="entry-date">2022-01-31&nbsp;-&nbsp;</span>近況 2022-01-31
+          </a>
 
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2017年3月21日に投稿
-  
-  
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        <p><strong>追記</strong>: 現在は推奨していません。</p>
-        <a href="https://vain0x.github.io/blog/2017-03-21/enumerable-test/" class="post-read-more">[続きを読む]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://vain0x.github.io/blog/tags/%E5%8F%A4%E3%81%84%E8%A8%98%E4%BA%8B/">古い記事</a>&nbsp;
-        
-    </div>
-    
-
-</article>
           
-            <article class="post-preview">
-    <a href="https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/">
-        <h2 class="post-title">観測可能なコレクションの設計考察</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2017年3月10日に投稿
-  
-  
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        <p><strong>追記</strong>: 現在は推奨していません。</p>
-        <a href="https://vain0x.github.io/blog/2017-03-10/observable-collection-design-notes/" class="post-read-more">[続きを読む]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://vain0x.github.io/blog/tags/%E5%8F%A4%E3%81%84%E8%A8%98%E4%BA%8B/">古い記事</a>&nbsp;
-        
-    </div>
-    
-
-</article>
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
           
-            <article class="post-preview">
-    <a href="https://vain0x.github.io/blog/2016-12-25/reports-with-wpf/">
-        <h2 class="post-title">WPF/XAMLで帳票のデザイン・印刷を行う</h2>
+        </li>
         
         
         
-    </a>
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-12-31/diary/">
+            <span class="entry-date">2021-12-31&nbsp;-&nbsp;</span>近況 2021-12-31
+          </a>
 
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2016年12月25日に投稿
-  
-  
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        <p>※これは <a href="http://qiita.com/advent-calendar/2016/xaml">XAML Advent Calendar 2016</a> の25日目の記事です。</p>
-<p><strong>追記</strong>: 現在は推奨していません。</p>
-        <a href="https://vain0x.github.io/blog/2016-12-25/reports-with-wpf/" class="post-read-more">[続きを読む]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://vain0x.github.io/blog/tags/%E5%8F%A4%E3%81%84%E8%A8%98%E4%BA%8B/">古い記事</a>&nbsp;
-        
-    </div>
-    
-
-</article>
           
-            <article class="post-preview">
-    <a href="https://vain0x.github.io/blog/2016-12-07/why-git-edit/">
-        <h2 class="post-title">GitEditを使うべき十の理由</h2>
-        
-        
-        
-    </a>
-
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2016年12月7日に投稿
-  
-  
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        <p><strong>追記</strong>: 現在は推奨していません。</p>
-        <a href="https://vain0x.github.io/blog/2016-12-07/why-git-edit/" class="post-read-more">[続きを読む]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://vain0x.github.io/blog/tags/%E5%8F%A4%E3%81%84%E8%A8%98%E4%BA%8B/">古い記事</a>&nbsp;
-        
-    </div>
-    
-
-</article>
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
           
-            <article class="post-preview">
-    <a href="https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/">
-        <h2 class="post-title">PaketとGistで始める簡単パッケージ管理</h2>
+        </li>
         
         
         
-    </a>
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-11-30/diary/">
+            <span class="entry-date">2021-11-30&nbsp;-&nbsp;</span>近況 2021-11-30
+          </a>
 
-    <p class="post-meta">
-        <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;2016年5月10日に投稿
-  
-  
-  
-  
-</span>
-
-
-    </p>
-    <div class="post-entry">
-        
-        <p><strong>追記</strong>: 現在は推奨していません。</p>
-        <a href="https://vain0x.github.io/blog/2016-05-10/package-management-with-paket-and-gist/" class="post-read-more">[続きを読む]</a>
-        
-    </div>
-
-    
-    <div class="blog-tags">
-        
-        <a href="https://vain0x.github.io/blog/tags/%E5%8F%A4%E3%81%84%E8%A8%98%E4%BA%8B/">古い記事</a>&nbsp;
-        
-    </div>
-    
-
-</article>
           
-        </div>
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-11-20/type-alias-as-link/">
+            <span class="entry-date">2021-11-20&nbsp;-&nbsp;</span>リンクのための型エイリアス
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/fsharp/">#FSharp</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-11-03/poor-mans-never-type/">
+            <span class="entry-date">2021-11-03&nbsp;-&nbsp;</span>可視性を使ってnever型もどきを作る
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/fsharp/">#FSharp</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-10-31/diary/">
+            <span class="entry-date">2021-10-31&nbsp;-&nbsp;</span>近況 2021-10-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-09-30/diary/">
+            <span class="entry-date">2021-09-30&nbsp;-&nbsp;</span>近況 2021-09-30
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/compiler-errors/">
+            <span class="entry-date">2021-09-02&nbsp;-&nbsp;</span>コンパイラでのエラーの扱い
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/">#言語設計</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-08-31/diary/">
+            <span class="entry-date">2021-08-31&nbsp;-&nbsp;</span>近況 2021-08-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-08-19/mutual-inference-problem/">
+            <span class="entry-date">2021-08-19&nbsp;-&nbsp;</span>相互再帰関数の型推論で問題になったケース
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/fsharp/">#FSharp</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/milonelang/">#MiloneLang</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-07-31/diary/">
+            <span class="entry-date">2021-07-31&nbsp;-&nbsp;</span>近況 2021-07-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-07-14/hsp3-comment-style/">
+            <span class="entry-date">2021-07-14&nbsp;-&nbsp;</span>コメントを//で書くか;で書くか
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/hsp3/">#Hsp3</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-06-30/diary/">
+            <span class="entry-date">2021-06-30&nbsp;-&nbsp;</span>近況 2021-06-30
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-06-26/value-vs-storage/">
+            <span class="entry-date">2021-06-26&nbsp;-&nbsp;</span>値とストレージの区別
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">#エッセイ</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/csharp/">#CSharp</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/fsharp/">#FSharp</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/sql/">#Sql</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-05-31/gui-navigation/">
+            <span class="entry-date">2021-05-31&nbsp;-&nbsp;</span>GUIアプリのルーティング・ページ遷移
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">#エッセイ</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/typescript/">#TypeScript</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/react/">#React</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-05-31/diary/">
+            <span class="entry-date">2021-05-31&nbsp;-&nbsp;</span>近況 2021-05-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-04-30/diary/">
+            <span class="entry-date">2021-04-30&nbsp;-&nbsp;</span>近況 2021-04-30
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-04-24/shared-fields-in-discriminated-unions/">
+            <span class="entry-date">2021-04-24&nbsp;-&nbsp;</span>判別共用体が共通フィールドを持てたら嬉しい
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">#エッセイ</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/">#言語設計</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/fsharp/">#FSharp</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/typescript/">#TypeScript</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-03-31/diary/">
+            <span class="entry-date">2021-03-31&nbsp;-&nbsp;</span>近況 2021-03-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-03-30/nonexpression-syntax-in-functional-programming-language/">
+            <span class="entry-date">2021-03-30&nbsp;-&nbsp;</span>関数型プログラミング言語の構文は「すべてが式」ではない
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">#エッセイ</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E9%87%8D%E7%AE%B1%E3%81%AE%E9%9A%85/">#重箱の隅</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-03-29/ninja-thoughts/">
+            <span class="entry-date">2021-03-29&nbsp;-&nbsp;</span>ミローネ言語の開発用にビルドツールninjaを使っている感想など
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">#エッセイ</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-03-21/semicolon-syntax/">
+            <span class="entry-date">2021-03-21&nbsp;-&nbsp;</span>プログラミング言語の構文とセミコロン
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/">#言語設計</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-02-28/diary/">
+            <span class="entry-date">2021-02-28&nbsp;-&nbsp;</span>近況 2021-02-28
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2021-01-31/diary/">
+            <span class="entry-date">2021-01-31&nbsp;-&nbsp;</span>近況 2021-01-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-12-31/diary/">
+            <span class="entry-date">2020-12-31&nbsp;-&nbsp;</span>近況 2020-12-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-11-30/diary/">
+            <span class="entry-date">2020-11-30&nbsp;-&nbsp;</span>近況 2020-11-30
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-10-31/diary/">
+            <span class="entry-date">2020-10-31&nbsp;-&nbsp;</span>近況 2020-10-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-09-30/diary/">
+            <span class="entry-date">2020-09-30&nbsp;-&nbsp;</span>近況 2020-09-30
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-09-19/complexity-from-expression-oriented-syntax/">
+            <span class="entry-date">2020-09-19&nbsp;-&nbsp;</span>式指向構文が言語処理系にもたらす複雑性
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/">#言語設計</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/rust/">#Rust</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-09-18/null-pointer-vs-reference/">
+            <span class="entry-date">2020-09-18&nbsp;-&nbsp;</span>nullはポインタだがリファレンスではない
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E8%A8%80%E8%AA%9E%E8%A8%AD%E8%A8%88/">#言語設計</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/c%E8%A8%80%E8%AA%9E/">#C言語</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-09-18/react-as-first-class-ui/">
+            <span class="entry-date">2020-09-18&nbsp;-&nbsp;</span>ReactのよさはUIが第一級なこと
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/typescript/">#TypeScript</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/react/">#React</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-09-18/date-as-string/">
+            <span class="entry-date">2020-09-18&nbsp;-&nbsp;</span>日時を文字列で持つ案 (Dateのことは忘れる)
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/typescript/">#TypeScript</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-09-18/passing-function-vs-returning-effect/">
+            <span class="entry-date">2020-09-18&nbsp;-&nbsp;</span>関数を渡すvs.エフェクトを返す
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/typescript/">#TypeScript</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E8%A8%AD%E8%A8%88/">#設計</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-09-07/type-of-map-as-record/">
+            <span class="entry-date">2020-09-07&nbsp;-&nbsp;</span>Mapをレコード代わりにするための型付け
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/typescript/">#TypeScript</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-08-31/diary/">
+            <span class="entry-date">2020-08-31&nbsp;-&nbsp;</span>近況 2020-08-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-07-31/diary/">
+            <span class="entry-date">2020-07-31&nbsp;-&nbsp;</span>近況 2020-07-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-06-30/diary/">
+            <span class="entry-date">2020-06-30&nbsp;-&nbsp;</span>近況 2020-06-30
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-05-31/diary/">
+            <span class="entry-date">2020-05-31&nbsp;-&nbsp;</span>近況 2020-05-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-02-29/diary/">
+            <span class="entry-date">2020-02-29&nbsp;-&nbsp;</span>近況 2020-02-29
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-01-31/diary/">
+            <span class="entry-date">2020-01-31&nbsp;-&nbsp;</span>近況 2020-01-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2020-01-11/after-milone-and-ginger/">
+            <span class="entry-date">2020-01-11&nbsp;-&nbsp;</span>ミローネ言語コンパイラ・HSP3開発ツール群の振り返りと今後の構想
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E7%B3%BB/">#言語処理系</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">#エッセイ</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-12-31/diary/">
+            <span class="entry-date">2019-12-31&nbsp;-&nbsp;</span>近況 2019-12-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-11-30/diary/">
+            <span class="entry-date">2019-11-30&nbsp;-&nbsp;</span>近況 2019-11-30
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-11-28/scoped-database/">
+            <span class="entry-date">2019-11-28&nbsp;-&nbsp;</span>データベースをスコープで分けてテストしやすくする
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9/">#データベース</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-10-31/diary/">
+            <span class="entry-date">2019-10-31&nbsp;-&nbsp;</span>近況 2019-10-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-09-30/diary/">
+            <span class="entry-date">2019-09-30&nbsp;-&nbsp;</span>近況 2019-09-30
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-08-31/diary/">
+            <span class="entry-date">2019-08-31&nbsp;-&nbsp;</span>近況 2019-08-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-07-31/diary/">
+            <span class="entry-date">2019-07-31&nbsp;-&nbsp;</span>近況 2019-07-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-06-30/diary/">
+            <span class="entry-date">2019-06-30&nbsp;-&nbsp;</span>近況 2019-06-30
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-05-31/diary/">
+            <span class="entry-date">2019-05-31&nbsp;-&nbsp;</span>近況 2019-05-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-04-30/diary/">
+            <span class="entry-date">2019-04-30&nbsp;-&nbsp;</span>近況 2019-04-30
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-03-31/diary/">
+            <span class="entry-date">2019-03-31&nbsp;-&nbsp;</span>近況 2019-03-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-02-27/diary/">
+            <span class="entry-date">2019-02-27&nbsp;-&nbsp;</span>近況 2019-02-27
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-02-26/interpreter-written-in-hsp3/">
+            <span class="entry-date">2019-02-26&nbsp;-&nbsp;</span>HSP3 でスクリプト言語の処理系を書く
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E7%B3%BB/">#言語処理系</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/hsp3/">#Hsp3</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-01-30/diary/">
+            <span class="entry-date">2019-01-30&nbsp;-&nbsp;</span>近況 2019-01-30
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-01-16/lsp-trial-04/">
+            <span class="entry-date">2019-01-16&nbsp;-&nbsp;</span>LSP学習記 #4 シンボルのリネーム
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/lsp%E5%AD%A6%E7%BF%92%E8%A8%98/">#LSP学習記</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E7%B3%BB/">#言語処理系</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/typescript/">#TypeScript</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/lsp/">#LSP</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-01-10/lsp-trial-03/">
+            <span class="entry-date">2019-01-10&nbsp;-&nbsp;</span>LSP学習記 #3 シンボルとハイライト
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/lsp/">#LSP</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/typescript/">#TypeScript</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E7%B3%BB/">#言語処理系</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/lsp%E5%AD%A6%E7%BF%92%E8%A8%98/">#LSP学習記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-01-07/lsp-trial-02/">
+            <span class="entry-date">2019-01-07&nbsp;-&nbsp;</span>LSP学習記 #2 クラゲ言語の構文解析
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/lsp%E5%AD%A6%E7%BF%92%E8%A8%98/">#LSP学習記</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/lsp/">#LSP</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/typescript/">#TypeScript</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E7%B3%BB/">#言語処理系</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/">
+            <span class="entry-date">2019-01-05&nbsp;-&nbsp;</span>LSP学習記 #1
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E7%B3%BB/">#言語処理系</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/typescript/">#TypeScript</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/lsp/">#LSP</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/lsp%E5%AD%A6%E7%BF%92%E8%A8%98/">#LSP学習記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2018-12-31/diary/">
+            <span class="entry-date">2018-12-31&nbsp;-&nbsp;</span>近況 2018-12-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2018-12-16/siku-siku-primes/">
+            <span class="entry-date">2018-12-16&nbsp;-&nbsp;</span>シクシク素数列を F# でやってみた
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/fsharp/">#FSharp</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2018-11-30/diary/">
+            <span class="entry-date">2018-11-30&nbsp;-&nbsp;</span>近況 2018-11-30
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2018-11-08/pi-challenge/">
+            <span class="entry-date">2018-11-08&nbsp;-&nbsp;</span>円周率チャレンジにアルゴリズムでチャレンジ
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/rust/">#Rust</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0/">#アルゴリズム</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2018-10-31/diary/">
+            <span class="entry-date">2018-10-31&nbsp;-&nbsp;</span>近況 2018-10-31
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2018-09-30/diary/">
+            <span class="entry-date">2018-09-30&nbsp;-&nbsp;</span>近況 2018-09-30
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2018-09-03/bench-fsharp-by-benchmark-dot-net/">
+            <span class="entry-date">2018-09-03&nbsp;-&nbsp;</span>F#でベンチマークをとる
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/fsharp/">#FSharp</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB/">#チュートリアル</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2018-06-28/recurse-rust-closure/">
+            <span class="entry-date">2018-06-28&nbsp;-&nbsp;</span>Rustのクロージャで再帰してみた (ダメだった)
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/rust/">#Rust</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E7%AB%B6%E6%8A%80%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/">#競技プログラミング</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2018-03-11/fsharp-record-literal-and-type-annotation/">
+            <span class="entry-date">2018-03-11&nbsp;-&nbsp;</span>[F#][小ネタ] レコードリテラルと型注釈
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/fsharp/">#FSharp</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/tips/">#Tips</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2018-01-30/commit-message-prefixes/">
+            <span class="entry-date">2018-01-30&nbsp;-&nbsp;</span>『コミットメッセージに「プレフィックス」をつける』を検討した
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">#エッセイ</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/">
+            <span class="entry-date">2018-01-28&nbsp;-&nbsp;</span>Ubuntuデスクトップを使い始めた
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E6%97%A5%E8%A8%98/">#日記</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2018-01-13/intellisense-comfortable/">
+            <span class="entry-date">2018-01-13&nbsp;-&nbsp;</span>インテリセンス快適な構文とAPI
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E/">#プログラミング言語</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">#エッセイ</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2018-01-05/sql-search-only-keys/">
+            <span class="entry-date">2018-01-05&nbsp;-&nbsp;</span>SQLの検索条件と検索項目の分離
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9/">#データベース</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/tips/">#Tips</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%82%A8%E3%83%83%E3%82%BB%E3%82%A4/">#エッセイ</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2017-12-23/async-function-and-exception/">
+            <span class="entry-date">2017-12-23&nbsp;-&nbsp;</span>async関数が例外を捕捉する挙動について
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/csharp/">#CSharp</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E9%9D%9E%E5%90%8C%E6%9C%9F/">#非同期</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/tips/">#Tips</a>
+          
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2017-03-05/breakable-loop-in-fsharp/">
+            <span class="entry-date">2017-03-05&nbsp;-&nbsp;</span>break可能なループを書こう - 関数型プログラミングのテクニック
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/fsharp/">#FSharp</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/csharp/">#CSharp</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E9%96%A2%E6%95%B0%E5%9E%8B%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/">#関数型プログラミング</a>
+          
+        </li>
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2017-02-12/friends-lang/">
+            <span class="entry-date">2017-02-12&nbsp;-&nbsp;</span>すごーい！ きみはプログラミング言語を実装できるフレンズなんだね
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E/">#プログラミング言語</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E8%A8%80%E8%AA%9E%E5%87%A6%E7%90%86%E7%B3%BB/">#言語処理系</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/prolog/">#Prolog</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%83%8D%E3%82%BF/">#ネタ</a>
+          
+        </li>
+        
+        
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2016-12-21/lists-with-no-alloc-enumerator/">
+            <span class="entry-date">2016-12-21&nbsp;-&nbsp;</span>IReadOnlyListの列挙時にヒープ領域の使用を避ける
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/csharp/">#CSharp</a>
+          
+        </li>
+        
+        
+        
+        
+        
+        <li class="entry">
+          <a class="entry-link" href="https://vain0x.github.io/blog/2016-08-18/null-object-patterns/">
+            <span class="entry-date">2016-08-18&nbsp;-&nbsp;</span>Nullオブジェクトパターンの紹介と正体
+          </a>
+
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3/">#デザインパターン</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E6%8C%87%E5%90%91/">#オブジェクト指向</a>
+          
+          <a class="entry-tag" href="https://vain0x.github.io/blogtags/csharp/">#CSharp</a>
+          
+        </li>
+        
+        
+        
         
       </div>
     </div>
   </div>
+</div>
 
       
 <footer>
@@ -502,6 +1246,14 @@
                   <span class="fa-stack fa-lg">
                     <i class="fas fa-circle fa-stack-2x"></i>
                     <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://qiita.com/vain0x" title="Qiita">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-qiita fa-stack-1x fa-inverse"></i>
                   </span>
                 </a>
               </li>
@@ -545,7 +1297,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.1</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
