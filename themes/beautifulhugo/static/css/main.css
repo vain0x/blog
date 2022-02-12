@@ -773,6 +773,15 @@ code, kbd, pre, samp {
     font-family: 'JetBrains Mono', 'Source Han Code JP', monospace, monospace;
 }
 
+.post-preview .post-meta-tags {
+    margin-left: 1rem;
+    display: inline-flex;
+    gap: 1rem;
+}
+.post-preview .post-meta-tag::before {
+    content: "#";
+}
+
 .blog-post blockquote {
     color: #4d4d4d; /* 色を濃くする */
     font-style: normal; /* イタリックにしない */
