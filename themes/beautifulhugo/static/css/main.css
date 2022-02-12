@@ -406,11 +406,11 @@ footer .theme-by {
   font-weight: 300;
   margin-bottom: 1.0rem;
 }
-.post-heading .post-meta,
-.page-meta {
+.post-preview .post-meta,
+.post-heading .post-meta  {
   /* color: #808080; */
-  font-size: 18px;
-  font-style: italic;
+  /* font-size: 18px; */
+  /* font-style: italic; */
   margin: 0 0 10px;
 }
 .page-meta {
@@ -773,13 +773,17 @@ code, kbd, pre, samp {
     font-family: 'JetBrains Mono', 'Source Han Code JP', monospace, monospace;
 }
 
-.post-preview .post-meta-tags {
+.post-meta .post-meta-tags {
     margin-left: 1rem;
     display: inline-flex;
     gap: 1rem;
 }
-.post-preview .post-meta-tag::before {
+.post-meta .post-meta-tag::before {
     content: "#";
+}
+.post-meta a:focus,
+.post-meta a:hover {
+    color: var(--primary-color-light);
 }
 
 .blog-post blockquote {
