@@ -3,7 +3,7 @@ title: SQLの検索条件と検索項目の分離
 tags:
   - データベース
   - Tips
-  - Essay
+  - エッセイ
 type: "post"
 date: 2018-01-05 23:30:37
 url: 2018-01-05/sql-search-only-keys

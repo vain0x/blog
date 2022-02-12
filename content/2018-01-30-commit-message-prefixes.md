@@ -2,7 +2,7 @@
 title: 『コミットメッセージに「プレフィックス」をつける』を検討した
 tags:
   - バージョン管理
-  - Essay
+  - エッセイ
 type: "post"
 date: 2018-01-30 22:40:38
 url: 2018-01-30/commit-message-prefixes
