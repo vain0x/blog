@@ -4,7 +4,7 @@ type: "post"
 date: 2022-02-09
 url: 2022-02-09/wanna-quit-single-page-app
 tags:
-  - '☁'
+  - もやもや
 ---
 
 React + TypeScript でウェブアプリを作っているけど、シングルページアプリ(SPA)をやめたい。いまはやめられない。SPAのメリットとデメリット、他の方法を軽くみてみる
