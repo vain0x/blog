@@ -2,11 +2,11 @@
 - id: dateFormat
   translation: "2006年1月2日"
 - id: shortdateFormat
-  translation: "2 Jan, 2006 15:04:05"
+  translation: "2006 Jan 2 15:04:05"
 - id: postedOnDate
-  translation: "{{ . }}に投稿"
+  translation: "{{ . }} 投稿"
 - id: lastModified
-  translation: "(最終更新日時{{ . }})"
+  translation: "({{ . }} 更新)"
 - id: translationsLabel
   translation: "翻訳："
 - id: translationsSeparator
@@ -24,12 +24,12 @@
 - id: readTime
   translation: "分間"
 - id: words
-  translation: "言葉"
+  translation: "語"
 
 
 # 404 page
 - id: pageNotFound
-  translation: "おっと、このページが存在しない。他にあたってください。（404エラー）"
+  translation: "404 Not Found - 存在しないページです。"
 
 # Footer
 - id: poweredBy # Accepts HTML
@@ -65,7 +65,7 @@
 
 # Delayed Disqus
 - id: show
-  translation: "ショー"
+  translation: "表示"
 - id: comments
   translation: "コメント"
 
