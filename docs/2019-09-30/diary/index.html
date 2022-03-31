@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -210,11 +210,11 @@
 <h3 id="ml-関数宣言と値の束縛のパーサによる識別">ML: 関数宣言と値の束縛のパーサによる識別</h3>
 <p><a href="https://github.com/vain0x/milone-lang/commit/4a0df394d7ad1802505cfc05915f1b70585782dc">https://github.com/vain0x/milone-lang/commit/4a0df394d7ad1802505cfc05915f1b70585782dc</a></p>
 <p>以下の2つを抽象構文的に区別できなかったので、パースの時点で区別するようになった。<code>let 識別子 パターンの先頭</code> という並びが見えたら関数宣言 (let-fun)、そうでなければ値の束縛 (let-val)。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">type</span> <span class="nc">A</span> <span class="o">=</span> <span class="o">|</span> <span class="n">A</span> <span class="k">of</span> <span class="n">int</span>
-
-    <span class="k">let</span> <span class="nv">A</span> <span class="n">x</span> <span class="o">=</span> <span class="n">A</span> <span class="n">1</span>       <span class="c1">// 関数 A の定義
-</span><span class="c1"></span>    <span class="k">let</span> <span class="o">(</span><span class="n">A</span> <span class="n">x</span><span class="o">)</span> <span class="o">=</span> <span class="n">A</span> <span class="n">1</span>     <span class="c1">// バリアントの分解
-</span></code></pre></div><h3 id="ml-hir-関数型中間表現-における2項演算の概念の見直し">ML: HIR (関数型中間表現) における2項演算の概念の見直し</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="k">type</span> <span class="nc">A</span> <span class="o">=</span> <span class="o">|</span> <span class="n">A</span> <span class="k">of</span> <span class="n">int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">A</span> <span class="n">x</span> <span class="o">=</span> <span class="n">A</span> <span class="n">1</span>       <span class="c1">// 関数 A の定義
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">let</span> <span class="o">(</span><span class="n">A</span> <span class="n">x</span><span class="o">)</span> <span class="o">=</span> <span class="n">A</span> <span class="n">1</span>     <span class="c1">// バリアントの分解
+</span></span></span></code></pre></div><h3 id="ml-hir-関数型中間表現-における2項演算の概念の見直し">ML: HIR (関数型中間表現) における2項演算の概念の見直し</h3>
 <p><a href="https://github.com/vain0x/milone-lang/commit/075bb3383f1c670b334499b1e664a73094d0f86a">https://github.com/vain0x/milone-lang/commit/075bb3383f1c670b334499b1e664a73094d0f86a</a></p>
 <p>例えば <code>x + y</code> は <code>((+) x) y</code> という関数適用に変換される。型推論が少し簡潔になる。コード生成はあまり変わらない。</p>
 <h3 id="ml-字句解析の見直し">ML: 字句解析の見直し</h3>
@@ -232,22 +232,22 @@
 <li>文の生成規則の右辺の、終端記号と最後の非終端記号は、文の最初の字句と同じかそれ以上の深さになければいけない</li>
 <li>文の生成規則の右辺の、最後にない非終端記号は、文の最初の字句より1文字以上深くなければいけない</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">if</span>      <span class="c1">// 文の最初の字句
-</span><span class="c1"></span>     <span class="n">cond</span>   <span class="c1">// 最後にない非終端記号なので1文字以上深く字下げ
-</span><span class="c1"></span>    <span class="k">then</span>    <span class="c1">// 終端記号なので if と同じかそれ以上に深く字下げ
-</span><span class="c1"></span>     <span class="n">body</span>   <span class="c1">// cond と同様
-</span><span class="c1"></span>    <span class="k">else</span>    <span class="c1">// then と同様
-</span><span class="c1"></span>    <span class="n">alt</span>     <span class="c1">// 最後の非終端記号なので if と同じかそれ以上に深く字下げ
-</span></code></pre></div><p>それから、文の並びはすべて同じ深さに字下げされなければいけないことと、else-if は特別扱いであること。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="k">if</span>      <span class="c1">// 文の最初の字句
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>     <span class="n">cond</span>   <span class="c1">// 最後にない非終端記号なので1文字以上深く字下げ
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">then</span>    <span class="c1">// 終端記号なので if と同じかそれ以上に深く字下げ
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>     <span class="n">body</span>   <span class="c1">// cond と同様
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">else</span>    <span class="c1">// then と同様
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">alt</span>     <span class="c1">// 最後の非終端記号なので if と同じかそれ以上に深く字下げ
+</span></span></span></code></pre></div><p>それから、文の並びはすべて同じ深さに字下げされなければいけないことと、else-if は特別扱いであること。</p>
 <ul>
 <li>式は、前述のルールから文の最初の字句と同じかより深く字下げされないといけないが、それ以外のルールは特にない</li>
 <li>F# はこの字下げが足りなくても警告を出すだけでコンパイルは通してくれたりする</li>
 <li>F# には演算子が浅くてもよいルールがあるが、これはミローネ言語には実装していない</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">let</span> <span class="nv">isSpace</span> <span class="o">(</span><span class="n">c</span><span class="o">:</span> <span class="kt">char</span><span class="o">)</span> <span class="o">=</span>
-         <span class="n">c</span> <span class="o">=</span> <span class="sc">&#39; &#39;</span>     <span class="c1">// この c の位置で文が開始する
-</span><span class="c1"></span>      <span class="o">||</span> <span class="n">c</span> <span class="o">=</span> <span class="sc">&#39;\t&#39;</span>    <span class="c1">// `||` は文の開始より浅く字下げされているが、F# ならOK
-</span></code></pre></div><h3 id="ml-破棄パターンと変数パターンの分離">ML: 破棄パターンと変数パターンの分離</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">isSpace</span> <span class="o">(</span><span class="n">c</span><span class="o">:</span> <span class="kt">char</span><span class="o">)</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">         <span class="n">c</span> <span class="o">=</span> <span class="sc">&#39; &#39;</span>     <span class="c1">// この c の位置で文が開始する
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="o">||</span> <span class="n">c</span> <span class="o">=</span> <span class="sc">&#39;\t&#39;</span>    <span class="c1">// `||` は文の開始より浅く字下げされているが、F# ならOK
+</span></span></span></code></pre></div><h3 id="ml-破棄パターンと変数パターンの分離">ML: 破棄パターンと変数パターンの分離</h3>
 <p><a href="https://github.com/vain0x/milone-lang/commit/0258cf24f01c98f3c4ddc4c8e9df9d4d57904916">https://github.com/vain0x/milone-lang/commit/0258cf24f01c98f3c4ddc4c8e9df9d4d57904916</a></p>
 <p>破棄パターン (<code>_</code>) と変数パターンを同様のものとして処理していたが、問題が起こったので分離した。コードが共通化できなくて冗長になると思っていたが、意外と共通化できている部分は少なくて、実はもとからくっつけておく必要がないことに気づいた。</p>
 <h3 id="ml-型定義の順番の不具合">ML: 型定義の順番の不具合</h3>
@@ -302,36 +302,36 @@
 <p>レコード型の実装は、不可能ではないが時間がかかりそうなので、セルフホストの段階ではやらないことにした。</p>
 <p>技術的にはレコード型はすべてタプルで代替できるが、レコードの操作のたびにタプルをパターンマッチで分解・再構築するのはかなりつらい。そのため、getter/setter 関数を生成するツールを用意した。</p>
 <p>例えば以下のようにレコードの型定義を YAML で書いておくと、</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">ExampleCtx</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">Serial</span><span class="p">:</span><span class="w"> </span><span class="l">Serial</span><span class="w">
-</span><span class="w">  </span><span class="nt">Vars</span><span class="p">:</span><span class="w"> </span><span class="l">Map&lt;VarSerial, VarDef&gt;</span><span class="w">
-</span><span class="w">  </span><span class="nt">Tys</span><span class="p">:</span><span class="w"> </span><span class="l">Map&lt;TySerial, TyDef&gt;</span><span class="w">
-</span></code></pre></div><p>以下のようなコードが生成される。<code>fooGetBar</code> はレコード foo からフィールド Bar を取る関数、<code>fooWithBar</code> はレコード foo のフィールド Bar を非破壊更新する関数。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">ExampleCtx</span> <span class="o">=</span>
-  <span class="o">(</span>
-    <span class="n">Serial</span>
-    <span class="o">*</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">VarSerial</span><span class="o">,</span> <span class="n">VarDef</span><span class="o">&gt;</span>
-    <span class="o">*</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">TySerial</span><span class="o">,</span> <span class="n">TyDef</span><span class="o">&gt;</span>
-  <span class="o">)</span>
-
-<span class="k">let</span> <span class="nv">exampleCtxGetSerial</span> <span class="o">((</span><span class="n">serial</span><span class="o">,</span> <span class="o">_,</span> <span class="o">_):</span> <span class="n">ExampleCtx</span><span class="o">)</span> <span class="o">=</span>
-  <span class="n">serial</span>
-
-<span class="k">let</span> <span class="nv">exampleCtxGetVars</span> <span class="o">((_,</span> <span class="n">vars</span><span class="o">,</span> <span class="o">_):</span> <span class="n">ExampleCtx</span><span class="o">)</span> <span class="o">=</span>
-  <span class="n">vars</span>
-
-<span class="k">let</span> <span class="nv">exampleCtxGetTys</span> <span class="o">((_,</span> <span class="o">_,</span> <span class="n">tys</span><span class="o">):</span> <span class="n">ExampleCtx</span><span class="o">)</span> <span class="o">=</span>
-  <span class="n">tys</span>
-
-<span class="k">let</span> <span class="nv">exampleCtxWithSerial</span> <span class="n">serial</span> <span class="o">((_,</span> <span class="n">vars</span><span class="o">,</span> <span class="n">tys</span><span class="o">):</span> <span class="n">ExampleCtx</span><span class="o">):</span> <span class="n">ExampleCtx</span> <span class="o">=</span>
-  <span class="n">serial</span><span class="o">,</span> <span class="n">vars</span><span class="o">,</span> <span class="n">tys</span>
-
-<span class="k">let</span> <span class="nv">exampleCtxWithVars</span> <span class="n">vars</span> <span class="o">((</span><span class="n">serial</span><span class="o">,</span> <span class="o">_,</span> <span class="n">tys</span><span class="o">):</span> <span class="n">ExampleCtx</span><span class="o">):</span> <span class="n">ExampleCtx</span> <span class="o">=</span>
-  <span class="n">serial</span><span class="o">,</span> <span class="n">vars</span><span class="o">,</span> <span class="n">tys</span>
-
-<span class="k">let</span> <span class="nv">exampleCtxWithTys</span> <span class="n">tys</span> <span class="o">((</span><span class="n">serial</span><span class="o">,</span> <span class="n">vars</span><span class="o">,</span> <span class="o">_):</span> <span class="n">ExampleCtx</span><span class="o">):</span> <span class="n">ExampleCtx</span> <span class="o">=</span>
-  <span class="n">serial</span><span class="o">,</span> <span class="n">vars</span><span class="o">,</span> <span class="n">tys</span>
-</code></pre></div><p>ツール自体もミローネ言語で書いたつもりだったが、標準入力を読む API が不足していて動かせなかった。後で追加する予定。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">ExampleCtx</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">Serial</span><span class="p">:</span><span class="w"> </span><span class="l">Serial</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">Vars</span><span class="p">:</span><span class="w"> </span><span class="l">Map&lt;VarSerial, VarDef&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">Tys</span><span class="p">:</span><span class="w"> </span><span class="l">Map&lt;TySerial, TyDef&gt;</span><span class="w">
+</span></span></span></code></pre></div><p>以下のようなコードが生成される。<code>fooGetBar</code> はレコード foo からフィールド Bar を取る関数、<code>fooWithBar</code> はレコード foo のフィールド Bar を非破壊更新する関数。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">type</span> <span class="nc">ExampleCtx</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Serial</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">VarSerial</span><span class="o">,</span> <span class="n">VarDef</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">TySerial</span><span class="o">,</span> <span class="n">TyDef</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">exampleCtxGetSerial</span> <span class="o">((</span><span class="n">serial</span><span class="o">,</span> <span class="o">_,</span> <span class="o">_):</span> <span class="n">ExampleCtx</span><span class="o">)</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">serial</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">exampleCtxGetVars</span> <span class="o">((_,</span> <span class="n">vars</span><span class="o">,</span> <span class="o">_):</span> <span class="n">ExampleCtx</span><span class="o">)</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">vars</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">exampleCtxGetTys</span> <span class="o">((_,</span> <span class="o">_,</span> <span class="n">tys</span><span class="o">):</span> <span class="n">ExampleCtx</span><span class="o">)</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">tys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">exampleCtxWithSerial</span> <span class="n">serial</span> <span class="o">((_,</span> <span class="n">vars</span><span class="o">,</span> <span class="n">tys</span><span class="o">):</span> <span class="n">ExampleCtx</span><span class="o">):</span> <span class="n">ExampleCtx</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">serial</span><span class="o">,</span> <span class="n">vars</span><span class="o">,</span> <span class="n">tys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">exampleCtxWithVars</span> <span class="n">vars</span> <span class="o">((</span><span class="n">serial</span><span class="o">,</span> <span class="o">_,</span> <span class="n">tys</span><span class="o">):</span> <span class="n">ExampleCtx</span><span class="o">):</span> <span class="n">ExampleCtx</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">serial</span><span class="o">,</span> <span class="n">vars</span><span class="o">,</span> <span class="n">tys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">exampleCtxWithTys</span> <span class="n">tys</span> <span class="o">((</span><span class="n">serial</span><span class="o">,</span> <span class="n">vars</span><span class="o">,</span> <span class="o">_):</span> <span class="n">ExampleCtx</span><span class="o">):</span> <span class="n">ExampleCtx</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">serial</span><span class="o">,</span> <span class="n">vars</span><span class="o">,</span> <span class="n">tys</span>
+</span></span></code></pre></div><p>ツール自体もミローネ言語で書いたつもりだったが、標準入力を読む API が不足していて動かせなかった。後で追加する予定。</p>
 <h3 id="ml-パターンマッチの網羅性検査">ML: パターンマッチの網羅性検査</h3>
 <p>まだミローネ言語には取り込んでいないが、パターンマッチの網羅性検査の基礎をミローネ言語で書いてみた。Space という概念を使うとシンプルに書ける。</p>
 <p><a href="https://github.com/vain0x/milone-lang/blob/79d2620bb204dbc787bfe05f4192b508496505a7/boot/tests/examples/MatchChecker/MatchChecker.fs">MatchChecker.fs</a></p>
@@ -424,21 +424,21 @@
 <li><a href="https://github.com/SteveLTN/https-portal">SteveLTN/https-portal: A fully automated HTTPS server powered by Nginx, Let&rsquo;s Encrypt and Docker.</a></li>
 </ul>
 <p>Let&rsquo;s Encrypt の証明書の再生成は週に5回まで。証明書をボリュームか何かに保存する設定は必須。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="c"># docker-compose.yml</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="c"># 証明書等を入れておくボリューム</span><span class="w">
-</span><span class="w">  </span><span class="nt">certs</span><span class="p">:</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">https-portal</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="c"># 略</span><span class="w">
-</span><span class="w">      </span><span class="nt">STAGE</span><span class="p">:</span><span class="w"> </span><span class="l">production</span><span class="w">
-</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="c"># 証明書等が入るディレクトリをボリュームにマウント</span><span class="w">
-</span><span class="w">      </span>- <span class="s2">&#34;certs:/var/lib/https-portal/example.com/production&#34;</span><span class="w">
-</span></code></pre></div><p>メールサーバは postfix を使うことにした。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># docker-compose.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 証明書等を入れておくボリューム</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">certs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">https-portal</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 略</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">STAGE</span><span class="p">:</span><span class="w"> </span><span class="l">production</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 証明書等が入るディレクトリをボリュームにマウント</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;certs:/var/lib/https-portal/example.com/production&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>メールサーバは postfix を使うことにした。</p>
 <ul>
 <li><a href="http://www.postfix.org/">The Postfix Home Page</a></li>
 <li><a href="https://www.rem-system.com/mail-postfix01/">CentOSとPostfixを使って送信専用のメールサーバーを構築する方法 - レムシステム エンジニアブログ</a></li>
@@ -448,22 +448,22 @@
 <ul>
 <li><a href="https://github.com/catatnight/docker-postfix">catatnight/docker-postfix: run postfix with smtp authentication (sasldb) in a docker container</a></li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="c"># docker-compose.yml</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">postfix</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="c"># 略</span><span class="w">
-</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="c"># https-portal を先に起動しておくと証明書 (*.crt) と鍵 (*.key) が入っているはず</span><span class="w">
-</span><span class="w">      </span>- <span class="s2">&#34;certs:/etc/postfix/certs&#34;</span><span class="w">
-</span></code></pre></div><p>初回起動時に証明書がないと TLS が有効化しないので注意。証明書を取得した後に起動するようにしよう。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="c1"># 初回起動時のみ証明書の取得を待つ</span>
-docker-compose up -d https-portal
-docker-compose logs -f
-<span class="c1"># 待つ</span>
-
-docker-compose up -d
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># docker-compose.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">postfix</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># 略</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># https-portal を先に起動しておくと証明書 (*.crt) と鍵 (*.key) が入っているはず</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;certs:/etc/postfix/certs&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>初回起動時に証明書がないと TLS が有効化しないので注意。証明書を取得した後に起動するようにしよう。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 初回起動時のみ証明書の取得を待つ</span>
+</span></span><span class="line"><span class="cl">docker-compose up -d https-portal
+</span></span><span class="line"><span class="cl">docker-compose logs -f
+</span></span><span class="line"><span class="cl"><span class="c1"># 待つ</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">docker-compose up -d
+</span></span></code></pre></div>
 
         
           
@@ -475,6 +475,8 @@ docker-compose up -d
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
+                
                     <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
                 
                     <li><a href="/blog/2022-01-31/diary/">近況 2022-01-31</a></li>
@@ -482,8 +484,6 @@ docker-compose up -d
                     <li><a href="/blog/2021-12-31/diary/">近況 2021-12-31</a></li>
                 
                     <li><a href="/blog/2021-11-30/diary/">近況 2021-11-30</a></li>
-                
-                    <li><a href="/blog/2021-10-31/diary/">近況 2021-10-31</a></li>
                 
               </ul>
 
@@ -591,7 +591,7 @@ docker-compose up -d
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

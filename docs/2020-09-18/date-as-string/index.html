@@ -102,7 +102,7 @@ TypeScript の日時を表現する Date 型は貧弱で使いにくい。
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -229,62 +229,62 @@ Date オブジェクトは単に「ある1点の時刻」を表している。�
 (あるいは <code>{ year: number, month: number, ... }</code> とか、何にせよプレインなデータで。)</p>
 <h2 id="日時を表す文字列の型">日時を表す文字列の型</h2>
 <p>日時を文字列で持つとしても、string 型だと混乱を招くので、いわゆる <a href="https://basarat.gitbook.io/typescript/main-1/nominaltyping">nominal type</a> を使う。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">declare</span> <span class="kr">const</span> <span class="nx">IS_TIMESTAMP</span>: <span class="kt">unique</span> <span class="kt">symbol</span>
-
-<span class="cm">/**
-</span><span class="cm"> * 日時を表す文字列 (ISO 8601 形式)
-</span><span class="cm"> */</span>
-<span class="kr">export</span> <span class="kr">type</span> <span class="nx">Timestamp</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="p">[</span><span class="nx">IS_TIMESTAMP</span><span class="p">]</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
-</code></pre></div><p>こうしておくと Timestamp は string の厳密な部分型になる。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">declare</span> <span class="kr">const</span> <span class="nx">IS_TIMESTAMP</span>: <span class="kt">unique</span> <span class="kt">symbol</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 日時を表す文字列 (ISO 8601 形式)
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">Timestamp</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="p">[</span><span class="nx">IS_TIMESTAMP</span><span class="p">]</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+</span></span></code></pre></div><p>こうしておくと Timestamp は string の厳密な部分型になる。
 (Timestamp 型の値を string 型の引数に渡す方のアップキャストは許可される。
 逆に string 型の値を Timestamp 型の引数に渡すことはできない。
 本当にやりたければ <code>as Timestamp</code> と明記する必要がある。)</p>
 <p>後は Timestamp を操作するための関数を用意していく。
 実装は日時処理用のライブラリ (<a href="https://moment.github.io/luxon/">luxon</a> や <a href="https://date-fns.org/">date-fns</a> など) の機能を流用する。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">import</span> <span class="p">{</span> <span class="nx">DateTime</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;luxon&#34;</span>
-
-<span class="cm">/**
-</span><span class="cm"> * 日時を表す ISO 8601 形式の文字列をパースする。
-</span><span class="cm"> */</span>
-<span class="kr">export</span> <span class="kr">const</span> <span class="nx">timestampFromISO</span> <span class="o">=</span> <span class="p">(</span><span class="nx">s</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">Timestamp</span> <span class="o">|</span> <span class="kc">null</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">dateTime</span> <span class="o">=</span> <span class="nx">DateTime</span><span class="p">.</span><span class="nx">fromISO</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="p">{</span> <span class="nx">locale</span><span class="o">:</span> <span class="s2">&#34;ja-jp&#34;</span><span class="p">,</span> <span class="nx">zone</span><span class="o">:</span> <span class="s2">&#34;Asia/Tokyo&#34;</span> <span class="p">})</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">dateTime</span><span class="p">.</span><span class="nx">isValid</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kc">null</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="nx">dateTime</span><span class="p">.</span><span class="nx">toISO</span><span class="p">()</span> <span class="kr">as</span> <span class="nx">Timestamp</span>
-<span class="p">}</span>
-
-<span class="kr">const</span> <span class="nx">timestampToDateTime</span> <span class="o">=</span> <span class="p">(</span><span class="nx">timestamp</span>: <span class="kt">Timestamp</span><span class="p">)</span><span class="o">:</span> <span class="nx">DateTime</span> <span class="o">=&gt;</span>
-    <span class="nx">DateTime</span><span class="p">.</span><span class="nx">fromISO</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">,</span> <span class="p">{</span> <span class="nx">locale</span><span class="o">:</span> <span class="s2">&#34;ja-jp&#34;</span><span class="p">,</span> <span class="nx">zone</span><span class="o">:</span> <span class="s2">&#34;Asia/Tokyo&#34;</span> <span class="p">})</span>
-
-<span class="cm">/**
-</span><span class="cm"> * 日時を特定のフォーマットの文字列に変換する。
-</span><span class="cm"> */</span>
-<span class="kr">export</span> <span class="kr">const</span> <span class="nx">timestampToFormat</span> <span class="o">=</span> <span class="p">(</span><span class="nx">timestamp</span>: <span class="kt">Timestamp</span><span class="p">,</span> <span class="nx">fmt</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="kt">string</span> <span class="o">=&gt;</span>
-    <span class="nx">timestampToDateTime</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">).</span><span class="nx">toFormat</span><span class="p">(</span><span class="nx">fmt</span><span class="p">)</span>
-</code></pre></div><p>例:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="c1">//    timestamp: Timestamp
-</span><span class="c1"></span><span class="kr">const</span> <span class="nx">timestamp</span> <span class="o">=</span> <span class="nx">timestampFromISO</span><span class="p">(</span><span class="s2">&#34;2020-01-02T03:04:05.666+09:00&#34;</span><span class="p">)</span><span class="o">!</span>
-
-<span class="kr">const</span> <span class="nx">formatted</span> <span class="o">=</span> <span class="nx">timestampToFormat</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">,</span> <span class="s2">&#34;yyyy-MM-dd&#34;</span><span class="p">)</span>
-<span class="nx">assert</span><span class="p">.</span><span class="nx">strictEqual</span><span class="p">(</span><span class="nx">formatted</span><span class="p">,</span> <span class="s2">&#34;2020-01-02&#34;</span><span class="p">)</span>
-</code></pre></div><p>関数名が長くなりがちなのがネック。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">DateTime</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;luxon&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 日時を表す ISO 8601 形式の文字列をパースする。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">timestampFromISO</span> <span class="o">=</span> <span class="p">(</span><span class="nx">s</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">Timestamp</span> <span class="o">|</span> <span class="kc">null</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">dateTime</span> <span class="o">=</span> <span class="nx">DateTime</span><span class="p">.</span><span class="nx">fromISO</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="p">{</span> <span class="nx">locale</span><span class="o">:</span> <span class="s2">&#34;ja-jp&#34;</span><span class="p">,</span> <span class="nx">zone</span><span class="o">:</span> <span class="s2">&#34;Asia/Tokyo&#34;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">dateTime</span><span class="p">.</span><span class="nx">isValid</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">dateTime</span><span class="p">.</span><span class="nx">toISO</span><span class="p">()</span> <span class="kr">as</span> <span class="nx">Timestamp</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">timestampToDateTime</span> <span class="o">=</span> <span class="p">(</span><span class="nx">timestamp</span>: <span class="kt">Timestamp</span><span class="p">)</span><span class="o">:</span> <span class="nx">DateTime</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">DateTime</span><span class="p">.</span><span class="nx">fromISO</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">,</span> <span class="p">{</span> <span class="nx">locale</span><span class="o">:</span> <span class="s2">&#34;ja-jp&#34;</span><span class="p">,</span> <span class="nx">zone</span><span class="o">:</span> <span class="s2">&#34;Asia/Tokyo&#34;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 日時を特定のフォーマットの文字列に変換する。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">const</span> <span class="nx">timestampToFormat</span> <span class="o">=</span> <span class="p">(</span><span class="nx">timestamp</span>: <span class="kt">Timestamp</span><span class="p">,</span> <span class="nx">fmt</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="kt">string</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">timestampToDateTime</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">).</span><span class="nx">toFormat</span><span class="p">(</span><span class="nx">fmt</span><span class="p">)</span>
+</span></span></code></pre></div><p>例:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="c1">//    timestamp: Timestamp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">timestamp</span> <span class="o">=</span> <span class="nx">timestampFromISO</span><span class="p">(</span><span class="s2">&#34;2020-01-02T03:04:05.666+09:00&#34;</span><span class="p">)</span><span class="o">!</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">formatted</span> <span class="o">=</span> <span class="nx">timestampToFormat</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">,</span> <span class="s2">&#34;yyyy-MM-dd&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">assert</span><span class="p">.</span><span class="nx">strictEqual</span><span class="p">(</span><span class="nx">formatted</span><span class="p">,</span> <span class="s2">&#34;2020-01-02&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>関数名が長くなりがちなのがネック。</p>
 <h2 id="日付型と時間型">日付型と時間型</h2>
 <p>同様に日付 (時刻なし) の型や時間 (日付なし) の型なども用意しておくと便利。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">declare</span> <span class="kr">const</span> <span class="nx">IS_DATE_STRING</span>: <span class="kt">unique</span> <span class="kt">symbol</span>
-
-<span class="cm">/**
-</span><span class="cm"> * 日付を表す yyyy-MM-dd 形式の文字列
-</span><span class="cm"> */</span>
-<span class="kr">export</span> <span class="kr">type</span> <span class="nx">DateString</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="p">[</span><span class="nx">IS_DATE_STRING</span><span class="p">]</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">declare</span> <span class="kr">const</span> <span class="nx">IS_HHMM_TIME_STRING</span>: <span class="kt">unique</span> <span class="kt">symbol</span>
-
-<span class="cm">/**
-</span><span class="cm"> * 時間を表す HH:mm 形式の文字列
-</span><span class="cm"> */</span>
-<span class="kr">export</span> <span class="kr">type</span> <span class="nx">HHMMTimeString</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="p">[</span><span class="nx">IS_HHMM_TIME_STRING</span><span class="p">]</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">declare</span> <span class="kr">const</span> <span class="nx">IS_DATE_STRING</span>: <span class="kt">unique</span> <span class="kt">symbol</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 日付を表す yyyy-MM-dd 形式の文字列
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">DateString</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="p">[</span><span class="nx">IS_DATE_STRING</span><span class="p">]</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">declare</span> <span class="kr">const</span> <span class="nx">IS_HHMM_TIME_STRING</span>: <span class="kt">unique</span> <span class="kt">symbol</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 時間を表す HH:mm 形式の文字列
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">export</span> <span class="kr">type</span> <span class="nx">HHMMTimeString</span> <span class="o">=</span> <span class="kt">string</span> <span class="o">&amp;</span> <span class="p">{</span> <span class="p">[</span><span class="nx">IS_HHMM_TIME_STRING</span><span class="p">]</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+</span></span></code></pre></div>
 
         
           
@@ -412,7 +412,7 @@ Date オブジェクトは単に「ある1点の時刻」を表している。�
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -203,101 +203,101 @@
 <h2 id="レコードみたいな型がついた-map">レコードみたいな型がついた Map</h2>
 <p>次のような特定の組み合わせのキーからなる object をレコードと呼ぶことにする。(キーは動的に増えたり減ったりしない。これらのキーには常に値が設定されている。)
 <code>.</code> 記法でプロパティを参照するとき、入力補完や型検査の恩恵を得られる。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">type</span> <span class="nx">MyRecord</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">ok</span>: <span class="kt">boolean</span>
-    <span class="nx">status</span>: <span class="kt">number</span>
-<span class="p">}</span>
-
-<span class="kr">declare</span> <span class="kr">const</span> <span class="nx">myRecord</span>: <span class="kt">MyRecord</span>
-<span class="kr">const</span> <span class="nx">ok</span> <span class="o">=</span> <span class="nx">myRecord</span><span class="p">.</span><span class="nx">ok</span>
-<span class="c1">//                  ^^ ok, status が補完される
-</span><span class="c1">//    ^^ ok: boolean
-</span></code></pre></div><p>Map の場合は、get, set などのキーに特定の文字列を受け取るオーバーロードを定義すれば、同様に入力補完などの恩恵を得られる。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">type</span> <span class="nx">MyMap</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="kr">get</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="s2">&#34;ok&#34;</span><span class="p">)</span><span class="o">:</span> <span class="kr">boolean</span> <span class="c1">// | undefined をつけてもよい
-</span><span class="c1"></span>    <span class="kr">get</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="s2">&#34;status&#34;</span><span class="p">)</span><span class="o">:</span> <span class="kt">number</span>
-
-    <span class="kr">set</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="s2">&#34;ok&#34;</span><span class="p">,</span> <span class="nx">value</span>: <span class="kt">boolean</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span>
-    <span class="kr">set</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="s2">&#34;status&#34;</span><span class="p">,</span> <span class="nx">value</span>: <span class="kt">number</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span>
-<span class="p">}</span>
-
-<span class="kr">declare</span> <span class="kr">const</span> <span class="nx">myMap</span>: <span class="kt">MyMap</span>
-<span class="kr">const</span> <span class="nx">ok</span> <span class="o">=</span> <span class="nx">myMap</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s2">&#34;ok&#34;</span><span class="p">)</span>
-<span class="c1">//                   ^^^^ &#34;ok&#34;, &#34;status&#34; が補完される
-</span><span class="c1">//    ^^ ok: boolean
-</span></code></pre></div><p>型定義はメタプログラミングを使えば短く書ける。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="cm">/**
-</span><span class="cm"> * キーと値の型の対応がうまくついた get/set メソッドを持つ、Map 的なオブジェクトの型を作る型レベル演算子。
-</span><span class="cm"> *
-</span><span class="cm"> * USAGE: RecordMap&lt;{ k: v, ... }&gt;
-</span><span class="cm"> **/</span>
-<span class="kr">type</span> <span class="nx">RecordMap</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">object</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="kr">get</span><span class="p">&lt;</span><span class="nt">K</span> <span class="na">extends</span> <span class="na">keyof</span> <span class="na">T</span><span class="p">&gt;(</span><span class="nx">key</span>: <span class="kt">K</span><span class="p">)</span><span class="o">:</span> <span class="nx">T</span><span class="p">[</span><span class="nx">K</span><span class="p">]</span>
-    <span class="kr">set</span><span class="p">&lt;</span><span class="nt">K</span> <span class="na">extends</span> <span class="na">keyof</span> <span class="na">T</span><span class="p">&gt;(</span><span class="nx">key</span>: <span class="kt">K</span><span class="p">,</span> <span class="nx">value</span>: <span class="kt">T</span><span class="p">[</span><span class="nx">K</span><span class="p">])</span><span class="o">:</span> <span class="k">void</span>
-
-    <span class="c1">// has&lt;K extends keyof T&gt;(key: K): boolean etc.
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="c1">// 上の myMap とだいたい同じ型になる。
-</span><span class="c1"></span><span class="kr">type</span> <span class="nx">MyMap</span> <span class="o">=</span> <span class="nx">RecordMap</span><span class="o">&lt;</span><span class="p">{</span>
-    <span class="nx">ok</span>: <span class="kt">boolean</span>
-    <span class="nx">status</span>: <span class="kt">number</span>
-<span class="p">}</span><span class="o">&gt;</span>
-</code></pre></div><p>インスタンスを作るには、Map リテラルはないので、代わりにオブジェクトリテラルから変換する。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">const</span> <span class="nx">toMap</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">object</span><span class="p">&gt;(</span><span class="nx">record</span>: <span class="kt">T</span><span class="p">)</span><span class="o">:</span> <span class="nx">RecordMap</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=&gt;</span>
-    <span class="k">new</span> <span class="nx">Map</span><span class="p">&lt;</span><span class="nt">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="p">&gt;(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">record</span><span class="p">))</span> <span class="kr">as</span> <span class="nx">RecordMap</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span>
-
-<span class="kr">const</span> <span class="nx">myMap</span> <span class="o">=</span> <span class="nx">toMap</span><span class="p">({</span>
-    <span class="nx">ok</span>: <span class="kt">true</span><span class="p">,</span>
-    <span class="nx">status</span>: <span class="kt">200</span><span class="p">,</span>
-<span class="p">})</span>
-
-<span class="kr">const</span> <span class="nx">ok</span> <span class="o">=</span> <span class="nx">myMap</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s2">&#34;ok&#34;</span><span class="p">)</span> <span class="c1">// ちゃんと型がつく
-</span></code></pre></div><p>オブジェクトのキーにならないものをキーに含めたいときは entries (キーと値のペアからなる配列) から作る。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="cm">/**
-</span><span class="cm"> * entries の型からキーの型を取る。
-</span><span class="cm"> */</span>
-<span class="kr">type</span> <span class="nx">EntriesToKeyType</span><span class="p">&lt;</span><span class="nt">E</span> <span class="na">extends</span> <span class="err">[</span><span class="na">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="err">][]</span><span class="p">&gt;</span> <span class="o">=</span>
-    <span class="nx">E</span><span class="p">[</span><span class="kt">number</span><span class="p">]</span> <span class="kr">extends</span> <span class="k">infer</span> <span class="nx">TPair</span> <span class="o">?</span> <span class="p">(</span>
-        <span class="nx">TPair</span> <span class="kr">extends</span> <span class="p">[</span><span class="kt">unknown</span><span class="p">,</span> <span class="kt">unknown</span><span class="p">]</span> <span class="o">?</span> <span class="p">(</span>
-            <span class="nx">TPair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="p">)</span> <span class="o">:</span> <span class="kt">never</span>
-    <span class="p">)</span> <span class="o">:</span> <span class="kt">never</span>
-
-<span class="cm">/**
-</span><span class="cm"> * entries からキーに対応する値の型を探す。
-</span><span class="cm"> */</span>
-<span class="kr">type</span> <span class="nx">EntriesFindValueType</span><span class="p">&lt;</span><span class="nt">E</span> <span class="na">extends</span> <span class="err">[</span><span class="na">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="err">][],</span> <span class="na">K</span><span class="p">&gt;</span> <span class="o">=</span>
-    <span class="nx">E</span><span class="p">[</span><span class="kt">number</span><span class="p">]</span> <span class="kr">extends</span> <span class="k">infer</span> <span class="nx">TPair</span> <span class="o">?</span> <span class="p">(</span>
-        <span class="nx">TPair</span> <span class="kr">extends</span> <span class="p">[</span><span class="nx">K</span><span class="p">,</span> <span class="kt">unknown</span><span class="p">]</span> <span class="o">?</span> <span class="p">(</span>
-            <span class="nx">TPair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="p">)</span> <span class="o">:</span> <span class="kt">never</span>
-    <span class="p">)</span> <span class="o">:</span> <span class="kt">never</span>
-
-<span class="cm">/**
-</span><span class="cm"> * entries の型からマップのようなものの型を作る。
-</span><span class="cm"> */</span>
-<span class="kr">type</span> <span class="nx">EntriesToMapType</span><span class="p">&lt;</span><span class="nt">E</span> <span class="na">extends</span> <span class="err">[</span><span class="na">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="err">][]</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="kr">get</span><span class="p">&lt;</span><span class="nt">K</span> <span class="na">extends</span> <span class="na">EntriesToKeyType</span><span class="err">&lt;</span><span class="na">E</span><span class="p">&gt;</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">key</span>: <span class="kt">K</span><span class="p">)</span><span class="o">:</span> <span class="nx">EntriesFindValueType</span><span class="p">&lt;</span><span class="nt">E</span><span class="err">,</span> <span class="na">K</span><span class="p">&gt;</span>
-    <span class="kr">set</span><span class="p">&lt;</span><span class="nt">K</span> <span class="na">extends</span> <span class="na">EntriesToKeyType</span><span class="err">&lt;</span><span class="na">E</span><span class="p">&gt;</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">key</span>: <span class="kt">K</span><span class="p">,</span> <span class="nx">value</span>: <span class="kt">EntriesFindValueType</span><span class="p">&lt;</span><span class="nt">E</span><span class="err">,</span> <span class="na">K</span><span class="p">&gt;)</span><span class="o">:</span> <span class="k">void</span>
-<span class="p">}</span>
-
-<span class="kr">const</span> <span class="nx">fromEntries</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">E</span> <span class="na">extends</span> <span class="err">[</span><span class="na">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="err">][]</span><span class="p">&gt;(</span><span class="nx">entries</span>: <span class="kt">E</span><span class="p">)</span><span class="o">:</span> <span class="nx">EntriesToMapType</span><span class="p">&lt;</span><span class="nt">E</span><span class="p">&gt;</span> <span class="o">=&gt;</span>
-    <span class="k">new</span> <span class="nx">Map</span><span class="p">&lt;</span><span class="nt">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="p">&gt;(</span><span class="nx">entries</span><span class="p">)</span> <span class="kr">as</span> <span class="nx">EntriesToMapType</span><span class="p">&lt;</span><span class="nt">E</span><span class="p">&gt;</span>
-
-<span class="kr">const</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">fromEntries</span><span class="p">([</span>
-    <span class="p">[</span><span class="nx">fromEntries</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-<span class="p">])</span>
-<span class="kr">const</span> <span class="nx">zero</span> <span class="o">=</span> <span class="nx">map</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="nx">fromEntries</span><span class="p">)</span>
-</code></pre></div><p>あるいは <code>Map&lt;unknown, unknown&gt;</code> を動的に検査してから <code>as</code> で強制的にキャストする。スマートキャストは効かなさそう。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">const</span> <span class="nx">unknownMap</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">&lt;</span><span class="nt">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="p">&gt;(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">entriesJsonText</span><span class="p">))</span>
-
-<span class="kr">const</span> <span class="nx">valid</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">unknownMap</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s2">&#34;ok&#34;</span><span class="p">)</span> <span class="o">===</span> <span class="s2">&#34;boolean&#34;</span>
-    <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">unknownMap</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s2">&#34;status&#34;</span><span class="p">)</span> <span class="o">===</span> <span class="s2">&#34;number&#34;</span>
-<span class="k">if</span> <span class="p">(</span><span class="nx">valid</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kr">const</span> <span class="nx">myMap</span> <span class="o">=</span> <span class="nx">unknownMap</span> <span class="kr">as</span> <span class="nx">MyMap</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">MyRecord</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ok</span>: <span class="kt">boolean</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">status</span>: <span class="kt">number</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">declare</span> <span class="kr">const</span> <span class="nx">myRecord</span>: <span class="kt">MyRecord</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ok</span> <span class="o">=</span> <span class="nx">myRecord</span><span class="p">.</span><span class="nx">ok</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//                  ^^ ok, status が補完される
+</span></span></span><span class="line"><span class="cl"><span class="c1">//    ^^ ok: boolean
+</span></span></span></code></pre></div><p>Map の場合は、get, set などのキーに特定の文字列を受け取るオーバーロードを定義すれば、同様に入力補完などの恩恵を得られる。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">MyMap</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">get</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="s2">&#34;ok&#34;</span><span class="p">)</span><span class="o">:</span> <span class="kr">boolean</span> <span class="c1">// | undefined をつけてもよい
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">get</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="s2">&#34;status&#34;</span><span class="p">)</span><span class="o">:</span> <span class="kt">number</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">set</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="s2">&#34;ok&#34;</span><span class="p">,</span> <span class="nx">value</span>: <span class="kt">boolean</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">set</span><span class="p">(</span><span class="nx">key</span><span class="o">:</span> <span class="s2">&#34;status&#34;</span><span class="p">,</span> <span class="nx">value</span>: <span class="kt">number</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">declare</span> <span class="kr">const</span> <span class="nx">myMap</span>: <span class="kt">MyMap</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ok</span> <span class="o">=</span> <span class="nx">myMap</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s2">&#34;ok&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//                   ^^^^ &#34;ok&#34;, &#34;status&#34; が補完される
+</span></span></span><span class="line"><span class="cl"><span class="c1">//    ^^ ok: boolean
+</span></span></span></code></pre></div><p>型定義はメタプログラミングを使えば短く書ける。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * キーと値の型の対応がうまくついた get/set メソッドを持つ、Map 的なオブジェクトの型を作る型レベル演算子。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * USAGE: RecordMap&lt;{ k: v, ... }&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cm"> **/</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">RecordMap</span><span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">object</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">get</span><span class="p">&lt;</span><span class="nt">K</span> <span class="na">extends</span> <span class="na">keyof</span> <span class="na">T</span><span class="p">&gt;(</span><span class="nx">key</span>: <span class="kt">K</span><span class="p">)</span><span class="o">:</span> <span class="nx">T</span><span class="p">[</span><span class="nx">K</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">set</span><span class="p">&lt;</span><span class="nt">K</span> <span class="na">extends</span> <span class="na">keyof</span> <span class="na">T</span><span class="p">&gt;(</span><span class="nx">key</span>: <span class="kt">K</span><span class="p">,</span> <span class="nx">value</span>: <span class="kt">T</span><span class="p">[</span><span class="nx">K</span><span class="p">])</span><span class="o">:</span> <span class="k">void</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// has&lt;K extends keyof T&gt;(key: K): boolean etc.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 上の myMap とだいたい同じ型になる。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">type</span> <span class="nx">MyMap</span> <span class="o">=</span> <span class="nx">RecordMap</span><span class="o">&lt;</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ok</span>: <span class="kt">boolean</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">status</span>: <span class="kt">number</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="o">&gt;</span>
+</span></span></code></pre></div><p>インスタンスを作るには、Map リテラルはないので、代わりにオブジェクトリテラルから変換する。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">toMap</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">T</span> <span class="na">extends</span> <span class="na">object</span><span class="p">&gt;(</span><span class="nx">record</span>: <span class="kt">T</span><span class="p">)</span><span class="o">:</span> <span class="nx">RecordMap</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">new</span> <span class="nx">Map</span><span class="p">&lt;</span><span class="nt">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="p">&gt;(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">record</span><span class="p">))</span> <span class="kr">as</span> <span class="nx">RecordMap</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">myMap</span> <span class="o">=</span> <span class="nx">toMap</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ok</span>: <span class="kt">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">status</span>: <span class="kt">200</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">ok</span> <span class="o">=</span> <span class="nx">myMap</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s2">&#34;ok&#34;</span><span class="p">)</span> <span class="c1">// ちゃんと型がつく
+</span></span></span></code></pre></div><p>オブジェクトのキーにならないものをキーに含めたいときは entries (キーと値のペアからなる配列) から作る。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * entries の型からキーの型を取る。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">EntriesToKeyType</span><span class="p">&lt;</span><span class="nt">E</span> <span class="na">extends</span> <span class="err">[</span><span class="na">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="err">][]</span><span class="p">&gt;</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">E</span><span class="p">[</span><span class="kt">number</span><span class="p">]</span> <span class="kr">extends</span> <span class="k">infer</span> <span class="nx">TPair</span> <span class="o">?</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">TPair</span> <span class="kr">extends</span> <span class="p">[</span><span class="kt">unknown</span><span class="p">,</span> <span class="kt">unknown</span><span class="p">]</span> <span class="o">?</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">TPair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span> <span class="o">:</span> <span class="kt">never</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="o">:</span> <span class="kt">never</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * entries からキーに対応する値の型を探す。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">EntriesFindValueType</span><span class="p">&lt;</span><span class="nt">E</span> <span class="na">extends</span> <span class="err">[</span><span class="na">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="err">][],</span> <span class="na">K</span><span class="p">&gt;</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">E</span><span class="p">[</span><span class="kt">number</span><span class="p">]</span> <span class="kr">extends</span> <span class="k">infer</span> <span class="nx">TPair</span> <span class="o">?</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">TPair</span> <span class="kr">extends</span> <span class="p">[</span><span class="nx">K</span><span class="p">,</span> <span class="kt">unknown</span><span class="p">]</span> <span class="o">?</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">TPair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span> <span class="o">:</span> <span class="kt">never</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="o">:</span> <span class="kt">never</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * entries の型からマップのようなものの型を作る。
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">EntriesToMapType</span><span class="p">&lt;</span><span class="nt">E</span> <span class="na">extends</span> <span class="err">[</span><span class="na">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="err">][]</span><span class="p">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">get</span><span class="p">&lt;</span><span class="nt">K</span> <span class="na">extends</span> <span class="na">EntriesToKeyType</span><span class="err">&lt;</span><span class="na">E</span><span class="p">&gt;</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">key</span>: <span class="kt">K</span><span class="p">)</span><span class="o">:</span> <span class="nx">EntriesFindValueType</span><span class="p">&lt;</span><span class="nt">E</span><span class="err">,</span> <span class="na">K</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">set</span><span class="p">&lt;</span><span class="nt">K</span> <span class="na">extends</span> <span class="na">EntriesToKeyType</span><span class="err">&lt;</span><span class="na">E</span><span class="p">&gt;</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">key</span>: <span class="kt">K</span><span class="p">,</span> <span class="nx">value</span>: <span class="kt">EntriesFindValueType</span><span class="p">&lt;</span><span class="nt">E</span><span class="err">,</span> <span class="na">K</span><span class="p">&gt;)</span><span class="o">:</span> <span class="k">void</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">fromEntries</span> <span class="o">=</span> <span class="p">&lt;</span><span class="nt">E</span> <span class="na">extends</span> <span class="err">[</span><span class="na">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="err">][]</span><span class="p">&gt;(</span><span class="nx">entries</span>: <span class="kt">E</span><span class="p">)</span><span class="o">:</span> <span class="nx">EntriesToMapType</span><span class="p">&lt;</span><span class="nt">E</span><span class="p">&gt;</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">new</span> <span class="nx">Map</span><span class="p">&lt;</span><span class="nt">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="p">&gt;(</span><span class="nx">entries</span><span class="p">)</span> <span class="kr">as</span> <span class="nx">EntriesToMapType</span><span class="p">&lt;</span><span class="nt">E</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">map</span> <span class="o">=</span> <span class="nx">fromEntries</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="nx">fromEntries</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">zero</span> <span class="o">=</span> <span class="nx">map</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="nx">fromEntries</span><span class="p">)</span>
+</span></span></code></pre></div><p>あるいは <code>Map&lt;unknown, unknown&gt;</code> を動的に検査してから <code>as</code> で強制的にキャストする。スマートキャストは効かなさそう。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">unknownMap</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">&lt;</span><span class="nt">unknown</span><span class="err">,</span> <span class="na">unknown</span><span class="p">&gt;(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">entriesJsonText</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">valid</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">unknownMap</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s2">&#34;ok&#34;</span><span class="p">)</span> <span class="o">===</span> <span class="s2">&#34;boolean&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">unknownMap</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s2">&#34;status&#34;</span><span class="p">)</span> <span class="o">===</span> <span class="s2">&#34;number&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">valid</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">myMap</span> <span class="o">=</span> <span class="nx">unknownMap</span> <span class="kr">as</span> <span class="nx">MyMap</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
         
           
@@ -425,7 +425,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -360,24 +360,24 @@
 <p><a href="https://twitter.com/vain0x/status/1272045836105469952">コードフォーマットは (AST, コメント, 空行) から決定的に定まってほしい。フォーマットする前のレイアウトによって結果が変わると、書き方によって一貫性がなくなったり、ある程度は手動でフォーマットしないといけない。rustfmt の挙動は理想に近くて快適</a> (Twitter @vain0x)</p>
 </blockquote>
 <p>例えば、次のような関数呼び出しの式を1行で書くのか複数行に分割して書くのか、みたいなのはフォーマッターが独断で決めて書き手の気分や感覚に依存しない方が全体として一貫性が高くなる</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">// 一行で書く
-</span><span class="c1"></span><span class="w">    </span><span class="n">call_some_function</span><span class="p">(</span><span class="n">another_function</span><span class="p">(),</span><span class="w"> </span><span class="n">yet_another_function</span><span class="p">());</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="c1">// 分けて書く
-</span><span class="c1"></span><span class="w">    </span><span class="n">call_some_function</span><span class="p">(</span><span class="w">
-</span><span class="w">        </span><span class="n">another_function</span><span class="p">(),</span><span class="w">
-</span><span class="w">        </span><span class="n">yet_another_function</span><span class="p">(),</span><span class="w">
-</span><span class="w">    </span><span class="p">);</span><span class="w">
-</span></code></pre></div><p>ただしコメントを勝手に消すのはまずい。それから、空行をつかってグループ分けするのは一般的なので、そこも残すことになる。例えば次のコードは文の羅列だが、最初のブロックは「入力を読む」、次のブロックは「計算する」、最後のブロックは「出力する」という意味上のまとまりがあるので、空行を消されると困る。(しかし関数に分けるほどではない。)</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="w"> </span><span class="n">output_path</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">);</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">csv_text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_from_file</span><span class="p">(</span><span class="n">input_path</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_csv</span><span class="p">(</span><span class="n">csv_text</span><span class="p">);</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">statistics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">analyze_data</span><span class="p">(</span><span class="n">data</span><span class="p">);</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">json_text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">serialize_to_json</span><span class="p">(</span><span class="n">statistics</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="n">print_to_file</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="w"> </span><span class="n">json_text</span><span class="p">);</span><span class="w">
-</span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 一行で書く
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">call_some_function</span><span class="p">(</span><span class="n">another_function</span><span class="p">(),</span><span class="w"> </span><span class="n">yet_another_function</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 分けて書く
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">call_some_function</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">another_function</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">yet_another_function</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><p>ただしコメントを勝手に消すのはまずい。それから、空行をつかってグループ分けするのは一般的なので、そこも残すことになる。例えば次のコードは文の羅列だが、最初のブロックは「入力を読む」、次のブロックは「計算する」、最後のブロックは「出力する」という意味上のまとまりがあるので、空行を消されると困る。(しかし関数に分けるほどではない。)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span><span class="w"> </span><span class="n">output_path</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">csv_text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_from_file</span><span class="p">(</span><span class="n">input_path</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_csv</span><span class="p">(</span><span class="n">csv_text</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">statistics</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">analyze_data</span><span class="p">(</span><span class="n">data</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">json_text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">serialize_to_json</span><span class="p">(</span><span class="n">statistics</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">print_to_file</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span><span class="w"> </span><span class="n">json_text</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><ul>
 <li>もしかしたら気づいていないだけで、他にも維持しなければいけない要素があるかもしれない</li>
 <li>何にせよ、ここでいいたいのは書き手によるフォーマットへの裁量を可能なかぎり少なくした方がよいということ</li>
 <li>注意: rustfmt は「(AST, コメント, 空行) から決定的に定まる」わけではないし、そういう設計方針で作られているわけではない</li>
@@ -507,6 +507,8 @@
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
+                
                     <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
                 
                     <li><a href="/blog/2022-01-31/diary/">近況 2022-01-31</a></li>
@@ -514,8 +516,6 @@
                     <li><a href="/blog/2021-12-31/diary/">近況 2021-12-31</a></li>
                 
                     <li><a href="/blog/2021-11-30/diary/">近況 2021-11-30</a></li>
-                
-                    <li><a href="/blog/2021-10-31/diary/">近況 2021-10-31</a></li>
                 
               </ul>
 
@@ -623,7 +623,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

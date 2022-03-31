@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -212,21 +212,21 @@
 <li>コードのコメントにおおよそ解説を書いた</li>
 <li>例えば以下の flip は任意のペアに作用するジェネリック関数であり、そのままではC言語にコンパイルできない</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">let</span> <span class="nv">flip</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">=</span> <span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">flip</span> <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">=</span> <span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
+</span></span></code></pre></div><ul>
 <li>以下のような呼び出しがあるとする</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;one&#34;</span><span class="o">)</span> <span class="o">|&gt;</span> <span class="n">flip</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;one&#34;</span><span class="o">)</span> <span class="o">|&gt;</span> <span class="n">flip</span>
+</span></span></code></pre></div><ul>
 <li>この式における flip には <code>(int, string) -&gt; (string, int)</code> という単相型がついている</li>
 <li>この型を使用箇所の型 (use-site type) と呼ぶ</li>
 <li>flip を複製して、この単相型を持たせたものを用意する (単相化インスタンスと呼ぶ)</li>
 <li>flip の呼び出しを単相化インスタンスの呼び出しに変換する</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">let</span> <span class="nv">flipForIntStringPair</span> <span class="o">(</span><span class="n">x</span><span class="o">:</span> <span class="n">int</span><span class="o">,</span> <span class="n">y</span><span class="o">:</span> <span class="kt">string</span><span class="o">)</span> <span class="o">=</span> <span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
-
-    <span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;one&#34;</span><span class="o">)</span> <span class="o">|&gt;</span> <span class="n">flipForIntStringPair</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">flipForIntStringPair</span> <span class="o">(</span><span class="n">x</span><span class="o">:</span> <span class="n">int</span><span class="o">,</span> <span class="n">y</span><span class="o">:</span> <span class="kt">string</span><span class="o">)</span> <span class="o">=</span> <span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="s">&#34;one&#34;</span><span class="o">)</span> <span class="o">|&gt;</span> <span class="n">flipForIntStringPair</span>
+</span></span></code></pre></div><ul>
 <li>この変換をひたすら繰り返す</li>
 <li>このアルゴリズムは基本的なケースではたぶん動く</li>
 <li>効率が悪いし、そもそも停止性を証明できてない</li>
@@ -248,17 +248,17 @@
 <li>これを再帰的に繰り返すとトポロジカルオーダーでモジュールが並ぶ</li>
 <li>あとは各モジュールの抽象構文木を接合する</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Bar
-</span><span class="c1"></span><span class="k">let</span> <span class="nv">bar</span> <span class="bp">()</span> <span class="o">=</span> <span class="o">..</span> <span class="k">in</span> <span class="bp">()</span>
-
-<span class="c1">// Foo
-</span><span class="c1"></span><span class="k">let</span> <span class="nv">main</span> <span class="o">_</span> <span class="o">=</span> <span class="o">..</span> <span class="k">in</span> <span class="bp">()</span>
-
-<span class="c1">// ↓↓↓
-</span><span class="c1"></span>
-<span class="k">let</span> <span class="nv">bar</span> <span class="bp">()</span> <span class="o">=</span> <span class="o">..</span> <span class="k">in</span>
-<span class="k">let</span> <span class="nv">main</span> <span class="o">_</span> <span class="o">=</span> <span class="o">..</span> <span class="k">in</span> <span class="bp">()</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// Bar
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">let</span> <span class="nv">bar</span> <span class="bp">()</span> <span class="o">=</span> <span class="o">..</span> <span class="k">in</span> <span class="bp">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Foo
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">let</span> <span class="nv">main</span> <span class="o">_</span> <span class="o">=</span> <span class="o">..</span> <span class="k">in</span> <span class="bp">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ↓↓↓
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">bar</span> <span class="bp">()</span> <span class="o">=</span> <span class="o">..</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">main</span> <span class="o">_</span> <span class="o">=</span> <span class="o">..</span> <span class="k">in</span> <span class="bp">()</span>
+</span></span></code></pre></div><ul>
 <li>これだと open していないモジュールに含まれる関数が見えてしまったりするが、そのへんは厳密にしてない</li>
 <li>セルフホスティングという目的の障害にならない問題は積極的に無視していく</li>
 </ul>
@@ -269,36 +269,36 @@
 <li>そのため判別共用体がその型自身への参照を持つようなことも可能</li>
 <li>ミローネ言語コンパイラでも抽象構文木の型などにこの機能を利用している</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// よくある抽象構文木
-</span><span class="c1"></span><span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span>
-    <span class="o">|</span> <span class="n">Int</span> <span class="k">of</span> <span class="n">int</span>
-    <span class="o">|</span> <span class="n">Add</span> <span class="k">of</span> <span class="n">Expr</span> <span class="o">*</span> <span class="n">Expr</span> <span class="c1">// Expr 自身を再帰的に参照している
-</span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// よくある抽象構文木
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">type</span> <span class="nc">Expr</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">Int</span> <span class="k">of</span> <span class="n">int</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">Add</span> <span class="k">of</span> <span class="n">Expr</span> <span class="o">*</span> <span class="n">Expr</span> <span class="c1">// Expr 自身を再帰的に参照している
+</span></span></span></code></pre></div><ul>
 <li>判別共用体はトークンの種類にも使われている</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">TokenKind</span> <span class="o">=</span>
-    <span class="o">|</span> <span class="n">Int</span> <span class="k">of</span> <span class="n">int</span>
-    <span class="o">|</span> <span class="n">Plus</span>
-    <span class="o">|</span> <span class="n">ParenL</span> <span class="c1">// (
-</span><span class="c1"></span>    <span class="o">|</span> <span class="n">ParenR</span> <span class="c1">// )
-</span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">type</span> <span class="nc">TokenKind</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">Int</span> <span class="k">of</span> <span class="n">int</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">Plus</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">ParenL</span> <span class="c1">// (
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">|</span> <span class="n">ParenR</span> <span class="c1">// )
+</span></span></span></code></pre></div><ul>
 <li>ペイロード (<code>of int</code> の部分) を持たないバリアント (Int とか Plus とか) を参照として取り扱うとき、いちいち malloc するのは無駄</li>
 <li>F# では定数として扱われていて、おそらく同一のインスタンスが使いまわされる</li>
 <li>場合分けが発生するし、ペイロードのないバリアントのリストを事前に列挙してグローバル変数を宣言して……みたいなコードを書くことになってめんどくさい</li>
 <li>ペイロードをポインタ経由で持つ、というルールにした</li>
 <li>例えば TokenKind はC言語で以下の型に表現する</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">enum</span> <span class="n">TokenKindTag</span> <span class="p">{</span>
-    <span class="n">Int</span><span class="p">,</span> <span class="n">Plus</span><span class="p">,</span> <span class="n">ParenL</span><span class="p">,</span> <span class="n">ParenR</span><span class="p">,</span>
-<span class="p">};</span>
-
-<span class="k">struct</span> <span class="n">TokenKind</span> <span class="p">{</span>
-    <span class="k">enum</span> <span class="n">TokenKindTag</span> <span class="n">tag</span><span class="p">;</span>
-    <span class="k">union</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="o">*</span><span class="n">int_</span><span class="p">;</span> <span class="c1">// Int of int のペイロード
-</span><span class="c1"></span>    <span class="p">};</span>
-<span class="p">};</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">enum</span> <span class="n">TokenKindTag</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Int</span><span class="p">,</span> <span class="n">Plus</span><span class="p">,</span> <span class="n">ParenL</span><span class="p">,</span> <span class="n">ParenR</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">TokenKind</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">enum</span> <span class="n">TokenKindTag</span> <span class="n">tag</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">union</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="o">*</span><span class="n">int_</span><span class="p">;</span> <span class="c1">// Int of int のペイロード
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><ul>
 <li>ペイロードのないバリアントは <code>(struct TokenKind){.tag = Plus}</code> のように値で生成される</li>
 <li>理想的には再帰型のみポインタ経由で参照するという方針にしたい</li>
 <li>あるいは「ペイロードの sizeof が16バイトを超えるとき」みたいな判定でもいいかも</li>
@@ -526,6 +526,8 @@
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
+                
                     <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
                 
                     <li><a href="/blog/2022-01-31/diary/">近況 2022-01-31</a></li>
@@ -533,8 +535,6 @@
                     <li><a href="/blog/2021-12-31/diary/">近況 2021-12-31</a></li>
                 
                     <li><a href="/blog/2021-11-30/diary/">近況 2021-11-30</a></li>
-                
-                    <li><a href="/blog/2021-10-31/diary/">近況 2021-10-31</a></li>
                 
               </ul>
 
@@ -642,7 +642,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

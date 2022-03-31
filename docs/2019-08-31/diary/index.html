@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -266,29 +266,29 @@
 <p>テストケースとエラーハンドリングが足りていないことが分かってきた。</p>
 <h3 id="ミローネ-単相化">ミローネ: 単相化</h3>
 <p>多相関数の中に関数があると単相化でコードが壊れるバグがあった。例:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">id</span> <span class="n">x</span> <span class="o">=</span>
-    <span class="k">let</span> <span class="nv">aux</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">x</span>
-    <span class="n">aux</span> <span class="bp">()</span>
-
-<span class="k">assert</span> <span class="o">(</span><span class="n">id</span> <span class="n">1</span> <span class="o">=</span> <span class="n">1</span><span class="o">)</span>
-<span class="k">assert</span> <span class="o">(</span><span class="n">id</span> <span class="s">&#34;a&#34;</span> <span class="o">=</span> <span class="s">&#34;a&#34;</span><span class="o">)</span>
-</code></pre></div><p>これを単相化すると多相関数 id が2つに複製される。内部にある関数 aux のコピーが2つできてしまう。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">id_int</span> <span class="n">x</span> <span class="o">=</span>
-    <span class="k">let</span> <span class="nv">aux</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">x</span>
-    <span class="n">aux</span> <span class="bp">()</span>
-
-<span class="k">let</span> <span class="nv">id_str</span> <span class="n">x</span> <span class="o">=</span>
-    <span class="k">let</span> <span class="nv">aux</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">x</span>
-    <span class="n">aux</span> <span class="bp">()</span>
-
-<span class="k">assert</span> <span class="o">(</span><span class="n">id_int</span> <span class="n">1</span> <span class="o">=</span> <span class="n">1</span><span class="o">)</span>
-<span class="k">assert</span> <span class="o">(</span><span class="n">id_str</span> <span class="s">&#34;a&#34;</span> <span class="o">=</span> <span class="s">&#34;a&#34;</span><span class="o">)</span>
-</code></pre></div><p>解決策はいろいろあるが、クロージャ変換後に aux を外に移動する方法がある。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// クロージャ変換後
-</span><span class="c1"></span>
-<span class="k">let</span> <span class="nv">aux</span> <span class="n">x</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">x</span>        <span class="c1">// 引数 x はクロージャ変換で追加された
-</span><span class="c1"></span><span class="k">let</span> <span class="nv">id</span> <span class="n">x</span> <span class="o">=</span> <span class="n">aux</span> <span class="n">x</span> <span class="bp">()</span>
-</code></pre></div><p>前回の近況記事や上に書いたlet深度の関係で、aux は多相関数でない。そのため aux は自由な型変数を含む。そのような型変数は aux によって導入するとみなせる。つまり、aux を generalize していい。それで壊れるようなケースは型推論時にエラーとして弾かれているため。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">id</span> <span class="n">x</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">aux</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl">    <span class="n">aux</span> <span class="bp">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">assert</span> <span class="o">(</span><span class="n">id</span> <span class="n">1</span> <span class="o">=</span> <span class="n">1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">assert</span> <span class="o">(</span><span class="n">id</span> <span class="s">&#34;a&#34;</span> <span class="o">=</span> <span class="s">&#34;a&#34;</span><span class="o">)</span>
+</span></span></code></pre></div><p>これを単相化すると多相関数 id が2つに複製される。内部にある関数 aux のコピーが2つできてしまう。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">id_int</span> <span class="n">x</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">aux</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl">    <span class="n">aux</span> <span class="bp">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">id_str</span> <span class="n">x</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">aux</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl">    <span class="n">aux</span> <span class="bp">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">assert</span> <span class="o">(</span><span class="n">id_int</span> <span class="n">1</span> <span class="o">=</span> <span class="n">1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">assert</span> <span class="o">(</span><span class="n">id_str</span> <span class="s">&#34;a&#34;</span> <span class="o">=</span> <span class="s">&#34;a&#34;</span><span class="o">)</span>
+</span></span></code></pre></div><p>解決策はいろいろあるが、クロージャ変換後に aux を外に移動する方法がある。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// クロージャ変換後
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">aux</span> <span class="n">x</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">x</span>        <span class="c1">// 引数 x はクロージャ変換で追加された
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">let</span> <span class="nv">id</span> <span class="n">x</span> <span class="o">=</span> <span class="n">aux</span> <span class="n">x</span> <span class="bp">()</span>
+</span></span></code></pre></div><p>前回の近況記事や上に書いたlet深度の関係で、aux は多相関数でない。そのため aux は自由な型変数を含む。そのような型変数は aux によって導入するとみなせる。つまり、aux を generalize していい。それで壊れるようなケースは型推論時にエラーとして弾かれているため。</p>
 <h2 id="競プロ参戦記">競プロ参戦記</h2>
 <p><a href="https://note.mu/vain0x/n/ne89049a33233">2018-08-19 に投稿した最初の競プロ参戦記</a>から1年たった。当時のレートは 1547 (水)、いまは 1799 (青, +252)。</p>
 <ul>
@@ -313,6 +313,8 @@
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
+                
                     <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
                 
                     <li><a href="/blog/2022-01-31/diary/">近況 2022-01-31</a></li>
@@ -320,8 +322,6 @@
                     <li><a href="/blog/2021-12-31/diary/">近況 2021-12-31</a></li>
                 
                     <li><a href="/blog/2021-11-30/diary/">近況 2021-11-30</a></li>
-                
-                    <li><a href="/blog/2021-10-31/diary/">近況 2021-10-31</a></li>
                 
               </ul>
 
@@ -429,7 +429,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

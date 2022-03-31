@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -228,15 +228,15 @@
 <p>実装方法はたくさんありますが、今回はやんごとなき理由から seq を中心に使っています。</p>
 <h3 id="実装-素数判定">実装: 素数判定</h3>
 <p>はじめに素数判定の関数を作ります。よくあるやりかたですが、 2 以上 √n 以下の数で割ってみて、いずれも割り切れなければ素数、と判定します。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">isPrime</span> <span class="n">n</span> <span class="o">=</span>
-  <span class="c1">// n が2未満のケースは除外
-</span><span class="c1"></span>  <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">2</span> <span class="k">then</span> <span class="k">false</span> <span class="k">else</span>
-
-  <span class="c1">// √n の整数部分
-</span><span class="c1"></span>  <span class="k">let</span> <span class="nv">r</span> <span class="o">=</span> <span class="n">n</span> <span class="o">|&gt;</span> <span class="kt">float</span> <span class="o">|&gt;</span> <span class="n">sqrt</span> <span class="o">|&gt;</span> <span class="n">int</span>
-
-  <span class="n">seq</span> <span class="o">{</span> <span class="n">2</span><span class="o">..</span><span class="n">r</span> <span class="o">}</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">forall</span> <span class="o">(</span><span class="k">fun</span> <span class="n">m</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">%</span> <span class="n">m</span> <span class="o">&lt;&gt;</span> <span class="n">0</span><span class="o">)</span>
-</code></pre></div><p><code>seq { 2..r }</code> は 2 から r 以下の数からなる数列を表しています。この中の値をそれぞれ m として、 <code>n % m &lt;&gt; 0</code> がすべてについて成り立てばOK。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">isPrime</span> <span class="n">n</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// n が2未満のケースは除外
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">2</span> <span class="k">then</span> <span class="k">false</span> <span class="k">else</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// √n の整数部分
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">let</span> <span class="nv">r</span> <span class="o">=</span> <span class="n">n</span> <span class="o">|&gt;</span> <span class="kt">float</span> <span class="o">|&gt;</span> <span class="n">sqrt</span> <span class="o">|&gt;</span> <span class="n">int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">seq</span> <span class="o">{</span> <span class="n">2</span><span class="o">..</span><span class="n">r</span> <span class="o">}</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">forall</span> <span class="o">(</span><span class="k">fun</span> <span class="n">m</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">%</span> <span class="n">m</span> <span class="o">&lt;&gt;</span> <span class="n">0</span><span class="o">)</span>
+</span></span></code></pre></div><p><code>seq { 2..r }</code> は 2 から r 以下の数からなる数列を表しています。この中の値をそれぞれ m として、 <code>n % m &lt;&gt; 0</code> がすべてについて成り立てばOK。</p>
 <p><code>seq</code> と <code>Seq.</code> ですでにシクシク感が出ていますが、シクシク数の判定は次です。</p>
 <h3 id="実装-シクシク数の判定">実装: シクシク数の判定</h3>
 <p>シクシク数かどうかの判定では、 n の10進展開を計算します。割り算を使うことで n を1桁目とそれ以外の部分に分解できるというのがポイント。</p>
@@ -245,94 +245,94 @@
 <li><code>n % 10</code> は n の1桁目</li>
 </ul>
 <p>そのため <code>n / 10</code> を10進展開したものに <code>n % 10</code> を付け足せば、n の各桁の数からなる列を構成できます。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">rec</span> <span class="n">digits</span> <span class="n">n</span> <span class="o">=</span>
-  <span class="n">seq</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="k">then</span>
-      <span class="k">yield</span><span class="o">!</span> <span class="n">digits</span> <span class="o">(</span><span class="n">n</span> <span class="o">/</span> <span class="n">10</span><span class="o">)</span>
-      <span class="k">yield</span> <span class="n">n</span> <span class="o">%</span> <span class="n">10</span>
-  <span class="o">}</span>
-</code></pre></div><p>ここでの <code>seq { .. }</code> はブロック内で <code>yield</code> された値からなる列を表します。他の言語にあるリストの内包表記みたいなもの。<code>yield!</code> は複数の値を一挙に <code>yield</code> することを表しています。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">rec</span> <span class="n">digits</span> <span class="n">n</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">seq</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      <span class="k">yield</span><span class="o">!</span> <span class="n">digits</span> <span class="o">(</span><span class="n">n</span> <span class="o">/</span> <span class="n">10</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">yield</span> <span class="n">n</span> <span class="o">%</span> <span class="n">10</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span></code></pre></div><p>ここでの <code>seq { .. }</code> はブロック内で <code>yield</code> された値からなる列を表します。他の言語にあるリストの内包表記みたいなもの。<code>yield!</code> は複数の値を一挙に <code>yield</code> することを表しています。</p>
 <p>シクシク数の判定は、これで得られた各桁の数のどれかが 4, 9 に等しいかどうかを判定すればOK。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">isSikuSiku</span> <span class="n">n</span> <span class="o">=</span>
-  <span class="n">digits</span> <span class="n">n</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">exists</span> <span class="o">(</span><span class="k">fun</span> <span class="n">d</span> <span class="o">-&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">4</span> <span class="o">||</span> <span class="n">d</span> <span class="o">=</span> <span class="n">9</span><span class="o">)</span>
-</code></pre></div><h3 id="実装-シクシク素数列挙">実装: シクシク素数列挙</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">isSikuSiku</span> <span class="n">n</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">digits</span> <span class="n">n</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">exists</span> <span class="o">(</span><span class="k">fun</span> <span class="n">d</span> <span class="o">-&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">4</span> <span class="o">||</span> <span class="n">d</span> <span class="o">=</span> <span class="n">9</span><span class="o">)</span>
+</span></span></code></pre></div><h3 id="実装-シクシク素数列挙">実装: シクシク素数列挙</h3>
 <p>これでシクシク素数判定関数のできあがり！</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">isSikuSikuPrime</span> <span class="n">n</span> <span class="o">=</span>
-  <span class="n">isSikuSiku</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">isPrime</span> <span class="n">n</span>
-</code></pre></div><p>非負整数を列挙して、シクシク素数であるものに絞り込むことで、シクシク素数を昇順に列挙します。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">sikuSikuPrimes</span> <span class="o">=</span>
-  <span class="n">seq</span> <span class="o">{</span>
-    <span class="k">for</span> <span class="n">n</span> <span class="k">in</span> <span class="n">0</span><span class="o">..</span><span class="n">Int32</span><span class="o">.</span><span class="n">MaxValue</span> <span class="k">do</span>
-      <span class="k">if</span> <span class="n">isSikuSikuPrime</span> <span class="n">n</span> <span class="k">then</span>
-        <span class="k">yield</span> <span class="n">n</span>
-  <span class="o">}</span>
-</code></pre></div><p><code>seq { .. }</code> の中身は必要に応じて計算されるので、実際には全整数についてのループが回るわけではないので安心してください。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">isSikuSikuPrime</span> <span class="n">n</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">isSikuSiku</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">isPrime</span> <span class="n">n</span>
+</span></span></code></pre></div><p>非負整数を列挙して、シクシク素数であるものに絞り込むことで、シクシク素数を昇順に列挙します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">sikuSikuPrimes</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">seq</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">n</span> <span class="k">in</span> <span class="n">0</span><span class="o">..</span><span class="n">Int32</span><span class="o">.</span><span class="n">MaxValue</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="n">isSikuSikuPrime</span> <span class="n">n</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        <span class="k">yield</span> <span class="n">n</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span></code></pre></div><p><code>seq { .. }</code> の中身は必要に応じて計算されるので、実際には全整数についてのループが回るわけではないので安心してください。</p>
 <p><code>Seq.take N</code> を使うと、列の前から N 個の要素が列挙された時点で計算を打ち切るようにできます。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="n">sikuSikuPrimes</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">take</span> <span class="n">N</span>
-</code></pre></div><h3 id="実装-main">実装: main</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="n">sikuSikuPrimes</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">take</span> <span class="n">N</span>
+</span></span></code></pre></div><h3 id="実装-main">実装: main</h3>
 <p>最後に標準入出力を書きます。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">open</span> <span class="nn">System</span>
-
-<span class="k">let</span> <span class="nv">N</span> <span class="o">=</span> <span class="nn">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="bp">()</span> <span class="o">|&gt;</span> <span class="n">int</span>
-
-<span class="n">sikuSikuPrimes</span>
-<span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">take</span> <span class="n">N</span>
-<span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">map</span> <span class="kt">string</span>
-<span class="o">|&gt;</span> <span class="nn">String</span><span class="p">.</span><span class="n">concat</span> <span class="s">&#34;,&#34;</span>
-<span class="o">|&gt;</span> <span class="n">printfn</span> <span class="s">&#34;%s&#34;</span>
-</code></pre></div><p><a href="https://dotnetfiddle.net/mIJ1qY">.NET Fiddle で試す</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">open</span> <span class="nn">System</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">N</span> <span class="o">=</span> <span class="nn">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="bp">()</span> <span class="o">|&gt;</span> <span class="n">int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sikuSikuPrimes</span>
+</span></span><span class="line"><span class="cl"><span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">take</span> <span class="n">N</span>
+</span></span><span class="line"><span class="cl"><span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">map</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="o">|&gt;</span> <span class="nn">String</span><span class="p">.</span><span class="n">concat</span> <span class="s">&#34;,&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">|&gt;</span> <span class="n">printfn</span> <span class="s">&#34;%s&#34;</span>
+</span></span></code></pre></div><p><a href="https://dotnetfiddle.net/mIJ1qY">.NET Fiddle で試す</a></p>
 <h2 id="おまけ">おまけ</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">open</span> <span class="nn">System</span>
-
-<span class="k">let</span> <span class="nv">isPrime</span> <span class="n">n</span> <span class="o">=</span>
-  <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">2</span> <span class="k">then</span> <span class="k">false</span> <span class="k">else</span>
-
-  <span class="k">let</span> <span class="nv">r</span> <span class="o">=</span> <span class="n">n</span> <span class="o">|&gt;</span> <span class="kt">float</span> <span class="o">|&gt;</span> <span class="n">sqrt</span> <span class="o">|&gt;</span> <span class="n">int</span>
-  <span class="n">seq</span> <span class="o">{</span> <span class="n">2</span><span class="o">..</span><span class="n">r</span> <span class="o">}</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">forall</span> <span class="o">(</span><span class="k">fun</span> <span class="n">m</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">%</span> <span class="n">m</span> <span class="o">&lt;&gt;</span> <span class="n">0</span><span class="o">)</span>
-
-<span class="k">let</span> <span class="nv">testPrime</span> <span class="bp">()</span> <span class="o">=</span>
-  <span class="k">assert</span> <span class="o">(</span><span class="n">isPrime</span> <span class="n">2</span><span class="o">)</span>
-  <span class="k">assert</span> <span class="o">(</span><span class="n">isPrime</span> <span class="n">19</span><span class="o">)</span>
-  <span class="k">assert</span> <span class="o">(</span><span class="n">isPrime</span> <span class="n">4</span> <span class="o">|&gt;</span> <span class="ow">not</span><span class="o">)</span>
-
-<span class="k">let</span> <span class="nv">rec</span> <span class="n">digits</span> <span class="n">n</span> <span class="o">=</span>
-  <span class="n">seq</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="k">then</span>
-      <span class="k">yield</span><span class="o">!</span> <span class="n">digits</span> <span class="o">(</span><span class="n">n</span> <span class="o">/</span> <span class="n">10</span><span class="o">)</span>
-      <span class="k">yield</span> <span class="n">n</span> <span class="o">%</span> <span class="n">10</span>
-  <span class="o">}</span>
-
-<span class="k">let</span> <span class="nv">testDigits</span> <span class="bp">()</span> <span class="o">=</span>
-  <span class="k">assert</span> <span class="o">(</span><span class="n">digits</span> <span class="n">0</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">isEmpty</span><span class="o">)</span>
-  <span class="k">assert</span> <span class="o">(</span><span class="n">digits</span> <span class="n">2019</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">toList</span> <span class="o">=</span> <span class="o">[</span><span class="n">2</span><span class="o">;</span> <span class="n">0</span><span class="o">;</span> <span class="n">1</span><span class="o">;</span> <span class="n">9</span><span class="o">])</span>
-
-<span class="n">testDigits</span> <span class="bp">()</span>
-
-<span class="k">let</span> <span class="nv">isSikuSiku</span> <span class="n">n</span> <span class="o">=</span>
-  <span class="n">digits</span> <span class="n">n</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">exists</span> <span class="o">(</span><span class="k">fun</span> <span class="n">d</span> <span class="o">-&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">4</span> <span class="o">||</span> <span class="n">d</span> <span class="o">=</span> <span class="n">9</span><span class="o">)</span>
-
-<span class="k">let</span> <span class="nv">testIsSikuSiku</span> <span class="bp">()</span> <span class="o">=</span>
-  <span class="k">assert</span> <span class="o">(</span><span class="n">isSikuSiku</span> <span class="n">42</span><span class="o">)</span>
-  <span class="k">assert</span> <span class="o">(</span><span class="n">isSikuSiku</span> <span class="n">2019</span><span class="o">)</span>
-  <span class="k">assert</span> <span class="o">(</span><span class="n">isSikuSiku</span> <span class="n">12356780</span> <span class="o">|&gt;</span> <span class="ow">not</span><span class="o">)</span>
-
-<span class="k">let</span> <span class="nv">isSikuSikuPrime</span> <span class="n">n</span> <span class="o">=</span>
-  <span class="n">isSikuSiku</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">isPrime</span> <span class="n">n</span>
-
-<span class="k">let</span> <span class="nv">sikuSikuPrimes</span> <span class="o">=</span>
-  <span class="n">seq</span> <span class="o">{</span>
-    <span class="k">for</span> <span class="n">n</span> <span class="k">in</span> <span class="n">0</span><span class="o">..</span><span class="n">Int32</span><span class="o">.</span><span class="n">MaxValue</span> <span class="k">do</span>
-      <span class="k">if</span> <span class="n">isSikuSikuPrime</span> <span class="n">n</span> <span class="k">then</span>
-        <span class="k">yield</span> <span class="n">n</span>
-  <span class="o">}</span>
-
-<span class="k">let</span> <span class="nv">N</span> <span class="o">=</span> <span class="nn">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="bp">()</span> <span class="o">|&gt;</span> <span class="n">int</span>
-<span class="n">sikuSikuPrimes</span>
-<span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">take</span> <span class="n">N</span>
-<span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">map</span> <span class="kt">string</span>
-<span class="o">|&gt;</span> <span class="nn">String</span><span class="p">.</span><span class="n">concat</span> <span class="s">&#34;,&#34;</span>
-<span class="o">|&gt;</span> <span class="n">printfn</span> <span class="s">&#34;%s&#34;</span>
-</code></pre></div><p>出力例:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">open</span> <span class="nn">System</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">isPrime</span> <span class="n">n</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">2</span> <span class="k">then</span> <span class="k">false</span> <span class="k">else</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="nv">r</span> <span class="o">=</span> <span class="n">n</span> <span class="o">|&gt;</span> <span class="kt">float</span> <span class="o">|&gt;</span> <span class="n">sqrt</span> <span class="o">|&gt;</span> <span class="n">int</span>
+</span></span><span class="line"><span class="cl">  <span class="n">seq</span> <span class="o">{</span> <span class="n">2</span><span class="o">..</span><span class="n">r</span> <span class="o">}</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">forall</span> <span class="o">(</span><span class="k">fun</span> <span class="n">m</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">%</span> <span class="n">m</span> <span class="o">&lt;&gt;</span> <span class="n">0</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">testPrime</span> <span class="bp">()</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="k">assert</span> <span class="o">(</span><span class="n">isPrime</span> <span class="n">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">assert</span> <span class="o">(</span><span class="n">isPrime</span> <span class="n">19</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">assert</span> <span class="o">(</span><span class="n">isPrime</span> <span class="n">4</span> <span class="o">|&gt;</span> <span class="ow">not</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">rec</span> <span class="n">digits</span> <span class="n">n</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">seq</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">      <span class="k">yield</span><span class="o">!</span> <span class="n">digits</span> <span class="o">(</span><span class="n">n</span> <span class="o">/</span> <span class="n">10</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">yield</span> <span class="n">n</span> <span class="o">%</span> <span class="n">10</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">testDigits</span> <span class="bp">()</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="k">assert</span> <span class="o">(</span><span class="n">digits</span> <span class="n">0</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">isEmpty</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">assert</span> <span class="o">(</span><span class="n">digits</span> <span class="n">2019</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">toList</span> <span class="o">=</span> <span class="o">[</span><span class="n">2</span><span class="o">;</span> <span class="n">0</span><span class="o">;</span> <span class="n">1</span><span class="o">;</span> <span class="n">9</span><span class="o">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">testDigits</span> <span class="bp">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">isSikuSiku</span> <span class="n">n</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">digits</span> <span class="n">n</span> <span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">exists</span> <span class="o">(</span><span class="k">fun</span> <span class="n">d</span> <span class="o">-&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">4</span> <span class="o">||</span> <span class="n">d</span> <span class="o">=</span> <span class="n">9</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">testIsSikuSiku</span> <span class="bp">()</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="k">assert</span> <span class="o">(</span><span class="n">isSikuSiku</span> <span class="n">42</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">assert</span> <span class="o">(</span><span class="n">isSikuSiku</span> <span class="n">2019</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">assert</span> <span class="o">(</span><span class="n">isSikuSiku</span> <span class="n">12356780</span> <span class="o">|&gt;</span> <span class="ow">not</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">isSikuSikuPrime</span> <span class="n">n</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">isSikuSiku</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">isPrime</span> <span class="n">n</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">sikuSikuPrimes</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="n">seq</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">n</span> <span class="k">in</span> <span class="n">0</span><span class="o">..</span><span class="n">Int32</span><span class="o">.</span><span class="n">MaxValue</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="n">isSikuSikuPrime</span> <span class="n">n</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        <span class="k">yield</span> <span class="n">n</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">N</span> <span class="o">=</span> <span class="nn">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="bp">()</span> <span class="o">|&gt;</span> <span class="n">int</span>
+</span></span><span class="line"><span class="cl"><span class="n">sikuSikuPrimes</span>
+</span></span><span class="line"><span class="cl"><span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">take</span> <span class="n">N</span>
+</span></span><span class="line"><span class="cl"><span class="o">|&gt;</span> <span class="nn">Seq</span><span class="p">.</span><span class="n">map</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="o">|&gt;</span> <span class="nn">String</span><span class="p">.</span><span class="n">concat</span> <span class="s">&#34;,&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">|&gt;</span> <span class="n">printfn</span> <span class="s">&#34;%s&#34;</span>
+</span></span></code></pre></div><p>出力例:</p>
 <pre tabindex="0"><code>$ fsharpi ./Program.fsx
 100
 19,29,41,43,47,59,79,89,97,109,139,149,179,191,193,197,199,229,239,241,269,293,347,349,359,379,389,397,401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,509,541,547,569,593,599,619,641,643,647,659,691,709,719,739,743,769,797,809,829,839,859,907,911,919,929,937,941,947,953,967,971,977,983,991,997,1009,1019,1039,1049,1069,1091,1093,1097,1109,1129,1193,1229,1249,1259,1279,1289,1291,1297,1319
@@ -464,7 +464,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

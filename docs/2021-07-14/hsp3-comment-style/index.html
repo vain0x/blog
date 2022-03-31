@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -225,12 +225,12 @@
 <p>関連した話題として、ifの条件式をカッコで囲むかどうかというのがある。</p>
 <p>C言語のif文の構文では、条件式全体をカッコで囲む必要がある。
 一方HSP3では、条件全体をカッコで囲む必要はない。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js">    <span class="c1">// 条件式をカッコで囲むとき
-</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">条件</span><span class="p">)</span> <span class="p">{</span> <span class="nx">本体</span> <span class="p">}</span>
-
-    <span class="c1">// 囲まないとき
-</span><span class="c1"></span>    <span class="k">if</span> <span class="nx">条件</span> <span class="p">{</span> <span class="nx">本体</span> <span class="p">}</span>
-</code></pre></div><p>私は以前まで「囲む」ように書いていた。そうし始めたのも、コメントを <code>//</code> にしたのと同じ時期で、理由も似たようなものだと思う。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">    <span class="c1">// 条件式をカッコで囲むとき
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">条件</span><span class="p">)</span> <span class="p">{</span> <span class="nx">本体</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 囲まないとき
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="nx">条件</span> <span class="p">{</span> <span class="nx">本体</span> <span class="p">}</span>
+</span></span></code></pre></div><p>私は以前まで「囲む」ように書いていた。そうし始めたのも、コメントを <code>//</code> にしたのと同じ時期で、理由も似たようなものだと思う。</p>
 <p>他の言語をみてみると、たしかにifの条件式をカッコで囲むのが必須な言語は少なからずある。
 しかしここ10年ぐらいに設計された言語では、C系の言語でも、ifの条件式は別にカッコで囲まなくてもよくなっている。Rust、Go、Swiftなど。
 また、C言語の影響にないOCamlなどの言語では昔から <code>if 条件 then 本体</code> という構文であり、カッコはない。</p>
@@ -355,7 +355,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -226,34 +226,34 @@
 <p>オブジェクトのメモリレイアウトに影響していない型検査のためだけの型を、ここでは仮に <strong>ファントム</strong> と呼ぶ。</p>
 <p>例えばポインタ型 <code>T*</code> は、型 T に関係なく、実行時には特定のビット長の数値 size_t に等しい。ポインタであるという型情報は型検査等にのみ使われていて、メモリレイアウトに影響していない。そのためポインタはファントムとみなせる。</p>
 <p>上の例でいえば、メソッド execute を持つ型を Execute という名前のファントムとして定めておく。(構文は適当。)</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="n">phantom</span><span class="w"> </span><span class="n">Execute</span>: <span class="nc">Foo</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">Execute</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="k">fn</span> <span class="nf">execute</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></div><p>is_valid の事後条件として、結果が true なら Execute ファントムを得る、と書いておく。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">impl</span><span class="w"> </span><span class="n">Foo</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="k">fn</span> <span class="nf">is_valid</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span>
-        <span class="nc">ensures</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="n">result</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="bp">self</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Execute</span><span class="w">
-</span><span class="w">        </span><span class="p">}</span><span class="w">
-</span><span class="w">    </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="kc">false</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></div><p>後は <code>foo.is_valid()</code> の結果 (result) が true のときスマートキャスト <code>self as Execute</code> が走って <code>foo: Execute</code> という型がつき、execute が呼べる。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="c1">// foo.execute() はここでは呼べない。
-</span><span class="c1"></span><span class="w">
-</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="n">foo</span><span class="p">.</span><span class="n">execute</span><span class="p">();</span><span class="w"> </span><span class="c1">// ここでは呼べる。(is_valid の事後条件のため)
-</span><span class="c1"></span><span class="w">    </span><span class="p">}</span><span class="w">
-</span></code></pre></div><p>ふるい型 (refinement type) に似ているが、型自体が条件を持つのではなく、ファントムでは条件を満たした結果として型を得る。(もしかしたらこれもふるい型の一種に含まれるかもしれないが……) 加えて、ファントムはオブジェクトの可変性を前提としている。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="n">phantom</span><span class="w"> </span><span class="n">Execute</span>: <span class="nc">Foo</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">Execute</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">execute</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>is_valid の事後条件として、結果が true なら Execute ファントムを得る、と書いておく。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">impl</span><span class="w"> </span><span class="n">Foo</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">is_valid</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">        <span class="nc">ensures</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">result</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="bp">self</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Execute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>後は <code>foo.is_valid()</code> の結果 (result) が true のときスマートキャスト <code>self as Execute</code> が走って <code>foo: Execute</code> という型がつき、execute が呼べる。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// foo.execute() はここでは呼べない。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">foo</span><span class="p">.</span><span class="n">execute</span><span class="p">();</span><span class="w"> </span><span class="c1">// ここでは呼べる。(is_valid の事後条件のため)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>ふるい型 (refinement type) に似ているが、型自体が条件を持つのではなく、ファントムでは条件を満たした結果として型を得る。(もしかしたらこれもふるい型の一種に含まれるかもしれないが……) 加えて、ファントムはオブジェクトの可変性を前提としている。</p>
 <p>問題はまさにその可変性との兼ね合いで、例えば is_valid の結果を確かめた後にオブジェクトの状態を変更すると、is_valid = false になる可能性がありるため、ファントム Execute を持ったままにするべきではない。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="n">modify</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">foo</span><span class="p">);</span><span class="w">
-</span><span class="w">        </span><span class="n">foo</span><span class="p">.</span><span class="n">execute</span><span class="p">();</span><span class="w"> </span><span class="c1">// foo.is_valid() == true とはいえない
-</span><span class="c1"></span><span class="w">    </span><span class="p">}</span><span class="w">
-</span></code></pre></div><p>「可変操作の後では is_valid の事後条件が崩れた可能性があるから Execute を失う」と保守的に判断してしまうと、事後条件を使える場面が大幅に制限される。可変操作が is_valid を false にするかどうかを指定する、煩雑ではない手法が必要になる。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">modify</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">foo</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">foo</span><span class="p">.</span><span class="n">execute</span><span class="p">();</span><span class="w"> </span><span class="c1">// foo.is_valid() == true とはいえない
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>「可変操作の後では is_valid の事後条件が崩れた可能性があるから Execute を失う」と保守的に判断してしまうと、事後条件を使える場面が大幅に制限される。可変操作が is_valid を false にするかどうかを指定する、煩雑ではない手法が必要になる。</p>
 <p>難しそうなので、一旦ここまで。いちおうメモにまとめてある。</p>
 <p><a href="https://github.com/vain0x/languages/blob/061a4d5/phancie-lang/memo.md">https://github.com/vain0x/languages/blob/061a4d5/phancie-lang/memo.md</a></p>
 <h2 id="hsp3-フォージェリ">HSP3 フォージェリ</h2>
@@ -320,6 +320,8 @@
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
+                
                     <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
                 
                     <li><a href="/blog/2022-01-31/diary/">近況 2022-01-31</a></li>
@@ -327,8 +329,6 @@
                     <li><a href="/blog/2021-12-31/diary/">近況 2021-12-31</a></li>
                 
                     <li><a href="/blog/2021-11-30/diary/">近況 2021-11-30</a></li>
-                
-                    <li><a href="/blog/2021-10-31/diary/">近況 2021-10-31</a></li>
                 
               </ul>
 
@@ -436,7 +436,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

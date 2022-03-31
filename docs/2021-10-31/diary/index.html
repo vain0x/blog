@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -273,11 +273,11 @@
 </li>
 </ul>
 <h3 id="ml-オブジェクトのポインタからフィールドのポインタを取る構文">ML: オブジェクトのポインタからフィールドのポインタを取る構文</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">Buf</span> <span class="o">=</span> <span class="o">{</span> <span class="n">Len</span><span class="o">:</span> <span class="n">int</span><span class="o">;</span> <span class="o">...</span> <span class="o">}</span>
-<span class="k">val</span> <span class="n">buf</span><span class="o">:</span> <span class="n">nativeptr</span><span class="o">&lt;</span><span class="n">Buf</span><span class="o">&gt;</span>
-</code></pre></div><p>現状の構文で <code>buf.Len</code> を1増やすにはこう書く:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="n">buf</span> <span class="o">|&gt;</span> <span class="n">write</span> <span class="o">{</span> <span class="n">read</span> <span class="n">buf</span> <span class="k">with</span> <span class="n">Len</span> <span class="o">=</span> <span class="o">(</span><span class="n">read</span> <span class="n">buf</span><span class="o">).</span><span class="n">Len</span> <span class="o">+</span> <span class="n">1</span> <span class="o">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">type</span> <span class="nc">Buf</span> <span class="o">=</span> <span class="o">{</span> <span class="n">Len</span><span class="o">:</span> <span class="n">int</span><span class="o">;</span> <span class="o">...</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">buf</span><span class="o">:</span> <span class="n">nativeptr</span><span class="o">&lt;</span><span class="n">Buf</span><span class="o">&gt;</span>
+</span></span></code></pre></div><p>現状の構文で <code>buf.Len</code> を1増やすにはこう書く:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="n">buf</span> <span class="o">|&gt;</span> <span class="n">write</span> <span class="o">{</span> <span class="n">read</span> <span class="n">buf</span> <span class="k">with</span> <span class="n">Len</span> <span class="o">=</span> <span class="o">(</span><span class="n">read</span> <span class="n">buf</span><span class="o">).</span><span class="n">Len</span> <span class="o">+</span> <span class="n">1</span> <span class="o">}</span>
+</span></span></code></pre></div><ul>
 <li>冗長すぎる
 <ul>
 <li>しかもbuf全体を書き換えてしまう</li>
@@ -355,6 +355,8 @@
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
+                
                     <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
                 
                     <li><a href="/blog/2022-01-31/diary/">近況 2022-01-31</a></li>
@@ -362,8 +364,6 @@
                     <li><a href="/blog/2021-12-31/diary/">近況 2021-12-31</a></li>
                 
                     <li><a href="/blog/2021-11-30/diary/">近況 2021-11-30</a></li>
-                
-                    <li><a href="/blog/2021-09-30/diary/">近況 2021-09-30</a></li>
                 
               </ul>
 
@@ -471,7 +471,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

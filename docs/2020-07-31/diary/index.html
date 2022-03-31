@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -233,12 +233,12 @@
 <p>1つのソースコードの内部だけ見て、他のソースコードを一切参照することなく進めることができる操作を、<strong>単一ファイルに閉じた操作</strong> と呼ぶことにする。</p>
 <p>例えば Rust の構文解析は単一ファイルに閉じた操作。他のファイルにかかれている内容によって、構文解析の結果が変わることはない。そうなるように注意深く設計されている。</p>
 <p>一方、C言語の構文解析は単一ファイルに閉じていない。例えば <code>#include</code> の先を見ないと、後続の構文解析の結果が確定しない:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&#34;another.h&#34;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">void</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">t</span><span class="o">*</span><span class="n">x</span><span class="p">;</span> <span class="cm">/* 変数宣言かもしれないし、掛け算かもしれない */</span>
-<span class="p">}</span>
-</code></pre></div><p>単一ファイルに閉じた操作は、閉じていない操作に比べて2つの利点がある。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;another.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">t</span><span class="o">*</span><span class="n">x</span><span class="p">;</span> <span class="cm">/* 変数宣言かもしれないし、掛け算かもしれない */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>単一ファイルに閉じた操作は、閉じていない操作に比べて2つの利点がある。</p>
 <ul>
 <li>並列で実行できる</li>
 <li>他のファイルの変更により結果が無効化しない</li>
@@ -250,29 +250,29 @@
 </ul>
 <h3 id="配列ベースのデータ構造">配列ベースのデータ構造</h3>
 <p>処理系内部のデータを配列で持つようになった。例:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// ast.rs
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="k">struct</span> <span class="nc">ATyTag</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="k">type</span> <span class="nc">ATyId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VecArenaId</span><span class="o">&lt;</span><span class="n">ATyTag</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="c1">// ≒ u32
-</span><span class="c1"></span><span class="k">type</span> <span class="nc">ATyArena</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VecArena</span><span class="o">&lt;</span><span class="n">ATyTag</span><span class="p">,</span><span class="w"> </span><span class="n">ATy</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="c1">// ≒ Vec&lt;ATy&gt;
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="k">struct</span> <span class="nc">APtrTy</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">mut_opt</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">KMut</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
-</span><span class="w">    </span><span class="n">ty_opt</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">ATyId</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="c1">// ≒ Option&lt;u32&gt;
-</span><span class="c1"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">enum</span> <span class="nc">ATy</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">Unit</span><span class="p">,</span><span class="w">
-</span><span class="w">    </span><span class="n">Ptr</span><span class="p">(</span><span class="n">APtrTy</span><span class="p">),</span><span class="w">
-</span><span class="w">    </span><span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">struct</span> <span class="nc">ATree</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">tys</span>: <span class="nc">ATyArena</span><span class="p">,</span><span class="w"> </span><span class="c1">// ≒ Vec&lt;ATy&gt;
-</span><span class="c1"></span><span class="w">    </span><span class="n">ty_events</span>: <span class="nc">VecArena</span><span class="o">&lt;</span><span class="n">ATyTag</span><span class="p">,</span><span class="w"> </span><span class="n">TyEnd</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="c1">// ≒ Vec&lt;usize&gt;
-</span><span class="c1"></span><span class="w">    </span><span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span><span class="w">
-</span></code></pre></div><p>型の構文は再帰的なので、抽象構文木の型のノード (<code>ATy</code>) は再帰的になる。型の一部である型はポインタなどにより間接的に指さなければいけない。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// ast.rs
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">struct</span> <span class="nc">ATyTag</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">type</span> <span class="nc">ATyId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VecArenaId</span><span class="o">&lt;</span><span class="n">ATyTag</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="c1">// ≒ u32
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">type</span> <span class="nc">ATyArena</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VecArena</span><span class="o">&lt;</span><span class="n">ATyTag</span><span class="p">,</span><span class="w"> </span><span class="n">ATy</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="c1">// ≒ Vec&lt;ATy&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">struct</span> <span class="nc">APtrTy</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">mut_opt</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">KMut</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ty_opt</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">ATyId</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="c1">// ≒ Option&lt;u32&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">enum</span> <span class="nc">ATy</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Unit</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Ptr</span><span class="p">(</span><span class="n">APtrTy</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">struct</span> <span class="nc">ATree</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">tys</span>: <span class="nc">ATyArena</span><span class="p">,</span><span class="w"> </span><span class="c1">// ≒ Vec&lt;ATy&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">ty_events</span>: <span class="nc">VecArena</span><span class="o">&lt;</span><span class="n">ATyTag</span><span class="p">,</span><span class="w"> </span><span class="n">TyEnd</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="c1">// ≒ Vec&lt;usize&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>型の構文は再帰的なので、抽象構文木の型のノード (<code>ATy</code>) は再帰的になる。型の一部である型はポインタなどにより間接的に指さなければいけない。</p>
 <p>ここでは型のノードを1本の配列 (<code>ATyArena</code>) に詰めて、そのインデックス (<code>ATyId</code>) を使って型を間接参照している。</p>
 <p>この方法にはいくつか利点がある。</p>
 <ul>
@@ -308,25 +308,25 @@
 <h3 id="構文解析の結果の持ち方">構文解析の結果の持ち方</h3>
 <p>前回の近況で書いたように、構文解析の結果をどう持つかで悩んでいた。</p>
 <p>いままでは full-typed な具象構文木を持っていた。ノードの種類ごとに構造体を定義し、子要素はノードもトークンも含めて、すべてフィールドにした。例:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// jl_compiler/src/parse/parse_tree.rs
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="k">struct</span> <span class="nc">PUnitTy</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">left_paren</span>: <span class="nc">PToken</span><span class="p">,</span><span class="w">
-</span><span class="w">    </span><span class="n">right_paren_opt</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">PToken</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">struct</span> <span class="nc">PPtrTy</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">star</span>: <span class="nc">PToken</span><span class="p">,</span><span class="w">
-</span><span class="w">    </span><span class="n">mut_opt</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">PMut</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
-</span><span class="w">    </span><span class="n">ty_opt</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="nb">Box</span><span class="o">&lt;</span><span class="n">PTy</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">enum</span> <span class="nc">PTy</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">Unit</span><span class="p">(</span><span class="n">PUnitTy</span><span class="p">),</span><span class="w">
-</span><span class="w">    </span><span class="n">Ptr</span><span class="p">(</span><span class="n">PPtrTy</span><span class="p">),</span><span class="w">
-</span><span class="w">    </span><span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span><span class="w">
-</span></code></pre></div><p>これはいまいち。コンパイルでは記号トークンなどは位置情報ぐらいにしか使わないので冗長。IDE バックエンドからするとトラバース処理を書きにくくて、使いにくい。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// jl_compiler/src/parse/parse_tree.rs
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">struct</span> <span class="nc">PUnitTy</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">left_paren</span>: <span class="nc">PToken</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">right_paren_opt</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">PToken</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">struct</span> <span class="nc">PPtrTy</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">star</span>: <span class="nc">PToken</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">mut_opt</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="n">PMut</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ty_opt</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="nb">Box</span><span class="o">&lt;</span><span class="n">PTy</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">enum</span> <span class="nc">PTy</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Unit</span><span class="p">(</span><span class="n">PUnitTy</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Ptr</span><span class="p">(</span><span class="n">PPtrTy</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>これはいまいち。コンパイルでは記号トークンなどは位置情報ぐらいにしか使わないので冗長。IDE バックエンドからするとトラバース処理を書きにくくて、使いにくい。</p>
 <p>また、データを外付けしにくい。例えば名前解決の結果として得られた情報をノードに割り当てるために、専用のフィールドをもたせている。</p>
 <p>そういうわけで、次の方針を試す。</p>
 <ul>
@@ -350,48 +350,48 @@
 <li>UTF-16 ベースの (行番号, 列番号) 表示。LSP で使う。</li>
 </ul>
 <p>これを1個の構造体に詰め込んだもの:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">TPos</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="sd">/// インデックス: ソースコードの先頭から、この位置の手前までの文字数。0 から始まる。
-</span><span class="sd"></span><span class="w">    </span><span class="sd">/// 文字列の長さは UTF-8 でエンコードしたときのバイト数で計算する。
-</span><span class="sd"></span><span class="w">    </span><span class="n">index</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="sd">/// 行番号: テキスト中の改行の個数。0 から始まる。
-</span><span class="sd"></span><span class="w">    </span><span class="n">row</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="sd">/// 列番号: テキスト中の最後の改行より後にある文字列の長さ。0 から始まる。
-</span><span class="sd"></span><span class="w">    </span><span class="sd">/// 文字列の長さは UTF-8 でエンコードしたときのバイト数で計算する。
-</span><span class="sd"></span><span class="w">    </span><span class="n">column8</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="sd">/// 列番号: テキスト中の最後の改行より後にある文字列の長さ。0 から始まる。
-</span><span class="sd"></span><span class="w">    </span><span class="sd">/// 文字列の長さは UTF-16 でエンコードしたときのコードユニット数で計算する。
-</span><span class="sd"></span><span class="w">    </span><span class="n">column16</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></div><p>そろそろ以前に書いた記事 (<a href="https://qiita.com/vain0x/items/2c197705decb043e7203">テキスト上の位置の計算と合成 or 累積和の一例</a>) の伏線を回収したい。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">TPos</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="sd">/// インデックス: ソースコードの先頭から、この位置の手前までの文字数。0 から始まる。
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="sd">/// 文字列の長さは UTF-8 でエンコードしたときのバイト数で計算する。
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="n">index</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="sd">/// 行番号: テキスト中の改行の個数。0 から始まる。
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="n">row</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="sd">/// 列番号: テキスト中の最後の改行より後にある文字列の長さ。0 から始まる。
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="sd">/// 文字列の長さは UTF-8 でエンコードしたときのバイト数で計算する。
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="n">column8</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="sd">/// 列番号: テキスト中の最後の改行より後にある文字列の長さ。0 から始まる。
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="sd">/// 文字列の長さは UTF-16 でエンコードしたときのコードユニット数で計算する。
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="n">column16</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>そろそろ以前に書いた記事 (<a href="https://qiita.com/vain0x/items/2c197705decb043e7203">テキスト上の位置の計算と合成 or 累積和の一例</a>) の伏線を回収したい。</p>
 <h3 id="位置情報の持ち方">位置情報の持ち方</h3>
 <p>AST のノードやシンボルに対応するソースコードの位置情報をどう持つか。(ソースコードID, 開始位置, 終了位置) で持つのが一般的。</p>
 <p>空白やコメントが変更されるたびに LSP に計算の再実行をさせたくない (少なくとも字句解析の再試行で止めたい) ので、開始位置や終了位置をインデックスや行番号・列番号などの絶対座標で持たない方がよさそう。</p>
 <p>トークンや構文木のノードのインデックスを使って指し、エラーメッセージの出力などの際に絶対座標に変換する方針を試している。</p>
 <p>また、構文木は1つのファイルに含まれるものなので、構文ノードの位置にはソースコードのID (Doc) を持たせないようにしている。</p>
 <p>すなわち、単一ファイルに閉じているデータのための位置情報と、複数のファイルが関わるデータのための位置情報の2種類に分けている。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// jl_compiler/src/parse/parse_tree.rs,
-</span><span class="c1">// jl_compiler/src/source/loc.rs などを参照。コードはイメージ
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="c1">// 単一ファイル内での位置情報
-</span><span class="c1"></span><span class="k">enum</span> <span class="nc">PLoc</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">Unknown</span><span class="p">(</span><span class="o">&amp;&#39;</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="p">),</span><span class="w">
-</span><span class="w">    </span><span class="n">Range</span><span class="p">(</span><span class="n">TRange</span><span class="p">),</span><span class="w">
-</span><span class="w">    </span><span class="n">Token</span><span class="p">(</span><span class="n">PToken</span><span class="p">),</span><span class="w">
-</span><span class="w">    </span><span class="n">TokenBehind</span><span class="p">(</span><span class="n">PToken</span><span class="p">),</span><span class="w">
-</span><span class="w">    </span><span class="n">TokenRange</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">first</span>: <span class="nc">PToken</span><span class="p">,</span><span class="w"> </span><span class="n">last</span>: <span class="nc">PToken</span><span class="w"> </span><span class="p">},</span><span class="w">
-</span><span class="w">    </span><span class="n">Element</span><span class="p">(</span><span class="n">PElement</span><span class="p">),</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c1">// 複数のファイルにまたがる部分の位置情報
-</span><span class="c1"></span><span class="k">struct</span> <span class="nc">Loc</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">doc</span>: <span class="nc">Doc</span><span class="p">,</span><span class="w">
-</span><span class="w">    </span><span class="n">loc</span>: <span class="nc">PLoc</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></div><p>このあたりはまだまだ模索中なので、後で変わるかもしれない。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// jl_compiler/src/parse/parse_tree.rs,
+</span></span></span><span class="line"><span class="cl"><span class="c1">// jl_compiler/src/source/loc.rs などを参照。コードはイメージ
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 単一ファイル内での位置情報
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">enum</span> <span class="nc">PLoc</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Unknown</span><span class="p">(</span><span class="o">&amp;&#39;</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Range</span><span class="p">(</span><span class="n">TRange</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Token</span><span class="p">(</span><span class="n">PToken</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">TokenBehind</span><span class="p">(</span><span class="n">PToken</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">TokenRange</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">first</span>: <span class="nc">PToken</span><span class="p">,</span><span class="w"> </span><span class="n">last</span>: <span class="nc">PToken</span><span class="w"> </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Element</span><span class="p">(</span><span class="n">PElement</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 複数のファイルにまたがる部分の位置情報
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">Loc</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">doc</span>: <span class="nc">Doc</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">loc</span>: <span class="nc">PLoc</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>このあたりはまだまだ模索中なので、後で変わるかもしれない。</p>
 <h3 id="cps-変換パスの分割">CPS 変換パスの分割</h3>
 <p>CPS 変換の実装に2つの課題が出てきた。</p>
 <ul>
@@ -483,6 +483,8 @@
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
+                
                     <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
                 
                     <li><a href="/blog/2022-01-31/diary/">近況 2022-01-31</a></li>
@@ -490,8 +492,6 @@
                     <li><a href="/blog/2021-12-31/diary/">近況 2021-12-31</a></li>
                 
                     <li><a href="/blog/2021-11-30/diary/">近況 2021-11-30</a></li>
-                
-                    <li><a href="/blog/2021-10-31/diary/">近況 2021-10-31</a></li>
                 
               </ul>
 
@@ -599,7 +599,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -202,100 +202,100 @@
 <li>参考: <a href="https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/records">Records (F#) | Microsoft Docs</a></li>
 </ul>
 <p>例えば REPL (<code>fsharpi</code>) で次のようにすると:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="o">$</span> <span class="n">fsharpi</span>
-
-<span class="c1">// Input
-</span><span class="c1"></span><span class="k">type</span> <span class="nc">User</span> <span class="o">=</span>
-  <span class="o">{</span>
-    <span class="n">Id</span><span class="o">:</span> <span class="kt">int64</span>
-    <span class="n">Name</span><span class="o">:</span> <span class="kt">string</span>
-  <span class="o">}</span>
-<span class="o">;;</span>
-
-<span class="k">type</span> <span class="nc">Book</span> <span class="o">=</span>
-  <span class="o">{</span>
-    <span class="n">Id</span><span class="o">:</span> <span class="kt">int64</span>
-    <span class="n">Name</span><span class="o">:</span> <span class="kt">string</span>
-  <span class="o">}</span>
-<span class="o">;;</span>
-
-<span class="o">{</span> <span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span> <span class="o">;;</span>
-</code></pre></div><p>このレコードは Book 型に推論されて、</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Output
-</span><span class="c1"></span><span class="k">val</span> <span class="n">it</span> <span class="o">:</span> <span class="n">Book</span> <span class="o">=</span> <span class="o">{</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
-                 <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span><span class="o">;}</span>
-</code></pre></div><p>となる。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="o">$</span> <span class="n">fsharpi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Input
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">type</span> <span class="nc">User</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Id</span><span class="o">:</span> <span class="kt">int64</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Name</span><span class="o">:</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">type</span> <span class="nc">Book</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Id</span><span class="o">:</span> <span class="kt">int64</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Name</span><span class="o">:</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">{</span> <span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span> <span class="o">;;</span>
+</span></span></code></pre></div><p>このレコードは Book 型に推論されて、</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// Output
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">it</span> <span class="o">:</span> <span class="n">Book</span> <span class="o">=</span> <span class="o">{</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span><span class="o">;}</span>
+</span></span></code></pre></div><p>となる。</p>
 <h2 id="解決1-フィールドを型名で修飾する">解決1: フィールドを型名で修飾する</h2>
 <p>この状態で <code>User</code> をインスタンス化するには、いずれかのフィールド名を修飾付きで指定すればいい。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Input
-</span><span class="c1"></span><span class="o">{</span> <span class="nn">User</span><span class="p">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span> <span class="o">;;</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Output
-</span><span class="c1"></span><span class="k">val</span> <span class="n">it</span> <span class="o">:</span> <span class="n">User</span> <span class="o">=</span> <span class="o">{</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
-                 <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span><span class="o">;}</span>
-</code></pre></div><h2 id="問題2-レコード型がスコープにないとき">問題2: レコード型がスコープにないとき</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// Input
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">{</span> <span class="nn">User</span><span class="p">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span> <span class="o">;;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// Output
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">it</span> <span class="o">:</span> <span class="n">User</span> <span class="o">=</span> <span class="o">{</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                 <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span><span class="o">;}</span>
+</span></span></code></pre></div><h2 id="問題2-レコード型がスコープにないとき">問題2: レコード型がスコープにないとき</h2>
 <p>レコード型がスコープに入っていないとき、つまりそのレコード型が定義されている module や namespace を open していないとき、レコードリテラルの構文はかなり冗長になる。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="o">$</span> <span class="n">fsharpi</span>
-
-<span class="c1">// Input
-</span><span class="c1"></span><span class="k">module</span> <span class="nn">Types</span> <span class="o">=</span>
-  <span class="k">type</span> <span class="nc">User</span> <span class="o">=</span>
-    <span class="o">{</span>
-      <span class="n">Id</span><span class="o">:</span> <span class="kt">int64</span>
-      <span class="n">Name</span><span class="o">:</span> <span class="kt">string</span>
-    <span class="o">}</span>
-
-  <span class="k">type</span> <span class="nc">Book</span> <span class="o">=</span>
-    <span class="o">{</span>
-      <span class="n">Id</span><span class="o">:</span> <span class="kt">int64</span>
-      <span class="n">Name</span><span class="o">:</span> <span class="kt">string</span>
-    <span class="o">}</span>
-<span class="o">;;</span>
-
-<span class="k">module</span> <span class="nn">T</span> <span class="o">=</span> <span class="n">Types</span><span class="o">;;</span>
-
-<span class="o">{</span> <span class="nn">T</span><span class="p">.</span><span class="nn">User</span><span class="p">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="nn">T</span><span class="p">.</span><span class="nn">User</span><span class="p">.</span><span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span> <span class="o">;;</span>
-</code></pre></div><p>注意点は、 <code>T.User.Id</code> を見た時点でレコードの型が決定されるにもかかわらず <code>Name</code> の修飾を省略できないことだ:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Input
-</span><span class="c1"></span><span class="o">{</span> <span class="nn">T</span><span class="p">.</span><span class="nn">User</span><span class="p">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span> <span class="o">;;</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Output
-</span><span class="c1"></span>  <span class="o">{</span> <span class="nn">T</span><span class="p">.</span><span class="nn">User</span><span class="p">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span> <span class="o">;;</span>
-  <span class="o">------------------^^^^</span>
-
-<span class="n">error</span> <span class="n">FS0039</span><span class="o">:</span> <span class="n">The</span> <span class="n">record</span> <span class="n">label</span> <span class="k">&#39;</span><span class="n">Name&#39;</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">defined</span><span class="o">.</span>
-</code></pre></div><h2 id="解決2-型注釈をつける">解決2: 型注釈をつける</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="o">$</span> <span class="n">fsharpi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Input
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">module</span> <span class="nn">Types</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="k">type</span> <span class="nc">User</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Id</span><span class="o">:</span> <span class="kt">int64</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Name</span><span class="o">:</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">type</span> <span class="nc">Book</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Id</span><span class="o">:</span> <span class="kt">int64</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Name</span><span class="o">:</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">T</span> <span class="o">=</span> <span class="n">Types</span><span class="o">;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">{</span> <span class="nn">T</span><span class="p">.</span><span class="nn">User</span><span class="p">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="nn">T</span><span class="p">.</span><span class="nn">User</span><span class="p">.</span><span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span> <span class="o">;;</span>
+</span></span></code></pre></div><p>注意点は、 <code>T.User.Id</code> を見た時点でレコードの型が決定されるにもかかわらず <code>Name</code> の修飾を省略できないことだ:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// Input
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">{</span> <span class="nn">T</span><span class="p">.</span><span class="nn">User</span><span class="p">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span> <span class="o">;;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// Output
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="o">{</span> <span class="nn">T</span><span class="p">.</span><span class="nn">User</span><span class="p">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span> <span class="o">;;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">------------------^^^^</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">error</span> <span class="n">FS0039</span><span class="o">:</span> <span class="n">The</span> <span class="n">record</span> <span class="n">label</span> <span class="k">&#39;</span><span class="n">Name&#39;</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">defined</span><span class="o">.</span>
+</span></span></code></pre></div><h2 id="解決2-型注釈をつける">解決2: 型注釈をつける</h2>
 <p>レコードリテラルの型を明示的に指定すると、非修飾でフィールド名を使えるようだ:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Input
-</span><span class="c1"></span><span class="o">({</span> <span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}:</span> <span class="nn">T</span><span class="p">.</span><span class="n">User</span><span class="o">)</span> <span class="o">;;</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Output
-</span><span class="c1"></span><span class="k">val</span> <span class="n">it</span> <span class="o">:</span> <span class="nn">Types</span><span class="p">.</span><span class="n">User</span> <span class="o">=</span> <span class="o">{</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
-                       <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span><span class="o">;}</span>
-</code></pre></div><p>束縛時に型を指定してもよい。型名が前に来るので、こちらのほうが読みやすい気がする:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Input
-</span><span class="c1"></span><span class="k">let</span> <span class="nv">user</span><span class="o">:</span> <span class="nn">T</span><span class="p">.</span><span class="n">User</span> <span class="o">=</span> <span class="o">{</span> <span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span>
-<span class="n">user</span> <span class="o">;;</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Output
-</span><span class="c1"></span><span class="k">val</span> <span class="n">it</span> <span class="o">:</span> <span class="nn">Types</span><span class="p">.</span><span class="n">User</span> <span class="o">=</span> <span class="o">{</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
-                       <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span><span class="o">;}</span>
-</code></pre></div><p>さらに、次のように <code>id</code> を経由すると型名とリテラルの近接性がより明確になる:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Input
-</span><span class="c1"></span><span class="n">id</span><span class="o">&lt;</span><span class="nn">T</span><span class="p">.</span><span class="n">User</span><span class="o">&gt;</span> <span class="o">{</span> <span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span> <span class="o">;;</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// Output
-</span><span class="c1"></span><span class="k">val</span> <span class="n">it</span> <span class="o">:</span> <span class="nn">Types</span><span class="p">.</span><span class="n">User</span> <span class="o">=</span> <span class="o">{</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
-                       <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span><span class="o">;}</span>
-</code></pre></div><p>これはやりすぎかもしれない、というのも初見では <code>id</code> がなんのためにあるのか分からないからだ。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// Input
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">({</span> <span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}:</span> <span class="nn">T</span><span class="p">.</span><span class="n">User</span><span class="o">)</span> <span class="o">;;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// Output
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">it</span> <span class="o">:</span> <span class="nn">Types</span><span class="p">.</span><span class="n">User</span> <span class="o">=</span> <span class="o">{</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                       <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span><span class="o">;}</span>
+</span></span></code></pre></div><p>束縛時に型を指定してもよい。型名が前に来るので、こちらのほうが読みやすい気がする:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// Input
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">let</span> <span class="nv">user</span><span class="o">:</span> <span class="nn">T</span><span class="p">.</span><span class="n">User</span> <span class="o">=</span> <span class="o">{</span> <span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">user</span> <span class="o">;;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// Output
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">it</span> <span class="o">:</span> <span class="nn">Types</span><span class="p">.</span><span class="n">User</span> <span class="o">=</span> <span class="o">{</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                       <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span><span class="o">;}</span>
+</span></span></code></pre></div><p>さらに、次のように <code>id</code> を経由すると型名とリテラルの近接性がより明確になる:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// Input
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">id</span><span class="o">&lt;</span><span class="nn">T</span><span class="p">.</span><span class="n">User</span><span class="o">&gt;</span> <span class="o">{</span> <span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}</span> <span class="o">;;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// Output
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">it</span> <span class="o">:</span> <span class="nn">Types</span><span class="p">.</span><span class="n">User</span> <span class="o">=</span> <span class="o">{</span><span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                       <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span><span class="o">;}</span>
+</span></span></code></pre></div><p>これはやりすぎかもしれない、というのも初見では <code>id</code> がなんのためにあるのか分からないからだ。</p>
 <h2 id="修飾の強制">修飾の強制</h2>
 <p>レコード型に <code>[&lt;RequireQualifiedAccess&gt;]</code> をつかうと、レコード型をスコープに入れてもフィールド名はスコープに入らなくなる。つまり、前述の冗長な構文を使う必要がある……とずっと思っていたが、「型注釈」の方法であれば問題ない。</p>
 <p>この属性をつけておくと、フィールド名が重複するかどうか気にしなくてよくなる。重複したフィールド名が後ろに追加されることでレコードリテラルの型が変わることもなくなる。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="o">[&lt;</span><span class="n">RequireQualifiedAccess</span><span class="o">&gt;]</span>
-<span class="k">type</span> <span class="nc">User</span> <span class="o">=</span>
-  <span class="o">{</span>
-    <span class="n">Id</span><span class="o">:</span> <span class="kt">int64</span>
-    <span class="n">Name</span><span class="o">:</span> <span class="kt">string</span>
-  <span class="o">}</span>
-<span class="o">;;</span>
-
-<span class="o">({</span> <span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}:</span> <span class="n">User</span><span class="o">)</span> <span class="o">;;</span>
-</code></pre></div><h2 id="まとめ">まとめ</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="o">[&lt;</span><span class="n">RequireQualifiedAccess</span><span class="o">&gt;]</span>
+</span></span><span class="line"><span class="cl"><span class="k">type</span> <span class="nc">User</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Id</span><span class="o">:</span> <span class="kt">int64</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Name</span><span class="o">:</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">({</span> <span class="n">Id</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span> <span class="n">Name</span> <span class="o">=</span> <span class="s">&#34;Foo&#34;</span> <span class="o">}:</span> <span class="n">User</span><span class="o">)</span> <span class="o">;;</span>
+</span></span></code></pre></div><h2 id="まとめ">まとめ</h2>
 <ul>
 <li>フィールド名の重複を避けよう。</li>
 <li>フィールド名が重複しているときは <code>型名.フィールド名 = ...</code> としよう。</li>
@@ -428,7 +428,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

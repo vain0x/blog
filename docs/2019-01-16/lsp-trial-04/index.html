@@ -93,7 +93,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -220,38 +220,38 @@
 <pre tabindex="0"><code>let x be 1
 </code></pre><pre tabindex="0"><code>let new_x be 1
 </code></pre><p>いまのクラゲ言語は1つのファイルにしかソースコードを書けませんが、一般には名前の変更は複数のファイルを変更することになります。<code>rename</code> レスポンスで返すべきオブジェクトは、 <code>WorkspaceEdit</code> というインターフェイスで定義されていて、ファイルの URI から変更操作へのマップのようなものです。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="kr">interface</span> <span class="nx">WorkspaceEdit</span> <span class="p">{</span>
-    <span class="c1">// URI から変更操作の配列へのマップ
-</span><span class="c1"></span>    <span class="nx">changes</span><span class="o">?:</span> <span class="p">{</span> <span class="p">[</span><span class="nx">uri</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="nx">TextEdit</span><span class="p">[];</span> <span class="p">};</span>
-
-    <span class="c1">// 以下略
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><h2 id="実装">実装</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl"><span class="kr">interface</span> <span class="nx">WorkspaceEdit</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// URI から変更操作の配列へのマップ
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">changes</span><span class="o">?:</span> <span class="p">{</span> <span class="p">[</span><span class="nx">uri</span>: <span class="kt">string</span><span class="p">]</span><span class="o">:</span> <span class="nx">TextEdit</span><span class="p">[];</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 以下略
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><h2 id="実装">実装</h2>
 <p>実装は、前回作ったシンボルテーブルを利用すれば簡単です。</p>
 <p>前回は「ドキュメントのハイライトする範囲」を計算しましたが、今回はそれを「名前の変更を適用する範囲」として使えばOK。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">definition</span><span class="p">,</span> <span class="nx">references</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">symbolDefinition</span> <span class="c1">// ヒットテストで見つけたシンボル
-</span><span class="c1"></span>
-  <span class="c1">// 変更操作の配列
-</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">textEdits</span>: <span class="kt">TextEdit</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[]</span>
-
-  <span class="c1">// 定義の置換
-</span><span class="c1"></span>  <span class="nx">textEdits</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
-    <span class="nx">range</span>: <span class="kt">definition.range</span><span class="p">,</span>
-    <span class="nx">newText</span>: <span class="kt">newName</span><span class="p">,</span>
-  <span class="p">})</span>
-
-  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">r</span> <span class="k">of</span> <span class="nx">references</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// 参照の置換
-</span><span class="c1"></span>    <span class="nx">textEdits</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
-      <span class="nx">range</span>: <span class="kt">r.range</span><span class="p">,</span>
-      <span class="nx">newText</span>: <span class="kt">newName</span><span class="p">,</span>
-    <span class="p">})</span>
-  <span class="p">}</span>
-
-  <span class="c1">// WorkspaceEdit インターフェイスに合うオブジェクトを作る
-</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">changes</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="nx">uri</span><span class="p">]</span><span class="o">:</span> <span class="nx">textEdits</span> <span class="p">}</span>
-  <span class="k">return</span> <span class="p">{</span> <span class="nx">changes</span> <span class="p">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-typescript" data-lang="typescript"><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">definition</span><span class="p">,</span> <span class="nx">references</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">symbolDefinition</span> <span class="c1">// ヒットテストで見つけたシンボル
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 変更操作の配列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">textEdits</span>: <span class="kt">TextEdit</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 定義の置換
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">textEdits</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">range</span>: <span class="kt">definition.range</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">newText</span>: <span class="kt">newName</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">r</span> <span class="k">of</span> <span class="nx">references</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 参照の置換
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">textEdits</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">range</span>: <span class="kt">r.range</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">newText</span>: <span class="kt">newName</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// WorkspaceEdit インターフェイスに合うオブジェクトを作る
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">changes</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="nx">uri</span><span class="p">]</span><span class="o">:</span> <span class="nx">textEdits</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">{</span> <span class="nx">changes</span> <span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li>変更点: <a href="https://github.com/vain0x/curage-lang/commit/603b2c52fe19390a667c25710ad1bcf8af78aaba">feat: Support symbol renaming</a></li>
 </ul>
 <h2 id="preparerename">prepareRename</h2>
@@ -400,7 +400,7 @@ let _ be x
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

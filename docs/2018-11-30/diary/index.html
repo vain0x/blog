@@ -87,7 +87,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -254,30 +254,30 @@
 <li>そのままC言語に変換したらコンパイルできない</li>
 <li>ローカル変数を関数の引数経由で渡すように引数を増やす</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fs" data-lang="fs"><span class="nf">//</span> <span class="nf">before</span>
-
-<span class="nf">//</span> <span class="mi">1</span> <span class="nf">から</span> <span class="nf">u</span> <span class="nf">まで</span> <span class="nf">fizz</span> <span class="nf">buzz</span> <span class="nf">を表示する</span>
-<span class="nf">let</span> <span class="nf">fizzBuzz</span> <span class="nf">u</span> <span class="nf">=</span>
-    <span class="nf">let</span> <span class="nf">rec</span> <span class="nf">go</span> <span class="k">i </span><span class="nf">=</span>
-        <span class="k">if i </span><span class="nf">&lt;=</span> <span class="nf">u</span> <span class="k">then </span><span class="nf">//</span> <span class="nf">この</span> <span class="nf">u</span> <span class="nf">は関数</span> <span class="nf">go</span> <span class="nf">のローカル変数じゃない</span>
-            <span class="k">if i </span><span class="nf">%</span> <span class="mi">3</span> <span class="nf">=</span> <span class="mi">0</span> <span class="k">then
-</span><span class="k"></span>                <span class="nf">//</span> <span class="nf">略</span>
-            <span class="nf">go</span> <span class="nf">(i</span> <span class="k">+ </span><span class="mi">1</span><span class="nf">)</span>
-    <span class="nf">go</span> <span class="mi">0</span>
-
-<span class="nf">fizzBuzz</span> <span class="mi">15</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fs" data-lang="fs"><span class="nf">//</span> <span class="nf">after</span>
-
-<span class="nf">let</span> <span class="nf">fizzBuzz</span> <span class="nf">u</span> <span class="nf">=</span>
-    <span class="nf">let</span> <span class="nf">rec</span> <span class="nf">go</span> <span class="nf">(*追加*)u</span> <span class="k">i </span><span class="nf">=</span>
-        <span class="k">if i </span><span class="nf">&lt;=</span> <span class="nf">u</span> <span class="k">then
-</span><span class="k"></span>            <span class="k">if i </span><span class="nf">%</span> <span class="mi">3</span> <span class="nf">=</span> <span class="mi">0</span> <span class="k">then
-</span><span class="k"></span>                <span class="nf">//</span> <span class="nf">略</span>
-            <span class="nf">go</span> <span class="nf">(*追加*)u</span> <span class="nf">(i</span> <span class="k">+ </span><span class="mi">1</span><span class="nf">)</span>
-    <span class="nf">go</span> <span class="nf">(*追加*)u</span> <span class="mi">0</span>
-
-<span class="nf">fizzBuzz</span> <span class="mi">15</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fs" data-lang="fs"><span class="line"><span class="cl"><span class="nf">//</span> <span class="nf">before</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">//</span> <span class="mi">1</span> <span class="nf">から</span> <span class="nf">u</span> <span class="nf">まで</span> <span class="nf">fizz</span> <span class="nf">buzz</span> <span class="nf">を表示する</span>
+</span></span><span class="line"><span class="cl"><span class="nf">let</span> <span class="nf">fizzBuzz</span> <span class="nf">u</span> <span class="nf">=</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">let</span> <span class="nf">rec</span> <span class="nf">go</span> <span class="k">i </span><span class="nf">=</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if i </span><span class="nf">&lt;=</span> <span class="nf">u</span> <span class="k">then </span><span class="nf">//</span> <span class="nf">この</span> <span class="nf">u</span> <span class="nf">は関数</span> <span class="nf">go</span> <span class="nf">のローカル変数じゃない</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if i </span><span class="nf">%</span> <span class="mi">3</span> <span class="nf">=</span> <span class="mi">0</span> <span class="k">then
+</span></span></span><span class="line"><span class="cl"><span class="k"></span>                <span class="nf">//</span> <span class="nf">略</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">go</span> <span class="nf">(i</span> <span class="k">+ </span><span class="mi">1</span><span class="nf">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">go</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">fizzBuzz</span> <span class="mi">15</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fs" data-lang="fs"><span class="line"><span class="cl"><span class="nf">//</span> <span class="nf">after</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">let</span> <span class="nf">fizzBuzz</span> <span class="nf">u</span> <span class="nf">=</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">let</span> <span class="nf">rec</span> <span class="nf">go</span> <span class="nf">(*追加*)u</span> <span class="k">i </span><span class="nf">=</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if i </span><span class="nf">&lt;=</span> <span class="nf">u</span> <span class="k">then
+</span></span></span><span class="line"><span class="cl"><span class="k"></span>            <span class="k">if i </span><span class="nf">%</span> <span class="mi">3</span> <span class="nf">=</span> <span class="mi">0</span> <span class="k">then
+</span></span></span><span class="line"><span class="cl"><span class="k"></span>                <span class="nf">//</span> <span class="nf">略</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">go</span> <span class="nf">(*追加*)u</span> <span class="nf">(i</span> <span class="k">+ </span><span class="mi">1</span><span class="nf">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">go</span> <span class="nf">(*追加*)u</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">fizzBuzz</span> <span class="mi">15</span>
+</span></span></code></pre></div><ul>
 <li>2つ目は、 <strong>関数呼び出しの引数が足りないケース</strong> <a href="https://github.com/vain0x/milone-lang/commit/e16e9418b09d66399c8e19e33a3b758f0328e43c">https://github.com/vain0x/milone-lang/commit/e16e9418b09d66399c8e19e33a3b758f0328e43c</a></li>
 <li>引数束縛して関数オブジェクトを作る必要がある</li>
 <li>関数オブジェクトはC言語の上では「関数」ではなくただの値なので <code>f(..)</code> という構文では呼べない
@@ -293,43 +293,43 @@
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fs" data-lang="fs"><span class="nf">let</span> <span class="nf">add</span> <span class="nf">x</span> <span class="nf">y</span> <span class="nf">=</span> <span class="nf">x</span> <span class="k">+ </span><span class="nf">y</span>
-
-<span class="nf">//</span> <span class="nf">add</span> <span class="nf">は2引数なのに引数が1個</span>
-<span class="nf">let</span> <span class="nf">inc</span> <span class="nf">=</span> <span class="nf">add</span> <span class="mi">1</span>
-
-<span class="nf">//</span> <span class="nf">関数ではなく関数オブジェクトの呼び出しとしてC言語にする必要がある</span>
-<span class="nf">inc</span> <span class="mi">9</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="c1">// コンパイル後のイメージ
-</span><span class="c1"></span>
-<span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c1">// add を関数オブジェクト int -&gt; int から呼べるシグネチャにしたもの
-</span><span class="c1"></span><span class="kt">int</span> <span class="nf">add1</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">add</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="c1">// 関数 int -&gt; int をコンパイルした結果
-</span><span class="c1"></span><span class="k">struct</span> <span class="n">IntIntFun</span> <span class="p">{</span>
-    <span class="kt">int</span><span class="p">(</span><span class="o">*</span><span class="n">fun</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
-    <span class="kt">void</span><span class="o">*</span> <span class="n">env</span><span class="p">;</span> <span class="c1">// 関数オブジェクトが持っている状態
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="c1">// 関数オブジェクトを作る
-</span><span class="c1">// 状態と関数のペア
-</span><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span> <span class="kt">int</span><span class="p">);</span>
-<span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="k">struct</span> <span class="n">IntIntFun</span> <span class="n">inc</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="p">.</span><span class="n">fun</span> <span class="o">=</span> <span class="n">add1</span><span class="p">,</span>
-    <span class="p">.</span><span class="n">env</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">x</span><span class="p">,</span>
-<span class="p">};</span>
-
-<span class="c1">// 関数オブジェクトを呼び出す
-</span><span class="c1">// inc は関数ではないので inc() とはできない
-</span><span class="c1"></span><span class="n">inc</span><span class="p">.</span><span class="n">fun</span><span class="p">(</span><span class="n">inc</span><span class="p">.</span><span class="n">env</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fs" data-lang="fs"><span class="line"><span class="cl"><span class="nf">let</span> <span class="nf">add</span> <span class="nf">x</span> <span class="nf">y</span> <span class="nf">=</span> <span class="nf">x</span> <span class="k">+ </span><span class="nf">y</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">//</span> <span class="nf">add</span> <span class="nf">は2引数なのに引数が1個</span>
+</span></span><span class="line"><span class="cl"><span class="nf">let</span> <span class="nf">inc</span> <span class="nf">=</span> <span class="nf">add</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">//</span> <span class="nf">関数ではなく関数オブジェクトの呼び出しとしてC言語にする必要がある</span>
+</span></span><span class="line"><span class="cl"><span class="nf">inc</span> <span class="mi">9</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// コンパイル後のイメージ
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// add を関数オブジェクト int -&gt; int から呼べるシグネチャにしたもの
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">add1</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">add</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 関数 int -&gt; int をコンパイルした結果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="n">IntIntFun</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="p">(</span><span class="o">*</span><span class="n">fun</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span><span class="o">*</span> <span class="n">env</span><span class="p">;</span> <span class="c1">// 関数オブジェクトが持っている状態
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 関数オブジェクトを作る
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 状態と関数のペア
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span> <span class="kt">int</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">IntIntFun</span> <span class="n">inc</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">fun</span> <span class="o">=</span> <span class="n">add1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">env</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="n">x</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 関数オブジェクトを呼び出す
+</span></span></span><span class="line"><span class="cl"><span class="c1">// inc は関数ではないので inc() とはできない
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">inc</span><span class="p">.</span><span class="n">fun</span><span class="p">(</span><span class="n">inc</span><span class="p">.</span><span class="n">env</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span>
+</span></span></code></pre></div><ul>
 <li><strong>関数の引数がないケース</strong> (<code>let f = add</code> みたいなやつ) もこれと同様に処理できる
 <ul>
 <li>関数参照は引数ゼロの引数束縛</li>
@@ -398,6 +398,8 @@
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
+                
                     <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
                 
                     <li><a href="/blog/2022-01-31/diary/">近況 2022-01-31</a></li>
@@ -405,8 +407,6 @@
                     <li><a href="/blog/2021-12-31/diary/">近況 2021-12-31</a></li>
                 
                     <li><a href="/blog/2021-11-30/diary/">近況 2021-11-30</a></li>
-                
-                    <li><a href="/blog/2021-10-31/diary/">近況 2021-10-31</a></li>
                 
               </ul>
 
@@ -514,7 +514,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

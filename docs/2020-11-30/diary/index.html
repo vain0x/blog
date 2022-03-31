@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -224,29 +224,29 @@
 <h3 id="型シノニムと組み込みの多相型だけを使って多相な再帰型を模倣するトリック">型シノニムと組み込みの多相型だけを使って多相な再帰型を模倣するトリック</h3>
 <p>多相な型シノニムを実装して、現実的な手間で多相な木構造を作れるようになった。多相な名前付き型がないので再帰的な構造はジェネリックにできないが、多相な部分を obj 型に押し込むことで、少なくとも API は safe な木構造を作れるようになった。</p>
 <p>(任意の値を obj 型に変換する <code>box: 'T -&gt; obj</code> という関数と、それを復元する <code>unbox: obj -&gt; 'T</code> という関数がある。.NET では unbox の際に動的検査されるので安全だが、ミローネ言語の現在の実装では undefined behavior になってしまう。)</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// TreeMap.fs
-</span><span class="c1"></span>
-<span class="c1">// 単相な判別共用体なので定義できる。キーと値は obj に詰める
-</span><span class="c1"></span><span class="k">type</span> <span class="nc">TreeMapRawNode</span> <span class="o">=</span>
-  <span class="o">|</span> <span class="n">E</span>
-  <span class="o">|</span> <span class="n">T</span> <span class="k">of</span> <span class="n">TreeMapColor</span> <span class="o">*</span> <span class="n">left</span><span class="o">:</span> <span class="n">TreeMapRawNode</span> <span class="o">*</span> <span class="n">keyValuePair</span><span class="o">:</span> <span class="kt">obj</span> <span class="o">*</span> <span class="n">right</span><span class="o">:</span> <span class="n">TreeMapRawNode</span>
-
-<span class="c1">// 多相な型シノニムを公開しておく。option は単に型変数を維持するためのもので、実際は常に None.
-</span><span class="c1"></span><span class="k">type</span> <span class="nc">TreeMap</span><span class="o">&lt;</span><span class="k">&#39;</span><span class="n">K</span><span class="o">,</span> <span class="k">&#39;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">TreeMapRawNode</span> <span class="o">*</span> <span class="o">(</span><span class="k">&#39;</span><span class="n">K</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">K</span> <span class="o">-&gt;</span> <span class="n">int</span><span class="o">)</span> <span class="o">*</span> <span class="o">(</span><span class="k">&#39;</span><span class="n">T</span> <span class="n">option</span><span class="o">)</span>
-</code></pre></div><p>ツリーを操作する関数が呼ばれるとき、キーと値の型も同時に渡されるので、それを元に obj を剥がしたり包んだりする。普通に書くと関数の呼び出しの前後で型が変わってしまうので、強制的に単一化するためのデッドコードを仕込んでおくというハックがいる。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">tryFind</span> <span class="n">key</span> <span class="o">(</span><span class="n">map</span><span class="o">:</span> <span class="n">TreeMap</span><span class="o">&lt;_,</span> <span class="o">_&gt;):</span> <span class="o">_</span> <span class="n">option</span> <span class="o">=</span>
-  <span class="k">let</span> <span class="nv">node</span><span class="o">,</span> <span class="n">keyCmp</span><span class="o">,</span> <span class="n">none</span> <span class="o">=</span> <span class="n">map</span>
-  <span class="c1">//                ^ これは &#39;T option 型で、値の型を知っている
-</span><span class="c1"></span>
-  <span class="k">let</span> <span class="nv">valueOpt</span> <span class="o">=</span> <span class="n">node</span> <span class="o">|&gt;</span> <span class="n">doTryFind</span> <span class="n">keyCmp</span> <span class="n">key</span>
-  <span class="c1">//  ^ この値は unbox で得るので、任意の型をつけられてしまう
-</span><span class="c1"></span>
-  <span class="k">let</span> <span class="nv">_typeUnifier</span> <span class="bp">()</span> <span class="o">=</span> <span class="o">[</span> <span class="n">valueOpt</span><span class="o">;</span> <span class="n">none</span> <span class="o">]</span> <span class="o">|&gt;</span> <span class="n">ignore</span>
-  <span class="c1">//                      ^         ^
-</span><span class="c1"></span>  <span class="c1">//                ここで適切な値の型に固定している
-</span><span class="c1"></span>
-  <span class="n">valueOpt</span>
-</code></pre></div><p>変数や型の ID から実データへのマップを、従来の「500 要素ごとに分割した連想リスト」を赤黒木に置き換えたところ、型検査が4倍ぐらい速くなった。平衡二分探索は速い、というか連想リストが遅い。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// TreeMap.fs
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 単相な判別共用体なので定義できる。キーと値は obj に詰める
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">type</span> <span class="nc">TreeMapRawNode</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">E</span>
+</span></span><span class="line"><span class="cl">  <span class="o">|</span> <span class="n">T</span> <span class="k">of</span> <span class="n">TreeMapColor</span> <span class="o">*</span> <span class="n">left</span><span class="o">:</span> <span class="n">TreeMapRawNode</span> <span class="o">*</span> <span class="n">keyValuePair</span><span class="o">:</span> <span class="kt">obj</span> <span class="o">*</span> <span class="n">right</span><span class="o">:</span> <span class="n">TreeMapRawNode</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 多相な型シノニムを公開しておく。option は単に型変数を維持するためのもので、実際は常に None.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">type</span> <span class="nc">TreeMap</span><span class="o">&lt;</span><span class="k">&#39;</span><span class="n">K</span><span class="o">,</span> <span class="k">&#39;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">TreeMapRawNode</span> <span class="o">*</span> <span class="o">(</span><span class="k">&#39;</span><span class="n">K</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">K</span> <span class="o">-&gt;</span> <span class="n">int</span><span class="o">)</span> <span class="o">*</span> <span class="o">(</span><span class="k">&#39;</span><span class="n">T</span> <span class="n">option</span><span class="o">)</span>
+</span></span></code></pre></div><p>ツリーを操作する関数が呼ばれるとき、キーと値の型も同時に渡されるので、それを元に obj を剥がしたり包んだりする。普通に書くと関数の呼び出しの前後で型が変わってしまうので、強制的に単一化するためのデッドコードを仕込んでおくというハックがいる。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">tryFind</span> <span class="n">key</span> <span class="o">(</span><span class="n">map</span><span class="o">:</span> <span class="n">TreeMap</span><span class="o">&lt;_,</span> <span class="o">_&gt;):</span> <span class="o">_</span> <span class="n">option</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="nv">node</span><span class="o">,</span> <span class="n">keyCmp</span><span class="o">,</span> <span class="n">none</span> <span class="o">=</span> <span class="n">map</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//                ^ これは &#39;T option 型で、値の型を知っている
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="nv">valueOpt</span> <span class="o">=</span> <span class="n">node</span> <span class="o">|&gt;</span> <span class="n">doTryFind</span> <span class="n">keyCmp</span> <span class="n">key</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//  ^ この値は unbox で得るので、任意の型をつけられてしまう
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="k">let</span> <span class="nv">_typeUnifier</span> <span class="bp">()</span> <span class="o">=</span> <span class="o">[</span> <span class="n">valueOpt</span><span class="o">;</span> <span class="n">none</span> <span class="o">]</span> <span class="o">|&gt;</span> <span class="n">ignore</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//                      ^         ^
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">//                ここで適切な値の型に固定している
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">valueOpt</span>
+</span></span></code></pre></div><p>変数や型の ID から実データへのマップを、従来の「500 要素ごとに分割した連想リスト」を赤黒木に置き換えたところ、型検査が4倍ぐらい速くなった。平衡二分探索は速い、というか連想リストが遅い。</p>
 <ul>
 <li><a href="https://github.com/vain0x/milone-lang/blob/4d8c82d/MiloneLang/TreeMap.fs">現時点の TreeMap の実装</a></li>
 </ul>
@@ -286,6 +286,8 @@
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
+                
                     <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
                 
                     <li><a href="/blog/2022-01-31/diary/">近況 2022-01-31</a></li>
@@ -293,8 +295,6 @@
                     <li><a href="/blog/2021-12-31/diary/">近況 2021-12-31</a></li>
                 
                     <li><a href="/blog/2021-11-30/diary/">近況 2021-11-30</a></li>
-                
-                    <li><a href="/blog/2021-10-31/diary/">近況 2021-10-31</a></li>
                 
               </ul>
 
@@ -402,7 +402,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

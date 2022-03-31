@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -200,58 +200,58 @@
 <h2 id="なぜnullオブジェクトが必要か">なぜ「Nullオブジェクト」が必要か</h2>
 <p>C や C# などのいくつかの言語に null という概念があります。<code>null</code> はしばしば「何もない」や「失敗」といった <strong>特殊な状態</strong> を表す値として、null でない値と混ぜて使われますが、<code>null</code> と非 null の差異は次のようなやっかいな状況の引き金となります。</p>
 <p><code>null</code> と非 null の違いの一つに、備えるメソッドの種類があります <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 。例えばプログラミング言語 C# では、<code>null</code> のメソッドを呼ぼうとすると、例外が投げられます。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// 何らかのクラス X
-</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">X</span>
-<span class="p">{</span>
-    <span class="c1">// オーバーライド可能なメソッド
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">virtual</span> <span class="k">void</span> <span class="n">SomeMethod</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="c1">// ...
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">public</span> <span class="k">void</span> <span class="n">ThrowNullReferenceException</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="c1">// 型 X の変数 x を null にする。
-</span><span class="c1"></span>    <span class="n">X</span> <span class="n">x</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
-    <span class="c1">// x (= null) のメソッドを呼ぶ。例外が投げられる。
-</span><span class="c1"></span>    <span class="n">x</span><span class="p">.</span><span class="n">SomeMethod</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div><p>そのため、プログラムの処理中にエラーが起きると困る場合、 <code>null</code> のメソッドを呼んでしまわないようにする必要があります。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="c1">// 何らかのクラス X</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">class</span> <span class="nc">X</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// オーバーライド可能なメソッド</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">virtual</span> <span class="k">void</span> <span class="n">SomeMethod</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">void</span> <span class="n">ThrowNullReferenceException</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 型 X の変数 x を null にする。</span>
+</span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="n">x</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// x (= null) のメソッドを呼ぶ。例外が投げられる。</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span><span class="p">.</span><span class="n">SomeMethod</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>そのため、プログラムの処理中にエラーが起きると困る場合、 <code>null</code> のメソッドを呼んでしまわないようにする必要があります。</p>
 <p>このような事情から、「<code>null</code> でない場合だけ、メソッドを実行する」(<code>null</code> の場合は何もしない)ようにしたいことがしばしばあります。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">void</span> <span class="n">NotThrowNullReferenceException</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="c1">// 型 X の変数 x を null にする。
-</span><span class="c1"></span>    <span class="n">X</span> <span class="n">x</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
-    <span class="c1">// x が null でない場合だけ、メソッドを呼び出す。
-</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">x</span><span class="p">.</span><span class="n">SomeMethod</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>しかしメソッドを呼ぶ際にいちいち if 文を書いていると、 if 文が大量に発生してしまいます。コードが増えるだけならまだしも、if 文を書き忘れて、意図せぬ例外を投げてしまうおそれもあります。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">void</span> <span class="n">NotThrowNullReferenceException</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 型 X の変数 x を null にする。</span>
+</span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="n">x</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// x が null でない場合だけ、メソッドを呼び出す。</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span><span class="p">.</span><span class="n">SomeMethod</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>しかしメソッドを呼ぶ際にいちいち if 文を書いていると、 if 文が大量に発生してしまいます。コードが増えるだけならまだしも、if 文を書き忘れて、意図せぬ例外を投げてしまうおそれもあります。</p>
 <p>このような状況を回避する方法の1つが、 <strong>Nullオブジェクト</strong> です。</p>
 <h2 id="nullオブジェクトの作りかた">Nullオブジェクトの作りかた</h2>
 <p>Null オブジェクトとは、次のように定義される、「<code>null</code> の代わりに使われるオブジェクト」のことです。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// X を継承した新しいクラス
-</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">NullX</span>
-    <span class="p">:</span> <span class="n">X</span>
-<span class="p">{</span>
-    <span class="c1">// 「何もしない」メソッドとしてオーバーライドする。
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">SomeMethod</span><span class="p">()</span>
-    <span class="p">{</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>そして、型 X の変数には、<code>null</code> の代わりにこの NullX クラスのインスタンスを代入するようにします。これにより、変数が <code>null</code> ではないと分かるので、条件分岐を行わずとも安全にメソッドを呼び出せるようになります。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">void</span> <span class="n">NotThrowNullReferenceException</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="c1">// 型 X の変数 x を (null ではなく) NullX のインスタンスにする。
-</span><span class="c1"></span>    <span class="n">X</span> <span class="n">x</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NullX</span><span class="p">();</span>
-
-    <span class="c1">// x は null でないと分かっているので、安心してメソッドを呼べる。
-</span><span class="c1"></span>    <span class="n">x</span><span class="p">.</span><span class="n">SomeMethod</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div><p>めでたし、めでたし。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="c1">// X を継承した新しいクラス</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">class</span> <span class="nc">NullX</span>
+</span></span><span class="line"><span class="cl">    <span class="p">:</span> <span class="n">X</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 「何もしない」メソッドとしてオーバーライドする。</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">SomeMethod</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>そして、型 X の変数には、<code>null</code> の代わりにこの NullX クラスのインスタンスを代入するようにします。これにより、変数が <code>null</code> ではないと分かるので、条件分岐を行わずとも安全にメソッドを呼び出せるようになります。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">void</span> <span class="n">NotThrowNullReferenceException</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 型 X の変数 x を (null ではなく) NullX のインスタンスにする。</span>
+</span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="n">x</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NullX</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// x は null でないと分かっているので、安心してメソッドを呼べる。</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span><span class="p">.</span><span class="n">SomeMethod</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>めでたし、めでたし。</p>
 <h2 id="nullの発生源">nullの発生源</h2>
 <p>(ここからは私見になります。)</p>
 <p>ところで、そもそもなぜ、型 X の変数 (仮に <code>x</code> と呼ぶ) に <code>null</code> が入ってしまったのでしょうか。先ほどのサンプルでは、話を単純にするために <code>x</code> を使用する直前に <code>X x = null;</code> と書いていましたが、実際にはこんなコードはありえません。<code>x == null</code> になるには理由があるはずです。</p>
@@ -267,16 +267,16 @@
 <h3 id="後者の場合">後者の場合</h3>
 <p>後者の場合、<code>null</code> を設定した人は、どういう意図をもってそれをしたのでしょうか。言い換えると、<code>x == null</code> である場合に、コードがどう動くことを期待しているのでしょうか。</p>
 <p>もし「<code>x == null</code> の場合には、<code>x</code> を使用するコードは、何もしないべき」だと考えていたなら、そもそも <code>x</code> に <code>null</code> を設定するべきではありませんでした。なぜなら、 <strong><code>null</code> は「何もしない」を意味するものではない</strong> からです。本来の意図を正しく表現するには、<code>x</code> に「何もしないという挙動を持つインスタンス」を設定すべきなのです。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// X の派生クラスで、「何もしないという挙動」を持つもの
-</span><span class="c1"></span><span class="k">public</span> <span class="k">class</span> <span class="nc">NullX</span>
-    <span class="p">:</span> <span class="n">X</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">SomeMethod</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="c1">// 何もしない。
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>これがさきほどの <code>NullX</code> クラスです。名前に null とついてはいますが、<code>null</code> とは異なり、実体を持つ何かです。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="c1">// X の派生クラスで、「何もしないという挙動」を持つもの</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">class</span> <span class="nc">NullX</span>
+</span></span><span class="line"><span class="cl">    <span class="p">:</span> <span class="n">X</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">SomeMethod</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 何もしない。</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>これがさきほどの <code>NullX</code> クラスです。名前に null とついてはいますが、<code>null</code> とは異なり、実体を持つ何かです。</p>
 <h2 id="まとめ">まとめ</h2>
 <ul>
 <li><strong>問題</strong>: <code>null</code> のメソッドを呼んでしまわないように、条件分岐を書きすぎたり書き忘れたりしてしまう。</li>
@@ -422,7 +422,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

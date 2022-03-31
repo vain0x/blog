@@ -93,7 +93,7 @@ LSP サーバーの実装の練習をしています。この記事は勉強ノ�
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -299,10 +299,10 @@ LSP サーバーの実装の練習をしています。この記事は勉強ノ�
 <pre tabindex="0"><code>Content-Length: 88
 
 {
-    &quot;jsonrpc&quot;: &quot;2.0&quot;,
-    &quot;id&quot;: 1,
-    &quot;method&quot;: &quot;shutdown&quot;,
-    &quot;params&quot;: null
+    &#34;jsonrpc&#34;: &#34;2.0&#34;,
+    &#34;id&#34;: 1,
+    &#34;method&#34;: &#34;shutdown&#34;,
+    &#34;params&#34;: null
 }
 </code></pre><p>フォーマットは HTTP と似ています。空行までがヘッダーです。 <code>Content-Length</code> ヘッダーは必須で、ボディーの長さ (バイト単位) が指定されます。この例では、後半の JSON がボディーです。</p>
 <p>この文字列は、今回はサーバーのプロセスの標準入力に送られてきます。標準入力を受け取るには <code>process.stdin</code> の <code>data</code> イベントを監視して、送られてくるデータをバッファーにためていけばいいです。</p>
@@ -327,18 +327,18 @@ LSP サーバーの実装の練習をしています。この記事は勉強ノ�
 <pre tabindex="0"><code>Content-Length: 92
 
 {
-    &quot;jsonrpc&quot;: &quot;2.0&quot;,
-    &quot;id&quot;: 1,
-    &quot;method&quot;: &quot;initialize&quot;,
-    &quot;params&quot;: { /* 略 */ }
+    &#34;jsonrpc&#34;: &#34;2.0&#34;,
+    &#34;id&#34;: 1,
+    &#34;method&#34;: &#34;initialize&#34;,
+    &#34;params&#34;: { /* 略 */ }
 }
 </code></pre><p>initialize レスポンスはこう:</p>
 <pre tabindex="0"><code>Content-Length: 75
 
 {
-    &quot;jsonrpc&quot;: &quot;2.0&quot;,
-    &quot;id&quot;: 1,
-    &quot;result&quot;: { &quot;capabilities&quot;: {} }
+    &#34;jsonrpc&#34;: &#34;2.0&#34;,
+    &#34;id&#34;: 1,
+    &#34;result&#34;: { &#34;capabilities&#34;: {} }
 }
 </code></pre><ul>
 <li>注: レスポンスに method を書かなくていいのは id の値から分かるからだと思います。</li>
@@ -350,7 +350,7 @@ LSP サーバーの実装の練習をしています。この記事は勉強ノ�
 <h3 id="実装-ソースコードの検証">実装: ソースコードの検証</h3>
 <p>開始して終了するだけのサーバーができました。そろそろ機能を載せます。</p>
 <p>ソースコードが次の文字列と一致しなければ、一致しない部分に警告を出す、という検証機能です。ハローワールドしか書けないプログラミング言語！</p>
-<pre tabindex="0"><code>print &quot;hello, world!&quot;
+<pre tabindex="0"><code>print &#34;hello, world!&#34;
 </code></pre><ul>
 <li>変更点: <a href="https://github.com/vain0x/curage-lang/commit/2c463d3bc83a8bcff14782d9ae49cf8db4f9acd5">feat: Trivial source code validation</a></li>
 <li><a href="https://github.com/vain0x/curage-lang/tree/v0.2.0">変更後のリポジトリ</a></li>
@@ -375,15 +375,15 @@ LSP サーバーの実装の練習をしています。この記事は勉強ノ�
 </ul>
 <p>こうしてファイルが開かれたり変更されるたびにファイルの中身が送られてくるようになったので、検証ができます。</p>
 <p>LSP では警告やエラーをまとめて diagnostic と呼び、その種類を severity と呼んでます。diagnostic の範囲は、行番号と列番号を使って指定します。例えば 0 行目 i 列目の文字に問題があるときの警告はこんな感じです:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts">    <span class="p">({</span>
-        <span class="nx">message</span><span class="o">:</span> <span class="sb">`Expected &#39;</span><span class="si">${</span><span class="nx">expected</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="si">}</span><span class="sb">&#39;.`</span><span class="p">,</span>
-        <span class="nx">severity</span>: <span class="kt">DiagnosticSeverity.Warning</span><span class="p">,</span>
-        <span class="nx">range</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">start</span><span class="o">:</span> <span class="p">{</span> <span class="nx">line</span>: <span class="kt">0</span><span class="p">,</span> <span class="nx">character</span>: <span class="kt">i</span> <span class="p">},</span>
-            <span class="nx">end</span><span class="o">:</span> <span class="p">{</span> <span class="nx">line</span>: <span class="kt">0</span><span class="p">,</span> <span class="nx">character</span>: <span class="kt">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">},</span>
-        <span class="p">},</span>
-    <span class="p">})</span>
-</code></pre></div><p>diagnostics の配列を作って、 <a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_publishDiagnostics">textDocumet/publishDiagnostics 通知</a> を送ります。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl">    <span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">message</span><span class="o">:</span> <span class="sb">`Expected &#39;</span><span class="si">${</span><span class="nx">expected</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="si">}</span><span class="sb">&#39;.`</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">severity</span>: <span class="kt">DiagnosticSeverity.Warning</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">range</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">start</span><span class="o">:</span> <span class="p">{</span> <span class="nx">line</span>: <span class="kt">0</span><span class="p">,</span> <span class="nx">character</span>: <span class="kt">i</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">end</span><span class="o">:</span> <span class="p">{</span> <span class="nx">line</span>: <span class="kt">0</span><span class="p">,</span> <span class="nx">character</span>: <span class="kt">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span></code></pre></div><p>diagnostics の配列を作って、 <a href="https://microsoft.github.io/language-server-protocol/specification#textDocument_publishDiagnostics">textDocumet/publishDiagnostics 通知</a> を送ります。</p>
 <ul>
 <li>注: この通知はドキュメント内の diagnostic をすべて置き換えます。</li>
 </ul>
@@ -410,24 +410,24 @@ LSP サーバーの実装の練習をしています。この記事は勉強ノ�
 </ul>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&#34;clients&#34;</span><span class="p">:</span>
-    <span class="p">{</span>
-        <span class="nt">&#34;curage&#34;</span><span class="p">:</span>
-        <span class="p">{</span>
-            <span class="nt">&#34;command&#34;</span><span class="p">:</span>
-            <span class="p">[</span>
-                <span class="s2">&#34;node&#34;</span><span class="p">,</span>
-                <span class="s2">&#34;&lt;略&gt;/curage-lang/lsp/out/server.js&#34;</span>
-            <span class="p">],</span>
-            <span class="nt">&#34;enabled&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="nt">&#34;scopes&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;text.plain&#34;</span><span class="p">],</span>
-            <span class="nt">&#34;syntaxes&#34;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="nt">&#34;languageId&#34;</span><span class="p">:</span> <span class="s2">&#34;plaintext&#34;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;clients&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;curage&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;command&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;node&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;&lt;略&gt;/curage-lang/lsp/out/server.js&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;enabled&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;scopes&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;text.plain&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;syntaxes&#34;</span><span class="p">:</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;languageId&#34;</span><span class="p">:</span> <span class="s2">&#34;plaintext&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li>注: この設定だとあらゆるテキストファイルに関して警告を出してしまうので、何か間違っていそう。</li>
 </ul>
 <p>動いている様子はだいたい同じです。</p>
@@ -569,7 +569,7 @@ LSP サーバーの実装の練習をしています。この記事は勉強ノ�
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

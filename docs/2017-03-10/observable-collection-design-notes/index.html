@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -225,68 +225,68 @@
 <p>スレッド安全性といえば排他ロックでしょう。排他ロックそのものの説明は割愛します。</p>
 <p>初め、筆者はこの方針で観測可能なコレクションを実装したのですが、スレッド安全性の保証で行き詰まりました。というのも、外部に晒したコレクションをロックで守るのがそもそも不可能だったのです。</p>
 <p>例えば、 <code>Enumerable.ToArray</code> 拡張メソッドの実装はだいたいこんな感じになっているはずです:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="n">X</span><span class="p">[]</span> <span class="n">ToArray</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">xs</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">var</span> <span class="n">list</span> <span class="p">=</span> <span class="n">xs</span> <span class="k">as</span> <span class="n">IList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">list</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">var</span> <span class="n">array</span> <span class="p">=</span> <span class="k">new</span> <span class="n">X</span><span class="p">[</span><span class="n">list</span><span class="p">.</span><span class="n">Count</span><span class="p">];</span>
-        <span class="n">list</span><span class="p">.</span><span class="n">CopyTo</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">array</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="c1">// 以下略
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>こういう「リストの Count を参照した後、その値を利用して別の操作をする」みたいな処理では、Count から後続の処理までの間に要素数が変わらないようにする必要がありますが、ToArray がロックをとってくれていないのでそれは不可能です。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">public</span> <span class="n">X</span><span class="p">[]</span> <span class="n">ToArray</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">xs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">list</span> <span class="p">=</span> <span class="n">xs</span> <span class="k">as</span> <span class="n">IList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">list</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">array</span> <span class="p">=</span> <span class="k">new</span> <span class="n">X</span><span class="p">[</span><span class="n">list</span><span class="p">.</span><span class="n">Count</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">list</span><span class="p">.</span><span class="n">CopyTo</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">array</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 以下略</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>こういう「リストの Count を参照した後、その値を利用して別の操作をする」みたいな処理では、Count から後続の処理までの間に要素数が変わらないようにする必要がありますが、ToArray がロックをとってくれていないのでそれは不可能です。</p>
 <p>書いたコードはお焚きあげに出しました。 R.I.P.</p>
 <h3 id="方法3-コレクション系インターフェイスを実装しない">方法3. コレクション系インターフェイスを実装しない</h3>
 <p>先ほどの ToArray 問題の原因は、<code>IList&lt;_&gt;</code> などのコレクション系インターフェイスが並行プログラミングをサポートしていないことにあります。そこで、それらのインターフェイスを捨てて、<code>IEnumerable&lt;_&gt;</code> だけを実装するようにすれば安全です。</p>
 <h4 id="getenumerator-の非効率性">GetEnumerator の非効率性</h4>
 <p>この選択肢の利点と欠点を考えましょう。1つ目の欠点は、LINQ to IEnumerable が使えなくなることです。というのも、先述の <code>Enumerable.ToArray</code> は、渡されたシーケンス (IEnumerable) の実体の型がコレクションかどうかで条件分岐しています。コレクションでなければ Count などを参照できないので、GetEnumerator だけを使って処理を行います。一般的にシーケンスに対する GetEnumerator だけを使う実装は、著しく非効率な場合があります。例えば <code>Enumerable.Count</code> (シーケンスの長さを取得する) のように、コレクションであれば一瞬で実行できるはずの操作にも要素の数だけ時間がかかることになります。</p>
 <p>しかしこの欠点にはいちおうの対策があります。というのも、拡張メソッドはオーバーライドできませんが、シャドーイングはできるからです。そのため、<code>Enumerable.Count</code> のように効率の悪くなるメソッドに対して観測可能なコレクション用に特化したメソッドを用意しておくことで、ある程度の問題は解決します。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// 読み取り専用の観測可能なコレクションを表すインターフェイスを定義しておく。
-</span><span class="c1"></span><span class="k">public</span> <span class="k">interface</span> <span class="n">IReadOnlyObservableList</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
-    <span class="p">:</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
-<span class="p">{</span>
-    <span class="n">Task</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">CountAsync</span><span class="p">();</span>
-
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="c1">// 観測可能なコレクションに特化した拡張メソッドを定義しておく。
-</span><span class="c1"></span><span class="k">public</span> <span class="k">static</span> <span class="n">ObservableListExtension</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="kt">int</span> <span class="n">Count</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="k">this</span> <span class="n">IReadOnlyObservableList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">@this</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="n">@this</span><span class="p">.</span><span class="n">CountAsync</span><span class="p">().</span><span class="n">Result</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// 効率のよい方のメソッドが使われる。
-</span><span class="c1"></span><span class="k">new</span> <span class="n">MyObservableList</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;().</span><span class="n">Count</span><span class="p">();</span>
-</code></pre></div><p>対象は Count(), Any(), ElementAt(int), Last() です。このくらいなら実装量的にも大丈夫でしょう。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="c1">// 読み取り専用の観測可能なコレクションを表すインターフェイスを定義しておく。</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">interface</span> <span class="nc">IReadOnlyObservableList</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">:</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Task</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">CountAsync</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 観測可能なコレクションに特化した拡張メソッドを定義しておく。</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">static</span> <span class="n">ObservableListExtension</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="kt">int</span> <span class="n">Count</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="k">this</span> <span class="n">IReadOnlyObservableList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">@this</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">@this</span><span class="p">.</span><span class="n">CountAsync</span><span class="p">().</span><span class="n">Result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 効率のよい方のメソッドが使われる。</span>
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">MyObservableList</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;().</span><span class="n">Count</span><span class="p">();</span>
+</span></span></code></pre></div><p>対象は Count(), Any(), ElementAt(int), Last() です。このくらいなら実装量的にも大丈夫でしょう。</p>
 <p>もちろん WPF は特化版のメソッドを使ってはくれませんが、WPF がコレクションの要素数を取得したりインデックスでアクセスしたりする場面が思いつかないので (あったら教えてください)、ひとまず問題なしとします。</p>
 <h4 id="スレッド安全性の確保">スレッド安全性の確保</h4>
 <p>標準のコレクション系インターフェイスを実装しないだけでは、まだスレッド安全になりません。UI スレッドから GetEnumerator が起動されることになるので、GetEnumerator と他の操作が同時に起動されても大丈夫なようにする (あるいは同時には起動されないようにする) 必要があります。</p>
 <p>これは比較的簡単にできます。例えば排他ロックを用いて、GetEnumerator を「ロックの中でリスト全体のコピーを作り、そのコピーの列挙子を返す」ようにする、などです。これは次のような実装になります。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp">    <span class="c1">// コレクションの要素を入れておくリスト
-</span><span class="c1"></span>    <span class="k">readonly</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">;</span>
-
-    <span class="c1">// ロックオブジェクト
-</span><span class="c1"></span>    <span class="k">readonly</span> <span class="kt">object</span> <span class="n">gate</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="n">X</span> <span class="n">Invoke</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">f</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">lock</span> <span class="p">(</span><span class="n">gate</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="n">f</span><span class="p">();</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="n">IEnumerator</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">GetEnumerator</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="n">Invoke</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">list</span><span class="p">.</span><span class="n">ToList</span><span class="p">()).</span><span class="n">GetEnumerator</span><span class="p">();</span>
-    <span class="p">}</span>
-</code></pre></div><p>考えられる方法としては:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl">    <span class="c1">// コレクションの要素を入れておくリスト</span>
+</span></span><span class="line"><span class="cl">    <span class="k">readonly</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ロックオブジェクト</span>
+</span></span><span class="line"><span class="cl">    <span class="k">readonly</span> <span class="kt">object</span> <span class="n">gate</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="n">X</span> <span class="n">Invoke</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">Func</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">lock</span> <span class="p">(</span><span class="n">gate</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">f</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="n">IEnumerator</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">GetEnumerator</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Invoke</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="n">list</span><span class="p">.</span><span class="n">ToList</span><span class="p">()).</span><span class="n">GetEnumerator</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>考えられる方法としては:</p>
 <ul>
 <li>排他ロック &amp; コピー</li>
 <li>単一スレッドへのディスパッチ &amp; コピー</li>
@@ -307,23 +307,23 @@
 <p>次の方法は、コレクションへの変更を書き込む処理と、コレクションからデータを読み取る処理をすべて単一のスレッドで行う、というものです。すなわち、ある単一のスレッドではコレクションを普通に操作する代わり、それとは別のスレッドから操作しようとしたら、その単一のスレッドにコレクションへの操作を「依頼」する、ということです。ちなみに他のスレッドに処理を依頼することをディスパッチするというみたいです。</p>
 <p>この方法ではディスパッチ処理をコレクションの内部 (Add メソッドなど) で行うので、使う側はめんどくさくありません。</p>
 <p>スレッドの切り替えには、標準にある System.Threading.SynchronizationContext を使えばよいでしょう。WPF にある Dispatcher を使うという手もありますが、これは高機能すぎますし、sealed class なのでテストダブルが作れないという問題と、ライブラリーに対する依存関係が深くなる問題があるので、ひとまず置いておきます。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">ObservableList</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
-<span class="p">{</span>
-    <span class="k">readonly</span> <span class="n">SynchronizationContext</span> <span class="n">context</span> <span class="p">=</span>
-        <span class="n">SynchronizationContext</span><span class="p">.</span><span class="n">Current</span><span class="p">;</span>
-
-    <span class="k">readonly</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">void</span> <span class="n">Add</span><span class="p">(</span><span class="n">T</span> <span class="k">value</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">context</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="n">state</span> <span class="p">=&gt;</span>
-        <span class="p">{</span>
-            <span class="c1">// ここは UI スレッドで行われる。
-</span><span class="c1"></span>            <span class="n">list</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">value</span><span class="p">);</span>
-        <span class="p">},</span> <span class="k">null</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>この方法では、先述の ToArray 問題が解決できません。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">class</span> <span class="nc">ObservableList</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">readonly</span> <span class="n">SynchronizationContext</span> <span class="n">context</span> <span class="p">=</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SynchronizationContext</span><span class="p">.</span><span class="n">Current</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">readonly</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">void</span> <span class="n">Add</span><span class="p">(</span><span class="n">T</span> <span class="k">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">context</span><span class="p">.</span><span class="n">Send</span><span class="p">(</span><span class="n">state</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// ここは UI スレッドで行われる。</span>
+</span></span><span class="line"><span class="cl">            <span class="n">list</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span> <span class="k">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>この方法では、先述の ToArray 問題が解決できません。</p>
 <h2 id="c案-ui非uiスレッド間のスレッド安全性保証">(C)案: UI/非UIスレッド間のスレッド安全性保証</h2>
 <p>コレクション自体をスレッド安全にするのではなく、ユーザーと WPF からの同時アクセスだけを防ぐ方針もありえます。その2つがどう違うのかというと、後者の場合は例えばユーザーが2つの非UIスレッドを作って、それらから単一のコレクションを同時に操作したときに、競合状態が起きうるということです。ただし、ユーザーがコレクションを操作しているのと同時に WPF (UI スレッド) がコレクションにアクセスしても、競合状態は起こりません。</p>
 <p>そもそもの目的を思い出すと、たしかにユーザーサイドでの同時アクセスまで面倒をみる必要はないように思えます。</p>
@@ -473,7 +473,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

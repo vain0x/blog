@@ -93,7 +93,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -204,20 +204,20 @@
 <p>手続き型言語を使う人に「F# のループ (for/while) は <code>break</code> できない」というと驚かれるかもしれません。筆者は驚きました。途中で終了する可能性のあるループを書けなくて困りそうですが、その心配は不要です。F# では <strong>末尾再帰関数</strong> を使って、<code>break</code> や <code>continue</code> のあるループと同じことができるからです。</p>
 <h2 id="例1-無条件の無限ループ">例1: 無条件の無限ループ</h2>
 <p>まずは最も簡単な例を挙げます。<code>break</code> も <code>continue</code> も使わないループを、末尾再帰関数を使って書いてみましょう。ひたすら <code>yes</code> を出力するだけの、通称 yes コマンドです。C# だとこうですね。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">void</span> <span class="n">YesAll</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;yes&#34;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>これなら F# の <code>while</code> でも同様に書けますが、練習のため末尾再帰で書いてみましょう。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">let</span> <span class="nv">yesAll</span> <span class="bp">()</span> <span class="o">=</span>
-    <span class="k">let</span> <span class="nv">rec</span> <span class="n">loop</span> <span class="bp">()</span> <span class="o">=</span>
-        <span class="nn">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="o">(</span><span class="s">&#34;yes&#34;</span><span class="o">)</span>
-        <span class="n">loop</span> <span class="bp">()</span>
-    <span class="n">loop</span> <span class="bp">()</span>
-</code></pre></div><p>コードの説明をします。冒頭の <code>let yesAll () = ...</code> は関数の定義で、残りの部分がその本体です。<code>let rec loop () = ...</code> も関数の定義ですが (関数の中に関数！)、<code>rec</code> キーワードがついているので <code>loop</code> 関数は再帰的(<strong>rec</strong>ursive)です (再帰的な関数については後述)。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">void</span> <span class="n">YesAll</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;yes&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>これなら F# の <code>while</code> でも同様に書けますが、練習のため末尾再帰で書いてみましょう。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">yesAll</span> <span class="bp">()</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">rec</span> <span class="n">loop</span> <span class="bp">()</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="nn">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="o">(</span><span class="s">&#34;yes&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">loop</span> <span class="bp">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">loop</span> <span class="bp">()</span>
+</span></span></code></pre></div><p>コードの説明をします。冒頭の <code>let yesAll () = ...</code> は関数の定義で、残りの部分がその本体です。<code>let rec loop () = ...</code> も関数の定義ですが (関数の中に関数！)、<code>rec</code> キーワードがついているので <code>loop</code> 関数は再帰的(<strong>rec</strong>ursive)です (再帰的な関数については後述)。</p>
 <p>F# は字下げに依存した構文を採用しています。<code>loop</code> 関数の定義は、字下げが <code>let</code> と同じ深さに戻ったところで終わります。すなわち、<code>loop</code> の本体は2行からなり、字下げの減っている最後の <code>loop ()</code> は含まれません。</p>
 <p><code>loop</code> 関数の定義の後ろにある <code>loop ()</code> は、事実上 <code>yesAll</code> が最初に実行する式ですが、単に loop 関数を起動するだけです。</p>
 <p>再帰についてもう少し解説します。<code>loop</code> の本体は「yes を出力する」式と「loop を起動する」式の2つからなります。loop の中で loop を起動すると、また「yes を出力する」と「loop を起動する」を実行することになります。すなわち、</p>
@@ -230,88 +230,88 @@
 <p>という計算になります。無限ループですね。実際、これは C# で書いたものとほぼ同じループにコンパイルされるはずです。</p>
 <h3 id="機械的翻訳">機械的翻訳</h3>
 <p>C# の視点から loop 関数を解釈する手段を紹介します。まず C# のコードのうち、<code>while</code> の「末尾」に到達する部分に <code>continue</code> を挿入します。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// C#
-</span><span class="c1"></span>
-<span class="k">public</span> <span class="k">void</span> <span class="n">YesAll</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;yes&#34;</span><span class="p">);</span> <span class="c1">// body
-</span><span class="c1"></span>        <span class="k">continue</span><span class="p">;</span> <span class="c1">// 追加
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>そして、一定の規則で F# のコードに変換します。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// F#
-</span><span class="c1"></span>
-<span class="k">let</span> <span class="nv">yesAll</span> <span class="bp">()</span> <span class="o">=</span>
-    <span class="k">let</span> <span class="nv">rec</span> <span class="n">loop</span> <span class="bp">()</span> <span class="o">=</span>            <span class="c1">// while (true) {
-</span><span class="c1"></span>        <span class="nn">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="o">(</span><span class="s">&#34;yes&#34;</span><span class="o">)</span> <span class="c1">//   body
-</span><span class="c1"></span>        <span class="n">loop</span> <span class="bp">()</span>                  <span class="c1">//   continue;
-</span><span class="c1"></span>    <span class="n">loop</span> <span class="bp">()</span>                      <span class="c1">// }
-</span></code></pre></div><p>つまり、 <code>while (true) { ... }</code> を</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">let</span> <span class="nv">rec</span> <span class="n">loop</span> <span class="o">=</span>
-        <span class="o">...</span>
-    <span class="n">loop</span><span class="bp">()</span>
-</code></pre></div><p>に置き換え、ループの本体のうち <code>continue</code> を <code>loop ()</code> に置き換えました。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="c1">// C#</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">void</span> <span class="n">YesAll</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;yes&#34;</span><span class="p">);</span> <span class="c1">// body</span>
+</span></span><span class="line"><span class="cl">        <span class="k">continue</span><span class="p">;</span> <span class="c1">// 追加</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>そして、一定の規則で F# のコードに変換します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// F#
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">yesAll</span> <span class="bp">()</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">rec</span> <span class="n">loop</span> <span class="bp">()</span> <span class="o">=</span>            <span class="c1">// while (true) {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nn">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="o">(</span><span class="s">&#34;yes&#34;</span><span class="o">)</span> <span class="c1">//   body
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">loop</span> <span class="bp">()</span>                  <span class="c1">//   continue;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">loop</span> <span class="bp">()</span>                      <span class="c1">// }
+</span></span></span></code></pre></div><p>つまり、 <code>while (true) { ... }</code> を</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">rec</span> <span class="n">loop</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="n">loop</span><span class="bp">()</span>
+</span></span></code></pre></div><p>に置き換え、ループの本体のうち <code>continue</code> を <code>loop ()</code> に置き換えました。</p>
 <p>こうして簡単に末尾再帰バージョンを手に入れることができます。</p>
 <h2 id="例2-停止する無限ループ">例2: 停止する無限ループ</h2>
 <p>先ほどの例で基本的な考え方を会得したので、<code>break</code> を使うループの例を見ていきましょう。</p>
 <p>以下の関数は、標準入力から行を読み込むたびに「叫ぶ」(大文字に変換して出力する)ものです。入力を読み切ったら自動的に終了することにします。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// C#
-</span><span class="c1"></span>
-<span class="k">private</span> <span class="k">void</span> <span class="n">ScreamLine</span><span class="p">(</span><span class="kt">string</span> <span class="n">line</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="n">ToUpper</span><span class="p">()</span> <span class="p">+</span> <span class="s">&#34;!&#34;</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="k">public</span> <span class="k">void</span> <span class="n">Scream</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// 標準入力から1行を取得する。
-</span><span class="c1"></span>        <span class="c1">// 入力の終端に到達していたら、null が返る。
-</span><span class="c1"></span>        <span class="kt">var</span> <span class="n">line</span> <span class="p">=</span> <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">line</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
-
-        <span class="n">ScreamLine</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>これを少しだけ変形します。<code>if</code> 文には常に <code>else</code> をつけ、末尾に到達する部分に <code>continue</code> を挿入します。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// C#
-</span><span class="c1"></span>
-<span class="k">public</span> <span class="k">void</span> <span class="n">Run</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">var</span> <span class="n">line</span> <span class="p">=</span> <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">line</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">break</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">else</span>
-        <span class="p">{</span>
-            <span class="n">ScreamLine</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
-            <span class="k">continue</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>そして、前述の変換に加えて <code>break</code> を <code>()</code> に置き換えると完成です：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// F#
-</span><span class="c1"></span>
-<span class="k">let</span> <span class="nv">screamLine</span> <span class="o">(</span><span class="n">line</span><span class="o">:</span> <span class="kt">string</span><span class="o">)</span> <span class="o">=</span>
-    <span class="nn">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="o">(</span><span class="n">line</span><span class="o">.</span><span class="n">ToUpper</span><span class="bp">()</span> <span class="o">+</span> <span class="s">&#34;!&#34;</span><span class="o">)</span>
-
-<span class="k">let</span> <span class="nv">scream</span> <span class="bp">()</span> <span class="o">=</span>
-    <span class="k">let</span> <span class="nv">rec</span> <span class="n">loop</span> <span class="bp">()</span> <span class="o">=</span>                   <span class="c1">// while (true) {
-</span><span class="c1"></span>        <span class="k">let</span> <span class="nv">line</span> <span class="o">=</span> <span class="nn">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="bp">()</span>   <span class="c1">//   var line = ...;
-</span><span class="c1"></span>        <span class="k">if</span> <span class="n">line</span> <span class="o">=</span> <span class="k">null</span> <span class="k">then</span>             <span class="c1">//   if (line == null) {
-</span><span class="c1"></span>            <span class="bp">()</span>                          <span class="c1">//     break;
-</span><span class="c1"></span>        <span class="k">else</span>                            <span class="c1">//   } else {
-</span><span class="c1"></span>            <span class="n">scream</span> <span class="n">line</span>                 <span class="c1">//     ...;
-</span><span class="c1"></span>            <span class="n">loop</span> <span class="bp">()</span>                     <span class="c1">//     continue;
-</span><span class="c1"></span>                                        <span class="c1">//   }
-</span><span class="c1"></span>    <span class="n">loop</span> <span class="bp">()</span>                             <span class="c1">// }
-</span></code></pre></div><p><code>()</code> と <code>break</code> が対応することのイメージが分からないと思いますが、直接的な対応はないので、 <code>scream ()</code> の挙動を説明します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="c1">// C#</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span> <span class="k">void</span> <span class="n">ScreamLine</span><span class="p">(</span><span class="kt">string</span> <span class="n">line</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="n">ToUpper</span><span class="p">()</span> <span class="p">+</span> <span class="s">&#34;!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">void</span> <span class="n">Scream</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 標準入力から1行を取得する。</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 入力の終端に到達していたら、null が返る。</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">line</span> <span class="p">=</span> <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">line</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">ScreamLine</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>これを少しだけ変形します。<code>if</code> 文には常に <code>else</code> をつけ、末尾に到達する部分に <code>continue</code> を挿入します。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="c1">// C#</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">void</span> <span class="n">Run</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">var</span> <span class="n">line</span> <span class="p">=</span> <span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">line</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ScreamLine</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>そして、前述の変換に加えて <code>break</code> を <code>()</code> に置き換えると完成です：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// F#
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">screamLine</span> <span class="o">(</span><span class="n">line</span><span class="o">:</span> <span class="kt">string</span><span class="o">)</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="nn">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="o">(</span><span class="n">line</span><span class="o">.</span><span class="n">ToUpper</span><span class="bp">()</span> <span class="o">+</span> <span class="s">&#34;!&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">scream</span> <span class="bp">()</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">rec</span> <span class="n">loop</span> <span class="bp">()</span> <span class="o">=</span>                   <span class="c1">// while (true) {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">let</span> <span class="nv">line</span> <span class="o">=</span> <span class="nn">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="bp">()</span>   <span class="c1">//   var line = ...;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="n">line</span> <span class="o">=</span> <span class="k">null</span> <span class="k">then</span>             <span class="c1">//   if (line == null) {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="bp">()</span>                          <span class="c1">//     break;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">else</span>                            <span class="c1">//   } else {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">scream</span> <span class="n">line</span>                 <span class="c1">//     ...;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">loop</span> <span class="bp">()</span>                     <span class="c1">//     continue;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                        <span class="c1">//   }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">loop</span> <span class="bp">()</span>                             <span class="c1">// }
+</span></span></span></code></pre></div><p><code>()</code> と <code>break</code> が対応することのイメージが分からないと思いますが、直接的な対応はないので、 <code>scream ()</code> の挙動を説明します。</p>
 <p>この関数を <code>scream ()</code> のように起動すると、先程の <code>yesAll ()</code> と同じく <code>loop ()</code> が開始します。<code>loop</code> の結果は、読み取った行が <code>null</code> なら (= 入力が終了したら) <code>()</code> (ユニットという名前の定数) で、そうでなければ <code>else</code> 節の値になります。<code>else</code> 節では、入力を叫んだあとループをやり直しますが、yes コマンドとは違っていつかは入力が終わり <code>()</code> が返ってきます。結局、標準入出力の副作用を除けば</p>
 <pre><code>scream ()
 = loop ()
@@ -324,47 +324,47 @@
 <h2 id="例3-有限回のループ">例3: 有限回のループ</h2>
 <p>前の2つの例の <code>loop</code> 関数は、引数として <code>()</code> を受け取りましたが、実際は任意の引数が使えます。ループの「状態」を引数で持ち運ぶのはよくあることです。</p>
 <p>最後の例は、リストの各要素を1行ずつ表示していくループです。 F# だと <code>for</code> で書けますが、練習のため末尾再帰関数で書きます。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">void</span> <span class="n">PrintList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">var</span> <span class="n">index</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">index</span> <span class="p">&lt;</span> <span class="n">list</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;{0}&#34;</span><span class="p">,</span> <span class="n">list</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
-        <span class="n">index</span><span class="p">++;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>今回は <code>while</code> にガード節がありますが、これは <code>if</code> と <code>break</code> に簡単に分解できて、次のように変形できます：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="c1">// C#
-</span><span class="c1"></span>
-<span class="k">public</span> <span class="k">void</span> <span class="n">PrintList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">var</span> <span class="n">index</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="p">&lt;</span> <span class="n">list</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span> <span class="c1">// 条件節
-</span><span class="c1"></span>        <span class="p">{</span>
-            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;{0}&#34;</span><span class="p">,</span> <span class="n">list</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
-            <span class="n">index</span><span class="p">++;</span>
-            <span class="k">continue</span><span class="p">;</span> <span class="c1">// 追加
-</span><span class="c1"></span>        <span class="p">}</span>
-        <span class="k">else</span>
-        <span class="p">{</span>
-            <span class="k">break</span><span class="p">;</span> <span class="c1">// 条件不成立 (index &gt;= list.Count) なら終了。
-</span><span class="c1"></span>        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="c1">// F#
-</span><span class="c1"></span>
-<span class="k">let</span> <span class="nv">printList</span> <span class="o">(</span><span class="kt">list</span><span class="o">:</span> <span class="n">IReadOnlyList</span><span class="o">&lt;_&gt;)</span> <span class="o">=</span>
-    <span class="k">let</span> <span class="nv">rec</span> <span class="n">loop</span> <span class="n">index</span> <span class="o">=</span>                           <span class="c1">// while (true) {
-</span><span class="c1"></span>        <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="kt">list</span><span class="o">.</span><span class="n">Count</span> <span class="k">then</span>                 <span class="c1">//    if (...) {
-</span><span class="c1"></span>            <span class="nn">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="o">(</span><span class="s">&#34;{0}&#34;</span><span class="o">,</span> <span class="kt">list</span><span class="o">.[</span><span class="n">index</span><span class="o">])</span> <span class="c1">//      ...;
-</span><span class="c1"></span>            <span class="n">loop</span> <span class="o">(</span><span class="n">index</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span>                       <span class="c1">//      continue;
-</span><span class="c1"></span>        <span class="k">else</span>                                       <span class="c1">//    } else {
-</span><span class="c1"></span>            <span class="bp">()</span>                                     <span class="c1">//      break;
-</span><span class="c1"></span>                                                   <span class="c1">//    }
-</span><span class="c1"></span>    <span class="n">loop</span> <span class="n">0</span>                                         <span class="c1">// }
-</span></code></pre></div><p><code>loop</code> 関数の実行を簡単に追ってみましょう。<code>list</code> を長さ 3 のリストとすると、</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">void</span> <span class="n">PrintList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">index</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">index</span> <span class="p">&lt;</span> <span class="n">list</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;{0}&#34;</span><span class="p">,</span> <span class="n">list</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">index</span><span class="p">++;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>今回は <code>while</code> にガード節がありますが、これは <code>if</code> と <code>break</code> に簡単に分解できて、次のように変形できます：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="c1">// C#</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">void</span> <span class="n">PrintList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;(</span><span class="n">IReadOnlyList</span><span class="p">&lt;</span><span class="n">X</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">index</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="p">&lt;</span> <span class="n">list</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span> <span class="c1">// 条件節</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;{0}&#34;</span><span class="p">,</span> <span class="n">list</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">index</span><span class="p">++;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span><span class="p">;</span> <span class="c1">// 追加</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span> <span class="c1">// 条件不成立 (index &gt;= list.Count) なら終了。</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="c1">// F#
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">printList</span> <span class="o">(</span><span class="kt">list</span><span class="o">:</span> <span class="n">IReadOnlyList</span><span class="o">&lt;_&gt;)</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">rec</span> <span class="n">loop</span> <span class="n">index</span> <span class="o">=</span>                           <span class="c1">// while (true) {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="kt">list</span><span class="o">.</span><span class="n">Count</span> <span class="k">then</span>                 <span class="c1">//    if (...) {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nn">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="o">(</span><span class="s">&#34;{0}&#34;</span><span class="o">,</span> <span class="kt">list</span><span class="o">.[</span><span class="n">index</span><span class="o">])</span> <span class="c1">//      ...;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">loop</span> <span class="o">(</span><span class="n">index</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span>                       <span class="c1">//      continue;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">else</span>                                       <span class="c1">//    } else {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="bp">()</span>                                     <span class="c1">//      break;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                   <span class="c1">//    }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">loop</span> <span class="n">0</span>                                         <span class="c1">// }
+</span></span></span></code></pre></div><p><code>loop</code> 関数の実行を簡単に追ってみましょう。<code>list</code> を長さ 3 のリストとすると、</p>
 <pre><code>loop 0
 = 0 &lt; 3 なら、出力して loop 1
 = loop 1
@@ -514,7 +514,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

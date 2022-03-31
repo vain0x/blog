@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -270,9 +270,9 @@
 <p><a href="https://blog.golang.org/generics-proposal">A Proposal for Adding Generics to Go - The Go Blog</a></p>
 <p>ジェネリック引数を <code>&lt; &gt;</code> で囲む構文は C++, F#, TypeScript, Rust など多くの言語で採用されているが、構文的な曖昧性があってパースが難しい。</p>
 <p>例えば <code>f&lt;T, U&gt;(a)</code> は関数呼び出しにみえるが、<code>&lt;</code> を比較演算だと思うと <code>f &lt; T</code>, <code>U &gt; (a)</code> という2つの式をカンマ区切りで並べたものともとれる。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="n">f</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">U</span><span class="o">&gt;(</span><span class="n">a</span><span class="o">)</span>
-    <span class="o">(</span><span class="n">f</span> <span class="o">&lt;</span> <span class="n">T</span><span class="o">),</span> <span class="o">(</span><span class="n">U</span> <span class="o">&gt;</span> <span class="n">a</span><span class="o">)</span>
-</code></pre></div><p>なお Rust ではこれに対処するため <code>f::&lt;T, U&gt;(a)</code> と書ける (turbo-fish)。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="n">f</span><span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">U</span><span class="o">&gt;(</span><span class="n">a</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">(</span><span class="n">f</span> <span class="o">&lt;</span> <span class="n">T</span><span class="o">),</span> <span class="o">(</span><span class="n">U</span> <span class="o">&gt;</span> <span class="n">a</span><span class="o">)</span>
+</span></span></code></pre></div><p>なお Rust ではこれに対処するため <code>f::&lt;T, U&gt;(a)</code> と書ける (turbo-fish)。</p>
 <p>また、入れ子になったジェネリック引数リストを閉じるときに <code>&gt;&gt;</code> という並びが出現することがあり、これがシフト演算子と紛らわしい。</p>
 <p>実際、昔の C++ では <code>K&lt;K&lt;int&gt;&gt;</code> が構文エラーになるから <code>K&lt;K&lt;int&gt; &gt;</code> のようにスペースを入れる必要があった。(現在は修正されている。)</p>
 <p>なお自作言語のミローネ言語も (F# との互換性のため) ジェネリック引数リストは <code>&lt; &gt;</code> で囲む。関数にジェネリック引数リストをつける <code>f&lt;T&gt;</code> の構文はまだ実装していない。<code>&gt;&gt;</code> の方は次のように対応している: 字句解析の際に <code>&gt;</code> は1文字ずつのトークンにしておき、シフト演算子が出現しうる位置に <code>&gt;</code> が連続で出現したらまとめて1個の演算子とみなして読む。</p>
@@ -301,6 +301,8 @@
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
+                
                     <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
                 
                     <li><a href="/blog/2022-01-31/diary/">近況 2022-01-31</a></li>
@@ -308,8 +310,6 @@
                     <li><a href="/blog/2021-12-31/diary/">近況 2021-12-31</a></li>
                 
                     <li><a href="/blog/2021-11-30/diary/">近況 2021-11-30</a></li>
-                
-                    <li><a href="/blog/2021-10-31/diary/">近況 2021-10-31</a></li>
                 
               </ul>
 
@@ -417,7 +417,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

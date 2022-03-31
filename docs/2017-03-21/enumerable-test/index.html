@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -200,20 +200,20 @@
 <p>具体的な使い方は <a href="https://vain0x.github.io/enumerable-test-dotnet/articles/tutorials/walk-around.html">チュートリアル</a> を参照してもらうとして、ここでは宣伝的な内容と、実装時の苦労話、今後の展望について述べます。</p>
 <h2 id="特徴">特徴</h2>
 <p><strong>EnumerableTest</strong> の最大の特徴は「パラメーター化されたテスト」(テーブル駆動テスト)を書きやすいことです。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp">    <span class="c1">// 演算子 &amp;&amp; の挙動をテストする。
-</span><span class="c1"></span>    <span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Test</span><span class="p">&gt;</span> <span class="n">test_operator_and</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span>
-            <span class="n">ParameterizedTestBuilder</span>
-            <span class="p">.</span><span class="n">Case</span><span class="p">(</span><span class="k">true</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">true</span><span class="p">)</span>
-            <span class="p">.</span><span class="n">Case</span><span class="p">(</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
-            <span class="p">.</span><span class="n">Case</span><span class="p">(</span><span class="k">false</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
-            <span class="p">.</span><span class="n">Case</span><span class="p">(</span><span class="k">false</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
-            <span class="p">.</span><span class="n">Run</span><span class="p">((</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span> <span class="p">=&gt;</span>
-                <span class="p">(</span><span class="n">left</span> <span class="p">&amp;&amp;</span> <span class="n">right</span><span class="p">).</span><span class="n">Is</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
-            <span class="p">);</span>
-    <span class="p">}</span>
-</code></pre></div><p>このコードで重要なのは、次の2点です。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl">    <span class="c1">// 演算子 &amp;&amp; の挙動をテストする。</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Test</span><span class="p">&gt;</span> <span class="n">test_operator_and</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ParameterizedTestBuilder</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="n">Case</span><span class="p">(</span><span class="k">true</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="n">Case</span><span class="p">(</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="n">Case</span><span class="p">(</span><span class="k">false</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="n">Case</span><span class="p">(</span><span class="k">false</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">.</span><span class="n">Run</span><span class="p">((</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="n">left</span> <span class="p">&amp;&amp;</span> <span class="n">right</span><span class="p">).</span><span class="n">Is</span><span class="p">(</span><span class="n">expected</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>このコードで重要なのは、次の2点です。</p>
 <ul>
 <li>テストデータの型がコンパイル時に検査される。</li>
 <li>4つのテストケースのうち、いずれかが表明に違反したり例外を投げたりしても、すべてのテストが実行される。</li>
@@ -221,12 +221,12 @@
 <p><code>ParameterizedTestBuilder</code> の実装に用いられている2つの特徴について説明します。</p>
 <h3 id="継続する表明">継続する表明</h3>
 <p><strong>EnumerableTest</strong> の表明は、失敗しても実行を停止しません。例えば、次のテストメソッドは2つの表明を含みますが、前者は失敗して、後者は成功します。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Test</span><span class="p">&gt;</span> <span class="n">MyTest</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">yield</span> <span class="k">return</span> <span class="m">0.</span><span class="n">Is</span><span class="p">(</span><span class="m">1</span><span class="p">);</span> <span class="c1">// 失敗する。
-</span><span class="c1"></span>    <span class="k">yield</span> <span class="k">return</span> <span class="m">0.</span><span class="n">Is</span><span class="p">(</span><span class="m">0</span><span class="p">);</span> <span class="c1">// 成功する。
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>xUnit.NET や NUnit などでは「表明が失敗するとテストの実行が止まる」仕様になっています。この場合、縦にずらずらと表明を並べると、途中で止まったときに後ろのテストの結果が分からなくなり、厄介です。そのため、テストメソッドには表明を1つだけにするべきだといわれています。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Test</span><span class="p">&gt;</span> <span class="n">MyTest</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="k">return</span> <span class="m">0.</span><span class="n">Is</span><span class="p">(</span><span class="m">1</span><span class="p">);</span> <span class="c1">// 失敗する。</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="k">return</span> <span class="m">0.</span><span class="n">Is</span><span class="p">(</span><span class="m">0</span><span class="p">);</span> <span class="c1">// 成功する。</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>xUnit.NET や NUnit などでは「表明が失敗するとテストの実行が止まる」仕様になっています。この場合、縦にずらずらと表明を並べると、途中で止まったときに後ろのテストの結果が分からなくなり、厄介です。そのため、テストメソッドには表明を1つだけにするべきだといわれています。</p>
 <p><strong>EnumerableTest</strong> の継続する表明ではそのような問題はありませんので、縦にずらずらと表明を並べても問題ありません。実際、先ほどの test_operator_add は縦に4つの表明を並べるのと実質的に同じコードになります。</p>
 <h3 id="テストのグループ化と例外の捕捉">テストのグループ化と例外の捕捉</h3>
 <p><strong>EnumerableTest</strong> ではテストのシーケンスを1つのテストとして扱う機能があります。これは2つの機能を持ちます。</p>
@@ -236,12 +236,12 @@
 <p>また、テストのグループには例外を捕捉する機能もあります。すなわち、グループ内のいずれかのテストが例外を送出した場合、そのグループの実行は中断されますが、例外はテストグループにより捕捉されます。これにより、 <strong>グループ化されたテストは例外を送出しない</strong> ことが保証されます。</p>
 <p>※スタックオーバーフローは例外です。</p>
 <p>例えば次のコードは、2つのテストメソッド Test1, Test2 をそれぞれグループ化して実行しますが、仮に Test1 が例外を送出しても、それはグループ化を行うメソッド ToTestGroup により捕捉されますので、Test2 が実行されなくなることはありません。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Test</span><span class="p">&gt;</span> <span class="n">test</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">yield</span> <span class="k">return</span> <span class="n">Test1</span><span class="p">().</span><span class="n">ToTestGroup</span><span class="p">();</span>
-    <span class="k">yield</span> <span class="k">return</span> <span class="n">Test2</span><span class="p">().</span><span class="n">ToTestGroup</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div><p>冒頭の test_operator_add でも、各テストケースはグループ化されており、例外を漏らさないようになっています。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">public</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Test</span><span class="p">&gt;</span> <span class="n">test</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="k">return</span> <span class="n">Test1</span><span class="p">().</span><span class="n">ToTestGroup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="k">return</span> <span class="n">Test2</span><span class="p">().</span><span class="n">ToTestGroup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>冒頭の test_operator_add でも、各テストケースはグループ化されており、例外を漏らさないようになっています。</p>
 <h2 id="苦労話">苦労話</h2>
 <p>次に <strong>EnumerableTest</strong> のテストランナー実装時の苦労話をします。</p>
 <h3 id="プロセス内リモート通信">プロセス内リモート通信</h3>
@@ -406,7 +406,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.92.2" />
+  <meta name="generator" content="Hugo 0.96.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -214,14 +214,14 @@
 <h3 id="ml-newtype-バリアントを剥がす最適化">ML: newtype バリアントを剥がす最適化</h3>
 <p><a href="https://github.com/vain0x/milone-lang/commit/6946e433a006fcc95c48242f03ac4605d7eebaf2">https://github.com/vain0x/milone-lang/commit/6946e433a006fcc95c48242f03ac4605d7eebaf2</a></p>
 <p>次のように1つのバリアントしか持たない判別共用体は newtype と呼ばれている。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="k">type</span> <span class="nc">UserId</span> <span class="o">=</span> <span class="n">UserId</span> <span class="k">of</span> <span class="n">int</span>
-</code></pre></div><p>UserId を他の整数と型レベルで区別することで誤りを防げる。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">type</span> <span class="nc">UserId</span> <span class="o">=</span> <span class="n">UserId</span> <span class="k">of</span> <span class="n">int</span>
+</span></span></code></pre></div><p>UserId を他の整数と型レベルで区別することで誤りを防げる。
 逆にいうと型検査が終わったら UserId と int を区別する理由はない。
 そのため UserId を使っている部分を int を使うように変換してしまっていい。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="k">let</span> <span class="o">(</span><span class="n">UserId</span> <span class="n">n</span><span class="o">)</span> <span class="o">=</span> <span class="n">UserId</span> <span class="n">1</span>
-<span class="c1">// =&gt;
-</span><span class="c1"></span>    <span class="k">let</span> <span class="nv">n</span> <span class="o">=</span> <span class="n">1</span>
-</code></pre></div><p>これにより値を包んで剥がす無駄な操作を省略できる。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="k">let</span> <span class="o">(</span><span class="n">UserId</span> <span class="n">n</span><span class="o">)</span> <span class="o">=</span> <span class="n">UserId</span> <span class="n">1</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// =&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">let</span> <span class="nv">n</span> <span class="o">=</span> <span class="n">1</span>
+</span></span></code></pre></div><p>これにより値を包んで剥がす無駄な操作を省略できる。
 さらに単相化において <code>K&lt;UserId&gt;</code> と <code>K&lt;int&gt;</code> の2つに分かれなくなるので嬉しい。</p>
 <p>実際、ミローネ言語のコンパイラでもこの種の newtype をいくつか使っている。
 例えば変数の識別子と関数の識別子を分けている。
@@ -229,9 +229,9 @@
 この最適化を導入したことで、セルフコンパイルで生成されるCのコードが1万行ぐらい減った。</p>
 <p>注意点が一つあって、再帰的に使われている newtype は剥がせない。
 例えば次の Ty 型は newtype だが、再帰的なので剥がすことはできない。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp">    <span class="c1">// 型は型コンストラクタと型引数のペア
-</span><span class="c1"></span>    <span class="k">type</span> <span class="nc">Ty</span> <span class="o">=</span> <span class="n">Ty</span> <span class="k">of</span> <span class="n">Tk</span> <span class="o">*</span> <span class="n">Ty</span> <span class="kt">list</span>
-</code></pre></div><p>相互再帰の可能性もある。再帰性の判定は閉路検出 (深さ優先探索) のアルゴリズムを使った。
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="c1">// 型は型コンストラクタと型引数のペア
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">type</span> <span class="nc">Ty</span> <span class="o">=</span> <span class="n">Ty</span> <span class="k">of</span> <span class="n">Tk</span> <span class="o">*</span> <span class="n">Ty</span> <span class="kt">list</span>
+</span></span></code></pre></div><p>相互再帰の可能性もある。再帰性の判定は閉路検出 (深さ優先探索) のアルゴリズムを使った。
 それぞれの型定義から出発して、再帰的にそれが含んでいる他の型を訪問していく。
 処理中の型定義に到達したら、その型は再帰的に使われている。
 到達しなかったら再帰的に使われていない (剥がせる)。</p>
@@ -253,6 +253,8 @@ LSPのデバッガ版のようなもの。</p>
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
+                
                     <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
                 
                     <li><a href="/blog/2022-01-31/diary/">近況 2022-01-31</a></li>
@@ -260,8 +262,6 @@ LSPのデバッガ版のようなもの。</p>
                     <li><a href="/blog/2021-12-31/diary/">近況 2021-12-31</a></li>
                 
                     <li><a href="/blog/2021-11-30/diary/">近況 2021-11-30</a></li>
-                
-                    <li><a href="/blog/2021-10-31/diary/">近況 2021-10-31</a></li>
                 
               </ul>
 
@@ -369,7 +369,7 @@ LSPのデバッガ版のようなもの。</p>
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.92.2</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
