@@ -200,7 +200,7 @@
 <li>前回 (2022-03-31) <a href="https://vain0x.github.io/blog/2022-03-31/diary/">https://vain0x.github.io/blog/2022-03-31/diary/</a></li>
 </ul>
 <h2 id="ミローネ言語">ミローネ言語</h2>
-<h2 id="ドキュメントのメンテ">ドキュメントのメンテ</h2>
+<h3 id="ドキュメントのメンテ">ドキュメントのメンテ</h3>
 <ul>
 <li>構文のドキュメントを書いた: <a href="https://github.com/vain0x/milone-lang/blob/5bcb21dc3995b20abec65609bdd7fa1ced9a1751/docs/refs/syntax.md">milone-lang/syntax.md</a> (現時点のもの)
 <ul>
@@ -209,7 +209,7 @@
 </li>
 <li>README: 他のユーザーのリポジトリをみていて、サンプルコードがみたいのと、まずコンセプトやモチベーションを知りたいことがあるので、そのあたりを意識して再構成している</li>
 </ul>
-<h2 id="型引数の構文">型引数の構文</h2>
+<h3 id="型引数の構文">型引数の構文</h3>
 <ul>
 <li>F# にもある <code>sizeof&lt;'T&gt;</code> プリミティブを導入するためにシンボルに型引数をもたせる構文を実装した
 <ul>
@@ -217,11 +217,11 @@
 </ul>
 </li>
 </ul>
-<h2 id="線形型--所有型">線形型 → 所有型</h2>
+<h3 id="線形型--所有型">線形型 → 所有型</h3>
 <ul>
 <li>「線形」では分かりにくいので「所有権」(ownership)に関連する単語で呼ぶことにした</li>
 </ul>
-<h2 id="ポインタ">ポインタ</h2>
+<h3 id="ポインタ">ポインタ</h3>
 <p>ポインタ関連の機能を実装した: <a href="https://github.com/vain0x/milone-lang/blob/5bcb21dc3995b20abec65609bdd7fa1ced9a1751/docs/refs/x_ptr_types.md">現在のポインタ型のドキュメント</a></p>
 <p>ポインタの型:</p>
 <ul>
@@ -293,7 +293,7 @@
 </li>
 <li>Rustのポインタ関連のAPIへの提案として書かれた記事である、 <a href="https://gankra.github.io/blah/fix-rust-pointers/#distinguish-pointers-and-addresses">Rust&rsquo;s Unsafe Pointer Types Need An Overhaul - Faultlore</a> を参考に設計している</li>
 </ul>
-<h2 id="stdvector-など"><code>Std.Vector</code> など</h2>
+<h3 id="stdvector-など"><code>Std.Vector</code> など</h3>
 <ul>
 <li>所有権の機能を使って、動的配列 (Vector) などのライブラリを実装している</li>
 <li>Vectorから変換することで、所有権がないイミュータブルな配列 (Block) も安全に作れるようになった
@@ -308,7 +308,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="textmateの構文定義">Textmateの構文定義</h2>
+<h3 id="textmateの構文定義">Textmateの構文定義</h3>
 <ul>
 <li><a href="https://github.com/vain0x/milone-lang/blob/5bcb21dc3995b20abec65609bdd7fa1ced9a1751/vscode_ext/syntaxes/milone.json">現時点の定義: milone-lang/milone.json</a></li>
 <li>begin/endとpatternsを使って再帰的に適用するやりかたがようやく分かってきた
@@ -324,7 +324,7 @@
 </li>
 <li>式が出てくる場所を構文的に表現するのができなさそうなので、トップレベルの構文は式が出てくるものということにして、型やパターンのところだけ特殊化するという感じで定義している</li>
 </ul>
-<h2 id="msvcの-_thread_local">MSVCの <code>_Thread_local</code></h2>
+<h3 id="msvcの-_thread_local">MSVCの <code>_Thread_local</code></h3>
 <p>どういうわけかC17に設定してもMSVCでは <code>_Thread_local</code> が使えない。代わりに <code>__declspec(thread)</code> という言語拡張の属性をつける</p>
 <p>参考: <a href="https://github.com/vain0x/milone-lang/commit/dd1330364839b0df1b595754e28981d7d895bbc6">fix: Fix the issue _Thread_local isn&rsquo;t supported by MSVC (Windows)</a></p>
 <h2 id="solotter更新">Solotter更新</h2>
@@ -359,6 +359,8 @@
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-05-31/diary/">近況 2022-05-31</a></li>
+                
                     <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
                 
                     <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
@@ -366,8 +368,6 @@
                     <li><a href="/blog/2022-01-31/diary/">近況 2022-01-31</a></li>
                 
                     <li><a href="/blog/2021-12-31/diary/">近況 2021-12-31</a></li>
-                
-                    <li><a href="/blog/2021-11-30/diary/">近況 2021-11-30</a></li>
                 
               </ul>
 
@@ -382,6 +382,10 @@
               <a href="https://vain0x.github.io/blog/2022-03-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2022-03-31">&larr; 前ページ</a>
             </li>
           
+          
+            <li class="next">
+              <a href="https://vain0x.github.io/blog/2022-05-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2022-05-31">次ページ &rarr;</a>
+            </li>
           
         </ul>
       

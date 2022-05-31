@@ -7,7 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>近況 2018-12-31 - ベインのブログ</title>
+  <title>近況 2022-05-31 - ベインのブログ</title>
+  <meta name="description" content="今月の活動 (ミローネ言語、読んだ記事など)">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -43,8 +44,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/vain0x.github.io\/blog\/2018-12-31\/diary\/",
-          "name": "近況 2018 12 31"
+          "@id": "https:\/\/vain0x.github.io\/blog\/2022-05-31\/diary\/",
+          "name": "近況 2022 05 31"
         }
     }]
 }
@@ -55,15 +56,15 @@
   "author": {
     "name" : "ベイン"
   },
-  "headline": "近況 2018-12-31",
-  "description" : "",
+  "headline": "近況 2022-05-31",
+  "description" : "今月の活動 (ミローネ言語、読んだ記事など)\n",
   "inLanguage" : "ja",
-  "wordCount":  187 ,
-  "datePublished" : "2018-12-31T23:59:59",
-  "dateModified" : "2018-12-31T23:59:59",
+  "wordCount":  74 ,
+  "datePublished" : "2022-05-31T00:00:00",
+  "dateModified" : "2022-05-31T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog\/",
   "keywords" : [ "日記" ],
-  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2018-12-31\/diary\/",
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2022-05-31\/diary\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/vain0x.github.io\/blog\/",
@@ -77,12 +78,14 @@
 }
 </script>
 
-<meta property="og:title" content="近況 2018-12-31" />
-<meta property="og:url" content="https://vain0x.github.io/blog/2018-12-31/diary/" />
+<meta property="og:title" content="近況 2022-05-31" />
+<meta property="og:description" content="今月の活動 (ミローネ言語、読んだ記事など)">
+<meta property="og:url" content="https://vain0x.github.io/blog/2022-05-31/diary/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="twitter:title" content="近況 2018-12-31" />
+  <meta name="twitter:title" content="近況 2022-05-31" />
+  <meta name="twitter:description" content="今月の活動 (ミローネ言語、読んだ記事など)">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -159,7 +162,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>近況 2018-12-31</h1>
+                <h1>近況 2022-05-31</h1>
               
               
               
@@ -167,7 +170,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2018年12月31日 投稿
+  <i class="fas fa-calendar"></i>&nbsp;2022年5月31日 投稿
   
   
   
@@ -192,120 +195,95 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>今月の進捗など</p>
+        <p>今月の活動 (ミローネ言語、読んだ記事など)</p>
 <ul>
-<li>前月分: <a href="https://vain0x.github.io/blog/2018-11-30/diary/">https://vain0x.github.io/blog/2018-11-30/diary/</a></li>
+<li>前回 (2022-04-30) <a href="https://vain0x.github.io/blog/2022-04-30/diary/">https://vain0x.github.io/blog/2022-04-30/diary/</a></li>
 </ul>
-<h2 id="hsp3-debug-ginger">hsp3-debug-ginger</h2>
-<p><a href="https://github.com/vain0x/hsp3-ginger/tree/main/hsp3-debug-ginger">https://github.com/vain0x/hsp3-ginger/tree/main/hsp3-debug-ginger</a></p>
+<h2 id="ミローネ言語">ミローネ言語</h2>
+<p>苦境</p>
+<h3 id="ロスレス構文木の復元">ロスレス構文木の復元</h3>
 <ul>
-<li>前月からやっている、VSCode 対応の HSP デバッガーを作るプロジェクト</li>
-<li>前回の近況では進捗を書き忘れていた</li>
-<li>最小限の機能が揃った
+<li>ロスレス構文木を生成できるようにした</li>
+<li>もともとASTやHIRなどの中間表現を使って入力補完を実装しようとしていて、これは厳しそうに思えた</li>
+<li>なぜ厳しいのかうまく言語化できない
 <ul>
-<li>グローバル変数を基本型の1次元配列まで表示できる</li>
-<li>assert とかで止まったときに実行中の行がエディター上で強調表示される</li>
-<li>VSCode の一時停止ボタンやステップインボタンで実行の制御ができる</li>
-</ul>
-</li>
-<li>アルファ版のプレリリースを出した</li>
-<li>課題はたくさんある
-<ul>
-<li>インストール手順が煩雑すぎる</li>
-<li>挙動がおかしい
-<ul>
-<li>実行中の行にスクロールしてくれない</li>
+<li>カーソル位置が <code>.</code> の周辺にあるかどうかや、そのドットの左辺を取り出す操作や、ノードがわたるテキスト上の範囲の特定のような処理は、ASTのように種類ごとに型が異なる構造だと記述が煩雑になる</li>
+<li>カッコ式のカッコの位置のような位置情報が欠損しているので正常な範囲にならない</li>
 </ul>
 </li>
-<li>基本的な機能の不足
+<li>いったんロスレス構文木を作ることにした
 <ul>
-<li>logmes</li>
-<li>2次元以上の配列の表示</li>
+<li>ロスレス構文木は空白やコメントを含めてすべてのトークンがのっている構文木のこと (Roslynコンパイラやrust-analyzerが使ってる)</li>
 </ul>
 </li>
+<li>既存のパーサーを拡張した
+<ul>
+<li>カッコ式のような構文要素を捨てずにASTのノードにする</li>
+<li>カッコの位置のような、ノードの開始・終了の位置するトークンの位置情報を持つようにする</li>
 </ul>
 </li>
-</ul>
-<h2 id="milone-lang">milone-lang</h2>
-<p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
+<li>トークン列とASTを組み合わせることでロスレス構文木を構成できるようになった
 <ul>
-<li>セルフホストを目指している F# サブセットのコンパイラ</li>
-<li>リファクタリング、エラーハンドリングの強化、パーサーの微修正などの細かい作業をした</li>
-<li>README にプロジェクトの進捗状況やコンパイル手順などを書いた</li>
-<li>パターンマッチを強化した</li>
-<li>when パターンは、パターンに合致した後に追加の <code>if</code> 文を足せばいい</li>
-<li>as パターンは、パターンに合致するかの判定の前に変数への代入を行えばいい</li>
-<li>or パターンの一部
-<ul>
-<li>パターンを選言標準形的なものにするとやりやすい</li>
-<li>例えばパターン <code>Foo (A | B) :: _</code> を <code>Foo A :: _ | Foo B :: _</code> にする</li>
-<li>つまり <code>|</code> が一番外側に来るようにする</li>
-<li><code>|</code> の左右のパターンについてそれぞれ合致するか試して、どっちかに合致したら <code>-&gt;</code> の内側に <code>goto</code> する</li>
-<li>いまのところ or を含むパターンでは変数を束縛できない</li>
+<li>パーサーを改めて書く必要がなく、バッチコンパイルではロスレス構文木を構築しなくていいので、よい方法かもしれない</li>
 </ul>
 </li>
 </ul>
-<h2 id="curage-lang">curage-lang</h2>
-<p><a href="https://github.com/vain0x/curage-lang">https://github.com/vain0x/curage-lang</a></p>
+<h3 id="所有権を使ったライブラリの拡張">所有権を使ったライブラリの拡張</h3>
 <ul>
-<li>Language Server Protocol (LSP) の練習用のプロジェクトを始めた</li>
-<li>LSP は Debugger Adapter Protocol と似てるけど、より複雑で難しい</li>
-<li>既存のパーサーを使うのはめんどくさいので処理系を一から書いていて、いちおう自作言語という扱い</li>
-<li>クラゲ言語</li>
-<li>Rust 風の構文 (予定)</li>
-<li>単純な型システム (予定)</li>
-<li>インタプリタ上での実行 (予定)</li>
-<li>いまのところ構文エラーを VSCode 上に警告として表示するやつ (textDocument/publishDiagnostics) だけできている</li>
-<li>Node (TypeScript) 用に LSP の実装の基盤となるフレームワーク的なものがある
+<li>先月、所有権の機能が入った</li>
+<li>それを使った抽象を標準ライブラリに加えている
 <ul>
-<li>vscode-languageserver</li>
-<li>何をやっているのかよく分からないので使っていない</li>
+<li>StringBuffer (可変な文字列)</li>
+<li>File (ファイルストリーム)</li>
+</ul>
+</li>
+<li>記述が煩雑でつらい</li>
+<li>型とリソースの解放手段が結合しているので汎用性がない
+<ul>
+<li>例えばRustではスライスをソートする関数をかける。スライスがどう確保されたかは無視できる</li>
+<li>ミローネ言語には借用がないのでスライスを作れない</li>
+<li>スライスを表す型を作ったとする
+<ul>
+<li>スライスを使った後に元の型に戻す必要がある</li>
+<li>もし別の型に戻してしまったら、リソースの解放手順が異なるかもしれない</li>
+<li>同じ型に戻ることを静的に保証できない</li>
+</ul>
+</li>
+<li>結果としてスライスに対する操作を型ごとに実装する必要があって、汎用性が低い
+<ul>
+<li>あるいはポインタと長さのペアを使ったunsafeな関数を書いてそこに投げる</li>
+<li>これはこれでOwnの付け外しとポインタのキャストなどが煩雑</li>
+<li>また、unsafeな境界面が広がるほどCでいいじゃんになる</li>
+</ul>
+</li>
+<li>解放関数を動的に決めるほうがいいかもしれない (<code>std::unique_ptr</code>)</li>
 </ul>
 </li>
 </ul>
-<h2 id="競技プログラミング">競技プログラミング</h2>
+<h3 id="副作用の表現">副作用の表現</h3>
 <ul>
-<li>AtCoder に毎週参加している</li>
-<li>レートは青に漸近中 (1557 → 1580 → 1582)</li>
-<li><a href="https://note.mu/vain0x/n/ne88e557f5859">競プロ参戦記 #24 「約数75」 ABC 114｜ベイン｜note</a></li>
-<li><a href="https://note.mu/vain0x/n/n539b9a9ac173">競プロ参戦記 #25 「クリスマス多次元バーガー」 ABC 115｜ベイン｜note</a></li>
-<li><a href="https://note.mu/vain0x/n/n6aa8c41c4b77">競プロ参戦記 #26 「和が2冪」  AGC 29 [AB]｜ベイン｜note</a></li>
-<li><a href="https://note.mu/vain0x/n/nb6b19dd4245a">競プロ参戦記 #27 「ゲーム」 CADDi 2018 [CD]｜ベイン｜note</a></li>
-</ul>
-<h2 id="ウェブアプリ開発">ウェブアプリ開発</h2>
+<li>所有型であるIOオブジェクトを渡して回ることで、副作用を表現する算段だった</li>
+<li>記述が煩雑なのは承知の上だが、記述の煩雑さは想像以上にメンタルにくる</li>
+<li>IO専用のdo構文のようなものを提供したほうがいいかもしれない
 <ul>
-<li>UI を作り込んだ</li>
-<li>on-the-fly で描画するには複雑なグラフを SVG 画像として生成するスクリプトを書いた
-<ul>
-<li>Fabric.js でラップされた Canvas API を使って図形を描画して、SVG にエクスポートして、ローカルサーバーに送信して、ファイルに保存する、という遠回り。1回動いたら十分なのでよし</li>
+<li>F# のコンピュテーション式の構文を流用するとか</li>
 </ul>
 </li>
 </ul>
-<h2 id="qiita">Qiita</h2>
+<h2 id="読んだ記事など">読んだ記事など</h2>
+<h4 id="narrow-but-deep---wide-awake-developershttpswwwmichaelnygardcomblog202007narrow-but-deep-2020-07-27-公開"><a href="https://www.michaelnygard.com/blog/2020/07/narrow-but-deep/">Narrow but Deep? - Wide Awake Developers</a> (2020-07-27 公開)</h4>
 <ul>
-<li><a href="https://qiita.com/vain0x/items/8f8b6effb32cd68c22f3">シクシク素数列を F# でやってみた - Qiita</a> を投稿した
+<li>インターフェイスは狭くて深いのがよいという考え
 <ul>
-<li>F# で素数判定をやるサンプルコード的なもの</li>
-</ul>
-</li>
-<li><a href="https://qiita.com/yasuabe2613/items/5ab33e103e4105630e4c">Domain Modeling Made Functional まとめ - Qiita</a> を読んだ
-<ul>
-<li>元になった F# で DDD をやる本も読んでいる</li>
+<li>狭い: メソッドが少ない</li>
+<li>深い: メソッドがパワフル</li>
 </ul>
 </li>
 </ul>
-<h2 id="trickle">Trickle</h2>
+<h4 id="why-i-no-longer-recommend-juliahttpsyuriisnot-julia"><a href="https://yuri.is/not-julia/">Why I no longer recommend Julia</a></h4>
+<p>(記事に日付が書かれていないが、2022年5月ごろに公開されたはず)</p>
 <ul>
-<li>Trickle を始めた</li>
-<li>トピックごとに活動記録を書いていけるスマートフォンアプリ</li>
-<li>参考 <a href="http://blog.h13i32maru.jp/entry/2018/11/12/092904">http://blog.h13i32maru.jp/entry/2018/11/12/092904</a></li>
-<li>ガルパメモの垂れ流しになってる</li>
-</ul>
-<h2 id="ガルパ-リズムゲーム">ガルパ (リズムゲーム)</h2>
-<ul>
-<li>難度26の精度は確実に上がってきている</li>
-<li>難度27以上については、マジックアワーをフルコンボした以外に進歩がない</li>
-<li>アニメの 1st season 良かった</li>
+<li>Julia(言語)のエコシステムにおいてcorrectnessの不具合が多いこと、それが個々の実装の問題ではなくインターフェイスを明示しないことやエッジケースの意味が規定されていないことに由来する全体の問題(systemic problems)であること、この問題が問題として認識されていないことを指摘する記事</li>
 </ul>
 
         
@@ -318,8 +296,6 @@
                   <ul>
                 
                 
-                    <li><a href="/blog/2022-05-31/diary/">近況 2022-05-31</a></li>
-                
                     <li><a href="/blog/2022-04-30/diary/">近況 2022-04-30</a></li>
                 
                     <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
@@ -327,6 +303,8 @@
                     <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
                 
                     <li><a href="/blog/2022-01-31/diary/">近況 2022-01-31</a></li>
+                
+                    <li><a href="/blog/2021-12-31/diary/">近況 2021-12-31</a></li>
                 
               </ul>
 
@@ -338,13 +316,9 @@
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://vain0x.github.io/blog/2018-12-16/siku-siku-primes/" data-toggle="tooltip" data-placement="top" title="シクシク素数列を F# でやってみた">&larr; 前ページ</a>
+              <a href="https://vain0x.github.io/blog/2022-04-30/diary/" data-toggle="tooltip" data-placement="top" title="近況 2022-04-30">&larr; 前ページ</a>
             </li>
           
-          
-            <li class="next">
-              <a href="https://vain0x.github.io/blog/2019-01-05/lsp-trial-01/" data-toggle="tooltip" data-placement="top" title="LSP学習記 #1">次ページ &rarr;</a>
-            </li>
           
         </ul>
       
