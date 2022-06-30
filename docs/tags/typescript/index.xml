@@ -37,6 +37,15 @@
     </item>
     
     <item>
+      <title>関数を渡すvs.エフェクトを返す</title>
+      <link>https://vain0x.github.io/blog/2020-09-18/passing-function-vs-returning-effect/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2020-09-18/passing-function-vs-returning-effect/</guid>
+      <description>&lt;p&gt;どちらも計算の一部を抽象化できる。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>日時を文字列で持つ案 (Dateのことは忘れる)</title>
       <link>https://vain0x.github.io/blog/2020-09-18/date-as-string/</link>
       <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
@@ -47,15 +56,6 @@
 &lt;li&gt;日時の処理はライブラリを使うことになりがち。&lt;/li&gt;
 &lt;li&gt;個人的には、Date オブジェクトの存在を無視して、日時を文字列で持つのがよいと思っている。&lt;/li&gt;
 &lt;/ul&gt;</description>
-    </item>
-    
-    <item>
-      <title>関数を渡すvs.エフェクトを返す</title>
-      <link>https://vain0x.github.io/blog/2020-09-18/passing-function-vs-returning-effect/</link>
-      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
-      <author>vainzerox@gmail.com (ベイン)</author>
-      <guid>https://vain0x.github.io/blog/2020-09-18/passing-function-vs-returning-effect/</guid>
-      <description>&lt;p&gt;どちらも計算の一部を抽象化できる。&lt;/p&gt;</description>
     </item>
     
     <item>

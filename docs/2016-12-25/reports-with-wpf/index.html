@@ -93,7 +93,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.96.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -432,13 +432,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">event</span> <span class="n">PropertyChangedEventHandler</span> <span class="n">PropertyChanged</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="n">T</span> <span class="m">_</span><span class="k">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="n">T</span> <span class="n">_value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="n">T</span> <span class="n">Value</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="m">_</span><span class="k">value</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_value</span><span class="p">;</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">set</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="m">_</span><span class="k">value</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_value</span> <span class="p">=</span> <span class="k">value</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="n">PropertyChanged</span><span class="p">?.</span><span class="n">Invoke</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="k">new</span> <span class="n">PropertyChangedEventArgs</span><span class="p">(</span><span class="n">nameof</span><span class="p">(</span><span class="n">Value</span><span class="p">)));</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -467,17 +467,17 @@
 <li><a href="http://stackoverflow.com/a/7601504/6419575">c# - Check visible rows in a WPF DataGrid - Stack Overflow</a></li>
 <li><a href="http://blog.xin9le.net/entry/2013/10/29/222336">VisualTreeの子孫要素を取得する - xin9le.net</a></li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p>GitHub においてあるソースコードでは、HelloWorldReport は IPaginatable だけでなく、IPaginatable を拡張する IReport というインターフェイスを実装していますが、それはサンプルの都合です。あまり気にしなくてかまいません。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
+<li id="fn:2">
 <p>一部のプリンターでは、DataGrid や ListView のレイアウトが乱れてしまう、という問題があるようです。&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
         
           
@@ -605,7 +605,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.101.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.96.0" />
+  <meta name="generator" content="Hugo 0.101.0" />
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -300,14 +300,14 @@
 <p>標準ライブラリーの <code>IEnumerable&lt;_&gt;.First</code> メソッドに配列などのリストを渡しても、列挙子のボックス化によるヒープ確保は起こりません。というのも、メソッドが受け取る型こそ <code>IEnumerable&lt;_&gt;</code> ですが、その実行時型がリスト (<code>IList&lt;_&gt;</code>) であるかどうかをメソッドの内部で動的に判定していて、もしそうだったらインデックスでアクセスする (<code>list[0]</code> を返す) ようになっているためです。他のメソッドも同様です。</p>
 <p>参考: <a href="https://referencesource.microsoft.com/#System.Core/System/Linq/Enumerable.cs,921">First の実装</a></p>
 <p>そういう意味で、本稿の <code>MyFirst</code> は若干ながら手抜きになってしまっています。</p>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p>ちなみにコレクションが <code>IEnumerable</code> や <code>IEnumerable&lt;_&gt;</code> を実装している必要はありません。また、 <code>GetEnumerator</code> が返すインスタンスが <code>IEnumerator</code> や <code>IEnumerator&lt;_&gt;</code> を実装している必要もありません。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
         
           
@@ -433,7 +433,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.96.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.101.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

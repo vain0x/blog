@@ -8,7 +8,16 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Tue, 31 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 30 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>近況 2022-06-30</title>
+      <link>https://vain0x.github.io/blog/2022-06-30/diary/</link>
+      <pubDate>Thu, 30 Jun 2022 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2022-06-30/diary/</guid>
+      <description>&lt;p&gt;今月の活動 (コンパイラの教科書、、hsp3-debug-window-adapterの更新、ドキュメント、読んだ記事など)&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>近況 2022-05-31</title>
       <link>https://vain0x.github.io/blog/2022-05-31/diary/</link>
@@ -346,6 +355,15 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
     </item>
     
     <item>
+      <title>関数を渡すvs.エフェクトを返す</title>
+      <link>https://vain0x.github.io/blog/2020-09-18/passing-function-vs-returning-effect/</link>
+      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2020-09-18/passing-function-vs-returning-effect/</guid>
+      <description>&lt;p&gt;どちらも計算の一部を抽象化できる。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>日時を文字列で持つ案 (Dateのことは忘れる)</title>
       <link>https://vain0x.github.io/blog/2020-09-18/date-as-string/</link>
       <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
@@ -356,15 +374,6 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
 &lt;li&gt;日時の処理はライブラリを使うことになりがち。&lt;/li&gt;
 &lt;li&gt;個人的には、Date オブジェクトの存在を無視して、日時を文字列で持つのがよいと思っている。&lt;/li&gt;
 &lt;/ul&gt;</description>
-    </item>
-    
-    <item>
-      <title>関数を渡すvs.エフェクトを返す</title>
-      <link>https://vain0x.github.io/blog/2020-09-18/passing-function-vs-returning-effect/</link>
-      <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
-      <author>vainzerox@gmail.com (ベイン)</author>
-      <guid>https://vain0x.github.io/blog/2020-09-18/passing-function-vs-returning-effect/</guid>
-      <description>&lt;p&gt;どちらも計算の一部を抽象化できる。&lt;/p&gt;</description>
     </item>
     
     <item>
