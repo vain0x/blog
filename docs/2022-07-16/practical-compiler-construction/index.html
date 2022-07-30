@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>実践コンパイラ構成法を読んだ - ベインのブログ</title>
+  <meta name="description" content="コンパイラの教科書を読み、サンプル実装をF#で再実装した">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2022-07-16\/practical-compiler-construction\/",
+          "name": "実践コンパイラ構成法を読んだ"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "ベイン"
+  },
+  "headline": "実践コンパイラ構成法を読んだ",
+  "description" : "コンパイラの教科書を読み、サンプル実装をF#で再実装した\n",
+  "inLanguage" : "ja",
+  "wordCount":  44 ,
+  "datePublished" : "2022-07-16T00:00:00",
+  "dateModified" : "2022-07-16T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog\/",
+  "keywords" : [ "日記" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2022-07-16\/practical-compiler-construction\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog\/",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="実践コンパイラ構成法を読んだ" />
+<meta property="og:description" content="コンパイラの教科書を読み、サンプル実装をF#で再実装した">
+<meta property="og:url" content="https://vain0x.github.io/blog/2022-07-16/practical-compiler-construction/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="実践コンパイラ構成法を読んだ" />
+  <meta name="twitter:description" content="コンパイラの教科書を読み、サンプル実装をF#で再実装した">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.101.0" />
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" />
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom top-nav-short">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://vain0x.github.io/blog/">ベインのブログ</a>
+    </div>
+
+    <div id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="記事一覧" href="/blog/posts">記事一覧</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="競プロ参戦記" href="https://qiita.com/search?q=%E7%AB%B6%E3%83%97%E3%83%AD%E5%8F%82%E6%88%A6%E8%A8%98&#43;user%3Avain0x&amp;sort=created">競プロ参戦記</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT" href="https://vain0x.github.io">ABOUT</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>実践コンパイラ構成法を読んだ</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2022年7月16日 投稿
+  
+  
+  
+  <span class="post-meta-tags">
+  <a class="post-meta-tag" href="https://vain0x.github.io/blog/tags/%E6%97%A5%E8%A8%98/">日記</a>
+  </span>
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>コンパイラの教科書を読み、サンプル実装をF#で再実装した</p>
+<h2 id="モチベーション">モチベーション</h2>
+<ul>
+<li>処理系実装は何度かやったことがあるが、処理系の授業を受けたことはなく、教科書的なものを読んだこともあまりない (気がする)</li>
+<li>タイガー本 (最新コンパイラ構成技法) は内容を読んだが、サンプルの実装をちゃんと追うところまではできていない</li>
+<li>1冊、詳しく読み込んで全体の内容を理解しておくと今後の学習の基礎になりそうな気がした</li>
+</ul>
+<h2 id="どういう本か">どういう本か</h2>
+<p><a href="https://www.coronasha.co.jp/np/isbn/9784339019339/">電子通信情報系コアテキストシリーズ C-1 実践コンパイラ構成法 | コロナ社</a> (2017/07/25 発行)</p>
+<ul>
+<li>サンプルコードはOCaml</li>
+<li>C風のミニ言語のコンパイラを作る</li>
+<li>コンパイル対象としてx64アーキテクチャのみ扱う</li>
+</ul>
+<h2 id="やったこと">やったこと</h2>
+<ul>
+<li>3章で字句解析器ジェネレータ(OCamllex)が解説されている
+<ul>
+<li>正規表現をNFA(非決定的オートマトン)にしてインタプリトするのは前にやったことがある (<a href="https://github.com/vain0x/playground/tree/959126d6f3d2b2b1e66320b9a0c2f90150057553/2019-08-31-parse-study">2019-08-31-parse-study</a>)</li>
+<li>改めて、字句解析の定義ファイルから字句解析器を作ってサンプル言語の字句解析に使うところまでやった</li>
+</ul>
+</li>
+<li>4章でパーサジェネレータ(OCamlyacc)、LLおよびLR構文解析が解説されている
+<ul>
+<li>これも定義ファイルからLR(1)パーサの生成を試した</li>
+<li>LRパースは理解できた気がする</li>
+<li>ただしサンプル言語のパースはできなかったので、続きは再帰下降パーサを書いて進めた</li>
+</ul>
+</li>
+<li>5章は意味解析の解説
+<ul>
+<li>記号表 (シンボルテーブル) や型検査など</li>
+<li>再帰関数の処理など、自前実装でつまづきがちなところが説明されていてよさそうだった</li>
+<li>意味解析とコード生成のステージを分けない (コード生成の最中に意味解析を行う) ことでレイヤが減っていて、それも興味深かった</li>
+</ul>
+</li>
+<li>7章は実行時環境の話
+<ul>
+<li>アセンブリの命令セット、メモリ (ヒープとスタック)、ABI・呼び出し規約など</li>
+<li>各種演算に対応する命令セットやレジスタの解説が今回、一番ためになったかもしれない。インタプリタやC言語に帰着させるタイプのコンパイラでは学んでいなかったし、学びづらいため</li>
+</ul>
+</li>
+<li>8章はコード生成の解説
+<ul>
+<li>7章で解説したとおりに中間表現からアセンブリに変換する部分</li>
+<li>分岐とループをラベルとジャンプにするところはバイトコードインタプリタの実装と似ていた</li>
+<li>サンプルコードを参考にしながら書いたので、アドレスの計算やどのレジスタを使うかといった選択にハマることがなくて楽だった。イチから考えるとそのへんが大変そう</li>
+</ul>
+</li>
+</ul>
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">関連記事</h4>
+                  <ul>
+                
+                
+                    <li><a href="/blog/2022-06-30/diary/">近況 2022-06-30</a></li>
+                
+                    <li><a href="/blog/2022-05-31/diary/">近況 2022-05-31</a></li>
+                
+                    <li><a href="/blog/2022-04-30/diary/">近況 2022-04-30</a></li>
+                
+                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
+                
+                    <li><a href="/blog/2022-02-28/diary/">近況 2022-02-28</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://vain0x.github.io/blog/2022-06-30/diary/" data-toggle="tooltip" data-placement="top" title="近況 2022-06-30">&larr; 前ページ</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://vain0x.github.io/blog/2022-07-30/return-type-ascriptiong/" data-toggle="tooltip" data-placement="top" title="構文遊び: 返り値型注釈、複数の返り値">次ページ &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+      <section id="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="vain0x/blog"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://qiita.com/vain0x" title="Qiita">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-qiita fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2016 - 2022
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog/">ベインのブログ</a>
+          
+
+          <a href="https://github.com/vain0x/blog">[GitHub repo]</a>
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.101.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    
+  </body>
+</html>
+
