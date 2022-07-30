@@ -334,7 +334,7 @@ public class ReactiveProperty<T>
                 .ToReadOnlyReactiveProperty();
 ```
 
-これは平たくいえば「`Report`, `MediaSizeSelector.SelectedSize` の最新の値を `r`, `pageSize` とするとき、 ``r.Paginate(pageSize)`` の結果を `Pages` の値とする」という意味です。もう少し手続き的にいえば、まず `Report` と ``MediaSizeSelector.SelectedSize` の値をとってきて、 `Paginate` します。加えて、そのどちらかのプロパティが変更されるたび (リストボックスやコンボボックスの選択要素が変わるたび)、ページネーションを再試行します。
+これは平たくいえば「`Report`, `MediaSizeSelector.SelectedSize` の最新の値を `r`, `pageSize` とするとき、 ``r.Paginate(pageSize)`` の返り値を `Pages` の値とする」という意味です。もう少し手続き的にいえば、まず `Report` と ``MediaSizeSelector.SelectedSize` の値をとってきて、 `Paginate` します。加えて、そのどちらかのプロパティが変更されるたび (リストボックスやコンボボックスの選択要素が変わるたび)、ページネーションを再試行します。
 
 最後に印刷ボタンですが、これは押されたとき、``Previewer.PrintCommand``→``Previewer.Print`` を経由して ``Printer.Print`` まで行き、そこからは前半で述べた感じです。FixedDocument を作って、デフォルトのプリンターを取得して、ページサイズを指定して、印刷。
 

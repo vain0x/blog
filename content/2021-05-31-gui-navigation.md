@@ -125,7 +125,7 @@ const PostsIndexPage = () => {
 Reactだと1個のページのUIを1個のコンポーネントに任せることになると思う。
 その親となり、ページを所有すべきコンポーネントをページコンテナと呼ぶことにする。
 ページの状態を持つ必要があるが、種々のページの状態をすべてコンテナに管理させると型が巨大になって扱いづらいので、抽象的な型で持つ。
-Reactの場合はコンポーネントをレンダーした結果の型 (`<Component />`　の型) である `ReactNode` を使う。
+Reactの場合はコンポーネントをレンダーした返り値の型 (`<Component />`　の型) である `ReactNode` を使う。
 
 ```tsx
 type PageObject = ReactNode | { redirect: true, route: RouteObject } // 上述
