@@ -2,7 +2,7 @@
 title: '構文遊び: 返り値型注釈、複数の返り値'
 type: "post"
 date: 2022-07-30
-url: 2022-07-30/return-type-ascriptiong
+url: 2022-07-30/return-type-ascription
 tags:
   - 構文
   - エッセイ
