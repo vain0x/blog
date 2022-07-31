@@ -32,7 +32,7 @@ public async Task Do()
     // 重い処理を非同期で実行する。
     var x = await HeavyTask();
 
-    // UI スレッドで結果を使う。
+    // UI スレッドで返り値を使う。
     UIOperation(x);
 }
 ```
@@ -99,7 +99,7 @@ public async Task Do()
 ヘルパーメソッドの仕組みを簡単に説明しておきます。
 
 ### 継続
-`await` には継続を取り出す機能があります。どういうことかというと、例えば次の「task を await して、その結果を使って何か処理をする」コードは:
+`await` には継続を取り出す機能があります。どういうことかというと、例えば次の「task を await して、その値を使って何か処理をする」コードは:
 
 ```csharp
     var x = await task;
@@ -138,7 +138,7 @@ public void OnCompleted(Action continuation)
 
 そのため、 ``await TaskModule.SwitchToTaskPool`` より後ろの部分がタスクプールで実行されることになります。
 
-また、await 式の結果は ``awaiter.GetResult`` から取得されます。 ``Task<_>`` の場合はタスクの結果の値がそうです。`SwitchToTaskPoolAwaitable` の場合は保存しておいた同期コンテクストを返すようになっています。
+また、await 式の値は ``awaiter.GetResult`` から取得されます。 ``Task<_>`` の場合はタスクの結果の値がそうです。`SwitchToTaskPoolAwaitable` の場合は保存しておいた同期コンテクストを返すようになっています。
 
 ### 同期コンテクストを await する
 `await` 式には、`Task` に限らず `GetAwaiter` メソッドを提供する任意の値を渡せますが、 `GetAwaiter` は拡張メソッドでもかまいません。
