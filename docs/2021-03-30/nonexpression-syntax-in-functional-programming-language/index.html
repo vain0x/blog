@@ -59,7 +59,7 @@
   "headline": "関数型プログラミング言語の構文は「すべてが式」ではない",
   "description" : "関数型プログラミング言語の構文は「すべてが式」であるという標語がしばしばみられるが、これはいいすぎ。\n",
   "inLanguage" : "ja",
-  "wordCount":  187 ,
+  "wordCount":  189 ,
   "datePublished" : "2021-03-30T00:00:00",
   "dateModified" : "2021-03-30T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog\/",
@@ -252,9 +252,9 @@
 <p>「すべてが式」といわれるゆえんは、C系の言語において文として提供されがちな構文が式になっていることが多いからだと思う。
 具体的にはlet式と条件分岐とループ。</p>
 <p>ifやmatchが式なのはよく知られていると思う。</p>
-<p>ループも式だが、OCamlのループは結果が <code>()</code> なのであまり式っぽくない。
+<p>ループも式だが、OCamlのループは値が <code>()</code> なのであまり式っぽくない。
 文というくくりがないから式、という感じがある。
-(Rustの <code>loop</code> 式は結果を返せて、かなり式っぽい。)</p>
+(Rustの <code>loop</code> 式は <code>()</code> 以外の値を持てて、かなり式っぽい。)</p>
 <p>let式はローカル変数を導入して、それを使って何か計算する、という式である。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">3</span> <span class="k">in</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="o">;;</span>  <span class="c">(* =&gt; 9 *)</span>
 </span></span></code></pre></div><p>並べて書くと文にみえるが、単に長くて深い式が複数行に書かれているだけ (inの後ろが末尾まで広がっている)。</p>

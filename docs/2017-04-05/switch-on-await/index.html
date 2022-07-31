@@ -211,7 +211,7 @@
 </span></span><span class="line"><span class="cl">    <span class="c1">// 重い処理を非同期で実行する。</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">await</span> <span class="n">HeavyTask</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">// UI スレッドで結果を使う。</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// UI スレッドで返り値を使う。</span>
 </span></span><span class="line"><span class="cl">    <span class="n">UIOperation</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><h2 id="問題-await--await--ui-操作">問題: await → await → UI 操作</h2>
@@ -261,7 +261,7 @@
 <h2 id="仕組み">仕組み</h2>
 <p>ヘルパーメソッドの仕組みを簡単に説明しておきます。</p>
 <h3 id="継続">継続</h3>
-<p><code>await</code> には継続を取り出す機能があります。どういうことかというと、例えば次の「task を await して、その結果を使って何か処理をする」コードは:</p>
+<p><code>await</code> には継続を取り出す機能があります。どういうことかというと、例えば次の「task を await して、その値を使って何か処理をする」コードは:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl">    <span class="kt">var</span> <span class="n">x</span> <span class="p">=</span> <span class="k">await</span> <span class="n">task</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">F</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 </span></span></code></pre></div><p><code>await</code> の時点で <code>task</code> が完了していなかったとすると、次のようなコードと同様の振る舞いになります:</p>
@@ -283,7 +283,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(</span><span class="n">continuation</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>そのため、 <code>await TaskModule.SwitchToTaskPool</code> より後ろの部分がタスクプールで実行されることになります。</p>
-<p>また、await 式の結果は <code>awaiter.GetResult</code> から取得されます。 <code>Task&lt;_&gt;</code> の場合はタスクの結果の値がそうです。<code>SwitchToTaskPoolAwaitable</code> の場合は保存しておいた同期コンテクストを返すようになっています。</p>
+<p>また、await 式の値は <code>awaiter.GetResult</code> から取得されます。 <code>Task&lt;_&gt;</code> の場合はタスクの結果の値がそうです。<code>SwitchToTaskPoolAwaitable</code> の場合は保存しておいた同期コンテクストを返すようになっています。</p>
 <h3 id="同期コンテクストを-await-する">同期コンテクストを await する</h3>
 <p><code>await</code> 式には、<code>Task</code> に限らず <code>GetAwaiter</code> メソッドを提供する任意の値を渡せますが、 <code>GetAwaiter</code> は拡張メソッドでもかまいません。</p>
 <p><code>SynchronizationContext</code> はいかにも <code>await</code> 可能な感じなので、次のように <code>GetAwaiter</code> を生やしています。</p>

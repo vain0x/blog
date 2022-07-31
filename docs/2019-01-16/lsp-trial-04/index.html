@@ -255,7 +255,7 @@
 <li>変更点: <a href="https://github.com/vain0x/curage-lang/commit/603b2c52fe19390a667c25710ad1bcf8af78aaba">feat: Support symbol renaming</a></li>
 </ul>
 <h2 id="preparerename">prepareRename</h2>
-<p><code>textDocument/prepareRename</code> リクエストという、 <code>rename</code> の前に送られてくるリクエストがあります。名前の変更ができない位置 (例えば let キーワードの上) では <code>prepareName</code> の結果として <code>null</code> を返すことで、名前の変更が不可能であることをクライアントに伝えられる……らしいんですが、実装してみても効果が見られなかったので詳細は略。</p>
+<p><code>textDocument/prepareRename</code> リクエストという、 <code>rename</code> の前に送られてくるリクエストがあります。名前の変更ができない位置 (例えば let キーワードの上) では <code>prepareName</code> の返り値として <code>null</code> を返すことで、名前の変更が不可能であることをクライアントに伝えられる……らしいんですが、実装してみても効果が見られなかったので詳細は略。</p>
 <ul>
 <li>変更点: <a href="https://github.com/vain0x/curage-lang/commit/e91697aed1edd1cd56be54a2c701112aed71e504">feat: Support &lsquo;prepareRename&rsquo;</a></li>
 </ul>

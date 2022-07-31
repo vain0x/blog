@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>近況 2021-04-30 - ベインのブログ</title>
-  <meta name="description" content="今月の活動 (HSP3アナライザーミニなど)">
+  <title>近況 2022-07-31 - ベインのブログ</title>
+  <meta name="description" content="今月の活動 (ミローネ言語、コンパイラの教科書、AA木、読んだ記事など)">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -44,8 +44,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/vain0x.github.io\/blog\/2021-04-30\/diary\/",
-          "name": "近況 2021 04 30"
+          "@id": "https:\/\/vain0x.github.io\/blog\/2022-07-31\/diary\/",
+          "name": "近況 2022 07 31"
         }
     }]
 }
@@ -56,15 +56,15 @@
   "author": {
     "name" : "ベイン"
   },
-  "headline": "近況 2021-04-30",
-  "description" : "今月の活動 (HSP3アナライザーミニなど)\n",
+  "headline": "近況 2022-07-31",
+  "description" : "今月の活動 (ミローネ言語、コンパイラの教科書、AA木、読んだ記事など)\n",
   "inLanguage" : "ja",
-  "wordCount":  87 ,
-  "datePublished" : "2021-04-30T00:00:00",
-  "dateModified" : "2021-04-30T00:00:00",
+  "wordCount":  68 ,
+  "datePublished" : "2022-07-31T00:00:00",
+  "dateModified" : "2022-07-31T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog\/",
   "keywords" : [ "日記" ],
-  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2021-04-30\/diary\/",
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2022-07-31\/diary\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/vain0x.github.io\/blog\/",
@@ -78,14 +78,14 @@
 }
 </script>
 
-<meta property="og:title" content="近況 2021-04-30" />
-<meta property="og:description" content="今月の活動 (HSP3アナライザーミニなど)">
-<meta property="og:url" content="https://vain0x.github.io/blog/2021-04-30/diary/" />
+<meta property="og:title" content="近況 2022-07-31" />
+<meta property="og:description" content="今月の活動 (ミローネ言語、コンパイラの教科書、AA木、読んだ記事など)">
+<meta property="og:url" content="https://vain0x.github.io/blog/2022-07-31/diary/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="twitter:title" content="近況 2021-04-30" />
-  <meta name="twitter:description" content="今月の活動 (HSP3アナライザーミニなど)">
+  <meta name="twitter:title" content="近況 2022-07-31" />
+  <meta name="twitter:description" content="今月の活動 (ミローネ言語、コンパイラの教科書、AA木、読んだ記事など)">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -162,7 +162,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>近況 2021-04-30</h1>
+                <h1>近況 2022-07-31</h1>
               
               
               
@@ -170,7 +170,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2021年4月30日 投稿
+  <i class="fas fa-calendar"></i>&nbsp;2022年7月31日 投稿
   
   
   
@@ -195,61 +195,79 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>今月の活動 (HSP3アナライザーミニなど)</p>
+        <p>今月の活動 (ミローネ言語、コンパイラの教科書、AA木、読んだ記事など)</p>
 <ul>
-<li>前回 (2021-03-31) <a href="https://vain0x.github.io/blog/2021-03-31/diary/">https://vain0x.github.io/blog/2021-03-31/diary/</a></li>
+<li>前回 (2022-06-30) <a href="https://vain0x.github.io/blog/2022-06-30/diary/">https://vain0x.github.io/blog/2022-06-30/diary/</a></li>
 </ul>
 <h2 id="ミローネ言語">ミローネ言語</h2>
-<p><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></p>
-<p>コンパイラを複数のプロジェクトに分けた。依存関係は以下の通り:</p>
-<pre tabindex="0"><code>syntax -&gt; shared
-translation -&gt; shared
-
-cli -&gt; syntax
-cli -&gt; translation
-</code></pre><ul>
-<li>shared: 共通部分。リスト操作とか</li>
-<li>syntax: 構文解析から型検査まで</li>
-<li>translation: クロージャ変換からCコードの生成まで</li>
-<li>cli: CLIの本体。syntaxの出力をtranslationの入力に変換する役目もある</li>
-</ul>
-<p>syntaxとtranslationが互いに依存しないので、コンパイル時間を減らせる……はず。思ったより効果を感じてない。</p>
-<p>検査と変換における中間表現の型を分ける意図もあった。型検査まではプログラムが壊れていることも考慮しながら処理する必要があるが、変換ではそうでないから。</p>
-<h2 id="hsp3アナライザーミニ">HSP3アナライザーミニ</h2>
-<p><a href="https://github.com/vain0x/hsp3-ginger/tree/2fc92cc570/hsp3-analyzer-mini">https://github.com/vain0x/hsp3-ginger/tree/2fc92cc570/hsp3-analyzer-mini</a></p>
+<p><a href="https://github.com/vain0x/milone-lang">milone-lang</a></p>
 <ul>
-<li>最初のバージョンはパースが雑なので、複数行文字列の付近が処理できないなどの課題があった</li>
-<li>その後、再帰下降のパーサを作ったが、それを解析に使うところまでは作ってなくて、放置してしまっていた</li>
-<li>また、(別のプロジェクトだけど) シグネチャヘルプの実装とかも作ったのにリリースできてなかった</li>
-<li>書いたものはリリースしたいので、ちまちま進めてる</li>
-<li>いまのところスコープの解析 (定義・使用箇所の検出) がおおよそ動くようになってきた</li>
-<li>あと、静的解析を作って遊びたい</li>
-<li>試しに <code>repeat</code>-<code>loop</code> の間に <code>return</code> があったら警告するリント (<a href="https://github.com/vain0x/hsp3-ginger/blob/2fc92cc5702afca45632f057399c146b0900e598/hsp3-analyzer-mini/ham-core/src/analysis/syntax_linter.rs">syntax_linter.rs</a>) を書いた</li>
-</ul>
-<h2 id="双方向テンプレートエンジンの試作">双方向テンプレートエンジンの試作</h2>
-<p><a href="https://github.com/vain0x/bitemp">vain0x/bitemp: Experiment of bidirectional template engine for fearless duplication</a></p>
+<li>関数ポインタを扱えるようになってきた
 <ul>
-<li>コードが同じことの繰り返しで、ひどく冗長になることがある</li>
-<li>関数や型などの抽象を導入して解決できることもあるが、できないこともある</li>
-<li>(コードの「見た目の同じ」だからといって「意味的に同じ」とは限らないので、表層的なDRY原則の適用はうまくいかないことがある、という話をしばしば目にする)</li>
-<li>見た目の同じようなコードの繰り返しを一括で変更することはしばしばあり、その変更作業はめんどくさい</li>
-<li>そういうときのために、複製されたコードを一括で変更できるようなツールがあると便利かもしれない、と思った</li>
-<li>以前、テンプレートエンジンを使って「共通部分」(テンプレート)と「違う部分」(パラメータ)から必要なコードを生成するような仕組みを試したことがある</li>
-<li>結局、テンプレートが複雑になって、いまいちだった</li>
-<li>コードが自動生成物になると、それを直接編集できず、代わりにテンプレートやパラメータをいじって目的のコードが出るようにする、という間接作業が発生するのがよくない</li>
-<li>コードを編集した結果から逆算してテンプレートを更新してほしい、という感じがあった</li>
-<li>そういうわけで試しに作ってみたが、逆算の仕組みが単純すぎて、いまのところ使える代物ではなさそう</li>
+<li>呼び出し規約とかを指定できるうまい構文を考えていたが、Cの呼び出し規約以外をサポートする必要がなさそうなことに気づいた</li>
 </ul>
-<p>余談:</p>
+</li>
+<li>ジェネリックなレコード型を実装した
 <ul>
-<li>SASS/SCSSなどの「alt-CSS」も、ブラウザ上で実際の表示を見ながら調整した結果をファイルに書き戻す手間があった。(CSSはできる。ブラウザ拡張で対処可能なものかもしれないけど。)</li>
+<li>ジェネリックな判別共用体型はずいぶん前に実装したのに放置していた</li>
+<li>いまいち使いみちがわからない</li>
+<li><a href="https://mleduc.xyz/scala/object/2016/10/20/object-algebra-composition.html">オブジェクト代数(Object Algebra)</a>で使えて便利そうということを知った</li>
 </ul>
-<h2 id="simple-sub-fs-の作りかけ">simple-sub-fs の作りかけ</h2>
-<p><a href="https://github.com/vain0x/simple-sub-fs">vain0x/simple-sub-fs: simple-sub re-written in F#</a></p>
+</li>
+</ul>
+<h2 id="コンパイラの教科書">コンパイラの教科書</h2>
+<p><a href="https://github.com/vain0x/playground/tree/main/2022-05-30-practical-compiler-construction">pcc</a></p>
 <ul>
-<li>部分型つけ (subtyping) を含む型推論の手法の1つとして ML sub というのがある</li>
-<li>それを簡潔にしたという <code>simple-sub</code> のペーパーがあって、それを読んだり実装をポートしながら理解を深めようとしていたが、途中で止まっている</li>
-<li>この手法で破綻しない理由を追いきれてない</li>
+<li>前月は意味解析まで読んだ</li>
+<li>今月はコード生成まで読み、コンパイラとして動くようになった</li>
+<li>詳細は別の記事を書いた
+<ul>
+<li><a href="https://vain0x.github.io/blog/2022-07-16/practical-compiler-construction/">実践コンパイラ構成法を読んだ - ベインのブログ</a></li>
+</ul>
+</li>
+<li>次はタイガー本のサンプルを書くか、「8つの最適化」のやつをやるか</li>
+</ul>
+<h2 id="aa木">AA木</h2>
+<p><a href="https://github.com/vain0x/playground/tree/main/2022-07-16-aa-tree">playground/2022-07-16-aa-tree</a></p>
+<ul>
+<li>AA木の実装を書こうとした</li>
+<li>赤黒木の変種で、左側に赤ノードを認めないという感じの制約を入れることで実装がシンプルになる</li>
+<li>ミローネ言語で使えるかと思ったが、ミローネ言語で書くとまったく簡潔にならないのでやめた</li>
+</ul>
+<h2 id="読んだ記事など">読んだ記事など</h2>
+<h3 id="lessons-from-writing-a-compilerhttpsborrettimearticlelessons-writing-compiler-公開日-2022-07-06"><a href="https://borretti.me/article/lessons-writing-compiler">Lessons from Writing a Compiler</a> (公開日 2022-07-06)</h3>
+<ul>
+<li>コンパイラを実装してみて教科書に書いてない部分を学んだという話</li>
+<li>実装の進めかたやテストの作りかた、環境やエラーの表現とか</li>
+</ul>
+<h3 id="carbon言語">Carbon言語</h3>
+<p><a href="https://github.com/carbon-language/carbon-lang">carbon-lang</a></p>
+<ul>
+<li>C++の後継を目指している言語として発表された
+<ul>
+<li>まだ実験段階で、実用化は早くても数年後</li>
+</ul>
+</li>
+<li>C++との相互運用に重点を置き、既存のC++のプロジェクトから漸進的に移行できるようなものにしたいらしい</li>
+<li>こう聞くとすぐ気になることがある
+<ul>
+<li>C++を改善するのではなく新しい言語を作るのはなぜか、既存の言語(Rustとか)に移行するのではダメか、など</li>
+</ul>
+</li>
+<li>ドキュメントに説明がある
+<ul>
+<li><a href="https://github.com/carbon-language/carbon-lang/blob/fce3618cc23396d72129089b1a16b083ca89b94c/docs/project/faq.md#what-alternatives-did-you-consider-why-did-they-not-work">FAQ #What alternatives did you consider?</a></li>
+<li><a href="https://github.com/carbon-language/carbon-lang/blob/fce3618cc23396d72129089b1a16b083ca89b94c/docs/project/difficulties_improving_cpp.md">Difficulties improving C++</a></li>
+<li>C++におけるABI-compatibilityの扱いへの批判はこっちのほうが詳しい: <a href="https://cor3ntin.github.io/posts/abi/">The Day The Standard Library Died | cor3ntin</a></li>
+</ul>
+</li>
+<li>そもそもC++との相互運用がどこまで実現可能なのかというのも気になる</li>
+<li>ロマンはある
+<ul>
+<li>C++は仕様的に入力支援と相性が悪く、ビルド時間が増大しやすい</li>
+<li>C++で書かれた部分をなるべくそのままにして、追加・変更する部分をCarbonで書くことにすると開発体験がよくなりそう</li>
+</ul>
+</li>
 </ul>
 
         
@@ -262,8 +280,6 @@ cli -&gt; translation
                   <ul>
                 
                 
-                    <li><a href="/blog/2022-07-31/diary/">近況 2022-07-31</a></li>
-                
                     <li><a href="/blog/2022-07-16/practical-compiler-construction/">実践コンパイラ構成法を読んだ</a></li>
                 
                     <li><a href="/blog/2022-06-30/diary/">近況 2022-06-30</a></li>
@@ -271,6 +287,8 @@ cli -&gt; translation
                     <li><a href="/blog/2022-05-31/diary/">近況 2022-05-31</a></li>
                 
                     <li><a href="/blog/2022-04-30/diary/">近況 2022-04-30</a></li>
+                
+                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
                 
               </ul>
 
@@ -282,13 +300,9 @@ cli -&gt; translation
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://vain0x.github.io/blog/2021-04-24/shared-fields-in-discriminated-unions/" data-toggle="tooltip" data-placement="top" title="判別共用体が共通フィールドを持てたら嬉しい">&larr; 前ページ</a>
+              <a href="https://vain0x.github.io/blog/2022-07-30/return-type-ascription/" data-toggle="tooltip" data-placement="top" title="構文遊び: 返り値型注釈、複数の返り値">&larr; 前ページ</a>
             </li>
           
-          
-            <li class="next">
-              <a href="https://vain0x.github.io/blog/2021-05-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2021-05-31">次ページ &rarr;</a>
-            </li>
           
         </ul>
       

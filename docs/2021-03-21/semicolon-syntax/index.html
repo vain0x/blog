@@ -260,7 +260,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
 </span></span><span class="line"><span class="cl"><span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
 </span></span></code></pre></div></blockquote>
-<p>上の文は <code>a + b</code> を返すつもりが、実際には結果式を省略した <code>return;</code> と解釈されてしまう。
+<p>上の文は <code>a + b</code> を返すつもりが、実際には返り値の式を省略した <code>return;</code> と解釈されてしまう。
 後ろにある <code>a + b;</code> は通常の式文なので構文エラーとして指摘されない。
 到達不能な文なので、Lintツールにより警告される。
 Lintツールがあれば、実用上、問題が生じることはないはず。</p>
@@ -357,9 +357,9 @@ Rustの「ブロック式」はCの複文と同様に文の並びを <code>{}</c
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rs" data-lang="rs"><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">x</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">y</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">()</span><span class="w"> </span><span class="c1">// ブロックの結果をユニットにする
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">()</span><span class="w"> </span><span class="c1">// ブロックの値をユニットにする
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>ブロックの型が <code>()</code> だったら結果を捨てる規則にしたら省略可能にできそうに思えるが、型推論と相性が悪いかもしれない。</p>
+</span></span></span></code></pre></div><p>ブロックの型が <code>()</code> だったら値を捨てる規則にしたら省略可能にできそうに思えるが、型推論と相性が悪いかもしれない。</p>
 <p>(他にも理由があるかも。)</p>
 <p>参考: (ただの議論であり公式回答ではない。)</p>
 <ul>

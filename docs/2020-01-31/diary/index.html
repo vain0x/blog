@@ -216,12 +216,12 @@
 <p>より良いアプローチは次のように型システムを使うものである。</p>
 <ul>
 <li>is_valid を持つオブジェクト Foo と、execute を持つオブジェクト ValidatedFoo を別の型にしておく</li>
-<li>is_valid が結果に <code>Option&lt;ValidatedFoo&gt;</code> を返すようにする</li>
+<li>is_valid が <code>Option&lt;ValidatedFoo&gt;</code> を返すようにする</li>
 </ul>
-<p>こうすると <strong>execute の前に必ず is_valid を呼んで結果を検査することが必須</strong> になる。</p>
+<p>こうすると <strong>execute の前に必ず is_valid を呼んで返り値を検査することが必須</strong> になる。</p>
 <p>実際のケースではこのアプローチで OK。</p>
 <p>とはいえ理想をいうと、Option や ValidatedFoo をスタック上に確保できないケースでオーバーヘッドが生じる点が気になるし、型を分けることで問題を解決すると型がどんどん増えていくし、そのたびにフィールドの値を受け渡すだけのコードを書く必要があって煩わしい。</p>
-<p>そこで、TypeScript などが持つスマートキャストを参考に、以下のような仕組みを考える。最終的には is_valid の結果が true だと分かっているコードパスにおいてだけメソッド execute の呼び出しが型検査を通るようにしたい。</p>
+<p>そこで、TypeScript などが持つスマートキャストを参考に、以下のような仕組みを考える。最終的には is_valid の返り値が true だと分かっているコードパスにおいてだけメソッド execute の呼び出しが型検査を通るようにしたい。</p>
 <p>変数の呼べるメソッドが途中で変わるということは、言い換えると <strong>変数の型が途中で変わる</strong> ということ。しかしオブジェクトのメモリレイアウトを動的に変えるわけにはいかない。そのため、ここで変わっている型というのは、 <strong>オブジェクトのメモリレイアウトに影響していない型</strong> でなければいけない。</p>
 <p>オブジェクトのメモリレイアウトに影響していない型検査のためだけの型を、ここでは仮に <strong>ファントム</strong> と呼ぶ。</p>
 <p>例えばポインタ型 <code>T*</code> は、型 T に関係なく、実行時には特定のビット長の数値 size_t に等しい。ポインタであるという型情報は型検査等にのみ使われていて、メモリレイアウトに影響していない。そのためポインタはファントムとみなせる。</p>
@@ -231,7 +231,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">Execute</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">execute</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>is_valid の事後条件として、結果が true なら Execute ファントムを得る、と書いておく。</p>
+</span></span></span></code></pre></div><p>is_valid の事後条件として、返り値が true なら Execute ファントムを得る、と書いておく。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">impl</span><span class="w"> </span><span class="n">Foo</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">is_valid</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span>
 </span></span><span class="line"><span class="cl">        <span class="nc">ensures</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -241,14 +241,14 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kc">false</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>後は <code>foo.is_valid()</code> の結果 (result) が true のときスマートキャスト <code>self as Execute</code> が走って <code>foo: Execute</code> という型がつき、execute が呼べる。</p>
+</span></span></span></code></pre></div><p>後は <code>foo.is_valid()</code> の返り値 (result) が true のときスマートキャスト <code>self as Execute</code> が走って <code>foo: Execute</code> という型がつき、execute が呼べる。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// foo.execute() はここでは呼べない。
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">foo</span><span class="p">.</span><span class="n">execute</span><span class="p">();</span><span class="w"> </span><span class="c1">// ここでは呼べる。(is_valid の事後条件のため)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>ふるい型 (refinement type) に似ているが、型自体が条件を持つのではなく、ファントムでは条件を満たした結果として型を得る。(もしかしたらこれもふるい型の一種に含まれるかもしれないが……) 加えて、ファントムはオブジェクトの可変性を前提としている。</p>
-<p>問題はまさにその可変性との兼ね合いで、例えば is_valid の結果を確かめた後にオブジェクトの状態を変更すると、is_valid = false になる可能性がありるため、ファントム Execute を持ったままにするべきではない。</p>
+<p>問題はまさにその可変性との兼ね合いで、例えば is_valid の返り値を確かめた後にオブジェクトの状態を変更すると、is_valid = false になる可能性がありるため、ファントム Execute を持ったままにするべきではない。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">modify</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">foo</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">foo</span><span class="p">.</span><span class="n">execute</span><span class="p">();</span><span class="w"> </span><span class="c1">// foo.is_valid() == true とはいえない
@@ -320,6 +320,8 @@
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-07-31/diary/">近況 2022-07-31</a></li>
+                
                     <li><a href="/blog/2022-07-16/practical-compiler-construction/">実践コンパイラ構成法を読んだ</a></li>
                 
                     <li><a href="/blog/2022-06-30/diary/">近況 2022-06-30</a></li>
@@ -327,8 +329,6 @@
                     <li><a href="/blog/2022-05-31/diary/">近況 2022-05-31</a></li>
                 
                     <li><a href="/blog/2022-04-30/diary/">近況 2022-04-30</a></li>
-                
-                    <li><a href="/blog/2022-03-31/diary/">近況 2022-03-31</a></li>
                 
               </ul>
 

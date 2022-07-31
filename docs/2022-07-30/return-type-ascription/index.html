@@ -207,7 +207,7 @@
 ただし返り値型注釈の部分は<code>:</code>から<code>=&gt;</code>に置き換える必要がある</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">f</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span>: <span class="kt">T</span><span class="p">)</span><span class="o">:</span> <span class="nx">U</span> <span class="o">=&gt;</span> <span class="nx">g</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//        ^^^^^^^^^
-</span></span></span><span class="line"><span class="cl"><span class="c1">//        関数を定義するときのパラメータリストと返戻型注釈
+</span></span></span><span class="line"><span class="cl"><span class="c1">//        関数を定義するときのパラメータリストと返り値型注釈
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">F</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span>: <span class="kt">T</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">U</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//       ^^^^^^^^^^^ 関数型
@@ -221,7 +221,7 @@
 </span></span></span></code></pre></div><p>アロー関数の構文と関数型の構文で異なる記号を使う (<code>-&gt;</code> と <code>=&gt;</code>) のでややこしいというのはある</p>
 <h2 id="複数の値を返す関数を返す構文">複数の値を返す関数を返す構文</h2>
 <p>関数のパラメータは2つ以上でもよいのに対して、返り値は最大1つという制約がかけられていることがよくある。
-関数呼び出しのターゲット (その式の外側) からすると返り値が1個でないと困る</p>
+関数呼び出しのターゲット (その式の外側) からすると返り値が1つでないと困る</p>
 <p>例として、割り算をして商と剰余の2つの値を返す関数<code>divide</code>を定義したとする。
 なお構文を似せているだけでTypeScriptの話ではない</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="c1">// 割り算をして商と剰余の2つの値を返す関数とする
@@ -288,6 +288,10 @@
               <a href="https://vain0x.github.io/blog/2022-07-16/practical-compiler-construction/" data-toggle="tooltip" data-placement="top" title="実践コンパイラ構成法を読んだ">&larr; 前ページ</a>
             </li>
           
+          
+            <li class="next">
+              <a href="https://vain0x.github.io/blog/2022-07-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2022-07-31">次ページ &rarr;</a>
+            </li>
           
         </ul>
       

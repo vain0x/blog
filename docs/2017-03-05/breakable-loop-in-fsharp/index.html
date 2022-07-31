@@ -312,7 +312,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                        <span class="c1">//   }
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">loop</span> <span class="bp">()</span>                             <span class="c1">// }
 </span></span></span></code></pre></div><p><code>()</code> と <code>break</code> が対応することのイメージが分からないと思いますが、直接的な対応はないので、 <code>scream ()</code> の挙動を説明します。</p>
-<p>この関数を <code>scream ()</code> のように起動すると、先程の <code>yesAll ()</code> と同じく <code>loop ()</code> が開始します。<code>loop</code> の結果は、読み取った行が <code>null</code> なら (= 入力が終了したら) <code>()</code> (ユニットという名前の定数) で、そうでなければ <code>else</code> 節の値になります。<code>else</code> 節では、入力を叫んだあとループをやり直しますが、yes コマンドとは違っていつかは入力が終わり <code>()</code> が返ってきます。結局、標準入出力の副作用を除けば</p>
+<p>この関数を <code>scream ()</code> のように起動すると、先程の <code>yesAll ()</code> と同じく <code>loop ()</code> が開始します。<code>loop</code> の返り値は、読み取った行が <code>null</code> なら (= 入力が終了したら) <code>()</code> (ユニットという名前の定数) で、そうでなければ <code>else</code> 節の値になります。<code>else</code> 節では、入力を叫んだあとループをやり直しますが、yes コマンドとは違っていつかは入力が終わり <code>()</code> が返ってきます。結局、標準入出力の副作用を除けば</p>
 <pre><code>scream ()
 = loop ()
 = ...

@@ -276,7 +276,7 @@ Reactだとこんな感じになりがち。</p>
 <p>Reactだと1個のページのUIを1個のコンポーネントに任せることになると思う。
 その親となり、ページを所有すべきコンポーネントをページコンテナと呼ぶことにする。
 ページの状態を持つ必要があるが、種々のページの状態をすべてコンテナに管理させると型が巨大になって扱いづらいので、抽象的な型で持つ。
-Reactの場合はコンポーネントをレンダーした結果の型 (<code>&lt;Component /&gt;</code>　の型) である <code>ReactNode</code> を使う。</p>
+Reactの場合はコンポーネントをレンダーした返り値の型 (<code>&lt;Component /&gt;</code>　の型) である <code>ReactNode</code> を使う。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tsx" data-lang="tsx"><span class="line"><span class="cl"><span class="kr">type</span> <span class="nx">PageObject</span> <span class="o">=</span> <span class="nx">ReactNode</span> <span class="o">|</span> <span class="p">{</span> <span class="nx">redirect</span>: <span class="kt">true</span><span class="p">,</span> <span class="nx">route</span>: <span class="kt">RouteObject</span> <span class="p">}</span> <span class="c1">// 上述
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">PageContainer</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>

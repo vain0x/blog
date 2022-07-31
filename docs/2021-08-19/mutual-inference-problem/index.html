@@ -222,7 +222,7 @@
 </span></span><span class="line"><span class="cl">  <span class="k">then</span> <span class="n">fail</span> <span class="o">(</span><span class="s">&#34;div by zero; x=&#34;</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
 </span></span><span class="line"><span class="cl">  <span class="k">else</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
 </span></span></code></pre></div><p><code>fail</code> 関数は何らかのデータを受け取ってエラーに書き出し、異常終了する。
-引数の型も結果の型も何でもいい。
+引数の型も返り値の型も何でもいい。
 つまり、理想的には <code>fail&lt;'T, 'U&gt; : 'T -&gt; 'U</code> という型がつく。</p>
 <p>その下にdiv関数の定義があって、本体で <code>fail</code> を呼んでいる。
 divは事前条件をみたさないときに <code>fail</code> を呼んで、理由らしきものを書き込んで終了する。

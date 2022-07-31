@@ -197,7 +197,7 @@
       <article role="main" class="blog-post">
         <p>never型がない言語でも、可視性の制御を使うことでそれっぽいことができる。</p>
 <h2 id="前提">前提</h2>
-<p>F# において制御を返さない関数は、結果の型が任意であるような多相関数として表現される。</p>
+<p>F# において制御を返さない関数は、返り値の型が任意であるような多相関数として表現される。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="sd">/// 常に例外を投げる関数
 </span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="k">val</span> <span class="n">failwith</span><span class="o">&lt;</span><span class="k">&#39;</span><span class="n">A</span><span class="o">&gt;</span> <span class="o">:</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">A</span>
 </span></span></code></pre></div><p>F# の型システムにおいて多相になれるのはnominalな型や関数だけなので、制御を返さない関数を持つフィールドというのは作れない。</p>
@@ -207,7 +207,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">type</span> <span class="nc">R</span> <span class="o">=</span> <span class="o">{</span> <span class="n">FailWith</span><span class="o">:</span> <span class="n">Λ&#39;A</span><span class="o">.</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">A</span> <span class="o">}</span>
 </span></span></code></pre></div><p>なお、型変数をレコード型のほうに持たせると意味が変わってくる。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">type</span> <span class="nc">R</span><span class="o">&lt;</span><span class="k">&#39;</span><span class="n">A</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">{</span> <span class="n">FailWith</span><span class="o">:</span> <span class="kt">string</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">A</span> <span class="o">}</span>
-</span></span></code></pre></div><p>これだと <code>FailWith</code> を複数回、異なる結果型で呼ぶことができない。(Rの型引数が矛盾する。)</p>
+</span></span></code></pre></div><p>これだと <code>FailWith</code> を複数回、異なる返り値型で呼ぶことができない。(Rの型引数が矛盾する。)</p>
 <h2 id="方法">方法</h2>
 <p>はじめに適当にNever型を定義する。型は公開するが、型のインスタンスを作る方法は公開しないでおく。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">type</span> <span class="nc">Never</span> <span class="o">=</span> <span class="k">private</span> <span class="o">|</span> <span class="n">Never</span>

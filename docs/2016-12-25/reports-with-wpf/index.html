@@ -453,7 +453,7 @@
 </span></span><span class="line"><span class="cl">                    <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">pageSize</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">r</span><span class="p">.</span><span class="n">Paginate</span><span class="p">(</span><span class="n">pageSize</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">                <span class="p">)</span>
 </span></span><span class="line"><span class="cl">                <span class="p">.</span><span class="n">ToReadOnlyReactiveProperty</span><span class="p">();</span>
-</span></span></code></pre></div><p>これは平たくいえば「<code>Report</code>, <code>MediaSizeSelector.SelectedSize</code> の最新の値を <code>r</code>, <code>pageSize</code> とするとき、 <code>r.Paginate(pageSize)</code> の結果を <code>Pages</code> の値とする」という意味です。もう少し手続き的にいえば、まず <code>Report</code> と ``MediaSizeSelector.SelectedSize<code>の値をとってきて、</code>Paginate` します。加えて、そのどちらかのプロパティが変更されるたび (リストボックスやコンボボックスの選択要素が変わるたび)、ページネーションを再試行します。</p>
+</span></span></code></pre></div><p>これは平たくいえば「<code>Report</code>, <code>MediaSizeSelector.SelectedSize</code> の最新の値を <code>r</code>, <code>pageSize</code> とするとき、 <code>r.Paginate(pageSize)</code> の返り値を <code>Pages</code> の値とする」という意味です。もう少し手続き的にいえば、まず <code>Report</code> と ``MediaSizeSelector.SelectedSize<code>の値をとってきて、</code>Paginate` します。加えて、そのどちらかのプロパティが変更されるたび (リストボックスやコンボボックスの選択要素が変わるたび)、ページネーションを再試行します。</p>
 <p>最後に印刷ボタンですが、これは押されたとき、<code>Previewer.PrintCommand</code>→<code>Previewer.Print</code> を経由して <code>Printer.Print</code> まで行き、そこからは前半で述べた感じです。FixedDocument を作って、デフォルトのプリンターを取得して、ページサイズを指定して、印刷。</p>
 <h2 id="おわりに">おわりに</h2>
 <p>いかがでしたでしょうか。不明点などあればIssuesなどをお願いします。</p>
