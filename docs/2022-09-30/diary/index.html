@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>近況 2018-10-31 - ベインのブログ</title>
-  <meta name="description" content="今月の活動まとめ">
+  <title>近況 2022-09-30 - ベインのブログ</title>
+  <meta name="description" content="今月の活動 (GTKの勉強, WPFの再訪, 気になった記事など)">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -44,8 +44,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/vain0x.github.io\/blog\/2018-10-31\/diary\/",
-          "name": "近況 2018 10 31"
+          "@id": "https:\/\/vain0x.github.io\/blog\/2022-09-30\/diary\/",
+          "name": "近況 2022 09 30"
         }
     }]
 }
@@ -56,15 +56,15 @@
   "author": {
     "name" : "ベイン"
   },
-  "headline": "近況 2018-10-31",
-  "description" : "今月の活動まとめ\n",
+  "headline": "近況 2022-09-30",
+  "description" : "今月の活動 (GTKの勉強, WPFの再訪, 気になった記事など)\n",
   "inLanguage" : "ja",
-  "wordCount":  122 ,
-  "datePublished" : "2018-10-31T23:59:59",
-  "dateModified" : "2018-10-31T23:59:59",
+  "wordCount":  75 ,
+  "datePublished" : "2022-10-01T00:00:00",
+  "dateModified" : "2022-10-01T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog\/",
   "keywords" : [ "日記" ],
-  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2018-10-31\/diary\/",
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2022-09-30\/diary\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/vain0x.github.io\/blog\/",
@@ -78,14 +78,14 @@
 }
 </script>
 
-<meta property="og:title" content="近況 2018-10-31" />
-<meta property="og:description" content="今月の活動まとめ">
-<meta property="og:url" content="https://vain0x.github.io/blog/2018-10-31/diary/" />
+<meta property="og:title" content="近況 2022-09-30" />
+<meta property="og:description" content="今月の活動 (GTKの勉強, WPFの再訪, 気になった記事など)">
+<meta property="og:url" content="https://vain0x.github.io/blog/2022-09-30/diary/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="twitter:title" content="近況 2018-10-31" />
-  <meta name="twitter:description" content="今月の活動まとめ">
+  <meta name="twitter:title" content="近況 2022-09-30" />
+  <meta name="twitter:description" content="今月の活動 (GTKの勉強, WPFの再訪, 気になった記事など)">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -162,7 +162,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>近況 2018-10-31</h1>
+                <h1>近況 2022-09-30</h1>
               
               
               
@@ -170,7 +170,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2018年10月31日 投稿
+  <i class="fas fa-calendar"></i>&nbsp;2022年10月1日 投稿
   
   
   
@@ -195,134 +195,58 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>今月の活動まとめ</p>
+        <p>今月の活動 (GTKの勉強, WPFの再訪, 気になった記事など)</p>
 <ul>
-<li><a href="https://vain0x.github.io/blog/2018-09-30/diary/">前月</a></li>
+<li>前回 (2022-08-31) <a href="https://vain0x.github.io/blog/2022-08-31/diary/">https://vain0x.github.io/blog/2022-08-31/diary/</a></li>
 </ul>
-<h3 id="milone-lang">milone-lang</h3>
+<h2 id="gtkの勉強">GTKの勉強</h2>
 <ul>
-<li><a href="https://github.com/vain0x/milone-lang">https://github.com/vain0x/milone-lang</a></li>
-<li>F# のサブセットのコンパイラ milone-lang を作ってる</li>
-<li>前月苦しんでいた字下げ依存構文の構文解析問題はほぼ解決した
+<li>リポジトリ: <a href="https://github.com/vain0x/playground/tree/main/2022-09-13-seven-gui-with-gtk-rust">seven-gui-with-gtk-rust</a></li>
+<li><a href="https://eugenkiss.github.io/7guis/">7GUIs</a> という7種類のGUIアプリケーションのサンプルがある</li>
+<li>それをGTKのRustバインディング (gtk-rs) を使ってやっている</li>
+<li>7つのうち5つまでやった</li>
+<li>簡単なタスクがあると学習がはかどってよい
 <ul>
-<li>次のトークンの位置が低すぎたらパースを中止する、みたいな動き</li>
-<li>結果的に再帰下降パーサーとしては自然な実装になった</li>
-</ul>
-</li>
-<li>インタプリタを捨てて、C言語のコードを生成するようにした
-<ul>
-<li>インタプリタの実装は klac-lang でやったから退屈に感じる</li>
-<li>最終的にはアセンブリや Web Assembly や LLVM をターゲットにしたいが、モチベを維持するために機能追加を優先していく</li>
+<li>目的なくドキュメントを読んでいても頭に入ってこない</li>
 </ul>
 </li>
-<li>演算や条件分岐や関数などの基本機能が入った</li>
-<li>シンプルな型推論が入った
+<li>新しいフレームワークだとなじみのないことがあっておもしろい
 <ul>
-<li>単一化ベースだが、まだ多相関数は禁止しているのでHMじゃない</li>
+<li>いわゆるテキストボックスがEntryという名前で、データがBufferオブジェクトに分かれているとか</li>
 </ul>
 </li>
-<li>ジェネリクスを入れようとして、オートボクシングと型推論の兼ね合いで悩んだ
+<li>RustでGUIを書くのは他の言語とは違って所有権がからむ
 <ul>
-<li>ジェネリクスはやめて、単相化することにした</li>
-<li>例えばタプルは、生成後のCのコードでは型引数ごとに別々の構造体になる</li>
-</ul>
-</li>
-<li>近い目標として、字句解析器をコンパイルしたい
-<ul>
-<li>リストを入れないと何もできない</li>
-<li>クロージャもほしいけど難しいかも</li>
-</ul>
-</li>
-<li>参考
-<ul>
-<li>TaPL</li>
-<li><a href="http://esumii.github.io/min-caml/">速攻MinCamlコンパイラ概説</a></li>
+<li>複数のコールバックが同一のデータへの可変な参照をつかむことがないようにする必要がある</li>
 </ul>
 </li>
 </ul>
-<h3 id="環境再構築">環境再構築</h3>
+<h2 id="wpfの再訪">WPFの再訪</h2>
 <ul>
-<li>今年頭 (2018年1月) にパソコンを買い替えた
+<li>リポジトリ: <a href="https://github.com/vain0x/playground/tree/main/2022-09-19-wpf-enterprise-example">wpf-enterprise-example</a></li>
+<li>ここ数年は React+TypeScript でウェブアプリを作っていて、フロントエンドの設計に関して考えが変わった</li>
+<li>以前にWPFでデスクトップアプリを作っていたときの設計は課題がたくさんあった</li>
+<li>課題がどのくらい改善するか、あるいはしないか、WPFに応用できるか、またやる価値があるか、などを確かめたい</li>
+<li>そのためにサンプルアプリを書いている</li>
+<li>例えばダイアログの出しかたはReactでよく行われている方法のほうがよさそうな感じがする</li>
+</ul>
+<h2 id="気になった記事など">気になった記事など</h2>
 <ul>
-<li><a href="https://vain0x.github.io/blog/2018-01-28/new-to-ubuntu/">Ubuntuデスクトップを使い始めた | vain0x&rsquo;s blog</a></li>
+<li><a href="https://www.pathsensitive.com/2022/03/abstraction-not-what-you-think-it-is.html">Abstraction: Not What You Think It Is | Path-Sensitive</a> (公開日 2022-03-28)
+<ul>
+<li>抽象(abstraction)の用法について</li>
+<li>似ているものの共通部分を取り出すこと (anti-unification) とかに濫用されがち</li>
+<li>言語や型システムの設計はまさに抽象の構築や抽象を使った議論の展開だと感じる
+<ul>
+<li>逆にCのコード断片を埋め込む機能とかは抽象をぶっ壊すことの好例になっている</li>
 </ul>
 </li>
-<li>Ubuntu デスクトップという試みはうまくいっている</li>
-<li>パフォーマンス問題があった
+<li>このブログの他の記事もおもしろい
 <ul>
-<li>Chrome のタブを大量に開いたり VSCode を複数起動すると重たくなる</li>
+<li>ソフトウェアの設計はコードに現れない話 (<a href="https://www.pathsensitive.com/2018/01/the-design-of-software-is-thing-apart.html">The Design of Software is A Thing Apart | Path-Sensitive</a>)</li>
+<li>「プロジェクトを実際にやってみる」よりスキルを個別に練習したりよくできたモデルケースを扱うほうが効率がいいという話 (<a href="https://www.pathsensitive.com/2018/02/the-practice-is-not-performance-why.html">The Practice is not the Performance: Why project-based learning fails | Path-Sensitive</a>)</li>
 </ul>
 </li>
-<li>メモリを 16GB に、ハードディスクを SSD にした</li>
-<li>SSD 換装は初めてだったけど簡単にできた
-<ul>
-<li>SATAケーブルとSATA電源ケーブルを買ったけど、HDDと繋ぎかえるだけだからいらなかった</li>
-<li>SSD はメンディングテープで固定した</li>
-</ul>
-</li>
-<li>ついでにクリーンインストールした</li>
-</ul>
-<h3 id="競プロ参戦記">競プロ参戦記</h3>
-<ul>
-<li>8月中旬から note.mu で <a href="https://note.mu/vain0x/m/m9aa8513f4e97">競プロ参戦記</a> を始めた</li>
-<li>AGC で惨敗して、2週間ぐらい競プロから離れていた</li>
-<li>先週の天下一は参加して、そこそこの成績だった</li>
-<li>まったりやっていく</li>
-</ul>
-<h3 id="toml-hummer">toml-hummer</h3>
-<ul>
-<li><a href="https://github.com/vain0x/playground/tree/4cafe15dd57d0df68c8bc9c8864b6f6fcf7dbba5/2018-09-14-toml-hammer">リポジトリ</a></li>
-<li>F# 用の TOML パーサー</li>
-<li>あまり進んでない</li>
-<li>日時リテラルを扱えるようになりつつある</li>
-</ul>
-<h3 id="react">React</h3>
-<ul>
-<li>機能追加はうまくいっている</li>
-<li>データベース処理ごとテストしてる
-<ul>
-<li>依存関係を切るの難しい</li>
-</ul>
-</li>
-<li>履歴移動でコンポーネントの状態が初期化される問題はまだ放置してる</li>
-<li>サーバーとクライアントで行ったり来たりする処理の見通しが悪い
-<ul>
-<li>ステートマシンみたいになってしまう</li>
-<li>再帰下降パーサーみたいに書きたい</li>
-</ul>
-</li>
-</ul>
-<h3 id="ガルパ">ガルパ</h3>
-<ul>
-<li>ファントムシーフ (Expert 27) はクリアできた</li>
-<li>今後は 26 帯の精度を上げていきたい</li>
-<li>某の影響をで左手プレイを練習している</li>
-</ul>
-<h3 id="その他">その他</h3>
-<ul>
-<li>AtCoder の提出を Git リポジトリにまとめるツールを書いた
-<ul>
-<li><a href="https://github.com/vain0x/submissions-sync">https://github.com/vain0x/submissions-sync</a></li>
-<li>GitHub に自動でコミットしたいという野望がある</li>
-</ul>
-</li>
-<li>投稿専用の Twitter クライアント Solotter を地味に改修した
-<ul>
-<li><a href="https://github.com/vain0x/solotter-web">https://github.com/vain0x/solotter-web</a></li>
-<li>Express.js で書いていたのが React になった</li>
-<li>いろいろ足したい機能があるけど、いまは milone-lang が優先</li>
-</ul>
-</li>
-<li>記事を投稿した
-<ul>
-<li><a href="https://vain0x.github.io/blog/2018-10-07/rust-procon/">Rustで競プロするときのプラクティス [2018秋]</a></li>
-</ul>
-</li>
-<li>このブログをなんとかしたい
-<ul>
-<li>更新作業を楽にしたい</li>
-<li>画像を載せやすくしたい</li>
-<li>記事一覧をつけたい</li>
 </ul>
 </li>
 </ul>
@@ -337,8 +261,6 @@
                   <ul>
                 
                 
-                    <li><a href="/blog/2022-09-30/diary/">近況 2022-09-30</a></li>
-                
                     <li><a href="/blog/2022-08-31/diary/">近況 2022-08-31</a></li>
                 
                     <li><a href="/blog/2022-07-31/diary/">近況 2022-07-31</a></li>
@@ -346,6 +268,8 @@
                     <li><a href="/blog/2022-07-16/practical-compiler-construction/">実践コンパイラ構成法を読んだ</a></li>
                 
                     <li><a href="/blog/2022-06-30/diary/">近況 2022-06-30</a></li>
+                
+                    <li><a href="/blog/2022-05-31/diary/">近況 2022-05-31</a></li>
                 
               </ul>
 
@@ -357,13 +281,9 @@
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://vain0x.github.io/blog/2018-10-07/rust-procon/" data-toggle="tooltip" data-placement="top" title="Rustで競プロするときのプラクティス [2018秋]">&larr; 前ページ</a>
+              <a href="https://vain0x.github.io/blog/2022-08-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2022-08-31">&larr; 前ページ</a>
             </li>
           
-          
-            <li class="next">
-              <a href="https://vain0x.github.io/blog/2018-11-08/pi-challenge/" data-toggle="tooltip" data-placement="top" title="円周率チャレンジにアルゴリズムでチャレンジ">次ページ &rarr;</a>
-            </li>
           
         </ul>
       
