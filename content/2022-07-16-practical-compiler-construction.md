@@ -27,6 +27,8 @@ tags:
 
 ## やったこと
 
+リポジトリ: [playground/pcc](https://github.com/vain0x/playground/tree/main/2022-05-30-practical-compiler-construction)
+
 - 3章で字句解析器ジェネレータ(OCamllex)が解説されている
     - 正規表現をNFA(非決定的オートマトン)にしてインタプリトするのは前にやったことがある ([2019-08-31-parse-study])
     - 改めて、字句解析の定義ファイルから字句解析器を作ってサンプル言語の字句解析に使うところまでやった
