@@ -152,7 +152,7 @@ TypeScriptだとたいてい型エラーになるので、実用上問題ない�
 参考:
 
 - [#semicolons airbnb/javascript\: JavaScript Style Guide](https://github.com/airbnb/javascript#semicolons) (書く派の例)
-- [#Semicolon JavaScript Standard Style](https://standardjs.com/rules.html#semicolons) (書かない派の例)
+- [#Semicolon JavaScript Standard Style](https://standardjs.com/rules.html#semicolons) (書かない派の例。なお "standard" と勝手に名乗っているだけで公式ではないことに注意)
 
 ## Goのセミコロン省略ルールはどう定められているか
 
