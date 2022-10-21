@@ -8,7 +8,16 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Sun, 11 Mar 2018 13:06:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 21 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/tags/tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[F#][小ネタ] Unreachableアクティブパターン</title>
+      <link>https://vain0x.github.io/blog/2022-10-21/unreachable-active-pattern/</link>
+      <pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2022-10-21/unreachable-active-pattern/</guid>
+      <description>&lt;p&gt;matchのネストを減らす小ネタ&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>[F#][小ネタ] レコードリテラルと型注釈</title>
       <link>https://vain0x.github.io/blog/2018-03-11/fsharp-record-literal-and-type-annotation/</link>
