@@ -76,7 +76,7 @@ create table categories(
 このデータベースを使うアプリに対して、以下のようなテストコードを書いていきます。
 
 ```js
-//　ヘルパー
+// ヘルパー
 const freshScope = () => createNewUuidV4()
 const freshId = () => createNewUuidV4()
 
