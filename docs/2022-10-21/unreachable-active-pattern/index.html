@@ -59,7 +59,7 @@
   "headline": "[F#][小ネタ] Unreachableアクティブパターン",
   "description" : "matchのネストを減らす小ネタ\n",
   "inLanguage" : "ja",
-  "wordCount":  200 ,
+  "wordCount":  202 ,
   "datePublished" : "2022-10-21T00:00:00",
   "dateModified" : "2022-10-21T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog\/",
@@ -219,8 +219,9 @@
 </span></span></code></pre></div><p>ここで <code>Unreachable</code> というアクティブパターンを定義している。
 必ずマッチに成功するので、<code>let</code> の左辺で使っても「パターンが網羅的でない」という警告が出ない。
 実行時の挙動は前述の <code>match</code> と同じ。</p>
+<hr>
+<h2 id="appendix-サンプルコード">Appendix. サンプルコード</h2>
 <p><a href="https://try.fsharp.org/#?code=PQgEBEEsDcFMCcDmkB2jQEMDGAXGtQAHDHHBFAOgFgAoAG1h1FTtQMPhhIIAoAfAKop4sbAAsMAIwZ8AlKB4B9AFygA5ABV5qtQNABeUADMMkOgHdIOMaABEAV2GisE6bFu1aOAJ6ECAWW8ANQw6ewJ9WlBo0D5QAEkUJgB7I2YkqJi4gGUcTjRQVNAAZzzURE96RlAAE2Ts5IBbRjFyhRRVVBx5Qw4uoxQ7LtAAWgA+UABSGttQFEqwEaXlldowRpIXNeBRlb3KvqSBu3tigg2cF2UPGloGFJREnABGBWhQ8NVAkLDYHszohcXKB3r9QJZrADYgkknNRmMoTFavUmi02vNbjQkXFFPDjKYLFYbA4nOIpAwbrRko8kq8eE9QM95CB9BNhuNGZU8t4odSnnTcvl0LZbLIoRhimd4EwTHQzrQITZcRzDjhjrZSkK8fBTGcZgsdnt9jQwPdtrsjUsDvk1YMHGdQPdrpV7oUaTgAExvD6wL7BH3-LExV302GDOJCERktxzHogn1QuoNZrWdGVPlJL2hpge5nAVnpJgcj1c+A8oPRDOehSCtoisUVzCShAy0LymiK0DKiaq9WatocnWQPU3IA&amp;html=DwCwLgtgNgfAsAKAAQqaApgQwCb2ag4CdMTJcMABwFp0BHAVwEsA3AXgCIBhAewDsw6AdQAqAT0roOSAMb9BAzoIAeYAPThoAbhkhMAJwDOJNgzAAzagA4OeQhqy5EhAEY9sYu6mBq3HvD6asEA&amp;css=Q"><code>try.fsharp.org</code> のreplで見る</a></p>
-<!-- raw HTML omitted -->
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="sd">/// Diverging active pattern.
 </span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="k">let</span> <span class="nv">inline</span> <span class="k">private</span> <span class="o">(|</span><span class="n">Unreachable</span><span class="o">|)</span> <span class="o">(_:</span> <span class="k">&#39;</span><span class="n">T</span><span class="o">)</span> <span class="o">:</span> <span class="k">&#39;</span><span class="n">U</span> <span class="o">=</span> <span class="n">failwith</span> <span class="s">&#34;unreachable&#34;</span>
 </span></span><span class="line"><span class="cl">
@@ -266,7 +267,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">onInt2</span> <span class="o">(</span><span class="n">String</span> <span class="s">&#34;&#34;</span><span class="o">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="k">false</span>
 </span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="o">_</span> <span class="o">-&gt;</span> <span class="n">printfn</span> <span class="s">&#34;string -&gt; raised&#34;</span>
-</span></span></code></pre></div><!-- raw HTML omitted -->
+</span></span></code></pre></div>
 
         
           

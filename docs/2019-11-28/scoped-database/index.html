@@ -243,7 +243,7 @@
 </span></span></span></code></pre></div><p>このように各レコードにスコープが定まるようにします。</p>
 <h2 id="テストコードの雰囲気">テストコードの雰囲気</h2>
 <p>このデータベースを使うアプリに対して、以下のようなテストコードを書いていきます。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">//　ヘルパー
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// ヘルパー
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">freshScope</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">createNewUuidV4</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">freshId</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">createNewUuidV4</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
