@@ -87,7 +87,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.105.0">
+  <meta name="generator" content="Hugo 0.107.0">
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -330,10 +330,10 @@
 <h2 id="その他-クロージャと存在型">その他: クロージャと存在型</h2>
 <p>TaPL を読んでいたら存在型を使ってクロージャをデコードできるような気がしてきた。</p>
 <p>クロージャのある言語で以下のように書いたとする。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">n</span> <span class="o">=</span> <span class="n">2</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">n</span> <span class="o">=</span> <span class="mi">2</span>
 </span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">inc</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">n</span>
 </span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="nv">f</span> <span class="o">=</span> <span class="n">inc</span>
-</span></span><span class="line"><span class="cl">    <span class="n">f</span> <span class="n">3</span> <span class="c1">//=&gt; 5
+</span></span><span class="line"><span class="cl">    <span class="n">f</span> <span class="mi">3</span> <span class="c1">//=&gt; 5
 </span></span></span></code></pre></div><p>これをクロージャのない言語に変換したいとする。</p>
 <p>クロージャのインターフェイスは「環境」(キャプチャされた値の集合)と「関数」の2つ。環境の型を存在型で隠蔽すればいい。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">2</span>
@@ -359,6 +359,8 @@
                   <ul>
                 
                 
+                    <li><a href="/blog/2022-11-30/diary/">近況 2022-11-30</a></li>
+                
                     <li><a href="/blog/2022-10-31/diary/">近況 2022-10-31</a></li>
                 
                     <li><a href="/blog/2022-09-30/diary/">近況 2022-09-30</a></li>
@@ -366,8 +368,6 @@
                     <li><a href="/blog/2022-08-31/diary/">近況 2022-08-31</a></li>
                 
                     <li><a href="/blog/2022-07-31/diary/">近況 2022-07-31</a></li>
-                
-                    <li><a href="/blog/2022-07-16/practical-compiler-construction/">実践コンパイラ構成法を読んだ</a></li>
                 
               </ul>
 
@@ -475,7 +475,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.105.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.107.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

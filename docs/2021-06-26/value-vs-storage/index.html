@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.105.0">
+  <meta name="generator" content="Hugo 0.107.0">
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -352,22 +352,22 @@
 <p>参照セルは本稿の「変更可能なストレージ」そのものといえる。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="c1">// ref関数で新しい参照セルを作る。
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// ↓はint型の値を持つ参照セルを作って、初期値0を入れている。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">let</span> <span class="nv">counter</span> <span class="o">=</span> <span class="n">ref</span> <span class="n">0</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">let</span> <span class="nv">counter</span> <span class="o">=</span> <span class="n">ref</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// ! 演算子で現在の値を取り出す。
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">let</span> <span class="nv">n</span> <span class="o">=</span> <span class="o">!</span><span class="n">counter</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="o">(</span><span class="n">n</span> <span class="o">=</span> <span class="n">0</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="o">(</span><span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="o">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// := 演算子で値を設定する。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">counter</span> <span class="o">:=</span> <span class="n">1</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">counter</span> <span class="o">:=</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="o">(!</span><span class="n">counter</span> <span class="o">=</span> <span class="n">1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="o">(!</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span><span class="o">)</span>
 </span></span></code></pre></div><p>参照セルの型は <code>'T ref</code> (<code>'T</code> は型パラメータ) で、値の型がintの場合は <code>int ref</code> である。
 値であるintと、ストレージである <code>int ref</code> を型で区別しているといえる。</p>
 <p>冒頭で変数が値だったりストレージだったりする話を書いたが、参照セルを導入すると「変数は常に値を表す」ような構文も実現できる。
 例えばインクリメントする式はこう書くことになる:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">:=</span> <span class="o">!</span><span class="n">x</span> <span class="o">+</span> <span class="n">1</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">:=</span> <span class="o">!</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 </span></span></code></pre></div><p><code>x = x + 1</code> は等式としておかしいといわれることもない。</p>
 <p>また、参照セルの型 (型構築子 <code>ref</code>) は共変でないことが知られている。
 型Aの値を型Bにアップキャストできるとき、型Aは型Bの部分型であるといって <code>A &lt;: B</code> と表す。
@@ -502,7 +502,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.105.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.107.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

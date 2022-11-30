@@ -93,7 +93,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.105.0">
+  <meta name="generator" content="Hugo 0.107.0">
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -204,8 +204,8 @@
 <p><code>module rec</code> 直下の関数は相互再帰的に定義される。つまり上にある関数の本体から、下にある関数を呼べる。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl"><span class="k">module</span> <span class="nn">rec</span> <span class="nn">MyProject</span><span class="p">.</span><span class="n">Example</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">even</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">=</span> <span class="n">0</span> <span class="o">||</span> <span class="n">odd</span> <span class="o">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="c1">// 定義前にoddを使う
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">let</span> <span class="nv">odd</span> <span class="n">x</span> <span class="o">=</span> <span class="n">even</span> <span class="o">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">even</span> <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">odd</span> <span class="o">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="c1">// 定義前にoddを使う
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">let</span> <span class="nv">odd</span> <span class="n">x</span> <span class="o">=</span> <span class="n">even</span> <span class="o">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span>
 </span></span></code></pre></div><p>型推論により <code>even: int -&gt; int</code>, <code>odd: int -&gt; int</code> と型がつく。
 以下 <code>module rec</code> は省く。</p>
 <h2 id="汎化">汎化</h2>
@@ -215,10 +215,10 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">fail</span> <span class="n">context</span> <span class="o">=</span> <span class="c1">// context: 失敗した原因とか、何らかのデータ
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">eprintfn</span> <span class="s">&#34;error: %s&#34;</span> <span class="o">(</span><span class="kt">string</span> <span class="o">(</span><span class="n">box</span> <span class="n">context</span><span class="o">))</span>
-</span></span><span class="line"><span class="cl">  <span class="n">exit</span> <span class="n">1</span>
+</span></span><span class="line"><span class="cl">  <span class="n">exit</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">let</span> <span class="nv">div</span> <span class="n">x</span> <span class="n">y</span> <span class="o">=</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">y</span> <span class="o">=</span> <span class="n">0</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">  <span class="k">then</span> <span class="n">fail</span> <span class="o">(</span><span class="s">&#34;div by zero; x=&#34;</span><span class="o">,</span> <span class="n">x</span><span class="o">)</span>
 </span></span><span class="line"><span class="cl">  <span class="k">else</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
 </span></span></code></pre></div><p><code>fail</code> 関数は何らかのデータを受け取ってエラーに書き出し、異常終了する。
@@ -403,7 +403,7 @@ checkExprListの型はまだ分からないが、実際にはジェネリック�
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.105.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.107.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

@@ -90,7 +90,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.105.0">
+  <meta name="generator" content="Hugo 0.107.0">
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -256,14 +256,14 @@
 文というくくりがないから式、という感じがある。
 (Rustの <code>loop</code> 式は <code>()</code> 以外の値を持てて、かなり式っぽい。)</p>
 <p>let式はローカル変数を導入して、それを使って何か計算する、という式である。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">3</span> <span class="k">in</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="o">;;</span>  <span class="c">(* =&gt; 9 *)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span> <span class="k">in</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="o">;;</span>  <span class="c">(* =&gt; 9 *)</span>
 </span></span></code></pre></div><p>並べて書くと文にみえるが、単に長くて深い式が複数行に書かれているだけ (inの後ろが末尾まで広がっている)。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">3</span> <span class="k">in</span>
-</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">4</span> <span class="k">in</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span> <span class="k">in</span>
+</span></span><span class="line"><span class="cl">    <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">4</span> <span class="k">in</span>
 </span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="o">;;</span>         <span class="c">(* =&gt; 144 *)</span>
 </span></span></code></pre></div><p>余談: ある構文要素が式であるか、文や宣言であるかの判断は、それをカッコで囲めるか考えると分かりやすいかもしれない。
 たいていの言語では式をカッコで囲めるが、文や宣言は囲めないため。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl">    <span class="o">(</span><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">3</span> <span class="k">in</span> <span class="n">x</span><span class="o">);;</span>   <span class="c">(* OK *)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ocaml" data-lang="ocaml"><span class="line"><span class="cl">    <span class="o">(</span><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span> <span class="k">in</span> <span class="n">x</span><span class="o">);;</span>   <span class="c">(* OK *)</span>
 </span></span><span class="line"><span class="cl">    <span class="o">(</span><span class="k">type</span> <span class="n">a</span> <span class="o">=</span> <span class="nc">A</span><span class="o">);;</span>       <span class="c">(* NG *)</span>
 </span></span></code></pre></div><h2 id="関数の本体は式">関数の本体は式</h2>
 <p>文と式の境界がないおかげで、1個の式に多くの記述をつめこめる。
@@ -399,7 +399,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.105.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.107.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
