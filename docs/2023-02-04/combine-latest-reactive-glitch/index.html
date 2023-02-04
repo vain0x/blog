@@ -229,7 +229,7 @@
 </span></span><span class="line"><span class="cl">  <span class="n">s</span><span class="o">.</span><span class="n">OnNext</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
 </span></span></code></pre></div><p>実行:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">dotnet run
-</span></span></code></pre></div><p>output:</p>
+</span></span></code></pre></div><p>出力:</p>
 <pre tabindex="0"><code>s = 0
 (1, 2)
 s &lt;- 2
@@ -245,7 +245,7 @@ s &lt;- 2
 <li><code>s</code> は初期値0で、後で2に切り替えることで全体のストリームに変化を起こす</li>
 <li><code>u</code> は <code>s + 1</code> の値を持つストリームとして定義される</li>
 <li><code>v</code> は <code>s + 2</code> として定義される</li>
-<li><code>w</code> は (<code>u</code>, <code>v</code>) を合流させて得られるストリームである
+<li><code>w</code> は <code>u</code>, <code>v</code> を合流させて得られるストリームである
 <ul>
 <li>一見、<code>w</code> は (<code>s + 1, s + 2</code>) を値に持つような気がするが、実際にはそうならない</li>
 </ul>
@@ -304,7 +304,8 @@ s &lt;- 2
 </ul>
 <h2 id="誤解">誤解</h2>
 <p>ここで構築したストリームは一見、数学的な「従属変数」を定義したようにみえるが、実際はそうでない</p>
-<p><code>CombineLatest</code> の挙動は前述の通り、「両方のストリームの最新の値の組み合わせ」ではなく「<strong>片方の</strong> ストリームの最新の値と他方の過去の値の組み合わせ」であることに注意しよう</p>
+<p>CombineLatestは「両方のストリームの最新の値の組み合わせ」ではなく「<strong>片方の</strong> ストリームの最新の値と他方の過去の値の組み合わせ」である。
+前述の挙動はオペレーターの仕様から定まる通りだが、気づきづらいと思うので注意しよう</p>
 <h2 id="グリッチ">グリッチ</h2>
 <p>前述のように最新の値と過去の値の組み合わせが観測される挙動は <strong>リアクティブグリッチ</strong> (Reactive Glitch) と呼ばれる。
 筆者の経験でいえば、最新の値の組み合わせ同士では発生しえない組み合わせにより、たまにアサーションが破られることがあった</p>
