@@ -87,7 +87,7 @@
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
   <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
-  <meta name="generator" content="Hugo 0.110.0">
+  <meta name="generator" content="Hugo 0.111.3">
   <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -204,8 +204,8 @@
 <p>標準機能だけで入力をパースしようとするとだるいです。Qiita にも、すでにこの問題を解決しようという記事がいくつか上がっています。</p>
 <p>私は上述のフレームワークに含まれている <a href="https://github.com/vain0x/procon/blob/f016133b83c42196837e1b2490ecb5e57ce1ff40/rust/src/main.rs#L25-L47"><code>read!</code> マクロ</a> を使っています。実装が短い (23行) のと、見た目が関数っぽくて好み。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="sd">//! グラフのパースの例
-</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read</span><span class="o">!</span><span class="p">(</span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">usize</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">weightd_edges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read</span><span class="o">!</span><span class="p">[[</span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="p">];</span><span class="w"> </span><span class="n">M</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">read!</span><span class="p">(</span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">usize</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">weightd_edges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">read!</span><span class="p">[[</span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="p">];</span><span class="w"> </span><span class="n">M</span><span class="p">];</span><span class="w">
 </span></span></span></code></pre></div><p>パフォーマンスは若干悪くて、C++ で std::cin を使うより2倍ぐらい遅いです。それでも 10^6 個の整数を読むのに 100 ms 未満なので問題はないはず。ベンチマーク: <a href="https://github.com/vain0x/scan-bench">scan-bench</a></p>
 <h2 id="デバッグ用のマクロ">デバッグ用のマクロ</h2>
 <p><a href="https://qiita.com/yamoridon/items/3be3f0515a79567a0588">LLDB を使うとデバッグ実行できるらしい</a> です。私はやってなくて、いつも print デバッグしています。</p>
@@ -214,13 +214,13 @@
 <p>Debug/Release での分岐は <a href="https://users.rust-lang.org/t/conditional-compilation-for-debug-release/1098/3">debug_assertions を使えばできる</a> そうです。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// デバッグビルドではこっちの定義が使われる。
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#[cfg(debug_assertions)]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="fm">macro_rules!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">macro_rules</span><span class="o">!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 略
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// リリースビルドではこっちの定義が使われて、 debug!(..) が無になる。
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#[cfg(not(debug_assertions))]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="fm">macro_rules!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">macro_rules</span><span class="o">!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">(</span><span class="cp">$($arg</span>:<span class="nc">expr</span><span class="p">),</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{};</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><h3 id="debug-定義の省略">debug!: 定義の省略</h3>
@@ -231,7 +231,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// リリース時に debug!(..) を消す
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#[cfg(not(debug_assertions))]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="fm">macro_rules!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">macro_rules</span><span class="o">!</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">(</span><span class="cp">$($arg</span>:<span class="nc">expr</span><span class="p">),</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{};</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>これで debug! マクロを高機能化しても提出コードが膨れ上がることはなくなります。</p>
@@ -441,7 +441,7 @@
         </p>
         
         <p class="credits theme-by text-muted">
-          Powered by <a href="http://gohugo.io">Hugo v0.110.0</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          Powered by <a href="http://gohugo.io">Hugo v0.111.3</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
