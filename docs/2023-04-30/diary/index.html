@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>近況 2022-02-28 - ベインのブログ</title>
-  <meta name="description" content="今月の活動 (ミローネ言語、読んだ記事、ほか)">
+  <title>近況 2023-04-30 - ベインのブログ</title>
+  <meta name="description" content="今月の活動 (gingerなど)">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -44,8 +44,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/vain0x.github.io\/blog\/2022-02-28\/diary\/",
-          "name": "近況 2022 02 28"
+          "@id": "https:\/\/vain0x.github.io\/blog\/2023-04-30\/diary\/",
+          "name": "近況 2023 04 30"
         }
     }]
 }
@@ -56,15 +56,15 @@
   "author": {
     "name" : "ベイン"
   },
-  "headline": "近況 2022-02-28",
-  "description" : "今月の活動 (ミローネ言語、読んだ記事、ほか)\n",
+  "headline": "近況 2023-04-30",
+  "description" : "今月の活動 (gingerなど)\n",
   "inLanguage" : "ja",
-  "wordCount":  77 ,
-  "datePublished" : "2022-02-28T00:00:00",
-  "dateModified" : "2022-02-28T00:00:00",
+  "wordCount":  50 ,
+  "datePublished" : "2023-04-30T00:00:00",
+  "dateModified" : "2023-04-30T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog\/",
   "keywords" : [ "日記" ],
-  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2022-02-28\/diary\/",
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2023-04-30\/diary\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/vain0x.github.io\/blog\/",
@@ -78,14 +78,14 @@
 }
 </script>
 
-<meta property="og:title" content="近況 2022-02-28" />
-<meta property="og:description" content="今月の活動 (ミローネ言語、読んだ記事、ほか)">
-<meta property="og:url" content="https://vain0x.github.io/blog/2022-02-28/diary/" />
+<meta property="og:title" content="近況 2023-04-30" />
+<meta property="og:description" content="今月の活動 (gingerなど)">
+<meta property="og:url" content="https://vain0x.github.io/blog/2023-04-30/diary/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="twitter:title" content="近況 2022-02-28" />
-  <meta name="twitter:description" content="今月の活動 (ミローネ言語、読んだ記事、ほか)">
+  <meta name="twitter:title" content="近況 2023-04-30" />
+  <meta name="twitter:description" content="今月の活動 (gingerなど)">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -162,7 +162,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>近況 2022-02-28</h1>
+                <h1>近況 2023-04-30</h1>
               
               
               
@@ -170,7 +170,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2022年2月28日 投稿
+  <i class="fas fa-calendar"></i>&nbsp;2023年4月30日 投稿
   
   
   
@@ -195,70 +195,63 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>今月の活動 (ミローネ言語、読んだ記事、ほか)</p>
+        <p>今月の活動 (gingerなど)</p>
 <ul>
-<li>前回 (2022-01-31) <a href="https://vain0x.github.io/blog/2022-01-31/diary/">https://vain0x.github.io/blog/2022-01-31/diary/</a></li>
+<li>前回 (2023-03-31) <a href="https://vain0x.github.io/blog/2023-03-31/diary/">https://vain0x.github.io/blog/2023-03-31/diary/</a></li>
 </ul>
 <h2 id="ミローネ言語">ミローネ言語</h2>
 <ul>
-<li>ローカル関数を汎化しないことにした
+<li>パフォーマンスの測定をした
 <ul>
-<li>参考: <a href="https://www.microsoft.com/en-us/research/publication/let-should-not-be-generalised/">Let Should Not Be Generalised - Microsoft Research</a> (<strong>公開日</strong>: 2010年1月)</li>
-<li>多相なローカル関数はほとんど使われていないわりに、型システムの複雑さや計算量を増やす要因になってしまうので、消したほうがいいという話</li>
-<li>実際、ミローネ言語のコンパイラ自身には、汎化されるローカル関数は2つしかなかった</li>
-<li>1つはキャプチャしていなかったのでトップレベルに移動するだけで解消できた</li>
-<li>もう1つはいわゆる Loan Pattern で、関数の返り値型に関して多相な関数があった
-<ul>
-<li>キャプチャしている引数を増やしてトップレベルに移動したら解決できた</li>
-<li>記事にあるとおり、型注釈を明示すれば多相になれるというルールにしたほうがよさそう</li>
-</ul>
-</li>
-<li>まだ試していないが、型変数のレベルの計算も削れそう</li>
+<li>TreeMap (赤黒木) の回転のコストが高い</li>
+<li>このへんのデータ構造をephemeralにすると速くなりそうな気はするが、永続性を利用している箇所が少なからずあって、すぐには置き換えられなさそう</li>
+<li>中間表現の構造の構築 (アロケーション) とかもコストが高い</li>
+<li>これに関してはアーキテクチャ上の問題なのでどうしようもない気がする</li>
 </ul>
 </li>
 </ul>
-<h2 id="npmignore">.npmignore</h2>
+<h2 id="ginger">ginger</h2>
 <ul>
-<li>node_modules をみたら不要なファイルやディレクトリが見つかった
+<li><code>hsp3-debug-window-adapter</code>
 <ul>
-<li><code>.npmignore</code> の追加・更新をするプルリクエストを何件か送り、マージしてもらった</li>
+<li>ドキュメントを書いた: <a href="https://github.com/vain0x/hsp3-ginger/commit/ee1016223f26d391605f101da14092a2b7fcd274">commit</a></li>
 </ul>
 </li>
-<li><code>.npmignore</code> がないときは <code>.gitignore</code> が利用されているので、追加するときは注意
+<li><code>hsp3-analyzer-mini</code> のドキュメントも書かないといけないなと思っているが、あまり書けていない
 <ul>
-<li><code>package.json</code> のfilesを指定しているケースもある</li>
+<li>パーサやLSPなど、実装の範囲が広いので大変</li>
 </ul>
 </li>
-<li>node_modules を小さくしたい場合は (例えばDockerイメージを小さくしたいとき)、<code>*.d.ts</code> がとても大きいので、ビルド後に不要ファイルを削除するスクリプトを書くといい</li>
-</ul>
-<h2 id="読んだ記事">読んだ記事</h2>
+<li><code>hsp3-debug-ginger</code>
 <ul>
-<li><a href="https://belkadan.com/blog/tags/swift-regrets/">Archive for “Swift regrets” // -dealloc</a> (<strong>公開日</strong>: 2021年8月〜12月ごろ)
+<li>パッケージのアップデートやRustのエディションの更新とかをしようとしたが、動かなかったので、動かす方法を考えている</li>
+<li>また、どういうわけかTCP通信を使ってアダプターとDLLの間を接続していた
 <ul>
-<li>Swiftの設計で後悔したことの連載記事
-<ul>
-<li>別にSwiftをdisっているわけではない。どれも致命的な瑕疵ではないし、どの言語にも不備はありうる。あくまで後学のため</li>
-<li>いくつか良かったところ (&ldquo;Delight&rdquo;) も書いてある</li>
-</ul>
-</li>
-<li><a href="https://belkadan.com/blog/2021/08/Swift-Regret-Sequence/?tag=swift-regrets">Regret: Sequence</a> (いわゆる Iterable、.NETでいうとIEnumerable)
-<ul>
-<li>「ループを回すと状態が変わるようなイテレータ」や「無限に列挙が続くイテレータ」のようなエッジケースの存在が厄介なこと、イテレータのオーバーヘッドが最適化で消し切れないことなどの問題があった</li>
-<li>そもそもSequenceという抽象が不要なのではないか、という考え</li>
-<li>私も上記の問題は認識していたが、Sequenceを外すことまでは思いついてなかった</li>
+<li>いま思うと名前付きパイプのほうがいい
+(通常、TCPはネットワーク越しの通信に使う)</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="https://anemone.dodgson.org/2019/09/05/price-for-not-teaching/">教えない対価 - steps to phantasien</a> (<strong>公開日</strong>: 2019-09-05)
+</ul>
+<h2 id="hashtag-ext">hashtag-ext</h2>
+<p><a href="https://github.com/vain0x/hashtag-ext">https://github.com/vain0x/hashtag-ext</a></p>
 <ul>
-<li>乱雑なコードを書く人にフィードバックを出したいが、どう出せばいいか分からないという感じのもどかしさの話</li>
-<li>フィードバックを出せない理由の1つとして、教えることを考慮せずに学びを進めていることがあるという仮説</li>
-<li>最近、そういう経験をしたので刺さった</li>
-<li>とりあえずfukabori経由で <a href="http://question.mimiguri.co.jp/">問いかけの作法</a> を買った</li>
+<li>ロケーション間の関連性を示すためにハッシュタグを使うことがある</li>
+<li>ハッシュタグをシンボルの一種として参照の検索機能などを使えるようにする拡張機能があると便利そうだと思っている</li>
+<li>作ろうとしたが作りかけになっている</li>
 </ul>
-</li>
-</ul>
+<h2 id="並行処理">並行処理</h2>
+<p>LSPにせよDAPにせよ並行処理は必要そうなので調査している。次の記事とか:</p>
+<p>参考: <a href="https://zenn.dev/yohhoy/articles/multithreading-toolbox">マルチスレッド・プログラミングの道具箱</a></p>
+<p>セマフォやイベント変数という抽象は、いまとなってはいまいちなようだ。
+ミューテックス (ロック) と条件変数 (待機) を組み合わせるのがよいらしい</p>
+<p>ミューテックス＋条件変数でチャネルを作れる。
+チャネルを使うGo言語の並行処理もよいらしいので調べた:</p>
+<p>参考: <a href="https://zenn.dev/hsaki/books/golang-concurrency">Goでの並行処理を徹底解剖！</a></p>
+<p>そう考えるとプロセス間のチャネルを用意するのがよさそう。実際、boostにそういうライブラリがある:</p>
+<p><a href="https://www.boost.org/doc/libs/1_82_0/doc/html/interprocess/synchronization_mechanisms.html#interprocess.synchronization_mechanisms.message_queue">boost::interprocess::message_queue (1.82.0)</a></p>
+<p>(これのためにboostに依存するのがどうなのかというところ。依存関係は極力減らしたいため)</p>
 
         
           
@@ -270,8 +263,6 @@
                   <ul>
                 
                 
-                    <li><a href="/blog/2023-04-30/diary/">近況 2023-04-30</a></li>
-                
                     <li><a href="/blog/2023-03-31/diary/">近況 2023-03-31</a></li>
                 
                     <li><a href="/blog/2023-02-28/diary/">近況 2023-02-28</a></li>
@@ -279,6 +270,8 @@
                     <li><a href="/blog/2023-01-31/diary/">近況 2023-01-31</a></li>
                 
                     <li><a href="/blog/2022-11-30/diary/">近況 2022-11-30</a></li>
+                
+                    <li><a href="/blog/2022-10-31/diary/">近況 2022-10-31</a></li>
                 
               </ul>
 
@@ -290,13 +283,9 @@
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://vain0x.github.io/blog/2022-02-12/why-no-dynamically-typed/" data-toggle="tooltip" data-placement="top" title="「動的型付け」ではなく動的言語と呼びたい">&larr; 前ページ</a>
+              <a href="https://vain0x.github.io/blog/2023-03-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2023-03-31">&larr; 前ページ</a>
             </li>
           
-          
-            <li class="next">
-              <a href="https://vain0x.github.io/blog/2022-03-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2022-03-31">次ページ &rarr;</a>
-            </li>
           
         </ul>
       
