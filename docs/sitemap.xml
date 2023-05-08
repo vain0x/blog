@@ -2,11 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://vain0x.github.io/blog/tags/hsp3/</loc>
+    <lastmod>2023-05-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vain0x.github.io/blog/2023-05-08/diary/</loc>
+    <lastmod>2023-05-08T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://vain0x.github.io/blog/tags/</loc>
-    <lastmod>2023-04-30T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://vain0x.github.io/blog/tags/tips/</loc>
+    <lastmod>2023-05-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://vain0x.github.io/blog/</loc>
-    <lastmod>2023-04-30T00:00:00+00:00</lastmod>
+    <lastmod>2023-05-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://vain0x.github.io/blog/2023-04-30/diary/</loc>
     <lastmod>2023-04-30T00:00:00+00:00</lastmod>
@@ -39,9 +48,6 @@
     <lastmod>2022-10-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://vain0x.github.io/blog/2022-10-21/unreachable-active-pattern/</loc>
-    <lastmod>2022-10-21T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://vain0x.github.io/blog/tags/tips/</loc>
     <lastmod>2022-10-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://vain0x.github.io/blog/2022-09-30/diary/</loc>
@@ -130,9 +136,6 @@
   </url><url>
     <loc>https://vain0x.github.io/blog/2021-07-31/diary/</loc>
     <lastmod>2021-07-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://vain0x.github.io/blog/tags/hsp3/</loc>
-    <lastmod>2021-07-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://vain0x.github.io/blog/2021-07-14/hsp3-comment-style/</loc>
     <lastmod>2021-07-14T00:00:00+00:00</lastmod>

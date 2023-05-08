@@ -8,7 +8,25 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Sun, 30 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hsp3</title>
+      <link>https://vain0x.github.io/blog/tags/hsp3/</link>
+      <pubDate>Mon, 08 May 2023 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/tags/hsp3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tips</title>
+      <link>https://vain0x.github.io/blog/tags/tips/</link>
+      <pubDate>Mon, 08 May 2023 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/tags/tips/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>日記</title>
       <link>https://vain0x.github.io/blog/tags/%E6%97%A5%E8%A8%98/</link>
@@ -33,15 +51,6 @@
       <pubDate>Sat, 04 Feb 2023 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/tags/reactive/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tips</title>
-      <link>https://vain0x.github.io/blog/tags/tips/</link>
-      <pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate>
-      <author>vainzerox@gmail.com (ベイン)</author>
-      <guid>https://vain0x.github.io/blog/tags/tips/</guid>
       <description></description>
     </item>
     
@@ -96,15 +105,6 @@
       <pubDate>Thu, 19 Aug 2021 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/tags/milonelang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Hsp3</title>
-      <link>https://vain0x.github.io/blog/tags/hsp3/</link>
-      <pubDate>Wed, 14 Jul 2021 00:00:00 +0000</pubDate>
-      <author>vainzerox@gmail.com (ベイン)</author>
-      <guid>https://vain0x.github.io/blog/tags/hsp3/</guid>
       <description></description>
     </item>
     
