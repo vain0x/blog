@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <title>HSPのGit設定 [2023年5月] - ベインのブログ</title>
-  <meta name="description" content="除外設定、文字コード・行終端の設定、言語指定など">
+  <meta name="description" content="除外設定、エンコーディング・行終端の設定、言語指定など">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -57,9 +57,9 @@
     "name" : "ベイン"
   },
   "headline": "HSPのGit設定 [2023年5月]",
-  "description" : "除外設定、文字コード・行終端の設定、言語指定など\n",
+  "description" : "除外設定、エンコーディング・行終端の設定、言語指定など\n",
   "inLanguage" : "ja",
-  "wordCount":  259 ,
+  "wordCount":  268 ,
   "datePublished" : "2023-05-08T00:00:00",
   "dateModified" : "2023-05-08T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog\/",
@@ -79,13 +79,13 @@
 </script>
 
 <meta property="og:title" content="HSPのGit設定 [2023年5月]" />
-<meta property="og:description" content="除外設定、文字コード・行終端の設定、言語指定など">
+<meta property="og:description" content="除外設定、エンコーディング・行終端の設定、言語指定など">
 <meta property="og:url" content="https://vain0x.github.io/blog/2023-05-08/diary/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
   <meta name="twitter:title" content="HSPのGit設定 [2023年5月]" />
-  <meta name="twitter:description" content="除外設定、文字コード・行終端の設定、言語指定など">
+  <meta name="twitter:description" content="除外設定、エンコーディング・行終端の設定、言語指定など">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -195,8 +195,9 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>除外設定、文字コード・行終端の設定、言語指定など</p>
-<p>この記事はHSPユーザーで「Gitの初歩的な操作ができる」ぐらいの人を想定して書きました。また、UTF-8版や64bit版は扱わないのでご注意</p>
+        <p>除外設定、エンコーディング・行終端の設定、言語指定など</p>
+<p>この記事ではGitでHSPのスクリプトファイルなどをバージョン管理するための設定の内容とその詳細を書きます</p>
+<p>なお、この記事ではUTF-8版や64bit版は扱っていません</p>
 <h2 id="結論">結論</h2>
 <p>はじめに結論として、現時点でよさそうな設定は次の通りです</p>
 <p>1. リポジトリの中に <code>.gitignore</code>, <code>.gitattributes</code> の2つのファイルを置きます:</p>
@@ -226,14 +227,14 @@ packfile
 <h3 id="gitignore"><code>.gitignore</code></h3>
 <p><code>.gitignore</code> はGitにコミットしなくていいファイルを指定するための設定ファイルです</p>
 <p>HSPのスクリプトエディタやコンパイラは、デバッグ時や実行ファイルの作成時に一時ファイルを作成します。
-これらのファイルは不要なので、コミットする必要はありません</p>
+これらのファイルはバージョン管理したり保存しておかなくてよいです</p>
 <p><code>.gitignore</code> ファイルを作成すると、そこで指定された名前のファイルは除外されます。
-<code>*</code> を適当な文字列に置き換えて一致するようなファイル名も除外対象となります</p>
+また、<code>*</code> を適当な文字列に置き換えて一致するようなファイル名も除外対象となります</p>
 <p>除外設定されたファイルは <code>git add .</code> などのコマンドによってインデックスに追加されなくなります。
 これによりコミットに誤って含めてしまうことを防げるわけです</p>
 <h3 id="除外対象">除外対象</h3>
 <ul>
-<li><code>hsptmp</code>, <code>obj</code>, <code>*.ax</code>, <code>packfile</code>, <code>*.dpm</code>: コンパイル時や実行ファイルの作成時に生成される一時ファイル</li>
+<li><code>hsptmp</code>, <code>obj</code>, <code>packfile</code>, <code>*.ax</code>, <code>*.dpm</code>: コンパイル時や実行ファイルの作成時に生成される一時ファイル</li>
 <li><code>*.exe</code>: 実行ファイル</li>
 <li><code>*.i</code> プリプロセッサの処理後のスクリプト (<code>#cmpopt ppout 1</code> が設定されていると生成されます)</li>
 </ul>
@@ -244,24 +245,24 @@ packfile
 <li><a href="https://github.com/toptal/gitignore/blob/master/templates/HSP.gitignore">gitignore/HSP.gitignore · GitHub</a> (設定を集めたリポジトリにあったやつ)</li>
 </ul>
 <h3 id="gitattributes"><code>.gitattributes</code></h3>
-<p><code>.gitattributes</code> はGitがファイルをどう扱うかを制御することに利用される設定ファイルです。
-これに <strong>文字コード</strong>, <strong>行終端</strong>, <strong>言語指定</strong> の設定をします</p>
-<p>(文字コードについて): Gitはテキストファイルを <strong>UTF-8</strong> エンコーディングと想定して扱います。
-しかしHSPの通常のスクリプトファイルは <strong>shift_jis</strong> エンコーディングなので、文字化けが発生することがあります</p>
+<p><code>.gitattributes</code> はGitがファイルをどう扱うかを制御する設定ファイルです。
+これに <strong>エンコーディング</strong>, <strong>行終端</strong>, <strong>言語指定</strong> の設定をします</p>
+<p>(エンコーディングについて): Gitはテキストファイルを <strong>UTF-8</strong> エンコーディングと想定して扱います。
+しかしHSPの通常のスクリプトファイルは別のエンコーディングなので、文字化けが発生することがあります</p>
 <p>(行終端について): Gitは <strong>行終端の正規化</strong> という機能があり、改行文字をLF/CRLFで相互に変換することがあります。しかしHSPではCRLFのほうが都合がよく、行終端の正規化によって問題が発生することがあります</p>
 <p>(言語指定について): 後述</p>
 <p>最終的な <code>.gitattributes</code> は冒頭の通りですが、説明のため、いくつかの段階に分けて述べます</p>
-<h4 id="文字コードの変換">文字コードの変換</h4>
-<p>「スクリプトファイルはshift_jisエンコーディング」と書きましたが、厳密にいえば文字コードの名前はshift_jisではなく <strong>cp932</strong> らしいです。
+<h4 id="エンコーディングの変換">エンコーディングの変換</h4>
+<p>スクリプトファイルのエンコーディングはshift_jisと呼ばれることが多いですが、厳密にいえば <strong>cp932</strong> のようです。
 Gitが <code>git show</code> や <code>git diff</code> などのコマンドでファイルを読むときに自動でエンコーディング変換をするように、次のような設定でできるようです</p>
 <pre tabindex="0"><code>*.hsp diff=cp932
 </code></pre><p>記法: <code>.gitattributes</code> は行ごとに設定を書きます。<code>*.hsp</code> は拡張子が <code>.hsp</code> のファイルすべてということで、<code>diff=cp932</code> は <code>diff</code> という属性に <code>cp932</code> という値を設定するということです</p>
 <p>加えて、<code>diff=cp932</code> のファイルに行うべき変換処理をGitに登録します。
 これはリポジトリごとにやるのではなく、ユーザーの設定を変更してしまってよいでしょう (悪い副作用はないはず)</p>
 <p>(冒頭の繰り返しになりますが) 次のコマンドによって設定を追加できます:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config diff.cp932.textconv <span class="s1">&#39;iconv -f cp932&#39;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git config --global diff.cp932.textconv <span class="s1">&#39;iconv -f cp932&#39;</span>
 </span></span></code></pre></div><p>これをやるとホームフォルダの <code>.gitconfig</code> に設定が追加されます</p>
-<p>ちなみに <code>iconv</code> というのは文字コードを変換するコマンドです (おそらくGitに同梱されている)</p>
+<p>ちなみに <code>iconv</code> というのはエンコーディングを変換するコマンドです (おそらくGitに同梱されている)</p>
 <p>この設定では、Gitがファイルを読み取るときに変換が発生しますが、ファイルを格納したり取り出したりするときは発生しません。
 すなわち、リポジトリに保存されるデータはcp932のままです</p>
 <h4 id="行終端の正規化の無効化">行終端の正規化の無効化</h4>
@@ -271,8 +272,10 @@ Gitが <code>git show</code> や <code>git diff</code> などのコマンドで�
 </code></pre><p>(<code>diff=cp932</code> の部分は略)</p>
 <p>記法: <code>-text</code> は <code>text</code> 属性を取り除くという意味合いのようです</p>
 <p>ちなみに <code>eol</code> (end of line, 行の終わり) という属性もありますが、これは正規化の処理の内容を制御するものなので、正規化を行わないのであれば使われないはずです</p>
-<p>なお、インターネットの複数の記事で、ユーザーの設定を変更することによって行終端の正規化を無効化できるという記述がしばしばみられます。
-これはあくまで私の意見ですが、その設定を変更するとほかのユーザーの環境で問題が起きたり、HSP以外のことにGitを使っている場合に問題が起きたりするので、おすすめしません</p>
+<p>(他の方法との比較): ユーザーの設定を変更することによって行終端の正規化を無効化できるという記述がほかの記事でしばしばみられます。
+これはあくまで私の意見ですが、その設定を変更するとほかのユーザーの環境で問題が起きたり、HSP以外のことにGitを使っている場合に問題が起きたりするので、おすすめしません。
+リポジトリに固有の設定を使う方法もあり、それなら問題は軽減されます。
+<code>.gitattributes</code> なら他の環境でも一貫した設定が適用されるので、こっちがベターな気がします</p>
 <h4 id="言語指定-おまけ">言語指定 (おまけ)</h4>
 <p>これは <strong>省略可能</strong> です。GitではなくGitHubのための設定となります</p>
 <p>GitHubではファイルの拡張子からプログラミング言語を推定し、リポジトリがどの言語のものかを推定する機能があります。
@@ -298,6 +301,7 @@ HSPでしばしば使われる <code>.as</code>, <code>.hs</code> はほかの�
 <li><a href="http://var.blog.jp/archives/82927005.html">iconv と Shift_JIS</a></li>
 <li><a href="https://developers.freee.co.jp/entry/sjis-is-not-an-alias-of-shift-jis">SJISはShift_JISのエイリアスじゃない - freee Developers Hub</a> (sjis=windows-31j)</li>
 </ul>
+<p>(書き損ねた話: iconvに指定するエンコーディングをcp932ではなくsjisにして、スクリプトに「はしご高」(髙, U+9AD9)を含めて保存し、<code>git show</code> をするとエラーが起こるのをみました)</p>
 
         
           
