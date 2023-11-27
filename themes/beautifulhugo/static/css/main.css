@@ -62,7 +62,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 blockquote {
   color: #808080;
-  font-style: italic;
+  /* font-style: italic; */
 }
 blockquote p:first-child {
   margin-top: 0;
@@ -657,7 +657,7 @@ footer .theme-by {
   text-align: center;
   font-size: 14px;
   padding: 10px;
-  font-style: italic;
+  /* font-style: italic; */
   margin: 0;
   display: block;
   border-bottom-right-radius: 5px;
