@@ -14,12 +14,14 @@
   --base-color-text: #1d1d1d;
   --divider-color: #bdbdbd;
   --app-main-container-background: #ffffffd4;
+  --monospace: "Cascadia Mono";
+  --sans: "Meiryo";
 }
 
 /* --- General --- */
 
 body {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   font-size: 16px;
   line-height: 1.8;
 
@@ -55,7 +57,7 @@ p + p {
     margin: 24px 0 6px 0;
 }
 h1,h2,h3,h4,h5,h6 {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   font-weight: 800;
 }
 blockquote {
@@ -83,7 +85,7 @@ hr.small {
 }
 
 .main-explain-area {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   padding: 15px inherit;
 }
 
@@ -92,7 +94,7 @@ hr.small {
 }
 
 div.panel-body a.list-group-item {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   font-weight: 800;
   border-radius: 0;
   border: none;
@@ -144,7 +146,7 @@ img {
   background: var(--primary-color-dark);
   border-bottom: transparent;
   /* border-bottom: 1px solid #EAEAEA; */
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
 }
 
 .navbar-custom .nav li a {
@@ -343,7 +345,7 @@ footer .list-inline {
   padding: 0;
 }
 footer .copyright {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   text-align: center;
   margin-bottom: 0;
 }
@@ -420,7 +422,7 @@ footer .theme-by {
   text-decoration: none;
 }
 .post-preview .post-entry {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
 }
 .post-entry-container {
   display: inline-block;
@@ -459,7 +461,7 @@ footer .theme-by {
 /* --- Tags --- */
 
 .blog-tags {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   /* color: #999; */
   font-size: 14px;
   margin-bottom: 30px;
@@ -564,7 +566,7 @@ footer .theme-by {
   font-size: 27px;
   line-height: 1.1;
   display: block;
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   font-weight: 300;
   margin: 10px 0 0;
 }
@@ -589,7 +591,7 @@ footer .theme-by {
   padding: 5px 10px;
   font-size: 11px;
   color: #EEE;
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   right: 0;
   bottom: 0;
   display: none;
@@ -665,7 +667,7 @@ footer .theme-by {
 /* --- Pager --- */
 
 .pager li a {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 800;
@@ -765,7 +767,7 @@ h4.see-also {
 */
 
 code, kbd, pre, samp {
-    font-family: 'JetBrains Mono', 'Source Han Code JP', monospace, monospace;
+    font-family: var(--monospace), monospace;
 }
 
 .post-meta .post-meta-tags {
