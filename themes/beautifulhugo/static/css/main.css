@@ -674,8 +674,6 @@ footer .theme-by {
   letter-spacing: 1px;
   padding: 10px 5px;
   background: var(--app-main-container-background);
-  border-color: transparent;
-  border-radius: 0;
   color: var(--base-color-text);
 }
 @media only screen and (min-width: 768px) {
@@ -687,25 +685,10 @@ footer .theme-by {
 .pager li a:focus {
   color: var(--primary-color-light);
   background: var(--app-main-container-background);
-  border-color: transparent;
-}
-
-.pager {
-  margin: 10px 0 0;
-}
-
-.pager.blog-pager {
-  margin-top:10px;
 }
 
 h4.panel-title > span.badge {
     float: right;
-}
-
-@media only screen and (min-width: 768px) {
-  .pager.blog-pager  {
-    margin-top: 40px;
-  }
 }
 
 /* --- Tables --- */
@@ -766,9 +749,51 @@ h4.see-also {
     カスタマイズ
 */
 
-code, kbd, pre, samp {
+code,
+kbd,
+pre,
+samp {
     font-family: var(--monospace), monospace;
 }
+
+code {
+  border-radius: 6px;
+  background-color: #f3f3f3;
+  font-size: 95%;
+  color: inherit;
+}
+
+pre {
+  font-size: inherit;
+  border: none;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.chroma {
+  position: relative;
+}
+.chroma > [data-lang]::before {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  padding: 2px 8px;
+  background: #f3f3f3;
+}
+[data-lang=c]::before { content: "C" }
+[data-lang=csharp]::before { content: "C#" }
+[data-lang=fs]::before,
+[data-lang=fsharp]::before { content: "F#" }
+[data-lang=ini]::before { content: ".ini" }
+[data-lang=js]::before,
+[data-lang=javascript]::before { content: "JavaScript" }
+[data-lang=json]::before { content: "JSON" }
+[data-lang=rust]::before { content: "Rust" }
+[data-lang=sh]::before { content: ".sh" }
+[data-lang=sql]::before { content: "SQL" }
+[data-lang=ts]::before,
+[data-lang=tsx]::before,
+[data-lang=typescript]::before { content: "TypeScript" }
 
 .post-meta .post-meta-tags {
     margin-left: 10px;
@@ -784,8 +809,18 @@ code, kbd, pre, samp {
 }
 
 .blog-post blockquote {
+    position: relative;
+    border-left-color: #dbdbdb;
     color: #4d4d4d; /* 色を濃くする */
     font-style: normal; /* イタリックにしない */
+}
+.blog-post blockquote::before {
+    content: '“';
+    position: absolute;
+    color: #c9c9c9;
+    font-size: 32px;
+    left: 4px;
+    top: -14px;
 }
 
 .blog-post {
@@ -794,7 +829,31 @@ code, kbd, pre, samp {
 }
 
 .blog-post h2 {
-    margin-top: 64px;
+  margin-top: 32px;
+}
+
+.blog-post h2,
+.blog-post h3,
+.blog-post h4 {
+  line-height: 1.5;
+}
+
+.blog-post h3::before { content: "### "; color: #dbdbdb; letter-spacing: -4px; margin-right: 6px }
+.blog-post h4::before { content: "#### "; color: #dbdbdb; letter-spacing: -4px; margin-right: 6px }
+
+.blog-post a { color: #0b0bd0 }
+.blog-post a:hover { color: #0f248a }
+
+.blog-post a,
+.blog-post a:hover {
+  text-decoration: underline;
+  text-decoration-color: currentcolor;
+  word-break: break-all;
+}
+
+.blog-pager a {
+  box-shadow: 1px 1px 3px #f2f2fc52;
+  border-radius: 6px;
 }
 
 .highlight pre {
@@ -805,13 +864,6 @@ code, kbd, pre, samp {
     color: #1d1d1d; /* 濃く */
 
     font-size: 14px;
-}
-
-pre:not(.chroma),
-pre:not(.chroma) code {
-    /* コードブロックに文章を書いたとき見づらいのでフォントを直す。(そもそもコードブロックに文章を書くべきでない。) */
-    font-family: inherit;
-    font-size: inherit;
 }
 
 .fa-qiita {
@@ -825,4 +877,16 @@ pre:not(.chroma) code {
     font-size: 25px;
     font-weight: bold;
     color: white;
+}
+
+.pager a {
+  background-color: #f3f3ff;
+}
+
+#comments {
+  position: relative;
+  padding-inline: 4px;
+  background-color: #fcfcfc;
+  border-radius: 6px;
+  box-shadow: inset 1px 1px 3px 1px #c9c9c9;
 }
