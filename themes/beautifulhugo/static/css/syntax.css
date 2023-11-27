@@ -51,15 +51,15 @@
 /* LiteralNumberOct */ .chroma .mo { color: #009999 }
 /* Operator */ .chroma .o { color: #000000; font-weight: bold }
 /* OperatorWord */ .chroma .ow { color: #000000; font-weight: bold }
-/* Comment */ .chroma .c { color: #999988; font-style: italic }
-/* CommentHashbang */ .chroma .ch { color: #999988; font-style: italic }
-/* CommentMultiline */ .chroma .cm { color: #999988; font-style: italic }
-/* CommentSingle */ .chroma .c1 { color: #999988; font-style: italic }
-/* CommentSpecial */ .chroma .cs { color: #999999; font-weight: bold; font-style: italic }
-/* CommentPreproc */ .chroma .cp { color: #999999; font-weight: bold; font-style: italic }
-/* CommentPreprocFile */ .chroma .cpf { color: #999999; font-weight: bold; font-style: italic }
+/* Comment */ .chroma .c { color: #999988; /* font-style: italic */ }
+/* CommentHashbang */ .chroma .ch { color: #999988; /* font-style: italic */ }
+/* CommentMultiline */ .chroma .cm { color: #999988; /* font-style: italic */ }
+/* CommentSingle */ .chroma .c1 { color: #999988; /* font-style: italic */ }
+/* CommentSpecial */ .chroma .cs { color: #999999; font-weight: bold; /* font-style: italic */ }
+/* CommentPreproc */ .chroma .cp { color: #999999; font-weight: bold; /* font-style: italic */ }
+/* CommentPreprocFile */ .chroma .cpf { color: #999999; font-weight: bold; /* font-style: italic */ }
 /* GenericDeleted */ .chroma .gd { color: #000000; background-color: #ffdddd }
-/* GenericEmph */ .chroma .ge { color: #000000; font-style: italic }
+/* GenericEmph */ .chroma .ge { color: #000000; /* font-style: italic */ }
 /* GenericError */ .chroma .gr { color: #aa0000 }
 /* GenericHeading */ .chroma .gh { color: #999999 }
 /* GenericInserted */ .chroma .gi { color: #000000; background-color: #ddffdd }
@@ -70,3 +70,10 @@
 /* GenericTraceback */ .chroma .gt { color: #aa0000 }
 /* GenericUnderline */ .chroma .gl { text-decoration: underline }
 /* TextWhitespace */ .chroma .w { color: #bbbbbb }
+
+
+/* カスタマイズ */
+
+.chroma .c1,
+.chroma .cm,
+.chroma .sd { color: #218b21 }
