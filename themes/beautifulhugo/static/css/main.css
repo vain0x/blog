@@ -14,18 +14,15 @@
   --base-color-text: #1d1d1d;
   --divider-color: #bdbdbd;
   --app-main-container-background: #ffffffd4;
+  --monospace: "Cascadia Mono";
+  --sans: "Meiryo";
 }
 
 /* --- General --- */
 
-html {
-  /* 1rem = 1.0rem. */
-  font-size: 62.5%;
-}
-
 body {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
-  font-size: 1.6rem;
+  font-family: var(--sans), sans-serif;
+  font-size: 16px;
   line-height: 1.8;
 
   position: relative;
@@ -60,12 +57,12 @@ p + p {
     margin: 24px 0 6px 0;
 }
 h1,h2,h3,h4,h5,h6 {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   font-weight: 800;
 }
 blockquote {
   color: #808080;
-  font-style: italic;
+  /* font-style: italic; */
 }
 blockquote p:first-child {
   margin-top: 0;
@@ -88,7 +85,7 @@ hr.small {
 }
 
 .main-explain-area {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   padding: 15px inherit;
 }
 
@@ -97,7 +94,7 @@ hr.small {
 }
 
 div.panel-body a.list-group-item {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   font-weight: 800;
   border-radius: 0;
   border: none;
@@ -149,12 +146,12 @@ img {
   background: var(--primary-color-dark);
   border-bottom: transparent;
   /* border-bottom: 1px solid #EAEAEA; */
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
 }
 
 .navbar-custom .nav li a {
   text-transform: uppercase;
-  font-size: 1.2rem;
+  font-size: 12px;
   letter-spacing: 1px;
 }
 
@@ -224,7 +221,7 @@ img {
   }
 
   #main-navbar .nav > li > a {
-    font-size: 1.0rem;
+    font-size: 10px;
     padding: 4px;
   }
 }
@@ -296,7 +293,7 @@ img {
 }
 .navbar-custom .nav .navlinks-container .navlinks-children a {
   display: block;
-  padding: 1.0rem;
+  padding: 10px;
   padding-left: 30px;
   background: #f5f5f5ee;
   text-decoration: none !important;
@@ -325,7 +322,7 @@ img {
     position: absolute;
   }
   .navbar-custom .nav .navlinks-container .navlinks-children a {
-    padding-left: 1.0rem;
+    padding-left: 10px;
     border: 1px solid #eaeaea;
     border-width: 0 1px 1px;
   }
@@ -336,7 +333,7 @@ img {
 footer {
   padding: 30px 0;
   margin-top: auto;
-  font-size: 1.4rem;
+  font-size: 14px;
 }
 
 footer a {
@@ -348,13 +345,13 @@ footer .list-inline {
   padding: 0;
 }
 footer .copyright {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   text-align: center;
   margin-bottom: 0;
 }
 footer .theme-by {
   text-align: center;
-  margin: 1.0rem 0 0;
+  margin: 10px 0 0;
 }
 
 @media only screen and (min-width: 768px) {
@@ -362,10 +359,10 @@ footer .theme-by {
     padding: 50px 0;
   }
   footer .footer-links {
-    font-size: 1.6rem;
+    font-size: 16px;
   }
   footer .copyright {
-    font-size: 1.4rem;
+    font-size: 14px;
   }
 }
 
@@ -404,7 +401,7 @@ footer .theme-by {
 .post-preview .post-subtitle {
   margin: 0;
   font-weight: 300;
-  margin-bottom: 1.0rem;
+  margin-bottom: 10px;
 }
 .post-preview .post-meta,
 .post-heading .post-meta  {
@@ -425,7 +422,7 @@ footer .theme-by {
   text-decoration: none;
 }
 .post-preview .post-entry {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
 }
 .post-entry-container {
   display: inline-block;
@@ -433,7 +430,7 @@ footer .theme-by {
 }
 .post-entry {
   width: 100%;
-  margin-top: 1.0rem;
+  margin-top: 10px;
 }
 .post-image {
   float: right;
@@ -464,9 +461,9 @@ footer .theme-by {
 /* --- Tags --- */
 
 .blog-tags {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   /* color: #999; */
-  font-size: 1.4rem;
+  font-size: 14px;
   margin-bottom: 30px;
 }
 
@@ -497,7 +494,7 @@ footer .theme-by {
 
 @media only screen and (min-width: 768px) {
   .post-preview .blog-tags {
-    margin-top: 1.0rem;
+    margin-top: 10px;
   }
 }
 
@@ -569,9 +566,9 @@ footer .theme-by {
   font-size: 27px;
   line-height: 1.1;
   display: block;
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   font-weight: 300;
-  margin: 1.0rem 0 0;
+  margin: 10px 0 0;
 }
 .intro-header .post-heading .post-subheading {
   margin-bottom: 20px;
@@ -591,10 +588,10 @@ footer .theme-by {
 .intro-header.big-img .img-desc {
   background: rgba(30, 30, 30, 0.6);
   position: absolute;
-  padding: 5px 1.0rem;
+  padding: 5px 10px;
   font-size: 11px;
   color: #EEE;
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   right: 0;
   bottom: 0;
   display: none;
@@ -619,7 +616,7 @@ footer .theme-by {
     font-size: 50px;
   }
   .intro-header.big-img .img-desc {
-    font-size: 1.4rem;
+    font-size: 14px;
   }
 }
 
@@ -658,9 +655,9 @@ footer .theme-by {
 
 .caption {
   text-align: center;
-  font-size: 1.4rem;
-  padding: 1.0rem;
-  font-style: italic;
+  font-size: 14px;
+  padding: 10px;
+  /* font-style: italic; */
   margin: 0;
   display: block;
   border-bottom-right-radius: 5px;
@@ -670,15 +667,13 @@ footer .theme-by {
 /* --- Pager --- */
 
 .pager li a {
-  font-family: 'Yu Gothic Medium', 'Hiragino Kaku Gothic Pro', sans-serif;
+  font-family: var(--sans), sans-serif;
   text-transform: uppercase;
-  font-size: 1.4rem;
+  font-size: 14px;
   font-weight: 800;
   letter-spacing: 1px;
-  padding: 1.0rem 5px;
+  padding: 10px 5px;
   background: var(--app-main-container-background);
-  border-color: transparent;
-  border-radius: 0;
   color: var(--base-color-text);
 }
 @media only screen and (min-width: 768px) {
@@ -690,25 +685,10 @@ footer .theme-by {
 .pager li a:focus {
   color: var(--primary-color-light);
   background: var(--app-main-container-background);
-  border-color: transparent;
-}
-
-.pager {
-  margin: 1.0rem 0 0;
-}
-
-.pager.blog-pager {
-  margin-top:1.0rem;
 }
 
 h4.panel-title > span.badge {
     float: right;
-}
-
-@media only screen and (min-width: 768px) {
-  .pager.blog-pager  {
-    margin-top: 40px;
-  }
 }
 
 /* --- Tables --- */
@@ -769,14 +749,56 @@ h4.see-also {
     カスタマイズ
 */
 
-code, kbd, pre, samp {
-    font-family: 'JetBrains Mono', 'Source Han Code JP', monospace, monospace;
+code,
+kbd,
+pre,
+samp {
+    font-family: var(--monospace), monospace;
 }
 
+code {
+  border-radius: 6px;
+  background-color: #f3f3f3;
+  font-size: 95%;
+  color: inherit;
+}
+
+pre {
+  font-size: inherit;
+  border: none;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.chroma {
+  position: relative;
+}
+.chroma > [data-lang]::before {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  padding: 2px 8px;
+  background: #f3f3f3;
+}
+[data-lang=c]::before { content: "C" }
+[data-lang=csharp]::before { content: "C#" }
+[data-lang=fs]::before,
+[data-lang=fsharp]::before { content: "F#" }
+[data-lang=ini]::before { content: ".ini" }
+[data-lang=js]::before,
+[data-lang=javascript]::before { content: "JavaScript" }
+[data-lang=json]::before { content: "JSON" }
+[data-lang=rust]::before { content: "Rust" }
+[data-lang=sh]::before { content: ".sh" }
+[data-lang=sql]::before { content: "SQL" }
+[data-lang=ts]::before,
+[data-lang=tsx]::before,
+[data-lang=typescript]::before { content: "TypeScript" }
+
 .post-meta .post-meta-tags {
-    margin-left: 1rem;
+    margin-left: 10px;
     display: inline-flex;
-    gap: 1rem;
+    gap: 10px;
 }
 .post-meta .post-meta-tag::before {
     content: "#";
@@ -787,8 +809,18 @@ code, kbd, pre, samp {
 }
 
 .blog-post blockquote {
+    position: relative;
+    border-left-color: #dbdbdb;
     color: #4d4d4d; /* 色を濃くする */
     font-style: normal; /* イタリックにしない */
+}
+.blog-post blockquote::before {
+    content: '“';
+    position: absolute;
+    color: #c9c9c9;
+    font-size: 32px;
+    left: 4px;
+    top: -14px;
 }
 
 .blog-post {
@@ -797,7 +829,31 @@ code, kbd, pre, samp {
 }
 
 .blog-post h2 {
-    margin-top: 64px;
+  margin-top: 32px;
+}
+
+.blog-post h2,
+.blog-post h3,
+.blog-post h4 {
+  line-height: 1.5;
+}
+
+.blog-post h3::before { content: "### "; color: #dbdbdb; letter-spacing: -4px; margin-right: 6px }
+.blog-post h4::before { content: "#### "; color: #dbdbdb; letter-spacing: -4px; margin-right: 6px }
+
+.blog-post a { color: #0b0bd0 }
+.blog-post a:hover { color: #0f248a }
+
+.blog-post a,
+.blog-post a:hover {
+  text-decoration: underline;
+  text-decoration-color: currentcolor;
+  word-break: break-all;
+}
+
+.blog-pager a {
+  box-shadow: 1px 1px 3px #f2f2fc52;
+  border-radius: 6px;
 }
 
 .highlight pre {
@@ -807,14 +863,7 @@ code, kbd, pre, samp {
     background-color: #f9f9f9; /* 薄く */
     color: #1d1d1d; /* 濃く */
 
-    font-size: 1.4rem;
-}
-
-pre:not(.chroma),
-pre:not(.chroma) code {
-    /* コードブロックに文章を書いたとき見づらいのでフォントを直す。(そもそもコードブロックに文章を書くべきでない。) */
-    font-family: inherit;
-    font-size: inherit;
+    font-size: 14px;
 }
 
 .fa-qiita {
@@ -825,7 +874,19 @@ pre:not(.chroma) code {
 }
 .fa-qiita::after {
     content: "Q";
-    font-size: 2.5rem;
+    font-size: 25px;
     font-weight: bold;
     color: white;
+}
+
+.pager a {
+  background-color: #f3f3ff;
+}
+
+#comments {
+  position: relative;
+  padding-inline: 4px;
+  background-color: #fcfcfc;
+  border-radius: 6px;
+  box-shadow: inset 1px 1px 3px 1px #c9c9c9;
 }
