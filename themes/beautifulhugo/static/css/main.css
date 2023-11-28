@@ -775,10 +775,9 @@ pre {
 }
 .chroma > [data-lang]::before {
   position: absolute;
-  top: 4px;
-  right: 4px;
-  padding: 2px 8px;
-  background: #f3f3f3;
+  top: -3px;
+  right: 1px;
+  color: #1b1b1b80;
 }
 [data-lang=c]::before { content: "C" }
 [data-lang=csharp]::before { content: "C#" }
