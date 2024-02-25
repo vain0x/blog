@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Reactとインバリデーション - ベインのブログ</title>
+  <meta name="description" content="Reactでイベントハンドラを書くときのインバリデーション問題でしばらく混乱してしまっていたので、記事に書きました。この記事の結論は use-event-callback です">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2024-02-25\/react-invalidation\/",
+          "name": "Reactとインバリデーション"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "ベイン"
+  },
+  "headline": "Reactとインバリデーション",
+  "description" : "Reactでイベントハンドラを書くときのインバリデーション問題でしばらく混乱してしまっていたので、記事に書きました。この記事の結論は use-event-callback です\n",
+  "inLanguage" : "ja",
+  "wordCount":  501 ,
+  "datePublished" : "2024-02-25T00:00:00",
+  "dateModified" : "2024-02-25T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog\/",
+  "keywords" : [ "React" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2024-02-25\/react-invalidation\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog\/",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Reactとインバリデーション" />
+<meta property="og:description" content="Reactでイベントハンドラを書くときのインバリデーション問題でしばらく混乱してしまっていたので、記事に書きました。この記事の結論は use-event-callback です">
+<meta property="og:url" content="https://vain0x.github.io/blog/2024-02-25/react-invalidation/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="Reactとインバリデーション" />
+  <meta name="twitter:description" content="Reactでイベントハンドラを書くときのインバリデーション問題でしばらく混乱してしまっていたので、記事に書きました。この記事の結論は use-event-callback です">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.111.3">
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" />
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom top-nav-short">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://vain0x.github.io/blog/">ベインのブログ</a>
+    </div>
+
+    <div id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="記事一覧" href="/blog/posts">記事一覧</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="競プロ参戦記" href="https://qiita.com/search?q=%E7%AB%B6%E3%83%97%E3%83%AD%E5%8F%82%E6%88%A6%E8%A8%98&#43;user%3Avain0x&amp;sort=created">競プロ参戦記</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT" href="https://vain0x.github.io">ABOUT</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>Reactとインバリデーション</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2024年2月25日 投稿
+  
+  
+  
+  <span class="post-meta-tags">
+  <a class="post-meta-tag" href="https://vain0x.github.io/blog/tags/react/">React</a>
+  </span>
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>Reactでイベントハンドラを書くときのインバリデーション問題でしばらく混乱してしまっていたので、記事に書きました。この記事の結論は <code>use-event-callback</code> です</p>
+<h2 id="イベント">イベント</h2>
+<p>前提として、ここでは「更新ボタンを押して一覧をリロードする」とか「送信ボタンを押してフォームデータを登録する」といった操作をイベントと呼んでいます</p>
+<h2 id="イベントハンドラ">イベントハンドラ</h2>
+<p>Reactでは、要素が持つ <code>onClick</code> などのプロパティに関数を指定するとイベント発生時に呼ばれます</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// ここに処理を書く...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}}&gt;...&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>しかしイベントハンドラの中に直接、処理を記述したくないことがたまにあります:</p>
+<ul>
+<li>(A) コンポーネントが分割されていて、処理に使うデータをコンポーネントが受け取っていないから</li>
+<li>(B) イベントハンドラの記述をUI構築のなかに埋もれさせるのが好ましくないから</li>
+</ul>
+<p>(A) の解決は必須です。
+解決策は2通りあって、状態を渡すか関数を渡すかです。
+propsにイベントハンドラが使うデータをすべて渡せば対処できます。
+ただし、これは (B) の問題の解決になりません。
+もう1つの方法は、イベントハンドラ自体を関数としてpropsで渡すことです。
+どちらの解決策も、後述する「メモ化の過剰なインバリデーション」の問題につながります</p>
+<p>(B) はコードの分かりやすさの問題で、いわゆる凝集度が下がることです。
+問題とみなすかは場合によります。
+イベントの発生と処理が近いほうが構文的に「凝集」していますが、その凝集の意義が薄いこともあります。
+ボタンをどこに置くかはUIの関心ごとであってその機能と関係が薄かったり、同一のイベントが複数個所から発生することもあったりするからです。
+複数あるイベントハンドラを分散させるより、イベントハンドラ同士をまとめておいたほうが機能的に「凝集」しているといえます</p>
+<h2 id="メモ化の過剰なインバリデーション">メモ化の過剰なインバリデーション</h2>
+<p>コンポーネントのレンダリングは一定のコストがかかり、再レンダリングの頻度は少なくありません。
+Reactのメモ化の仕組みを使い、不必要なレンダリングを省くと効率的です</p>
+<p>※コンポーネントの特定の実装によってはレンダリングのコストが十分に小さいこともあります。その場合は問題がなく、この記事に書いてあることは適用されません</p>
+<p>(A) に戻り、イベントハンドラの処理をコンポーネントの追加のパラメーターにして記述を分離したとします:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nx">memo</span><span class="p">(</span><span class="kd">function</span> <span class="nx">Component</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClick</span><span class="p">}&gt;...&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><p>このコンポーネントの利用者側は次のようになっています:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Ancestor</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="nx">useCallback</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ここに処理を書く...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span> <span class="p">[</span><span class="nx">state</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">Component</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">handleClick</span><span class="p">}</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">...</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>くだんのイベントハンドラ (<code>handleClick</code>) はここに記述されるようになり、(B) の問題は解決しました</p>
+<p>ここではイベントハンドラが <code>state</code> のほとんど全部を参照すると仮定します。
+<code>handleClick</code> を <code>useCallback</code> でメモ化しようとしていますが、あまり効果がありません。
+<code>state</code> が変化するたびに <code>handleClick</code> は参照的に異なるオブジェクトになり、それによって <code>Component</code> も再レンダリングされてしまいます。
+実際に <code>Component</code> が <code>state</code> を使うのは「クリックされたとき」であり、クリックされるまでに起こる <code>handleClick</code> のみの変化に起因する再レンダリングは過剰な作業です。
+こういうものをメモ化の過剰なインバリデーションと呼んでいます</p>
+<p>Reactのリポジトリに対応するissueがあります:</p>
+<blockquote>
+<p><a href="https://github.com/facebook/react/issues/14099">useCallback() invalidates too often in practice · Issue #14099 · facebook/react</a></p>
+</blockquote>
+<p>繰り返しになりますが、あくまで再レンダリングのコストが追加でかかるという話なので、再レンダリングのコストが低ければ問題になりません。
+例えば大きいテーブルのなかにボタンがあって、そのクリック時のイベントハンドラがテーブルデータ全体を参照するといった状況で発生します</p>
+<hr>
+<h3 id="useeffect-で状態を監視する-非推奨"><code>useEffect</code> で状態を監視する (非推奨)</h3>
+<p>(典型的なアンチパターンの1つを書きますが、読み飛ばしてもいいです)</p>
+<p>イベントの発生を状態として持ち、その状態を監視してハンドラーを実行するという方法 (<strong>非推奨</strong>) が考えられます:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Ancestor</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// NOT RECOMMENDED
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kr">const</span> <span class="p">{</span> <span class="nx">ev</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">state</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">ev</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// イベント発生中の状態の場合
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// ここに処理を書く...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">dispatch</span><span class="p">({</span> <span class="nx">ev</span><span class="o">:</span> <span class="kc">null</span> <span class="p">})</span> <span class="c1">// 処理済みのイベントを破棄
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="p">[</span><span class="nx">state</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nx">memo</span><span class="p">(</span><span class="kd">function</span> <span class="nx">Component</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">dispatch</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">dispatch</span><span class="p">({</span> <span class="nx">ev</span><span class="o">:</span> <span class="kc">true</span> <span class="p">})}&gt;...&lt;/</span><span class="nt">button</span><span class="p">&gt;)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><p><code>dispatch</code> は参照的に安定しているため、コンポーネントに渡してもメモ化を阻害しません。
+(A), (B) の問題は解決します。
+<code>dispatch</code> の際に <code>Ancestor</code> の再レンダリングが引き起こされますが、メモ化がうまくいくなら、そのコストは低いとみなせます</p>
+<p>ただし、Reactの新しくなったドキュメントでは「こういうことをしないように」書かれています:</p>
+<blockquote>
+<p><strong>エフェクトは、特定のイベントによってではなく、レンダー自体によって引き起こされる副作用を指定するためのものです</strong></p>
+<p>(<a href="https://ja.react.dev/learn/synchronizing-with-effects">エフェクトを使って同期を行う – React</a>)</p>
+</blockquote>
+<p>新しいバージョンのStrict Modeで <code>useEffect</code> が2回ずつ呼び出される仕様になったため、このような実装は開発環境でうまく動かないはずです</p>
+<h3 id="useref-で状態を持つ"><code>useRef</code> で状態を持つ</h3>
+<p><code>useRef</code> で可変なフィールドを用意して「最新の」状態を書き込んでおき、イベントの発生時にそれを読み出すという方法も考えられます:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Ancestor</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// NOT RECOMMENDED
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">stateRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">useLayoutEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">stateRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">state</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="nx">useCallback</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">state</span> <span class="o">=</span> <span class="nx">stateRef</span><span class="p">.</span><span class="nx">current</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">state</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// ここに処理を書く...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="p">[])</span> <span class="c1">// 依存値なし
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>これは (A), (B) の両方を解決しています。
+しかし状態が <code>stateRef</code> だけでなく、propsを使っていたり、複数の <code>useState</code> がある場合に、コードが冗長になりやすいです。
+基本的には次の解決策のほうがいいです</p>
+<h3 id="useeventcallback"><code>useEventCallback</code></h3>
+<p>可変なフィールドに、状態ではなく、イベントハンドラ自体を持てばいいです。
+<a href="https://github.com/facebook/react/issues/14099#issuecomment-440013892">前掲のissue内にこれを提案するコメント</a> があり、現時点 (React v18) において有用な方法だと思います:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Ancestor</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">handleClickRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">useLayoutEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">handleClickRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// ここに処理を書く...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="nx">useCallback</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">handleClickRef</span><span class="p">.</span><span class="nx">current</span><span class="o">?</span><span class="p">.()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span> <span class="p">[])</span> <span class="c1">// 依存値なし
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>これはカスタムフックで部品化しやすいです。
+そのためのパッケージ (<a href="https://github.com/Volune/use-event-callback"><code>use-event-callback</code></a>) もあり、次のようにすっきりします:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">import</span> <span class="p">{</span> <span class="nx">useEventCallback</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&#34;use-event-callback&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Ancestor</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="nx">useEventCallback</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ここに処理を書く...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>なお <code>useEventCallback</code> で作ったコールバックには制限があります。
+レンダリング中にそのコールバックを呼び出すと、可変な <code>ref.current</code> をレンダリング中に読み取ってはいけないというReactのルールに抵触します</p>
+<p>refの更新について:</p>
+<ul>
+<li>レンダリング中に可変な <code>ref.current</code> を読み書きしてはいけないと、<a href="https://ja.react.dev/reference/react/useRef">useRef</a> のリファレンスの注意点の部分に書かれています。
+<ul>
+<li><a href="https://github.com/facebook/react/issues/14099#issuecomment-440794435">前掲のissue内に問題を指摘するコメント</a> があり、並行レンダリングとの相互作用が問題となるようです</li>
+</ul>
+</li>
+<li><code>useEffect</code> ではなく <code>useLayoutEffect</code> を使っているのは、Reactのコミット作業 (DOM要素への変更の適用) が完了してから <code>useEffect</code> の実行までにタイムラグがあって、その間にイベントが発生してしまうおそれがあるからだそうです (試したことはない)</li>
+</ul>
+<h4 id="公式で非推奨だった">公式で非推奨だった</h4>
+<p>旧ドキュメントでは <code>useEventCallback</code> を取り上げて非推奨と指摘していました:</p>
+<blockquote>
+<p><strong>このパターンは薦められず</strong>、網羅性のために示しているに過ぎません。代わりにコールバックを深く受け渡していくことを回避するのが望ましいパターンです。</p>
+<p><a href="https://ja.legacy.reactjs.org/docs/hooks-faq.html#how-to-read-an-often-changing-value-from-usecallback">https://ja.legacy.reactjs.org/docs/hooks-faq.html#how-to-read-an-often-changing-value-from-usecallback</a></p>
+</blockquote>
+<p>望ましいパターンとして <code>dispatch</code> を渡せばいいと書かれていますが、(A) の問題は解決しません。
+新しいドキュメントに同様の記述はみつかりませんでした</p>
+<h4 id="構文的な凝集">構文的な凝集</h4>
+<p>イベントハンドラの記述をコンポーネントに置く場合も同じAPIでできます。
+イベントハンドラの処理内容をパラメータにとる、汎用的なイベントハンドラを作って渡せばいいです:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Ancestor</span> <span class="o">=</span> <span class="nx">props</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// runHandler: (h: (props, state) =&gt; void) =&gt; void
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">runHandler</span> <span class="o">=</span> <span class="nx">useEventCallback</span><span class="p">(</span><span class="nx">h</span> <span class="p">=&gt;</span> <span class="nx">h</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">state</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nx">props</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">runHandler</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">runHandler</span><span class="p">((</span><span class="nx">props</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// ここに処理を書く...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}}&gt;...&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="useeffect-の過剰なインバリデーション"><code>useEffect</code> の過剰なインバリデーション</h3>
+<p>前項までは「DOM要素が起こすイベント」のイベントハンドラの話でした。
+「<code>useEffect</code> で獲得したリソースが起こすイベント」のイベントハンドラについても触れておきます</p>
+<p><code>useEffect</code> でリソースを獲得する (Reactのガイドの例でいえばチャットルームに接続する) コードがフックのなかにあり、そのなかでリソースが起こすイベントにイベントハンドラを持たせるとします。
+リソースの獲得で使うデータだけでなく、イベントハンドラが使うデータまで <code>useEffect</code> の依存値に含まれてしまいます。
+公式のガイド (<a href="https://ja.react.dev/learn/separating-events-from-effects">エフェクトからイベントを分離する</a>) を読んでいると、まさにその問題が提起され、<code>useEffectEvent</code> というexperimental APIが登場します</p>
+<p>なお <code>useEffectEvent</code> には <code>useEventCallback</code> より厳しい制限があり、コールバックは同じコンポーネント内の <code>useEffect</code> からのみ使用可能です (詳細はリンク先を参照)</p>
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">関連記事</h4>
+                  <ul>
+                
+                
+                    <li><a href="/blog/2021-05-31/gui-navigation/">GUIアプリのルーティング・ページ遷移</a></li>
+                
+                    <li><a href="/blog/2020-09-18/react-as-first-class-ui/">ReactのよさはUIが第一級なこと</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://vain0x.github.io/blog/2024-01-01/diary/" data-toggle="tooltip" data-placement="top" title="近況 2024-01-01">&larr; 前ページ</a>
+            </li>
+          
+          
+        </ul>
+      
+
+      <section id="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="vain0x/blog"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://qiita.com/vain0x" title="Qiita">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-qiita fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2016 - 2024
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog/">ベインのブログ</a>
+          
+
+          <a href="https://github.com/vain0x/blog">[GitHub repo]</a>
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.111.3</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    
+  </body>
+</html>
+
