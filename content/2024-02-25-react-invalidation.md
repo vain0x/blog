@@ -22,7 +22,7 @@ Reactでは、要素が持つ `onClick` などのプロパティに関数を指�
 ```jsx
 const Component = () => {
     return (
-        <button onClick={() => {
+        <button type="button" onClick={() => {
             // ここに処理を書く...
         }}>...</button>
     )
@@ -59,7 +59,7 @@ Reactのメモ化の仕組みを使い、不必要なレンダリングを省く
 ```jsx
 const Component = memo(function Component(props) {
     return (
-        <button onClick={props.onClick}>...</button>
+        <button type="button" onClick={props.onClick}>...</button>
     )
 })
 ```
@@ -126,7 +126,11 @@ const Ancestor = () => {
 
 const Component = memo(function Component(props) {
     const { dispatch } = props
-    return (<button onClick={() => dispatch({ ev: true })}>...</button>)
+    return (
+        <button type="button" onClick={() => {
+            dispatch({ ev: true })
+        }}>...</button>
+    )
 })
 ```
 
@@ -249,7 +253,7 @@ const Ancestor = props => {
 const Component = props => {
     const { runHandler } = props
     return (
-        <button onClick={() => {
+        <button type="button" onClick={() => {
             runHandler((props, state) => {
                 // ここに処理を書く...
             })
@@ -258,7 +262,7 @@ const Component = props => {
 }
 ```
 
-### `useEffect` の過剰なインバリデーション
+### `useEffect` の過剰な再実行
 
 前項までは「DOM要素が起こすイベント」のイベントハンドラの話でした。
 「`useEffect` で獲得したリソースが起こすイベント」のイベントハンドラについても触れておきます
