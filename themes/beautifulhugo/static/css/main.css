@@ -793,9 +793,41 @@ pre {
 [data-lang=tsx]::before,
 [data-lang=typescript]::before { content: "TypeScript" }
 
+
+
 .post-preview h2 {
     margin-bottom: 0;
 }
+/* 続きを読むボタン */
+.post-entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 5px;
+}
+.post-read-more {
+    width: 120px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    box-shadow: 1px 1px 3px 1px #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+@media only screen and (max-width: 767px) {
+    .post-read-more {
+        width: 90px;
+        height: 45px;
+        font-size: smaller;
+    }
+}
+.post-read-more:hover {
+    box-shadow: 1px 1px 3px 1px #311b9210;
+}
+.post-preview .post-read-more {
+    float: unset;
+}
+
+
 
 .post-heading h1 {
     margin-bottom: 0;
