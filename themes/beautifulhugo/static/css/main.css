@@ -811,6 +811,7 @@ pre {
     position: relative;
     border-left-color: #dbdbdb;
     color: #4d4d4d; /* 色を濃くする */
+    font-size: inherit; /* フォントサイズを大きくしない */
     font-style: normal; /* イタリックにしない */
 }
 .blog-post blockquote::before {
