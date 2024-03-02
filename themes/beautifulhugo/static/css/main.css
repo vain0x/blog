@@ -937,10 +937,29 @@ h4.see-also::before {
 
 
 
-.blog-pager a {
-  box-shadow: 1px 1px 3px #f2f2fc52;
-  border-radius: 6px;
+/* ページャー */
+.pager li a {
+    width: 180px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    box-shadow: 1px 1px 3px 1px #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 6px;
 }
+@media only screen and (max-width: 767px) {
+    .pager li a {
+        width: 135px;
+        height: 45px;
+        font-size: smaller;
+    }
+}
+.pager li a:hover {
+    box-shadow: 1px 1px 3px 1px #311b9210;
+}
+
+
 
 .highlight pre {
     overflow: auto !important; /* 隠れないようにする */
@@ -963,10 +982,6 @@ h4.see-also::before {
     font-size: 25px;
     font-weight: bold;
     color: white;
-}
-
-.pager a {
-  background-color: #f3f3ff;
 }
 
 #comments {
