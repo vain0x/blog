@@ -863,6 +863,48 @@ p {
   word-break: break-all;
 }
 
+
+
+/* 関連記事 */
+h4.see-also {
+    padding-left: 8px;
+    color: #4d4d4d;
+}
+h4.see-also::before {
+    content: unset;
+}
+.see-also  {
+    padding-top: 8px;
+    background-color: #fafafa;
+    border-radius: 8px 8px 0 0;
+}
+.see-also + ul {
+    padding-bottom: 8px;
+    background-color: #fafafa;
+    border-radius: 0 0 8px 8px;
+}
+.see-also + ul > li {
+    list-style: none;
+}
+.see-also + ul > li::before {
+    content: "";
+    margin-right: 8px;
+    width: 5px;
+    height: 5px;
+    display: inline-block;
+    border-radius: 100%;
+    background: #4d4d4d;
+    vertical-align: middle;
+}
+.see-also + ul a {
+    color: #0b0bd0c9;
+}
+.see-also + ul a:hover {
+    color: #0f248ac9;
+}
+
+
+
 .blog-pager a {
   box-shadow: 1px 1px 3px #f2f2fc52;
   border-radius: 6px;
