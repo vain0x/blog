@@ -19,8 +19,6 @@ tags:
 Web APIに含まれる [`EventTarget`](https://developer.mozilla.org/ja/docs/Web/API/EventTarget) はイベントの購読と発行を提供するオブジェクトで、DOM要素とかの親要素にもなっています。
 Node.jsでもバージョン14ぐらいから追加されていて、importなしで使えます: [EventTarget (Node.js)](https://nodejs.org/api/events.html#eventtarget-and-event-api)
 
-`EventTarget` の素のAPIを使うとコードが無駄に冗長になるため次のヘルパーを使います:
-
 ## イベントターゲットの内部構造
 
 イベントターゲットは「関数を値として持つ可変なコレクション」への参照を共有することで実現できます。
@@ -35,10 +33,8 @@ Node.jsでもバージョン14ぐらいから追加されていて、importな�
 - `removeEventTarget`: ハンドラを配列から除去する
 - `dispatchEvent`: 配列内のハンドラをそれぞれ呼び出す
 
-<details>
-<summary>class SingleEventTarget {...}:</summary>
-
 ```ts
+// (実装例)
 class SingleEventTarget<T> {
     // 購読しているイベントハンドラからなる配列
     #handlers: (() => void)[] = []
@@ -64,7 +60,6 @@ class SingleEventTarget<T> {
     }
 }
 ```
-</details>
 
 ## コンポーネント間の通信
 
