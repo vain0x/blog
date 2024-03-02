@@ -14,7 +14,6 @@
   --base-color-text: #1d1d1d;
   --divider-color: #bdbdbd;
   --app-main-container-background: #ffffffd4;
-  --monospace: "Cascadia Mono";
   --sans: "Meiryo";
 }
 
@@ -753,7 +752,7 @@ code,
 kbd,
 pre,
 samp {
-    font-family: var(--monospace), monospace;
+    font-family: monospace;
 }
 
 code {
@@ -794,6 +793,46 @@ pre {
 [data-lang=tsx]::before,
 [data-lang=typescript]::before { content: "TypeScript" }
 
+
+
+.post-preview h2 {
+    margin-bottom: 0;
+}
+/* 続きを読むボタン */
+.post-entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 5px;
+}
+.post-read-more {
+    width: 120px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    box-shadow: 1px 1px 3px 1px #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+@media only screen and (max-width: 767px) {
+    .post-read-more {
+        width: 90px;
+        height: 45px;
+        font-size: smaller;
+    }
+}
+.post-read-more:hover {
+    box-shadow: 1px 1px 3px 1px #311b9210;
+}
+.post-preview .post-read-more {
+    float: unset;
+}
+
+
+
+.post-heading h1 {
+    margin-bottom: 0;
+}
+
 .post-meta .post-meta-tags {
     margin-left: 10px;
     display: inline-flex;
@@ -811,6 +850,7 @@ pre {
     position: relative;
     border-left-color: #dbdbdb;
     color: #4d4d4d; /* 色を濃くする */
+    font-size: inherit; /* フォントサイズを大きくしない */
     font-style: normal; /* イタリックにしない */
 }
 .blog-post blockquote::before {
@@ -820,6 +860,10 @@ pre {
     font-size: 32px;
     left: 4px;
     top: -14px;
+}
+
+p {
+    margin: 2px 0;
 }
 
 .blog-post {
@@ -834,7 +878,8 @@ pre {
 .blog-post h2,
 .blog-post h3,
 .blog-post h4 {
-  line-height: 1.5;
+  line-height: 1.25;
+  margin-bottom: 0;
 }
 
 .blog-post h3::before { content: "### "; color: #dbdbdb; letter-spacing: -4px; margin-right: 6px }
@@ -850,10 +895,71 @@ pre {
   word-break: break-all;
 }
 
-.blog-pager a {
-  box-shadow: 1px 1px 3px #f2f2fc52;
-  border-radius: 6px;
+
+
+/* 関連記事 */
+h4.see-also {
+    padding-left: 8px;
+    color: #4d4d4d;
 }
+h4.see-also::before {
+    content: unset;
+}
+.see-also  {
+    padding-top: 8px;
+    background-color: #fafafa;
+    border-radius: 8px 8px 0 0;
+}
+.see-also + ul {
+    padding-bottom: 8px;
+    background-color: #fafafa;
+    border-radius: 0 0 8px 8px;
+}
+.see-also + ul > li {
+    list-style: none;
+}
+.see-also + ul > li::before {
+    content: "";
+    margin-right: 8px;
+    width: 5px;
+    height: 5px;
+    display: inline-block;
+    border-radius: 100%;
+    background: #4d4d4d;
+    vertical-align: middle;
+}
+.see-also + ul a {
+    color: #0b0bd0c9;
+}
+.see-also + ul a:hover {
+    color: #0f248ac9;
+}
+
+
+
+/* ページャー */
+.pager li a {
+    width: 180px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    box-shadow: 1px 1px 3px 1px #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+@media only screen and (max-width: 767px) {
+    .pager li a {
+        width: 135px;
+        height: 45px;
+        font-size: smaller;
+    }
+}
+.pager li a:hover {
+    box-shadow: 1px 1px 3px 1px #311b9210;
+}
+
+
 
 .highlight pre {
     overflow: auto !important; /* 隠れないようにする */
@@ -876,10 +982,6 @@ pre {
     font-size: 25px;
     font-weight: bold;
     color: white;
-}
-
-.pager a {
-  background-color: #f3f3ff;
 }
 
 #comments {
