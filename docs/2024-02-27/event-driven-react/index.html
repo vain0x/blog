@@ -204,7 +204,6 @@
 <h2 id="eventtarget"><code>EventTarget</code></h2>
 <p>Web APIに含まれる <a href="https://developer.mozilla.org/ja/docs/Web/API/EventTarget"><code>EventTarget</code></a> はイベントの購読と発行を提供するオブジェクトで、DOM要素とかの親要素にもなっています。
 Node.jsでもバージョン14ぐらいから追加されていて、importなしで使えます: <a href="https://nodejs.org/api/events.html#eventtarget-and-event-api">EventTarget (Node.js)</a></p>
-<p><code>EventTarget</code> の素のAPIを使うとコードが無駄に冗長になるため次のヘルパーを使います:</p>
 <h2 id="イベントターゲットの内部構造">イベントターゲットの内部構造</h2>
 <p>イベントターゲットは「関数を値として持つ可変なコレクション」への参照を共有することで実現できます。
 このことを詳しくみていきます</p>
@@ -216,8 +215,8 @@ Node.jsでもバージョン14ぐらいから追加されていて、importな�
 <li><code>removeEventTarget</code>: ハンドラを配列から除去する</li>
 <li><code>dispatchEvent</code>: 配列内のハンドラをそれぞれ呼び出す</li>
 </ul>
-<!-- raw HTML omitted -->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">SingleEventTarget</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="c1">// (実装例)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">class</span> <span class="nx">SingleEventTarget</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 購読しているイベントハンドラからなる配列
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="err">#</span><span class="nx">handlers</span><span class="o">:</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">)[]</span> <span class="o">=</span> <span class="p">[]</span>
 </span></span><span class="line"><span class="cl">
@@ -241,8 +240,7 @@ Node.jsでもバージョン14ぐらいから追加されていて、importな�
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><!-- raw HTML omitted -->
-<h2 id="コンポーネント間の通信">コンポーネント間の通信</h2>
+</span></span></code></pre></div><h2 id="コンポーネント間の通信">コンポーネント間の通信</h2>
 <p>親となるコンポーネントが <code>EventTarget</code> のインスタンスを1つ持ち、それにイベントを起こす関数 (<code>emit</code>) を作ります。この関数はメモ化して参照的に同一にでき、これをサブコンポーネントに渡してもメモ化を阻害しません</p>
 <p>イベントを <code>useEffect</code> で購読しておき、イベントの発生時にクリック時の処理を行うとします。
 イベントハンドラをメモ化しても、前回記事のとおり「過剰なインバリデーション」が起きるので、メモ化しません。
