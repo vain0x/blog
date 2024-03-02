@@ -793,6 +793,14 @@ pre {
 [data-lang=tsx]::before,
 [data-lang=typescript]::before { content: "TypeScript" }
 
+.post-preview h2 {
+    margin-bottom: 0;
+}
+
+.post-heading h1 {
+    margin-bottom: 0;
+}
+
 .post-meta .post-meta-tags {
     margin-left: 10px;
     display: inline-flex;
@@ -822,6 +830,10 @@ pre {
     top: -14px;
 }
 
+p {
+    margin: 2px 0;
+}
+
 .blog-post {
     text-align: justify;
     text-justify: inter-character;
@@ -834,7 +846,8 @@ pre {
 .blog-post h2,
 .blog-post h3,
 .blog-post h4 {
-  line-height: 1.5;
+  line-height: 1.25;
+  margin-bottom: 0;
 }
 
 .blog-post h3::before { content: "### "; color: #dbdbdb; letter-spacing: -4px; margin-right: 6px }
