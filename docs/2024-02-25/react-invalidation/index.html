@@ -59,7 +59,7 @@
   "headline": "Reactとインバリデーション",
   "description" : "Reactでイベントハンドラを書くときのインバリデーション問題でしばらく混乱してしまっていたので、記事に書きました。この記事の結論は use-event-callback です\n",
   "inLanguage" : "ja",
-  "wordCount":  501 ,
+  "wordCount":  509 ,
   "datePublished" : "2024-02-25T00:00:00",
   "dateModified" : "2024-02-25T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog\/",
@@ -202,7 +202,7 @@
 <p>Reactでは、要素が持つ <code>onClick</code> などのプロパティに関数を指定するとイベント発生時に呼ばれます</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">// ここに処理を書く...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}}&gt;...&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
@@ -230,7 +230,7 @@ Reactのメモ化の仕組みを使い、不必要なレンダリングを省く
 <p>(A) に戻り、イベントハンドラの処理をコンポーネントの追加のパラメーターにして記述を分離したとします:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nx">memo</span><span class="p">(</span><span class="kd">function</span> <span class="nx">Component</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClick</span><span class="p">}&gt;...&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClick</span><span class="p">}&gt;...&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">})</span>
 </span></span></code></pre></div><p>このコンポーネントの利用者側は次のようになっています:</p>
@@ -283,7 +283,11 @@ Reactのメモ化の仕組みを使い、不必要なレンダリングを省く
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nx">memo</span><span class="p">(</span><span class="kd">function</span> <span class="nx">Component</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">dispatch</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="nx">dispatch</span><span class="p">({</span> <span class="nx">ev</span><span class="o">:</span> <span class="kc">true</span> <span class="p">})}&gt;...&lt;/</span><span class="nt">button</span><span class="p">&gt;)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">dispatch</span><span class="p">({</span> <span class="nx">ev</span><span class="o">:</span> <span class="kc">true</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}}&gt;...&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">})</span>
 </span></span></code></pre></div><p><code>dispatch</code> は参照的に安定しているため、コンポーネントに渡してもメモ化を阻害しません。
 (A), (B) の問題は解決します。
@@ -382,14 +386,14 @@ Reactのメモ化の仕組みを使い、不必要なレンダリングを省く
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nx">props</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">runHandler</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">runHandler</span><span class="p">((</span><span class="nx">props</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                <span class="c1">// ここに処理を書く...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">})</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}}&gt;...&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h3 id="useeffect-の過剰なインバリデーション"><code>useEffect</code> の過剰なインバリデーション</h3>
+</span></span></code></pre></div><h3 id="useeffect-の過剰な再実行"><code>useEffect</code> の過剰な再実行</h3>
 <p>前項までは「DOM要素が起こすイベント」のイベントハンドラの話でした。
 「<code>useEffect</code> で獲得したリソースが起こすイベント」のイベントハンドラについても触れておきます</p>
 <p><code>useEffect</code> でリソースを獲得する (Reactのガイドの例でいえばチャットルームに接続する) コードがフックのなかにあり、そのなかでリソースが起こすイベントにイベントハンドラを持たせるとします。
@@ -406,6 +410,8 @@ Reactのメモ化の仕組みを使い、不必要なレンダリングを省く
                   <h4 class="see-also">関連記事</h4>
                   <ul>
                 
+                
+                    <li><a href="/blog/2024-02-27/event-driven-react/">イベント駆動のReact</a></li>
                 
                     <li><a href="/blog/2021-05-31/gui-navigation/">GUIアプリのルーティング・ページ遷移</a></li>
                 
@@ -424,6 +430,10 @@ Reactのメモ化の仕組みを使い、不必要なレンダリングを省く
               <a href="https://vain0x.github.io/blog/2024-01-01/diary/" data-toggle="tooltip" data-placement="top" title="近況 2024-01-01">&larr; 前ページ</a>
             </li>
           
+          
+            <li class="next">
+              <a href="https://vain0x.github.io/blog/2024-02-27/event-driven-react/" data-toggle="tooltip" data-placement="top" title="イベント駆動のReact">次ページ &rarr;</a>
+            </li>
           
         </ul>
       

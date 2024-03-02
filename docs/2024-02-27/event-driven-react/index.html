@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>イベント駆動のReact - ベインのブログ</title>
+  <meta name="description" content="前回の記事(Reactとインバリデーション)の実質的な続きで、イベントによるコンポーネント間の通信について書きます。
+実用的な話ではないと思います">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2024-02-27\/event-driven-react\/",
+          "name": "イベント駆動の react"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "ベイン"
+  },
+  "headline": "イベント駆動のReact",
+  "description" : "前回の記事(Reactとインバリデーション)の実質的な続きで、イベントによるコンポーネント間の通信について書きます。 実用的な話ではないと思います\n",
+  "inLanguage" : "ja",
+  "wordCount":  251 ,
+  "datePublished" : "2024-02-27T00:00:00",
+  "dateModified" : "2024-02-27T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog\/",
+  "keywords" : [ "React" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2024-02-27\/event-driven-react\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog\/",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="イベント駆動のReact" />
+<meta property="og:description" content="前回の記事(Reactとインバリデーション)の実質的な続きで、イベントによるコンポーネント間の通信について書きます。
+実用的な話ではないと思います">
+<meta property="og:url" content="https://vain0x.github.io/blog/2024-02-27/event-driven-react/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="イベント駆動のReact" />
+  <meta name="twitter:description" content="前回の記事(Reactとインバリデーション)の実質的な続きで、イベントによるコンポーネント間の通信について書きます。
+実用的な話ではないと思います">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.111.3">
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" />
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom top-nav-short">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://vain0x.github.io/blog/">ベインのブログ</a>
+    </div>
+
+    <div id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="記事一覧" href="/blog/posts">記事一覧</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="競プロ参戦記" href="https://qiita.com/search?q=%E7%AB%B6%E3%83%97%E3%83%AD%E5%8F%82%E6%88%A6%E8%A8%98&#43;user%3Avain0x&amp;sort=created">競プロ参戦記</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT" href="https://vain0x.github.io">ABOUT</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>イベント駆動のReact</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2024年2月27日 投稿
+  
+  
+  
+  <span class="post-meta-tags">
+  <a class="post-meta-tag" href="https://vain0x.github.io/blog/tags/react/">React</a>
+  </span>
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>前回の記事(<a href="https://vain0x.github.io/blog/2024-02-25/react-invalidation/">Reactとインバリデーション</a>)の実質的な続きで、イベントによるコンポーネント間の通信について書きます。
+実用的な話ではないと思います</p>
+<p><em>TL;DR</em>: イベントによるコンポーネント間の通信は <code>use-event-callback</code> とほとんど同じ (子要素が親要素のイベントを起こす方向の場合)</p>
+<h2 id="eventtarget"><code>EventTarget</code></h2>
+<p>Web APIに含まれる <a href="https://developer.mozilla.org/ja/docs/Web/API/EventTarget"><code>EventTarget</code></a> はイベントの購読と発行を提供するオブジェクトで、DOM要素とかの親要素にもなっています。
+Node.jsでもバージョン14ぐらいから追加されていて、importなしで使えます: <a href="https://nodejs.org/api/events.html#eventtarget-and-event-api">EventTarget (Node.js)</a></p>
+<p><code>EventTarget</code> の素のAPIを使うとコードが無駄に冗長になるため次のヘルパーを使います:</p>
+<h2 id="イベントターゲットの内部構造">イベントターゲットの内部構造</h2>
+<p>イベントターゲットは「関数を値として持つ可変なコレクション」への参照を共有することで実現できます。
+このことを詳しくみていきます</p>
+<p>話を簡単にするため、<code>EventTarget</code> の機能をこの記事では使うものだけに絞ります。
+<code>type</code>, <code>options</code>, イベントハンドラの引数はないものとします</p>
+<p>簡略化版 <code>EventTarget</code> は、配列を1個持って次のような操作を提供するだけです:</p>
+<ul>
+<li><code>addEventTarget</code>: ハンドラを配列に追加する</li>
+<li><code>removeEventTarget</code>: ハンドラを配列から除去する</li>
+<li><code>dispatchEvent</code>: 配列内のハンドラをそれぞれ呼び出す</li>
+</ul>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ts" data-lang="ts"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">SingleEventTarget</span><span class="p">&lt;</span><span class="nt">T</span><span class="p">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 購読しているイベントハンドラからなる配列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="err">#</span><span class="nx">handlers</span><span class="o">:</span> <span class="p">(()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">)[]</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// イベントを購読する = ハンドラを配列に追加する
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">addEventListener</span><span class="p">(</span><span class="nx">_type</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="err">#</span><span class="nx">handlers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">handler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// イベントの購読を解除する = ハンドラを配列から取り除く
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">removeEventListener</span><span class="p">(</span><span class="nx">_type</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">handler</span><span class="o">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="k">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">index</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="err">#</span><span class="nx">handlers</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">handler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">this</span><span class="p">.</span><span class="err">#</span><span class="nx">handlers</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// イベントを発生させる = 配列にあるハンドラをそれぞれ呼び出す
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">dispatchEvent</span><span class="p">(</span><span class="nx">_ev</span>: <span class="kt">unknown</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kr">const</span> <span class="nx">handler</span> <span class="k">of</span> <span class="k">this</span><span class="p">.</span><span class="err">#</span><span class="nx">handlers</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">handler</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><!-- raw HTML omitted -->
+<h2 id="コンポーネント間の通信">コンポーネント間の通信</h2>
+<p>親となるコンポーネントが <code>EventTarget</code> のインスタンスを1つ持ち、それにイベントを起こす関数 (<code>emit</code>) を作ります。この関数はメモ化して参照的に同一にでき、これをサブコンポーネントに渡してもメモ化を阻害しません</p>
+<p>イベントを <code>useEffect</code> で購読しておき、イベントの発生時にクリック時の処理を行うとします。
+イベントハンドラをメモ化しても、前回記事のとおり「過剰なインバリデーション」が起きるので、メモ化しません。
+この <code>useEffect</code> はレンダリングごとに再実行します。
+イベントの購読と解除が繰り返し起きますが、コストが小さいので問題ないです。
+前述のとおりこれらの操作は実質的に配列要素の追加と削除だからです</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Ancestor</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">init</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// `SingleEventTarget` のインスタンスを作る。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// (コンポーネントがマウントされている間、常に同じインスタンスを持つ)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">targetRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="p">&lt;</span><span class="nt">SingleEventTarget</span><span class="p">&gt;()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">targetRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">??=</span> <span class="k">new</span> <span class="nx">SingleEventTarget</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">targetRef</span><span class="p">.</span><span class="nx">current</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">handleClick</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ここに処理を書く...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">target</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">handleClick</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">target</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="nx">handleClick</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span> <span class="c1">// 毎回再実行する
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ....
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">Component</span> <span class="na">emit</span><span class="o">=</span><span class="p">{</span><span class="nx">emit</span><span class="p">}</span> <span class="p">/&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">...</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nx">memo</span><span class="p">(</span><span class="kd">function</span> <span class="nx">Component</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="p">{</span> <span class="nx">emit</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">emit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}}&gt;...&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></div><p>こうすると前回記事の問題 (A), (B) (データ依存関係の問題、凝集性の懸念) は解決できます</p>
+<h3 id="再考">再考</h3>
+<p>あらためてこの部分をみると:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">    <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">target</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">handleClick</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">target</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="nx">handleClick</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span> <span class="c1">// 毎回再実行する
+</span></span></span></code></pre></div><p>このユースケースにおいて <code>target</code> は長さ0か1の配列なので、nullableなフィールドで置き換えることができます:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">targetRef</span> <span class="o">=</span> <span class="nx">useRef</span><span class="o">&lt;</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">void</span><span class="p">)</span> <span class="o">|</span> <span class="kc">null</span><span class="o">&gt;</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">useEffect</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">targetRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="nx">handleClick</span>  <span class="c1">// add
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">targetRef</span><span class="p">.</span><span class="nx">current</span> <span class="o">=</span> <span class="kc">null</span> <span class="p">}</span>  <span class="c1">// remove
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">})</span> <span class="c1">// 毎回再実行する
+</span></span></span></code></pre></div><p>こうしてみると <code>use-event-callback</code> とほとんど同じことをやっています</p>
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">関連記事</h4>
+                  <ul>
+                
+                
+                    <li><a href="/blog/2024-02-25/react-invalidation/">Reactとインバリデーション</a></li>
+                
+                    <li><a href="/blog/2021-05-31/gui-navigation/">GUIアプリのルーティング・ページ遷移</a></li>
+                
+                    <li><a href="/blog/2020-09-18/react-as-first-class-ui/">ReactのよさはUIが第一級なこと</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://vain0x.github.io/blog/2024-02-25/react-invalidation/" data-toggle="tooltip" data-placement="top" title="Reactとインバリデーション">&larr; 前ページ</a>
+            </li>
+          
+          
+        </ul>
+      
+
+      <section id="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="vain0x/blog"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://qiita.com/vain0x" title="Qiita">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-qiita fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2016 - 2024
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog/">ベインのブログ</a>
+          
+
+          <a href="https://github.com/vain0x/blog">[GitHub repo]</a>
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.111.3</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    
+  </body>
+</html>
+
