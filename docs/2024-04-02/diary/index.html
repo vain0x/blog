@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>近況 2022-11-30 - ベインのブログ</title>
-  <meta name="description" content="今月の活動 (ミローネ言語など)">
+  <title>近況 2024-04-02 - ベインのブログ</title>
+  <meta name="description" content="1月～3月の活動 (hamなど)">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -44,8 +44,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/vain0x.github.io\/blog\/2022-11-30\/diary\/",
-          "name": "近況 2022 11 30"
+          "@id": "https:\/\/vain0x.github.io\/blog\/2024-04-02\/diary\/",
+          "name": "近況 2024 04 02"
         }
     }]
 }
@@ -56,15 +56,15 @@
   "author": {
     "name" : "ベイン"
   },
-  "headline": "近況 2022-11-30",
-  "description" : "今月の活動 (ミローネ言語など)\n",
+  "headline": "近況 2024-04-02",
+  "description" : "1月～3月の活動 (hamなど)\n",
   "inLanguage" : "ja",
-  "wordCount":  35 ,
-  "datePublished" : "2022-11-30T00:00:00",
-  "dateModified" : "2022-11-30T00:00:00",
+  "wordCount":  67 ,
+  "datePublished" : "2024-04-02T00:00:00",
+  "dateModified" : "2024-04-02T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog\/",
   "keywords" : [ "日記" ],
-  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2022-11-30\/diary\/",
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2024-04-02\/diary\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/vain0x.github.io\/blog\/",
@@ -78,14 +78,14 @@
 }
 </script>
 
-<meta property="og:title" content="近況 2022-11-30" />
-<meta property="og:description" content="今月の活動 (ミローネ言語など)">
-<meta property="og:url" content="https://vain0x.github.io/blog/2022-11-30/diary/" />
+<meta property="og:title" content="近況 2024-04-02" />
+<meta property="og:description" content="1月～3月の活動 (hamなど)">
+<meta property="og:url" content="https://vain0x.github.io/blog/2024-04-02/diary/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="twitter:title" content="近況 2022-11-30" />
-  <meta name="twitter:description" content="今月の活動 (ミローネ言語など)">
+  <meta name="twitter:title" content="近況 2024-04-02" />
+  <meta name="twitter:description" content="1月～3月の活動 (hamなど)">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -162,7 +162,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>近況 2022-11-30</h1>
+                <h1>近況 2024-04-02</h1>
               
               
               
@@ -170,7 +170,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2022年11月30日 投稿
+  <i class="fas fa-calendar"></i>&nbsp;2024年4月2日 投稿
   
   
   
@@ -195,49 +195,95 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>今月の活動 (ミローネ言語など)</p>
+        <p>1月～3月の活動 (hamなど)</p>
 <ul>
-<li>前回 (2022-10-31) <a href="https://vain0x.github.io/blog/2022-10-31/diary/">https://vain0x.github.io/blog/2022-10-31/diary/</a></li>
+<li>前回 (2024-01-01) <a href="https://vain0x.github.io/blog/2024-01-01/diary/">https://vain0x.github.io/blog/2024-01-01/diary/</a></li>
 </ul>
-<h2 id="ミローネ言語">ミローネ言語</h2>
+<h2 id="hsp3アナライザーミニ">HSP3アナライザー・ミニ</h2>
+<p><a href="https://github.com/vain0x/hsp3-ginger">https://github.com/vain0x/hsp3-ginger</a></p>
 <ul>
-<li>間を空けてコードを眺めていたらいろいろとおかしいことに気づいた
+<li><a href="https://github.com/vain0x/hsp3-ginger/releases/tag/hsp3-analyzer-mini-v0.5.0">v0.5.0</a>, <a href="https://github.com/vain0x/hsp3-ginger/releases/tag/hsp3-analyzer-mini-v0.5.1">v0.5.1</a> をリリースした
 <ul>
-<li>charをbyteにキャストしてはいけなかった (.NET版のcharは2バイトなため)</li>
-<li><code>DocId</code> (テキストドキュメントにつけるID) を相対パスのようなものにしていたせいで、URIとの相互変換に支障をきたしていた</li>
-</ul>
-</li>
-<li>never型を足した
+<li>VC++ランタイムがインストールされていないと動かないという不具合があって、修正のためリリースした
 <ul>
-<li>返り値型を <code>'T</code> にする方式は単相化と相性が悪かった</li>
-<li><code>_Noreturn</code> 属性を出力できるようになった</li>
-</ul>
-</li>
-<li>構文木を利用して入力補完を実装しようとした
-<ul>
-<li>名前解決を別方向から実装する方式 (補完位置から根に向かって辿って定義箇所を集める)</li>
-<li>いろいろと大変だし行くべき道ではないかもしれない</li>
-<li>どういうデータ構造を土台にして解析を実装するべきか悩ましい</li>
-</ul>
-</li>
-<li>nurseryでINIファイルのパーサーを書いたりしていた
-<ul>
-<li>型検査が通っていないかぎりLSPサーバーが何もできないようになっていて使いづらい</li>
-</ul>
-</li>
-<li>FFIやリソース管理が依然として悩ましい
-<ul>
-<li>(ミローネ言語版の) LSPサーバーの実装はインメモリsqliteのインスタンスをメインループの中に持ち込む方法がなくて詰んでいる</li>
-<li>型のレイアウト等をコンパイラが適当に決めること、オブジェクトがイミュータブルであることなどの方針と相性が悪い</li>
-<li>これが悩ましすぎて他のことが手につかないというメタ問題</li>
+<li>knowbugのときも同様の不具合を報告してもらって直してたのに記憶が消えていた (すみません……)</li>
+<li>自分の環境にはランタイムがあるから気づけない</li>
 </ul>
 </li>
 </ul>
-<h2 id="その他">その他</h2>
+</li>
+<li>ラベルシンボルの不具合も直したつもりだったけど、おかしかったので撤回となった
 <ul>
-<li>腰痛がじわじわときていてつらい
+<li>シンボル解析の仕組みがやっつけなのがよくない</li>
+</ul>
+</li>
+<li>ドキュメントを書こうとしている
 <ul>
-<li>落ち着かないので制作物を洗練させようという気にならず、雑にget it doneしてしまいがち</li>
+<li>実装を読むだけでは分からないことはどうしてもあるため、ドキュメントは書いたほうがいい</li>
+<li>「説明を書く」と「分かりやすい文章を書く」を同時にやるのは難しい。前者を優先してとにかく書くことにした</li>
+</ul>
+</li>
+<li>自分で書いたドキュメントを書いていると疑問が湧いてくる
+<ul>
+<li>プロジェクトシステムの再検討とか</li>
+</ul>
+</li>
+<li>rust-analyzerの設計を軽く見直したりしている
+<ul>
+<li>あんまり理解できてない。部分的にマネしようとしている</li>
+</ul>
+</li>
+</ul>
+<h2 id="自作のlrパーサを直した">自作のLRパーサを直した</h2>
+<ul>
+<li>以前、「実践コンパイラ構成法」という本を読んだ</li>
+<li>記事にも書いた
+<ul>
+<li><a href="https://vain0x.github.io/blog/2019-09-30/diary">https://vain0x.github.io/blog/2019-09-30/diary</a></li>
+<li><a href="https://vain0x.github.io/blog/2022-07-16/practical-compiler-construction">https://vain0x.github.io/blog/2022-07-16/practical-compiler-construction</a></li>
+</ul>
+</li>
+<li>LRパーサの原理が書かれていたので自前でLRパーサ (MyYacc) を作ってみたが動いていなかった
+<ul>
+<li>そのときは再帰下降パーサを書いてごまかした</li>
+</ul>
+</li>
+<li>修正して動くようにできた。いま見返すと次の2点を誤っていた
+<ul>
+<li>宣言の並びの規則を間違えていた。本の記述では左再帰 (<code>decs = dec decs | ε</code>) だったが右再帰にしてしまっていた
+<ul>
+<li>実際に構文が曖昧になっていて、それだとFsYaccでも通らなかった</li>
+</ul>
+</li>
+<li>空節 (<code>decs → ε</code>) から還元アクションを生成しないようにしてしまっていた。
+<ul>
+<li>実装上のミス。当時なんでそうしたかは分からない</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="記事を書いた">記事を書いた</h2>
+<ul>
+<li>
+<p><a href="https://vain0x.github.io/blog/2024-02-25/react-invalidation/">Reactとインバリデーション - ベインのブログ</a></p>
+</li>
+<li>
+<p><a href="https://vain0x.github.io/blog/2024-02-27/event-driven-react/">イベント駆動のReact - ベインのブログ</a></p>
+</li>
+<li>
+<p>記事には書かなかったが、イベントの発生時に副作用を起こすように書くのはめんどくさい</p>
+<ul>
+<li><code>useEffect</code> で状態を監視して副作用を起こすほうが気楽</li>
+</ul>
+</li>
+</ul>
+<h2 id="記事を読んだ">記事を読んだ</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2005.06444">pika parsing</a> (revised(v4): <strong>2020</strong>-07-07)
+<ul>
+<li>DPを使ったbottom-up, right-to-leftな構文解析アルゴリズムについて書かれている</li>
+<li>2.4節にある洞察が興味深い。DPテーブル内の計算の依存関係はbottom-up, right-to-leftになっている</li>
 </ul>
 </li>
 </ul>
@@ -252,8 +298,6 @@
                   <ul>
                 
                 
-                    <li><a href="/blog/2024-04-02/diary/">近況 2024-04-02</a></li>
-                
                     <li><a href="/blog/2024-01-01/diary/">近況 2024-01-01</a></li>
                 
                     <li><a href="/blog/2023-04-30/diary/">近況 2023-04-30</a></li>
@@ -261,6 +305,8 @@
                     <li><a href="/blog/2023-03-31/diary/">近況 2023-03-31</a></li>
                 
                     <li><a href="/blog/2023-02-28/diary/">近況 2023-02-28</a></li>
+                
+                    <li><a href="/blog/2023-01-31/diary/">近況 2023-01-31</a></li>
                 
               </ul>
 
@@ -272,13 +318,9 @@
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://vain0x.github.io/blog/2022-10-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2022-10-31">&larr; 前ページ</a>
+              <a href="https://vain0x.github.io/blog/2024-02-27/event-driven-react/" data-toggle="tooltip" data-placement="top" title="イベント駆動のReact">&larr; 前ページ</a>
             </li>
           
-          
-            <li class="next">
-              <a href="https://vain0x.github.io/blog/2023-01-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2023-01-31">次ページ &rarr;</a>
-            </li>
           
         </ul>
       
