@@ -43,8 +43,7 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
       <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2020-09-19/complexity-from-expression-oriented-syntax/</guid>
-      <description>&lt;p&gt;式の中に分岐や反復、ジャンプを書ける構文を &lt;strong&gt;式指向の構文&lt;/strong&gt; と呼ぶことにする。
-式指向の構文は便利な反面、言語に一定の複雑性を追加する。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;strong&gt;式指向の構文&lt;/strong&gt; (式の途中に文を書けるような構文) は便利な反面、言語設計の面でちょっとした課題があるという話&lt;/p&gt;</description>
     </item>
     
     <item>

@@ -8,8 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <title>式指向構文が言語処理系にもたらす複雑性 - ベインのブログ</title>
-  <meta name="description" content="式の中に分岐や反復、ジャンプを書ける構文を 式指向の構文 と呼ぶことにする。
-式指向の構文は便利な反面、言語に一定の複雑性を追加する。">
+  <meta name="description" content="式指向の構文 (式の途中に文を書けるような構文) は便利な反面、言語設計の面でちょっとした課題があるという話">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -58,9 +57,9 @@
     "name" : "ベイン"
   },
   "headline": "式指向構文が言語処理系にもたらす複雑性",
-  "description" : "式の中に分岐や反復、ジャンプを書ける構文を 式指向の構文 と呼ぶことにする。 式指向の構文は便利な反面、言語に一定の複雑性を追加する。\n",
+  "description" : "式指向の構文 (式の途中に文を書けるような構文) は便利な反面、言語設計の面でちょっとした課題があるという話\n",
   "inLanguage" : "ja",
-  "wordCount":  283 ,
+  "wordCount":  461 ,
   "datePublished" : "2020-09-19T00:00:00",
   "dateModified" : "2020-09-19T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog\/",
@@ -80,15 +79,13 @@
 </script>
 
 <meta property="og:title" content="式指向構文が言語処理系にもたらす複雑性" />
-<meta property="og:description" content="式の中に分岐や反復、ジャンプを書ける構文を 式指向の構文 と呼ぶことにする。
-式指向の構文は便利な反面、言語に一定の複雑性を追加する。">
+<meta property="og:description" content="式指向の構文 (式の途中に文を書けるような構文) は便利な反面、言語設計の面でちょっとした課題があるという話">
 <meta property="og:url" content="https://vain0x.github.io/blog/2020-09-19/complexity-from-expression-oriented-syntax/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
   <meta name="twitter:title" content="式指向構文が言語処理系にもたらす複雑性" />
-  <meta name="twitter:description" content="式の中に分岐や反復、ジャンプを書ける構文を 式指向の構文 と呼ぶことにする。
-式指向の構文は便利な反面、言語に一定の複雑性を追加する。">
+  <meta name="twitter:description" content="式指向の構文 (式の途中に文を書けるような構文) は便利な反面、言語設計の面でちょっとした課題があるという話">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -198,78 +195,130 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>式の中に分岐や反復、ジャンプを書ける構文を <strong>式指向の構文</strong> と呼ぶことにする。
-式指向の構文は便利な反面、言語に一定の複雑性を追加する。</p>
-<h2 id="式指向の構文の例">式指向の構文の例</h2>
-<p>例えば Rust は式指向の構文を持ち、条件分岐を表す if はそれ自体が式になっている。分岐の結果として評価された節の値が if 式の値になる。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">p</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">f</span><span class="p">()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">g</span><span class="p">()</span><span class="w">
+        <p><strong>式指向の構文</strong> (式の途中に文を書けるような構文) は便利な反面、言語設計の面でちょっとした課題があるという話</p>
+<h3 id="式指向の構文">式指向の構文</h3>
+<p>この記事ではいわゆる式指向の構文の一例として <strong>Rust風の構文</strong> を考えます</p>
+<p><strong>ブロック式</strong> は次のように複数の文と1個の式からなる式です</p>
+<pre tabindex="0"><code>    { 文の並び…; 式 }
+</code></pre><p>文と違って、式は <strong>評価</strong> (計算) すると値が得られるものです。
+ブロック式を評価する場合、文を順番に実行してから、末尾にある式を評価します。その末尾の式の値がブロック式の値となります</p>
+<p>式の評価の途中で一時的に使う値をローカル変数に束縛 (代入) したりできます</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c1">// 末尾の式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span><span class="w">
+</span></span></span></code></pre></div><p>(上記は <code>let y = 式;</code> というローカル変数の宣言で、初期化式の部分にブロック式が置かれているかたち)</p>
+<p>また、条件分岐を表す <code>if</code> や <code>match</code> も式です。if式では分岐の結果として評価された側のブロックの値が、そのif式の値となります</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">p</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">f</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">g</span><span class="p">()</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">try_f</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Some</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">None</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">return</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">};</span><span class="w">
-</span></span></span></code></pre></div><p>以降、サンプルコードは Rust 風の構文で書く。ただし型システムや処理系は Rust とは限らない。</p>
-<h2 id="ジャンプとスタックマシンの相性の悪さ">ジャンプとスタックマシンの相性の悪さ</h2>
-<p>式指向の構文を持つ場合、式の評価の途中でジャンプすることができる。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">f</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>以降、サンプルコードはRust風の構文で書きます。ただし型システムや処理系はRustと同じとはかぎらず、あくまで <strong>疑似コード</strong> のスケッチと思ってください</p>
+<h2 id="ジャンプとスタックマシン">ジャンプとスタックマシン</h2>
+<p>式指向の構文では、式の評価の途中で <strong>ジャンプ</strong> し、その式の評価が最後まで完了しないことがあります</p>
+<p>スタックマシンで計算を行おうとすると、式の途中でのジャンプには問題があります。
+スタックマシンは部分式の値をスタックに積みながら式の評価を進めるので、その途中でジャンプをしてしまうと、<strong>スタックに部分式の値が残ってしまう</strong> ことになります</p>
+<p>例:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">f</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>この関数をスタックマシンのコードにナイーブにコンパイルすると、次のような不正な振る舞いをする。</p>
+</span></span></span></code></pre></div><p>この関数をスタックマシンのコードにそのままコンパイルすると、次のような不正な振る舞いになります</p>
 <ul>
-<li>1 をスタックに積む</li>
-<li>2 をスタックに積む</li>
-<li>return する。スタックから返り値 2 を pop して、関数から抜ける</li>
-<li><del>スタックから2つの値を pop して足し、和をスタックに積む</del> (← ジャンプしたのでこれは実行されない)</li>
+<li><code>1</code> をスタックに積む</li>
+<li><code>2</code> をスタックに積み、<code>return</code> する。スタックから返り値 <code>2</code> をpopして、関数から抜ける</li>
+<li><del><code>3</code> をスタックに積む。スタックから2つの値をpopし、和をスタックに積む</del> (← ジャンプしたので、これは実行されない)</li>
 </ul>
-<p>ここで 1 はスタックに置かれたままであり、関数の実行の前後でスタックの深さが維持されない。</p>
+<p><code>1</code> をスタックに置いたまま関数を抜けてしまっているため、関数の実行の前後でスタックの状態が維持されていません</p>
 <h3 id="解決策">解決策</h3>
-<p>この問題を解決するには、レジスタマシンを使うか、ジャンプする際に不要になった値をスタックから pop するようなコードを生成すればいい。</p>
-<p>(<strong>追記</strong>: 正準化(canonicalize)などの手順により、式の評価の途中でジャンプが起きないように変形しておく方法もある。<a href="/blog/2019-04-30/diary/">近況 2019-04-30</a> に似たような話を書いた。)</p>
+<p>解決策はいくつかあります:</p>
+<ul>
+<li>式の途中でジャンプする際に、不要になる値をスタックから取り除くコードも生成する</li>
+<li>式の外側にジャンプするようなコードを禁止してしまう</li>
+<li>スタックマシン以外の方法を使う (レジスタマシンとか)</li>
+</ul>
+<h4 id="正準化-canonicalization">正準化 (canonicalization)</h4>
+<p><strong>追記</strong>: 正準化(canonicalize)などの手順により、式の評価の途中でジャンプが起きないように変形しておく方法もあります (<a href="/blog/2019-04-30/diary/">近況 2019-04-30</a> にも似たような話を書きました)</p>
+<p>上記のサンプルコードでいえば、次のような変形を行います</p>
+<ul>
+<li><code>a + b</code> → <code>{ let x = a; let y = b; x + y }</code> と変形 (一時変数の導入)</li>
+<li><code>let x = { 文…; 式 };</code> → <code>文…; let x = 式;</code> と変形 (letの平坦化)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">f</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 元: 1 + { return 2; 3 }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">  </span><span class="c1">// 1 + …
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">   </span><span class="c1">// { return 2; … }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">  </span><span class="c1">// { …; 3 }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w">       </span><span class="c1">// _ + _
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>関数全体を文の並びに変形し、式の途中でジャンプしないようにできます (導入した一時変数がレジスタのような役割をしている)</p>
 <h2 id="ジャンプする式の型">ジャンプする式の型</h2>
-<p>静的型システムを持つ式指向言語の場合、break/return などのジャンプ式にも静的な型をつける必要がある。</p>
-<p>例えば次の関数に含まれる match 式は Some のアームが式の値を持ち、None のアームは return する。
-mach 式の値は i32 でなければいけないので、return 式の型は i32 か、それの部分型でなければいけない。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">drain_sum</span><span class="p">(</span><span class="n">xs</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">loop</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">xs</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nb">Some</span><span class="p">(</span><span class="n">it</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">it</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nb">None</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">total</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">};</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">total</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>Rust の return 式には ! (never) 型がつく。! はあらゆる型の部分型なので、i32 の部分型でもある。
-したがって match 式に i32 型をつけられる。</p>
-<p>もう1つの方法として、return などのジャンプする式の出現ごとにフレッシュなメタ型 T を生成して <code>(return expr): T</code> とする方法がある。
-単一化により型 T が他のアームの型になるので、型検査を通せる。
-この方法だと部分型の仕組みを導入しなくて済む。
-(こういった理由から ML の failwith 関数に <code>failwith&lt;'a&gt; : string -&gt; 'a</code> という型がついている。)</p>
-<p>いずれにせよ「never 型と部分型」や「メタ型変数と単一化」のような一定の仕組みの導入が要請される。</p>
-<p>あるいは、妥協して、ジャンプする式には決め打ちで unit (あるいは (), void, null の) 型をつけるという案もある。
-(この手法を採用している言語があるかは知らない。)
-その場合、上記のような match 式は型検査を通らなくなり、式指向らしさの一部が失われる。</p>
-<p>(<strong>追記</strong>: C++ のパターンマッチ機能である inspect 式の提案では、制御を返さないブランチに印をつけておくことで、そのブランチの評価値の型を型検査時に無視するような機能がある。
+<p>静的型システムを備える言語を考えます</p>
+<p><code>break</code>, <code>return</code> のようなジャンプ命令も構文的に式であると決めたとします (実際にRustはそう)。ジャンプ式を評価すると、ジャンプが起こって評価が中断するため、評価して得られる値というものは存在しません。このような式にどう型をつければよいでしょうか</p>
+<p>例えば次の <code>match</code> 式です:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span>: <span class="nc">T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">parse</span><span class="p">(</span><span class="n">input</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w">  </span><span class="c1">// x ← value
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">        </span><span class="nb">Err</span><span class="p">(</span><span class="n">_</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">return</span><span class="p">,</span><span class="w">  </span><span class="c1">// x ← ???
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// …
+</span></span></span></code></pre></div><p><code>parse(…)</code> の結果が <code>Ok(value)</code> なら、<code>match</code> の値は <code>value</code> に評価され、変数 <code>x = value</code> として後続の処理に続きます。しかし <code>parse</code> の結果が <code>Err(_)</code> なら関数から <code>return</code> します</p>
+<p>Rustの場合、 <code>return</code> 式には <code>!</code> (never) という型がつきます。<code>!</code> はあらゆる型の <strong>部分型</strong> とされています。そのため <code>value</code> の型 <code>T</code> がなんであれ、<code>match</code> 式の型を <code>T</code> としてよいです</p>
+<p>もうひとつの方法として、ジャンプする式の出現ごとに <strong>メタ型</strong> を割り当てる方法があります。メタ型は、型推論において未知の型を表すものです。<code>α</code> をメタ型として、<code>return</code> 式の型は <code>α</code> であるということにして、残りの型推論によって <code>α</code> の型を決定する、ということにします。上記の例では、<code>Err</code> 側にある <code>return</code> 式の型を <code>α</code> とします。<code>match</code> 式の型は「<code>T</code> または <code>α</code>」であり、<code>α = T</code> と代入すれば問題なく型がつきます</p>
+<p>どちらの場合も結果は同じですが、ポイントは <strong>それを解決する何らかの仕組み</strong> が必要ということです。部分型 (<code>!</code>) を使う場合は部分型を導入する必要があり、メタ型を使う場合はメタ型を含む型推論の仕組みが必要です</p>
+<p>ほかの案として、ジャンプ式に決め打ちで特定の型をつけることもできます (この方法を使う言語があるかは知りません)。その場合、上記のような <code>match</code> 式は型検査が通らないことになります。<code>return</code> を外に動かすような書き換えが必要となり、「式指向らしさ」が減ってしまいます</p>
+<p>(<strong>追記</strong>: C++ にパターンマッチ機能であるinspect式を追加する提案があります。制御を返さないブランチに構文的に印をつけることで、そのブランチの評価値の型を型検査時に無視する、という方法が述べられているようです。
 参考: <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p1371r3.pdf">Pattern Matching - p1371r3.pdf</a>)</p>
-<h2 id="if-式の後ろのセミコロン">if 式の後ろのセミコロン</h2>
-<p>C言語風の構文で、セミコロンが必須の言語を考える。</p>
-<p>単純に if 文の構文規則を「式」に移動すると、従来の if 文と同様の用途で if 式を使うとき、末尾に ; が必要になってしまう。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">body</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">};</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//   ^ 式の終わりなのでセミコロンが必要
-</span></span></span></code></pre></div><p><code>if (cond) { ... }</code> は1個の式であって文ではないので、文として書きたいなら式文にする必要があり、末尾にセミコロンをつけることになる。この問題を解決するため、一定の考慮が必要になる。</p>
+<h2 id="if式の後ろのセミコロン">if式の後ろのセミコロン</h2>
+<p>C言語のような「セミコロン必須」の構文を考えます。if文の構文を単純に「文」から「式」に移動すると、従来のif文の記述が式文になることで、 <strong>一見余計なセミコロンが必要になる</strong> という問題があります</p>
+<p>もともと、式文やif文の定義を次のようにしたとします (elseは省略):</p>
+<pre tabindex="0"><code>    # 式文
+    ExpressionStatement = Expression &#34;;&#34;
+
+    # if文
+    IfStatement = &#34;if&#34; &#34;(&#34; Expression &#34;)&#34; Block
+
+    # 文
+    Statement = ExpressionStatement | IfStatement | …
+
+    # 式
+    Expression = …
+</code></pre><p>これらを式に統合したとします (ただし式文は文に残す):</p>
+<pre tabindex="0"><code>    # 式文
+    ExpressionStatement = Expression &#34;;&#34;
+
+    # 文
+    Statement = ExpressionStatement
+
+    # if式
+    IfStatement = &#34;if&#34; &#34;(&#34; Expression &#34;)&#34; Block
+
+    # 式
+    Expression = IfExpression | …
+</code></pre><p>この構文で「普通のif文」は1個の式であることになります</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="err">…</span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>文が必要な場所にこれを書こうとすると、式文は末尾に <code>;</code> が必要なので、一見余計なセミコロンを書くことになります</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="err">…</span><span class="p">};</span><span class="w"> </span><span class="c1">// ← 式文
+</span></span></span><span class="line"><span class="cl"><span class="c1">//               ^ このセミコロンが必要
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">f</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">};</span><span class="w">
+</span></span></span></code></pre></div><p>(ちなみに、構文から「文」自体をなくして、式を順番に評価するための <code>式; 式</code> という式を導入しても、セミコロンが必須なら状況は同じです)</p>
 <h3 id="解決策-1">解決策</h3>
-<p>文の先頭に if 式が来るときは、それだけで1個の式文とみなし、後ろにセミコロンがなくてもよいことにすればよい。(部分的なセミコロン省略ルール。)</p>
-<p>ただしこれだけでは <code>if flip() { you } else { opponent }.win();</code> のような if 式から始まる式文を正しくパースできないことになる。これは JavaScript において、即時実行関数を <code>function(){}()</code> と書くと function 宣言とみなされてしまう状況に似ている。回避策として <code>(function(){})()</code> などと書くのは受け入れられているので、そのようにしてもよいだろう。</p>
-<p>また、Rust では <strong>打ち切り規則</strong> と呼ばれる構文上の規則を用意している。打ち切り規則は、おおまかにいうと「文頭に if 式があるなら、それが明らかに他の式の一部でなければ末尾のセミコロンの省略を許す」というもの。例えば次のコードは2つの文にパースされる:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">cond</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">..</span><span class="p">.</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">//&lt; 末尾にセミコロンをつけていないが、
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">f</span><span class="p">();</span><span class="w">             </span><span class="c1">//  f から次の文が始まる。
-</span></span></span></code></pre></div><p>一方、次のコードでは if 式の直後に <code>.</code> があって、明らかに if 式はその左辺となる。このケースではセミコロンの省略は起きない。
-(特別扱いされているのは <code>.</code> と <code>?</code> だけで、二項演算子は打ち切られる模様: <code>if cond { 42 } / 2</code> など)</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">cond</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">..</span><span class="p">.</span><span class="w"> </span><span class="p">}.</span><span class="n">f</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//             ^ . は左辺に式が必要なので文のパースを続ける
-</span></span></span></code></pre></div><p>参考: <a href="https://qnighy.hatenablog.com/entry/2017/04/22/070000">Rustの文でセミコロンを省略してよい条件 - 簡潔なQ</a></p>
+<p>ひとつの解決策は <code>if</code> キーワードで始まる文を特別扱いすることです。つまり、<code>if</code> で始まる式文だけ末尾のセミコロンをなくすという、部分的なセミコロンの省略ルールを作ります</p>
+<p>ただし、if式から始まる式文のパースがうまくいかない問題があります。例えば次の文は、<code>.</code> の左辺に<code>if</code> 式がある構造になっています:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">flip</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">opponent</span><span class="w"> </span><span class="p">}.</span><span class="n">win</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//  -----------------------------------^
+</span></span></span></code></pre></div><p>JavaScriptにすでに似たような問題があります。<code>function f() {}</code> という記述は関数を定義する「文」でもあり、いわゆる関数オブジェクトを表す式でもあります。構文上、前者が優先されるため、<code>function</code> キーワードで始まる式文を書くことはできません。回避策として <code>(function(){})()</code> のように式の先頭が <code>function</code> にならないようにする方法があります。この回避策はおそらくコミュニティにも受け入れられており、「文優先」の構文でも問題ないと思います</p>
+<p>また、Rustは <strong>打ち切り規則</strong> と呼ばれる構文上の規則を用意しています。打ち切り規則は、おおまかにいうと「文頭にif式がある場合、それが明らかに他の式の一部でなければ、末尾のセミコロンの省略を許す」というものです。例えば次のコードは、2つの文にパースされます:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">cond</span><span class="w"> </span><span class="p">{</span><span class="err">…</span><span class="p">}</span><span class="w">  </span><span class="c1">// 末尾にセミコロンなし
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">f</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></div><p>一方、次のコードにおいてif式は <code>.</code> の左辺となっています。このケースではセミコロンが省略されているとはみなされません</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">cond</span><span class="w"> </span><span class="p">{</span><span class="err">…</span><span class="p">}.</span><span class="n">f</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//         ^ . は左辺に式が必要なので文のパースを続ける
+</span></span></span></code></pre></div><p>(特別扱いされているのは <code>.</code> と <code>?</code> だけで、二項演算子は打ち切られるらしい: <code>if cond { 42 } / 2</code> など)</p>
+<p>参考: <a href="https://qnighy.hatenablog.com/entry/2017/04/22/070000">Rustの文でセミコロンを省略してよい条件 - 簡潔なQ</a></p>
+<p>(<strong>追記(2024-10-10)</strong>: 文章を全体的に調整しました)</p>
 
         
           
