@@ -33,8 +33,7 @@
       <pubDate>Sun, 21 Mar 2021 00:00:00 +0000</pubDate>
       <author>vainzerox@gmail.com (ベイン)</author>
       <guid>https://vain0x.github.io/blog/2021-03-21/semicolon-syntax/</guid>
-      <description>&lt;p&gt;C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
-Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。&lt;/p&gt;</description>
+      <description>&lt;p&gt;文の区切りとしてのセミコロンについて、いくつかのプログラミング言語の事例をみていく記事です&lt;/p&gt;</description>
     </item>
     
     <item>

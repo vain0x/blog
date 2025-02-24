@@ -8,8 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <title>プログラミング言語の構文とセミコロン - ベインのブログ</title>
-  <meta name="description" content="C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
-Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。">
+  <meta name="description" content="文の区切りとしてのセミコロンについて、いくつかのプログラミング言語の事例をみていく記事です">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -58,9 +57,9 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
     "name" : "ベイン"
   },
   "headline": "プログラミング言語の構文とセミコロン",
-  "description" : "C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。 Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。\n",
+  "description" : "文の区切りとしてのセミコロンについて、いくつかのプログラミング言語の事例をみていく記事です\n",
   "inLanguage" : "ja",
-  "wordCount":  459 ,
+  "wordCount":  519 ,
   "datePublished" : "2021-03-21T00:00:00",
   "dateModified" : "2021-03-21T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog\/",
@@ -80,15 +79,13 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
 </script>
 
 <meta property="og:title" content="プログラミング言語の構文とセミコロン" />
-<meta property="og:description" content="C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
-Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。">
+<meta property="og:description" content="文の区切りとしてのセミコロンについて、いくつかのプログラミング言語の事例をみていく記事です">
 <meta property="og:url" content="https://vain0x.github.io/blog/2021-03-21/semicolon-syntax/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
   <meta name="twitter:title" content="プログラミング言語の構文とセミコロン" />
-  <meta name="twitter:description" content="C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
-Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。">
+  <meta name="twitter:description" content="文の区切りとしてのセミコロンについて、いくつかのプログラミング言語の事例をみていく記事です">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -198,59 +195,70 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>C言語の各文末にセミコロンが必須な構文は書いていてめんどくさいといわれる。
-Cの構文を踏襲しつつセミコロンを省略可能にした言語がいくつかあるので、その手法と性質、課題をみていく。</p>
+        <p>文の区切りとしてのセミコロンについて、いくつかのプログラミング言語の事例をみていく記事です</p>
+<p>主張や結論があるわけではなく、単に複数のトピックを書いています</p>
+<!-- raw HTML omitted -->
+<h2 id="c言語のセミコロンと文宣言">C言語のセミコロンと文・宣言</h2>
+<p>C言語の構文は「文の末尾にセミコロンが必須」とよく説明されます。基本的にそのとおりですが、次の点についても説明がつくように、まずCの構文定義をみていきます</p>
 <ul>
-<li>C言語の構文とセミコロンが必須な箇所はどこか</li>
-<li>JavaScriptのセミコロン省略により生じた問題とは何か</li>
-<li>Goのセミコロン省略ルールはどう定められているか</li>
-<li>Haskellのレイアウト依存構文はセミコロンの省略にどう生かされているか</li>
-<li>Rustの構文からセミコロンを取り除くとしたらどんな問題が生じるか</li>
-<li>F# のリストがセミコロン区切りである利点と欠点</li>
+<li><code>int a;</code> や <code>f();</code> のような記述ではセミコロン必須</li>
+<li><code>while (1) {}</code> のようにセミコロンがなくてもいいこともある
+<ul>
+<li>「<code>{}</code> で終わる場合はセミコロンがつかない」という誤解</li>
 </ul>
-<h2 id="c言語の構文とセミコロンが必須な箇所はどこか">C言語の構文とセミコロンが必須な箇所はどこか</h2>
-<p>C言語の構文要素は大きく分けて式、文、宣言がある。
-式は数式や関数呼び出し。
-文は分岐や繰り返し。
-宣言は変数や型の定義・宣言。</p>
-<p>一般に「C言語の文の末尾にセミコロンは必須」といわれるが、構文規則にそう書いてあるわけではない。
-それぞれの文の構文規則に「この位置に <code>;</code> があること」と定められている。</p>
-<p>例えば式文と do-while 文の構文規則は次のようになっている。(ここではラベルと属性は無視する。)
-それぞれ末尾に <code>;</code> が必須なことが明記されている。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 式文
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">expression</span> <span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// do-while 文
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">do</span> <span class="n">statement</span> <span class="nf">while</span> <span class="p">(</span> <span class="n">expression</span> <span class="p">)</span> <span class="p">;</span>
-</span></span></code></pre></div><p>一方、while文の構文規則にはセミコロンが含まれていない。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">while</span> <span class="p">(</span> <span class="n">expression</span> <span class="p">)</span> <span class="n">statement</span>
-</span></span></code></pre></div><p>最後のstatementがセミコロンを含む場合、while文もセミコロンで閉じられているようにみえる。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;yes</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//           ^^^^^^^^^^^^^^^^ 式文
-</span></span></span></code></pre></div><p>構文規則を眺めると、最後が <code>;</code> でもstatementでもない文は複文だけである。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 複文
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span> <span class="n">statement</span> <span class="o">|</span> <span class="n">declaration</span><span class="p">...(</span><span class="n">optional</span><span class="p">)</span> <span class="p">}</span>
-</span></span></code></pre></div><p>そのため「<code>{}</code> の後ろにはセミコロンはいらない」と思いがちだが、構造体を定義するときは <code>;</code> が必須。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">A</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span> <span class="c1">// このセミコロンは必須
-</span></span></span></code></pre></div><p>これは構造体の宣言と変数の宣言を1つの構文規則に詰め込んだせい。
-構造体の定義と変数の定義を同時に行えるので、おそらくこのセミコロンがないと構文的に曖昧になる。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">A</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-</span></span></code></pre></div><p>参考:</p>
+</li>
+<li><code>struct S {};</code> のように <code>{}</code> とセミコロンの両方が出てくることもある</li>
+</ul>
+<p>C言語の構文は主に <strong>式</strong>、<strong>文</strong>、<strong>宣言</strong> の3種類に分かれます</p>
+<p>(※関数の本体における構文だけ取り上げます。また、ラベルや属性は本題から外れるので無視します)</p>
+<h3 id="文の末尾の記号">文の末尾の記号</h3>
+<p>式についてはいうまでもないので説明は省略します。宣言は後回しにします</p>
+<p>文から見ていきます。<strong>文の末尾が <code>;</code> か <code>}</code> か</strong> という観点で、文を3種類に分類します:</p>
+<ul>
+<li>明示的にセミコロンで終わる文</li>
+<li>複合文</li>
+<li>文で終わる文</li>
+</ul>
+<p><strong>明示的にセミコロンで終わる文</strong> は文の定義として最後にセミコロンが書かれているものです。例えば式文の定義は <code>expression ;</code> (式の後ろにセミコロン) となっていて、末尾がセミコロンになります。この種の文は、ほかに break, return, do-while などがあります。これらの文は「セミコロン必須」の説明に合致します</p>
+<p>次に <strong>複合文</strong> は複数の文 (や宣言) を包んで1つの文とするものです。例えば <code>{ f(); g(); }</code> という記述は、関数呼び出しの式文2つから構成される複合文です。複合文の末尾は、見ての通り <code>}</code> で終わります。複合文が存在するため「文の末尾にセミコロンがつかない」状況が発生するわけです</p>
+<blockquote>
+<p>複合文の定義: <code>{}</code> の中に文や宣言を0個以上並べたものという意味</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="p">{</span> <span class="n">statement</span> <span class="o">|</span> <span class="n">declaration</span><span class="p">...(</span><span class="n">optional</span><span class="p">)</span> <span class="p">}</span>
+</span></span></code></pre></div></blockquote>
+<p>最後に上記以外の文を確認します。これらは文の前方にいろいろと足していく構造とみなせます。例えば <code>while</code> 文の定義は次の通り:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span> <span class="n">expression</span> <span class="p">)</span> <span class="n">statement</span>
+</span></span></code></pre></div><p>この文の末尾はまた別の何らかの文ですが、「文の末尾にある文」をたどっていくと最終的には末尾が文でないものにたどり着き、それはセミコロンで終わる文か、複合文のどちらかです。そのため、文の末尾は必ず <code>;</code> か <code>}</code> で終わることとなります</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="c1">// 例: 式文の手前にいろいろくっついているが、
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     文全体としてはセミコロンで終わる
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="p">{}</span> <span class="k">else</span> <span class="k">for</span><span class="p">(;;)</span> <span class="k">while</span> <span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="nf">f</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//                               ^~~~
+</span></span></span></code></pre></div><h3 id="宣言">宣言</h3>
+<p>(※宣言の構文を深堀りすると本題から逸れるので詳しくは書きません……)</p>
+<p>宣言は <code>int a;</code> のように変数を宣言する構文であるだけでなく、<code>typedef int i32;</code> や <code>struct S { int x; };</code> のように型を定義する構文でもあります</p>
+<p>宣言の末尾は <code>;</code> となります。<code>struct S {…};</code> における <code>{}</code> は前述の複合文とは関係なく、型の記述の一部です。これが「<code>{}</code> とセミコロンの両方が出てくる」ケースに相当します</p>
+<p>基本的に、宣言は <code>型 変数, 変数, …;</code> という構造です。ただし「型」や「変数」の部分は単純な型名や変数名にかぎりません。
+型の部分に <code>struct S {…}</code> のような構造体の定義を記述することができます。
+さらにその場合、変数の部分は省略可能なので、<code>型;</code> だけで宣言として完結します</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="c1">// 型の部分が struct S {…} で、「変数…」の部分が省略された宣言
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">S</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+</span></span></code></pre></div><p>このような「型の定義」もあくまで宣言の一種であるため、変数リストの部分を書くこともできます:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="c1">// 「変数…」の部分が obj (変数名) である宣言
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">struct</span> <span class="n">S</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span> <span class="n">obj</span><span class="p">;</span>
+</span></span></code></pre></div><p>つまり、このように <code>struct S {…}</code> の後ろにまだ変数リストが続けられるので、<code>}</code> で終わりという構文になっていないと考えられます</p>
+<p>ちなみに型の定義を宣言の構文の一種にするという設計は、C言語に近い見た目のほかの言語でもあまり踏襲されていなさそうです (後述の Go, Rust など)</p>
+<h3 id="参考">参考</h3>
 <ul>
 <li><a href="https://en.cppreference.com/w/c/language/statements">Statements - cppreference.com</a></li>
 <li><a href="https://en.cppreference.com/w/c/language/declarations">Declarations - cppreference.com</a></li>
 </ul>
-<h2 id="javascriptのセミコロン省略により生じた問題とは何か">JavaScriptのセミコロン省略により生じた問題とは何か</h2>
-<p>JavaScriptは動的言語だが、構文はC言語に似ている。</p>
-<p>JavaScriptの構文には自動セミコロン挿入という機能がある。
-厳密なルールはリンク先を参照。
-雑にいえば行末のセミコロンを書かなくて済む。</p>
-<p><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Lexical_grammar#automatic_semicolon_insertion">#自動セミコロン挿入 字句文法 - JavaScript | MDN</a></p>
-<p>例を引用:</p>
+<h2 id="javascriptの自動セミコロン挿入">JavaScriptの自動セミコロン挿入</h2>
+<p>JavaScriptはJavaに似た構文を持つ言語です (C言語 → Java → JavaScript みたいな系譜)</p>
+<p>JavaScriptには自動セミコロン挿入という機能があります (詳細はリンク先を参照)。
+平たくいうと行末にはセミコロンを書かなくていいということです</p>
+<p><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Lexical_grammar#automatic_semicolon_insertion">字句文法 - JavaScript | MDN #自動セミコロン挿入</a></p>
+<p>自動セミコロン挿入に関して、いくつか課題が知られています。1つ目の課題は <code>return</code> の直後に改行を入れると文が区切られるものです。
+上記のリンク先にある例を引用します:</p>
 <blockquote>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="k">return</span>
 </span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
@@ -260,64 +268,69 @@ Cの構文を踏襲しつつセミコロンを省略可能にした言語がい�
 </span></span><span class="line"><span class="cl"><span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
 </span></span></code></pre></div></blockquote>
-<p>上の文は <code>a + b</code> を返すつもりが、実際には返り値の式を省略した <code>return;</code> と解釈されてしまう。
-後ろにある <code>a + b;</code> は通常の式文なので構文エラーとして指摘されない。
-到達不能な文なので、Lintツールにより警告される。
-Lintツールがあれば、実用上、問題が生じることはないはず。</p>
-<p>もう1つは関数呼び出しのカッコが前の文にひっつく問題。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">delay</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;util&#34;</span><span class="p">).</span><span class="nx">promisify</span><span class="p">(</span><span class="nx">setTimeout</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kr">await</span> <span class="nx">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;...hey&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">})()</span>
-</span></span></code></pre></div><p>delayという変数の宣言の後に即時実行関数があるようにみえる。
-実際にはこういう構文になってしまっている:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">delay</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;util&#34;</span><span class="p">).</span><span class="nx">promisify</span><span class="p">(</span><span class="nx">setTimeout</span><span class="p">)(</span><span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">...)()</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//                                                 ^ ここにあった空行は関係ない
-</span></span></span></code></pre></div><p>添字のカッコでも同様の問題が起こる。
-この問題は構文エラーとして報告されないし、意味的な問題を静的に検出するのも難しいはず。
-通常は実行時エラーとして現れる。
-あまり詳しくないけど、動かしてみればすぐ気づきそうなものだし、それほど問題視されていないような雰囲気を感じる。</p>
-<p>TypeScriptだとたいてい型エラーになるので、実用上問題ない。</p>
-<p>回避する場合は <code>;</code> を行頭または文末に書くか、ブロックで囲む。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">delay</span> <span class="o">=</span> <span class="p">...</span>
-</span></span><span class="line"><span class="cl">    <span class="p">;(</span><span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{...})()</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//  ^
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">delay</span> <span class="o">=</span> <span class="p">...</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="p">(</span><span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{...})()</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//  ^                       ^
-</span></span></span></code></pre></div><p>省略可能な <code>;</code> を書くか否かは、どちらの派閥も少なからず存在している気がする。</p>
-<p>参考:</p>
+<p>上の文は <code>return (a + b);</code> という1つの文のつもりで書かれているかもしれませんが、実際には <code>return;</code> と <code>a + b;</code> という2つの文に解釈されます (これは意図しない挙動かもしれない)</p>
+<p>あくまで筆者の感覚でいえば、この問題が実際にトラブルになることは少ないと思います。
+このケースでは <code>return;</code> 文の後ろにある <code>a + b;</code> の文は絶対に実行されないので、エディタの機能や、リンター (プログラムの誤りを指摘するツール) があれば、警告を受けます。TypeScript を使って型検査をしていれば、関数の返り値の型が <code>void</code> (返り値なし) になるので型エラーになるかもしれません</p>
+<p>もう1つの課題は、カッコが前の文にひっつく現象です。次のコードがその例です:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">    <span class="nx">f</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kr">await</span> <span class="nx">p</span><span class="p">).</span><span class="nx">g</span><span class="p">()</span>
+</span></span></code></pre></div><p>上記のコードは2つの文のつもりかもしれませんが、実際は次の1つの文として解釈されます:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">    <span class="nx">f</span><span class="p">()(</span><span class="kr">await</span> <span class="nx">p</span><span class="p">).</span><span class="nx">g</span><span class="p">();</span>
+</span></span></code></pre></div><p><code>f()</code> が返す関数に対して <code>(await p)</code> を引数リストとする関数呼び出しの式になってしまっています (途中にあった改行は無視)</p>
+<p>この問題も、リンターによって検出可能です (ESLint に <a href="https://eslint.style/rules/js/function-call-spacing">function-call-spacing</a> というルールがある)。TypeScript ではたいてい型エラーになるでしょう</p>
+<p>JavaScript のコミュニティでは、セミコロンが省略可能なケースでも書く派と、書かない派が実際両方いるようです</p>
+<h2 id="goのセミコロン省略">Goのセミコロン省略</h2>
+<p>Go言語はC言語風の見た目の構文を持つ言語です。
+JavaScriptとは別の方法で、セミコロンを書かなくていいようになっています。
+仕様書によると字句解析の段階でセミコロンを挿入するようです</p>
 <ul>
-<li><a href="https://github.com/airbnb/javascript#semicolons">#semicolons airbnb/javascript: JavaScript Style Guide</a> (書く派の例)</li>
-<li><a href="https://standardjs.com/rules.html#semicolons">#Semicolon JavaScript Standard Style</a> (書かない派の例。なお &ldquo;standard&rdquo; と勝手に名乗っているだけで公式ではないことに注意)</li>
+<li>行末に特定の種類のトークンがあったら、その後ろにセミコロンを挿入する</li>
+<li>カッコを閉じる直前のセミコロンがなくてもよいことにする</li>
 </ul>
-<h2 id="goのセミコロン省略ルールはどう定められているか">Goのセミコロン省略ルールはどう定められているか</h2>
-<p>Goの構文は個人的にCの構文の進化系だと思っている。</p>
-<p>Goでもセミコロンを省略できる。
-Goは使ったことがないが、仕様書によると次のようなルールらしい:</p>
-<ul>
-<li>行末に特定の種類のトークンがあったら、その後ろにセミコロンを挿入する。</li>
-<li>カッコを閉じる直前のセミコロンがなくてもよいことにする。</li>
-</ul>
-<p>セミコロン挿入の対象となるトークンの種類は仕様にいろいろ書かれているが、要するに文の末尾になりうるトークンのようだ。</p>
-<p>例えば次の文の1行目は <code>+</code> で終わっているのでセミコロンは挿入されない。
-2行目は <code>2</code> で終わっているので挿入される。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">    <span class="nx">a</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">+</span>
-</span></span><span class="line"><span class="cl">        <span class="mi">2</span>
-</span></span></code></pre></div><p>このように複数行の二項演算は演算子を行末におく必要がある。</p>
-<p>また、リストが複数行に渡るとき、最後に <code>;</code> が入ってしまうのを避けるため末尾のカンマが必須になる。</p>
+<p>(※字句解析はコンパイラの初期の処理工程。ソースコードをトークンという基本単位の列に分割すること)</p>
+<p>セミコロン挿入の対象となるトークンの種類は平たくいえば「文の末尾になりうるトークン」のようです。
+例えば次のコードでは <code>2</code> の直後にセミコロンが入ります</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">    <span class="nx">a</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">+</span>   <span class="c1">// + は文の末尾にならないから挿入されない
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="mi">2</span>
+</span></span></code></pre></div><p>この方法は興味深い特性があります。
+上記の例のように、二項演算式の演算子は行末におくことになります (行頭に置いたら分割されてしまう)。
+また、末尾カンマが実質的に必須になります</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">    <span class="nx">a</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="mi">1</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="mi">2</span><span class="p">,</span> <span class="c1">// このカンマは必須
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
-</span></span></code></pre></div><p>この規則の場合、関数呼び出しのカッコが前の文にひっついてしまう問題は起きない。</p>
+</span></span></code></pre></div><p>JavaScript でみた「カッコが前の行とくっつく」現象は発生しません</p>
+<p>スタイルに若干の制約がつくものの、シンプルなルールでセミコロン省略を実現できて、意図しない挙動にもなりづらい、という印象です</p>
 <p>参考: <a href="https://golang.org/ref/spec#Semicolons">#Semicolons The Go Programming Language Specification - The Go Programming Language</a></p>
-<h2 id="haskellのレイアウト依存構文はセミコロンの省略にどう生かされているか">Haskellのレイアウト依存構文はセミコロンの省略にどう生かされているか</h2>
-<p>Haskellの構文はレイアウト依存 (layout-sensitive) な部分があり、セミコロンや波カッコは一定の規則で自動挿入される。</p>
-<p>Haskellも詳しくないが、以下の(やや古い)ページによると、こういう規則でトークンが補われるらしい:</p>
+<h2 id="rustのセミコロン">Rustのセミコロン</h2>
+<p>Rustは比較的新しいシステムプログラミング言語です。これもC言語のような見た目の構文です。前述の JavaScript や Go と違って、セミコロン省略の仕組みを持っていません。</p>
+<p>なぜその設計にしたかの公式的なドキュメントは見つかりませんでした。
+ここでは経緯ではなく想像の話として、セミコロン省略の仕組みがあった場合に発生する問題について書きます</p>
+<p>Rustのブロック式は、「文の並び + 最後の式(省略可)」という構造で、最後の式がそのブロックの値になるという式です。
+コードの見た目として、途中の式文と最後の式の違いは「式の後ろにセミコロンがついているか」です</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rs" data-lang="rs"><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">f</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">g</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//     ^~~~~ セミコロンがない
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">};</span><span class="w">
+</span></span></span></code></pre></div><p><strong>仮に</strong> Goと同様のセミコロン自動挿入があったとします。
+この例では <code>g()</code> の直後にセミコロンが挿入されて式文になってしまいます。
+改行をおかず同一行に <code>}</code> を置く (<code>g() }</code> とする) ことで対処可能です</p>
+<p>あるいは、ブロック式の構文から「最後の式」をなくし、最後の <strong>式文</strong> の値を使う仕様も考えられます。
+その場合は最後の式文が意図せず値になってしまうケースがありそうです。
+最後の式文の値が使われてほしくないケースは明示的に空文を置くことで対処可能です</p>
+<!-- raw HTML omitted -->
+<p>参考:</p>
+<ul>
+<li><a href="https://users.rust-lang.org/t/why-semicolons/25074/3">Why semicolons? - community - The Rust Programming Language Forum</a> (ユーザーフォーラムのスレッド)</li>
+</ul>
+<h2 id="haskellのレイアウト依存構文">Haskellのレイアウト依存構文</h2>
+<p>Haskellは関数型プログラミング言語の一種です。
+いままで挙げた言語とは異なり、C言語の構文にまったく似てません。
+C言語の視点でいえば、「文」に相当する構文要素はなく、「式」が実質的に文の役割をしています。
+そして、式の並びを区切るためのセミコロンがあります</p>
+<p>Haskellはレイアウトにもとづく一定の規則でセミコロンや波カッコを挿入する仕組みがあります</p>
+<p>筆者はHaskellには詳しくないですが、以下の(やや古い)ページによると、次の規則でトークンが補われるそうです:</p>
 <ul>
 <li>一部のキーワードの直後に <code>{</code> がなかったら挿入する</li>
 <li>同じ深さに字下げされている行が続いたらセミコロンを挿入する</li>
@@ -327,75 +340,49 @@ Goは使ったことがないが、仕様書によると次のようなルール
 </ul>
 </li>
 </ul>
-<p>参考</p>
+<p>参考:</p>
 <ul>
 <li><a href="https://www.haskell.org/onlinereport/lexemes.html#sect2.7">#sect2.7 Haskell 98 Lexical Structure</a></li>
 <li><a href="https://www.haskell.org/onlinereport/syntax-iso.html#layout">#layout Haskell 98 Syntax</a></li>
 </ul>
-<p><code>}</code> によって構文エラーが回復される例はこれ：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl">    <span class="kr">let</span> <span class="n">a</span> <span class="ow">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">b</span> <span class="ow">=</span> <span class="mi">2</span> <span class="kr">in</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-</span></span></code></pre></div><p>レイアウトだけみるとbの右辺が <code>2 in a + b</code> になりそうだが、構文的に有効な式ではない。inはこの位置に出現できない。そのため <code>}</code> が挿入される。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl">    <span class="kr">let</span> <span class="p">{</span><span class="n">a</span> <span class="ow">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">b</span> <span class="ow">=</span> <span class="mi">2</span><span class="p">}</span> <span class="kr">in</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-</span></span></code></pre></div><p>実際のHaskellのコードを眺めていると、波カッコやセミコロンはほとんど出現しない。</p>
-<h2 id="rustの構文からセミコロンを取り除くとしたらどんな問題が生じるか">Rustの構文からセミコロンを取り除くとしたらどんな問題が生じるか</h2>
-<p>RustはCの構文を進化させたような構文を持つが、式指向になっている。
-Rustの「ブロック式」はCの複文と同様に文の並びを <code>{}</code> で囲んだものだが、最後に1つ式を置くことができて、その値がブロック式の値になる。</p>
-<p>ブロック末尾のセミコロンの有無は大きな違いを生む。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rs" data-lang="rs"><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">x</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">y</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//       ^ セミコロンがあるから y; は文
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//  ^ このブロックの値はユニット
-</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rs" data-lang="rs"><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">x</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">y</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//       ^ セミコロンがない。このyはブロックの最後の式
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//  ^ このブロックの値はyに等しい
-</span></span></span></code></pre></div><p>セミコロンを省略可能にしてしまうと、最後の式文の値を捨てるために余分な式を書くことになる。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rs" data-lang="rs"><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">x</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">y</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">()</span><span class="w"> </span><span class="c1">// ブロックの値をユニットにする
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>ブロックの型が <code>()</code> だったら値を捨てる規則にしたら省略可能にできそうに思えるが、型推論と相性が悪いかもしれない。</p>
-<p>(他にも理由があるかも。)</p>
-<p>参考: (ただの議論であり公式回答ではない。)</p>
-<ul>
-<li><a href="https://users.rust-lang.org/t/why-semicolons/25074/3">Why semicolons? - community - The Rust Programming Language Forum</a></li>
-</ul>
-<h2 id="f-のリストがセミコロン区切りである利点と欠点">F# のリストがセミコロン区切りである利点と欠点</h2>
-<p>F# のリストの要素はセミコロンで区切る:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="o">[</span> <span class="mi">1</span><span class="o">;</span> <span class="mi">2</span><span class="o">;</span> <span class="mi">3</span> <span class="o">]</span>
-</span></span></code></pre></div><p>複数行に分けて書くとき <code>;</code> は省略できる。
-末尾のセミコロンだけでなく、末尾のカンマのわずらわしさからも解放される。(末尾カンマ問題も消滅)</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="o">[</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl">      <span class="mi">2</span>
-</span></span><span class="line"><span class="cl">      <span class="mi">3</span> <span class="o">]</span>
-</span></span></code></pre></div><p>リスト内包表記もある:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="o">[</span> <span class="k">for</span> <span class="n">n</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">4</span> <span class="o">-&gt;</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span> <span class="o">]</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//=&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">[</span> <span class="mi">0</span><span class="o">;</span> <span class="mi">1</span><span class="o">;</span> <span class="mi">4</span><span class="o">;</span> <span class="mi">9</span><span class="o">;</span> <span class="mi">16</span> <span class="o">]</span>
-</span></span></code></pre></div><p>内包表記の中で条件分岐やループが使える:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="o">[</span> <span class="k">for</span> <span class="n">n</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">4</span> <span class="k">do</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">          <span class="s">&#34;fizz&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">else</span>
-</span></span><span class="line"><span class="cl">          <span class="kt">string</span> <span class="n">n</span> <span class="o">]</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//=&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">[</span> <span class="s">&#34;fizz&#34;</span><span class="o">;</span> <span class="s">&#34;1&#34;</span><span class="o">;</span> <span class="s">&#34;2&#34;</span><span class="o">;</span> <span class="s">&#34;fizz&#34;</span><span class="o">;</span> <span class="s">&#34;4&#34;</span> <span class="o">]</span>
-</span></span></code></pre></div><p>よくみると内包表記の中の構文は外の構文に似ている。
-式文の値が捨てられる代わりにリストの要素になる、という感じで読める。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="o">[</span> <span class="mi">1</span><span class="o">;</span> <span class="mi">2</span><span class="o">;</span> <span class="mi">3</span> <span class="o">]</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//    ^^ ^^ ^ 式文の並びとみなせる
-</span></span></span></code></pre></div><p>デメリットはカンマと取り違えやすいこと。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fsharp" data-lang="fsharp"><span class="line"><span class="cl">    <span class="o">[</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span> <span class="o">]</span>
-</span></span><span class="line"><span class="cl"><span class="c1">//     ^ セミコロンではなくカンマを書いてしまう誤り
-</span></span></span></code></pre></div><p>F# では <code>1, 2, 3</code> も構文的に有効な式なので、この誤りは構文エラーとして指摘されない。
-<code>1, 2, 3</code> は3項のタプルを作る式であり、<code>[ 1, 2, 3 ]</code> はタプルを1個含むようなリストを作る式とみなせる。
-これによる型エラーをみて混乱する初学者がしばしばみられる。
-この問題は F# 自身の欠陥というより環境との軋轢であり、言語の設計は難しい。</p>
+<p>実際に <code>}</code> によって構文エラーが回復される例をリンク先から引用します:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl">    <span class="kr">let</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">e</span><span class="p">;</span> <span class="n">y</span> <span class="ow">=</span> <span class="n">x</span> <span class="kr">in</span> <span class="n">e&#39;</span>
+</span></span></code></pre></div><p>レイアウトだけみるとbの右辺が <code>x in e'</code> になりますが、それだと構文エラーになってしまうため、<code>}</code> が挿入されて、</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl">    <span class="kr">let</span> <span class="p">{</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">e</span><span class="p">;</span> <span class="n">y</span> <span class="ow">=</span> <span class="n">x</span> <span class="p">}</span> <span class="kr">in</span> <span class="n">e&#39;</span>
+</span></span></code></pre></div><p>となります</p>
+<p>レイアウトという仕組みを使う点で、セミコロンだけでなくブロックの構造を決めるための波カッコも書かなくてよくなっていること、構文エラーを判断基準にしていることが興味深いところです</p>
+<!-- raw HTML omitted -->
+<h2 id="f-のリスト">F# のリスト</h2>
+<p>F# は .NET の関数型言語です (C# の仲間)。
+構文は OCaml という言語をベースとしていて、それに前述の Haskell のようなレイアウト依存のルールを加えたものになっています</p>
+<p>F# ではリストの区切りにセミコロンを使うのも特徴的です。このセミコロンも改行によって省略可能です</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fs" data-lang="fs"><span class="line"><span class="cl">    <span class="nf">//</span>  <span class="k">xs </span><span class="nf">=</span> <span class="nf">[</span> <span class="mi">0</span><span class="k">; </span><span class="mi">1</span><span class="k">; </span><span class="mi">2</span> <span class="nf">]</span> <span class="nf">と同じ</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">let</span> <span class="k">xs </span><span class="nf">=</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">[</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">2</span> <span class="nf">]</span>
+</span></span></code></pre></div><p>セミコロン省略の仕組みをリストの区切りにも流用できているのが興味深いところです</p>
+<h4 id="内包表記と式文">内包表記と式文</h4>
+<p>※追記(2025-02)：このセクションは余分だと思いますが、「文面の調整」作業を行う前の初稿に書かれているので、内容を維持するために残してあります</p>
+<p>F# にはリスト内包表記の構文があります</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fs" data-lang="fs"><span class="line"><span class="cl">    <span class="nf">//</span>  <span class="k">xs </span><span class="nf">=</span> <span class="nf">[</span> <span class="mi">0</span><span class="k">; </span><span class="mi">1</span><span class="k">; </span><span class="mi">4</span><span class="k">; </span><span class="mi">9</span><span class="k">; </span><span class="mi">16</span> <span class="nf">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">let</span> <span class="k">xs </span><span class="nf">=</span> <span class="nf">[</span> <span class="nf">for</span> <span class="nf">n</span> <span class="nf">in</span> <span class="mi">0</span><span class="kt">..4</span> <span class="nf">-&gt;</span> <span class="nf">n</span> <span class="k">* </span><span class="nf">n</span> <span class="nf">]</span>
+</span></span></code></pre></div><p>内包表記の中の構文は柔軟で、if式やループも使えます</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fs" data-lang="fs"><span class="line"><span class="cl">    <span class="nf">//</span>  <span class="nf">a</span> <span class="nf">=</span> <span class="nf">[</span> <span class="nf">&#34;fizz&#34;;</span> <span class="nf">&#34;1&#34;;</span> <span class="nf">&#34;2&#34;;</span> <span class="nf">&#34;fizz&#34;;</span> <span class="nf">&#34;4&#34;</span> <span class="nf">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">let</span> <span class="nf">a</span> <span class="nf">=</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">[</span> <span class="nf">for</span> <span class="nf">n</span> <span class="nf">in</span> <span class="mi">0</span><span class="kt">..4</span> <span class="k">do
+</span></span></span><span class="line"><span class="cl"><span class="k"></span>            <span class="k">if </span><span class="nf">n</span> <span class="nf">%</span> <span class="mi">3</span> <span class="nf">=</span> <span class="mi">0</span> <span class="k">then
+</span></span></span><span class="line"><span class="cl"><span class="k"></span>                <span class="nf">&#34;fizz&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else
+</span></span></span><span class="line"><span class="cl"><span class="k"></span>                <span class="nf">string</span> <span class="nf">n</span> <span class="nf">]</span>
+</span></span></code></pre></div><p>この <code>[]</code> の中をみると、式文を通るたびにリストに値が追加されていくというふうにみなせます。
+そう考えると、普通の式の並びであるリストも式文の並びであるといえるので、同一の仕組みによって省略可能なのは自然だったかもしれません</p>
+<h2 id="締め">締め</h2>
+<p>C言語の構文から始めて省略する言語 (JS, Go) と省略しない言語 (Rust)、レイアウト依存の言語 (Haskell, F#) などについて書きました。
+ほかにも無数の言語があります。
+多様なアプローチがあっておもしろいですね</p>
+<hr>
+<p><strong>追記(2025-02)</strong>: 文章を全体的に調整しました</p>
 
         
           
