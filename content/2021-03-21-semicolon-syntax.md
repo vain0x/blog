@@ -214,19 +214,19 @@ Haskellはレイアウトにもとづく一定の規則でセミコロンや波�
 - [#sect2.7 Haskell 98 Lexical Structure](https://www.haskell.org/onlinereport/lexemes.html#sect2.7)
 - [#layout Haskell 98 Syntax](https://www.haskell.org/onlinereport/syntax-iso.html#layout)
 
-実際に `}` によって構文エラーが回復される例:
+実際に `}` によって構文エラーが回復される例をリンク先から引用します:
 
 ```hs
-    let a = 1; b = 2 in a + b
+    let x = e; y = x in e'
 ```
 
-レイアウトだけみるとbの右辺が `2 in a + b` になりますが、それだと構文エラーになってしまうため、`}` が挿入されて、
+レイアウトだけみるとbの右辺が `x in e'` になりますが、それだと構文エラーになってしまうため、`}` が挿入されて、
 
 ```hs
-    let {a = 1; b = 2} in a + b
+    let { x = e; y = x } in e'
 ```
 
-となります (たぶん)
+となります
 
 レイアウトという仕組みを使う点で、セミコロンだけでなくブロックの構造を決めるための波カッコも書かなくてよくなっていること、構文エラーを判断基準にしていることが興味深いところです
 
