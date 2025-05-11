@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ja" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>RadioSelector: RadioButtonのリストをSelectorコントロールで表示 - ベインのブログ</title>
+  <meta name="description" content="RadioButtonのリストを表示するコントロールについて考えました">
+  <meta name="author" content="ベイン"/><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "ベインのブログ",
+    
+    "url": "https:\/\/vain0x.github.io\/blog\/"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "https:\/\/vain0x.github.io\/blog\/"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "https:\/\/vain0x.github.io\/blog\/2025-05-12\/radio-selector\/",
+          "name": "Radio selector radio buttonのリストを selectorコントロールで表示"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : "ベイン"
+  },
+  "headline": "RadioSelector: RadioButtonのリストをSelectorコントロールで表示",
+  "description" : "RadioButtonのリストを表示するコントロールについて考えました\n",
+  "inLanguage" : "ja",
+  "wordCount":  290 ,
+  "datePublished" : "2025-05-12T00:00:00",
+  "dateModified" : "2025-05-12T00:00:00",
+  "image" : "https:\/\/vain0x.github.io\/blog\/",
+  "keywords" : [ "CSharp, WPF" ],
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2025-05-12\/radio-selector\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "https:\/\/vain0x.github.io\/blog\/",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "https:\/\/vain0x.github.io\/blog\/",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="RadioSelector: RadioButtonのリストをSelectorコントロールで表示" />
+<meta property="og:description" content="RadioButtonのリストを表示するコントロールについて考えました">
+<meta property="og:url" content="https://vain0x.github.io/blog/2025-05-12/radio-selector/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ベインのブログ" />
+
+  <meta name="twitter:title" content="RadioSelector: RadioButtonのリストをSelectorコントロールで表示" />
+  <meta name="twitter:description" content="RadioButtonのリストを表示するコントロールについて考えました">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@vain0x" />
+  <meta name="twitter:creator" content="@vain0x" />
+  <link href='https://vain0x.github.io/favicon.jpg' rel='icon' type='image/x-icon'/>
+  <meta name="generator" content="Hugo 0.111.3">
+  <link rel="alternate" href="https://vain0x.github.io/blog/index.xml" type="application/rss+xml" title="ベインのブログ">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/main.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/syntax.css" />
+  <link rel="stylesheet" href="https://vain0x.github.io/blog/css/codeblock.css" />
+
+<link rel="icon" type="image/png" href="https://vain0x.github.io/favicon.jpg"/>
+
+
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom top-nav-short">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://vain0x.github.io/blog/">ベインのブログ</a>
+    </div>
+
+    <div id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="記事一覧" href="/blog/posts">記事一覧</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="競プロ参戦記" href="https://qiita.com/search?q=%E7%AB%B6%E3%83%97%E3%83%AD%E5%8F%82%E6%88%A6%E8%A8%98&#43;user%3Avain0x&amp;sort=created">競プロ参戦記</a>
+            </li>
+          
+        
+          
+            <li>
+              <a title="ABOUT" href="https://vain0x.github.io">ABOUT</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+    
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              
+                <h1>RadioSelector: RadioButtonのリストをSelectorコントロールで表示</h1>
+              
+              
+              
+              
+                <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;2025年5月12日 投稿
+  
+  
+  
+  <span class="post-meta-tags">
+  <a class="post-meta-tag" href="https://vain0x.github.io/blog/tags/csharp/">CSharp</a><a class="post-meta-tag" href="https://vain0x.github.io/blog/tags/wpf/">WPF</a>
+  </span>
+  
+</span>
+
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>RadioButtonのリストを表示するコントロールについて考えました</p>
+<h2 id="要点">要点</h2>
+<ul>
+<li>複数の RadioButton を表示して選択値にバインディングする機能を持つコントロールを作ってみました</li>
+<li>コントロールの実装例は <a href="https://github.com/vain0x/wpf-learn/blob/e5026a3856793675b647d68ba8a2b5f24a6be435/WpfLearn/Examples/RadioSelector.cs">RadioSelector.cs</a> にあり、使用箇所の例は <a href="https://github.com/vain0x/wpf-learn/blob/e5026a3856793675b647d68ba8a2b5f24a6be435/WpfLearn/Examples/RadioSelectorExample.xaml#L16">RadioSelectorExample</a> にあります</li>
+<li>おすすめというほどでもない</li>
+</ul>
+<h2 id="背景">背景</h2>
+<h3 id="radiobutton-と-listbox">RadioButton と ListBox</h3>
+<p><a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.radiobutton">RadioButton</a> で enum の値から1つを選択するUIを想定します。選択されている値を ViewModel のプロパティに持ち、データバインディングによって選択状態を共有したいです</p>
+<p>WPF の RadioButton は選択された値をバインディングするプロパティがないようです (ボタンごとに IsChecked プロパティがある)</p>
+<p>一方、<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.listbox">ListBox</a> は複数の項目から1つを選択する機能を提供していて、その選択状態も DependencyProperty によって公開されているので、選択値にデータバインディングが可能です</p>
+<p>実際、ListBox を使ってラジオボタンの機能は実現できて、見た目が違うだけです。見た目は Template の差し替えによって自由に変更できます。この方向性の実装を紹介している記事もあります: <a href="https://frog.raindrop.jp/knowledge/archives/002386.html">RadioButton を ListBox で実装する | frog.raindrop.jp.knowledge</a> (2009)</p>
+<h3 id="selector">Selector</h3>
+<p>ListBox の基底クラスである <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.primitives.selector">Selector</a> が「複数の要素を表示して、そのうちどれが選択されているかを管理する」という機能を表現しています</p>
+<p>Selector を使って RadioButton のリストを作るという方法が自然な気がしました。実際にどうか確かめるため、作ってみることにしました。このコントロールを RadioSelector と呼ぶことにします</p>
+<blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">internal</span> <span class="k">class</span> <span class="nc">RadioSelector</span> <span class="p">:</span> <span class="n">Selector</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></blockquote>
+<h2 id="実装">実装</h2>
+<h3 id="アイテムコンテナ">アイテムコンテナ</h3>
+<p>方向性として、ListBox から不要な機能やUIを取り除き、各項目を ListBoxItem ではなく RadioButton で包むようにすればいいはずです。そのために ListBox や <a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.itemscontrol">ItemsControl</a> を調べました</p>
+<p>ListBox の項目はそれぞれ ListBoxItem でラップされています。この構造は ListBox の基底クラスである ItemsControl 側の仕組みで、そのようなラッパー要素をアイテムコンテナというようです</p>
+<p>ListBox (あるいは ItemsControl 全般) 内の構造は、コントロール本体の中にパネルがあり、その中に項目ごとのコンテナ、そしてコンテンツという構造になっているようです (実際の構造は XAML ライブツリービューなどを参照)</p>
+<pre tabindex="0"><code>    コントロール (ListBox)
+        パネル (StackPanel)
+            &lt;for item in ItemsSource&gt;
+                コンテナ (ListBoxItem)
+                    コンテンツ (ContentPresenter)
+</code></pre><p>WPF の ListBox の実装 (<a href="https://github.com/dotnet/wpf/blob/564072fd2bd5200c2a440684061549de3bb730bf/src/Microsoft.DotNet.Wpf/src/PresentationFramework/System/Windows/Controls/ListBox.cs">ListBox.cs</a>) を覗いてみると、次のようなオーバーライドによって要素が作られていました</p>
+<blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl">   <span class="k">protected</span> <span class="k">override</span> <span class="n">DependencyObject</span> <span class="n">GetContainerForItemOverride</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">   <span class="p">{</span>
+</span></span><span class="line"><span class="cl">       <span class="k">return</span> <span class="k">new</span> <span class="n">ListBoxItem</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// (dotnet/wpf から引用)</span>
+</span></span></code></pre></div></blockquote>
+<p>ここを <code>RadioButton</code> にすればよさそうです</p>
+<p>また、選択項目のラジオボタンをチェック状態にするため、<a href="https://learn.microsoft.com/ja-jp/dotnet/api/system.windows.controls.primitives.selector.isselected">Selector.IsSelected 添付プロパティ</a> をバインディングしておきます</p>
+<blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl">   <span class="k">protected</span> <span class="k">override</span> <span class="n">DependencyObject</span> <span class="n">GetContainerForItemOverride</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">   <span class="p">{</span>
+</span></span><span class="line"><span class="cl">       <span class="kt">var</span> <span class="n">radio</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RadioButton</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">       <span class="n">radio</span><span class="p">.</span><span class="n">SetBinding</span><span class="p">(</span><span class="n">RadioButton</span><span class="p">.</span><span class="n">GroupNameProperty</span><span class="p">,</span> <span class="k">new</span> <span class="n">Binding</span><span class="p">(</span><span class="n">nameof</span><span class="p">(</span><span class="n">GroupName</span><span class="p">))</span> <span class="p">{</span> <span class="n">Source</span> <span class="p">=</span> <span class="k">this</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">       <span class="n">radio</span><span class="p">.</span><span class="n">SetBinding</span><span class="p">(</span><span class="n">RadioButton</span><span class="p">.</span><span class="n">IsCheckedProperty</span><span class="p">,</span> <span class="k">new</span> <span class="n">Binding</span><span class="p">(</span><span class="s">&#34;(Selector.IsSelected)&#34;</span><span class="p">)</span> <span class="p">{</span> <span class="n">Source</span> <span class="p">=</span> <span class="n">radio</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">       <span class="k">return</span> <span class="n">radio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// (RadioSelector.cs から引用)</span>
+</span></span></code></pre></div></blockquote>
+<h3 id="チェックと選択状態のバインディング">チェックと選択状態のバインディング</h3>
+<p>次に、RadioButton のチェック時に Selector の選択状態が変わるようにします</p>
+<p>※<code>IsChecked</code> のバインディングを <code>Mode=TwoWay</code> にしてもこの方向の同期はされませんでした (詳細は不明、GroupName によって選択が排他されるからかも)</p>
+<p>RadioButton.Checked にイベントハンドラーを登録して、選択項目をセットすればいいはずです</p>
+<p>ItemsControl はアイテムコンテナをリサイクルするようなので (実際にどうかは未確認)、生成時ではなく、<code>PrepareContainerForItemOverride</code> というそれらしきフックを使って登録しました (解除は <code>ClearContainerForItemOverride</code>)</p>
+<blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="n">PrepareContainerForItemOverride</span><span class="p">(</span><span class="n">DependencyObject</span> <span class="n">element</span><span class="p">,</span> <span class="kt">object</span> <span class="n">item</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">base</span><span class="p">.</span><span class="n">PrepareContainerForItemOverride</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">item</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">element</span> <span class="k">is</span> <span class="n">RadioButton</span> <span class="n">radio</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">radio</span><span class="p">.</span><span class="n">Checked</span> <span class="p">+=</span> <span class="n">RadioChecked</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> <span class="n">ClearContainerForItemOverride</span><span class="p">(</span><span class="n">DependencyObject</span> <span class="n">element</span><span class="p">,</span> <span class="kt">object</span> <span class="n">item</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="p">{</span>
+</span></span><span class="line"><span class="cl">       <span class="k">base</span><span class="p">.</span><span class="n">ClearContainerForItemOverride</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">item</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="k">if</span> <span class="p">(</span><span class="n">element</span> <span class="k">is</span> <span class="n">RadioButton</span> <span class="n">radio</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">       <span class="p">{</span>
+</span></span><span class="line"><span class="cl">           <span class="n">radio</span><span class="p">.</span><span class="n">Checked</span> <span class="p">-=</span> <span class="n">RadioChecked</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">private</span> <span class="k">void</span> <span class="n">RadioChecked</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">RoutedEventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="p">{</span>
+</span></span><span class="line"><span class="cl">       <span class="kt">var</span> <span class="n">radio</span> <span class="p">=</span> <span class="p">(</span><span class="n">RadioButton</span><span class="p">)</span><span class="n">sender</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">       <span class="k">if</span> <span class="p">(</span><span class="n">radio</span><span class="p">.</span><span class="n">IsChecked</span> <span class="p">==</span> <span class="k">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">       <span class="p">{</span>
+</span></span><span class="line"><span class="cl">           <span class="kt">var</span> <span class="n">item</span> <span class="p">=</span> <span class="n">ItemContainerGenerator</span><span class="p">.</span><span class="n">ItemFromContainer</span><span class="p">(</span><span class="n">radio</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">           <span class="n">SelectedItem</span> <span class="p">=</span> <span class="n">item</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">       <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// (RadioSelector.cs から引用)</span>
+</span></span></code></pre></div></blockquote>
+<h3 id="完成">完成</h3>
+<p>以上で完成となります。Selector の薄いラッパーなので、コード量は少なく済みました</p>
+<h2 id="使用例">使用例</h2>
+<p>このコントロールを使う側の実装は ListBox と同様で、ユーザーからは普通の RadioButton と同様の表示・操作性です</p>
+<p>Selector のおかげで、SelectedValue, SelectedValuePath, DisplayMemberPath などのプロパティがそのまま動きます</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">    <span class="nt">&lt;local:RadioSelector</span> <span class="na">Focusable=</span><span class="s">&#34;False&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">GroupName=</span><span class="s">&#34;GroupBasic&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">ItemsSource=</span><span class="s">&#34;{Binding Items}&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">SelectedItem=</span><span class="s">&#34;{Binding SelectedItem}&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">SelectedValue=</span><span class="s">&#34;{Binding SelectedValue}&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">SelectedValuePath=</span><span class="s">&#34;Value&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">DisplayMemberPath=</span><span class="s">&#34;Display&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- (RadioSelectorExample.xaml から引用、一部調整・削除) --&gt;</span>
+</span></span></code></pre></div><h2 id="評価">評価</h2>
+<ul>
+<li>IsChecked + Converter と比べると、RadioSelector のほうが「WPF らしさ」があってうれしい</li>
+<li>ItemsControl と比べると、RadioButton を並べてるのに選択値へのバインディングがないという片手落ち感がない</li>
+</ul>
+<p>しかし実用面で、たいした優位はなさそうです。WPF 側に RadioSelector があるならともかく、新たにコントロールを用意するほどではないかもしれません</p>
+
+        
+          
+            
+          
+
+          
+                  <h4 class="see-also">関連記事</h4>
+                  <ul>
+                
+                
+                    <li><a href="/blog/2021-06-26/value-vs-storage/">値とストレージの区別</a></li>
+                
+                    <li><a href="/blog/2017-12-23/async-function-and-exception/">async関数が例外を捕捉する挙動について</a></li>
+                
+                    <li><a href="/blog/2017-03-05/breakable-loop-in-fsharp/">break可能なループを書こう - 関数型プログラミングのテクニック</a></li>
+                
+                    <li><a href="/blog/2016-12-21/lists-with-no-alloc-enumerator/">IReadOnlyListの列挙時にヒープ領域の使用を避ける</a></li>
+                
+                    <li><a href="/blog/2016-08-18/null-object-patterns/">Nullオブジェクトパターンの紹介と正体</a></li>
+                
+              </ul>
+
+          
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://vain0x.github.io/blog/2025-01-01/diary/" data-toggle="tooltip" data-placement="top" title="近況 2025-01-01">&larr; 前ページ</a>
+            </li>
+          
+          
+        </ul>
+      
+
+      <section id="comments">
+        <script
+          src="https://utteranc.es/client.js"
+          repo="vain0x/blog"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </section>
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:vainzerox@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/vain0x" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://qiita.com/vain0x" title="Qiita">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-qiita fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/vain0x" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            <a href="" title="RSS">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://vain0x.github.io">ベイン</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2016 - 2025
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://vain0x.github.io/blog/">ベインのブログ</a>
+          
+
+          <a href="https://github.com/vain0x/blog">[GitHub repo]</a>
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          Powered by <a href="http://gohugo.io">Hugo v0.111.3</a> &nbsp;&bull;&nbsp; <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> theme based on <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    
+  </body>
+</html>
+
