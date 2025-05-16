@@ -152,7 +152,7 @@ Selector のおかげで、SelectedValue, SelectedValuePath, DisplayMemberPath �
 ## 評価
 
 - IsChecked + Converter と比べると、RadioSelector のほうが「WPF らしさ」があってうれしい
-- ItemsControl と比べると、RadioButton を並べてるのに選択値へのバインディングがないという片手落ち感がない
+- ItemsControl と比べると、RadioButton のリストを扱ってるのに選択値へのバインディングがないという中途半端さがない
 
 しかし実用面で、たいした優位はなさそうです。WPF 側に RadioSelector があるならともかく、新たにコントロールを用意するほどではないかもしれません
 
