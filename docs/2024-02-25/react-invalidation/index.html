@@ -59,7 +59,7 @@
   "headline": "Reactとインバリデーション",
   "description" : "Reactでイベントハンドラを書くときのインバリデーション問題でしばらく混乱してしまっていたので、記事に書きました。この記事の結論は use-event-callback です\n",
   "inLanguage" : "ja",
-  "wordCount":  509 ,
+  "wordCount":  518 ,
   "datePublished" : "2024-02-25T00:00:00",
   "dateModified" : "2024-02-25T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog\/",
@@ -400,6 +400,8 @@ Reactのメモ化の仕組みを使い、不必要なレンダリングを省く
 リソースの獲得で使うデータだけでなく、イベントハンドラが使うデータまで <code>useEffect</code> の依存値に含まれてしまいます。
 公式のガイド (<a href="https://ja.react.dev/learn/separating-events-from-effects">エフェクトからイベントを分離する</a>) を読んでいると、まさにその問題が提起され、<code>useEffectEvent</code> というexperimental APIが登場します</p>
 <p>なお <code>useEffectEvent</code> には <code>useEventCallback</code> より厳しい制限があり、コールバックは同じコンポーネント内の <code>useEffect</code> からのみ使用可能です (詳細はリンク先を参照)</p>
+<h2 id="追記-2025-10-react-192">追記 (2025-10): React 19.2</h2>
+<p><a href="https://react.dev/blog/2025/10/01/react-19-2#use-effect-event">React 19.2 で useEffectEvent が正式にリリースされました</a></p>
 
         
           
