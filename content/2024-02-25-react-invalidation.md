@@ -272,3 +272,7 @@ const Component = props => {
 公式のガイド ([エフェクトからイベントを分離する](https://ja.react.dev/learn/separating-events-from-effects)) を読んでいると、まさにその問題が提起され、`useEffectEvent` というexperimental APIが登場します
 
 なお `useEffectEvent` には `useEventCallback` より厳しい制限があり、コールバックは同じコンポーネント内の `useEffect` からのみ使用可能です (詳細はリンク先を参照)
+
+## 追記 (2025-10): React 19.2
+
+[React 19.2 で useEffectEvent が正式にリリースされました](https://react.dev/blog/2025/10/01/react-19-2#use-effect-event)
