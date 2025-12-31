@@ -8,7 +8,16 @@
     <language>ja-jp</language>
     <managingEditor>vainzerox@gmail.com (ベイン)</managingEditor>
     <webMaster>vainzerox@gmail.com (ベイン)</webMaster>
-    <lastBuildDate>Sat, 17 May 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 31 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://vain0x.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>近況 2025-12-31</title>
+      <link>https://vain0x.github.io/blog/2025-12-31/diary/</link>
+      <pubDate>Wed, 31 Dec 2025 00:00:00 +0000</pubDate>
+      <author>vainzerox@gmail.com (ベイン)</author>
+      <guid>https://vain0x.github.io/blog/2025-12-31/diary/</guid>
+      <description>&lt;p&gt;2025年の活動&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>RadioButton: IsChecked へのバインディング</title>
       <link>https://vain0x.github.io/blog/2025-05-17/radio-check-binding/</link>
