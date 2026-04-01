@@ -7,8 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>近況 2023-02-28 - ベインのブログ</title>
-  <meta name="description" content="今月の活動 (ミローネ言語、ほか)">
+  <title>近況 2026-04-02 - ベインのブログ</title>
+  <meta name="description" content="2026年2～3月の活動 (css-completion, eslint設定など)">
   <meta name="author" content="ベイン"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -44,8 +44,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/vain0x.github.io\/blog\/2023-02-28\/diary\/",
-          "name": "近況 2023 02 28"
+          "@id": "https:\/\/vain0x.github.io\/blog\/2026-04-02\/diary\/",
+          "name": "近況 2026 04 02"
         }
     }]
 }
@@ -56,15 +56,15 @@
   "author": {
     "name" : "ベイン"
   },
-  "headline": "近況 2023-02-28",
-  "description" : "今月の活動 (ミローネ言語、ほか)\n",
+  "headline": "近況 2026-04-02",
+  "description" : "2026年2～3月の活動 (css-completion, eslint設定など)\n",
   "inLanguage" : "ja",
-  "wordCount":  108 ,
-  "datePublished" : "2023-03-01T00:00:00",
-  "dateModified" : "2023-03-01T00:00:00",
+  "wordCount":  177 ,
+  "datePublished" : "2026-04-02T00:00:00",
+  "dateModified" : "2026-04-02T00:00:00",
   "image" : "https:\/\/vain0x.github.io\/blog\/",
   "keywords" : [ "日記" ],
-  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2023-02-28\/diary\/",
+  "mainEntityOfPage" : "https:\/\/vain0x.github.io\/blog\/2026-04-02\/diary\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/vain0x.github.io\/blog\/",
@@ -78,14 +78,14 @@
 }
 </script>
 
-<meta property="og:title" content="近況 2023-02-28" />
-<meta property="og:description" content="今月の活動 (ミローネ言語、ほか)">
-<meta property="og:url" content="https://vain0x.github.io/blog/2023-02-28/diary/" />
+<meta property="og:title" content="近況 2026-04-02" />
+<meta property="og:description" content="2026年2～3月の活動 (css-completion, eslint設定など)">
+<meta property="og:url" content="https://vain0x.github.io/blog/2026-04-02/diary/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ベインのブログ" />
 
-  <meta name="twitter:title" content="近況 2023-02-28" />
-  <meta name="twitter:description" content="今月の活動 (ミローネ言語、ほか)">
+  <meta name="twitter:title" content="近況 2026-04-02" />
+  <meta name="twitter:description" content="2026年2～3月の活動 (css-completion, eslint設定など)">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@vain0x" />
   <meta name="twitter:creator" content="@vain0x" />
@@ -162,7 +162,7 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>近況 2023-02-28</h1>
+                <h1>近況 2026-04-02</h1>
               
               
               
@@ -170,7 +170,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;2023年3月1日 投稿
+  <i class="fas fa-calendar"></i>&nbsp;2026年4月2日 投稿
   
   
   
@@ -195,142 +195,169 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>今月の活動 (ミローネ言語、ほか)</p>
+        <p>2026年2～3月の活動 (css-completion, eslint設定など)</p>
 <ul>
-<li>前回 (2023-01-31) <a href="https://vain0x.github.io/blog/2023-01-31/diary/">https://vain0x.github.io/blog/2023-01-31/diary/</a></li>
+<li>前回 (2026-02-01) <a href="https://vain0x.github.io/blog/2026-02-01/diary/">https://vain0x.github.io/blog/2026-02-01/diary/</a></li>
 </ul>
-<h2 id="ミローネ言語">ミローネ言語</h2>
+<h2 id="css-completion">css-completion</h2>
 <ul>
-<li>前回のリリースから時間が経ち、変更が増えてきたのでリリースした (<a href="https://github.com/vain0x/milone-lang/releases/tag/v0.6.0">→ v0.6.0</a>)</li>
-<li>レコードに関する入力補完を実装した
+<li><a href="https://github.com/vain0x/HTML-CSS-Class-Completion">https://github.com/vain0x/HTML-CSS-Class-Completion</a></li>
+<li><code>textDocument/references</code> を追加しようとしてた
 <ul>
-<li>レコード式の中でフィールド名を入力補完に出す: <a href="https://github.com/vain0x/milone-lang/commit/0b510e3f5e1d3f7517445bfc38b4eda2315095b9">feat: Attempt of record fields completion</a></li>
-<li>ドットの直後で左辺にフィールド名を入力補完に出す: <a href="https://github.com/vain0x/milone-lang/commit/a9475cc6fe7b8e5ba313b1f26e6d4c73063d752b">feat: Support more field completion</a></li>
-<li>他のシンボルの入力補完とは違ってフィールドは型に依存する
+<li>だいたい動いてるけど、ぎこちない部分は残ってて (一貫性がないとか)、まだリリースしてない(ことをいま思い出した)</li>
+<li>ちょっとした追加のつもりだったが意外とそうでもなかった</li>
+<li>既存の実装は completion (<code>className=&quot;&quot;</code> の中でトリガー) がメインだから className 属性の位置を発見 → CSSを読むという順番</li>
+<li>references は CSS/JSX の一方でトリガーして両方を読みにいくという順番
 <ul>
-<li>型情報を参照する必要がある</li>
-</ul>
-</li>
-<li>型検査が出力したIRからレコード式やナビゲーション式の位置、ドット左辺の型を取り出しておく</li>
-<li>構文木を辿って入力補完の候補となるノードを探し、ノードの範囲で型情報を絞り込んで取り出す、ということをすればいい</li>
+<li>JSXのファイル全体をみて className を探すというのが要追加だった (同様にHTMLも)</li>
 </ul>
 </li>
-</ul>
-<h3 id="コンパイラのテスト">コンパイラのテスト</h3>
+<li>(本題から逸れるが) <strong>必要条件で絞り込み</strong> の手法
 <ul>
-<li>セルフコンパイルが速くなってきた
+<li>課題から考えると、次のような実装方法に飛びつきそうになる
 <ul>
-<li>識別子の名前の付けかたを改善して、Cの再コンパイル対象のファイル数がかなり減ったおかげ</li>
-</ul>
-</li>
-<li>テストスクリプトもセルフコンパイル版のコンパイラを使って動かすようにスクリプトを書き直した</li>
-<li>セルフホスティング感が出てきた</li>
-</ul>
-<h3 id="イテレーションの長さ">イテレーションの長さ</h3>
-<ul>
-<li>コンパイルしてテストしてというイテレーションが長くなってきてしんどい</li>
-<li>特に F# のLSPサーバーがますます安定しなくなってきている (前はもうちょっとましだった気がする)
-<ul>
-<li>入力補完が出ない、エラーが表示されないとか</li>
+<li>JSXファイル全体を監視して className 属性に記載されているクラス名を全列挙し、インデックスを作っておく</li>
+<li>トリガー時にクラス名でインデックスを引いて、使用箇所を列挙する</li>
 </ul>
 </li>
-<li>コンパイラはセルフコンパイル版でおおよそチェックできるからよい
+<li>これでもいい
 <ul>
-<li>LSPサーバーはミローネ言語の範囲では書けないのでめんどくさい</li>
-</ul>
-</li>
-<li>いったんLSPサーバーはNode.js (+ TypeScript) で書くのもいいかもしれない
+<li>リクエスト時に、検索対象のクラス名で文字列検索して、それぞれの出現箇所でそれが「CSSクラス名としての出現か」を確認して絞り込む
 <ul>
-<li>コンパイラを別プロセスで起動して中間表現を出力させる</li>
-</ul>
-</li>
-<li>イテレーションの短さに関心がよってきた
-<ul>
-<li>LSPサーバーへのインクリメンタル計算の適用とか (rust-analyzerがやっているような)</li>
-<li>ファイル変更時のキャッシュ無効化が少なくなるような言語設計とか</li>
-</ul>
-</li>
-</ul>
-<h2 id="knowbug">knowbug</h2>
-<p>進捗があるわけではなく、相変わらず「どうにかしないと……」と思っているという話</p>
-<ul>
-<li>サーバー側で文字列化やツリー構築などの処理をして結果をクライアントに流すのではなく、クライアントからサーバーに個別のデータを問い合わせさせたほうがよいかもしれない
-<ul>
-<li>性能が気になる。データをシリアライズしてパイプに流すより、チャネル的なインターフェイスで共有メモリを介してデータを送るほうが効率がよいはず (そういうライブラリないかな)</li>
-</ul>
-</li>
-<li>タイマーによるポーリングは非効率なので、標準入力の非同期の読み取り (ReadFile) も調査したほうがいい気がする
-<ul>
-<li>マルチスレッドは危ないのであまりやりたくなかった</li>
-<li>とはいえReadFileを非同期に待ってPostMessageするだけで十分なので、いける気がしてきた</li>
-</ul>
-</li>
-<li>オブジェクトパスのライフタイムをみたところ、おそらく長命なパスはオブジェクトリストに含まれる項目にIDを振る部分しかない
-<ul>
-<li>長命なパスというのは実行の再開後にも存命するようなパス</li>
-<li>毎回、パスを作り直しながらツリーの根から辿るというような実装でもよかったかもしれない
-<ul>
-<li>参照カウンタを使わなくてよくなって分かりやすいかもしれない</li>
+<li>文字列検索の時点ではコメント内などの無関係な出現も含んでいる</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>以前にも書いたように、デバッガ作成のチュートリアルについて構想中
-<ul>
-<li>いまからC++を学ぶのは大変だと思うが、Cや他の言語がknowbugに適しているわけでもない</li>
-<li>UIを表示するのがめんどくさい (C++ならDear ImGUIは候補かもしれない)</li>
-<li>WrapCallの仕組みがdirtyすぎてなんともいえない</li>
+<li>若干遅いが使ってるかぎり許容範囲</li>
 </ul>
 </li>
 </ul>
-<h2 id="rdb上のマップをまとめるかどうか">RDB上のマップをまとめるかどうか</h2>
+</li>
+<li>CSSクラス名にマッチする正規表現
 <ul>
-<li>こういうテーブルの設計をどうするか悩んだ:
+<li>completion のトリガー位置が class 属性の一部かを確認するために、トリガー位置の直前の文字列が <code>class=&quot;&lt;classname&gt;*$</code> のようなパターンにマッチするか確認する、という実装だった
 <ul>
-<li>自然キーがあって、それをキーに使ってよいとする
-<ul>
-<li>しかも複合キー。例えばユーザーIDと日付のペア</li>
+<li><code>class=</code> と <code>$</code> の間は「クラス名とスペースのみ」にマッチするという意味合いで、「クラス名に含まれうる文字種」をパターンに含めていた (<code>/[-_0-9A-Za-z.,:#()[\]]+/</code> みたいな)</li>
 </ul>
 </li>
-<li>キーごとに登録できるデータが2種類ある
+<li>パターンに含まれない記号があるとうまく動かないので、足りない記号をときどき追加していた
 <ul>
-<li>それぞれ登録されるデータの種類は異なる</li>
-<li>個数も多い (1カラムならnullでもよかった)</li>
+<li>特に tailwind 併用だと <code>hover:bg-[#FFFFFF]</code> のような記号が含まれるクラス名がよくある</li>
 </ul>
 </li>
-<li>どちらかのデータが登録されているキーのリストと、それらのデータをまとめてリスト化したい</li>
+<li>CSSやHTMLの仕様をあらためて確認したら、そもそもアプローチがよくなかったことに気づいた
+<ul>
+<li><code>class</code> 属性の値は単に空白区切り</li>
 </ul>
 </li>
-<li>キーごとのレコードを入れるテーブル(親)と、データ登録用のテーブル(子)2つを持つという方法にした
-<ul>
-<li>RDB的には自然な気がする</li>
+<li>もっとはやく仕様を参照すればよかった</li>
 </ul>
 </li>
-<li>データ登録用のテーブルだけ持ってFULL OUTER JOINやUNIONを使う方法もあった
+<li>テストコードの生成に claude code を使ってみた
 <ul>
-<li>これが悩みどころ</li>
-</ul>
-</li>
-<li>データ登録用のテーブルを1つにまとめる方法もあった (NULLABLEだらけになる)</li>
-</ul>
-<h2 id="書いた記事">書いた記事</h2>
-<ul>
-<li><a href="https://vain0x.github.io/blog/2023-02-04/combine-latest-reactive-glitch/">CombineLatestのリアクティブグリッチ</a>
-<ul>
-<li>前述のとおりインクリメンタル計算の一種としてリアクティブプログラミングを改めてみていた</li>
-<li>pushベースだとglitchの発生が気になる</li>
-<li>pullベースというかadaptonがLSPサーバーには適していそう</li>
+<li>もりもり生成されるので助かった</li>
 </ul>
 </li>
 </ul>
-<h2 id="気になった記事">気になった記事</h2>
+<h2 id="stok">stok</h2>
 <ul>
-<li><a href="https://ayazhafiz.com/articles/23/a-lambda-calculus-with-coroutines-and-heapless-closures">A Lambda Calculus With Coroutines and Heapless, Directly-Called Closures</a> (公開日 2023-02-18)
+<li><a href="https://github.com/vain0x/stok">stok: Environment variable injector</a> を作った</li>
+<li>APIトークンを平文で持つが、リポジトリ内ではなくユーザーディレクトリに置きたい、という妙なユースケースへのソリューション
 <ul>
-<li>クロージャの状態をunboxedで表現することでヒープアロケーションを抑えるという感じの話</li>
-<li>状態の表現が小さい (整数2個とか) ことはよくあるのでミローネコンパイラでも試す価値がありそう</li>
+<li>リポジトリ内にはっきり書かなかったが、agent によるリポジトリ内のファイル読み取りを承認不要にしつつ、トークンは読まれづらくする
+<ul>
+<li>ほんとうに意味あるかは不明</li>
 </ul>
 </li>
+</ul>
+</li>
+<li>これは仕様と設計だけ書いて、実装を claude code で生成した
+<ul>
+<li>ほぼワンショットでほぼ修正なく動いたから agentic かというとあやしい
+<ul>
+<li>もっと複雑な課題を設定しないと練習にならないか</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>実装は Rust
+<ul>
+<li>「シェルスクリプトで書ける程度のコマンドをわざわざシステム言語で実装するな」みたいな言説はよくあったが、手間の差が小さいので &ldquo;わざわざ&rdquo; でもなくなった</li>
+</ul>
+</li>
+<li><code>.env</code> の内容をプロセスの環境変数にすると、コマンドによっては扱いが変わるかもしれない
+<ul>
+<li><code>.env</code> 変更時のリロードと干渉するとか</li>
+</ul>
+</li>
+</ul>
+<h2 id="querypack">querypack</h2>
+<ul>
+<li>
+<p><a href="https://github.com/vain0x/querypack">querypack: WIP: Thin code generator from SQL files</a> を作った</p>
+</li>
+<li>
+<p>SQLファイルごとに、そのクエリーを呼ぶラッパー関数を生成するというもの</p>
+<ul>
+<li>ついでにSQLファイルのコンテンツをコードに埋め込む (実行時のファイルアクセスを不要にする)、ローダーとして役割もある
+<ul>
+<li>(ローダー: <code>import Query from &quot;path/to/query.sql&quot;</code> をできるようにするということ)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>TypeScript 型定義を生成する機能もあるが、<strong>型情報はクエリ内に手書きで埋め込む</strong> というもの</p>
+<ul>
+<li>型検査とかはない</li>
+</ul>
+</li>
+<li>
+<p>生成されるコードを手書きすればよくないか？</p>
+<ul>
+<li>ミニマルを指向して機能を削りすぎ？</li>
+</ul>
+</li>
+<li>
+<p>プラグマ構文は sqlc や TypeScript との一貫性を考慮して次のようにした。コロンの位置がよく分からないことに</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- name: queryName :one
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- param paramName: paramType
+</span></span></span><span class="line"><span class="cl"><span class="c1">-- field fieldName: fieldType
+</span></span></span></code></pre></div></li>
+<li>
+<p>実装は TypeScript で手書き (楽しいから)</p>
+</li>
+<li>
+<p>コードジェネレータは watch 機能があったほうがよさそうにみえるが、ない</p>
+<ul>
+<li>これを利用するプロジェクト側に watch して何かする仕組みが何かしらあるだろうと想定し、そこに乗せればいいかと思う</li>
+<li>コンパイラとかと違ってインクリメンタル化の恩恵もない</li>
+</ul>
+</li>
+<li>
+<p>構想は以前からあったが <a href="https://voluntas.ghost.io/rust-sql-compiler/">Rust で SQL Compiler を作ってる</a> を読んで思い出したので書いた</p>
+<ul>
+<li>(migrate と formatter は何に使うんだろう)</li>
+</ul>
+</li>
+</ul>
+<h2 id="読んだ記事">読んだ記事</h2>
+<ul>
+<li><a href="https://matklad.github.io/2026/02/25/against-query-based-compilers.html">Against Query Based Compilers</a> を読んだ
+<ul>
+<li>コンパイラ (おそらくアナライザも含む) をクエリーベースにしてインクリメンタル計算すると高性能化 (レイテンシ低下) できる</li>
+<li>しかしそれ以前に、もっとシンプルに効率化可能になるように、言語仕様を設計しておくこともできるという話
+<ul>
+<li>例えば構文解析がファイルごとに独立であれば並列化できる</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="その他">その他</h2>
+<ul>
+<li>「知ってるつもり 無知の科学」を読んだ</li>
 </ul>
 
         
@@ -343,8 +370,6 @@
                   <ul>
                 
                 
-                    <li><a href="/blog/2026-04-02/diary/">近況 2026-04-02</a></li>
-                
                     <li><a href="/blog/2026-02-01/diary/">近況 2026-02-01</a></li>
                 
                     <li><a href="/blog/2025-12-31/diary/">近況 2025-12-31</a></li>
@@ -352,6 +377,8 @@
                     <li><a href="/blog/2025-01-01/diary/">近況 2025-01-01</a></li>
                 
                     <li><a href="/blog/2024-04-02/diary/">近況 2024-04-02</a></li>
+                
+                    <li><a href="/blog/2024-01-01/diary/">近況 2024-01-01</a></li>
                 
               </ul>
 
@@ -363,13 +390,9 @@
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://vain0x.github.io/blog/2023-02-04/combine-latest-reactive-glitch/" data-toggle="tooltip" data-placement="top" title="CombineLatestのリアクティブグリッチ">&larr; 前ページ</a>
+              <a href="https://vain0x.github.io/blog/2026-02-01/diary/" data-toggle="tooltip" data-placement="top" title="近況 2026-02-01">&larr; 前ページ</a>
             </li>
           
-          
-            <li class="next">
-              <a href="https://vain0x.github.io/blog/2023-03-31/diary/" data-toggle="tooltip" data-placement="top" title="近況 2023-03-31">次ページ &rarr;</a>
-            </li>
           
         </ul>
       
